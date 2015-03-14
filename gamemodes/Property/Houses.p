@@ -1271,7 +1271,7 @@ CMD:evict(playerid, params[])
     if(pInfo[ playerid ][ pHouseKey ] != hInfo[ house_index ][ hID ])
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: þmogus nesinuomoja jûsø name.");
             
-    pInfo[ targetid ][ pSpawn ] = 0;
+    pInfo[ targetid ][ pSpawn ] = DefaultSpawn;
     pInfo[ targetid ][ pHouseKey ] = 0;
     SendClientMessage(targetid, COLOR_WHITE, " * Jûs buvote iðkeldintas ið nuomojamo namo.");
     SendClientMessage(playerid, COLOR_WHITE, " * Nuomininkas buvo sëkmingai iðkeldintas. ");
@@ -1292,7 +1292,7 @@ CMD:evictall(playerid)
     {
         if(pInfo[ i ][ pHouseKey ] == hInfo [ house_index ][ hID ])
         {
-            pInfo[ i ][ pSpawn ] = 0;
+            pInfo[ i ][ pSpawn ] = DefaultSpawn;
             pInfo[ i ][ pHouseKey ] = 0;
             SendClientMessage(i, COLOR_WHITE, " * Jûs buvote iðkeldintas ið nuomojamo namo.");
         }
@@ -1300,7 +1300,7 @@ CMD:evictall(playerid)
 
     format(string, sizeof(string), "UPDATE `players` SET `House` = 0 WHERE `House` = %d", hInfo [ house_index ][ hID ]);
     new Cache:result = mysql_query(DbHandle, string);
-    format(string, sizeof(string), "Viso nuominikø buvo iðmesta: %d", cache_affected_rows());
+    format(string, sizeof(string), "Viso nuomininkø buvo iðmesta: %d", cache_affected_rows());
     cache_delete(result);
     SendClientMessage( playerid, GRAD, string);
     return 1;
@@ -1465,7 +1465,7 @@ CMD:unrent(playerid)
 
     PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
     pInfo[playerid][pHouseKey] = 0;
-    pInfo[playerid][pSpawn] = 0;
+    pInfo[playerid][pSpawn] = DefaultSpawn;
     SendClientMessage(playerid,COLOR_NEWS,"Sveikiname, sëkmingai atsisakëte dabartinio gyvenamojo namo nuomos. Nuo ðiol atsirasite nebe ðiame name.");
     SaveAccount(playerid);
     return 1;

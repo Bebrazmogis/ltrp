@@ -782,6 +782,16 @@ enum DAHX
 
 new aInfo[ MAX_PLAYERS ][ DAHX ];
 
+enum E_PLAYER_SPAWN_LOCATIONS 
+{
+	DefaultSpawn, 
+	SpawnFaction,
+	SpawnHouse,
+	SpawnBusiness,
+	SpawnGarage,
+	SpawnLosSantos,
+};
+
 enum players
 {
     pPassword,
@@ -853,7 +863,7 @@ enum players
     pCrackAddict,
     pOpiumAddict,
     pConnectionIP[ 18 ],
-    pSpawn,
+    E_PLAYER_SPAWN_LOCATIONS:pSpawn,
     pBSpawn,
     pCard[ 256 ],
     pForumName[ 256 ],
@@ -6948,7 +6958,7 @@ stock SaveAccount(playerid)
     format(string, sizeof(string), "%s, pJobCar = '%d', Inventory = '%s', Weapons = '%s', JobSkill = '%d', JobLevel = '%d'", string, pInfo[ playerid ][ pSavings ], PackInventory( playerid ), PackWeapons( playerid ), pInfo[ playerid ][ pJobSkill ], pInfo[ playerid ][ pJobLevel ] );
     format(string, sizeof(string), "%s, LeftTime = '%d', Donator = '%d', WalkStyle = '%d', TalkStyle = '%d', HeroineAddict = '%d'", string, pInfo[ playerid ][ pLeftTime ], pInfo[ playerid ][ pDonator ], pInfo[ playerid ][ pWalkStyle ], pInfo[ playerid ][ pTalkStyle ], pInfo[ playerid ][ pHeroineAddict ] );
     format(string, sizeof(string), "%s, AmfaAddict = '%d', MetamfaAddict = '%d', CocaineAddict = '%d'", string, pInfo[ playerid ][ pAmfaAddict ], pInfo[ playerid ][ pMetaAmfaineAddict ], pInfo[ playerid ][ pCocaineAddict ] );
-    format(string, sizeof(string), "%s, playerLastLogOn = CURRENT_TIMESTAMP, playerSpawn = '%d', bSpawn = '%d', Card = '%s', ForumName = '%s'", string, pInfo[ playerid ][ pSpawn ], pInfo[ playerid ][ pBSpawn ], string2, string3 );
+    format(string, sizeof(string), "%s, playerLastLogOn = CURRENT_TIMESTAMP, playerSpawn = '%d', bSpawn = '%d', Card = '%s', ForumName = '%s'", string, _:pInfo[ playerid ][ pSpawn ], pInfo[ playerid ][ pBSpawn ], string2, string3 );
     format(string, sizeof(string), "%s, ExtazyAddict = '%d', PCPAddict = '%d', CrackAddict = '%d', OpiumAddict = '%d', Points = '%d'", string, pInfo[ playerid ][ pExtazyAddict ], pInfo[ playerid ][ pPCPAddict ], pInfo[ playerid ][ pCrackAddict ], pInfo[ playerid ][ pOpiumAddict ], pInfo[ playerid ][ pPoints ]);
     format(string, sizeof(string), "%s, HealthLevel = %d, StrengthLevel = %d, JobHours = %d, Hunger = %d, TotalPaycheck = %d ",string, pInfo[ playerid ][ pHealthLevel ],pInfo[ playerid ][ pStrengthLevel ], pInfo[ playerid ][ pJobHours ], pInfo[ playerid ][ pHunger ], pInfo[ playerid ][ pTotalPaycheck ]);
     format(string, sizeof(string), "%s WHERE Name = '%s'", string, GetName( playerid ));
@@ -8758,6 +8768,9 @@ CMD:stats( playerid, params[ ] )
 
 CMD:leavegun(playerid)
 {
+	if(Mires[ playerid ] > 0)
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite iðmesti ginklo bûdamas komos bûsenoje.");
+
     if(!GetPlayerWeapon(playerid))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs nelaikote ginklo.");
     if(IsPlayerInAnyVehicle(playerid))
@@ -8811,6 +8824,9 @@ CMD:leavegun(playerid)
 
 CMD:grabgun(playerid)
 {
+	if(Mires[ playerid ] > 0)
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite iðmesti ginklo bûdamas komos bûsenoje.");
+
     for(new i = 0; i < MAX_DROPPED_WEAPONS; i++)
     {
         if(!DroppedWeapons[ i ][ CanBePickedUp ])
@@ -8876,7 +8892,7 @@ CMD:leavefaction( playerid, params[ ])
     pInfo[playerid][pLead   ] = 0;
     pInfo[playerid][pMember ] = 0;
     pInfo[playerid][pRank   ] = 0;
-    pInfo[playerid][pSpawn  ] = 0;
+    pInfo[playerid][pSpawn  ] = DefaultSpawn;
     ResetPlayerWeapons( playerid );
     ClearWeaponsFromInv( playerid );
     SaveAccount( playerid );
@@ -11518,8 +11534,6 @@ CMD:trunko( playerid, params[ ] )
     #pragma unused params
 	if ( !IsPlayerInAnyVehicle( playerid ) )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, tr. priemonës bagaþinæ galite atidaryti tik sedëdami vairuotojo vietoje." );
-    if ( GetPlayerState( playerid ) != PLAYER_STATE_DRIVER )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, turite sedëti vairuotojo vietoje." );
 
     new engine, lights, alarm, doors, bonnet, boot, objective,
         vehicleid = GetNearestVehicle( playerid, 10.0 );
@@ -14555,7 +14569,7 @@ CMD:uninvite( playerid, params[ ] )
         pInfo[giveplayerid][pMember] = 0;
         pInfo[giveplayerid][pRank] = 0;
         pInfo[giveplayerid][pLead] = 0;
-        pInfo[giveplayerid][pSpawn] = 0;
+        pInfo[giveplayerid][pSpawn] = DefaultSpawn;
         format(string,sizeof(string),"Sëkmingai paðalinote veikëjà %s ið savo frakcijos, jam bus praneðta apie paðalinimà",GetName(giveplayerid));
         SendClientMessage(playerid,COLOR_NEWS, string);
         format(string,sizeof(string),"Dëmesio, Jûs buvote paðalintas ið savo frakcijos. Jus paðalino veikëjas: %s",GetName(playerid));
@@ -14582,19 +14596,19 @@ CMD:setspawn (playerid, params[])
     {
         if(!strcmp(params, "Idlewood", true))
         {
-            pInfo[ playerid ][ pSpawn ] = 0;
+            pInfo[ playerid ][ pSpawn ] = DefaultSpawn;
             SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite Idlewood rajone..");
         }
 		else if(!strcmp(params, "Los Santos", true))
         {
-            pInfo[ playerid ][ pSpawn ] = 4;
+            pInfo[ playerid ][ pSpawn ] = SpawnLosSantos;
             SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite Los Santos Unity Station.");
         }
         else if(!strcmp(params, "Namas", true))
         {
             if( pInfo[ playerid ][ pHouseKey ] > 0 )
             {
-                pInfo[ playerid ][ pSpawn ] = 1;
+                pInfo[ playerid ][ pSpawn ] = SpawnHouse;
                 SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite nomuojamam/nuosavame name.");
             }
             else
@@ -14604,7 +14618,7 @@ CMD:setspawn (playerid, params[])
         {
             if( PlayerFaction( playerid ) > 0 )
             {
-                pInfo[ playerid ][ pSpawn ] = 2;
+                pInfo[ playerid ][ pSpawn ] = SpawnFaction;
                 SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite frakcijos nustatytoje atsiradimo vietoje.");
             }
             else
@@ -14616,9 +14630,24 @@ CMD:setspawn (playerid, params[])
             new index = GetPlayerBusinessIndex(playerid);
             if(index == -1)
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Turite stovëti prie verslo kurá norite pasirinkti kaip atsiradimo vietà.");
+           	if(!IsPlayerHouseOwner(playerid, index))
+        		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis garaþas jums nepriklauso.");
+
             pInfo[ playerid ][ pBSpawn ] = index;
-            pInfo[ playerid ][ pSpawn ] = 3;
+            pInfo[ playerid ][ pSpawn ] = SpawnBusiness;
             SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite ðalia savo biznio.");
+        }
+        else if(!strcmp(params, "Garazas", true) || !strcmp(params, "Garaþas", true))
+        {
+        	new index = GetPlayerGarageIndex(playerid);
+        	if(index == -1)
+        		return SendClientMessage(playerid, COLOR_LIGHTRED, "Turite stovëti prie garaþo prie kurio norite atsirasti.");
+        	if(!IsPlayerGarageOwner(playerid, index))
+        		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis garaþas jums nepriklauso.");
+
+        	pInfo[ playerid ][ pBSpawn ] = index;
+        	pInfo[ playerid ][ pSpawn ] = SpawnGarage;
+        	SendClientMessage(playerid, COLOR_NEWS, "Vieta sëkmingai pakeista. Kità kartà prisijungæ á serverá atsirasite prie garaþo.");
         }
         else 
             goto SetSpawnInfo;
@@ -15726,7 +15755,7 @@ CMD:accept( playerid, params[ ] )
         SendClientMessage(Offer[playerid][1],COLOR_NEWS,string);
         format(string,sizeof(string),"Jûs nupirkote ið jo %s namà  uþ $%d.",GetPlayerNameEx(Offer[playerid][1]),OfferPrice[playerid][1]);
         SendClientMessage(playerid,COLOR_NEWS,string);
-        pInfo[Offer[playerid][2]][pSpawn] = 0;
+        pInfo[Offer[playerid][2]][pSpawn] = DefaultSpawn;
         GivePlayerMoney(Offer[playerid][1],OfferPrice[playerid][1]);
         GivePlayerMoney(playerid,-OfferPrice[playerid][1]);
         PayLog( pInfo[ Offer[ playerid ][ 1 ] ][ pMySQLID ],6, pInfo[ playerid ][ pMySQLID ], OfferPrice[playerid][1] );
@@ -15769,7 +15798,7 @@ CMD:accept( playerid, params[ ] )
         SendClientMessage(Offer[playerid][2],COLOR_NEWS,string);
         format(string,sizeof(string),"Jûs nupirkote ið jo %s verslà uþ $%d.",GetPlayerNameEx(Offer[playerid][2]),OfferPrice[playerid][2]);
         SendClientMessage(playerid,COLOR_NEWS,string);
-        pInfo[Offer[playerid][2]][pSpawn] = 0;
+        pInfo[Offer[playerid][2]][pSpawn] = DefaultSpawn;
         GivePlayerMoney(Offer[playerid][2],OfferPrice[playerid][2]);
         GivePlayerMoney(playerid,-OfferPrice[playerid][2]);
         PayLog( pInfo[ Offer[ playerid ][ 2 ] ][ pMySQLID ],5, pInfo[ playerid ][ pMySQLID ], OfferPrice[playerid][2] );
@@ -18844,7 +18873,7 @@ CMD:setstat(playerid, params[])
             }
             case 3:
             {
-                pInfo[giveplayerid][pSpawn] = 0;
+                pInfo[giveplayerid][pSpawn] = DefaultSpawn;
                 pInfo[giveplayerid][pHouseKey] = id2;
                 format(string,126,"þaidëjo %s nuomos raktas buvo pakeistas á %d",GetName(giveplayerid),id2);
             }
@@ -18903,7 +18932,7 @@ CMD:auninvite(playerid, params[])
             pInfo[userID][pLead   ] = 0;
             pInfo[userID][pMember ] = 0;
             pInfo[userID][pRank   ] = 0;
-            pInfo[userID][pSpawn  ] = 0;
+            pInfo[userID][pSpawn  ] = DefaultSpawn;
             
             new
                 string[128];
@@ -26983,7 +27012,7 @@ stock OnPlayerLoginEx(playerid, sqlid)
         pInfo[ playerid ][ pAmfaAddict ] = cache_get_field_content_int(0, "AmfaAddict");
         pInfo[ playerid ][ pMetaAmfaineAddict ] = cache_get_field_content_int(0, "MetamfaAddict");
         pInfo[ playerid ][ pCocaineAddict ] = cache_get_field_content_int(0, "CocaineAddict");
-        pInfo[ playerid ][ pSpawn ] = cache_get_field_content_int(0, "playerSpawn");
+       	pInfo[ playerid ][ pSpawn ] = E_PLAYER_SPAWN_LOCATIONS: cache_get_field_content_int(0, "playerSpawn");
         pInfo[ playerid ][ pBSpawn ] = cache_get_field_content_int(0, "bSpawn");
         cache_get_field_content(0, "Card", pInfo[ playerid ][ pCard ], DbHandle, 256); // s[256]
         cache_get_field_content(0, "ForumName", pInfo[ playerid ][ pForumName ], DbHandle, 256); // s[256]
@@ -27314,10 +27343,10 @@ stock SpawnPlayerEx( playerid )
         }
         else
         {
-            switch( pInfo[ playerid ][ pSpawn ] )
+            switch(pInfo[ playerid ][ pSpawn ])
             {
-                case 0: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 2108.6768,-1764.5018,13.5625,0, 0, 0, 0, 0, 0, 0 );
-                case 1:
+                case DefaultSpawn: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 2108.6768,-1764.5018,13.5625,0, 0, 0, 0, 0, 0, 0 );
+                case SpawnHouse:
                 {
                     new housekey;
                     foreach(Houses,h)
@@ -27331,15 +27360,23 @@ stock SpawnPlayerEx( playerid )
                     SetPlayerVirtualWorld( playerid, hInfo[ housekey ][ hEntranceVirw ] );
                     SetPlayerInterior    ( playerid, hInfo[ housekey ][ hEntranceInt ] );
                 }
-                case 2: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 0 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 1 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
-                case 3:
+                case SpawnFaction: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 0 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 1 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
+                case SpawnBusiness:
                 {
                     new housekey = pInfo[ playerid ][ pBSpawn ];
                     SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], bInfo[ housekey ][ bEnter ][ 0 ],bInfo[ housekey ][ bEnter ][ 1 ],bInfo[ housekey ][ bEnter ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
                     SetPlayerVirtualWorld( playerid, bInfo[ housekey ][ bEntranceVirw ] );
                     SetPlayerInterior    ( playerid, bInfo[ housekey ][ bEntranceInt ] );
                 }
-                case 4: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 1735.1365,-1951.1968,14.1172,0, 0, 0, 0, 0, 0, 0 );
+                case SpawnLosSantos: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 1735.1365,-1951.1968,14.1172,0, 0, 0, 0, 0, 0, 0 );
+                case SpawnGarage:
+                {
+                	new Float:x, Float:y, Float:z;
+                	GetGarageEntrancePos(pInfo[ playerid ][ pBSpawn ], x, y, z);
+                    SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
+                    SetPlayerVirtualWorld(playerid, GetGarageEntranceVirtualWorld(pInfo[ playerid ][ pBSpawn ]));
+                    SetPlayerInterior(playerid, GetGarageEntranceInteriorID(pInfo[ playerid ][ pBSpawn ]));	
+                }
                 default: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 2108.6768,-1764.5018,13.5625,0, 0, 0, 0, 0, 0, 0 );
             }
         }
@@ -28233,7 +28270,7 @@ stock PayDay( playerid )
                 {
                     SendClientMessage( playerid, COLOR_WHITE, "Jûs buvote iðkeldintas ið nuomojamo namo, nes nesumokëjote nuomos." );
                     pInfo[ playerid ][ pHouseKey ] = 0;
-                    pInfo[ playerid ][ pSpawn ] = 0;
+                    pInfo[ playerid ][ pSpawn ] = DefaultSpawn;
                 }
                 else if ( Bank >= hInfo[ housekey ][ hRentPrice ] )
                 {
