@@ -83,7 +83,7 @@ new DbHandle;
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-#define BEBRAS_HOME_MODE
+//#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"
@@ -2585,7 +2585,7 @@ stock SaveSVehicle( vehid )
     sVehicles[ vehid ][ Job         ],
     sVehicles[ vehid ][ Id          ]);
 
-    if ( mysql_query(DbHandle,  string, false) )
+    if(mysql_pquery(DbHandle,  string))
         return 1;
     return 0;
 }
@@ -2609,7 +2609,7 @@ stock SaveSEnter( id )
     sEnter[ id ][ PickupModel ],
     sEnter[ id ][ sID      ]);
 
-    if ( mysql_query(DbHandle,  string, false) )
+    if(mysql_pquery(DbHandle,  string))
         return 1;
     return 0;
 }
@@ -22700,31 +22700,29 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             new id = Itter_Free(Faction);
             format( string, 256, "INSERT INTO `factions` (fName) VALUES ('%s')", inputtext );
-            if ( mysql_query(DbHandle,  string, false))
-            {
-                format( string, 126, "SELECT id,fRank1,fRank2,fRank3,fRank4,fRank5,fRank6,fRank7,fRank8,fRank9,fRank10,fRank11,fRank12,fRank13 FROM `factions` WHERE `fName`='%s'", inputtext );
-                new Cache:result = mysql_query(DbHandle,  string );
-                cache_get_field_content(0, "fRank1", fInfo[ id ][ fRank1 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank2", fInfo[ id ][ fRank2 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank3", fInfo[ id ][ fRank3 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank4", fInfo[ id ][ fRank4 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank5", fInfo[ id ][ fRank5 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank6", fInfo[ id ][ fRank6 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank7", fInfo[ id ][ fRank7 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank8", fInfo[ id ][ fRank8 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank9", fInfo[ id ][ fRank9 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank10", fInfo[ id ][ fRank10 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank11", fInfo[ id ][ fRank11 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank12", fInfo[ id ][ fRank12 ], DbHandle, 54);
-                cache_get_field_content(0, "fRank13", fInfo[ id ][ fRank13 ], DbHandle, 54);
+            mysql_query(DbHandle, query, false);
+            
+            format( string, 126, "SELECT id,fRank1,fRank2,fRank3,fRank4,fRank5,fRank6,fRank7,fRank8,fRank9,fRank10,fRank11,fRank12,fRank13 FROM `factions` WHERE `fName`='%s'", inputtext );
+            new Cache:result = mysql_query(DbHandle,  string );
+            cache_get_field_content(0, "fRank1", fInfo[ id ][ fRank1 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank2", fInfo[ id ][ fRank2 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank3", fInfo[ id ][ fRank3 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank4", fInfo[ id ][ fRank4 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank5", fInfo[ id ][ fRank5 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank6", fInfo[ id ][ fRank6 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank7", fInfo[ id ][ fRank7 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank8", fInfo[ id ][ fRank8 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank9", fInfo[ id ][ fRank9 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank10", fInfo[ id ][ fRank10 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank11", fInfo[ id ][ fRank11 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank12", fInfo[ id ][ fRank12 ], DbHandle, 54);
+            cache_get_field_content(0, "fRank13", fInfo[ id ][ fRank13 ], DbHandle, 54);
 
-                cache_delete(result);
-                format( fInfo[ id ][ fName ], 126, "%s", inputtext );
-                format( string, 256,"Sëkmingai sukûrëte frakcijà  pavadinimu: %s", inputtext );
-                SendClientMessage( playerid, GRAD, string );
-                Itter_Add(Faction,id);
-                return 1;
-            }
+            cache_delete(result);
+            format( fInfo[ id ][ fName ], 126, "%s", inputtext );
+            format( string, 256,"Sëkmingai sukûrëte frakcijà  pavadinimu: %s", inputtext );
+            SendClientMessage( playerid, GRAD, string );
+            Itter_Add(Faction,id);
             return 1;
         }
     }
@@ -23327,26 +23325,26 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         if ( PlayerToPoint( 2.0, playerid, sEnter[ id ][ sEnter_x ], sEnter[ id ][ sEnter_y ], sEnter[ id ][ sEnter_z ] ) )
                         {
                             format( string, 126, "DELETE FROM `senters` WHERE sID = %d", sEnter[ id ][ sID ]);
-                            if ( mysql_query(DbHandle,  string, false) )
-                            {
-                                DestroyDynamicPickup( sEnter[ id ][ Pickup ]);
+                            mysql_query(DbHandle,  string, false);
+                            
+                            DestroyDynamicPickup( sEnter[ id ][ Pickup ]);
 
-                                sEnter[ id ][ sID      ] = 0;
-                                sEnter[ id ][ sEnter_x ] = 0.0;
-                                sEnter[ id ][ sEnter_y ] = 0.0;
-                                sEnter[ id ][ sEnter_z ] = 0.0;
-                                sEnter[ id ][ sExit_z  ] = 0.0;
-                                sEnter[ id ][ sExit_Y  ] = 0.0;
-                                sEnter[ id ][ sExit_z  ] = 0.0;
-                                sEnter[ id ][ Int2     ] = 0;
-                                sEnter[ id ][ Int      ] = 0;
-                                sEnter[ id ][ Wirt2    ] = 0;
-                                sEnter[ id ][ Wirt     ] = 0;
-                                strmid(sEnter[ id ][ Name ],"Nera",0,6,6);
-                                Itter_Remove(sEnters,id);
-                                SendClientMessage( playerid, COLOR_WHITE, "áëjimas sëkmingai paðalintas" );
-                                return 1;
-                            }
+                            sEnter[ id ][ sID      ] = 0;
+                            sEnter[ id ][ sEnter_x ] = 0.0;
+                            sEnter[ id ][ sEnter_y ] = 0.0;
+                            sEnter[ id ][ sEnter_z ] = 0.0;
+                            sEnter[ id ][ sExit_z  ] = 0.0;
+                            sEnter[ id ][ sExit_Y  ] = 0.0;
+                            sEnter[ id ][ sExit_z  ] = 0.0;
+                            sEnter[ id ][ Int2     ] = 0;
+                            sEnter[ id ][ Int      ] = 0;
+                            sEnter[ id ][ Wirt2    ] = 0;
+                            sEnter[ id ][ Wirt     ] = 0;
+                            strmid(sEnter[ id ][ Name ],"Nera",0,6,6);
+                            Itter_Remove(sEnters,id);
+                            SendClientMessage( playerid, COLOR_WHITE, "áëjimas sëkmingai paðalintas" );
+                            return 1;
+                            
                         }
                     }
                 }
@@ -24027,58 +24025,58 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 if ( tmpinteger[ playerid ] < 7 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: ðios frakcijos iðtrinti negalite. " );
                 format( string, 126, "DELETE FROM `factions` WHERE `id` = %d", fInfo[ tmpinteger[ playerid ] ][ fID ] );
-                if ( mysql_query(DbHandle,  string, false) )
+                mysql_query(DbHandle,  string, false);
+                
+                new deletedcars,
+                    removedplayers;
+                for(new vehicle = 0; vehicle < MAX_VEHICLES; vehicle++)
                 {
-                    new deletedcars,
-                        removedplayers;
-                    for(new vehicle = 0; vehicle < MAX_VEHICLES; vehicle++)
+                    if ( sVehicles[ vehicle ][ Faction ] == fInfo[ tmpinteger[ playerid ] ][ fID ] )
                     {
-                        if ( sVehicles[ vehicle ][ Faction ] == fInfo[ tmpinteger[ playerid ] ][ fID ] )
-                        {
-                            sVehicles[ vehicle ][ Id          ] = 0;
-                            sVehicles[ vehicle ][ Model       ] = 0;
-                            sVehicles[ vehicle ][ SpawnX       ] = 0.0;
-                            sVehicles[ vehicle ][ SpawnY       ] = 0.0;
-                            sVehicles[ vehicle ][ SpawnZ       ] = 0.0;
-                            sVehicles[ vehicle ][ SpawnA       ] = 0.0;
-                            sVehicles[ vehicle ][ Color1      ] = 0;
-                            sVehicles[ vehicle ][ Color2      ] = 0;
-                            sVehicles[ vehicle ][ Faction     ] = 0;
-                            sVehicles[ vehicle ][ Rang        ] = 0;
-                            sVehicles[ vehicle ][ Job         ] = 0;
+                        sVehicles[ vehicle ][ Id          ] = 0;
+                        sVehicles[ vehicle ][ Model       ] = 0;
+                        sVehicles[ vehicle ][ SpawnX       ] = 0.0;
+                        sVehicles[ vehicle ][ SpawnY       ] = 0.0;
+                        sVehicles[ vehicle ][ SpawnZ       ] = 0.0;
+                        sVehicles[ vehicle ][ SpawnA       ] = 0.0;
+                        sVehicles[ vehicle ][ Color1      ] = 0;
+                        sVehicles[ vehicle ][ Color2      ] = 0;
+                        sVehicles[ vehicle ][ Faction     ] = 0;
+                        sVehicles[ vehicle ][ Rang        ] = 0;
+                        sVehicles[ vehicle ][ Job         ] = 0;
 
-                            DestroyVehicle( vehicle );
-                            Itter_Remove(Vehicles,vehicle);
-                            deletedcars ++;
-                        }
+                        DestroyVehicle( vehicle );
+                        Itter_Remove(Vehicles,vehicle);
+                        deletedcars ++;
                     }
-
-                    format( string, 126, "DELETE FROM `scars` WHERE `sFaction` = %d", fInfo[ tmpinteger[ playerid ] ][ fID ] );
-                    mysql_query(DbHandle,  string, false);
-
-                    format( string, 126, "Paðalinta tr. priemoniø priklausanøiø frakcijai: %d", deletedcars );
-                    SendClientMessage( playerid, COLOR_LIGHTRED, string );
-                    foreach(Player,playa)
-                    {
-                        if ( pInfo[ playa ][ pMember ] == fInfo[ tmpinteger[ playerid ] ][ fID ])
-                        {
-                            pInfo[ playa ][ pMember ] = 0;
-                            pInfo[ playa ][ pLead   ] = 0;
-                            pInfo[ playa ][ pRank   ] = 0;
-                        }
-                    }
-                    format( string, 126, "UPDATE players SET Member = 0, Leader = 0, Rank = 0 WHERE Member = %d", fInfo[ tmpinteger[ playerid ] ][ fID ] );
-                    mysql_query(DbHandle,  string, false);
-                    removedplayers = cache_affected_rows();
-
-                    format( string, 126, "Paðalinta frakcijoje buvusiø þmoniø: %d ", removedplayers );
-                    SendClientMessage( playerid, COLOR_LIGHTRED, string );
-
-                    UnLoadFactions();
-                    LoadFactions();
-                    SendClientMessage( playerid, COLOR_WHITE, "Frakcija buvo sëkmingai paðalinta." );
-                    return 1;
                 }
+
+                format( string, 126, "DELETE FROM `scars` WHERE `sFaction` = %d", fInfo[ tmpinteger[ playerid ] ][ fID ] );
+                mysql_query(DbHandle,  string, false);
+
+                format( string, 126, "Paðalinta tr. priemoniø priklausanøiø frakcijai: %d", deletedcars );
+                SendClientMessage( playerid, COLOR_LIGHTRED, string );
+                foreach(Player,playa)
+                {
+                    if ( pInfo[ playa ][ pMember ] == fInfo[ tmpinteger[ playerid ] ][ fID ])
+                    {
+                        pInfo[ playa ][ pMember ] = 0;
+                        pInfo[ playa ][ pLead   ] = 0;
+                        pInfo[ playa ][ pRank   ] = 0;
+                    }
+                }
+                format( string, 126, "UPDATE players SET Member = 0, Leader = 0, Rank = 0 WHERE Member = %d", fInfo[ tmpinteger[ playerid ] ][ fID ] );
+                mysql_query(DbHandle,  string, false);
+                removedplayers = cache_affected_rows();
+
+                format( string, 126, "Paðalinta frakcijoje buvusiø þmoniø: %d ", removedplayers );
+                SendClientMessage( playerid, COLOR_LIGHTRED, string );
+
+                UnLoadFactions();
+                LoadFactions();
+                SendClientMessage( playerid, COLOR_WHITE, "Frakcija buvo sëkmingai paðalinta." );
+                return 1;
+                
             }
         }
     }
@@ -29108,8 +29106,8 @@ stock RemodeVeh(playerid,model,price,name[])
         case 9: format(string,sizeof(string),"INSERT INTO `vehicles` (cOwner,cModel,cName,cSpawn1,cSpawn2,cSpawn3,cAngle,cColor1,cColor2,cFuel) VALUES (%d,%d,'%s','2162.3459','-1152.7546','23.9230','94.1736',%d,%d,%d)",pInfo[playerid][pMySQLID],model,name,color1,color2,GetVehicleFuelTank(model));
 	}
 
-    if ( mysql_query(DbHandle,  string, false) )
-        GivePlayerMoney( playerid, -price );
+    mysql_query(DbHandle,  string, false);
+    GivePlayerMoney( playerid, -price );
 
     format(string,sizeof(string),"SELECT `id` FROM `vehicles` WHERE `cOwner` = %d",pInfo[playerid][pMySQLID]);
     new Cache:result = mysql_query(DbHandle, string);
