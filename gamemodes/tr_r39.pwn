@@ -23220,14 +23220,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
-    else if ( dialogid == 49 )
-    {
-        if ( response == 1 )
-        {
-            tmpinteger[ playerid ] = listitem;
-            ShowPlayerDialog(playerid,51,DIALOG_STYLE_LIST,"Keitimas","Keisti prekæ\nKeisti kainà","Tæsti","Atgal");
-        }
-    }
     else if ( dialogid == 50 )
     {
         if ( response == 1 )

@@ -2068,6 +2068,12 @@ CMD:buy(playerid, params[])
     {
         case Supermarket, Bar, Cafe:
         {
+            new header[MAX_BUSINESS_NAME ];
+            if(!isnull(bInfo[ bizIndex ][ bName ]))
+                strcat(header, bInfo[ bizIndex ][ bName ]);
+            else 
+                strcat(header, "-");
+
             for(new i = 0; i < MAX_BUSINESS_WARES; i++)
             {
                 if(isnull(BusinessWares[ bizIndex ][ i ][ Name ]))
@@ -2078,7 +2084,7 @@ CMD:buy(playerid, params[])
                         BusinessWares[ bizIndex ][ i ][ Name ],
                         BusinessWares[ bizIndex ][ i ][ Price ]);
             }
-            ShowPlayerDialog(playerid, DIALOG_BIZ_WARE_LIST, DIALOG_STYLE_LIST, bInfo[ bizIndex ][ bName ], string, "Pirkti", "Iðeiti");
+            ShowPlayerDialog(playerid, DIALOG_BIZ_WARE_LIST, DIALOG_STYLE_LIST, header, string, "Pirkti", "Iðeiti");
         } 
         case ClothesShop:
         {
