@@ -196,8 +196,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response)
                 return SendClientMessage(playerid, COLOR_WHITE,"{00FF00}* {FFFFFF}Pirkimas atðauktas!");
 
-            if(GetPlayerHouseIndex(playerid) == -1 && GetPlayerBusinessIndex(playerid) == -1)
-                return SendClientMessage( playerid, COLOR_WHITE,"{00FF00}* {FFFFFF}Turite bûti name arba versle!");
+            if(GetPlayerHouseIndex(playerid) == -1 && GetPlayerBusinessIndex(playerid) == -1 && GetPlayerGarageIndex(playerid) == -1)
+                return SendClientMessage( playerid, COLOR_WHITE,"{00FF00}* {FFFFFF}Turite bûti name, versle arba garaþe!");
 
             new furnitureIndex = GetPVarInt(playerid, "FurnitureIndex"),
                 Float:pos[3],
@@ -214,8 +214,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             if((index = GetPlayerHouseIndex(playerid)) != -1)
                 objectid = AddHouseFurniture(index, furnitureIndex, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
-            else if((index= GetPlayerBusinessIndex(playerid)) != -1)
+            else if((index = GetPlayerBusinessIndex(playerid)) != -1)
                 objectid = AddBusinessFurniture(index, furnitureIndex, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
+            else if((index = GetPlayerGarageIndex(playerid)) != -1)
+                objectid = AddGarageFurniture(index, furnitureIndex, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
 
             // Jei þaidëjas nepajudës, objekto nematys todël Streamer_Update
             Streamer_Update(playerid);

@@ -14589,7 +14589,7 @@ CMD:setspawn (playerid, params[])
         SendClientMessage(playerid, COLOR_LIGHTRED, "|________VEIKËJO ATSIRADIMO VIETA PRISIJUNGUS________|");
         SendClientMessage(playerid, COLOR_LIGHTRED2, "Atsiradimo vietà taip pat galite redaguoti vartotojo valdymo pulte: ltrp.lt");
         SendClientMessage(playerid, COLOR_WHITE, "KOMANDOS NAUDOJIMAS: /setspawn [VIETA]");
-        SendClientMessage(playerid, COLOR_WHITE, "VIETOS: Los Santos, Namas, Frakcija, Verslas, ");
+        SendClientMessage(playerid, COLOR_WHITE, "VIETOS: Idlewood, Los Santos, Namas, Frakcija, Verslas, Garaþas");
         SendClientMessage(playerid, COLOR_LIGHTRED2, "_______________________________");
     }
     else
@@ -18998,7 +18998,8 @@ CMD:amenu(playerid)
                                                                  - Skelbti balsavimà \n\
                                                                  - Automobiliø turgus\n\
                                                                  - Garaþai\n\
-                                                                 - Industrijos","Rinktis","Atðaukti");
+                                                                 - Industrijos\n\
+                                                                 - Interjerai","Rinktis","Atðaukti");
     }
     return 1;
 }
@@ -20157,10 +20158,6 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         SetPVarInt( playerid, "FALSE_ENTER", 0 );
     }
 
-    if(!IsDriveByWeapon(GetPlayerWeapon(playerid)))
-    {
-    	SetPlayerArmedWeapon(playerid, 0);
-    }
 
     if ( !ispassenger )
     {
@@ -20237,6 +20234,15 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
         printf("OnPlayerStateChange(%s, %d, %d)", GetName(playerid), newstate, oldstate);
     #endif
     SetPVarInt( playerid, "PLAYER_STATE", newstate );
+
+    if(newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER)
+    {
+        if(!IsDriveByWeapon(GetPlayerWeapon(playerid)))
+        {
+            SetPlayerArmedWeapon(playerid, 0);
+        }
+    }
+
     if(newstate == PLAYER_STATE_DRIVER)
     {
         new veh = GetPlayerVehicleID( playerid );
@@ -21303,9 +21309,10 @@ stock IsMeleeWeapon(weaponid)
 }
 stock IsDriveByWeapon(weaponid)
 {
+    // Ginklai su kuriais leidþiamas drive-by
 	switch(weaponid)
 	{
-		case 29, 30, 31, 32: return true;
+		case 25, 26, 27, 28, 29, 30, 31, 32: return true;
 		default: return false;
 	}
 	return false;
@@ -22653,6 +22660,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 }
                 case 8:
                     return TruckerJob:ShowPlayerDialog(playerid, ActionList);
+                case 9: 
+                    return InteriorManagementDialog.ShowMain(playerid);
             }
         }
     }
@@ -22697,7 +22706,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             new id = Itter_Free(Faction);
             format( string, 256, "INSERT INTO `factions` (fName) VALUES ('%s')", inputtext );
-            mysql_query(DbHandle, query, false);
+            mysql_query(DbHandle, string, false);
             
             format( string, 126, "SELECT id,fRank1,fRank2,fRank3,fRank4,fRank5,fRank6,fRank7,fRank8,fRank9,fRank10,fRank11,fRank12,fRank13 FROM `factions` WHERE `fName`='%s'", inputtext );
             new Cache:result = mysql_query(DbHandle,  string );
@@ -23376,7 +23385,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 sEnter[ id ][ sEnter_x ], sEnter[ id ][ sEnter_y ], sEnter[ id ][ sEnter_z ] );
             
             new Cache:result;
-            result = mysql_query(DbHandle,  query, false);
+            result = mysql_query(DbHandle,  query);
             
             //mysql_store_result();
 

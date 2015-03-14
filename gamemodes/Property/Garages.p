@@ -417,31 +417,6 @@ stock GetGarageFurnitureCount(garageindex)
 }
 
 
-stock AddGarage(Float:x, Float:y, Float:z, Float:angle)
-{
-    new index = Itter_Free(Garages), query[256];
-    if(index == -1)
-        return -1;
-
-    format(query, sizeof(query), "INSERT INTO garages (entrance_x, entrance_y, entrance_z, vehicle_entrance_x, vehicle_entrance_y, vehicle_entrance_z, vehicle_entrance_angle) VALUES (%f, %f, %f, %f, %f, %f, %f)",
-        x, y, z, x, y, z, angle);
-    new Cache:result = mysql_query(DbHandle, query);
-
-    gInfo[ index ][ gID ] = cache_insert_id();
-    cache_delete(result);
-
-    gInfo[ index ][ gEntrance ][ 0 ] = x;
-    gInfo[ index ][ gEntrance ][ 1 ] = y;
-    gInfo[ index ][ gEntrance ][ 2 ] = z;
-    gInfo[ index ][ gVehicleEnter ][ 0 ] = x;
-    gInfo[ index ][ gVehicleEnter ][ 1 ] = y;
-    gInfo[ index ][ gVehicleEnter ][ 2 ] = z;
-    UpdateGarageEntrance(index);
-
-    Itter_Add(Garages, index);
-    return index;
-}
-
 
 
 stock IsPlayerInAnyGarage(playerid)
@@ -553,6 +528,64 @@ stock GetGarageFreeItemSlot(garageindex)
             return i;
     return -1;
 } 
+
+
+/* INSERT INTO mysql */
+
+stock AddGarage(Float:x, Float:y, Float:z, Float:angle)
+{
+    new index = Itter_Free(Garages), query[256];
+    if(index == -1)
+        return -1;
+
+    format(query, sizeof(query), "INSERT INTO garages (entrance_x, entrance_y, entrance_z, vehicle_entrance_x, vehicle_entrance_y, vehicle_entrance_z, vehicle_entrance_angle) VALUES (%f, %f, %f, %f, %f, %f, %f)",
+        x, y, z, x, y, z, angle);
+    new Cache:result = mysql_query(DbHandle, query);
+
+    gInfo[ index ][ gID ] = cache_insert_id();
+    cache_delete(result);
+
+    gInfo[ index ][ gEntrance ][ 0 ] = x;
+    gInfo[ index ][ gEntrance ][ 1 ] = y;
+    gInfo[ index ][ gEntrance ][ 2 ] = z;
+    gInfo[ index ][ gVehicleEnter ][ 0 ] = x;
+    gInfo[ index ][ gVehicleEnter ][ 1 ] = y;
+    gInfo[ index ][ gVehicleEnter ][ 2 ] = z;
+    UpdateGarageEntrance(index);
+
+    Itter_Add(Garages, index);
+    return index;
+}
+
+
+
+stock AddGarageFurniture(garageindex, findex, Float:posx, Float:posy, Float:posz, Float:rotx = 0.0, Float:roty = 0.0 , Float:rotz = 0.0)
+{
+    new
+        query[256],
+        i;
+
+    mysql_format(DbHandle, query, sizeof(query), "INSERT INTO garage_furniture (garage_id, furniture_id, pos_x, pos_y, pos_z, rot_x, rot_y, rot_z) VALUES (%d, %d, %f, %f, %f, %f, %f, %f)",
+        gInfo[ garageindex ][ gID ], GetFurnitureID(findex), posx, posy, posz, rotx, roty, rotz);
+    new Cache:result = mysql_query(DbHandle, query);
+    
+    for(new j = 0; j < MAX_GARAGE_FURNITURE; j++)
+        if(!GarageFurniture[ garageindex ][ j ][ SqlId ])
+        {
+            i = j;
+            break;
+        }
+    GarageFurniture[ garageindex ][ i ][ SqlId ] = cache_insert_id();
+    cache_delete(result);
+    GarageFurniture[ garageindex ][ i ][ FurnitureId ] = GetFurnitureID(findex);
+    GarageFurniture[ garageindex ][ i ][ ObjectId ] = CreateDynamicObject(GetFurnitureObjectId(findex), 
+        posx, posy, posz, 
+        rotx, roty, rotz, 
+        GetGarageVirtualWorld(garageindex),
+        .streamdistance = 35.0);
+
+    return GarageFurniture[ garageindex ][ i ][ ObjectId ];
+}
 
 
 
