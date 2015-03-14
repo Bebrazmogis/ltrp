@@ -8032,8 +8032,11 @@ public OnPlayerDeath(playerid, killerid, reason)
         pInfo[playerid][pInt] = GetPlayerInterior(playerid);
     }
     else
-        Mires[playerid] = 1;
-        
+    {
+    	//SetSpawnInfo(playerid, NO_TEAM, GetPlayerSkin(playerid), )
+    	Mires[playerid] = 1;
+   	}
+
     if(gPlayerUsingLoopingAnim[playerid] == true)
     {
         gPlayerUsingLoopingAnim[playerid] = false;
@@ -20156,6 +20159,12 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         SetVehicleParamsForPlayer( vehicleid, playerid, 0, cInfo[ vehicleid ][ cLock ] );
         SetPVarInt( playerid, "FALSE_ENTER", 0 );
     }
+
+    if(IsDriveByWeapon(GetPlayerWeapon(playerid)))
+    {
+    	SetPlayerArmedWeapon(playerid, 0);
+    }
+
     if ( !ispassenger )
     {
         if ( isLicCar( vehicleid ) ) return 1;
@@ -21294,6 +21303,15 @@ stock IsMeleeWeapon(weaponid)
         case 0 ..15: return true;
     }
     return false;
+}
+stock IsDriveByWeapon(weaponid)
+{
+	switch(weaponid)
+	{
+		case 29, 30, 31, 32: return true;
+		default: return false;
+	}
+	return false;
 }
 
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
@@ -23108,33 +23126,33 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             model, Spawn_x, Spawn_y, Spawn_z, Spawn_a, color1, color2);
 
             new Cache:result;
-            if((result = mysql_query(DbHandle,  string)))
+            result = mysql_query(DbHandle,  string);
+            
+            cache_delete(result);
+            format( string, 256, "SELECT sID FROM scars WHERE sModel = %d AND sCar_x = '%f' AND sCar_y = '%f'", model, Spawn_x, Spawn_y );
+            result = mysql_query(DbHandle, string);
+
+            if ( cache_get_row_count( ) )
             {
-                cache_delete(result);
-                format( string, 256, "SELECT sID FROM scars WHERE sModel = %d AND sCar_x = '%f' AND sCar_y = '%f'", model, Spawn_x, Spawn_y );
-                result = mysql_query(DbHandle, string);
-
-                if ( cache_get_row_count( ) )
-                {
 
 
-                    id = CreateVehicle( model, Spawn_x, Spawn_y, Spawn_z, Spawn_a, color1, color2, -1 );
+                id = CreateVehicle( model, Spawn_x, Spawn_y, Spawn_z, Spawn_a, color1, color2, -1 );
 
-                    cInfo[ id ][ cFuel ] = GetVehicleFuelTank( model );
-                    sVehicles[ id ][ Id     ] =  cache_get_field_content_int(0, "sID");
-                    sVehicles[ id ][ Model  ] = model;
-                    sVehicles[ id ][ SpawnX  ] = Spawn_x;
-                    sVehicles[ id ][ SpawnY  ] = Spawn_y;
-                    sVehicles[ id ][ SpawnZ  ] = Spawn_z;
-                    sVehicles[ id ][ SpawnZ  ] = Spawn_a;
-                    sVehicles[ id ][ Color1 ] = color1;
-                    sVehicles[ id ][ Color2 ] = color2;
-                    format( string, 24, "{000000}TLP - %d", id + 1000 );
-                    SetVehicleNumberPlate( id, string );
-                }
-                cache_delete(result);
-                return 1;
+                cInfo[ id ][ cFuel ] = GetVehicleFuelTank( model );
+                sVehicles[ id ][ Id     ] =  cache_get_field_content_int(0, "sID");
+                sVehicles[ id ][ Model  ] = model;
+                sVehicles[ id ][ SpawnX  ] = Spawn_x;
+                sVehicles[ id ][ SpawnY  ] = Spawn_y;
+                sVehicles[ id ][ SpawnZ  ] = Spawn_z;
+                sVehicles[ id ][ SpawnZ  ] = Spawn_a;
+                sVehicles[ id ][ Color1 ] = color1;
+                sVehicles[ id ][ Color2 ] = color2;
+                format( string, 24, "{000000}TLP - %d", id + 1000 );
+                SetVehicleNumberPlate( id, string );
             }
+            cache_delete(result);
+            return 1;
+            
         }
     }
     else if ( dialogid == 47 )
@@ -23371,25 +23389,25 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 sEnter[ id ][ sEnter_x ], sEnter[ id ][ sEnter_y ], sEnter[ id ][ sEnter_z ] );
             
             new Cache:result;
-            if ((result = mysql_query(DbHandle,  query, false)))
-            {
-                //mysql_store_result();
+            result = mysql_query(DbHandle,  query, false);
+            
+            //mysql_store_result();
 
-                sEnter[ id ][ sID      ] = cache_insert_id();
-                cache_delete(result);
-                sEnter[ id ][ Int2     ] = Inte;
-                sEnter[ id ][ Int      ] = 0;
-                sEnter[ id ][ Wirt     ] = Wirte;
-                sEnter[ id ][ Wirt2    ] = 0;
-                sEnter[ id ][ PickupModel ] = DEFAULT_SENTER_PICKUP_MODEL;
-                //mysql_free_result();
-                format( sEnter[ id ][ Name ],60, "%s",inputtext );
-                UpdateSEnterInfo( id );
-                SaveSEnter( id );
-                Itter_Add(sEnters, id );
-                format( string, 126, "Serverio áëjimas buvo sëkmingai sukurtas, ðio Áëjimo ID: %d", id );
-                SendClientMessage( playerid, GRAD, string );
-            }
+            sEnter[ id ][ sID      ] = cache_insert_id();
+            cache_delete(result);
+            sEnter[ id ][ Int2     ] = Inte;
+            sEnter[ id ][ Int      ] = 0;
+            sEnter[ id ][ Wirt     ] = Wirte;
+            sEnter[ id ][ Wirt2    ] = 0;
+            sEnter[ id ][ PickupModel ] = DEFAULT_SENTER_PICKUP_MODEL;
+            //mysql_free_result();
+            format( sEnter[ id ][ Name ],60, "%s",inputtext );
+            UpdateSEnterInfo( id );
+            SaveSEnter( id );
+            Itter_Add(sEnters, id );
+            format( string, 126, "Serverio áëjimas buvo sëkmingai sukurtas, ðio Áëjimo ID: %d", id );
+            SendClientMessage( playerid, GRAD, string );
+            
         }
     }
     else if ( dialogid == 55 )
