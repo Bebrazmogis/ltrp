@@ -20,10 +20,11 @@
 
 */
 
+// Dream Theather
 
 
 #define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.11
+#define BUILD_DATE                      2015-03.14
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -11532,12 +11533,8 @@ CMD:bonnet( playerid, params[ ] )
         return 1;
     }
 }
-CMD:trunko( playerid, params[ ] )
+CMD:trunko(playerid)
 {
-    #pragma unused params
-	if ( !IsPlayerInAnyVehicle( playerid ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, tr. priemonës bagaþinæ galite atidaryti tik sedëdami vairuotojo vietoje." );
-
     new engine, lights, alarm, doors, bonnet, boot, objective,
         vehicleid = GetNearestVehicle( playerid, 10.0 );
 
@@ -20160,7 +20157,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         SetPVarInt( playerid, "FALSE_ENTER", 0 );
     }
 
-    if(IsDriveByWeapon(GetPlayerWeapon(playerid)))
+    if(!IsDriveByWeapon(GetPlayerWeapon(playerid)))
     {
     	SetPlayerArmedWeapon(playerid, 0);
     }
