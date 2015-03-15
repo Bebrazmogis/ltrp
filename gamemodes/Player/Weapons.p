@@ -266,32 +266,35 @@ AK47 - 35
 Rifle - 100
 Sniper Rifle - 250
 */
-hook OnPlayerTakeDamage(playerid, issuerid, amount, weaponid,  bodypart)
+hook OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid,  bodypart)
 {
 	new Float:newhealth, bool:custom_damage = true;
 	GetPlayerHealth(playerid, newhealth);
+	printf("GetPlayerHealth():%f", newhealth);
 	newhealth += amount; // Dabar health kiek turëjo prieð ðûvá.
+	printf("OnPlayerTakeDamage : Weapons.p newhealth+amount:%f", newhealth);
 	if(issuerid != INVALID_PLAYER_ID)
 	{
 		switch(weaponid)
 		{
-			case WEAPON_COLT45: newhealth -= 30;
-			case WEAPON_SILENCED: newhealth -= 30;
-			case WEAPON_DEAGLE: newhealth -= 70;
-			case WEAPON_TEC9: newhealth -= 28;
-			case WEAPON_UZI: newhealth -= 28;
-			case WEAPON_MP5: newhealth -= 35;
-			case WEAPON_SHOTGUN: newhealth -= 10;
-			case WEAPON_SAWEDOFF: newhealth -= 10;
-			case WEAPON_SHOTGSPA: newhealth -= 15;
-			case WEAPON_M4: newhealth -= 35;
-			case WEAPON_AK47: newhealth -= 35;
-			case WEAPON_RIFLE: newhealth -= 100;
-			case WEAPON_SNIPER: newhealth -= 250;
+			case WEAPON_COLT45: newhealth -= 30.0;
+			case WEAPON_SILENCED: newhealth -= 30.0;
+			case WEAPON_DEAGLE: newhealth -= 70.0;
+			case WEAPON_TEC9: newhealth -= 28.0;
+			case WEAPON_UZI: newhealth -= 28.0;
+			case WEAPON_MP5: newhealth -= 35.0;
+			case WEAPON_SHOTGUN: newhealth -= 10.0;
+			case WEAPON_SAWEDOFF: newhealth -= 10.0;
+			case WEAPON_SHOTGSPA: newhealth -= 15.0;
+			case WEAPON_M4: newhealth -= 35.0;
+			case WEAPON_AK47: newhealth -= 35.0;
+			case WEAPON_RIFLE: newhealth -= 100.0;
+			case WEAPON_SNIPER: newhealth -= 250.0;
 			default: custom_damage = false;
 		}
 		if(custom_damage)
 		{
+			printf("Custom damage yes. Weaponid:%d Real damage done:%f newhealth:%f",weaponid, amount, newhealth);
 			SetPlayerHealth(playerid, newhealth);
 		}
 	}

@@ -2045,8 +2045,8 @@ CMD:biz(playerid)
                                   bInfo[ bizIndex ][ bProducts ],
                                   price,
                                   cargoPrice);
-    ShowPlayerDialog(playerid, DIALOG_BIS_OWNER_MENU_MAIN, DIALOG_STYLE_LIST, "Biznio meniu",string, "Rinktis", "Iðjungti");
     SetPVarInt(playerid, "BizIndex", bizIndex);
+    ShowPlayerDialog(playerid, DIALOG_BIS_OWNER_MENU_MAIN, DIALOG_STYLE_LIST, "Biznio meniu",string, "Rinktis", "Iðjungti");
     return 1;
 }
 
@@ -2277,6 +2277,8 @@ stock BusinessManagementDialog.InputIndex(playerid, E_BUSINESS_INDEX_USAGE:usage
 stock BusinessManagementDialog.Information(playerid, index)
 {
     new string[ 2048 ];
+    string = GetSqlIdName(bInfo[ index ][ bOwner ]);
+
     format(string, sizeof(string),"Verslo ID serveryje: %d\n\
         Verslo ID duomenø bazëje: %d\n\
         Pavadinimas: %s\n\
@@ -2290,11 +2292,10 @@ stock BusinessManagementDialog.Information(playerid, index)
         Pickup modelis: %d\n\
         \n\
         Baldø skaièius: %d\n",
-
         index,
         bInfo[ index][ bID ],
         bInfo[ index ][ bName ],
-        (bInfo[ index ][ bOwner ] == BUSINESS_OWNER_NULL) ? ("nëra") : (GetSqlIdName(bInfo[ index ][ bOwner ])),
+        (bInfo[ index ][ bOwner ] == BUSINESS_OWNER_NULL) ? ("nëra") : (string),
         (bInfo[ index] [ bLocked ]) ? ("Taip") : ("Ne"),
         bInfo[ index ][ bInteriorId ],
         bInfo[ index ][ bPrice ],

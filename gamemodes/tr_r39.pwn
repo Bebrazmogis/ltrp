@@ -26817,7 +26817,6 @@ stock MySQL_Check_Account( playerid )
 
 stock GetSqlIdName(sqlid)
 {
-    printf("GetSqlIdName called(%d)", sqlid);
     new name[MAX_PLAYER_NAME];
     foreach(Player, i)
     {
@@ -26827,7 +26826,6 @@ stock GetSqlIdName(sqlid)
             return name;
         } 
     }
-    printf("Player wasnt found in online list.");
     new query[60];
     format(query,sizeof(query),"SELECT Name FROM `players` WHERE id = %d", sqlid);
     new Cache:result = mysql_query(DbHandle, query);
