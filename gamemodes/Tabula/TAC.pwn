@@ -185,6 +185,7 @@ stock Tabu_SetPlayerInt( playerid, intas )
 }
 #define SetPlayerInterior Tabu_SetPlayerInt
 
+/*
 stock Tabu_GivePlayerWeapon(playerid,weaponid,ammo)
 {
 	new
@@ -204,6 +205,7 @@ stock Tabu_GivePlayerWeapon(playerid,weaponid,ammo)
 	cache_delete(result);
 	return GivePlayerWeapon( playerid, weaponid, ammo );
 }
+
 stock Tabu_ResetPlayerWeapons( playerid )
 {
 	new
@@ -224,6 +226,7 @@ stock Tabu_ResetPlayerWeapons( playerid )
 	mysql_query(DbHandle, eile, false);
 	return ResetPlayerWeapons( playerid );
 }
+*/
 stock ac_GetPlayerSpeed(playerid,get3d)
 {
 	new Float:x,Float:y,Float:z;
@@ -340,7 +343,7 @@ stock BanPlayer(kas[],playerid,kodel[])
 	    
 	GetPlayerName(playerid,name,MAX_PLAYER_NAME);
 	
-    format(string, 216, "AdmCmd %s uþdraudë þaisti þaidëjui %s, priëþastis: %s", kas, name, kodel);
+    format(string, 216, "AdmCmd %s uþdraudë þaisti þaidëjui %s, prieþastis: %s", kas, name, kodel);
     SendClientMessageToAll(COLOR_LIGHTRED, string);
     GetPlayerIp(playerid,ip,16);
     
@@ -404,7 +407,7 @@ stock KickPlayer(kas[],playerid,kodel[])
 		}
 	}
 
-    format( string, sizeof(string), "AdmCmd %s iðspyrë þaidëjà %s ið serverio, priëþastis: %s", kas, name, kodel);
+    format( string, sizeof(string), "AdmCmd %s iðspyrë þaidëjà  %s ið serverio, prieþastis: %s", kas, name, kodel);
     SendClientMessageToAll( COLOR_LIGHTRED, string);
 	SetTimerEx("KicknPlayer", 100, false, "d", playerid );
     return 1;
@@ -526,10 +529,10 @@ stock CheckBan(playerid)
     		mysql_free_result();
       		return false;
 		}
-  		SendClientMessage(playerid,COLOR_LIGHTRED,"JUMS DRAUÞIAMA JUNGTIS Á SERVERÁ ");
+  		SendClientMessage(playerid,COLOR_LIGHTRED,"JUMS DRAUDÞIAMA JUNGTIS Á SERVERÁ");
   		format(string, 74,"Vardas: %s",realname);
      	SendClientMessage(playerid,COLOR_FADE1,string);
-    	format(string, 74,"Prieþastis: %s",Reason);
+    	format(string, 74,"PrieÃ¾astis: %s",Reason);
      	SendClientMessage(playerid,COLOR_FADE1,string);
      	format(string, 74,"Blokuojamas IP: %s    Blokuojamas Vardas: %s",ip, name);
      	SendClientMessage(playerid,COLOR_FADE1,string);
@@ -650,7 +653,7 @@ stock LoadMap(file[]) // by Mick88
 
 #define GivePlayerMoney    Tabu_GiveMomey
 #define ResetPlayerMoney   Tabu_ResetMoney
-#define ResetPlayerWeapons Tabu_ResetPlayerWeapons
+//#define ResetPlayerWeapons Tabu_ResetPlayerWeapons
 #define CreateVehicle      Tabu_CreateVehicle
 #define AddStaticVehicle 	Tabu_AddStaticVehicle
 #define AddStaticVehicleEx 				Tabu_AddStaticVehicleEx

@@ -73,6 +73,97 @@ stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true)
 #endif
 #define GivePlayerWeapon wep_GivePlayerWeapon
 
+stock wep_ResetPlayerWeapons(playerid, bool:update_db = true)
+{
+	if(update_db)
+	{
+		new query[60];
+		mysql_format(DbHandle, query, sizeof(query), "DELETE FROM player_weapons WHERE player_id = %d",
+			GetPlayerSqlId(playerid));
+		mysql_pquery(DbHandle, query);
+	}
+	for(new i = 0; i < MAX_PLAYER_WEAPONS; i++)
+	{
+		PlayerWeapons[ playerid ][ i ][ WeaponId ] = 0;
+		PlayerWeapons[ playerid ][ i ][ Ammo ] = 0;
+	}
+	return ResetPlayerWeapons(playerid);
+}
+#if defined _ALS_ResetPlayerWeapons
+	#undef ResetPlayerWeapons 
+#else 
+	#define _ALS_ResetPlayerWeapons
+#endif
+#define ResetPlayerWeapons wep_ResetPlayerWeapons
+
+stock RemovePlayerWeapon(playerid, weaponid)
+{
+    // Funkcija: RemovePlayerWeapon(playerid, wepid)
+    // Panaikins tik vienà þaidëjo ginklà 
+
+    new weapons[ 13 ][ 2 ];
+
+    for(new i = 0; i < 13; i++)
+    {
+    	GetPlayerWeaponData(playerid, i, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
+
+    	// Jei ginklui reikalingos kulkos, ir tai netas kurá norim paðalinti, progra patikrinti ar ne cheatintas ginklas
+    	if(weapons[ i ][ 0 ] != weaponid && IsWeaponHasAmmo(weapons[ i ][ 0 ]))
+    		// CheckWeaponCheat reikiant uþblokuos þaidëjà.
+    		CheckWeaponCheat(playerid, weapons[ i ][ 0 ], 0);
+    }
+
+    ResetPlayerWeapons(playerid, false);
+
+    for(new i = 0; i < 13; i++)	
+    	if(weapons[ i ][ 0 ] != weaponid)
+    		GivePlayerWeapon(playerid, weapons[ i ][ 0 ], weapons[ i ][ 1 ], false);
+    		/*
+    new
+        weapons[ 13 ][ 2 ],
+        eile[ 128 ],
+        eile2[ 128 ],
+        weap,
+        ammo;
+
+    for ( new i = 0; i < 13; i++ )
+    {
+        GetPlayerWeaponData(playerid, i, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
+        weap = weapons[ i ][ 0 ],
+        ammo = weapons[ i ][ 1 ];
+        if(wepid != weap)
+        {
+            if(weap > 0 && ammo > 0)
+            {
+                if(IsWeaponHasAmmo(weap))
+                    CheckWeaponCheat(playerid, weap, 0);
+            }
+        }
+    }
+
+    ResetPlayerWeapons(playerid);
+
+    for(new i = 0; i < 13; i++)
+    {
+        if(weapons[ i ][ 0 ] > 0 && weapons[ i ][ 1 ] > 0 && weapons[ i ][ 0 ] != wepid)
+        {
+            format(eile, sizeof(eile), "%dbone2", weapons[ i ][ 0 ]);
+            format(eile2, sizeof(eile2), "%dbone", weapons[ i ][ 0 ]);
+            SetPVarInt(playerid, eile2, GetPVarInt (playerid, eile));
+            SetPVarInt(playerid, eile, 0);
+            GivePlayerWeapon(playerid, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
+        }
+    }
+    */
+}
+
+
+
+
+
+
+
+
 
 stock LoadPlayerWeapons(playerid)
 {
@@ -83,7 +174,7 @@ stock LoadPlayerWeapons(playerid)
 
 public OnPlayerWeaponLoad(playerid)
 {
-	ResetPlayerWeapons(playerid);
+	ResetPlayerWeapons(playerid, false);
 	for(new i = 0; i < cache_get_row_count(); i++)
 	{
 		PlayerWeapons[ playerid ][ i ][ WeaponId ] = cache_get_field_content_int(i, "weapon_id");
@@ -122,6 +213,8 @@ hook OnPlayerDisconnect(playerid, reason)
 		if(!PlayerWeapons[ playerid ][ i ][ WeaponId ])
 			continue;
 
+		printf("OnPlayerDisconnect : weapons.p i:%d weaponi:%d ammo: %d", i, PlayerWeapons[ playerid ][ i ][ WeaponId ], PlayerWeapons[ playerid ][ i ][ Ammo ]);
+
 		GetPlayerWeaponData(playerid, GetSlotByID(PlayerWeapons[ playerid ][ i ][ WeaponId ]), PlayerWeapons[ playerid ][ i ][ WeaponId ], newammo);
 		mysql_format(DbHandle, query, sizeof(query), "UPDATE player_weapons SET ammo = %d WHERE player_id = %d AND weapon_id = %d",
 			newammo, GetPlayerSqlId(playerid), PlayerWeapons[ playerid ][ i ][ WeaponId ]);
@@ -155,5 +248,52 @@ hook OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, 
 			}
 			break;
 		}
+	return 1;
+}
+
+/*
+9mm - 30
+Silenced 9mm - 30
+Desert Eagle - 70
+Tec-9 - 28
+Micro SMG - 28
+SMG - 35
+Shotgun - 10
+Sawnoff Shotgun - 10
+Combat Shotgun - 15
+M4 - 35
+AK47 - 35
+Rifle - 100
+Sniper Rifle - 250
+*/
+hook OnPlayerTakeDamage(playerid, issuerid, amount, weaponid,  bodypart)
+{
+	new Float:newhealth, bool:custom_damage = true;
+	GetPlayerHealth(playerid, newhealth);
+	newhealth += amount; // Dabar health kiek turëjo prieð ðûvá.
+	if(issuerid != INVALID_PLAYER_ID)
+	{
+		switch(weaponid)
+		{
+			case WEAPON_COLT45: newhealth -= 30;
+			case WEAPON_SILENCED: newhealth -= 30;
+			case WEAPON_DEAGLE: newhealth -= 70;
+			case WEAPON_TEC9: newhealth -= 28;
+			case WEAPON_UZI: newhealth -= 28;
+			case WEAPON_MP5: newhealth -= 35;
+			case WEAPON_SHOTGUN: newhealth -= 10;
+			case WEAPON_SAWEDOFF: newhealth -= 10;
+			case WEAPON_SHOTGSPA: newhealth -= 15;
+			case WEAPON_M4: newhealth -= 35;
+			case WEAPON_AK47: newhealth -= 35;
+			case WEAPON_RIFLE: newhealth -= 100;
+			case WEAPON_SNIPER: newhealth -= 250;
+			default: custom_damage = false;
+		}
+		if(custom_damage)
+		{
+			SetPlayerHealth(playerid, newhealth);
+		}
+	}
 	return 1;
 }

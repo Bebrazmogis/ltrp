@@ -21608,47 +21608,6 @@ stock IsPlayerHaveManyGuns( playerid, wepid )
     return false;
 }
 
-stock RemovePlayerWeapon( playerid, wepid )
-{
-    // Funkcija: RemovePlayerWeapon( playerid, wepid )
-    // Panaikins tik vienà þaidëjo ginklà 
-
-    new
-        weapons[ 13 ][ 2 ],
-        eile[ 128 ],
-        eile2[ 128 ],
-        weap,
-        ammo;
-
-    for ( new i = 0; i < 13; i++ )
-    {
-        GetPlayerWeaponData(playerid, i, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
-        weap = weapons[ i ][ 0 ],
-        ammo = weapons[ i ][ 1 ];
-        if(wepid != weap)
-        {
-            if(weap > 0 && ammo > 0)
-            {
-                if(IsWeaponHasAmmo(weap))
-                    CheckWeaponCheat(playerid, weap, 0);
-            }
-        }
-    }
-
-    ResetPlayerWeapons( playerid );
-
-    for(new i = 0; i < 13; i++)
-    {
-        if(weapons[ i ][ 0 ] > 0 && weapons[ i ][ 1 ] > 0 && weapons[ i ][ 0 ] != wepid)
-        {
-            format(eile, sizeof(eile), "%dbone2", weapons[ i ][ 0 ]);
-            format(eile2, sizeof(eile2), "%dbone", weapons[ i ][ 0 ]);
-            SetPVarInt(playerid, eile2, GetPVarInt (playerid, eile));
-            SetPVarInt(playerid, eile, 0);
-            GivePlayerWeapon(playerid, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
-        }
-    }
-}
 
 public OnPlayerStreamIn(playerid, forplayerid)
 {
