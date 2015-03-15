@@ -236,8 +236,9 @@ hook OnPlayerDisconnect(playerid, reason)
 }
 
 
-hook OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
+public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
+	printf("OnPlayerWeaponShot(%s, %d, %d, %d, %f, %f, %f)", GetName(playerid), weaponid, hittype, hitid, fX, fY, fZ);
 	for(new i = 0; i < MAX_PLAYER_WEAPONS; i++)
 		if(PlayerWeapons[ playerid ][ i ][ WeaponId ] == weaponid)
 		{
@@ -248,9 +249,64 @@ hook OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, 
 			}
 			break;
 		}
+
+	if(hittype == BULLET_HIT_TYPE_PLAYER)
+	{
+		new Float:damage, bool:custom_damage = true;
+		switch(weaponid)
+		{
+			case WEAPON_COLT45: damage = 30.0;
+			case WEAPON_SILENCED: damage = 30.0;
+			case WEAPON_DEAGLE: damage = 70.0;
+			case WEAPON_TEC9: damage = 28.0;
+			case WEAPON_UZI: damage = 28.0;
+			case WEAPON_MP5: damage = 35.0;
+			case WEAPON_SHOTGUN: damage = 50.0;
+			case WEAPON_SAWEDOFF: damage = 50.0;
+			case WEAPON_SHOTGSPA: damage = 50.0;
+			case WEAPON_M4: damage = 35.0;
+			case WEAPON_AK47: damage = 35.0;
+			case WEAPON_RIFLE: damage = 100.0;
+			case WEAPON_SNIPER: damage = 250.0;
+			default: custom_damage = false;
+		}
+		if(custom_damage)
+		{
+			new Float:health, Float:armour;
+			GetPlayerHealth(hitid, health);
+			GetPlayerArmour(hitid, armour);
+			printf("Custom_damage yes. Player:%s Armor:%f health:%f newdamage:%f", GetName(hitid), armour, health, damage);
+			if(armour > 0.0)
+			{
+				if(armour > damage)
+					SetPlayerArmour(hitid, armour-damage);
+				else
+				{
+					SetPlayerArmour(hitid, 0.0);
+					damage -= armour;
+				}
+			}
+			if(damage > 0.0)
+				SetPlayerHealth(hitid, health-damage);
+			return 0;
+		}
+	}
+	#if defined weapons_OnPlayerWeaponShot
+		weapons_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, fX, fY, fZ);
+	#endif
 	return 1;
 }
+#if defined _ALS_OnPlayerWeaponShot
+	#undef OnPlayerWeaponShot
+#else
+	#define _ALS_OnPlayerWeaponShot
+#endif
+#define OnPlayerWeaponShot weapons_OnPlayerWeaponShot
+#if defined weapons_OnPlayerWeaponShot
+	forward weapons_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
+#endif
 
+/*
 hook OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid,  bodypart)
 {
 	new Float:newhealth, bool:custom_damage = true;
@@ -268,9 +324,9 @@ hook OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid,  bodypart)
 			case WEAPON_TEC9: newhealth -= 28.0;
 			case WEAPON_UZI: newhealth -= 28.0;
 			case WEAPON_MP5: newhealth -= 35.0;
-			case WEAPON_SHOTGUN: newhealth -= 30.0;
-			case WEAPON_SAWEDOFF: newhealth -= 10.0;
-			case WEAPON_SHOTGSPA: newhealth -= 15.0;
+			case WEAPON_SHOTGUN: newhealth -= 50.0;
+			case WEAPON_SAWEDOFF: newhealth -= 50.0;
+			case WEAPON_SHOTGSPA: newhealth -= 50.0;
 			case WEAPON_M4: newhealth -= 35.0;
 			case WEAPON_AK47: newhealth -= 35.0;
 			case WEAPON_RIFLE: newhealth -= 100.0;
@@ -285,3 +341,4 @@ hook OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid,  bodypart)
 	}
 	return 1;
 }
+*/

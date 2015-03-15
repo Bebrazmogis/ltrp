@@ -84,7 +84,7 @@ new DbHandle;
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-//#define BEBRAS_HOME_MODE
+#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"
@@ -7387,6 +7387,19 @@ CMD:testac(playerid, params[])
     SendClientMessage(playerid, COLOR_GREEN, string);
     return 1;
 }
+CMD:test(playerid)
+{
+    TogglePlayerControllable(playerid, false);
+    new Float:x, Float:y, Float:z;
+    GetPlayerPos(playerid, x, y, z);
+    defer LOLTIMeR(x ,y ,z);
+    return 1;
+}
+
+timer LOLTIMeR[100](Float:X, Float:Y, Float:Z)
+{
+    CreateExplosion(X, Y, Z, 2, 20.0);
+}
 
 CMD:housefurnituredump(playerid, params[])
 {
@@ -7449,6 +7462,9 @@ public OnGameModeExit()
 
 public OnPlayerRequestClass(playerid, classid)
 {
+    #if defined DEBUG
+        printf("OnPlayerRequestClass(%s, %d)", GetName(playerid), classid);
+    #endif
     switch( random( 3 ) )
     {
         case 0:
@@ -21320,29 +21336,13 @@ stock IsDriveByWeapon(weaponid)
 
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
+    printf("OnPlayerWeaponShot");
     if(!IsPlayerWeaponInMemory(playerid, weaponid))
     {
         SendClientMessage(playerid, COLOR_LIGHTRED, "-.- Naujas AC norëjo kà tik tave uþblokuoti, ðiaip ne taip iðgelbëjau...");
         new string[128];
         format(string, sizeof(string),"Weapons.p : OnPlayerWeaponShot(%d, %d, %d, %d, %f, %f, %f)", playerid, weaponid, hittype, hitid, fX, fY, fZ);
         ACTestLog(string);
-    }
-    static justCount[ MAX_PLAYERS ];
-    justCount[playerid]++;
-    if(hittype == BULLET_HIT_TYPE_PLAYER)
-    {
-        if(weaponid == 38)
-            return 0;
-        if(justCount[ playerid ] % 10 == 0) 
-        {
-            if(!IsPlayerWeaponInDB(playerid,weaponid))
-            {
-                new string[128];
-                format(string, sizeof(string), "Player %s weapon %d is not in DB.", GetName(playerid), weaponid);
-                ACTestLog(string);
-                return 0;
-            }
-        }
     }
     return 1;
 }
@@ -27225,7 +27225,7 @@ stock SpawnPlayerEx( playerid )
             }
             else
             {
-                SetSpawnInfo            ( playerid, NO_TEAM, pInfo[ playerid ][ pSkin ], fInfo[ 2 ][ fSpawn ][ 0 ], fInfo[ 2 ][ fSpawn ][ 1 ] ,fInfo[ 2 ][ fSpawn ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
+                SetSpawnInfo(playerid, NO_TEAM, pInfo[ playerid ][ pSkin ], 2032.8749,-1407.3094,17.1864, 0, 0, 0, 0, 0, 0, 0);
                 SetPlayerInterior(playerid, 0);
                 SetPlayerVirtualWorld(playerid, 0);
                 pInfo[playerid][pDeaths] ++;

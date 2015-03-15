@@ -2008,7 +2008,7 @@ CMD:biz(playerid)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs turite bûti verslo viduje arba prie áëjimo.");
 
     if(!IsPlayerBusinessOwner(playerid, bizIndex)) 
-        return SendClientMessage(playerid,GRAD,"Verslas nëra jûsø, todel Jûs jo valdyti");
+        return SendClientMessage(playerid,GRAD,"Verslas nëra jûsø, todel Jûs jo valdyti negalite");
 
     lockstatus = (IsBusinessLocked(bizIndex)) ? ("Uþrakinta") : ("Atrakinta");
     switch(bInfo[ bizIndex ][ bType ])
@@ -2606,7 +2606,7 @@ BusinessManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem
                 return BusinessManagementDialog.ShowMain(playerid);
 
             new string[128];
-            new Cache:result = mysql_query(DbHandle, "SELECT id, owner, price FROM business WHERE IS NOT NULL owner");
+            new Cache:result = mysql_query(DbHandle, "SELECT id, owner, price FROM business WHERE owner IS NOT NULL");
             for(new i = 0; i < cache_get_row_count(); i++)
             {
                 mysql_format(DbHandle, string, sizeof(string), "INSERT INTO `komp`(kam, ka, kiek) VALUES(%d, %d, %d)",
