@@ -427,6 +427,11 @@ stock IsPlayerInAnyGarage(playerid)
     return false;
 }
 
+stock IsPlayerInRangeOfGarageExit(playerid, garageindex, Float:distance)
+{
+    return IsPlayerInRangeOfPoint(playerid, distance, gInfo[ garageindex ][ gExit ][ 0 ], gInfo[ garageindex ][ gExit ][ 1 ], gInfo[ garageindex ][ gExit ][ 2 ]);
+}
+
 stock IsGarageLocked(garageindex)
 {
     return gInfo[ garageindex ][ gLocked ];

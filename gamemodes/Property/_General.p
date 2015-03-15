@@ -1080,6 +1080,9 @@ CMD:exit(playerid)
         Float:z;
     if(index != -1 && IsPlayerInHouse(playerid, index))
     {
+        if(!IsPlayerInRangeOfHouseExit(playerid, index, 5.0))
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite naudoti ðios komandos nebûdami prie iðëjimo.");
+
         if(IsHouseLocked(index)) 
             return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
 
@@ -1101,6 +1104,9 @@ CMD:exit(playerid)
     index = GetPlayerBusinessIndex(playerid);
     if(index != -1 && IsPlayerInBusiness(playerid, index))
     {
+        if(!IsPlayerInRangeOfBusinessExit(playerid, index, 5.0))
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite naudoti ðios komandos nebûdami prie iðëjimo.");
+
         if(IsBusinessLocked(index)) 
             return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
 
@@ -1115,6 +1121,8 @@ CMD:exit(playerid)
     index = GetPlayerGarageIndex(playerid);
     if(index != -1)
     {
+        if(!IsPlayerInRangeOfGarageExit(playerid, index, 5.0))
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite naudoti ðios komandos nebûdami prie iðëjimo.");
         if(IsGarageLocked(index)) 
             return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
 

@@ -1264,6 +1264,10 @@ stock IsPlayerInAnyBusiness(playerid)
     return false;
 }
 
+stock IsPlayerInRangeOfBusinessExit(playerid, bizindex, Float:distance)
+{
+    return IsPlayerInRangeOfPoint(playerid, distance, bInfo[ bizindex ][ bExit ][ 0 ], bInfo[ bizindex ][ bExit ][ 1 ], bInfo[ bizindex ][ bExit ][ 2 ]);
+}
 
 
 stock GetPlayerBusinessIndex(playerid)

@@ -251,21 +251,6 @@ hook OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, 
 	return 1;
 }
 
-/*
-9mm - 30
-Silenced 9mm - 30
-Desert Eagle - 70
-Tec-9 - 28
-Micro SMG - 28
-SMG - 35
-Shotgun - 10
-Sawnoff Shotgun - 10
-Combat Shotgun - 15
-M4 - 35
-AK47 - 35
-Rifle - 100
-Sniper Rifle - 250
-*/
 hook OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid,  bodypart)
 {
 	new Float:newhealth, bool:custom_damage = true;

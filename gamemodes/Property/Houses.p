@@ -598,6 +598,11 @@ stock IsPlayerInRangeOfHouseFurniture(playerid, hindex, findex, Float:distance)
     return IsPlayerInRangeOfPoint(playerid, distance, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
 }
 
+stock IsPlayerInRangeOfHouseExit(playerid, hindex, Float:distance)
+{
+    return IsPlayerInRangeOfPoint(playerid, distance, hInfo[ hindex ][ hExit ][ 0 ], hInfo[ hindex ][ hExit ][ 1 ], hInfo[ hindex ][ hExit ][ 2 ]);
+}
+
 stock GetHouseFurnitureName(hindex, findex)
 {
     new s[MAX_FURNITURE_NAME ];
