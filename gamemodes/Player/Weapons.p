@@ -268,7 +268,7 @@ hook OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid,  bodypart)
 			case WEAPON_TEC9: newhealth -= 28.0;
 			case WEAPON_UZI: newhealth -= 28.0;
 			case WEAPON_MP5: newhealth -= 35.0;
-			case WEAPON_SHOTGUN: newhealth -= 10.0;
+			case WEAPON_SHOTGUN: newhealth -= 30.0;
 			case WEAPON_SAWEDOFF: newhealth -= 10.0;
 			case WEAPON_SHOTGSPA: newhealth -= 15.0;
 			case WEAPON_M4: newhealth -= 35.0;
