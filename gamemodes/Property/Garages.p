@@ -16,6 +16,7 @@
 #define MIN_GARAGE_PRICE                0
 #define MAX_GARAGE_PRICE                999999
 
+#define GARAGE_VIRTUAL_WORLD        (40000)
 
 #define GARAGE_LABEL_DRAW_DISTANCE      20.0
 

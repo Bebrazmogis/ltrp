@@ -153,6 +153,22 @@ stock Data_SetPlayerCheckPointEx(playerid, checkpointid, key[], Float:size)
 }
 
 
+static UpdateCoordinateData(coordindex)
+{
+	new query[256];
+	mysql_format(DbHandle, query, sizeof(query), "UPDATE coordinates SET x = %f, y = %f, z = %f, angle = %f, interior = %d, virtual_world = %d, `key` = '%s', comment = '%e' WHERE id = %d",
+		CoordinateData[ coordindex ][ PosX ],
+		CoordinateData[ coordindex ][ PosY ],
+		CoordinateData[ coordindex ][ PosZ ],
+		CoordinateData[ coordindex ][ PosAngle ],
+		CoordinateData[ coordindex ][ Interior ],
+		CoordinateData[ coordindex ][ VirtualWorld ],
+		CoordinateData[ coordindex ][ Key ],
+		CoordinateData[ coordindex ][ Comment ],
+		CoordinateData[ coordindex ][ Id ]
+	);
+	return mysql_pquery(DbHandle, query);
+}
 /*
 			                                                                                                         
 			                                                                                                         
@@ -178,3 +194,166 @@ stock Data_SetPlayerCheckPointEx(playerid, checkpointid, key[], Float:size)
 			                                           6'     dP         
 			                                           Ybmmmd'           
 */
+
+
+
+#define CoordinateManagementDialog. 	CM_D_
+
+#define DIALOG_COORD_MENU_INPUT_COMMENT 9801
+#define DIALOG_COORD_MENU_MAIN			9800
+#define DIALOG_COORD_MENU_INPUT_COORDS 	9802
+#define DIALOG_COORD_MENU_INPUT_INT_VW 	9803
+#define DIALOG_COORD_MENU_OPTIONS 		9004
+
+
+static PlayerUsedCoordinateIndex[ MAX_PLAYERS ];
+
+
+stock CoordinateManagementDialog.ShowMain(playerid)
+{	
+	new string[2048];
+	for(new i = 0; i < sizeof(CoordinateData); i++)
+	{
+		if(isnull(CoordinateData[ i ][ Comment ]))
+			format(string, sizeof(string), "%s%s\n",
+				string, CoordinateData[ i ][ Key ]);
+		else 
+			format(string, sizeof(string), "%s%s\n",
+				string, CoordinateData[ i ][ Comment ]);
+	}
+	ShowPlayerDialog(playerid, DIALOG_COORD_MENU_MAIN, DIALOG_STYLE_LIST, "Koordinaèiø valdymas", string, "Pasirinkti", "Iðeiti");
+	return 1;
+}
+
+stock CoordinateManagementDialog.InputCoordinates(playerid, errostr[] = "")
+{
+	new Float:x, Float:y, Float:z, string[256];
+	GetPlayerPos(playerid, x, y, z);
+	SetPVarFloat(playerid, "Coords.X", x);
+	SetPVarFloat(playerid, "Coords.Y", y);
+	SetPVarFloat(playerid, "Coords.Z", z);
+	format(string, sizeof(string), "{FF0000}%s\n{FFFFFF}Jûsø dabartinës koordinatës X:%f Y:%f Z:%f\nNorëdami naudoti jas raðykite \"Naudoti mano\"\n\nArba áveskit naujas formatu: x y z", errostr, x, y, z);
+	ShowPlayerDialog(playerid, DIALOG_COORD_MENU_INPUT_COORDS, DIALOG_STYLE_INPUT, "Koordinatës", string, "Tæsti", "Iðeiti");
+	return 1;
+}
+
+stock CoordinateManagementDialog.InputInteriorWorld(playerid, errostr[] = "")
+{
+	new string[170];
+	format(string, sizeof(string), "{FF0000}%s\n{FFFFFF}Jûsø dabartinis interjeras: %d.\nJûsø dabartinis virtualus pasaulis: %d.\n\nÁveskite naujà interjerà ir virtualøjá pasaulá", 
+		errostr, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid));
+	ShowPlayerDialog(playerid, DIALOG_COORD_MENU_INPUT_INT_VW, DIALOG_STYLE_INPUT, "Interjeras & virtualus pasaulis", string, "Tæsti", "Iðeiti");
+	return 1;
+}
+
+stock CoordinateManagementDialog.InputComment(playerid, errostr[] = "")
+{
+	new string[180];
+	format(string, sizeof(string), "{FF0000}%s\n{FFFFFF}Ðis tekstas skirti padëti skirti koordinaèiø paskirtá.\nÁveskite tai kas bus aiðku jums ir kitiems administratoriams.", errostr);
+	ShowPlayerDialog(playerid, DIALOG_COORD_MENU_INPUT_COMMENT, DIALOG_STYLE_INPUT, "Komentaras", string, "Tæsti", "Iðeiti");
+	return 1;
+}
+
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+{
+	switch(dialogid)
+	{
+		case DIALOG_COORD_MENU_MAIN:
+		{
+			if(!response)
+				return 1;
+
+			PlayerUsedCoordinateIndex[ playerid ] = listitem;
+			ShowPlayerDialog(playerid, DIALOG_COORD_MENU_OPTIONS, DIALOG_STYLE_LIST, "Pasirinkite veiksma", "Eiti á pozicijà\nKeisti pozicijà\nKeisti interjerà ir virtualø pasaulá\nKeisti komentarà", "Pasirinkti", "Iðeiti");
+			return 1;	
+		}
+		case DIALOG_COORD_MENU_OPTIONS:
+		{
+			if(!response)
+				return CoordinateManagementDialog.ShowMain(playerid);
+
+			switch(listitem)
+			{
+				case 0: 
+				{
+					SetPlayerInterior(playerid, CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ Interior ]);
+					SetPlayerPos(playerid, CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ PosX ],
+						CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ PosY ],
+						CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ PosZ ]);
+					SetPlayerVirtualWorld(playerid, CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ VirtualWorld ]);
+				}
+				// Keisti pozicijà
+				case 1:
+				{
+					CoordinateManagementDialog.InputCoordinates(playerid);
+				}
+				// Keisti interjerà ir virtualø pasaulá
+				case 2:
+				{
+					CoordinateManagementDialog.InputInteriorWorld(playerid);
+				}
+				// Keisti komentarà
+				case 3:
+				{
+					CoordinateManagementDialog.InputComment(playerid);
+				}
+			}
+			return 1;
+		}
+		case DIALOG_COORD_MENU_INPUT_COORDS:
+		{
+			if(!response)
+				return CoordinateManagementDialog.ShowMain(playerid);
+
+			
+			new Float:x, Float:y, Float:z;
+			if(!isnull(inputtext) && !strcmp(inputtext, "Naudoti mano", true))
+			{
+				x = GetPVarFloat(playerid, "Coords.X");
+				y = GetPVarFloat(playerid, "Coords.Y");
+				z = GetPVarFloat(playerid, "Coords.Z");
+			}
+			else if(sscanf(inputtext, "fff", x, y, z))
+				return CoordinateManagementDialog.InputCoordinates(playerid, "Áveskite tris skaièius.");
+
+			CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ PosX ] = x;
+			CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ PosY ] = y;
+			CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ PosZ ] = z;
+			UpdateCoordinateData(PlayerUsedCoordinateIndex[ playerid ]);
+			SendClientMessage(playerid, COLOR_NEWS, "Koordinatës sëkmingai atnaujintos.");
+			return 1;
+		}
+		case DIALOG_COORD_MENU_INPUT_INT_VW:
+		{
+			if(!response)
+				return CoordinateManagementDialog.ShowMain(playerid);
+
+			new interior, world;
+			if(sscanf(inputtext, "ii", interior, world))
+				return CoordinateManagementDialog.InputInteriorWorld(playerid, "Ávedimo formatas: [Intereras ] [Virtualus pasaulis]");
+
+			if(interior < 0 || world < 0)
+				return CoordinateManagementDialog.InputInteriorWorld(playerid, "Interjeras ir virtualus pasaulis negali bûti neigiami.");
+
+			CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ Interior ] = interior;
+			CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ VirtualWorld ] = world;
+			UpdateCoordinateData(PlayerUsedCoordinateIndex[ playerid ]);
+			SendClientMessage(playerid, COLOR_NEWS, "Duomenys sëkmingai atnaujinti.");
+			return 1;
+		}
+		case DIALOG_COORD_MENU_INPUT_COMMENT:
+		{
+			if(!response)
+				return CoordinateManagementDialog.ShowMain(playerid);
+
+			if(isnull(inputtext) || strlen(inputtext) >= MAX_COORDINATE_COMMENT)
+				return CoordinateManagementDialog.InputComment(playerid, "Komentarà gali sudaryti nuo 1 iki " #MAX_COORDINATE_COMMENT " simboliø.");
+
+			format(CoordinateData[ PlayerUsedCoordinateIndex[ playerid ] ][ Comment ], MAX_COORDINATE_COMMENT, inputtext);
+			UpdateCoordinateData(PlayerUsedCoordinateIndex[ playerid ]);
+			SendClientMessage(playerid, COLOR_NEWS, "Komentaras sëkmingai atnaujintas.");
+			return 1;
+		}
+	}
+	return 0;
+}

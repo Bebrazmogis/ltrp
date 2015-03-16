@@ -14,6 +14,7 @@
 
 #define HOUSE_VIRTUAL_WORLD         (10000)
 
+
 #define HOUSE_OWNER_NULL                0
 
 #define DIALOG_HOUSE_RADIO              73

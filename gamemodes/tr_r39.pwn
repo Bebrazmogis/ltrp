@@ -67,12 +67,6 @@ stock abs(value)
 #define AC_MAX_SPEED            (230)       // Didþiausias veikëjo / maðinos judëjimo greitis
 #define AC_SPEED(%0,%1,%2,%3,%4) floatround(floatsqroot(%4?(%0*%0+%1*%1+%2*%2):(%0*%0+%1*%1))*%3*1.6)
 
-#define HOUSE_VIRTUAL_WORLD         (10000)
-#define BUSINESS_VIRTUAL_WORLD      (30000)
-#define GARAGE_VIRTUAL_WORLD        (40000)
-
-#define     MAX_FURNITURES 10000
-#define     MAX_HFURNS     200
 
 #undef  MAX_PLAYERS
 #define MAX_PLAYERS 256
@@ -84,7 +78,7 @@ new DbHandle;
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-#define BEBRAS_HOME_MODE
+//#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"
@@ -107,15 +101,20 @@ new DbHandle;
 
 
 /*                  Mysql prisijungimo pabaiga                                  */
-#define KEY_HORN 2 //PD`ams
+
+
 #undef  MAX_VEHICLES
 #define MAX_VEHICLES 500
+
 #undef  INVALID_TEXT_DRAW
 #define INVALID_TEXT_DRAW   Text:0xFFFF
+
 #undef  INVALID_MENU
 #define INVALID_MENU        Menu:0xFF
+
 #undef INVALID_3DTEXT_ID
 #define INVALID_3DTEXT_ID   Text3D:0xFFFF
+
 #define INTERIORMENU 4337
 #define INTERIORMENU2 5337
 
@@ -19016,7 +19015,8 @@ CMD:amenu(playerid)
                                                                  - Automobiliø turgus\n\
                                                                  - Garaþai\n\
                                                                  - Industrijos\n\
-                                                                 - Interjerai","Rinktis","Atðaukti");
+                                                                 - Interjerai\n\
+                                                                 - Ávairios koordinatës","Rinktis","Atðaukti");
     }
     return 1;
 }
@@ -22615,6 +22615,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     return TruckerJob:ShowPlayerDialog(playerid, ActionList);
                 case 9: 
                     return InteriorManagementDialog.ShowMain(playerid);
+                case 10: 
+                    return CoordinateManagementDialog.ShowMain(playerid);
             }
         }
     }
@@ -26444,78 +26446,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     {
         if(response)
         {
-            if(listitem == 0) // 24/7
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+1, DIALOG_STYLE_LIST, "24/7's", "24/7 Interior 1 \n24/7 Interior 2 \n24/7 Interior 3 \n24/7 Interior 4 \n24/7 Interior 5 \n24/7 Interior 6 \nBack", "Select", "Cancel");
-            }
-            if(listitem == 1) // Airports
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+2, DIALOG_STYLE_LIST, "Airport Interiors", "Francis Ticket Sales Airport \nFrancis Baggage Claim Airport \nAndromada Cargo Hold \nShamal Cabin \nLS Airport Baggage Claim \nInterernational Airport \nAbandoned AC Tower \nBack", "Select", "Cancel");
-            }
-            if(listitem == 2) // Ammunations
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+3, DIALOG_STYLE_LIST, "Ammunation Interiors", "Ammunation 1 \nAmmunation 2 \nAmmunation 3 \nAmmunation 4 \nAmmunation 5 \nBooth Ammunation \nRange Ammunation \nBack", "Select", "Cancel");
-            }
-            if(listitem == 3) // Houses
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+4, DIALOG_STYLE_LIST, "Houses", "B Dup's Apartment\nB Dup's Crack Palace \nOG Loc's House \nRyder's house \nSweet's house \nMadd Dogg's Mansion \nBig Smoke's Crack Palace \nBack", "Select", "Cancel");
-            }
-            if(listitem == 4) // Houses 2
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+5, DIALOG_STYLE_LIST, "Houses 2", "Johnson House \nAngel Pine Trailer \nSafe House \nSafe House 2 \nSafe House 3 \nSafe House 4 \nVerdant Bluffs Safehouse \nWillowfield Safehouse \nThe Camel's Toe Safehouse \nBack", "Select", "Cancel");
-            }
-            if(listitem == 5) // Missions
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+6, DIALOG_STYLE_LIST, "Missions", "Atrium \nBurning Desire Building \nColonel Furhberger \nWelcome Pump \nWu Zi Mu's Apartement \nJizzy's \nDillimore Gas Station \nJefferson Motel \nLiberty City \nSherman Dam \nBack", "Select", "Cancel");
-            }
-            if(listitem == 6) // Missions 2
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+7, DIALOG_STYLE_LIST, "Stadiums", "RC War Arena \nRacing Stadium \nRacing Stadium 2 \nBloodbowl Stadium \nKickstart Stadium \nBack", "Select", "Cancel");
-            }
-            if(listitem == 7) // Casino Interiors
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+8, DIALOG_STYLE_LIST, "Casino Interiors", "Caligulas Casino \n4 Dragons Casino \nRedsands Casino \n4 Dragons Managerial Suite \nInside Track Betting \nCaligulas Roof \nRosenberg's Caligulas Office \n4 Dragons Janitors Office \nBack", "Select", "Cancel");
-            }
-            if(listitem == 8) // Shops
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+9, DIALOG_STYLE_LIST, "Shop Interiors", "Tattoo \nBurger Shot \nWell Stacked Pizza \nCluckin' Bell \nRusty Donut's \nZero's RC Shop \nSex Shop \nBack", "Select", "Cancel");
-            }
-            if(listitem == 9) // Garages
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+10, DIALOG_STYLE_LIST, "Mod Shops/Garages","Loco Low Co. \nWheel Arch Angels \nTransfender \nDoherty Garage \nBack", "Select", "Cancel");
-            }
-            if(listitem == 10) // Girl Friends
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+11, DIALOG_STYLE_LIST, "CJ's Girlfriends Interiors","Denises Bedroom \nHelena's Barn \nBarbara's Love Nest \nKatie's Lovenest \nMichelle's Love Nest \nMillie's Bedroom \nBack", "Select", "Cancel");
-            }
-            if(listitem == 11) // Clothing & Barber Store
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+12, DIALOG_STYLE_LIST, "Clothing & Barber Store","Barber Shop \nPro-Laps \nVictim \nSubUrban \nReece's Barber Shop \nZip \nDidier Sachs \nBinco \nBarber Shop 2 \nWardrobe \nBack", "Select", "Cancel");
-            }
-            if(listitem == 12) // Resturants & Clubs
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+13, DIALOG_STYLE_LIST, "Resturants & Clubs","Brothel \nBrothel 2 \nThe Big Spread Ranch \nDinner \nWorld Of Coq \nThe Pig Pen \nClub \nJay's Diner \nSecret Valley Diner \nFanny Batter's Whore House \nBack", "Select", "Cancel");
-            }
-            if(listitem == 13) // No Specific Group
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+14, DIALOG_STYLE_LIST, "No Specific Category","Blastin' Fools Records \nWarehouse \nWarehouse 2 \nBudget Inn Motel Room \nLil' Probe Inn \nCrack Den \nMeat Factory \nBike School \nDriving School \nBack", "Select", "Cancel");
-            }
-            if(listitem == 14) // Burglary Houses
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+15, DIALOG_STYLE_LIST, "Burglary Houses","Burglary House 1 \nBurglary House 2 \nBurglary House 3 \nBurglary House 4 \nBurglary House 5 \nBurglary House 6 \nBurglary House 7 \nBurglary House 8 \nBurglary House 9 \nBurglary House 10 \nBack", "Select", "Cancel");
-            }
-            if(listitem == 15) // Burglary Houses 2
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+16, DIALOG_STYLE_LIST, "Burglary Houses 2","Burglary House 11 \nBurglary House 12 \nBurglary House 13 \nBurglary House 14 \nBurglary House 15 \nBurglary House 16 \nBack", "Select", "Cancel");
-            }
-            if(listitem == 16) // Gyms
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+17, DIALOG_STYLE_LIST, "Gyms","Los Santos Gym \nSan Fierro Gym \nLas Venturas Gym \nBack", "Select", "Cancel");
-            }
-            if(listitem == 17) // Departements
-            {
-            ShowPlayerDialog(playerid, INTERIORMENU+18, DIALOG_STYLE_LIST, "Departments","SF Police Department \nLS Police Department \nLV Police Department \nPlanning Department\nBack", "Select", "Cancel");
-            }
             if(listitem == 18) // {FF0000} Custom Interriorai
             {
             ShowPlayerDialog(playerid, INTERIORMENU+19, DIALOG_STYLE_LIST, "Custom mapai","Poþeminis Casino\n\
