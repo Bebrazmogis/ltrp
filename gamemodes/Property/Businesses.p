@@ -2212,6 +2212,7 @@ CMD:sellbiz(playerid, params[])
 #define DIALOG_BMENU_SELECT_TYPE        6003
 #define DIALOG_BMENU_NEW_PICKUP_MODEL   6004
 #define DIALOG_BMENU_CONFIRM_WIPE       6005
+#define DIALOG_BMENU_NEW_PRODUCT_AMOUNT 6006
 
 static PlayerUsedBusinessIndex[ MAX_PLAYERS ] = {-1, ... };
 
@@ -2225,7 +2226,8 @@ enum E_BUSINESS_INDEX_USAGE
     BusinessInteriorChange,
     BusinessInformation,
     BusinessInputNewPickupModel,
-    BusinessSelectNewType
+    BusinessSelectNewType,
+    BusinessSetProductAmount,
 };
 
 
@@ -2242,6 +2244,7 @@ stock BusinessManagementDialog.ShowMain(playerid)
         - Verslo informacija\n\
         - Keisti tipà\n\
         - Keisti pickup modelá\n\
+        - Keisti prekiø kieká\n\
         - Iðtrinti ir kompensuoti visus biznius",
         "Rinktis", "Atðaukti" );
     return 1;
@@ -2334,6 +2337,20 @@ stock BusinessManagementDialog.SelectNewType(playerid)
     return 1;
 }
 
+stock BusinessManagementDialog.InputNewProductAmount(playerid, errostr[] = "")
+{
+    new string[64];
+    if(!isnull(errostr))
+    {
+        strcat(string, "{AA0000}");
+        strcat(string, errostr);
+        strcat(string,"\n{FFFFFF}");
+
+    }
+    strcat(string, "Áraðykite norima verslo produktu kieká:");
+    ShowPlayerDialog(playerid, DIALOG_BMENU_NEW_PRODUCT_AMOUNT, DIALOG_STYLE_INPUT,"Verslo produktu kiekio pakeitimas", string, "Patvirtinti", "Atðaukti");
+    return 1;
+}
 
 stock BusinessManagementDialog.InputNewPickupModel(playerid, errostr[] = "")
 {
@@ -2477,8 +2494,20 @@ BusinessManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem
                         BusinessManagementDialog.InputNewPickupModel(playerid);
                     }
                 }
-                // Visø verslø paðalinimas ir þaidëjams pinigø atidavimas.
+                // Keisti prekiø kieká
                 case 10:
+                {
+                    if(index == -1)
+                    {
+                        BusinessManagementDialog.InputIndex(playerid, BusinessSetProductAmount);
+                    }
+                    else 
+                    {
+                        BusinessManagementDialog.InputNewProductAmount(playerid);
+                    }
+                }
+                // Visø verslø paðalinimas ir þaidëjams pinigø atidavimas.
+                case 11:
                 {
                     BusinessManagementDialog.ConfirmWipe(playerid);
                 }
@@ -2529,6 +2558,7 @@ BusinessManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem
                 case BusinessInformation: BusinessManagementDialog.Information(playerid, index);
                 case BusinessInputNewPickupModel: BusinessManagementDialog.InputNewPickupModel(playerid);
                 case BusinessSelectNewType: BusinessManagementDialog.SelectNewType(playerid);
+                case BusinessSetProductAmount: BusinessManagementDialog.InputNewProductAmount(playerid);
             }
             DeletePVar(playerid, "IndexUsage");
             return 1;
@@ -2573,6 +2603,24 @@ BusinessManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem
             Streamer_Update(playerid);
 
             format(string, sizeof(string),"Verslo pickup modelis sëkmingai pakeistas á %d. Jau turëtumëte já matyti", model);
+            SendClientMessage(playerid, COLOR_NEWS, string);
+            return 1;
+        }
+        case DIALOG_BMENU_NEW_PRODUCT_AMOUNT:
+        {
+            if(!response)
+                return BusinessManagementDialog.ShowMain(playerid);
+
+            new amount, string[80];
+            if(sscanf(inputtext, "i", amount))
+                return BusinessManagementDialog.InputNewProductAmount(playerid, "Praðome ávesti skaièiø.");
+
+            if(amount < 0 || amount > MAX_BUSINESS_PRODUCTS)
+                return BusinessManagementDialog.InputNewProductAmount(playerid, "Produktø kiekis negali bûti maþesnis uþ 0 ar didesnis uþ " #MAX_BUSINESS_PRODUCTS " .");
+
+            UpdateBusinessProducts(PlayerUsedBusinessIndex[ playerid ], amount);
+
+            format(string, sizeof(string), "Verslo produktu kiekis sëkmingai pakeistas. Naujasis kiekis: %d", amount);
             SendClientMessage(playerid, COLOR_NEWS, string);
             return 1;
         }

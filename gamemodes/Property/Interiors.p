@@ -370,8 +370,9 @@ hook OnPlayerDisconnect(playerid, reason)
 
 stock EndInteriorPreviewForPlayer(playerid)
 {
+	SendClientMessage(playerid, 0x00FF00FF, "EndInteriorPreviewForPlayer");
 	IsPlayerInPreview[ playerid ] = false;
-	
+
 	SetPlayerPos(playerid, 
 		GetPVarFloat(playerid, "PreviewStartX"),
 		GetPVarFloat(playerid, "PreviewStartY"),
@@ -438,7 +439,7 @@ stock ShowInteriorPreviewForPlayer(playerid, category[] = "")
 stock GetNextInteriorInCategory(categoryindex, start = -1)
 {
 	for(new i = start+1; i < sizeof InteriorData; i++)
-		if(InteriorData[ i ][ CategoryIndex ] == categoryindex)
+		if(categoryindex == -1 || InteriorData[ i ][ CategoryIndex ] == categoryindex)
 			return i;
 	return -1;
 }
@@ -447,10 +448,13 @@ stock GetNextInteriorInCategory(categoryindex, start = -1)
 stock GetPreviousInteriorInCategory(categoryindex, start = 1)
 {
 	for(new i = start - 1; i != -1; i--)
-		if(InteriorData[ i ][ CategoryIndex ] == categoryindex)
+		if(categoryindex == -1 || InteriorData[ i ][ CategoryIndex ] == categoryindex)
 			return i;
 	return -1;
 }
+
+stock IsPlayerInInteriorPreview(playerid)
+	return IsPlayerInPreview[ playerid ];
 
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
@@ -501,7 +505,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 timer ReturnToInteriorTimer[1000](playerid)
 {
-	if(!IsPlayerInAnyInterior(playerid))	
+	if(!IsPlayerInAnyInterior(playerid) && IsPlayerInPreview[ playerid ])	
 		EndInteriorPreviewForPlayer(playerid);
 }
 
@@ -921,7 +925,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						InteriorManagementDialog.InputId(playerid, InteriorRemove);
 				}
 				// Interjerø perþiûra
-				case 2: ShowInteriorPreviewForPlayer(playerid);
+				case 2: 
+				{
+					if(IsPlayerInInteriorPreview(playerid))
+						return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau perþiûrinëjate interjerus.");
+
+					ShowInteriorPreviewForPlayer(playerid);
+				}
 				// Dabartinio interjero informacija
 				case 3: 
 				{
