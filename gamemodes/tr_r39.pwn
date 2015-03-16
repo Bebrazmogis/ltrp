@@ -1004,6 +1004,7 @@ new Fire[MAX_FIRE][fires];
 
 
 #include "Tabula\TAC.pwn" // AntiCheatas
+#include "Coordinates"
 
 #include "FishingSystem"
 #include "Job_TaxiDriver"
@@ -9287,7 +9288,8 @@ CMD:make( playerid, params[ ] )
 CMD:buyseeds( playerid, params[ ] )
 {
     #pragma unused params
-    if ( !PlayerToPoint( 5, playerid, -384.2127,-1438.9563,26.3203 ) ) return SendClientMessage( playerid, GRAD, "Gaila, bet ðiuo metu aplinkui Jus nëra vietos susijusios su juodajà rinka. Ieðkokite toliau.");
+    if(!Data_IsPlayerInRangeOfCoords(playerid, 5.0, "job_dealer_seeds_buy"))
+        return SendClientMessage( playerid, GRAD, "Gaila, bet ðiuo metu aplinkui Jus nëra vietos susijusios su juodajà rinka. Ieðkokite toliau.");
     if ( PlayerMoney[ playerid ] < 200 ) return SendClientMessage( playerid ,GRAD, "{FF6347}Klaida, Jûs neturite pakankamai grynøjø pinigø. ");
     if ( pInfo[ playerid ][ pJob ] != JOB_DRUGS) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðia galimybe nebødamas narkotiku prekeiviu." );
     if ( !AddItemToInventory( playerid, ITEM_SEED, 10) ) return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Klaida, Jûsø inventoriuje nëra laisvos vietos, kad atliktumët ðá veiksmà..");
@@ -9392,7 +9394,8 @@ CMD:cutdownweed( playerid, params[ ] )
 }
 CMD:buymats( playerid, params[ ] )
 {
-    if ( !PlayerToPoint( 5.0, playerid, -2074.3081,-2246.5073,31.6890 ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate paketø pirkimo vietoje. " );
+    if(!Data_IsPlayerInRangeOfCoords(playerid, 5.0, "job_dealer_material_buy")) 
+        return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate paketø pirkimo vietoje. " );
     if ( pInfo[ playerid ][ pJob ] != JOB_GUN ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate ginklø prekeivis. " );
     new mat,
         string[ 70 ];
@@ -10259,7 +10262,7 @@ CMD:checkalco( playerid, params[ ] )
 
 CMD:ad( playerid, params[ ] )
 {
-    if ( !PlayerToPoint( 10.0, playerid, 1128.8257,-1489.5168,22.7690 ) ) 
+    if(!Data_IsPlayerInRangeOfCoords(playerid, 10.0, "advertisement_center")) 
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, reklamas á eterá galite skelbti (/ad) tik reklamos skyriuje, kuris yra Verona Mall." );
     if ( gettime() - LastPlayerAd[ playerid ] <= 30 && pInfo[ playerid ][ pDonator ] == 0 )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, skelbimà galite raðyti tik prabëgus 30 sekundþiø po buvusio skelbimo paraðymo. " );
@@ -10864,7 +10867,7 @@ CMD:fdclothes( playerid, params[ ] )
 	if ( PlayerFaction( playerid ) != 2 )
 	    return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami ugniagesiø departamente.");
 
-	if(!IsPlayerInRangeOfPoint(playerid, 70.0, 1474.1597,-2749.4836,5285.2856 ))
+	if(!Data_IsPlayerInRangeOfCoords(playerid, 70.0, "job_firefighter_clothes"))
 		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite persirengti nebûdamas persirengimo kabinoje/kambaryje.");
 
 	ShowModelSelectionMenu ( playerid, skinlist, "Select Skin" ) ;
@@ -11346,7 +11349,7 @@ CMD:arrestcar( playerid, params[ ] )
     if ( car == INVALID_VEHICLE_ID || cInfo[ car ][ cOwner ] == 0 )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: áalia jûsø nerasta automobiliø");
 
-    if ( !PlayerToPoint( 40, playerid, 1579.8357,-1631.1736,13.3828 ) )
+    if (!Data_IsPlayerInRangeOfCoords(playerid, 40.0, "job_police_confiscated_garage"))
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate prië policijos konfiskuotu automobiliu garaþø.");
 
     GetVehiclePos   ( car, cInfo[ car ][ cSpawn ][ 0 ], cInfo[ car ][ cSpawn ][ 1 ], cInfo[ car ][ cSpawn ][ 2 ]);
@@ -11832,7 +11835,7 @@ CMD:throwgarbage(playerid)
     if(!ShowPlayerTrashMissionCP(playerid, TrashMission[ playerid ], CurrentTrashCp[ playerid ])
         || TrashBagsInTrashVehicle[ vehicleid ] >= GetTrashMissionCPCount(TrashMission[ playerid ]))
     {
-        SetPlayerCheckPointEx(playerid, CHECKPOINT_TRASH_DROPOFF, 384.5185,893.3473,20.4523, 5.0);
+        Data_SetPlayerCheckPointEx(playerid, CHECKPOINT_TRASH_DROPOFF, "job_trash_dropoff", 5.0);
         SendClientMessage(playerid, COLOR_NEWS, "Jûsø sunkveþimis pilnas. Veþkite ðiukðles á ðiukðlynà .");
     }
     else 
@@ -12762,7 +12765,7 @@ CMD:sellcar( playerid, params[ ] )
         SendClientMessage( playerid, COLOR_LIGHTRED, string );
         return 1;
     }
-    if ( PlayerToPoint( 10.0, playerid, 868.8514,-30.3725,63.1953 ) )
+    if(Data_IsPlayerInRangeOfCoords(playerid, 10.0, "jacker_buy_spot_1"))
     {
         if ( JackerBoughtVehicles[ 0 ][ VehicleModel ] > 0 && JackerBoughtVehicles[ 0 ][ AmountNeeded ] > 0 )
         {
@@ -12804,7 +12807,7 @@ CMD:sellcar( playerid, params[ ] )
         }
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, jeigu iðkilo problemø praneðkite bûtinai apie tai diskusijø forume." );
     }
-    else if ( PlayerToPoint( 10.0, playerid, 2827.3010,896.9294,10.2169 ) )
+    else if(Data_IsPlayerInRangeOfCoords(playerid, 10.0, "jacker_buy_spot_2"))
     {
         if ( JackerBoughtVehicles[ 1 ][ VehicleModel ] > 0 && JackerBoughtVehicles[ 1 ][ AmountNeeded ] > 0 )
         {
@@ -12846,7 +12849,7 @@ CMD:sellcar( playerid, params[ ] )
         }
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, jeigu iðkilo problemø praneðkite bûtinai apie tai diskusijø forume." );
     }
-    else if ( PlayerToPoint( 10.0, playerid, 2207.4143,-2296.2839,14.7647 ) )
+    else if(Data_IsPlayerInRangeOfCoords(playerid, 10.0, "jacker_buy_spot_3"))
     {
         if ( JackerBoughtVehicles[ 2 ][ VehicleModel ] > 0 && JackerBoughtVehicles[ 2 ][ AmountNeeded ] > 0 )
         {
@@ -12890,21 +12893,20 @@ CMD:sellcar( playerid, params[ ] )
     }
     return 1;
 }
-CMD:info( playerid, params[ ] )
+CMD:info(playerid)
 {
-    #pragma unused params
-    if ( pInfo[ playerid ][ pJob ] != JOB_JACKER )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, tik dirbdamas automobiliø vagies darbà galite naudotis ðiuo veiksmu. " );
+    if(pInfo[ playerid ][ pJob ] != JOB_JACKER)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, tik dirbdamas automobiliø vagies darbà galite naudotis ðiuo veiksmu. ");
     new string[ 160 ];
-    if ( PlayerToPoint( 10.0, playerid, 868.8514,-30.3725,63.1953 ) )
-        format( string, sizeof(string), "SMS: Girdëjau ieðkai darbelio, o að ieðkausi %s, pasistengsiu gerai atsilyginti jei tik tinka ir nebijai rizikuoti -Neþinomas siuntëjas.", GetVehicleName( JackerBoughtVehicles[ 0 ][ VehicleModel ] ));
-    else if ( PlayerToPoint( 10.0, playerid, 2827.3010,896.9294,10.2169 ) )
-        format( string, sizeof(string), "SMS: Skubiai ieðkausi %s, visados moku daugiausia uþ kitus, tad manau nenuvilsi manæs. Siuntëjas: Nenustatytas numeris", GetVehicleName( JackerBoughtVehicles[ 1 ][ VehicleModel ] ));
-    else if ( PlayerToPoint( 10.0, playerid, 2207.4143,-2296.2839,14.7647 ) )
-        format( string, sizeof(string), "SMS: Turiu klausimà, apsiimsi %s nuvarymø? Pasirûpinsiu, kad rizika bûtø apmokëta Siuntëjas: Nenustatytas numeris", GetVehicleName( JackerBoughtVehicles[ 2 ][ VehicleModel ] ));
+    if(Data_IsPlayerInRangeOfCoords(playerid, 10.0, "jacker_info_1"))
+        format(string, sizeof(string), "SMS: Girdëjau ieðkai darbelio, o að ieðkausi %s, pasistengsiu gerai atsilyginti jei tik tinka ir nebijai rizikuoti -Neþinomas siuntëjas.", GetVehicleName(JackerBoughtVehicles[ 0 ][ VehicleModel ]));
+    else if(Data_IsPlayerInRangeOfCoords(playerid, 10.0, "jacker_info_2"))
+        format(string, sizeof(string), "SMS: Skubiai ieðkausi %s, visados moku daugiausia uþ kitus, tad manau nenuvilsi manæs. Siuntëjas: Nenustatytas numeris", GetVehicleName( JackerBoughtVehicles[ 1 ][ VehicleModel ] ));
+    else if(Data_IsPlayerInRangeOfCoords(playerid, 10.0, "jacker_info_3"))
+        format(string, sizeof(string), "SMS: Turiu klausimà, apsiimsi %s nuvarymø? Pasirûpinsiu, kad rizika bûtø apmokëta Siuntëjas: Nenustatytas numeris", GetVehicleName( JackerBoughtVehicles[ 2 ][ VehicleModel ] ));
     else
-        format( string, sizeof(string), "SMS: Kodël vis dar negaunu þiniø? Atsisakai darbo? Nelabai patinka man tokie þmonës -Neþinomas siuntëjas");
-    SendClientMessage( playerid, COLOR_LIGHTRED2, string);
+        format(string, sizeof(string), "SMS: Kodël vis dar negaunu þiniø? Atsisakai darbo? Nelabai patinka man tokie þmonës -Neþinomas siuntëjas");
+    SendClientMessage(playerid, COLOR_LIGHTRED2, string);
     return 1;
 }
 CMD:spots( playerid, params[ ] )
@@ -13041,17 +13043,18 @@ stock MoveCamera( playerid, Float:degres, Float:radius, camera )
     SetPlayerCameraLookAt(playerid, WachX[ playerid ], WachY[ playerid ], CCTV[ camera ][ 3 ]);
     return 1;
 }
-CMD:license( playerid, params[ ] )
+CMD:license(playerid)
 {
-    #pragma unused params
-    if ( PlayerToPoint( 5.0, playerid, 1491.0953,1306.8651,1093.2891 ) )
-        ShowPlayerDialog( playerid, 95, DIALOG_STYLE_MSGBOX, "Licenzijos teorijos egzaminas.",
+    if(!Data_IsPlayerInRangeOfCoords(playerid, 5.0, "license_center"))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs ne licenzijavimo center.");
+
+    ShowPlayerDialog( playerid, 95, DIALOG_STYLE_MSGBOX, "Licenzijos teorijos egzaminas.",
                                                            "{FFFFFF}Mes leidþiame laikyti teorijos egzaminà ðiems dalykams\n\
                                                             \t- Automobilio\n\
                                                             \t- Motociklo\n\
                                                             \t- Laivybos\n\
                                                             \t- Pilotavimo\n\
-                                                            Spauskite pradëti, kad pradëtumëte testá .", "Pradëti", "Atðaukti");
+                                                            Spauskite pradëti, kad pradëtumëte testà.", "Pradëti", "Atðaukti");
     return 1;
 }
 CMD:maxspeed( playerid, params[ ] )
@@ -13315,7 +13318,7 @@ CMD:mdc( playerid, params[] )
 }
 CMD:bail( playerid, params[ ] )
 {
-    if(!PlayerToPoint(30.0,playerid,1803.4606,-1520.4922,5700.4302))
+    if(!Data_IsPlayerInRangeOfCoords(playerid, 30.0, "prison_bail_spot"))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, privalote bûti ðalia kalëjimo priemamojo langelio.");
     if( GetPVarInt(playerid, "BailTime") < 1)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra uþ kà mokëti.");
@@ -13346,7 +13349,7 @@ CMD:bail( playerid, params[ ] )
 }
 CMD:prison( playerid, params[ ] )
 {
-    if(!PlayerToPoint(30.0,playerid,1810.2357,-1549.4481,5700.4302))
+    if(!Data_IsPlayerInRangeOfCoords(playerid, 30.0, "ic_prison"))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, norëdami atlikti ðá veiksmà privalote bûti ðalia kalëjimo.");
     if(UsePDCMD(playerid) != 1)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente.");
@@ -13363,7 +13366,7 @@ CMD:prison( playerid, params[ ] )
     if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
     if(pInfo[giveplayerid][pJail] > 0)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjas jau yra kalëjime");
-    if(!PlayerToPoint(30.0,giveplayerid,1810.2357,-1549.4481,5700.4302))
+    if(!Data_IsPlayerInRangeOfCoords(giveplayerid, 30.0, "ic_prison"))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs nesate prie kalëjimo, tad negalite atlikti ðio veiksmo.");
     if( time <= 60)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nustatant kalëjimo laika, minimalus laikas yra 60.");
@@ -13390,8 +13393,7 @@ CMD:prison( playerid, params[ ] )
     pInfo[giveplayerid][pJailTime] = time*60;
     pInfo[giveplayerid][pJail] = 2;
     pInfo[giveplayerid][pWantedLevel] = 0;
-    SetPlayerPos(giveplayerid, 1810.2357,-1549.4481,5700.4302);
-    SetPlayerInterior( giveplayerid, 0 );
+    Data_SetPlayerLocation(giveplayerid, "ic_prison");
     ResetPlayerWeapons(giveplayerid);
     SetPlayerSkin   ( giveplayerid, 8 );
     pInfo[ giveplayerid ][ pSkin ] = 8;
@@ -13401,7 +13403,7 @@ CMD:prison( playerid, params[ ] )
 }
 CMD:arrest( playerid, params[ ] )
 {
-    if(!PlayerToPoint( 20.0, playerid, -10.4591,2054.4517,2126.3862 ))
+    if(!Data_IsPlayerInRangeOfCoords(playerid, 20.0, "ic_custody"))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate prie kalëjimo.");
     if(UsePDCMD(playerid) != 1)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente.");
@@ -13416,7 +13418,7 @@ CMD:arrest( playerid, params[ ] )
     if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
     if(pInfo[giveplayerid][pJail] > 0)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjas jau pasodintas á areðtinæ");
-    if(!PlayerToPoint(40.0, giveplayerid, -10.4591,2054.4517,2126.3862))
+    if(!Data_IsPlayerInRangeOfCoords(giveplayerid, 40.0, "ic_custody"))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, veikëjas nëra ðalia kalëjimo.");
     if( time < 1)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodant areðtavimo laikà, privaloma nurodyti daugiau nei 1 minutæ.");
@@ -13437,8 +13439,7 @@ CMD:arrest( playerid, params[ ] )
     pInfo[giveplayerid][pJailTime] = time*60;
     pInfo[giveplayerid][pJail] = 3;
     pInfo[giveplayerid][pWantedLevel] = 0;
-    SetPlayerPos(giveplayerid, -10.4591,2054.4517,2126.3862);
-    SetPlayerInterior( giveplayerid, 6 );
+    Data_SetPlayerLocation(giveplayerid, "ic_custody");
     ResetPlayerWeapons(giveplayerid);
     SaveAccount( giveplayerid );
     ShowPlayerInfoText( giveplayerid );
@@ -20729,7 +20730,7 @@ public OnPlayerEnterRaceCheckpoint(playerid)
                             GivePlayerMoney            ( playerid, -5600 );
                             PlayerPlaySound            ( playerid, 1057, 0.0, 0.0, 0.0);
                             SetPVarInt                 ( playerid, "LIC_TIME", 0 );
-                            SetPlayerPos( playerid, 355.1429,2534.3264,16.7147 );
+                            Data_SetPlayerLocation(playerid, "license_pilot_end");
                             DisablePlayerRaceCheckpoint( playerid );
                             Checkpoint[ playerid ] = CHECKPOINT_NONE;
                             return 1;
@@ -27126,7 +27127,10 @@ stock SpawnPlayerEx( playerid )
 {
     new
         string[ 256 ],
-        string2[ 256 ];
+        string2[ 256 ],
+        Float:x,
+        Float:y,
+        Float:z;
         
     if(pInfo[ playerid ][ pJailTime ] >= 1 && Mires[playerid] == 0 )
     {
@@ -27134,8 +27138,9 @@ stock SpawnPlayerEx( playerid )
         {
             case 1:
             {
-                SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 2577.7419,2710.3086,22.9507, 0, 0, 0, 0, 0, 0, 0 );
-                SetPlayerVirtualWorld( playerid, playerid );
+                Data_GetCoordinates("ooc_jail", x, y, z);
+                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
+                SetPlayerVirtualWorld(playerid, playerid);
 
                 format( string, sizeof( string ), "SELECT `Priezastis` FROM `nuobaudos` WHERE `Ka` = 'uþdarë á kalëjimá ' AND `Kam` = %d ORDER BY `Data` DESC LIMIT 1", pInfo[ playerid ][ pMySQLID ]);
                 new Cache:result = mysql_query(DbHandle,  string );
@@ -27151,13 +27156,15 @@ stock SpawnPlayerEx( playerid )
             }
             case 2:
             {
-                SetPlayerInterior( playerid, 0 );
-                SetSpawnInfo     ( playerid, 0, pInfo[ playerid ][ pSkin ], 1810.2357,-1549.4481,5700.4302,0, 0, 0, 0, 0, 0, 0 );
+                SetPlayerInterior(playerid, Data_GetInterior("ic_prison"));
+                Data_GetCoordinates("ic_prison", x, y, z);
+                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0);
             }
             case 3:
             {
-                SetPlayerInterior( playerid, 6 );
-                SetSpawnInfo     ( playerid, 0, pInfo[ playerid ][ pSkin ], -10.4591,2054.4517,2126.3862,0, 0, 0, 0, 0, 0, 0 );
+                SetPlayerInterior(playerid, Data_GetInterior("ic_custody"));
+                Data_GetCoordinates("ic_custody", x, y, z);
+                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
             }
         }
     }
@@ -27171,7 +27178,8 @@ stock SpawnPlayerEx( playerid )
                 {
                     case 1:
                     {
-                        SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 2577.7419,2710.3086,22.9507, 0, 0, 0, 0, 0, 0, 0 );
+                        Data_GetCoordinates("ooc_jail", x, y, z);
+                        SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
                         SetPlayerVirtualWorld( playerid, playerid );
 
                         format( string, sizeof( string ), "SELECT `Priezastis` FROM `nuobaudos` WHERE `Ka` = 'uþdarë á kalëjimá ' AND `Kam` = %d ORDER BY `Data` DESC LIMIT 1", pInfo[ playerid ][ pMySQLID ]);
@@ -27188,21 +27196,24 @@ stock SpawnPlayerEx( playerid )
                     }
                     case 2:
                     {
-                        SetPlayerInterior( playerid, 0 );
-                        SetSpawnInfo     ( playerid, 0, pInfo[ playerid ][ pSkin ], 1810.2357,-1549.4481,5700.4302,0, 0, 0, 0, 0, 0, 0 );
+                        SetPlayerInterior(playerid, Data_GetInterior("ic_prison"));
+                        Data_GetCoordinates("ic_prison", x, y, z);
+                        SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0);
                     }
                     case 3:
                     {
-                        SetPlayerInterior( playerid, 6 );
-                        SetSpawnInfo     ( playerid, 0, pInfo[ playerid ][ pSkin ], -10.4591,2054.4517,2126.3862,0, 0, 0, 0, 0, 0, 0 );
+                        SetPlayerInterior(playerid, Data_GetInterior("ic_custody"));
+                        Data_GetCoordinates("ic_custody", x, y, z);
+                        SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
                     }
                 }
             }
             else
             {
-                SetSpawnInfo(playerid, NO_TEAM, pInfo[ playerid ][ pSkin ], 2032.8749,-1407.3094,17.1864, 0, 0, 0, 0, 0, 0, 0);
-                SetPlayerInterior(playerid, 0);
-                SetPlayerVirtualWorld(playerid, 0);
+                Data_GetCoordinates("hospital_discharge", x, y, z);
+                SetSpawnInfo(playerid, NO_TEAM, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0);
+                SetPlayerInterior(playerid, Data_GetInterior("hospital_discharge"));
+                SetPlayerVirtualWorld(playerid, Data_GetVirtualWorld("hospital_discharge"));
                 pInfo[playerid][pDeaths] ++;
 
                 for ( new i = 0; i < INVENTORY_SLOTS; i++ )
@@ -27250,7 +27261,8 @@ stock SpawnPlayerEx( playerid )
         {
             case 1:
             {
-                SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 2577.7419,2710.3086,22.9507, 0, 0, 0, 0, 0, 0, 0 );
+                Data_GetCoordinates("ooc_jail", x, y, z);
+                SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ],x, y ,z, 0, 0, 0, 0, 0, 0, 0 );
                 SetPlayerVirtualWorld( playerid, playerid );
 
                 format( string, sizeof( string ), "SELECT `Priezastis` FROM `nuobaudos` WHERE `Ka` = 'uþdarë á kalëjimá ' AND `Kam` = %d ORDER BY `Data` DESC LIMIT 1", pInfo[ playerid ][ pMySQLID ]);
@@ -27266,13 +27278,15 @@ stock SpawnPlayerEx( playerid )
             }
             case 2:
             {
-                SetPlayerInterior( playerid, 0 );
-                SetSpawnInfo     ( playerid, 0, pInfo[ playerid ][ pSkin ], 1810.2357,-1549.4481,5700.4302,0, 0, 0, 0, 0, 0, 0 );
+                SetPlayerInterior(playerid, Data_GetInterior("ic_prison"));
+                Data_GetCoordinates("ic_prison", x, y, z);
+                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0);
             }
             case 3:
             {
-                SetPlayerInterior( playerid, 6 );
-                SetSpawnInfo     ( playerid, 0, pInfo[ playerid ][ pSkin ], -10.4591,2054.4517,2126.3862,0, 0, 0, 0, 0, 0, 0 );
+                SetPlayerInterior(playerid, Data_GetInterior("ic_custody"));
+                Data_GetCoordinates("ic_custody", x, y, z);
+                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y ,z, 0, 0, 0, 0, 0, 0, 0 );
             }
         }
     }
@@ -27291,7 +27305,6 @@ stock SpawnPlayerEx( playerid )
         {
             switch(pInfo[ playerid ][ pSpawn ])
             {
-                case DefaultSpawn: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 2108.6768,-1764.5018,13.5625,0, 0, 0, 0, 0, 0, 0 );
                 case SpawnHouse:
                 {
                     new housekey;
@@ -27314,16 +27327,27 @@ stock SpawnPlayerEx( playerid )
                     SetPlayerVirtualWorld( playerid, bInfo[ housekey ][ bEntranceVirw ] );
                     SetPlayerInterior    ( playerid, bInfo[ housekey ][ bEntranceInt ] );
                 }
-                case SpawnLosSantos: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 1735.1365,-1951.1968,14.1172,0, 0, 0, 0, 0, 0, 0 );
+                case SpawnLosSantos: 
+                {
+                    Data_GetCoordinates("spawn_los_santos", x, y, z);
+                    SetPlayerInterior(playerid, Data_GetInterior("spawn_los_santos"));
+                    SetPlayerVirtualWorld(playerid, Data_GetVirtualWorld("spawn_los_santos"));
+                    SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0 );
+                }
                 case SpawnGarage:
                 {
-                	new Float:x, Float:y, Float:z;
                 	GetGarageEntrancePos(pInfo[ playerid ][ pBSpawn ], x, y, z);
                     SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
                     SetPlayerVirtualWorld(playerid, GetGarageEntranceVirtualWorld(pInfo[ playerid ][ pBSpawn ]));
                     SetPlayerInterior(playerid, GetGarageEntranceInteriorID(pInfo[ playerid ][ pBSpawn ]));	
                 }
-                default: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], 2108.6768,-1764.5018,13.5625,0, 0, 0, 0, 0, 0, 0 );
+                default:
+                {
+                    Data_GetCoordinates("default_spawn", x, y, z);
+                    SetPlayerInterior(playerid, Data_GetInterior("default_spawn"));
+                    SetPlayerVirtualWorld(playerid, Data_GetVirtualWorld("default_spawn"));
+                    SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0);
+                }
             }
         }
     }
@@ -27538,7 +27562,7 @@ stock UpdatePlayerInfoText(playerid ,plstate = PLAYER_STATE_ONFOOT )
                     SetVehicleToRespawn( OldCar[ playerid ] );
                     DisablePlayerRaceCheckpoint( playerid );
                     if( GetPVarInt( playerid, "LIC_TYPE" ) == 3 )
-                        SetPlayerPos( playerid, 355.1429,2534.3264,16.7147 );
+                        Data_SetPlayerLocation(playerid, "license_pilot_end");
                 }
             }
             if ( PlayerSpeed[ playerid ] > 0 && speed >= PlayerSpeed[ playerid ] )
@@ -28552,18 +28576,6 @@ FUNKCIJA:Sekunde()
             continue;
         }
 
-        if(GetPlayerWeapon(i) && !Mires[ i ])
-        {
-            new weaponid = GetPlayerWeapon(i);
-            if(!IsPlayerWeaponInMemory(i, weaponid))
-            {
-                GetWeaponName(weaponid, string, sizeof(string));
-                SendClientMessage(i, 0xFF0000FF, "Kà tik bûtum buvæs uþblokuotas. Kyla klausimas: ar tu sukèiavai ar ne?");
-                format(string, sizeof(string), "[AC test]Þaidëjas %s GALIMAI cheatino ginklà %s", GetName(i), string);
-                SendAdminMessage(0xff76a1d3, string);
-            }
-        }
-
         new plstate = GetPVarInt( i, "PLAYER_STATE" ),
             IsAfk = GetPVarInt( i, "Is_AFK" );
 
@@ -28628,7 +28640,7 @@ FUNKCIJA:Sekunde()
             if ( pInfo[ i ][ pJail ] == 1 && IsAfk == 1 )
             {
                 new airbrk = GetPVarInt( i, "AIRBRK" );
-                if ( !PlayerToPoint( 10.0, i, 2577.7419, 2710.3086, 22.9507 ) )
+                if (Data_IsPlayerInRangeOfCoords(i, 10.0, "ooc_jail"))
                 {
                     SetPVarInt( i, "AIRBRK", airbrk + 1 );
                     if ( airbrk > 3 )
@@ -28642,7 +28654,7 @@ FUNKCIJA:Sekunde()
             else if ( pInfo[ i ][ pJail ] == 2 )
             {
                 new airbrk = GetPVarInt( i, "AIRBRK" );
-                if ( !PlayerToPoint( 100.0, i, 1810.2357,-1549.4481,5700.4302) && !PlayerToPoint( 100.0, i, 1772.46643,-1548.6113,9.913315) )
+                if (!Data_IsPlayerInRangeOfCoords(i, 100.0, "ic_prison") && !PlayerToPoint( 100.0, i, 1772.46643,-1548.6113,9.913315) )
                 {
                     SetPVarInt( i, "AIRBRK", airbrk + 1 );
                     if ( airbrk > 3 )
@@ -28656,7 +28668,7 @@ FUNKCIJA:Sekunde()
             else if ( pInfo[ i ][ pJail ] == 3 )
             {
                 new airbrk = GetPVarInt( i, "AIRBRK" );
-                if ( !PlayerToPoint( 10.0, i, -10.4591,2054.4517,2126.3862 ) )
+                if (!Data_IsPlayerInRangeOfCoords(i, 10.0, "ic_custody"))
                 {
                     SetPVarInt( i, "AIRBRK", airbrk + 1 );
                     if ( airbrk > 3 )
@@ -28670,9 +28682,7 @@ FUNKCIJA:Sekunde()
         }
         if(pInfo[i][pJailTime] == 0 && pInfo[i][pJail] > 0)
         {
-            SetPlayerInterior(i, 0);
-            SetPlayerPos(i,1552.275390,-1675.504028,16.195312);
-            SetPlayerVirtualWorld(i,0);
+            Data_SetPlayerLocation(i, "jail_discharge");
             pInfo[i][pWantedLevel] = 0;
             pInfo[i][pJailTime] = 0;
             pInfo[i][pJail] = 0;
@@ -30725,10 +30735,9 @@ stock Jail(kas[],playerid,time, kodel[])
     SendClientMessageToAll( COLOR_LIGHTRED, string );
     pInfo[ playerid ][ pJailTime ] = time*60 ;
     pInfo[ playerid ][ pJail     ] = 1;
-    SetPlayerPos         ( playerid, 2577.7419,2710.3086,22.9507);
+    Data_SetPlayerLocation(playerid, "ooc_jail");
     if( time > 0 )
         ResetPlayerWeapons   ( playerid );
-    SetPlayerInterior    ( playerid, 0 );
 
     GetPlayerIp(playerid,ip,16);
 
