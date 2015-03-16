@@ -1807,7 +1807,6 @@ BizOwnerMenu::WareListEditMain(playerid)
 
 BizOwnerMenu::WareEnterName(playerid, errorstr[] = "")
 {   
-    printf("BizOwnerMenu::WareEnterName(%d, %s)", playerid, errorstr);
     new string[128];
     if(!isnull(errorstr))
     {

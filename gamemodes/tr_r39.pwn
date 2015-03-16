@@ -19282,30 +19282,23 @@ CMD:rtc( playerid, params[ ] )
     }
     return 1;
 }
-CMD:rc( playerid, params[ ] )
+CMD:rc(playerid, params[])
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        new
-            frakcija;
-        if ( sscanf( params, "d", frakcija ) )
-        {
-            SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /rc [ maðinos ID ] " );
-            return 1;
-        }
-        if ( !doesVehicleExist(frakcija) ) return SendClientMessage( playerid, GRAD, "Su tokiu ID maðina neegzistuoja. " );
-        new bool:Used[ MAX_VEHICLES ] = { false, ... };
-        foreach(Player,i)
-        {
-            if ( GetPlayerState( i ) == PLAYER_STATE_DRIVER )
-            Used[ GetPlayerVehicleID( i ) ] = true;
-        }
-        if ( Used[ frakcija ] == false )
-        {
-            SetVehicleToRespawn( frakcija );
-            SetVehicleVirtualWorld( frakcija, 0 );
-        }
-    }
+    if(pInfo[ playerid ][ pAdmin ] < 1)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate administratorius.");
+    
+    new vehicleid;
+    if(sscanf(params, "i", vehicleid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /rc [ maðinos ID ] ");
+
+    if(!IsValidVehicle(vehicleid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Su tokiu ID maðina neegzistuoja. ");
+
+    if(IsVehicleUsed(vehicleid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Transporto priemonë nëra tuðèia!");
+
+    SetVehicleToRespawn(vehicleid);
+    SetVehicleVirtualWorld(vehicleid, 0);
     return 1;
 }
 CMD:rjc( playerid, params[ ] )
@@ -28031,13 +28024,6 @@ FUNKCIJA:MinTime()
         
         new Float:HP;
         GetPlayerHealth( i, HP );
-        /*
-        if( pInfo[ i ][ pLiga ] > 0 )
-        {
-            if( HP > 2.0 && !PlayerHasItemInInv( i, ITEM_VAISTAI) )
-                SetPlayerHealth( i, HP - 1.0 );
-        }
-        */
 
         // Jei nori valgyti jau labai, pradeda silpti jegos
         if(pInfo[ i ][ pHunger ] >= 10 && HP - pInfo[ i ][ pHunger ] / 10.0 > 2.0)
