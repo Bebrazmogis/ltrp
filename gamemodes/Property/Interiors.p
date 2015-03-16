@@ -370,6 +370,8 @@ hook OnPlayerDisconnect(playerid, reason)
 
 stock EndInteriorPreviewForPlayer(playerid)
 {
+	IsPlayerInPreview[ playerid ] = false;
+	
 	SetPlayerPos(playerid, 
 		GetPVarFloat(playerid, "PreviewStartX"),
 		GetPVarFloat(playerid, "PreviewStartY"),
@@ -384,7 +386,6 @@ stock EndInteriorPreviewForPlayer(playerid)
 	DeletePVar(playerid, "PreviewStartInterior");
 	DeletePVar(playerid, "PreviewStartWorld");
 
-	IsPlayerInPreview[ playerid ] = false;
 	return 1;
 }
 
@@ -498,7 +499,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 #endif
 
 
-timer ReturnToInteriorTimer[200](playerid)
+timer ReturnToInteriorTimer[1000](playerid)
 {
 	if(!IsPlayerInAnyInterior(playerid))	
 		EndInteriorPreviewForPlayer(playerid);

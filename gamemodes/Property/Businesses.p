@@ -1704,7 +1704,6 @@ stock ShowClothesShopDialog(playerid)
         strcat(string, ClothesShopCategories[ i ][ Name ]);
         strcat(string, "\n");
     }
-    printf("ShowClothesShopDialog:%s", string);
     //ShowPlayerDialog(playerid, DIALOG_BIZ_CLOTHESSHOP_LIST, DIALOG_STYLE_LIST, "Daiktø pirkimas", "Skarelës ant galvos - $50\nKepurës - $100\nSkrybëlës - $50\nAkiniai - $100\nÐalmai - $200\nKaukës - $50\nSkarelës ant veido - 50$\nKiti daiktai", "Pasirinkti", "Uþdaryti" );
     ShowPlayerDialog(playerid, DIALOG_BIZ_CLOTHESSHOP_LIST, DIALOG_STYLE_LIST, "Daiktø pirkimas", string, "Pasirinkti", "Uþdaryti");
     return 1;
@@ -1717,9 +1716,10 @@ stock ShowPlayerClothesShopWares(playerid, index)
     SetPVarInt(playerid, "ClothesShopCategoryIndex", index);
     for(new i = 0; i < sizeof(ClothesShopItems); i++)
         if(ClothesShopItems[ i ][ CategoryId ] == ClothesShopCategories[ index ][ Id ])
-            models[ modelCount ] = ClothesShopItems[ i ][ Modelid ];
+            models[ modelCount++ ] = ClothesShopItems[ i ][ Modelid ];
 
     ShowModelSelectionMenuEx(playerid, models, modelCount, ClothesShopCategories[ index ][ Name ], 106);
+    return 1;
 }
 
 
