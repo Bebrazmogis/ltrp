@@ -23200,24 +23200,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
-    else if ( dialogid == 51 )
-    {
-        if ( response == 1 )
-        {
-            switch( listitem )
-            {
-                case 0:
-                {
-                    for ( new i = 0; i < sizeof( BuyShop ); i++ )
-                        format( string, sizeof(string), "%s\n%s", string, GetInvNameByID( BuyShop[ i ][ Idas ] ) );
-
-                    ShowPlayerDialog(playerid,60,DIALOG_STYLE_LIST,"Prekës keitimas",string,"Keisti","Atgal");
-                }
-                case 1:
-                    ShowPlayerDialog(playerid,144,DIALOG_STYLE_INPUT,"Kainos keitimas", "áraðykite norimá  kainà","Keisti", "Atgal" );
-            }
-        }
-    }
     else if ( dialogid == 52 )
     {
         if ( response == 1 )

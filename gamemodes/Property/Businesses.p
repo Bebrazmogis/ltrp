@@ -1523,11 +1523,10 @@ stock RemoveBusinessFurnitureTexture(bizindex, furnitureIndex, materialindex)
 }
 
 
-stock SetBusinessInteriorId(bizindex, interiorid)
+stock SetBusinessExit(bizindex, Float:x, Float:y, Float:z, interiorid)
 {
         // interiorid parametras èia yra NE GTA SA interjero ID, o interjero SQL ID(interiors.p).
-    new query[120], Float:x, Float:y, Float:z;
-    GetInteriorEntrancePos(interiorid, x, y, z);
+    new query[120];
     mysql_format(DbHandle, query, sizeof(query), "UPDATE business SET interior_id = %d, exit_x = %f, exit_y = %f, exit_z = %f WHERE id = %d",
         interiorid, x, y, z, bInfo[ bizindex ][ bID ]);
     mysql_pquery(DbHandle, query);
@@ -1808,6 +1807,7 @@ BizOwnerMenu::WareListEditMain(playerid)
 
 BizOwnerMenu::WareEnterName(playerid, errorstr[] = "")
 {   
+    printf("BizOwnerMenu::WareEnterName(%d, %s)", playerid, errorstr);
     new string[128];
     if(!isnull(errorstr))
     {
@@ -2083,7 +2083,7 @@ CMD:buy(playerid, params[])
                 if(isnull(BusinessWares[ bizIndex ][ i ][ Name ]))
                     strcat(string, #BUSINESS_WARES_EMPTY_SLOT "\n");
                 else    
-                    format(string, sizeof(string),"%s%s%d\n",
+                    format(string, sizeof(string),"%s%s\t\t%d\n",
                         string,
                         BusinessWares[ bizIndex ][ i ][ Name ],
                         BusinessWares[ bizIndex ][ i ][ Price ]);
@@ -2238,7 +2238,7 @@ stock BusinessManagementDialog.ShowMain(playerid)
         - Paðalinti\n\
         - Perkelti áëjimà pagal ID\n\
         - Þiûrëti interjerus\n\
-        - Keisti interjera pagal biznio ID\n\
+        - Keisti iðëjimà pagal biznio ID\n\
         - Verslo informacija\n\
         - Keisti tipà\n\
         - Keisti pickup modelá\n\
@@ -2521,7 +2521,9 @@ BusinessManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem
                 }
                 case BusinessInteriorChange:
                 {
-                    SetBusinessInteriorId(index, GetPlayerInteriorId(playerid));
+                    new Float:x, Float:y, Float:z;
+                    GetPlayerPos(playerid, x, y, z);
+                    SetBusinessExit(index, x, y, z, GetPlayerInteriorId(playerid));
                     SendClientMessage(playerid, COLOR_NEWS, "Verslo interjeras sëkmingai pakeistas");
                 }
                 case BusinessInformation: BusinessManagementDialog.Information(playerid, index);
