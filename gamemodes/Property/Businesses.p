@@ -675,7 +675,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     new Float:health;
                     GetPlayerHealth(playerid, health);
-                    SetPlayerHealth(playerid, health + 20);
+                    if(health + 20 < GetPlayerMaxHealth(playerid))
+                        SetPlayerHealth(playerid, health + 20);
+                    else if(health < GetPlayerMaxHealth(playerid))
+                        SetPlayerHealth(playerid, GetPlayerMaxHealth(playerid));
                 }
                 SendClientMessage(playerid, COLOR_FADE2, string);
             }

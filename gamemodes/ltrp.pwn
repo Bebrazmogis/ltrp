@@ -7512,6 +7512,9 @@ stock GetPlayerSqlId(playerid)
 stock GetPlayerHouseKey(playerid)
     return pInfo[ playerid ][ pHouseKey ];
 
+stock GetPlayerMaxHealth(playerid)
+    return 100.0 + pInfo[ playerid ][ pHealthLevel ] * 3; 
+
 stock GetPlayerIP(playerid)
 {
     new
