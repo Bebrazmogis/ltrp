@@ -940,6 +940,19 @@ stock SetHouseEntrancePos(hindex, Float:x, Float:y, Float:z, interior, virtualwo
     return 1;
 }
 
+stock SetHouseExitLocation(hindex, Float:x, Float:y, Float:z, interiorid)
+{
+    // interiorid parametras èia yra NE GTA SA interjero ID, o interjero SQL ID(interiors.p).
+    new query[120], Float:x, Float:y, Float:z;
+    mysql_format(DbHandle, query, sizeof(query), "UPDATE houses SET interior_id = %d, exit_x = %f, exit_y = %f, exit_z = %f WHERE id = %d",
+        interiorid, x, y, z, hInfo[ hindex ][ hID ]);
+    mysql_pquery(DbHandle, query);
+
+    hInfo[ hindex ][ hInteriorId ] = interiorid;
+    hInfo[ hindex ][ hExit ][ 0 ] = x;
+    hInfo[ hindex ][ hExit ][ 1 ] = y;
+    hInfo[ hindex ][ hExit ][ 2 ] = z;
+}
 stock SetHouseInteriorId(hindex, interiorid)
 {
     // interiorid parametras èia yra NE GTA SA interjero ID, o interjero SQL ID(interiors.p).
@@ -1585,7 +1598,7 @@ stock HouseManagementDialog.ShowMain(playerid)
         - Paðalinti\n\
         - Perkelti áëjimà pagal ID\n\
         - Þiûrëti namo interjerus\n\
-        - Keisti interjera pagal namo ID\n\
+        - Keisti iðëjimo pozicijà pagal namo ID\n\
         - Þiûrëti namo informacijà\n\
         - Keisti pickup modelá\n\
         - Iðtrinti ir kompensuoti visus namus\n", "Rinktis", "Atðaukti" );
@@ -1833,7 +1846,9 @@ stock HouseManagementDialog.OnDialogResponse(playerid, dialogid, response, listi
                     if(!IsPlayerInAnyInterior(playerid))
                         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs turite bûti interjere.");
 
-                    SetHouseInteriorId(index, GetPlayerInteriorId(playerid));
+                    new Float:x, Float:y, Float:z;
+                    GetPlayerPos(playerid, x, y ,z);
+                    SetHouseExitLocation(index, x, y, z, GetPlayerInteriorId(playerid));
                     SendClientMessage(playerid, COLOR_NEWS, "Namo interjeras sëkmingai pakeistas");
                 }
                 case HouseInfo: HouseManagementDialog.Information(playerid, index);

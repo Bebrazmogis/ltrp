@@ -7780,7 +7780,7 @@ public OnPlayerDisconnect(playerid, reason)
     if ( pInfo[ playerid ][ pMember ] == 2 || pInfo[ playerid ][ pMember ] == 3 || pInfo[ playerid ][ pMember ] == 6 )
     {
         ClearWeaponsFromInv( playerid );
-        ResetPlayerWeapons( playerid );
+        ResetPlayerWeapons(playerid);
     }
     
     switch(reason)
@@ -7960,7 +7960,7 @@ public OnPlayerSpawn(playerid)
         LoadPlayerWeapons(playerid);
 
         // Sukuriame label kurioje administratoriams spectatinantiems bus rodomos þaidëjo komandos. Paèiam þaidëjui turëtø bûti nematoma.
-        SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel("  ", 0x00AA00FF, 0.0, 0.0, 0.0, 5.0, .attachedplayer = playerid, .playerid = -1);
+        SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel("  ", 0x00AA00FF, 0.0, 0.0, 0.0, 5.0, .attachedplayer = playerid, .playerid = INVALID_PLAYER_ID);
     }
     else 
     {
