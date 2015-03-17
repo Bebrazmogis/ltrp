@@ -24,7 +24,7 @@
 
 
 #define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.16
+#define BUILD_DATE                      2015-03.17
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -57,6 +57,7 @@ native WP_Hash(buffer[], len, const str[]);
 stock abs(value)
     return (value > 0) ? (value) : (-value);
 
+forward Float:GetPlayerMaxHealth(playerid);
 
 
 #pragma dynamic 108920
@@ -7512,7 +7513,7 @@ stock GetPlayerSqlId(playerid)
 stock GetPlayerHouseKey(playerid)
     return pInfo[ playerid ][ pHouseKey ];
 
-stock GetPlayerMaxHealth(playerid)
+stock Float:GetPlayerMaxHealth(playerid)
     return 100.0 + pInfo[ playerid ][ pHealthLevel ] * 3; 
 
 stock GetPlayerIP(playerid)
@@ -13833,9 +13834,8 @@ CMD:togpm( playerid, params[ ] )
     }
     return 1;
 }
-CMD:togadmin( playerid, params[] )
+CMD:togadmin(playerid)
 {
-    #pragma unused params
     if(TogChat[playerid][3] == true)
     {
         TogChat[playerid][3] = false;
@@ -14528,7 +14528,7 @@ public OnPlayerCommandPerformed(playerid, cmdtext[ ], success)
         KillTimer(SpecCommandTimer[ playerid ]);
     SetTimerEx("SpecLabelDissapear", 30000, false, "i", playerid);
 
-
+    
 
     if ( !success )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Neþinoma komanda: Jûsø paraðyta komanda neegzistuoja. Pabandykite dar kartà arba naudokitës /askq komanda. " );

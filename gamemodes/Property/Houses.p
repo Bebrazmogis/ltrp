@@ -943,7 +943,7 @@ stock SetHouseEntrancePos(hindex, Float:x, Float:y, Float:z, interior, virtualwo
 stock SetHouseExitLocation(hindex, Float:x, Float:y, Float:z, interiorid)
 {
     // interiorid parametras èia yra NE GTA SA interjero ID, o interjero SQL ID(interiors.p).
-    new query[120], Float:x, Float:y, Float:z;
+    new query[120];
     mysql_format(DbHandle, query, sizeof(query), "UPDATE houses SET interior_id = %d, exit_x = %f, exit_y = %f, exit_z = %f WHERE id = %d",
         interiorid, x, y, z, hInfo[ hindex ][ hID ]);
     mysql_pquery(DbHandle, query);
