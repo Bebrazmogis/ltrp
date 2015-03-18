@@ -10723,69 +10723,6 @@ CMD:exit(playerid)
     }	
     return 1;
 }
-CMD:inv( playerid, params[ ] )
-{
-    #pragma unused params
-    if ( Mires[ playerid ] > 0 )   return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje." );
-    if ( Mute[ playerid ] == true) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jums yra uþdrausta kalbëtis (/mute), norëdami paðalinti draudimà susisiekite su Administratoriumi." );
-    if ( pInfo[ playerid ][ pCuffs ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis inventoriumi kada esate surankintas antrankiais..");
-    ShowPlayerMenu( playerid, MENU_INV );
-    return 1;
-}
-CMD:invweapon( playerid, params[ ] )
-{
-    #pragma unused params
-
-    new currgun = GetPlayerWeapon( playerid ),
-        ammo = GetPlayerAmmo( playerid );
-
-    if ( IsPlayerInAnyVehicle( playerid ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite dëti ginklo á inventoriø sedëdamas tr. priemonëje." );
-    if ( Mires[ playerid ] > 0 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite dëti ginklo á inventoriø, kada esate miræs " );
-    if ( GetPVarInt( playerid, "TAZER_MODE" ) == 1 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite dëti ginklo á inventoriø, jei esate nukratytas tazerio. " );
-    if ( ammo < 1 || currgun < 1 ) return true;
-        
-    CheckWeaponCheat( playerid, currgun, 0 );
-
-    if( PlayerFaction( playerid ) == 1 )
-    {
-        if (currgun == 3 || currgun == 17 || currgun == 31 || currgun == 24 || currgun == 23 ||
-            currgun == 27 || currgun == 34 || currgun == 22 || currgun == 25 || currgun == 29 || currgun == 41  )
-                return
-                        SendClientMessage( playerid, COLOR_LIGHTRED, "Ðis ginklas yra registruotas frakcijai." );
-    }
-
-    if( PlayerFaction( playerid ) == 2 )
-    {
-        if (currgun == 9 || currgun == 42 || currgun == 41)
-                return
-                        SendClientMessage( playerid, COLOR_LIGHTRED, "Dëmesio, su ðiuo ginklu negalite atlikti ðio veiksmo, kadangi jis yra tarnybinis" );
-    }
-
-
-    if( PlayerFaction( playerid ) == 5 )
-    {
-        if (currgun == 3 || currgun == 23 || currgun == 41)
-                return
-                        SendClientMessage( playerid, COLOR_LIGHTRED, "Dëmesio, su ðiuo ginklu negalite atlikti ðio veiksmo, kadangi jis yra tarnybinis" );
-    }
-
-    if ( currgun > 0 && ammo > 0)
-    {
-        if ( AddItemToInventory( playerid, currgun, ammo ) )
-        {
-            RemovePlayerWeapon( playerid, currgun );
-            SendClientMessage ( playerid, COLOR_WHITE, " Ginklas sëkmingai ádëtas á inventoriø. ");
-            PlayerPlaySound   ( playerid, 1057, 0.0, 0.0, 0.0);
-            return 1;
-        }
-        else
-            return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart." );
-    }
-    return 1;
-}
 
 CMD:pm( playerid, params[ ] )
 {
@@ -14528,7 +14465,7 @@ public OnPlayerCommandPerformed(playerid, cmdtext[ ], success)
         KillTimer(SpecCommandTimer[ playerid ]);
     SetTimerEx("SpecLabelDissapear", 30000, false, "i", playerid);
 
-    
+
 
     if ( !success )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Neþinoma komanda: Jûsø paraðyta komanda neegzistuoja. Pabandykite dar kartà arba naudokitës /askq komanda. " );

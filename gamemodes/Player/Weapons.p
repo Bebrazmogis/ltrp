@@ -13,7 +13,7 @@
 		player_id INT NOT NULL,
 		weapon_id TINYINT UNSIGNED NOT NULL,
 		ammo SMALLINT UNSIGNED NOT NULL,
-		PRIMARY KEY(player_id, weapon_id)
+		PRIMARY KEY(player_id, weapon_id, is_job_weapon)
 	) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 	ALTER TABLE player_weapons ADD FOREIGN KEY(player_id) REFERENCES players(id) ON DELETE CASCADE;	
 */
@@ -24,7 +24,7 @@
 enum E_PLAYER_WEAPON_DATA 
 {
 	WeaponId,
-	Ammo
+	Ammo,
 };
 
 static PlayerWeapons[ MAX_PLAYERS ][ MAX_PLAYER_WEAPONS ][ E_PLAYER_WEAPON_DATA ];
@@ -33,10 +33,11 @@ static PlayerWeapons[ MAX_PLAYERS ][ MAX_PLAYER_WEAPONS ][ E_PLAYER_WEAPON_DATA 
 
 forward OnPlayerWeaponLoad(playerid);
 
+#define GivePlayerJobWeapon(%0, %1, %2) wep_GivePlayerWeapon(%0, %1, %2, false, true)
 
-stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true)
+stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true, bool:job_weapon = false)
 {
-	if(update_db)
+	if(update_db && !job_weapon)
 	{
 		new query[170];
 		mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_weapons (player_id, weapon_id, ammo) VALUES (%d, %d, %d) ON DUPLICATE KEY UPDATE ammo = ammo + VALUES(ammo)",
@@ -63,6 +64,7 @@ stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true)
 	{
 		PlayerWeapons[ playerid ][ freeindex ][ WeaponId ] = weaponid;
 		PlayerWeapons[ playerid ][ freeindex ][ Ammo ] = ammo;
+		PlayerWeapons[ playerid ][ freeindex ][ IsJob ] = job_weapon;
 	}
 	return GivePlayerWeapon(playerid, weaponid, ammo);
 }
@@ -72,6 +74,8 @@ stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true)
 	#define _ALS_GivePlayerWeapon
 #endif
 #define GivePlayerWeapon wep_GivePlayerWeapon
+
+
 
 stock wep_ResetPlayerWeapons(playerid, bool:update_db = true)
 {
@@ -86,6 +90,7 @@ stock wep_ResetPlayerWeapons(playerid, bool:update_db = true)
 	{
 		PlayerWeapons[ playerid ][ i ][ WeaponId ] = 0;
 		PlayerWeapons[ playerid ][ i ][ Ammo ] = 0;
+		PlayerWeapons[ playerid ][ i ][ IsJob ] = false;
 	}
 	return ResetPlayerWeapons(playerid);
 }
@@ -185,7 +190,13 @@ public OnPlayerWeaponLoad(playerid)
 }
 
 
-
+stock IsPlayerWeaponJobWeapon(playerid, weaponid)
+{
+	for(new i = 0; i < MAX_PLAYER_WEAPONS; i++)
+		if(PlayerWeapons[ playerid ][ i ][ WeaponId ] == weaponid)
+			return PlayerWeapons[ playerid ][ i ][ IsJob ];
+	return false;
+}
 
 stock IsPlayerWeaponInMemory(playerid, weaponid)
 {
@@ -213,17 +224,21 @@ hook OnPlayerDisconnect(playerid, reason)
 		if(!PlayerWeapons[ playerid ][ i ][ WeaponId ])
 			continue;
 
-		printf("OnPlayerDisconnect : weapons.p i:%d weaponi:%d ammo: %d", i, PlayerWeapons[ playerid ][ i ][ WeaponId ], PlayerWeapons[ playerid ][ i ][ Ammo ]);
+		if(!PlayerWeapons[ playerid ][ i ][ IsJob ])
+		{
+			printf("OnPlayerDisconnect : weapons.p i:%d weaponi:%d ammo: %d", i, PlayerWeapons[ playerid ][ i ][ WeaponId ], PlayerWeapons[ playerid ][ i ][ Ammo ]);
 
-		GetPlayerWeaponData(playerid, GetSlotByID(PlayerWeapons[ playerid ][ i ][ WeaponId ]), PlayerWeapons[ playerid ][ i ][ WeaponId ], newammo);
-		mysql_format(DbHandle, query, sizeof(query), "UPDATE player_weapons SET ammo = %d WHERE player_id = %d AND weapon_id = %d",
-			newammo, GetPlayerSqlId(playerid), PlayerWeapons[ playerid ][ i ][ WeaponId ]);
-		mysql_pquery(DbHandle, query);
+			GetPlayerWeaponData(playerid, GetSlotByID(PlayerWeapons[ playerid ][ i ][ WeaponId ]), PlayerWeapons[ playerid ][ i ][ WeaponId ], newammo);
 
-		format(wepstodelete, sizeof(wepstodelete), "%s%d,", wepstodelete, PlayerWeapons[ playerid ][ i ][ WeaponId ]);
+			mysql_format(DbHandle, query, sizeof(query), "UPDATE player_weapons SET ammo = %d WHERE player_id = %d AND weapon_id = %d",
+				newammo, GetPlayerSqlId(playerid), PlayerWeapons[ playerid ][ i ][ WeaponId ]);
+			mysql_pquery(DbHandle, query);
 
+			format(wepstodelete, sizeof(wepstodelete), "%s%d,", wepstodelete, PlayerWeapons[ playerid ][ i ][ WeaponId ]);
+		}
 		PlayerWeapons[ playerid ][ i ][ WeaponId ] = 0;
 		PlayerWeapons[ playerid ][ i ][ Ammo ] = 0;
+		PlayerWeapons[ playerid ][ i ][ IsJob ] = false;
 	}
 	if(isnull(wepstodelete))
 		return 1;
@@ -238,11 +253,17 @@ hook OnPlayerDisconnect(playerid, reason)
 
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
-	printf("OnPlayerWeaponShot(%s, %d, %d, %d, %f, %f, %f)", GetName(playerid), weaponid, hittype, hitid, fX, fY, fZ);
 	for(new i = 0; i < MAX_PLAYER_WEAPONS; i++)
 		if(PlayerWeapons[ playerid ][ i ][ WeaponId ] == weaponid)
 		{
-			PlayerWeapons[ playerid ][ i ][ Ammo ] = GetPlayerAmmo(playerid);
+			if(PlayerWeapons[ playerid ][ i ][ JobAmmo ])
+			{
+				PlayerWeapons[ playerid ][ i ][ JobAmmo ] = GetPlayerAmmo(playerid);
+
+			}
+			else 
+				PlayerWeapons[ playerid ][ i ][ Ammo ] = GetPlayerAmmo(playerid);
+			
 			if(!PlayerWeapons[ playerid ][ i ][ Ammo ])
 			{
 				PlayerWeapons[ playerid ][ i ][ WeaponId ] = 0;
