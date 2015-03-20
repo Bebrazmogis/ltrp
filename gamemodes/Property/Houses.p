@@ -1217,7 +1217,7 @@ stock RemoveHouseFurnitureTexture(hindex, findex, materialindex)
 stock RemoveHouseOwner(hindex)
 {
     new query[60];
-    format(query, sizeof(query), "UPDATE houses SET owner = 'NULL' WHERE id = %d",
+    format(query, sizeof(query), "UPDATE houses SET owner = NULL WHERE id = %d",
         hInfo[ hindex ][ hID ]);
     mysql_pquery(DbHandle, query);
     hInfo[ hindex ][ hOwner ] = HOUSE_OWNER_NULL;

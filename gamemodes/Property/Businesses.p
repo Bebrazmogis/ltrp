@@ -1354,7 +1354,7 @@ stock UpdateBusinessType(bizindex, E_BUSINESS_TYPES:type)
 stock RemoveBusinessOwner(bizindex)
 {
     new query[60];
-    format(query, sizeof(query), "UPDATE business SET owner = 'NULL' WHERE id = %d",
+    format(query, sizeof(query), "UPDATE business SET owner = NULL WHERE id = %d",
         bInfo[ bizindex ][ bID ]);
     mysql_pquery(DbHandle, query);
     bInfo[ bizindex ][ bOwner ] = BUSINESS_OWNER_NULL;

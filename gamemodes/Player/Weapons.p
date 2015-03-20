@@ -124,48 +124,17 @@ stock RemovePlayerWeapon(playerid, weaponid)
     for(new i = 0; i < 13; i++)	
     	if(weapons[ i ][ 0 ] != weaponid)
     		GivePlayerWeapon(playerid, weapons[ i ][ 0 ], weapons[ i ][ 1 ], false);
-    		/*
-    new
-        weapons[ 13 ][ 2 ],
-        eile[ 128 ],
-        eile2[ 128 ],
-        weap,
-        ammo;
-
-    for ( new i = 0; i < 13; i++ )
-    {
-        GetPlayerWeaponData(playerid, i, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
-        weap = weapons[ i ][ 0 ],
-        ammo = weapons[ i ][ 1 ];
-        if(wepid != weap)
-        {
-            if(weap > 0 && ammo > 0)
-            {
-                if(IsWeaponHasAmmo(weap))
-                    CheckWeaponCheat(playerid, weap, 0);
-            }
-        }
-    }
-
-    ResetPlayerWeapons(playerid);
-
-    for(new i = 0; i < 13; i++)
-    {
-        if(weapons[ i ][ 0 ] > 0 && weapons[ i ][ 1 ] > 0 && weapons[ i ][ 0 ] != wepid)
-        {
-            format(eile, sizeof(eile), "%dbone2", weapons[ i ][ 0 ]);
-            format(eile2, sizeof(eile2), "%dbone", weapons[ i ][ 0 ]);
-            SetPVarInt(playerid, eile2, GetPVarInt (playerid, eile));
-            SetPVarInt(playerid, eile, 0);
-            GivePlayerWeapon(playerid, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
-        }
-    }
-    */
 }
 
 
 
-
+stock RemovePlayerJobWeapons(playerid)
+{
+	for(new i = 0; i < MAX_PLAYER_WEAPONS; i++)
+		if(PlayerWeapons[ playerid ][ i ][ WeaponId ] && PlayerWeapons[ playerid ][ i ][ IsJob ])
+			RemovePlayerWeapon(playerid, PlayerWeapons[ playerid ][ i ][ WeaponId ]);
+	return 1;
+}
 
 
 
@@ -321,40 +290,3 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 #if defined weapons_OnPlayerWeaponShot
 	forward weapons_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
 #endif
-
-/*
-hook OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid,  bodypart)
-{
-	new Float:newhealth, bool:custom_damage = true;
-	GetPlayerHealth(playerid, newhealth);
-	printf("GetPlayerHealth():%f", newhealth);
-	newhealth += amount; // Dabar health kiek turëjo prieð ðûvá.
-	printf("OnPlayerTakeDamage : Weapons.p newhealth+amount:%f", newhealth);
-	if(issuerid != INVALID_PLAYER_ID)
-	{
-		switch(weaponid)
-		{
-			case WEAPON_COLT45: newhealth -= 30.0;
-			case WEAPON_SILENCED: newhealth -= 30.0;
-			case WEAPON_DEAGLE: newhealth -= 70.0;
-			case WEAPON_TEC9: newhealth -= 28.0;
-			case WEAPON_UZI: newhealth -= 28.0;
-			case WEAPON_MP5: newhealth -= 35.0;
-			case WEAPON_SHOTGUN: newhealth -= 50.0;
-			case WEAPON_SAWEDOFF: newhealth -= 50.0;
-			case WEAPON_SHOTGSPA: newhealth -= 50.0;
-			case WEAPON_M4: newhealth -= 35.0;
-			case WEAPON_AK47: newhealth -= 35.0;
-			case WEAPON_RIFLE: newhealth -= 100.0;
-			case WEAPON_SNIPER: newhealth -= 250.0;
-			default: custom_damage = false;
-		}
-		if(custom_damage)
-		{
-			printf("Custom damage yes. Weaponid:%d Real damage done:%f newhealth:%f",weaponid, amount, newhealth);
-			SetPlayerHealth(playerid, newhealth);
-		}
-	}
-	return 1;
-}
-*/

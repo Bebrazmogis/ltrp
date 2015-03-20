@@ -23,7 +23,7 @@
 
 
 #define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.17
+#define BUILD_DATE                      2015-03.20
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -78,7 +78,7 @@ new DbHandle;
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-//#define BEBRAS_HOME_MODE
+#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"
@@ -234,169 +234,6 @@ new DbHandle;
 #define iID             0
 #define iAmmount        1
 
-// Inventoriaus itemai
-#define ITEM_PHONE   51
-#define ITEM_MASK    52
-#define ITEM_RADIO   53
-#define ITEM_ZIB     54
-#define ITEM_CIG     55
-#define ITEM_FUEL    56
-#define ITEM_TOLKIT  57
-#define ITEM_CLOCK   58
-#define ITEM_DICE    59
-#define ITEM_VAISTAI 60
-#define ITEM_WEED    61
-#define ITEM_SEED    62
-#define ITEM_DRUGS   63
-#define ITEM_HERAS   64
-#define ITEM_MATS    65
-#define ITEM_SVIRKSTAS 66
-#define ITEM_NOTE    67
-#define ITEM_HELMET  68
-#define ITEM_ROD     69
-#define ITEM_RODTOOL 70
-#define ITEM_FISH    71
-#define ITEM_MEDLIC  72
-#define ITEM_MEDIC   73
-#define ITEM_TICKET  74
-#define ITEM_BEER    75
-#define ITEM_SPRUNK  76
-#define ITEM_VINE    77
-#define ITEM_PAPER   78
-#define ITEM_MOLOTOV 79
-#define ITEM_MP3     80
-#define ITEM_MAGNETOLA 81
-#define ITEM_AUDIO    82
-#define ITEM_BIGAUDIO 83
-#define ITEM_TEORIJA  84
-#define ITEM_ROADBLOCK  85
-#define ITEM_AMFA 86
-#define ITEM_METAMFA 87
-#define ITEM_COCAINE 88
-#define ITEM_KREPSYS 99
-#define ITEM_LAGAMINAS 100
-// Prasideda drabuþiø sistema
-// AKINIAI
-#define ITEM_GlassesType1 101
-#define ITEM_GlassesType2 102
-#define ITEM_GlassesType3 103
-#define ITEM_GlassesType4 104
-#define ITEM_GlassesType7 105
-#define ITEM_GlassesType10 106
-#define ITEM_GlassesType13 107
-#define ITEM_GlassesType14 108
-#define ITEM_GlassesType15 109
-#define ITEM_GlassesType16 110
-#define ITEM_GlassesType17 111
-#define ITEM_GlassesType18 112
-#define ITEM_GlassesType19 113
-#define ITEM_GlassesType20 114
-#define ITEM_GlassesType21 115
-#define ITEM_GlassesType22 116
-#define ITEM_GlassesType23 117
-#define ITEM_GlassesType24 118
-#define ITEM_GlassesType25 119
-#define ITEM_GlassesType26 120
-#define ITEM_GlassesType27 121
-#define ITEM_GlassesType28 122
-// áALMAI
-#define ITEM_MotorcycleHelmet4 123
-#define ITEM_MotorcycleHelmet5 124
-#define ITEM_MotorcycleHelmet6 125
-#define ITEM_MotorcycleHelmet7 126
-#define ITEM_MotorcycleHelmet8 127
-#define ITEM_MotorcycleHelmet9 128
-// KAUKËS
-#define ITEM_HockeyMask1 129
-#define ITEM_MaskZorro1 130
-// Skarelës ant galvos
-#define ITEM_Bandana2    131
-#define ITEM_Bandana4    132
-#define ITEM_Bandana5    133
-#define ITEM_Bandana6    134
-#define ITEM_Bandana7    135
-#define ITEM_Bandana8    136
-#define ITEM_Bandana9   180
-#define ITEM_Bandana10   163
-#define ITEM_Bandana11   164
-#define ITEM_Bandana12   165
-#define ITEM_Bandana13   166
-#define ITEM_Bandana14   167
-#define ITEM_Bandana15   168
-#define ITEM_Bandana16   169
-#define ITEM_Bandana17  170
-#define ITEM_Bandana18  171
-#define ITEM_Bandana19  172
-// KEPURËS
-#define ITEM_CapBack3    137
-#define ITEM_CapBack4    138
-#define ITEM_CapBack5    139
-#define ITEM_CapBack7    140
-#define ITEM_CapBack8    141
-#define ITEM_CapBack9    142
-#define ITEM_CapBack10   143
-#define ITEM_CapBack11   144
-#define ITEM_CapBack12   145
-#define ITEM_CapBack13   146
-#define ITEM_CapBack14   147
-#define ITEM_CapBack15   148
-#define ITEM_CapBack16   149
-#define ITEM_CapBack17   150
-#define ITEM_CapBack18   151
-#define ITEM_CapBack19   152
-#define ITEM_CapBack20   153
-#define ITEM_CapBack21   154
-//SRYBELËS
-#define ITEM_CowboyHat1  155
-#define ITEM_CowboyHat2  156
-#define ITEM_CowboyHat3  157
-#define ITEM_CowboyHat4  158
-#define ITEM_CowboyHat5  159
-#define ITEM_HatBowler1  160
-#define ITEM_HatBowler2  161
-#define ITEM_HatBowler3  162
-
-#define ITEM_AMFAMISC    173
-#define ITEM_COCAINEMISC 174
-#define ITEM_METAAMFAMISC 175
-
-#define ITEM_HAIR1 176
-#define ITEM_HAIR2 177
-#define ITEM_MATCHES 178
-#define ITEM_KUPRINE 179
-
-
-#define ITEM_Beret2 181
-#define ITEM_Beret3 182
-#define ITEM_Beret4 183
-#define ITEM_Beret1 184
-#define ITEM_Beret5 185
-#define ITEM_SkullyCap1 186
-#define ITEM_SkullyCap2 187
-#define ITEM_HatMan1 188
-#define ITEM_HatMan2 189
-#define ITEM_WatchType1 190
-#define ITEM_WatchType2 191
-#define ITEM_WatchType6 192
-#define ITEM_WatchType4 193
-#define ITEM_SantaHat1 194
-#define ITEM_SantaHat2 195
-#define ITEM_HoodyHat3 196
-#define ITEM_EyePatch1 197
-#define ITEM_SillyHelmet2 198
-#define ITEM_SillyHelmet3 199
-#define ITEM_PlainHelmet1 200
-#define ITEM_PoliceGlasses2 201
-#define ITEM_PoliceGlasses3 202
-#define ITEM_HAIR5 203
-#define ITEM_tophat01 204
-#define ITEM_HatBowler6 205
-#define ITEM_pilotHat01 206
-
-#define ITEM_EXTAZY 207
-#define ITEM_PCP 208
-#define ITEM_CRACK 209
-#define ITEM_OPIUM 210
 
 // Modinimo id'ai
 #define MOD_URANUS1  1
@@ -2558,12 +2395,12 @@ stock SaveCar(carid)
     SaveVehicleFish(carid);
     return 1;
 }
-stock SaveSVehicle( vehid )
+stock SaveSVehicle(vehid)
 {
     new string[ 256 ];
 
 
-    format( string, 256, "UPDATE `scars` SET `sModel`= %d,`sCar_x`='%f',`sCar_y`='%f',`sCar_z`='%f',`sCar_a`='%f',`sColor1`=%d,`sColor2`=%d,`sFaction`=%d,`sRang`=%d,`sJob`=%d WHERE `sID`=%d",
+    mysql_format(DbHandle, string, sizeof(string), "UPDATE `scars` SET `sModel`= %d,`sCar_x`='%f',`sCar_y`='%f',`sCar_z`='%f',`sCar_a`='%f',`sColor1`=%d,`sColor2`=%d,`sFaction`=%d,`sRang`=%d,`sJob`=%d WHERE `sID`=%d",
     sVehicles[ vehid ][ Model       ],
     sVehicles[ vehid ][ SpawnX       ],
     sVehicles[ vehid ][ SpawnY      ],
@@ -4629,6 +4466,8 @@ stock NullPlayerInfo( playerid )
         PlayerAttachedWeapons[ playerid ][ i ][ WeaponId ] = 0;
     }
 
+    if(PlayerSpectatedPlayer[ playerid ] != INVALID_PLAYER_ID)
+        UpdatePlayerCommandLabel(PlayerSpectatedPlayer[ playerid ]);
     PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
 
     ShowACTestMsg[ playerid ] = true;
@@ -4645,6 +4484,7 @@ public OnPlayerDisconnect(playerid, reason)
     HideInfoText( playerid );
     DestroyDynamic3DTextLabel(DeathLabel[playerid]);
     DestroyDynamic3DTextLabel(SpecCommandLabel[ playerid ]);
+
 
     KillTimer(SpecCommandTimer[ playerid ]);
     SpecCommandTimer[ playerid ] = -1;
@@ -5794,16 +5634,15 @@ CMD:leavejob( playerid, params[ ])
     SendClientMessage(playerid, COLOR_WHITE, " Sveikiname, Jûs sëkmingai iðëjote ið savo darbovietos.");
     return 1;
 }
-CMD:leavefaction( playerid, params[ ])
+CMD:leavefaction(playerid)
 {
-    #pragma unused params
     pInfo[playerid][pLead   ] = 0;
     pInfo[playerid][pMember ] = 0;
     pInfo[playerid][pRank   ] = 0;
     pInfo[playerid][pSpawn  ] = DefaultSpawn;
-    ResetPlayerWeapons( playerid );
-    ClearWeaponsFromPlayerInventory( playerid );
-    SaveAccount( playerid );
+    ResetPlayerWeapons(playerid);
+    RemovePlayerJobWeapons(playerid);
+    SaveAccount(playerid);
     SendClientMessage(playerid, COLOR_WHITE, " Sveikiname, Jûs sëkmingai iðëjote ið savo darbovietos.");
     return 1;
 }
@@ -11357,7 +11196,7 @@ CMD:uninvite( playerid, params[ ] )
         }
         if ( pInfo[ giveplayerid ][ pMember ] == 2 || pInfo[ giveplayerid ][ pMember ] == 5 )
         {
-            ClearWeaponsFromPlayerInventory(giveplayerid);
+            RemovePlayerJobWeapons(giveplayerid);
             ResetPlayerWeapons( giveplayerid );
             SetPlayerArmour( giveplayerid, 0 );
         }
@@ -15709,7 +15548,7 @@ CMD:auninvite(playerid, params[])
             pInfo[ userID ][ pJobSkill ] = 0;
             pInfo[ userID ][ pJobHours ] = 0;
             ResetPlayerWeapons( userID );
-            ClearWeaponsFromPlayerInventory(userID);
+            RemovePlayerJobWeapons(userID);
             pInfo[userID][pLead   ] = 0;
             pInfo[userID][pMember ] = 0;
             pInfo[userID][pRank   ] = 0;
@@ -16914,6 +16753,11 @@ stock GetVehicleOwnerName( id )
 }
 stock AcesToSVehicle( vehicleid, playerid )
 {
+    printf("AcesToSVehicle(%d, %d). Player faction:%d Vehicle faction:%d Vehicle Rank:%d",
+        vehicleid, playerid, 
+        pInfo[ playerid ][ pMember ],
+        sVehicles[ vehicleid ][ Faction ],
+        sVehicles[ vehicleid ][ Rang ]);
     if ( cInfo[ vehicleid ][ cOwner ] != 0 ) return true;
     if ( sVehicles[ vehicleid ][ Faction ] > 0 && sVehicles[ vehicleid ][ Faction ] == pInfo[ playerid ][ pMember ] && sVehicles[ vehicleid ][ Rang ] <= pInfo[ playerid ][ pRank ] ) return true;
     else if ( sVehicles[ vehicleid ][ Job ] > 0 && pInfo[ playerid ][ pJob ] == sVehicles[ vehicleid ][ Job ] ) return true;
@@ -19447,7 +19291,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
                     new car = GetPlayerVehicleID( playerid );
 				    if( IsPlayerInAnyVehicle( playerid ) && cInfo[ car ][ cOwner ] == 0 )
-						ShowPlayerDialog( playerid, 80, DIALOG_STYLE_MSGBOX,"Automobilio spawn","Jeigu jau pastattëte automobilá ten kur reikia, tai patvirtinkite tai.","Patvirtinti","Atðaukti" );
+						ShowPlayerDialog( playerid, 80, DIALOG_STYLE_MSGBOX,"Automobilio spawn","Jeigu jau pastatëte automobilá ten kur reikia, tai patvirtinkite tai.","Patvirtinti","Atðaukti" );
 					return 1;
 				}				
                 case 4:
@@ -19799,22 +19643,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 	    if ( response == 1 )
 	    {
-			new car = GetPlayerVehicleID( playerid );
-			GetVehiclePos( car, sVehicles[ car ][ SpawnZ  ],
+			new car = GetPlayerVehicleID(playerid);
+
+			GetVehiclePos(car, sVehicles[ car ][ SpawnX  ],
 								sVehicles[ car ][ SpawnY  ],
 								sVehicles[ car ][ SpawnZ  ]);
 			GetVehicleZAngle( car, sVehicles[ car ][ SpawnA  ] );
-			DestroyVehicle( car );
-			CreateVehicle(  sVehicles[ car ][ Model ],
+			DestroyVehicle(car);
+			CreateVehicle(sVehicles[ car ][ Model ],
 							sVehicles[ car ][ SpawnX ],
 							sVehicles[ car ][ SpawnY ],
 							sVehicles[ car ][ SpawnZ ],
 							sVehicles[ car ][ SpawnA ],
 							sVehicles[ car ][ Color1 ],
-							sVehicles[ car ][ Color2 ], -1 );
-            format( string, 24, "{000000}TLP - %d", car + 1000 );
-		    SetVehicleNumberPlate( car, string );
-			SaveSVehicle( car );
+							sVehicles[ car ][ Color2 ], -1);
+            format(string, 24, "{000000}TLP - %d", car + 1000);
+		    SetVehicleNumberPlate(car, string);
+			SaveSVehicle(car);
 			return 1;
 		}
 	}
@@ -24600,6 +24445,8 @@ stock PayDay( playerid )
         if ( PlayerOn[ playerid ] == false ) return 1;
 
         new Bank = pInfo[ playerid ][ pBank ],
+            //fullPaycheck = pInfo[ playerid ][ pTotalPaycheck ],
+            //leftPaycheck = pInfo[ playerid ][ pTotalPaycheck ],
             housekey,
             payforhouses,
             payforbiz,

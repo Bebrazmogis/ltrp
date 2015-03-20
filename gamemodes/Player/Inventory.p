@@ -19,6 +19,7 @@
 
 #define DIALOG_PLAYER_INVENTORY 		17
 #define DIALOG_PLAYER_INVENTORY_OPTIONS 18
+#define DIALOG_PLAYER_INVENTORY_AMOUNT 	10050
 
 
 
@@ -194,18 +195,28 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     	return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: þaidëjas neturi laisvos vietos inventoriuje.");
     
 
-                    LoopingAnim(playerid, "DEALER", "shop_pay", 4.0, 0, 1, 1, 1, 0);
-                    format(string, sizeof(string), "** %s perduodà ðalia stovinèiam %s rankoje laikomà daiktà %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(id), itemname);
-                    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-                    format(string, sizeof(string), "Veikëjas %s Jums perdavë daiktà pavadinimø %s, kurá rasite paraðæ /inv.", GetPlayerNameEx(playerid), itemname);
-                    SendClientMessage(id, COLOR_WHITE, string);
-                    format(string, sizeof(string), "Jûs sëkmingai perdavëtæ %s ðalia stovinèiui veikëjui %s", itemname, GetPlayerNameEx(id));
-                    SendClientMessage(playerid, COLOR_WHITE, string);
+                    if(IsItemStackable(itemid))
+                    {
+                    	SetPVarInt(playerid, "ItemId", itemid);
+                    	SetPVarInt(playerid, "Amount", amount);
+                    	SetPVarInt(playerid, "Player", id);
+                    	ShowPlayerInventoryAmountInput(playerid);
+                    }
+                    else 
+                    {
+                    	LoopingAnim(playerid, "DEALER", "shop_pay", 4.0, 0, 1, 1, 1, 0);
+	                    format(string, sizeof(string), "** %s perduodà ðalia stovinèiam %s rankoje laikomà daiktà %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(id), itemname);
+	                    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+	                    format(string, sizeof(string), "Veikëjas %s Jums perdavë daiktà pavadinimø %s, kurá rasite paraðæ /inv.", GetPlayerNameEx(playerid), itemname);
+	                    SendClientMessage(id, COLOR_WHITE, string);
+	                    format(string, sizeof(string), "Jûs sëkmingai perdavëtæ %s ðalia stovinèiui veikëjui %s", itemname, GetPlayerNameEx(id));
+	                    SendClientMessage(playerid, COLOR_WHITE, string);
 
-                  
-                    GivePlayerItem(id, itemid, amount);
-                    GivePlayerItem(playerid, itemid, -amount);
-                    PlayerUsedItemIndex[ playerid ] = -1;
+	                  
+	                    GivePlayerItem(id, itemid, amount);
+	                    GivePlayerItem(playerid, itemid, -amount);
+	                    PlayerUsedItemIndex[ playerid ] = -1;
+                    }
                     return 1;
 	            }
 	            case 2:
@@ -367,6 +378,32 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	            }
 	        }
 	        return 1;
+		}
+		case DIALOG_PLAYER_INVENTORY_AMOUNT:
+		{
+			if(!response)
+				return 1;
+
+			new itemid = GetPVarInt(playerid, "ItemId"),
+        		amount = GetPVarInt(playerid, "Amount"),
+        		targetid = GetPVarInt(playerid, "Player"),
+        		itemname[ MAX_ITEM_NAME ],
+        		string[120];
+        	itemname = GetItemName(itemid);
+
+        	LoopingAnim(playerid, "DEALER", "shop_pay", 4.0, 0, 1, 1, 1, 0);
+            format(string, sizeof(string), "** %s perduodà ðalia stovinèiam %s rankoje laikomà daiktà %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(targetid), itemname);
+            ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+            format(string, sizeof(string), "Veikëjas %s Jums perdavë daiktà pavadinimø %s, kurá rasite paraðæ /inv.", GetPlayerNameEx(playerid), itemname);
+            SendClientMessage(targetid, COLOR_WHITE, string);
+            format(string, sizeof(string), "Jûs sëkmingai perdavëtæ %s ðalia stovinèiui veikëjui %s", itemname, GetPlayerNameEx(targetid));
+            SendClientMessage(playerid, COLOR_WHITE, string);
+
+          
+            GivePlayerItem(targetid, itemid, amount);
+            GivePlayerItem(playerid, itemid, -amount);
+            PlayerUsedItemIndex[ playerid ] = -1;
+            return 1;
 		}
 	}
 	return 0;
@@ -1723,7 +1760,7 @@ stock ShowPlayerInventoryDialog(playerid)
         	itemname = GetItemName(PlayerItems[ playerid ][ i ][ ItemId ]);
 
         	if(PlayerItems[ playerid ][ i ][ Amount ] == 1)
-        		format(string, sizeof(string), "%s%s\n", string, itemname);
+        		format(string, sizeof(string), "%s%s", string, itemname);
         	else 
         	{
         		strcat(string, itemname);
@@ -1732,10 +1769,17 @@ stock ShowPlayerInventoryDialog(playerid)
 	            else
 	                strcat(string, "\t");
 
-	           	format(string, sizeof(string),"%s [ {66EE00}%d{FFFFFF} ]\n",
+	           	format(string, sizeof(string),"%s [ {66EE00}%d{FFFFFF} ]",
 	           		string,
 	           		PlayerItems[ playerid ][ i ][ Amount ]);
         	}
+        	if(IsItemContainer(PlayerItems[ playerid] [ i ][ ItemId ]))
+        	{
+        		format(string, sizeof(string), "%s\t%d", 
+        			string,
+        			PlayerItems[ playerid ][ i ][ ContentAmount ]);
+        	}
+        	strcat(string, "\n");
 
         }
     }
@@ -1743,7 +1787,13 @@ stock ShowPlayerInventoryDialog(playerid)
     return 1;
 }
 
-
+stock ShowPlayerInventoryAmountInput(playerid, errostr[] = "")
+{
+	new string[128];
+	format(string, sizeof(string),"{AA0022}%s\n{FFFFFF}Áveskite kieká kurá norite atiduoti.",errostr);
+	ShowPlayerDialog(playerid, DIALOG_PLAYER_INVENTORY_AMOUNT, DIALOG_STYLE_INPUT, "Perduodamo daikto kiekis", string, "Naudoti", "Iðeiti");
+	return 1;
+}
 
 /*
 			                                                                                              
