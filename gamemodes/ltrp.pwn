@@ -23,7 +23,7 @@
 
 
 #define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.20
+#define BUILD_DATE                      2015-03.21
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -57,6 +57,7 @@ stock abs(value)
     return (value > 0) ? (value) : (-value);
 
 forward Float:GetPlayerMaxHealth(playerid);
+forward OnPlayerLoginEx(playerid, sqlid);
 
 
 #pragma dynamic 108920
@@ -858,6 +859,7 @@ new Fire[MAX_FIRE][fires];
 #include "Property\Garages"
 #include "Player\Weapons"
 #include "Player\Inventory"
+#include "Player\Attachments"
 
 
 new RoadBlocks[MAX_ROADBLOCKS];
@@ -3850,6 +3852,7 @@ public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
     SetPVarFloat ( playerid, string, fScaleZ );
 
     SetPlayerAttachedObject(playerid,index,modelid,boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
+    AddPlayerAttachedObject(playerid,index,modelid,boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
     return 1;
 }
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
@@ -23120,7 +23123,7 @@ stock ShowPlayerAnswerSetDialog(playerid, question[], errostr[] = "")
     return 1;
 }
 
-stock OnPlayerLoginEx(playerid, sqlid)
+public OnPlayerLoginEx(playerid, sqlid)
 {
     #if defined DEBUG
         printf("OnPlayerLoginEx(%s, %d)", GetName(playerid), sqlid);

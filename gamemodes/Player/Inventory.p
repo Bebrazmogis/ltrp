@@ -8,8 +8,11 @@
 		player_id INT NOT NULL,
 		item_id SMALLINT NOT NULL,
 		amount SMALLINT UNSIGNED NOT NULL,
-		extra INT NOT NULL DEFAULT '0',
-		PRIMARY KEY(player_id, item_id)
+		content_amount SMALLINT UNSIGNED NOT NULL,
+		durability SMALLINT UNSIGNED NOT NULL,
+		slot TINYINT NOT NULL,
+		PRIMARY KEY(player_id, item_id),
+		INDEX(id)
 	) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 */
@@ -91,11 +94,17 @@ hook OnPlayerDisconnect(playerid, reason)
 
 public OnPlayerItemLoad(playerid)
 {
+	new index;
 	for(new i = 0; i < cache_get_row_count(); i++)
 	{
-		PlayerItems[ playerid ][ i ][ Id ] = cache_get_field_content_int(i, "id");
-		PlayerItems[ playerid ][ i ][ ItemId ] = cache_get_field_content_int(i, "item_id");
-		PlayerItems[ playerid ][ i ][ Amount ] = cache_get_field_content_int(i, "amount");
+		index = cache_get_field_content_int(i, "slot");
+		if(index < 0 || index >= MAX_PLAYER_ITEMS)
+			continue;
+		PlayerItems[ playerid ][ index ][ Id ] = cache_get_field_content_int(i, "id");
+		PlayerItems[ playerid ][ index ][ ItemId ] = cache_get_field_content_int(i, "item_id");
+		PlayerItems[ playerid ][ index ][ Amount ] = cache_get_field_content_int(i, "amount");
+		PlayerItems[ playerid ][ index ][ ContentAmount ] = cache_get_field_content_int(i, "content_amount");
+		PlayerItems[ playerid ][ index ][ Durability ] = cache_get_field_content_int(i, "durability");
 	}
 	IsPlayerInventoryLoaded[ playerid ] = true;
 	return 1;
@@ -428,7 +437,8 @@ stock OnPlayerItemRemoved(playerid, itemid)
 		{
 			if( GetPVarInt( playerid, "oLaikrodis" ) && PlayerWornItems[ playerid ][ 1 ] == itemid)
 			{
-				RemovePlayerAttachedObject( playerid, 1 );
+				RemovePlayerAttachedObject(playerid, 1);
+				DeletePlayerAttachedObject(playerid, 1);
 				SetPVarInt( playerid, "oLaikrodis", false );
                 PlayerWornItems[ playerid ][ 1 ] = -1;
 			}
@@ -449,6 +459,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
 			if( GetPVarInt( playerid, "oSkarele2" ) && PlayerWornItems[ playerid ][ 1 ] == itemid)
 			{
 				RemovePlayerAttachedObject( playerid, 1 );
+				DeletePlayerAttachedObject(playerid, 1);
 				SetPVarInt( playerid, "oSkarele2", false );
                 PlayerWornItems[ playerid ][ 1 ] = -1;
 			}
@@ -482,6 +493,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
 			if( GetPVarInt( playerid, "oAkiniai" )  && PlayerWornItems[ playerid ][ 2 ] == itemid)
 			{
 				RemovePlayerAttachedObject( playerid, 2 );
+				DeletePlayerAttachedObject(playerid, 2);
 				SetPVarInt( playerid, "oAkiniai", false );
                 PlayerWornItems[ playerid ][ 2 ] = -1;
 			}
@@ -550,6 +562,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
 			if( GetPVarInt( playerid, "oKepure" )  && PlayerWornItems[ playerid ][ 0 ] == itemid)
 			{
 				RemovePlayerAttachedObject( playerid, 0 );
+				DeletePlayerAttachedObject(playerid, 0);
 				SetPVarInt( playerid, "oKepure", false );
                 PlayerWornItems[ playerid ][ 2 ] = -1;
 			}
@@ -559,6 +572,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
 			if( GetPVarInt( playerid, "oHand" )  && PlayerWornItems[ playerid ][ 4 ] == itemid)
 			{
 				RemovePlayerAttachedObject( playerid, 4 );
+				DeletePlayerAttachedObject(playerid, 4);
 				SetPVarInt( playerid, "oHand", false );
                 PlayerWornItems[ playerid ][ 4 ] = -1;
 			}
@@ -568,6 +582,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
 			if( GetPVarInt( playerid, "oNugara" )  && PlayerWornItems[ playerid ][ 6 ] == itemid)
 			{
 				RemovePlayerAttachedObject( playerid, 6 );
+				DeletePlayerAttachedObject(playerid, 6);
 				SetPVarInt( playerid, "oNugara", false );
                 PlayerWornItems[ playerid ][ 6 ] = -1;
 			}
@@ -604,6 +619,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
             RemovePlayerAttachedObject( playerid, 4 );
         }
     }
+    return 1;
 }
 
 forward OnPlayerUsePhone(playerid, itemid);
@@ -924,6 +940,7 @@ Item:OnPlayerUseWatch(playerid, itemid)
 		if(!GetPVarInt(playerid, "oLaikrodis"))
         {
             SetPlayerAttachedObject(playerid, 6, GetItemObjectModel(itemid), 5, 0.000000, -0.007722, -0.011143, 9.279358, 270.517852, 190.637268);
+            AddPlayerAttachedObject(playerid, 6, GetItemObjectModel(itemid), 5, 0.000000, -0.007722, -0.011143, 9.279358, 270.517852, 190.637268);
             EditAttachedObject(playerid, 6);
             PlayerWornItems[ playerid ][ 6 ] = itemid;
             SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
@@ -1153,6 +1170,7 @@ Item:OnPlayerUseBackpack(playerid)
 	if(!GetPVarInt(playerid, "oNugara"))
     {
         SetPlayerAttachedObject(playerid, 6, GetItemObjectModel(ITEM_KUPRINE), 1, -0.1,-0.0,0.0,0.0,0.0,0.0);
+        AddPlayerAttachedObject(playerid, 6, GetItemObjectModel(ITEM_KUPRINE), 1, -0.1,-0.0,0.0,0.0,0.0,0.0);
         EditAttachedObject(playerid, 6);
         PlayerWornItems[ playerid ][ 6 ] = ITEM_KUPRINE;
         SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
@@ -1174,6 +1192,7 @@ Item:OnPlayerUseBandana(playerid, itemid)
 	if(!GetPVarInt(playerid, "oSkarele2"))
     {
         SetPlayerAttachedObject(playerid, 1, GetItemObjectModel(itemid), 2, -0.08, 0.03, 0.0, 90, -180, -90);
+        AddPlayerAttachedObject(playerid, 1, GetItemObjectModel(itemid), 2, -0.08, 0.03, 0.0, 90, -180, -90);
         EditAttachedObject(playerid, 1);
         PlayerWornItems[ playerid ][ 1 ] = itemid;
         SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}..");
@@ -1195,6 +1214,7 @@ Item:OnPlayerUseSuitcase(playerid, itemid)
 	if(!GetPVarInt(playerid, "oHand"))
     {
         SetPlayerAttachedObject(playerid, 4, GetItemObjectModel(itemid), 6, 0.306118, -0.054140, 0.000000, 0.000000, 282.887756, 167.944808, 0.369485, 0.239421, 0.403359);
+        AddPlayerAttachedObject(playerid, 4, GetItemObjectModel(itemid), 6, 0.306118, -0.054140, 0.000000, 0.000000, 282.887756, 167.944808, 0.369485, 0.239421, 0.403359);
         EditAttachedObject(playerid, 4);
         PlayerWornItems[ playerid ][ 4 ] = itemid;
         SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
@@ -1215,6 +1235,7 @@ Item:OnPlayerUseHat(playerid, itemid)
 	if(!GetPVarInt(playerid, "oKepure"))
     {
         SetPlayerAttachedObject(playerid, 0, GetItemObjectModel(itemid), 2, 0.118000,0.013000,0.002999,-94.299880,8.799993,-98.400047);
+        AddPlayerAttachedObject(playerid, 0, GetItemObjectModel(itemid), 2, 0.118000,0.013000,0.002999,-94.299880,8.799993,-98.400047);
         EditAttachedObject(playerid, 0);
         PlayerWornItems[ playerid ][ 0 ] = itemid;
         SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
@@ -1236,6 +1257,7 @@ Item:OnPlayerUseGlassees(playerid, itemid)
 	if(!GetPVarInt(playerid, "oAkiniai"))
     {
         SetPlayerAttachedObject(playerid, 2, GetItemObjectModel(itemid), 2, 0.086000,0.024999,0.001000,85.600021,82.900001,5.199999);
+        AddPlayerAttachedObject(playerid, 2, GetItemObjectModel(itemid), 2, 0.086000,0.024999,0.001000,85.600021,82.900001,5.199999);
         EditAttachedObject(playerid, 2);
         PlayerWornItems[ playerid ][ 2 ] = itemid;
         SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
@@ -1265,6 +1287,7 @@ Item:OnPlayerUseHelmet(playerid, itemid)
     else
     {
         SetPlayerAttachedObject(playerid, 0, GetItemObjectModel(itemid), 2, 0.07, 0.017, 0, 88, 75, 0);
+        AddPlayerAttachedObject(playerid, 0, GetItemObjectModel(itemid), 2, 0.07, 0.017, 0, 88, 75, 0);
         EditAttachedObject(playerid, 0);
         format(string, sizeof(string), "* %s ant galvos uþsideda ir uþsisegà ðalmà." ,GetPlayerNameEx(playerid));
         ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
@@ -1323,6 +1346,7 @@ Item:OnPlayerUseFishingRod(playerid, itemid)
     else
     {
         SetPlayerAttachedObject(playerid, 4, GetItemObjectModel(itemid), 5, 0.111337, 0.019614, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
+        AddPlayerAttachedObject(playerid, 4, GetItemObjectModel(itemid), 5, 0.111337, 0.019614, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
         EditAttachedObject(playerid, 4);
 
         format(string, sizeof(string), "* %s iðsitraukia turimà sulankstomà meðkeræ ir iðlanksto jà." ,GetPlayerNameEx(playerid));
@@ -1472,6 +1496,7 @@ Item:OnPlayerUseBeret(playerid, itemid)
 	if(!GetPVarInt(playerid, "oKepure"))
     {
         SetPlayerAttachedObject(playerid, 0, GetItemObjectModel(itemid), 2, 0.118000,0.013000,0.002999,-94.299880,8.799993,-98.400047);
+        AddPlayerAttachedObject(playerid, 0, GetItemObjectModel(itemid), 2, 0.118000,0.013000,0.002999,-94.299880,8.799993,-98.400047);
         EditAttachedObject(playerid, 0);
         PlayerWornItems[ playerid ][ 0 ] = itemid;
         SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
@@ -1526,7 +1551,7 @@ Item:OnPlayerUseWeapon(playerid, weaponid)
 
 stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0)
 {
-	new query[130], freeindex = -1;
+	new query[140], freeindex = -1;
 
 	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
 	{
@@ -1568,10 +1593,11 @@ stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0)
 	PlayerItems[ playerid ][ freeindex ][ ItemId ] = itemid;
 	PlayerItems[ playerid ][ freeindex ][ Amount ] = amount;
 
-	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_items (player_id, item_id, amount) VALUES (%d, %d, %d)",
+	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_items (player_id, item_id, amount, slot) VALUES (%d, %d, %d, %d)",
 		GetPlayerSqlId(playerid),
 		itemid,
-		amount);
+		amount,
+		freeindex);
 	new Cache:result = mysql_query(DbHandle, query);
 	PlayerItems[ playerid ][ freeindex ][ Id ] = cache_insert_id();
 	cache_delete(result);
