@@ -114,19 +114,19 @@ hook OnPlayerEnterCheckpoint(playerid)
             DisablePlayerCheckpoint( playerid );
             Checkpoint[ playerid ] = CHECKPOINT_NONE;
             
-            new slot = PlayerHasItemInInvEx( playerid, ITEM_FISH ),
-                pay = 0,
+            new pay = 0,
                 string[ 130 ];
             
             if (!IsPlayerOnFishingBoat(playerid))
             {
-                pay = InvInfo[ playerid ][ slot ][ iAmmount ];
-                if ( !PlayerHasItemInInv( playerid, ITEM_FISH ) )
+                pay = GetPlayerItemContentAmount(playerid, ITEM_FISH);
+                if ( !IsItemInPlayerInventory( playerid, ITEM_FISH ) )
                     return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: neturite krepðio þuvims.");
                 format( string, sizeof(string), "Sveikiname, þuvies supirkimo punktas nupirko Jûsø krepðyje esanèià þuvá ir sumokëjo Jums %d$", pay * 4);
                 SendClientMessage( playerid, COLOR_GREEN, string );
+                AddPlayerItemContentAmount(playerid, ITEM_FISH, -pay);
                 GivePlayerMoney( playerid, ( pay * 4 ) );
-                ClearInvSlot    ( playerid, slot );
+
             }
             else
             {
@@ -196,9 +196,9 @@ CMD:unloadfish( playerid)
 
     if(!IsPlayerOnFishingBoat(playerid))
     {
-        if( !PlayerHasItemInInv( playerid, ITEM_FISH ) )
-            return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, neturite krepðio þuvims.");
-        if(IsPlayerInAnyVehicle( playerid ) ) 
+        if(!IsItemInPlayerInventory(playerid, ITEM_FISH))
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, neturite krepðio þuvims.");
+        if(IsPlayerInAnyVehicle(playerid)) 
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, turite iðlipti ið transporto priemonës.");
         SetPlayerCheckPointEx( playerid, CHECKPOINT_FISH, FISH_SHOP_LAND_POS_X, FISH_SHOP_LAND_POS_Y, FISH_SHOP_LAND_POS_Z, 1.0 );
     }
@@ -208,13 +208,13 @@ CMD:unloadfish( playerid)
 }
 CMD:fish( playerid)
 {
-    if( IsPlayerInAnyVehicle( playerid ) ) 
+    if(IsPlayerInAnyVehicle(playerid)) 
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite þvejoti ið transporto priemonës!");
-    if(!PlayerHasItemInInv( playerid, ITEM_ROD ) ) 
-    	return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti þvejoti neturëdami þvejybai skirtos meðkerës.");
-    if(!PlayerHasItemInInv( playerid, ITEM_RODTOOL ) ) 
-    	return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, neturite þuvies masalo, kad galëtumët pradëti þvejoti. Apsilankykite parduotuvëje.");
-    if(!PlayerHasItemInInv( playerid, ITEM_FISH ) && !IsPlayerOnFishingBoat(playerid)) 
+    if(!IsItemInPlayerInventory(playerid, ITEM_ROD)) 
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti þvejoti neturëdami þvejybai skirtos meðkerës.");
+    if(!IsItemInPlayerInventory(playerid, ITEM_RODTOOL)) 
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, neturite þuvies masalo, kad galëtumët pradëti þvejoti. Apsilankykite parduotuvëje.");
+    if(!IsItemInPlayerInventory(playerid, ITEM_FISH) && !IsPlayerOnFishingBoat(playerid)) 
     	return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti þvejoti neturëdami krepðio þuvims dëti.");
 
     if(!isAtFishPlace( playerid ) && !IsPlayerInAnyFishingSpot(playerid)) 
@@ -227,10 +227,10 @@ CMD:fish( playerid)
     	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðioje vietoje nebëra þuvø...");
 
     new vehicleid = GetNearestVehicle(playerid, 7.0);
-    if(isAtFishPlace( playerid ) && InvInfo[ playerid ][ PlayerHasItemInInvEx( playerid, ITEM_FISH ) ][ iAmmount ] >= MAX_FISH_IN_BAG)
+    if(isAtFishPlace(playerid) && GetPlayerItemContentAmount(playerid, ITEM_FISH) >= MAX_FISH_IN_BAG)
     {
         SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmësio, Jûsø þuvies krepðys prisipildë, daugiau negalite naudoti komandos /fish. Dabar veþkite þuvis á supirkimo punktà: /unloadfish");
-        SetPlayerCheckPointEx( playerid, CHECKPOINT_FISH, FISH_SHOP_LAND_POS_X, FISH_SHOP_LAND_POS_Y, FISH_SHOP_LAND_POS_Z, 1.0 );
+        SetPlayerCheckPointEx(playerid, CHECKPOINT_FISH, FISH_SHOP_LAND_POS_X, FISH_SHOP_LAND_POS_Y, FISH_SHOP_LAND_POS_Z, 1.0 );
         return 1;
 
     }
@@ -259,22 +259,17 @@ public Zvejyba(playerid, vehicleid)
     if ( succ == 0 )
     {
 
-        new mail = PlayerHasItemInInvEx( playerid, ITEM_RODTOOL ),
-            string[ 126 ];
-        format      ( string, 126, "** Staiga kaþkas uþkimba ir sujudina meðkeræ, bet meðkerë vël nurimsta. (( %s ))" ,GetPlayerNameEx( playerid ));
-        ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
+        new string[ 126 ];
+        format(string, sizeof(string), "** Staiga kaþkas uþkimba ir sujudina meðkeræ, bet meðkerë vël nurimsta. (( %s ))" ,GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
 
-        InvInfo[ playerid ][ mail ][ iAmmount ] --;
-        if ( InvInfo[ playerid ][ mail ][ iAmmount ] == 0 )
-            ClearInvSlot( playerid, mail );
+        AddPlayerItemContentAmount(playerid, ITEM_RODTOOL, -1);
         return 1;
     }
     else
     {
         new string[ 126 ],
             svoris,
-            mailius = PlayerHasItemInInvEx( playerid, ITEM_RODTOOL ),
-            visos = PlayerHasItemInInvEx( playerid, ITEM_FISH ),
             zuvys[ ][ 8 ] = {
                 {"Silkæ"  },
                 {"Karpá"  },
@@ -292,15 +287,13 @@ public Zvejyba(playerid, vehicleid)
                 };
 
 
-        InvInfo[ playerid ][ mailius ][ iAmmount ] --;
-        if ( InvInfo[ playerid ][ mailius ][ iAmmount ] == 0 )
-            ClearInvSlot( playerid, mailius );
+        AddPlayerItemContentAmount(playerid, ITEM_RODTOOL, -1);
 
         if( isAtFishPlace( playerid ) )
         {
         	svoris = random( 3 ) + 1;
-            InvInfo[ playerid ][ visos ][ iAmmount ] += svoris;
-            if(InvInfo[ playerid ][ visos ][ iAmmount ] >= MAX_FISH_IN_BAG)
+            AddPlayerItemContentAmount(playerid, ITEM_FISH, svoris);
+            if(GetPlayerItemContentAmount(playerid, ITEM_FISH) >= MAX_FISH_IN_BAG)
             {
                 SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmësio, Jûsø þuvies krepðys prisipildë, daugiau negalite naudoti komandos /fish. Dabar veþkite þuvis á supirkimo punktà: /unloadfish");
                	SetPlayerCheckPointEx( playerid, CHECKPOINT_FISH, FISH_SHOP_LAND_POS_X, FISH_SHOP_LAND_POS_Y, FISH_SHOP_LAND_POS_Z, 1.0 );

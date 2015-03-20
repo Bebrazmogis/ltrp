@@ -294,19 +294,22 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(pInfo[ playerid ][ pLevel ] < 2)
                         return SendClientMessage(playerid, COLOR_RED, "Klaida, Jûs privalote bûti pasiekæs 2 lygá, kad naudotumëtës ðia galimybæ.");
                 }
-                GunLog(GetPlayerSqlId(playerid), 8, gInfo[ PlayerUsedGarageIndex[ playerid ] ][ gOwner ], GetInvNameByID(itemid), amount);
+                GunLog(GetPlayerSqlId(playerid), 8, gInfo[ PlayerUsedGarageIndex[ playerid ] ][ gOwner ], GetItemName(itemid), amount);
                 GivePlayerWeapon(playerid, itemid, amount);
                 RemoveGarageItem(PlayerUsedGarageIndex[ playerid ], listitem);
             }
             else if(itemid > 50)
             {
                 if(IsItemDrug(itemid))
-                    NarkLog(GetPlayerSqlId(playerid), 8, gInfo[ PlayerUsedGarageIndex[ playerid ] ][ gOwner ], GetInvNameByID(itemid), amount);
-                if(!AddItemToInventory(playerid, itemid, amount))
+                    NarkLog(GetPlayerSqlId(playerid), 8, gInfo[ PlayerUsedGarageIndex[ playerid ] ][ gOwner ], GetItemName(itemid), amount);
+
+                if(IsPlayerInventoryFull(playerid))
                     return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Klaida, bet Jûsø inventoriuje nepakanka laisvos vietos ðiam daiktui.");
+
+                GivePlayerItem(playerid, itemid, amount);
                 RemoveGarageItem(PlayerUsedGarageIndex[ playerid ], listitem);
             }
-            format(string, sizeof(string), "* %s pasiemà daiktà ið spintelës, kuris atrodo kaip %s ", GetPlayerNameEx(playerid), GetInvNameByID(itemid));
+            format(string, sizeof(string), "* %s pasiemà daiktà ið spintelës, kuris atrodo kaip %s ", GetPlayerNameEx(playerid), GetItemName(itemid));
             ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE); 
             return 1;
         }
@@ -354,7 +357,7 @@ stock ShowGarageInv(playerid, garageindex)
         if(!GarageItems[ garageindex ][ slot ][ SqlId ])
             format(string, sizeof(string), "%s%d. Nëra\n", string,slot+1);
         else
-            format(string, sizeof(string), "%s%d. %s %d\n", string, slot+1, GetInvNameByID(GarageItems[ garageindex ][ slot ][ ItemId ]) ,GarageItems[ garageindex ][ slot ][ Amount ]);
+            format(string, sizeof(string), "%s%d. %s %d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]) ,GarageItems[ garageindex ][ slot ][ Amount ]);
     }
     strcat(string, "\nIðjungti");
     PlayerUsedGarageIndex[ playerid ] = garageindex;
@@ -436,6 +439,11 @@ stock IsPlayerInRangeOfGarageExit(playerid, garageindex, Float:distance)
 stock IsGarageLocked(garageindex)
 {
     return gInfo[ garageindex ][ gLocked ];
+}
+
+stock GetGarageOwner(garageindex)
+{
+    return gInfo[ garageindex ][ gOwner ];
 }
 
 stock GetGarageInteriorID(garageindex)
@@ -1101,7 +1109,7 @@ stock GarageManagementDialog.ShowInformation(playerid, garageindex)
     for(new i = 0; i < MAX_GARAGE_ITEMS; i++)
         format(string, sizeof(string),"%s%s %d\n", 
             string,
-            GetInvNameByID(GarageItems[ garageindex ][ i ][ ItemId ]),
+            GetItemName(GarageItems[ garageindex ][ i ][ ItemId ]),
             GarageItems[ garageindex ][ i ][ Amount ]);
     ShowPlayerDialog(playerid, 9999, DIALOG_STYLE_MSGBOX, "Garaþo informacija", string, "Gerai", "");
     return 1;

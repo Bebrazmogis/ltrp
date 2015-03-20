@@ -28,13 +28,28 @@
 #define MAX_HOUSE_RENT_PRICE            500
 #define MAX_HOUSE_SELL_PRICE            10000000
 
+#define MIN_HOUSE_WEED_YIELD            15
+#define MAX_HOUSE_WEED_YIELD            22
+
 #define MAX_HOUSE_ITEMS                 MAX_HOUSETRUNK_SLOTS
 #define MAX_HOUSE_FURNITURE             400
+#define MAX_HOUSE_WEED_SAPLINGS         1
+
+#define HOUSE_WEED_GROW_TIME_MS         3600000
+#define HOUSE_WEED_GROW_TIME_S          (HOUSE_WEED_GROW_TIME_MS / 1000)
 
 #define HouseManagementDialog.          houdiag
 
 #define HOUSE_LABEL_DRAW_DISTANCE       20.0
 
+
+
+enum E_HOUSE_WEED_DATA 
+{
+    Id,
+    bool:Grown,
+    Timer:GrowTimer,
+};
 
 enum E_HOUSE_RADIO_DATA {
     StationURL[ 64 ],
@@ -80,7 +95,8 @@ enum E_HOUSE_DATA
 
 new hInfo[ MAX_HOUSES ][ E_HOUSE_DATA ],
     HouseFurniture[MAX_HOUSES][ MAX_HOUSE_FURNITURE][ E_HOUSE_FURNITURE_DATA ],
-    HouseRadio[ MAX_HOUSES ][ E_HOUSE_RADIO_DATA ];
+    HouseRadio[ MAX_HOUSES ][ E_HOUSE_RADIO_DATA ],
+    HouseWeed[ MAX_HOUSES ][ MAX_HOUSE_WEED_SAPLINGS ][ E_HOUSE_WEED_DATA ];
 
 new Iterator:Houses<MAX_HOUSES>;
 
@@ -89,7 +105,7 @@ new Iterator:Houses<MAX_HOUSES>;
 forward OnHouseLoad();
 forward OnHouseItemLoad();
 forward OnHouseFurnitureLoad();
-
+forward OnHouseWeedLoad();
 
 /*
                                                                                                
@@ -119,6 +135,7 @@ public OnGameModeInit()
     // Tokia sudëtinga uþklausa tik tam kad paimti papildomai tekstûros duomenis
     // Bei tam kad bûtø iðrikiuota pagal namo ID, todël vieno namo baldai bus vienas ðalia kito.
     mysql_tquery(DbHandle, "SELECT house_furniture.*,house_furniture_textures.*, furniture.name AS default_name FROM house_furniture LEFT JOIN house_furniture_textures ON house_furniture.id = house_furniture_textures.furniture_id LEFT JOIN furniture ON furniture.id = house_furniture.furniture_id", "OnHouseFurnitureLoad", "");
+    mysql_tquery(DbHandle, "SELECT * FROM house_weed WHERE harvested = 0", "OnHouseWeedLoad", "");
     return 1;
 }
 #if defined _ALS_OnGameModeInit
@@ -284,6 +301,42 @@ public OnHouseFurnitureLoad()
 }
 
 
+public OnHouseWeedLoad()
+{
+    new hindex, lastHouseId, plantcount, planttime;
+
+    for(new i = 0; i < cache_get_row_count(); i++)
+    {
+        new houseid = cache_get_field_content_int(i, "house_id");
+        if(!lastHouseId || lastHouseId != houseid)
+        {
+            lastHouseId = houseid;
+            hindex = GetHouseIndex(houseid);
+            plantcount = 0;
+        }
+
+        
+        if(hindex == -1)
+            continue;
+
+        HouseWeed[ hindex ][ plantcount ][ Id ] = cache_get_field_content_int(i, "id");
+        planttime = cache_get_field_content_int(i, "plant_timestamp");
+
+        // Jei jau uþaugæs
+        if(planttime + HOUSE_WEED_GROW_TIME_S <= gettime())
+        {
+            HouseWeed[ hindex ][ plantcount ][ Grown ] = true;
+        }
+        else 
+        {
+            HouseWeed[ hindex ][ plantcount ][ GrowTimer ] = defer WeedGrowTime((HOUSE_WEED_GROW_TIME_S - (gettime()-planttime)) * 1000, hindex, plantcount);
+        }
+        plantcount++;
+    }
+    printf("Pakrauti %d þolës augalai.", cache_get_row_count());
+    return 1;
+}
+
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     HouseManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
@@ -422,23 +475,26 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(pInfo[ playerid ][ pLevel ] < 2)
                     return SendClientMessage( playerid, COLOR_RED, "Klaida, Jûs privalote bøti pasiekæs 2 lygá, kad naudotumëtës ðia galimybæ.");
                 }
-                GunLog(GetPlayerSqlId(playerid), 2, hInfo[ house_index ][ hOwner ], GetInvNameByID(itemid), hInfo[ house_index ][ hCount ][ listitem ]);
+                GunLog(GetPlayerSqlId(playerid), 2, hInfo[ house_index ][ hOwner ], GetItemName(itemid), hInfo[ house_index ][ hCount ][ listitem ]);
                 GivePlayerWeapon(playerid, itemid, hInfo[ house_index ][ hCount ][ listitem ]);
             }
             // Jei tai áprastas daiktas
             else if(itemid > 50)
             {
                 if(IsItemDrug(itemid))
-                    NarkLog(GetPlayerSqlId(playerid), 2, hInfo[ house_index ][ hOwner ], GetInvNameByID(itemid), hInfo[ house_index ][ hCount ][ listitem ]);
-                if (!AddItemToInventory(playerid, itemid, hInfo[ house_index ][ hCount ][ listitem ]))
+                    NarkLog(GetPlayerSqlId(playerid), 2, hInfo[ house_index ][ hOwner ], GetItemName(itemid), hInfo[ house_index ][ hCount ][ listitem ]);
+
+                if(IsPlayerInventoryFull(playerid))
                     return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Klaida, bet Jûsø inventoriuje nepakanka laisvos vietos ðiam daiktui.");
+
+                GivePlayerItem(playerid, itemid, hInfo[ house_index ][ hCount ][ listitem ]);
             }
 
             // Jei pasiekëm ðià vietà, daiktas jau duotas reikia já paðalinti ið namo atminties
             hInfo[ house_index ][ hItem  ][ listitem ] = 0;
             hInfo[ house_index ][ hCount ][ listitem ] = 0;
             SaveHouseInv(house_index);
-            format(string, sizeof(string), "* %s pasiemà daiktà ið spintelës, kuris atrodo kaip %s ", GetPlayerNameEx(playerid), GetInvNameByID(itemid));
+            format(string, sizeof(string), "* %s pasiemà daiktà ið spintelës, kuris atrodo kaip %s ", GetPlayerNameEx(playerid), GetItemName(itemid));
             ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
             return 1;
         }
@@ -477,7 +533,7 @@ stock ShowHouseInv(playerid, hindex)
             format(string, sizeof(string), "%s%d. Nëra\n", string, i+1);
         else
             format(string, sizeof(string), "%s%d. %s %d\n", string, i+1, 
-                GetInvNameByID(hInfo[ hindex ][ hItem ][ i ]), 
+                GetItemName(hInfo[ hindex ][ hItem ][ i ]), 
                 hInfo[ hindex ][ hCount ][ i ]);
     }
     SetPVarInt(playerid, "HouseIndex", hindex);
@@ -592,6 +648,11 @@ stock IsValidHouse(hindex)
         return false;
 }
 
+stock IsHouseUpgradeInstalled(houseindex, E_HOUSE_UPGRADE_DATA:upgrade)
+{
+    return hInfo[ houseindex ][ hUpgrades ][ upgrade ];
+}
+
 stock IsPlayerInRangeOfHouseFurniture(playerid, hindex, findex, Float:distance)
 {
     new Float:pos[3];
@@ -640,6 +701,9 @@ stock GetHouseVirtualWorld(hindex)
  
 stock IsHouseLocked(hindex)
     return hInfo[ hindex ][ hLocked ];
+
+stock GetHouseOwner(hindex)
+    return hInfo[ hindex ][ hOwner ];
 
 stock ToggleHouseLock(hindex)
 {
@@ -705,6 +769,39 @@ stock IsPlayerRentingHouse(playerid, index)
         return true;
     else 
         return false;
+}
+
+stock GetHouseFreeWeedSlotCount(hindex)
+{
+    new count = 0;
+    for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
+        if(!HouseWeed[ hindex ][ i ][ Id ])
+            count++;
+    return count;   
+}
+
+stock GetHouseWeedPlantCount(houseindex)
+{
+    new count = 0;
+    for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
+        if(HouseWeed[ houseindex ][ i ][ Id ])
+            count++;
+    return count;   
+}
+
+
+stock HarvestHouseWeedPlant(house_index, weedindex)
+{
+    new query[80],
+        yield = random(MAX_HOUSE_WEED_YIELD - MIN_HOUSE_WEED_YIELD) + MIN_HOUSE_WEED_YIELD;
+
+    mysql_format(DbHandle, query, sizeof(query), "UPDATE house_weed SET harvested = 1, yield = %d WHERE id = %d", 
+        yield,
+        HouseWeed[ house_index ][ weedindex ][ Id ]);
+    mysql_pquery(DbHandle, query);
+    HouseWeed[ house_index ][ weedindex ][ Id ] = 0;
+
+    return yield;
 }
 
 
@@ -817,6 +914,30 @@ stock AddHouseFurniture(hindex, furniture_index, Float:posx, Float:posy, Float:p
 }
 
 
+stock AddHouseWeedSapling(hindex)
+{
+    new query[100], index = -1;
+
+    for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
+        if(!HouseWeed[ hindex ][ i ][ Id ])
+        {
+            index = i;
+            break;
+        }
+    if(index == -1)
+        return 0;
+
+    HouseWeed[ hindex ][ index ][ Grown ] = false;
+
+    mysql_format(DbHandle, query, sizeof(query), "INSERT INTO house_weed (house_id, plant_timestamp) VALUES (%d, %d)",
+        hInfo[ hindex ][ hID ], gettime());
+    new Cache:result = mysql_query(DbHandle, query);
+    HouseWeed[ hindex ][ index ][ Id ] = cache_insert_id();
+    cache_delete(result);
+
+    HouseWeed[ hindex ][ index ][ GrowTimer ] = defer WeedGrowTime(HOUSE_WEED_GROW_TIME_MS, hindex, index);
+    return 1;
+}
 
 /*
                                                     
@@ -1104,6 +1225,49 @@ stock RemoveHouseOwner(hindex)
     UpdateHouseInfoText(hindex);
     return 1;
 }
+
+stock DestroyHouseWeed(houseindex)
+{
+    new query[100];
+
+    for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
+    {
+        if(!HouseWeed[ houseindex ][ i ][ Id ])
+            continue;
+
+        stop HouseWeed[ houseindex ][ i ][ GrowTimer ];
+        HouseWeed[ houseindex ][ i ][ Grown ] = false;
+    }
+
+    mysql_format(DbHandle, query, sizeof(query), "UPDATE house_weed SET harvested = 1, yield = 0 WHERE house_id = %d",
+        hInfo[ houseindex ][ hID ]);
+    return mysql_pquery(DbHandle, query);
+}
+
+/*
+                                                                           
+                             ,,                                            
+                MMP""MM""YMM db                                            
+                P'   MM   `7                                               
+                     MM    `7MM  `7MMpMMMb.pMMMb.  .gP"Ya `7Mb,od8 ,pP"Ybd 
+                     MM      MM    MM    MM    MM ,M'   Yb  MM' "' 8I   `" 
+                     MM      MM    MM    MM    MM 8M""""""  MM     `YMMMa. 
+                     MM      MM    MM    MM    MM YM.    ,  MM     L.   I8 
+                   .JMML.  .JMML..JMML  JMML  JMML.`Mbmmd'.JMML.   M9mmmP' 
+                                                                           
+                                                                           
+
+*/
+
+timer WeedGrowTime[grow_time](grow_time, houseindex, weedindex)
+{
+    grow_time = 0;
+    HouseWeed[ houseindex ][ weedindex ][ Grown ] = true;
+}
+
+
+
+
 
 
 
@@ -1537,6 +1701,64 @@ CMD:sellhouse(playerid, params[])
 }
 
 
+CMD:cutweed(playerid)
+{
+    if(pInfo[ playerid ][ pJob ] != JOB_DRUGS) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Klaida, negalite naudotis ðia galimybe nebûdamas narkotiku prekeiviu.");
+
+    new house_index = GetPlayerHouseIndex(playerid),
+        string[50],
+        yield,
+        plantcount;
+
+    if(house_index == -1)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs turite bûti prie namo áëjimo arba jo viduje.");
+
+    if(!IsPlayerHouseOwner(playerid, house_index))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, namas turi priklausyti Jums, kad atliktumët ðá veiksmà.");
+
+    for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
+        if(HouseWeed[ house_index ][ i ][ Id ] && HouseWeed[ house_index ][ i ][ Grown ])
+        {
+            plantcount++;
+            yield += HarvestHouseWeedPlant(house_index, i);
+        }
+
+    if(!plantcount)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø namuose neauga þolë.");
+
+    if(IsPlayerInventoryFull(playerid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø inventoriuje nebëra vietos.");
+
+
+    format(string, sizeof(string), "Nuëmëte derliø ið %d augalo(ø) ir gavote %d gramø þolës.", plantcount, yield);
+    SendClientMessage(playerid, COLOR_WHITE, string);
+
+    GivePlayerItem(playerid, ITEM_WEED, yield);
+    return 1;
+}
+
+CMD:cutdownweed(playerid)
+{
+    if(!UsePDCMD(playerid)) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs nesate pareigûnas, kad naudotumëtës ðia komanda..");
+
+    new house_index = GetPlayerHouseIndex(playerid),
+        string[50];
+
+    if(house_index == -1)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs turite bûti prie namo áëjimo arba jo viduje.");
+
+    if(!GetHouseWeedPlantCount(house_index))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiame name neauga þolë.");
+
+    format(string, sizeof(string), "Sunaikinote %d þolës augalus.", GetHouseWeedPlantCount(house_index));
+    SendClientMessage(playerid, COLOR_POLICE, string);
+
+    DestroyHouseWeed(house_index);
+    return 1;
+
+}
 
 /*
                     
@@ -1683,7 +1905,7 @@ stock HouseManagementDialog.Information(playerid, hindex)
         if(hInfo[ hindex ][ hItemSqlId ])
             format(string, sizeof(string),"%s%s %d\n",
                 string,
-                GetInvNameByID(hInfo[ hindex ][ hItem ]),
+                GetItemName(hInfo[ hindex ][ hItem ]),
                 hInfo[ hindex ][ hCount ]);
 
     ShowPlayerDialog(playerid, 9999, DIALOG_STYLE_MSGBOX, "Namo informcija", string, "Gerai", "");

@@ -25,6 +25,7 @@ enum E_PLAYER_WEAPON_DATA
 {
 	WeaponId,
 	Ammo,
+	bool:IsJob,
 };
 
 static PlayerWeapons[ MAX_PLAYERS ][ MAX_PLAYER_WEAPONS ][ E_PLAYER_WEAPON_DATA ];
@@ -256,13 +257,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	for(new i = 0; i < MAX_PLAYER_WEAPONS; i++)
 		if(PlayerWeapons[ playerid ][ i ][ WeaponId ] == weaponid)
 		{
-			if(PlayerWeapons[ playerid ][ i ][ JobAmmo ])
-			{
-				PlayerWeapons[ playerid ][ i ][ JobAmmo ] = GetPlayerAmmo(playerid);
-
-			}
-			else 
-				PlayerWeapons[ playerid ][ i ][ Ammo ] = GetPlayerAmmo(playerid);
+			PlayerWeapons[ playerid ][ i ][ Ammo ] = GetPlayerAmmo(playerid);
 			
 			if(!PlayerWeapons[ playerid ][ i ][ Ammo ])
 			{

@@ -269,7 +269,7 @@ stock CheckWeaponCheat(playerid, weaponid, type)
 		TogglePlayerControllable(playerid, 0);
 
 		ResetPlayerWeapons(playerid);
-		ClearWeaponsFromInv(playerid);
+		ClearWeaponsFromPlayerInventory(playerid);
 
 		format(eile, sizeof(eile), "Neleistinai gautas ginklas (%s)", wepname);
 		BanPlayer("AC", playerid, eile);

@@ -1,5 +1,5 @@
 
-#include <YSI\y_items>
+#include <YSI\y_hooks>
 
 /*
 
@@ -28,7 +28,8 @@ enum E_PLAYER_INVENTORY_DATA
 	Id, 
 	ItemId,
 	Amount,
-	Extra, // Labai ávairûs dalykai gali bûti èia laikomi...  PVz þuvies krepðy þuvys, cigareèiø pakelyje cigareèiø skaièius.
+	ContentAmount,
+	Durability,
 };
 
 static PlayerItems[ MAX_PLAYERS ][ MAX_PLAYER_ITEMS ][ E_PLAYER_INVENTORY_DATA ],
@@ -94,7 +95,6 @@ public OnPlayerItemLoad(playerid)
 		PlayerItems[ playerid ][ i ][ Id ] = cache_get_field_content_int(i, "id");
 		PlayerItems[ playerid ][ i ][ ItemId ] = cache_get_field_content_int(i, "item_id");
 		PlayerItems[ playerid ][ i ][ Amount ] = cache_get_field_content_int(i, "amount");
-		PlayerItems[ playerid ][ i ][ Extra ] = cache_get_field_content_int(i, "extra");
 	}
 	IsPlayerInventoryLoaded[ playerid ] = true;
 	return 1;
@@ -111,7 +111,7 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				return 1;
 
 			PlayerUsedItemIndex[ playerid ] = listitem;
-			ShowPlayerDialog(playerid, DIALOG_PLAYER_INVENTORY_OPTIONS, DIALOG_STYLE_LIST, GetInvNameByID(PlayerItems[ playerid ][ listitem ][ ItemId ]),
+			ShowPlayerDialog(playerid, DIALOG_PLAYER_INVENTORY_OPTIONS, DIALOG_STYLE_LIST, GetItemName(PlayerItems[ playerid ][ listitem ][ ItemId ]),
                                 "\n Panaudoti pagal paskirtá\
                                 \n Perduoti kitam veikëjui\
                                 \n Padëti á tr. priemonæ\
@@ -128,10 +128,11 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 
 			new itemid = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ ItemId ],
-				amount = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ Amount ]
-				itemname[ MAX_ITEM_NAME ];
+				amount = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ Amount ],
+				itemname[ MAX_ITEM_NAME ],
+				string[128];
 
-			itemname = GetInvNameByID(itemid);
+			itemname = GetItemName(itemid);
 
 	        switch(listitem)
 	        {
@@ -140,7 +141,9 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                if(IsPlayerInAnyVehicle(playerid) && IsItemWeapon(itemid)) 
 	                	SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: bûdamas transporto priemonëje ginklo iðtraukti negalite.");
 	                else 
-	                	OnPlayerUseItem(playerid, itemid);
+	                {
+	                	SelectPlayerItem(playerid, itemid);
+	                }
 	            }
 	            case 1:
 	            {
@@ -168,8 +171,8 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     if(IsItemDrug(itemid))
                     {
-                        NarkLog(GetPlayerSqlId(playerid), 6, GetPlayerSqlId(playerid), GetInvNameByID(itemid), amount);
-                        NarkLog(GetPlayerSqlId(id), 5,GetPlayerSqlId(playerid), GetInvNameByID(itemid), amount);
+                        NarkLog(GetPlayerSqlId(playerid), 6, GetPlayerSqlId(playerid), GetItemName(itemid), amount);
+                        NarkLog(GetPlayerSqlId(id), 5,GetPlayerSqlId(playerid), GetItemName(itemid), amount);
                     }
                     if(itemid > 21 && itemid < 50)
                     {
@@ -177,8 +180,8 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo neturëdami antro lygio.");
                         if(pInfo[ id ][ pLevel ] < 2)
                             return SendClientMessage(playerid, COLOR_GREY, "   þaidëjas turi bûti 2 arba aukðtesnio lygio.");
-                        GunLog(GetPlayerSqlId(playerid), 6, GetPlayerSqlId(id), GetInvNameByID(itemid), amount);
-                        GunLog(GetPlayerSqlId(id), 5, GetPlayerSqlId(playerid), GetInvNameByID(itemid), amount);
+                        GunLog(GetPlayerSqlId(playerid), 6, GetPlayerSqlId(id), GetItemName(itemid), amount);
+                        GunLog(GetPlayerSqlId(id), 5, GetPlayerSqlId(playerid), GetItemName(itemid), amount);
                     }
 
                     GetPlayerIp(playerid, IP, 16);
@@ -254,7 +257,7 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                        cInfo[ car ][ cTrunkWeapon ][ slot ] = itemid;
 	                        cInfo[ car ][ cTrunkAmmo   ][ slot ] = amount;
 
-	                        new datstmp = itemid;
+
 
 	                        GivePlayerItem(playerid, itemid, -amount);
 	                        OnPlayerItemRemoved(playerid, itemid);
@@ -290,13 +293,13 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                    }
 	                }
 	                if(IsItemDrug(itemid))
-	                    NarkLog(GetPlayerSqlId(playerid), 1, hInfo[ index ][ hOwner ], itemname, amount);
+	                    NarkLog(GetPlayerSqlId(playerid), 1, GetHouseOwner(index), itemname, amount);
 	                if(itemid > 21 && itemid < 50)
 	                {
 	                    if(pInfo[ playerid ][ pLevel ] < 2)
 	                        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo neturëdami antro lygio.");
 
-	                    GunLog(GetPlayerSqlId(playerid), 1, hInfo[ index ][ hOwner ], itemid, amount);
+	                    GunLog(GetPlayerSqlId(playerid), 1, GetHouseOwner(index), itemname, amount);
 	                }
 	                format(string, sizeof(string), "* %s atidaro spintelæ ir ádeda á ja daiktà, kuris atrodo kaip %s", GetPlayerNameEx(playerid), itemname);
 	                ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
@@ -334,13 +337,13 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                    }
 	                }
 	                if(IsItemDrug(itemid))
-	                    NarkLog(GetPlayerSqlId(playerid), 7, gInfo[ index ][ gOwner ], itemname, amount);
+	                    NarkLog(GetPlayerSqlId(playerid), 7, GetGarageOwner(index), itemname, amount);
 	                if(itemid > 21 && itemid < 50)
 	                {
 	                    if(pInfo[ playerid ][ pLevel ] < 2)
 	                        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo neturëdami antro lygio.");
 
-	                    GunLog(GetPlayerSqlId(playerid), 7, gInfo[ index ][ gOwner ], itemname, amount);
+	                    GunLog(GetPlayerSqlId(playerid), 7, GetGarageOwner(index), itemname, amount);
 	                }
 	                
 	                format(string, sizeof(string), "* %s atidaræs spintelæ á jà ádeda %s", GetPlayerNameEx(playerid), itemname);
@@ -356,13 +359,10 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	            case 5: ShowPlayerInventoryDialog(playerid);
 	            case 6:
 	            {
-	                new
-	                    datstmp;
-
 	                format(string, sizeof(string), "* %s ant þemës iðmetà %s.", GetPlayerNameEx(playerid), itemname);
 	                ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 	                GivePlayerItem(playerid, itemid, -amount);
-	                OnPlayerItemRemoved(playerid);
+	                OnPlayerItemRemoved(playerid, itemid);
 	                return 1;
 	            }
 	        }
@@ -373,120 +373,291 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 }
 
 
-
-stock OnPlayerUseItem(playerid, itemid, amount)
+public OnPlayerUseItem(playerid, itemid, success)
 {
-	// Èia visas InvUseItem turi tilpti..
-	new
-        string[ 256 ];
-    switch(itemid)
+	
+
+}
+
+stock OnPlayerItemRemoved(playerid, itemid)
+{
+    switch ( itemid )
     {
-        case 1..50:
+		//oLaikrodis
+		case ITEM_WatchType1,
+				ITEM_WatchType2,
+				ITEM_WatchType6,
+				ITEM_WatchType4:
+		{
+			if( GetPVarInt( playerid, "oLaikrodis" ) && PlayerWornItems[ playerid ][ 1 ] == itemid)
+			{
+				RemovePlayerAttachedObject( playerid, 1 );
+				SetPVarInt( playerid, "oLaikrodis", false );
+                PlayerWornItems[ playerid ][ 1 ] = -1;
+			}
+		}
+		//oSkarele2
+		case ITEM_Bandana10,
+			ITEM_Bandana11,  
+			ITEM_Bandana12, 
+			ITEM_Bandana13, 
+			ITEM_Bandana14,  
+			ITEM_Bandana15, 
+			ITEM_Bandana16,  
+			ITEM_Bandana17,
+			ITEM_Bandana18, 
+			ITEM_Bandana19,
+			ITEM_EyePatch1:
+		{
+			if( GetPVarInt( playerid, "oSkarele2" ) && PlayerWornItems[ playerid ][ 1 ] == itemid)
+			{
+				RemovePlayerAttachedObject( playerid, 1 );
+				SetPVarInt( playerid, "oSkarele2", false );
+                PlayerWornItems[ playerid ][ 1 ] = -1;
+			}
+		}
+		//oAkiniai
+		case ITEM_GlassesType1,
+				ITEM_GlassesType2,
+				ITEM_GlassesType3,
+				ITEM_GlassesType4,
+				ITEM_GlassesType7,
+				ITEM_GlassesType10,
+				ITEM_GlassesType13,
+				ITEM_GlassesType14,
+				ITEM_GlassesType15 ,
+				ITEM_GlassesType16,
+				ITEM_GlassesType17,
+				ITEM_GlassesType18 ,
+				ITEM_GlassesType19,
+				ITEM_GlassesType20,
+				ITEM_GlassesType21,
+				ITEM_GlassesType22,
+				ITEM_GlassesType23,
+				ITEM_GlassesType24 ,
+				ITEM_GlassesType25,
+				ITEM_GlassesType26,
+				ITEM_GlassesType27 ,
+				ITEM_GlassesType28,
+				ITEM_PoliceGlasses2,
+				ITEM_PoliceGlasses3:
+		{
+			if( GetPVarInt( playerid, "oAkiniai" )  && PlayerWornItems[ playerid ][ 2 ] == itemid)
+			{
+				RemovePlayerAttachedObject( playerid, 2 );
+				SetPVarInt( playerid, "oAkiniai", false );
+                PlayerWornItems[ playerid ][ 2 ] = -1;
+			}
+		}
+		case ITEM_HAIR1,
+				ITEM_HAIR2,
+				ITEM_Bandana2,  
+				ITEM_Bandana4,
+				ITEM_Bandana5   ,
+				ITEM_Bandana6,   
+				ITEM_Bandana7,
+				ITEM_Bandana8, 
+				ITEM_Bandana9,
+				ITEM_Beret2,
+				ITEM_Beret3,
+				ITEM_Beret4,
+				ITEM_Beret1,
+				ITEM_Beret5,
+				ITEM_CapBack3,    
+				ITEM_CapBack4,   
+				ITEM_CapBack5,    
+				ITEM_CapBack7,    
+				ITEM_CapBack8,    
+				ITEM_CapBack9,    
+				ITEM_CapBack10,
+				ITEM_CapBack11,
+				ITEM_CapBack12,   
+				ITEM_CapBack13,
+				ITEM_CapBack14,  
+				ITEM_CapBack15,  
+				ITEM_CapBack16,   
+				ITEM_CapBack17,  
+				ITEM_CapBack18,
+				ITEM_CapBack19, 
+				ITEM_CapBack20,
+				ITEM_CapBack21,
+				ITEM_SkullyCap1,
+				ITEM_SkullyCap2,
+				ITEM_HatMan1,
+				ITEM_HatMan2,
+				ITEM_SantaHat1,
+				ITEM_SantaHat2,
+				ITEM_HoodyHat3,
+				ITEM_CowboyHat2, 
+				ITEM_CowboyHat3,
+				ITEM_CowboyHat4,
+				ITEM_CowboyHat5,
+				ITEM_tophat01,
+				ITEM_HatBowler6,
+				ITEM_pilotHat01,
+				ITEM_HatBowler1, 
+				ITEM_HatBowler2,
+				ITEM_HatBowler3,
+				ITEM_SillyHelmet2,
+				ITEM_SillyHelmet3,
+				ITEM_PlainHelmet1,
+				ITEM_MotorcycleHelmet4,
+				ITEM_MotorcycleHelmet5,
+				ITEM_MotorcycleHelmet6,
+				ITEM_MotorcycleHelmet7,
+				ITEM_MotorcycleHelmet8,
+				ITEM_MotorcycleHelmet9,
+				ITEM_HockeyMask1,
+				ITEM_MaskZorro1:
+		{
+			if( GetPVarInt( playerid, "oKepure" )  && PlayerWornItems[ playerid ][ 0 ] == itemid)
+			{
+				RemovePlayerAttachedObject( playerid, 0 );
+				SetPVarInt( playerid, "oKepure", false );
+                PlayerWornItems[ playerid ][ 2 ] = -1;
+			}
+		}
+		case ITEM_KREPSYS, ITEM_LAGAMINAS:
+		{
+			if( GetPVarInt( playerid, "oHand" )  && PlayerWornItems[ playerid ][ 4 ] == itemid)
+			{
+				RemovePlayerAttachedObject( playerid, 4 );
+				SetPVarInt( playerid, "oHand", false );
+                PlayerWornItems[ playerid ][ 4 ] = -1;
+			}
+		}
+		case ITEM_KUPRINE:
+		{
+			if( GetPVarInt( playerid, "oNugara" )  && PlayerWornItems[ playerid ][ 6 ] == itemid)
+			{
+				RemovePlayerAttachedObject( playerid, 6 );
+				SetPVarInt( playerid, "oNugara", false );
+                PlayerWornItems[ playerid ][ 6 ] = -1;
+			}
+		}
+        case ITEM_PHONE: pInfo[ playerid ][ pPhone ] = 0;
+        case ITEM_RADIO:
         {
-            if(!IsPlayerHaveManyGuns(playerid, itemid))
-            {
-                GivePlayerWeapon(playerid, itemid, amount, false);
-
-                format(string, sizeof(string), "Sëkmingai iðsitraukëtæ %s, kuris turi %d kulkas (-as).", itemname, amount);
-                SendClientMessage(playerid, GRAD, string);
-
-                GivePlayerWeapon(playerid, itemid, -amount);
-            }
-            return 1;
-        }
-        case ITEM_NOTE: cmd_note(playerid, "");
-        case ITEM_PHONE:
-        {
-            new Hour,
-                Min,
-                Sec;
-
-            gettime(Hour, Min, Sec);
-            format(string, sizeof(string), " Laikrodis Jûsø telefone ðiuo metu rodo toká laikà: %d:%d", Hour, Min);
-            SendClientMessage(playerid, COLOR_FADE1, string);
-            format(string, 256, "* %s iðsitraukia mobiløjá telefonà ir pasiþiûri dabartiná laikà.." , GetPlayerNameEx(playerid));
-            ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+            pInfo[ playerid ][ pRChannel ] = 0;
+            UpdatePlayerInfoText( playerid );
         }
         case ITEM_MASK:
         {
-            new
-                bool:found;
-            if(pInfo[ playerid ][ pLevel ] <= 2) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, veido kaukæ galite uþsidëti tik pasiekæ 3 lygá.");
-
-            foreach(Player, x)
+            if(IsItemInPlayerInventory( playerid, ITEM_MASK ) && pInfo[playerid][pMask] == 0)
             {
-                if(pInfo[ x ][ pAdmin ] >= 1 && AdminDuty[ x ])
-                {
-                    found = true;
-                    break;
-                }
-            }
-
-            if(pInfo[playerid][pMask] == 1)
-            {
-                if(!found) 
-                	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, veido kaukæ galite uþsidëti tik tada kada serveryje yra prisijungusiu Administratoriø.");
-
-                format(string, sizeof(string), "* %s iðsitraukia ir ant galvos uþsimaunà veido kaukæ.", GetPlayerNameEx(playerid));
-                ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                pInfo[ playerid ][ pMask ] = 0;
-
-                format(string, 30, "Kaukëtasis ((ID: %d))", GetPlayerSqlId(playerid));
-
+                pInfo[playerid][pMask] = 1;
                 foreach(Player,i)
                 {
                     ShowPlayerNameTagForPlayer(i, playerid, pInfo[playerid][pMask]);
                 }
-                return 1;
-            }
-            else
-            {
-                format(string, sizeof(string), "* %s nusimauna veido kaukæ sau nuo veido.", GetPlayerNameEx(playerid));
-                ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                pInfo[ playerid ][ pMask ] = 1;
-                foreach(Player,i)
-                {
-                    ShowPlayerNameTagForPlayer(i, playerid, pInfo[playerid][pMask]);
-                }
-                return 1;
             }
         }
-        case ITEM_RADIO:
+        case ITEM_TOLKIT:
         {
-            cmd_radiohelp(playerid);
+            if ( Laikas[playerid] > 0 )
+            {
+                Laikas[playerid] = 0;
+                LaikoTipas[playerid] = 0;
+                if(CheckUnfreeze(playerid))
+                    TogglePlayerControllable(playerid,true);
+            }
         }
-        case ITEM_CIG:
+        case ITEM_ROD:
         {
-        	new index;
-            if(!IsItemInPlayerInventory(playerid, ITEM_ZIB) && !IsItemInPlayerInventory(playerid, ITEM_MATCHES)) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti rukyti neturëdami kuo prisidegti cigaretës.");
+            RemovePlayerAttachedObject( playerid, 4 );
+        }
+    }
+}
 
-            if(Ruko[playerid] > 0) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jûs jau røkote.");
+forward OnPlayerUsePhone(playerid, itemid);
+public OnPlayerUsePhone(playerid, itemid)
+{
+    new Hour,
+        Min,
+        Sec,
+        string[90];
 
-            if(Mires[playerid] > 0) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas, kad Jûs ðiuo metu esate kritinëje komos bûsenoje.");
+    gettime(Hour, Min, Sec);
+    format(string, sizeof(string), " Laikrodis Jûsø telefone ðiuo metu rodo toká laikà: %d:%d", Hour, Min);
+    SendClientMessage(playerid, COLOR_FADE1, string);
+    format(string, sizeof(string), "* %s iðsitraukia mobiløjá telefonà ir pasiþiûri dabartiná laikà.." , GetPlayerNameEx(playerid));
+    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    return 1;
+}
 
-            if(IsItemInPlayerInventory(playerid, ITEM_ZIB))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_ZIB);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
-            else if(IsItemInPlayerInventory(playerid, ITEM_MATCHES))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_MATCHES);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
+forward OnPlayerUseMask(playerid, itemid);
+public OnPlayerUseMask(playerid, itemid)
+{
+	new bool:found, string[90];
 
-            index = GetPlayerItemIndex(playerid, ITEM_CIG);
-            PlayerItems[ playerid ][ index ][ Extra ]--;
-            if(!PlayerItems[ playerid ][ index ][ Extra ])
-            	GivePlayerItem(playerid, itemid, -1);
+    if(pInfo[ playerid ][ pLevel ] <= 2) 
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, veido kaukæ galite uþsidëti tik pasiekæ 3 lygá.");
+
+    foreach(Player, x)
+    {
+        if(pInfo[ x ][ pAdmin ] >= 1 && AdminDuty[ x ])
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if(pInfo[playerid][pMask] == 1)
+    {
+        if(!found) 
+        	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, veido kaukæ galite uþsidëti tik tada kada serveryje yra prisijungusiu Administratoriø.");
+
+        format(string, sizeof(string), "* %s iðsitraukia ir ant galvos uþsimaunà veido kaukæ.", GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+        pInfo[ playerid ][ pMask ] = 0;
+
+        format(string, 30, "Kaukëtasis ((ID: %d))", GetPlayerSqlId(playerid));
+
+        foreach(Player,i)
+        {
+            ShowPlayerNameTagForPlayer(i, playerid, pInfo[playerid][pMask]);
+        }
+    }
+    else
+    {
+        format(string, sizeof(string), "* %s nusimauna veido kaukæ sau nuo veido.", GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+        pInfo[ playerid ][ pMask ] = 1;
+        foreach(Player,i)
+        {
+            ShowPlayerNameTagForPlayer(i, playerid, pInfo[playerid][pMask]);
+        }
+    }
+    return 1;
+}
+
+forward OnPlayerStartSmoking(playerid, itemid);
+public OnPlayerStartSmoking(playerid, itemid)
+{
+    if(!IsItemInPlayerInventory(playerid, ITEM_ZIB) && !IsItemInPlayerInventory(playerid, ITEM_MATCHES)) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti rukyti neturëdami kuo prisidegti cigaretës.");
+
+    if(Ruko[playerid] > 0) 
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jûs jau røkote.");
+
+	if(Mires[playerid] > 0) 
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas, kad Jûs ðiuo metu esate kritinëje komos bûsenoje.");
+
+	if(IsItemInPlayerInventory(playerid, ITEM_ZIB))
+    {
+    	AddPlayerItemContentAmount(playerid, ITEM_ZIB, -1);
+    }
+    else if(IsItemInPlayerInventory(playerid, ITEM_MATCHES))
+    {
+    	AddPlayerItemDurability(playerid, ITEM_MATCHES, -1);
+    }
+
+	switch(itemid)
+	{
+		case ITEM_CIG:
+		{
+            
+            AddPlayerItemContentAmount(playerid, ITEM_CIG, -1);
 
             cmd_ame(playerid, "iðsitraukia cigaretæ ið pakelio ir uþsikøræs jà þiebtuveliu pradeda rûkyti.");
             Ruko[playerid] = 180;
@@ -496,154 +667,10 @@ stock OnPlayerUseItem(playerid, itemid, amount)
                 OnePlayAnim(playerid,"SMOKING","M_smk_in",3.0,0,0,0,0,0);
             }
             return 1;
-        }
-        case ITEM_FUEL:
+		}
+		case ITEM_WEED:
         {
-            new car = GetNearestVehicle(playerid, 10.0);
-            if(car == INVALID_VEHICLE_ID) 
-            	return 1;
-
-            format(string, sizeof(string), "* %s palenkæs degalø bakelá link bako pripilà á tr. priemonæ kuro.", GetPlayerNameEx(playerid));
-            ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-            new maxfuel = GetVehicleFuelTank(GetVehicleModel(car));
-
-            new fuel = GetPlayerItemExtraValue(playerid, itemid);
-            if(cInfo[car][cFuel] + fuel > maxfuel)
-            {
-                SetPlayerItemExtraValue(playerid, itemid, fuel - maxfuel - cInfo[ car ][ cFuel ]);
-                cInfo[car][cFuel] = maxfuel;
-            }
-            else
-            {
-                cInfo[ car ][ cFuel ] += fuel;
-                GivePlayerItem(playerid, itemid, -1);
-            }
-        }
-        case ITEM_TOLKIT:
-        {
-            new
-                veh = GetNearestVehicle(playerid, 2.5),
-                bool:found = false;
-                
-            foreach(Player, x)
-            {
-                if(pInfo[ x ][ pAdmin ] >= 1 && AdminDuty[ x ])
-                {
-                    found = true;
-                    break;
-                }
-            }
-                
-            if(veh == INVALID_VEHICLE_ID) 
-            	return SendClientMessage(playerid, GRAD, "Aplink Jus ðiuo metu nëra jokio automobilio, kad atliktumët veiksmà.");
-
-            if(!isLicCar(veh) && VehicleHasEngine(GetVehicleModel(veh)) && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
-            {
-                if(cInfo[ veh ][ cLock ] == 1 && cInfo[ veh ][ cOwner ] > 0 && CheckCarKeys(playerid,veh) == 0)
-                {
-                    if(pInfo[ playerid ][ pJob ] != JOB_JACKER)
-                    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite uþkurti/pavogti tr. priemonës nebødamo vagimi.");
-                    if(!found)
-                        return 1;
-                        
-                    if(!IsItemInPlayerInventory(playerid, ITEM_TOLKIT))
-                    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs neturite repliø, kad atliktumët ðá veiksmà. ");
-                    
-
-                    SetPVarInt(playerid, "CAR_JACK", veh);
-                    if(cInfo[veh][cLockType] == 0)
-                        StartTimer(playerid,60,5);
-                    else
-                        StartTimer(playerid,120*cInfo[veh][cLockType],5);
-                    format(string, sizeof(string), "* %s iðsitraukæs árankius bando atrakinti tr. priemonës spinelæ.",GetPlayerNameEx(playerid));
-                    ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                    CJLog(pInfo[ playerid ][ pMySQLID ], cInfo[veh][cID], "Bando atrakinti tr. priemonà");
-                    if(cInfo[veh][cAlarm] == 1 || cInfo[veh][cAlarm] == 2)
-                    {
-                        format(string,sizeof(string),"* Garsiai pypsi tr. priemonës signalizacija ((%s))",cInfo[veh][cName]);
-                        ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                        VehicleAlarm(veh, 1);
-                    }
-                    else if(cInfo[veh][cAlarm] == 3)
-                    {
-                        new zone[30];
-                        GetPlayer2DZone(playerid, zone, 30);
-                        format(string,sizeof(string),"* Garsiai pypsi tr. priemonës signalizacija ((%s))",cInfo[veh][cName]);
-                        ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                        SendTeamMessage(1, COLOR_LIGHTRED, "|________________ávykio reportavimas________________|");
-                        SendTeamMessage(1, COLOR_WHITE, "|Dièpeèerinë praneða| Tr. priemonës apsaugos sistema praneða apie bandymà áslauþti.");
-                        format(string, sizeof(string), "|Nustatytà ásilauþimo vieta|: Tr. priemonës apsaugos sistema nurodo, kad ásilauþimas vyksta: %s",zone);
-                        SendTeamMessage(1, COLOR_WHITE, string);
-                        VehicleAlarm(veh, 1);
-                    }
-                    else if(cInfo[veh][cAlarm] == 4)
-                    {
-                        new zone[30],
-                            CarOwner = GetCarOwner(veh);
-                        GetPlayer2DZone(playerid, zone, 30);
-                        format(string,sizeof(string),"* Garsiai pypsi tr. priemonës signalizacija ((%s))",cInfo[veh][cName]);
-                        ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                        SendTeamMessage(1, COLOR_LIGHTRED, "|________________Tr. priemonës apsauga________________|");
-                        SendTeamMessage(1, COLOR_WHITE, "|Dièpeèerinë praneða| Tr. priemonës apsaugos sistema praneða apie bandymà áslauþti..");
-                        format(string, sizeof(string), "|Nustatytà ásilauþimo vieta|: Tr. priemonës apsaugos sistema nurodo, kad ásilauþimas vyksta: %s",zone);
-                        SendTeamMessage(1, COLOR_WHITE, string);
-                        
-                        if(!IsPlayerConnected(CarOwner)) 
-                            return 1;
-                        SendClientMessage(CarOwner, COLOR_WHITE, "________________ Tr. priemonës signalizacija _____________");
-                        SendClientMessage(CarOwner, COLOR_WHITE, "SMS þinutë: á Jûsø transporto priemonæ bandoma ásilauþti, paþeista signalizacija. ");
-                        SetVehicleParamsForPlayer(veh,CarOwner,1,cInfo[veh][cLock]);
-                        PlayerPlaySound(CarOwner, 1052, 0.0, 0.0, 0.0);
-                        VehicleAlarm(veh, 1);
-                    }
-                }
-            }
-        }
-        case ITEM_CLOCK:
-        {
-            new Hour,
-                Min,
-                Sec;
-
-            gettime(Hour, Min, Sec);
-            format(string, sizeof(string), "Laikrodis rodo, kad ðiuo metu yra %d:%d:%d",Hour,Min,Sec);
-            SendClientMessage(playerid, COLOR_FADE1, string);
-            format(string, sizeof(string), "* %s pasiþiørá á ant rankos esantá laiktrodá.", GetPlayerNameEx(playerid));
-            ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-            ApplyAnimation(playerid, "COP_AMBIENT", "Coplook_watch", 4.1, 0, 0, 0, 0, 0);
-        }
-        case ITEM_DICE:
-        {
-            new spin;
-            spin = random(6) + 1;
-            format(string, sizeof(string), "** %s iðmeta loðimo kauliukus, kurie iðsridenà skaièiø - %d", GetPlayerNameEx(playerid),spin);
-            ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-        }
-        case ITEM_WEED:
-        {
-            if(!IsItemInPlayerInventory(playerid, ITEM_ZIB) && !IsItemInPlayerInventory(playerid, ITEM_MATCHES)) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti rukyti neturëdami kuo uþsikurti cigaretës.");
-
-            if(Ruko[playerid] > 0) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jûs jau røkote.");
-            
-
-            if(IsItemInPlayerInventory(playerid, ITEM_ZIB))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_ZIB);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
-            else if(IsItemInPlayerInventory(playerid, ITEM_MATCHES))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_MATCHES);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
-
-            
+     
             cmd_ame(playerid, "laikydamas suktinæ pridega jà þiebtuveliu.");
             GivePlayerItem(playerid, itemid, -1);
 
@@ -658,26 +685,6 @@ stock OnPlayerUseItem(playerid, itemid, amount)
         }
         case ITEM_OPIUM:
         {
-            if(!IsItemInPlayerInventory(playerid, ITEM_ZIB) && !IsItemInPlayerInventory(playerid, ITEM_MATCHES)) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti rukyti neturëdami kuo uþsikurti cigaretës.");
-
-            if(Ruko[playerid] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jûs jau rûkote.");
-
-            if(IsItemInPlayerInventory(playerid, ITEM_ZIB))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_ZIB);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
-            else if(IsItemInPlayerInventory(playerid, ITEM_MATCHES))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_MATCHES);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
-
             cmd_ame(playerid, "laikydamas suktinæ pridega jà þiebtuveliu.");
             GivePlayerItem(playerid, itemid, -1);
 
@@ -709,167 +716,9 @@ stock OnPlayerUseItem(playerid, itemid, amount)
             SetPVarInt(playerid, "DrugHP", 10);
             SetPVarInt(playerid, "DrugHPLimit", 50);
         }
-        case ITEM_SEED:
-        {
-        	// NEBaIGTA. Reiktø apskritai su þole perdaryti.
-            if(pInfo[ playerid ][ pJob ] != JOB_DRUGS) 
-            	return SendClientMessage(playerid ,GRAD, "{FF6347}Klaida, negalite atlikti ðio veiksmo nebødami narkotikø prekeiviu.");
-            	
-            new index = GetPlayerHouseIndex(playerid);
-            if(indes == -1)
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate namuose.");
-
-            if(!IsPlayerHouseOwner(playerid, index))
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis namas ne jûsø.");
-
-
-
-            foreach(Houses,h)
-            {
-                if(PlayerToPoint(15.0, playerid, hInfo[ h ][ hExit ][ 0 ],hInfo[ h ][ hExit ][ 1 ],hInfo[ h ][ hExit ][ 2 ]) && GetPlayerVirtualWorld(playerid) == HOUSE_VIRTUAL_WORLD+hInfo[ h ][ hID ])
-                {
-                    if(hInfo[h][hOwner] == pInfo[ playerid ][ pMySQLID ])
-                    {
-                        for(new w = 0; w < sizeof WeedSeed; w++)
-                        {
-                            if(WeedSeed[ w ][ wUsed ] && WeedSeed[ w ][ wHouse ] == h)
-                            return SendClientMessage(playerid, COLOR_LIGHTRED, "ð iame name Jûs jau auginate þolæ.");
-                        }
-                        for(new w = 0; w < sizeof WeedSeed; w++)
-                        {
-                            if(!WeedSeed[ w ][ wUsed ])
-                            {
-                                WeedSeed[ w ][ wUsed ] = true;
-                                WeedSeed[ w ][ wReady ] = false;
-                                WeedSeed[ w ][ wHouse ] = h;
-
-                                ClearInvSlot(playerid, slotid);
-
-                                SendClientMessage(playerid, COLOR_WHITE, " Jums sëkmingai pavyko pasëti þolës sëklas, dabar beliekà laukti kol auglas pilnai uþaugs.");
-                                SetTimerEx("Zole", 3600000, 0, "d", w); // þolës augimo laikas
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        case ITEM_MATS: 
-        	SendClientMessage(playerid, GRAD, "Pasigaminimui naudojama komanda /make ");
-        case ITEM_AMFAMISC,ITEM_COCAINEMISC,ITEM_METAAMFAMISC: 
-        	SendClientMessage(playerid, GRAD, "Pasigaminimui naudojama komanda /make ");
-        case ITEM_METAMFA:
-        {
-            GivePlayerItem(playerid, itemid, -1);
-            if(pInfo[ playerid ][ pMetaAmfaineAddict ] == 0)
-                pInfo[ playerid ][ pMetaAmfaineAddict ] += 3;
-            else
-            {
-                if(!GetPVarInt(playerid, "Addicted"))
-                    pInfo[ playerid ][ pMetaAmfaineAddict ] += 3+random(3);
-                else
-                {
-                    new
-                        rand = 3+random(3);
-                    if(pInfo[ playerid ][ pMetaAmfaineAddict ] - rand > 0)
-                        pInfo[ playerid ][ pMetaAmfaineAddict ] -= rand;
-                    else
-                        pInfo[ playerid ][ pMetaAmfaineAddict ] = 1;
-                    SetPVarInt(playerid, "Addicted", false);
-                }
-            }
-                
-            SetPlayerWeather (playerid, 141);
-            
-            DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 13000, false, "i", playerid);
-
-            SetPVarInt(playerid, "DrugHP", 10);
-            SetPVarInt(playerid, "DrugHPLimit", 50);
-        }
-        case ITEM_EXTAZY:
-        {
-            GivePlayerItem(playerid, itemid, -1);
-            SetPlayerDrunkLevel(playerid, 5 * 4000);
-            format(string, sizeof(string), "* %s ásideda saujoje laikomas tabletes á burnà ir jas nuryjà." ,GetPlayerNameEx(playerid));
-            ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-            if(pInfo[ playerid ][ pExtazyAddict ] == 0)
-					pInfo[ playerid ][ pExtazyAddict ] += 5;
-            else
-            {
-                if(!GetPVarInt(playerid, "Addicted"))
-                    pInfo[ playerid ][ pExtazyAddict ] += 5+random(5);
-                else
-                {
-                    new
-                        rand = 5+random(5);
-                    if(pInfo[ playerid ][ pExtazyAddict ] - rand > 0)
-                        pInfo[ playerid ][ pExtazyAddict ] -= rand;
-                    else
-                        pInfo[ playerid ][ pExtazyAddict ] = 1;
-                    SetPVarInt(playerid, "Addicted", false);
-                }
-            }
-
-            DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 8000, false, "i", playerid);
-
-            SetPVarInt(playerid, "DrugHP", 5);
-            SetPVarInt(playerid, "DrugHPLimit", 50);
-        }
-        case ITEM_PCP:
-        {
-           	GivePlayerItem(playerid, itemid, -1);
-            SetPlayerDrunkLevel(playerid, 5 * 6000);
-            format(string, sizeof(string), "* %s ásideda saujoje laikomas PCP tabletes á burnà." ,GetPlayerNameEx(playerid));
-            ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-            if(pInfo[ playerid ][ pPCPAddict ] == 0)
-                pInfo[ playerid ][ pPCPAddict ] += 3;
-            else
-            {
-                if(!GetPVarInt(playerid, "Addicted"))
-                    pInfo[ playerid ][ pPCPAddict ] += 2+random(3);
-                else
-                {
-                    new
-                        rand = 2+random(3);
-                    if(pInfo[ playerid ][ pPCPAddict ] - rand > 0)
-                        pInfo[ playerid ][ pPCPAddict ] -= rand;
-                    else
-                        pInfo[ playerid ][ pPCPAddict ] = 1;
-                    SetPVarInt(playerid, "Addicted", false);
-                }
-            }
-
-            SetPlayerWeather (playerid, 250);
-
-            DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 20000, false, "i", playerid);
-
-            SetPVarInt(playerid, "DrugHP", 10);
-            SetPVarInt(playerid, "DrugHPLimit", 50);
-        }
         case ITEM_CRACK:
         {
-            if(!IsItemInPlayerInventory(playerid, ITEM_ZIB) && !IsItemInPlayerInventory(playerid, ITEM_MATCHES)) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti rukyti neturëdami kuo uþsikurti kreko.");
-
-            if(Ruko[playerid] > 0) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jûs jau røkote.");
-            
-            if(IsItemInPlayerInventory(playerid, ITEM_ZIB))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_ZIB);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
-            else if(IsItemInPlayerInventory(playerid, ITEM_MATCHES))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_MATCHES);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
-
-            cmd_ame(playerid, "laikydamas kreko suktinæ rankose jà prisidega þiebtuveliu.");
+        	cmd_ame(playerid, "laikydamas kreko suktinæ rankose jà prisidega þiebtuveliu.");
             GivePlayerItem(playerid, itemid, -1);
 
             Ruko     [ playerid ] = 180;
@@ -902,409 +751,724 @@ stock OnPlayerUseItem(playerid, itemid, amount)
             SetPVarInt(playerid, "DrugHP", 15);
             SetPVarInt(playerid, "DrugHPLimit", 75);
         }
-        case ITEM_AMFA:
-        {
-            GivePlayerItem(playerid, itemid, -1);
-            SetPlayerDrunkLevel(playerid, 5 * 3000);
-
-            format(string, 70, "* %s staigiai átraukia amfetamino dozæ per nosá." ,GetPlayerNameEx(playerid));
-            ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-            if(pInfo[ playerid ][ pAmfaAddict ] == 0)
-                pInfo[ playerid ][ pAmfaAddict ] += 3;
-            else
-            {
-                if(!GetPVarInt(playerid, "Addicted"))
-                    pInfo[ playerid ][ pAmfaAddict ] += 3+random(3);
-                else
-                {
-                    new
-                        rand = 3+random(3);
-                    if(pInfo[ playerid ][ pAmfaAddict ] - rand > 0)
-                        pInfo[ playerid ][ pAmfaAddict ] -= rand;
-                    else
-                        pInfo[ playerid ][ pAmfaAddict ] = 1;
-                    SetPVarInt(playerid, "Addicted", false);
-                }
-            }
-
-            SetPlayerWeather (playerid, -68);
-
-            DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 13000, false, "i", playerid);
-
-            SetPVarInt(playerid, "DrugHP", 10);
-            SetPVarInt(playerid, "DrugHPLimit", 50);
-        }
-        case ITEM_COCAINE:
-        {
-            if(InvInfo[ playerid ][ slotid ][ iAmmount ] > 5)
-            {
-                format           (string, 70, "* %s átraukia per didelá kieká kokaino milteliø ir perdozuoja." ,GetPlayerNameEx(playerid));
-                ProxDetector     (20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-                SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio, traukiamas kokaino kiekis buvo per didelis. Jûsø veikëjas perdozavo.");
-                SetPlayerHealth  (playerid, 0);
-                ClearInvSlot(playerid, slotid);
-            }
-            else
-            {
-                format           (string, 70, "* %s staigiai átraukia kokaino miltelius per nosá." ,GetPlayerNameEx(playerid));
-                ProxDetector     (20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-                GivePlayerItem(playerid, itemid, -1);
-                if(pInfo[ playerid ][ pCocaineAddict ] == 0)
-                    pInfo[ playerid ][ pCocaineAddict ] += 3;
-                else
-                {
-                    if(!GetPVarInt(playerid, "Addicted"))
-                        pInfo[ playerid ][ pCocaineAddict ] += 3+random(6);
-                    else
-                    {
-                        new
-                            rand = 3+random(6);
-                        if(pInfo[ playerid ][ pCocaineAddict ] - rand > 0)
-                            pInfo[ playerid ][ pCocaineAddict ] -= rand;
-                        else
-                            pInfo[ playerid ][ pCocaineAddict ] = 1;
-                        SetPVarInt(playerid, "Addicted", false);
-                    }
-                }
-
-                SetPlayerWeather (playerid, -68);
-
-                DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 10000, false, "i", playerid);
-
-                SetPVarInt(playerid, "DrugHP", 7);
-                SetPVarInt(playerid, "DrugHPLimit", 70);
-            }
-        }
-        case ITEM_KUPRINE:
-        {
-            if(!GetPVarInt(playerid, "oNugara"))
-            {
-                SetPlayerAttachedObject(playerid, 6, 3026, 1, -0.1,-0.0,0.0,0.0,0.0,0.0);
-                EditAttachedObject(playerid, 6);
-                PlayerWornItems[ playerid ][ 6 ] = ITEM_KUPRINE;
-                SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
-                SetPVarInt(playerid, "oNugara", true);
-            }
-            else
-            {
-                SetPVarInt(playerid, "oNugara", false);
-                SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
-                RemovePlayerAttachedObject(playerid, 6);
-                PlayerWornItems[ playerid ][ 6 ] = -1;
-            }
-        }
-        case ITEM_Bandanaa2, ITEM_Bandanaa4, ITEM_Bandanaa5, ITEM_Bandanaa6, ITEM_Bandanaa7, 
-        	ITEM_Bandanaa8, ITEM_Bandanaa9, ITEM_Bandanaa10, ITEM_Bandanaa11, ITEM_Bandanaa12, 
-        	ITEM_EyePatch1:
-        {
-        	if(!GetPVarInt(playerid, "oSkarele2"))
-            {
-                SetPlayerAttachedObject(playerid, 1, 18911, 2, -0.08, 0.03, 0.0, 90, -180, -90);
-                EditAttachedObject(playerid, 1);
-                PlayerWornItems[ playerid ][ 1 ] = itemid;
-                SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}..");
-                SetPVarInt(playerid, "oSkarele2", true);
-            }
-            else
-            {
-                SetPVarInt(playerid, "oSkarele2", false);
-                SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
-                RemovePlayerAttachedObject(playerid, 1);
-                PlayerWornItems[ playerid ][ 1 ] = -1;
-            }
-        }
-        case ITEM_KREPSYS, ITEM_LAGAMINAS:
-        {
-        	if(!GetPVarInt(playerid, "oHand"))
-            {
-                SetPlayerAttachedObject(playerid, 4, 2919, 6, 0.306118, -0.054140, 0.000000, 0.000000, 282.887756, 167.944808, 0.369485, 0.239421, 0.403359);
-                EditAttachedObject(playerid, 4);
-                PlayerWornItems[ playerid ][ 4 ] = itemid;
-                SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
-                SetPVarInt(playerid, "oHand", true);
-            }
-            else
-            {
-                SetPVarInt(playerid, "oHand", false);
-                SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
-                RemovePlayerAttachedObject(playerid, 4);
-                PlayerWornItems[ playerid ][ 4 ] = -1;
-            }
-        }
-        case ITEM_HAIR1, ITEM_HAIR2, ITEM_HAIR5, ITEM_Bandana2, ITEM_Bandana4, ITEM_Bandana5, ITEM_Bandana6, ITEM_Bandana7, ITEM_Bandana8, ITEM_Bandana9, ITEM_Beret1, ITEM_Beret2, 
-			ITEM_Beret3, ITEM_Beret4, ITEM_Beret5, ITEM_CapBack3, ITEM_CapBack4, ITEM_CapBack5, ITEM_CapBack7, ITEM_CapBack8, ITEM_CapBack9, ITEM_CapBack10, ITEM_CapBack11, ITEM_CapBack12, 
-			ITEM_CapBack13, ITEM_CapBack14, ITEM_CapBack15, ITEM_CapBack16, ITEM_CapBack17, ITEM_CapBack18, ITEM_CapBack19, ITEM_CapBack20, ITEM_CapBack21, ITEM_SkullyCap1, ITEM_SkullyCap2, 
-			ITEM_HatMan1, ITEM_HatMan2, ITEM_SantaHat1, ITEM_SantaHat2, ITEM_HoodyHat3, ITEM_CowboyHat2, ITEM_CowboyHat3, ITEM_CowboyHat4, ITEM_CowboyHat5, ITEM_tophat01, ITEM_HatBowler6, ITEM_pilotHat01,
-			ITEM_HatBowler1, ITEM_HatBowler2, ITEM_HatBowler3, ITEM_SillyHelmet2, ITEM_SillyHelmet3, ITEM_PlainHelmet1, ITEM_MotorcycleHelmet4, ITEM_MotorcycleHelmet5, ITEM_MotorcycleHelmet6, 
-			ITEM_MotorcycleHelmet7, ITEM_MotorcycleHelmet8, ITEM_MotorcycleHelmet9, ITEM_HockeyMask1, ITEM_MaskZorro1:
-		{
-			if(!GetPVarInt(playerid, "oKepure"))
-            {
-                SetPlayerAttachedObject(playerid, 0, 19516, 2, 0.118000,0.013000,0.002999,-94.299880,8.799993,-98.400047);
-                EditAttachedObject(playerid, 0);
-                PlayerWornItems[ playerid ][ 0 ] = itemid;
-                SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
-                SetPVarInt(playerid, "oKepure", true);
-            }
-            else
-            {
-                SetPVarInt(playerid, "oKepure", false);
-                SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
-                RemovePlayerAttachedObject(playerid, 0);
-                PlayerWornItems[ playerid ][ 0 ] = -1;
-            }
-		}
-      	case ITEM_WatchType1, ITEM_WatchType2, ITEM_WatchType6, ITEM_WatchType4:
-      	{
-            if(!GetPVarInt(playerid, "oLaikrodis"))
-            {
-                SetPlayerAttachedObject(playerid, 6, 19039, 5, 0.000000, -0.007722, -0.011143, 9.279358, 270.517852, 190.637268);
-                EditAttachedObject(playerid, 6);
-                PlayerWornItems[ playerid ][ 6 ] = itemid;
-                SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
-                SetPVarInt(playerid, "oLaikrodis", true);
-            }
-            else
-            {
-                SetPVarInt(playerid, "oLaikrodis", false);
-                SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
-                RemovePlayerAttachedObject(playerid, 6);
-                PlayerWornItems[ playerid ][ 6 ] = -1;
-            }
-      	}
-      	case ITEM_GlassesType2, ITEM_GlassesType3, ITEM_GlassesType4, ITEM_GlassesType7, ITEM_GlassesType10, ITEM_GlassesType13, ITEM_GlassesType14, 
-			ITEM_GlassesType15, ITEM_GlassesType16, ITEM_GlassesType17, ITEM_GlassesType18, ITEM_GlassesType19, ITEM_GlassesType20, ITEM_GlassesType21, 
-			ITEM_GlassesType22, ITEM_GlassesType23, ITEM_GlassesType24, ITEM_GlassesType25, ITEM_GlassesType26, ITEM_GlassesType27, ITEM_GlassesType28, 
-			ITEM_PoliceGlasses2, ITEM_PoliceGlasses3:
-		{
-			if(!GetPVarInt(playerid, "oAkiniai"))
-            {
-                SetPlayerAttachedObject(playerid, 2, 19006, 2, 0.086000,0.024999,0.001000,85.600021,82.900001,5.199999);
-                EditAttachedObject(playerid, 2);
-                PlayerWornItems[ playerid ][ 2 ] = itemid;
-                SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
-                SetPVarInt(playerid, "oAkiniai", true);
-            }
-            else
-            {
-                SetPVarInt(playerid, "oAkiniai", false);
-                SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
-                RemovePlayerAttachedObject(playerid, 2);
-                PlayerWornItems[ playerid ][ 2 ] = -1;
-            }
-		}
-        case ITEM_HERAS:
-        {
-            if(!IsItemInPlayerInventory(playerid, ITEM_SVIRKSTAS)) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo, kartu neturëdami ðvirkðto.");
-
-
-            format(string, sizeof(string), "* %s pasiemæs ðvirkstà ástato já á venà ant rankos ir susileidþia heroinà." ,GetPlayerNameEx(playerid));
-            ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-            GivePlayerItem(playerid, itemid, -1);
-            GivePlayerItem(playerid, itemid, -1);
-            if(pInfo[ playerid ][ pHeroineAddict ] == 0)
-                pInfo[ playerid ][ pHeroineAddict ] += 3;
-            else
-            {
-                if(!GetPVarInt(playerid, "Addicted"))
-                    pInfo[ playerid ][ pHeroineAddict ] += 3+random(4);
-                else
-                {
-                    new
-                        rand = 3+random(4);
-                    if(pInfo[ playerid ][ pHeroineAddict ] - rand > 0)
-                        pInfo[ playerid ][ pHeroineAddict ] -= rand;
-                    else
-                        pInfo[ playerid ][ pHeroineAddict ] = 1;
-                    SetPVarInt(playerid, "Addicted", false);
-                }
-            }
-
-            SetPlayerWeather (playerid, -64);
-
-            DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 12000, false, "i", playerid);
-
-            SetPVarInt(playerid, "DrugHP", 5);
-            SetPVarInt(playerid, "DrugHPLimit", 65);
-            return 1;
-            
-        }
-        case ITEM_HELMET:
-        {
-            if(IsPlayerAttachedObjectSlotUsed(playerid, 0))
-            {
-                RemovePlayerAttachedObject(playerid, 0);
-                format(string, sizeof(string), "* %s nuo galvos atsisegà ir nusiemà ðalmà." ,GetPlayerNameEx(playerid));
-                ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-                return 1;
-            }
-            else
-            {
-                SetPlayerAttachedObject(playerid, 0, 18645, 2, 0.07, 0.017, 0, 88, 75, 0);
-                EditAttachedObject(playerid, 0);
-                format(string, sizeof(string), "* %s ant galvos uþsideda ir uþsisegà ðalmà." ,GetPlayerNameEx(playerid));
-                ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-                return 1;
-            }
-        }
-        case ITEM_ROD:
-        {
-            if(IsPlayerAttachedObjectSlotUsed(playerid, 4))
-            {
-                RemovePlayerAttachedObject(playerid, 4);
-
-                format(string, sizeof(string), "* %s sulankso rankose turimà meðkeræ ir ásideda jà." ,GetPlayerNameEx(playerid));
-                ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-                return 1;
-            }
-            else
-            {
-                SetPlayerAttachedObject(playerid, 4, 18632, 5, 0.111337, 0.019614, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
-                EditAttachedObject(playerid, 4);
-
-                format(string, sizeof(string), "* %s iðsitraukia turimà sulankstomà meðkeræ ir iðlanksto jà." ,GetPlayerNameEx(playerid));
-                ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-                return 1;
-            }
-        }
-        case ITEM_BEER:
-        {
-            SetPlayerSpecialAction(playerid, SPECIAL_ACTION_DRINK_BEER);
-            format(string, sizeof(string), "* %s atkemðà alaus butelá." ,GetPlayerNameEx(playerid));
-            cmd_ame(playerid, "atidaro alaus butelá.");
-            GivePlayerItem(playerid, itemid, -1);
-            return 1;
-
-        }
-        case ITEM_SPRUNK:
-        {
-            SetPlayerSpecialAction(playerid, SPECIAL_ACTION_DRINK_SPRUNK);
-            cmd_ame(playerid, "atidaro sprunk butelá.");
-            GivePlayerItem(playerid, itemid, -1);
-            return 1;
-        }
-        case ITEM_VINE:
-        {
-            SetPlayerSpecialAction(playerid, SPECIAL_ACTION_DRINK_WINE);
-            cmd_ame(playerid, "atidaro vyno butelá.");
-            GivePlayerItem(playerid, itemid, -1);
-            return 1;
-        }
-        case ITEM_MOLOTOV:
-        {
-            new otherplaya = GetNearestPlayer(playerid, 5.0);
-            if(pInfo[ playerid ][ pAdmin ] < 2 || (otherplaya != INVALID_PLAYER_ID && pInfo[ otherplaya ][ pAdmin ] < 2))
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo jei ðalia Jûsø nëra budintis Administratorius. ");
-
-
-            
-            if(!IsItemInPlayerInventory(playerid, ITEM_ZIB) && !IsItemInPlayerInventory(playerid, ITEM_MATCHES)) 
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: jûs neturite su kuo uþkurti molotov'à.");
-
-            if(IsItemInPlayerInventory(playerid, ITEM_ZIB))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_ZIB);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
-            else if(IsItemInPlayerInventory(playerid, ITEM_MATCHES))
-            {
-            	index = GetPlayerItemIndex(playerid, ITEM_MATCHES);
-            	PlayerItems[ playerid ][ index ][ Extra ]--;
-            	if(!PlayerItems[ playerid ][ index ][ Extra ])
-            		GivePlayerItem(playerid, itemid, -1);
-            }
-            
-            new Float:kords[ 3 ],
-                Zona[ 30 ];
-            GetPlayerPos(playerid, kords[ 0 ], kords[ 1 ], kords[ 2 ]);
-            
-            for (new i = 0; i < MAX_FIRE; i++)
-            {
-                if(!IsValidDynamicObject(Fire[ i ][ smoke ]) && !Fire[ i ][ active ])
-                {
-                    Fire[ i ][ smoke ] = CreateDynamicObject(18715, kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, 0, 0, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), -1, 500.0);
-                    SetTimerEx("Explosion", 10000, 0, "fffddidd", kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, i, 0, false, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-                    SetTimerEx("Explosion", 60*1000, 0, "fffddidd", kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, i, 1, false, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-                    SetTimerEx("Explosion", 5*60*1000, 0, "fffddidd", kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, i, 2, false, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-                    SetTimerEx("Explosion", 20*60*1000, 0, "fffddidd", kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, i, 3, true, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-                    Fire[ i ][ active ] = true;
-                    break;
-                }
-            }
-
-            format(string, sizeof(string), "* %s numeta degalø bakelá ant þemës ir atsargiai padegà já. " ,GetPlayerNameEx(playerid));
-            ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-
-            GetPlayer2DZone(playerid, Zona, 30);
-
-            Tlc[ 0 ] = kords[ 0 ];
-            Tlc[ 1 ] = kords[ 1 ];
-            Tlc[ 2 ] = kords[ 2 ];
-
-            SendClientMessage(playerid, COLOR_RED, "Dëmesio, bëkite kuo toliau nuo bakelio, kadangi galite nukentëti nuo sprogimo.");
-
-            format(string, 126, "AdmWarn: ([%d]%s) buvo sukurtas sprogimas naudojant degalø bakelá.", playerid, GetName(playerid));
-            SendAdminMessage(COLOR_ADM, string);
-
-            SendTeamMessage(2, COLOR_LIGHTRED, "|________________ávykio praneðimas________________|");
-            SendTeamMessage(2, COLOR_WHITE, "|Dièpeèerinë praneða| Buvo gautas praneðimas apie kilusá/sukeltà sprogimà.");
-            format(string, sizeof(string),    "|Nustatytà vieta| Nustatyta, kad ávykis ávyko: %s ((/tlc))",Zona);
-            SendTeamMessage(2, COLOR_WHITE, string);
-
-            GivePlayerItem(playerid, itemid, -1);
-            return 1;
-        }
-        case ITEM_MP3:
-        {
-            if(IsPlayerInAnyVehicle(playerid))
-            {
-                new veh = GetPlayerVehicleID(playerid);
-                if(VehicleRadio[ veh ] != 99)
-                    RadioName[ playerid ] = 99;
-            }
-            format(string, 512, "- Radijo stotys\
-                                \n- Garsumas \t[ %d ]\
-                                \n- Iðjungti", GetRadioVolume(playerid));
-            ShowPlayerDialog(playerid, 67, DIALOG_STYLE_LIST,"MP3 Grotuvas", string, "Rinktis", "Atsaukti");
-            return 1;
-        }
-        case ITEM_AUDIO:
-        {
-            foreach(Houses,h)
-            {
-                if(PlayerToPoint(10.0, playerid, hInfo[ h ][ hExit ][ 0 ],hInfo[ h ][ hExit ][ 1 ],hInfo[ h ][ hExit ][ 2 ]) && GetPlayerVirtualWorld(playerid) == HOUSE_VIRTUAL_WORLD+hInfo[ h ][ hID ])
-                {
-                    if(hInfo[h][hOwner] != pInfo[ playerid ][ pMySQLID ]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo ne Jums priklausanèioje nuosavybëje.");
-                    if(hInfo[ h ][ hRadio ] == 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiame name jau yra ádiegta garso sistema.");
-                    hInfo[ h ][ hRadio ] = 1;
-                    SendClientMessage(playerid, COLOR_WHITE, "Sveikiname sëkmingai instaliavus garso sistemà á savo namà. Gero klausymosi!");
-                    GivePlayerItem(playerid, itemid, -1);
-                    AddHouseUpgrade(h, Radio);
-                    return 1;
-                }
-            }
-        }
-        case ITEM_BIGAUDIO:
-        {
-            format(string, 126, "- Radijo stotis\
-                                \n- Padëti\
-                                \n- Paimti");
-            ShowPlayerDialog(playerid, 76, DIALOG_STYLE_LIST,"Magas", string, "Rinktis", "Atsaukti");
-            return 1;
-        }
-        default:
-        	SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, pasirinktas daiktas neturi jokios naudojimo paskirties.");
-    }
-    return true;
+	}
+	return 1;
 }
 
-stock OnPlayerItemRemoved(playerid, itemid)
+forward OnPlayerUseFuelTank(playerid, itemid);
+public OnPlayerUseFuelTank(playerid, itemid)
 {
-	// Iðkvieèiamas kai ið þaidëjo paimamas daiktas.
+	new car = GetNearestVehicle(playerid, 10.0),
+	 	string[92];
+    if(car == INVALID_VEHICLE_ID) 
+    	return 1;
+
+    format(string, sizeof(string), "* %s palenkæs degalø bakelá link bako pripilà á tr. priemonæ kuro.", GetPlayerNameEx(playerid));
+    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    new maxfuel = GetVehicleFuelTank(GetVehicleModel(car));
+
+    new fuel = GetPlayerItemContentAmount(playerid, itemid);
+
+    if(cInfo[car][cFuel] + fuel > maxfuel)
+    {
+        SetPlayerItemContentAmount(playerid, itemid, fuel - maxfuel - cInfo[ car ][ cFuel ]);
+        cInfo[car][cFuel] = maxfuel;
+    }
+    else
+    {
+        cInfo[ car ][ cFuel ] += fuel;
+        GivePlayerItem(playerid, itemid, -1);
+    }
+    return 1;
 }
+	
+
+Item:OnPlayerUseToolkit(playerid, itemid)
+{
+	new
+        veh = GetNearestVehicle(playerid, 2.5),
+        bool:found = false,
+        string[90];
+        
+    foreach(Player, x)
+    {
+        if(pInfo[ x ][ pAdmin ] >= 1 && AdminDuty[ x ])
+        {
+            found = true;
+            break;
+        }
+    }
+        
+    if(veh == INVALID_VEHICLE_ID) 
+    	return SendClientMessage(playerid, GRAD, "Aplink Jus ðiuo metu nëra jokio automobilio, kad atliktumët veiksmà.");
+
+    if(!isLicCar(veh) && VehicleHasEngine(GetVehicleModel(veh)) && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+    {
+        if(cInfo[ veh ][ cLock ] == 1 && cInfo[ veh ][ cOwner ] > 0 && CheckCarKeys(playerid,veh) == 0)
+        {
+            if(pInfo[ playerid ][ pJob ] != JOB_JACKER)
+            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite uþkurti/pavogti tr. priemonës nebødamo vagimi.");
+            if(!found)
+                return 1;
+                
+            if(!IsItemInPlayerInventory(playerid, ITEM_TOLKIT))
+            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs neturite repliø, kad atliktumët ðá veiksmà. ");
+            
+
+            SetPVarInt(playerid, "CAR_JACK", veh);
+            if(cInfo[veh][cLockType] == 0)
+                StartTimer(playerid,60,5);
+            else
+                StartTimer(playerid,120*cInfo[veh][cLockType],5);
+            format(string, sizeof(string), "* %s iðsitraukæs árankius bando atrakinti tr. priemonës spinelæ.",GetPlayerNameEx(playerid));
+            ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+            CJLog(pInfo[ playerid ][ pMySQLID ], cInfo[veh][cID], "Bando atrakinti tr. priemonà");
+            if(cInfo[veh][cAlarm] == 1 || cInfo[veh][cAlarm] == 2)
+            {
+                format(string,sizeof(string),"* Garsiai pypsi tr. priemonës signalizacija ((%s))",cInfo[veh][cName]);
+                ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                VehicleAlarm(veh, 1);
+            }
+            else if(cInfo[veh][cAlarm] == 3)
+            {
+                new zone[30];
+                GetPlayer2DZone(playerid, zone, 30);
+                format(string,sizeof(string),"* Garsiai pypsi tr. priemonës signalizacija ((%s))",cInfo[veh][cName]);
+                ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                SendTeamMessage(1, COLOR_LIGHTRED, "|________________ávykio reportavimas________________|");
+                SendTeamMessage(1, COLOR_WHITE, "|Dièpeèerinë praneða| Tr. priemonës apsaugos sistema praneða apie bandymà áslauþti.");
+                format(string, sizeof(string), "|Nustatytà ásilauþimo vieta|: Tr. priemonës apsaugos sistema nurodo, kad ásilauþimas vyksta: %s",zone);
+                SendTeamMessage(1, COLOR_WHITE, string);
+                VehicleAlarm(veh, 1);
+            }
+            else if(cInfo[veh][cAlarm] == 4)
+            {
+                new zone[30],
+                    CarOwner = GetCarOwner(veh);
+                GetPlayer2DZone(playerid, zone, 30);
+                format(string,sizeof(string),"* Garsiai pypsi tr. priemonës signalizacija ((%s))",cInfo[veh][cName]);
+                ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                SendTeamMessage(1, COLOR_LIGHTRED, "|________________Tr. priemonës apsauga________________|");
+                SendTeamMessage(1, COLOR_WHITE, "|Dièpeèerinë praneða| Tr. priemonës apsaugos sistema praneða apie bandymà áslauþti..");
+                format(string, sizeof(string), "|Nustatytà ásilauþimo vieta|: Tr. priemonës apsaugos sistema nurodo, kad ásilauþimas vyksta: %s",zone);
+                SendTeamMessage(1, COLOR_WHITE, string);
+                
+                if(!IsPlayerConnected(CarOwner)) 
+                    return 1;
+                SendClientMessage(CarOwner, COLOR_WHITE, "________________ Tr. priemonës signalizacija _____________");
+                SendClientMessage(CarOwner, COLOR_WHITE, "SMS þinutë: á Jûsø transporto priemonæ bandoma ásilauþti, paþeista signalizacija. ");
+                SetVehicleParamsForPlayer(veh,CarOwner,1,cInfo[veh][cLock]);
+                PlayerPlaySound(CarOwner, 1052, 0.0, 0.0, 0.0);
+                VehicleAlarm(veh, 1);
+            }
+        }
+    }
+    return 1;
+}    
+
+Item:OnPlayerUseWatch(playerid, itemid)
+{
+	new string[80];
+	if(itemid == ITEM_CLOCK)
+	{
+		new Hour,
+	        Min,
+	        Sec;
+
+	    gettime(Hour, Min, Sec);
+	    format(string, sizeof(string), "Laikrodis rodo, kad ðiuo metu yra %d:%d:%d",Hour,Min,Sec);
+	    SendClientMessage(playerid, COLOR_FADE1, string);
+	    format(string, sizeof(string), "* %s pasiþiørá á ant rankos esantá laiktrodá.", GetPlayerNameEx(playerid));
+	    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+	    ApplyAnimation(playerid, "COP_AMBIENT", "Coplook_watch", 4.1, 0, 0, 0, 0, 0);
+	}
+	else 
+	{
+		if(!GetPVarInt(playerid, "oLaikrodis"))
+        {
+            SetPlayerAttachedObject(playerid, 6, GetItemObjectModel(itemid), 5, 0.000000, -0.007722, -0.011143, 9.279358, 270.517852, 190.637268);
+            EditAttachedObject(playerid, 6);
+            PlayerWornItems[ playerid ][ 6 ] = itemid;
+            SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
+            SetPVarInt(playerid, "oLaikrodis", true);
+        }
+        else
+        {
+            SetPVarInt(playerid, "oLaikrodis", false);
+            SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
+            RemovePlayerAttachedObject(playerid, 6);
+            PlayerWornItems[ playerid ][ 6 ] = -1;
+        }
+	}
+	return 1;
+}
+
+
+Item:OnPlayerUseDice(playerid, itemid)
+{
+	new spin,string[120];
+    spin = random(6) + 1;
+    format(string, sizeof(string), "** %s iðmeta loðimo kauliukus, kurie iðsridenà skaièiø - %d", GetPlayerNameEx(playerid),spin);
+    ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+    return 1;
+}
+
+Item:OnPlayerUseWeedSeeds(playerid, itemid)
+{
+    if(pInfo[ playerid ][ pJob ] != JOB_DRUGS) 
+    	return SendClientMessage(playerid ,GRAD, "{FF6347}Klaida, negalite atlikti ðio veiksmo nebødami narkotikø prekeiviu.");
+    	
+    new index = GetPlayerHouseIndex(playerid);
+    if(index == -1)
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate namuose.");
+
+    if(!IsPlayerHouseOwner(playerid, index))
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis namas ne jûsø.");
+
+
+    if(!GetHouseFreeWeedSlotCount(index))
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Ðiame name daugiau þolës auginti nebegalite.");
+
+    AddHouseWeedSapling(index);
+
+    GivePlayerItem(playerid, itemid, -1);
+    SendClientMessage(playerid, COLOR_WHITE, "Jums sëkmingai pavyko pasëti þolës sëklas, dabar beliekà laukti kol augalas pilnai uþaugs.");
+    return 1;
+}
+
+Item:OnPlayerUseDrugIngredient(playerid)
+{
+	SendClientMessage(playerid, GRAD, "Pasigaminimui naudojama komanda /make ");
+	return 1;
+}
+
+Item:OnPlayerUseMetaAmphetamine(playerid, itemid)
+{
+	GivePlayerItem(playerid, itemid, -1);
+	if(pInfo[ playerid ][ pMetaAmfaineAddict ] == 0)
+	    pInfo[ playerid ][ pMetaAmfaineAddict ] += 3;
+	else
+	{
+	    if(!GetPVarInt(playerid, "Addicted"))
+	        pInfo[ playerid ][ pMetaAmfaineAddict ] += 3+random(3);
+	    else
+	    {
+	        new
+	            rand = 3+random(3);
+	        if(pInfo[ playerid ][ pMetaAmfaineAddict ] - rand > 0)
+	            pInfo[ playerid ][ pMetaAmfaineAddict ] -= rand;
+	        else
+	            pInfo[ playerid ][ pMetaAmfaineAddict ] = 1;
+	        SetPVarInt(playerid, "Addicted", false);
+	    }
+	}
+	    
+	SetPlayerWeather (playerid, 141);
+
+	DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 13000, false, "i", playerid);
+
+	SetPVarInt(playerid, "DrugHP", 10);
+	SetPVarInt(playerid, "DrugHPLimit", 50);
+    return 1;
+}
+
+
+Item:OnPlayerUseAmphetamine(playerid, itemid)
+{
+	new string[80];
+	GivePlayerItem(playerid, itemid, -1);
+    SetPlayerDrunkLevel(playerid, 5 * 3000);
+
+    format(string, sizeof(string), "* %s staigiai átraukia amfetamino dozæ per nosá." ,GetPlayerNameEx(playerid));
+    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    if(pInfo[ playerid ][ pAmfaAddict ] == 0)
+        pInfo[ playerid ][ pAmfaAddict ] += 3;
+    else
+    {
+        if(!GetPVarInt(playerid, "Addicted"))
+            pInfo[ playerid ][ pAmfaAddict ] += 3+random(3);
+        else
+        {
+            new
+                rand = 3+random(3);
+            if(pInfo[ playerid ][ pAmfaAddict ] - rand > 0)
+                pInfo[ playerid ][ pAmfaAddict ] -= rand;
+            else
+                pInfo[ playerid ][ pAmfaAddict ] = 1;
+            SetPVarInt(playerid, "Addicted", false);
+        }
+    }
+
+    SetPlayerWeather (playerid, -68);
+
+    DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 13000, false, "i", playerid);
+
+    SetPVarInt(playerid, "DrugHP", 10);
+    SetPVarInt(playerid, "DrugHPLimit", 50);
+    return 1;
+}
+
+Item:OnPlayerUseCocaine(playerid, itemid)
+{
+	new string[90];
+
+    format(string, sizeof(string), "* %s staigiai átraukia kokaino miltelius per nosá." ,GetPlayerNameEx(playerid));
+    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    GivePlayerItem(playerid, itemid, -1);
+    if(pInfo[ playerid ][ pCocaineAddict ] == 0)
+        pInfo[ playerid ][ pCocaineAddict ] += 3;
+    else
+    {
+        if(!GetPVarInt(playerid, "Addicted"))
+            pInfo[ playerid ][ pCocaineAddict ] += 3+random(6);
+        else
+        {
+            new
+                rand = 3+random(6);
+            if(pInfo[ playerid ][ pCocaineAddict ] - rand > 0)
+                pInfo[ playerid ][ pCocaineAddict ] -= rand;
+            else
+                pInfo[ playerid ][ pCocaineAddict ] = 1;
+            SetPVarInt(playerid, "Addicted", false);
+        }
+    }
+
+    SetPlayerWeather (playerid, -68);
+
+    DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 10000, false, "i", playerid);
+
+    SetPVarInt(playerid, "DrugHP", 7);
+    SetPVarInt(playerid, "DrugHPLimit", 70);
+
+    return 1;
+}
+
+
+Item:OnPlayerUseEctazy(playerid)
+{
+	new string[100];
+	GivePlayerItem(playerid, ITEM_EXTAZY, -1);
+    SetPlayerDrunkLevel(playerid, 5 * 4000);
+    format(string, sizeof(string), "* %s ásideda saujoje laikomas tabletes á burnà ir jas nuryjà." ,GetPlayerNameEx(playerid));
+    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    if(pInfo[ playerid ][ pExtazyAddict ] == 0)
+			pInfo[ playerid ][ pExtazyAddict ] += 5;
+    else
+    {
+        if(!GetPVarInt(playerid, "Addicted"))
+            pInfo[ playerid ][ pExtazyAddict ] += 5+random(5);
+        else
+        {
+            new
+                rand = 5+random(5);
+            if(pInfo[ playerid ][ pExtazyAddict ] - rand > 0)
+                pInfo[ playerid ][ pExtazyAddict ] -= rand;
+            else
+                pInfo[ playerid ][ pExtazyAddict ] = 1;
+            SetPVarInt(playerid, "Addicted", false);
+        }
+    }
+
+    DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 8000, false, "i", playerid);
+
+    SetPVarInt(playerid, "DrugHP", 5);
+    SetPVarInt(playerid, "DrugHPLimit", 50);
+    return 1;
+}
+
+Item:OnPlayerUsePCP(playerid)
+{
+	new string[70];
+	GivePlayerItem(playerid, ITEM_PCP, -1);
+	SetPlayerDrunkLevel(playerid, 5 * 6000);
+	format(string, sizeof(string), "* %s ásideda saujoje laikomas PCP tabletes á burnà." ,GetPlayerNameEx(playerid));
+	ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+	if(pInfo[ playerid ][ pPCPAddict ] == 0)
+	    pInfo[ playerid ][ pPCPAddict ] += 3;
+	else
+	{
+	    if(!GetPVarInt(playerid, "Addicted"))
+	        pInfo[ playerid ][ pPCPAddict ] += 2+random(3);
+	    else
+	    {
+	        new
+	            rand = 2+random(3);
+	        if(pInfo[ playerid ][ pPCPAddict ] - rand > 0)
+	            pInfo[ playerid ][ pPCPAddict ] -= rand;
+	        else
+	            pInfo[ playerid ][ pPCPAddict ] = 1;
+	        SetPVarInt(playerid, "Addicted", false);
+	    }
+	}
+
+	SetPlayerWeather (playerid, 250);
+
+	DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 20000, false, "i", playerid);
+
+	SetPVarInt(playerid, "DrugHP", 10);
+	SetPVarInt(playerid, "DrugHPLimit", 50);
+	return 1;
+}
+
+
+Item:OnPlayerUseBackpack(playerid)
+{
+	if(!GetPVarInt(playerid, "oNugara"))
+    {
+        SetPlayerAttachedObject(playerid, 6, GetItemObjectModel(ITEM_KUPRINE), 1, -0.1,-0.0,0.0,0.0,0.0,0.0);
+        EditAttachedObject(playerid, 6);
+        PlayerWornItems[ playerid ][ 6 ] = ITEM_KUPRINE;
+        SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
+        SetPVarInt(playerid, "oNugara", true);
+    }
+    else
+    {
+        SetPVarInt(playerid, "oNugara", false);
+        SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
+        RemovePlayerAttachedObject(playerid, 6);
+        PlayerWornItems[ playerid ][ 6 ] = -1;
+    }
+    return 1;
+}
+
+
+Item:OnPlayerUseBandana(playerid, itemid)
+{
+	if(!GetPVarInt(playerid, "oSkarele2"))
+    {
+        SetPlayerAttachedObject(playerid, 1, GetItemObjectModel(itemid), 2, -0.08, 0.03, 0.0, 90, -180, -90);
+        EditAttachedObject(playerid, 1);
+        PlayerWornItems[ playerid ][ 1 ] = itemid;
+        SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}..");
+        SetPVarInt(playerid, "oSkarele2", true);
+    }
+    else
+    {
+        SetPVarInt(playerid, "oSkarele2", false);
+        SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
+        RemovePlayerAttachedObject(playerid, 1);
+        PlayerWornItems[ playerid ][ 1 ] = -1;
+    }
+    return 1;
+}
+
+
+Item:OnPlayerUseSuitcase(playerid, itemid)
+{
+	if(!GetPVarInt(playerid, "oHand"))
+    {
+        SetPlayerAttachedObject(playerid, 4, GetItemObjectModel(itemid), 6, 0.306118, -0.054140, 0.000000, 0.000000, 282.887756, 167.944808, 0.369485, 0.239421, 0.403359);
+        EditAttachedObject(playerid, 4);
+        PlayerWornItems[ playerid ][ 4 ] = itemid;
+        SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
+        SetPVarInt(playerid, "oHand", true);
+    }
+    else
+    {
+        SetPVarInt(playerid, "oHand", false);
+        SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
+        RemovePlayerAttachedObject(playerid, 4);
+        PlayerWornItems[ playerid ][ 4 ] = -1;
+    }
+    return 1;
+}
+
+Item:OnPlayerUseHat(playerid, itemid)
+{
+	if(!GetPVarInt(playerid, "oKepure"))
+    {
+        SetPlayerAttachedObject(playerid, 0, GetItemObjectModel(itemid), 2, 0.118000,0.013000,0.002999,-94.299880,8.799993,-98.400047);
+        EditAttachedObject(playerid, 0);
+        PlayerWornItems[ playerid ][ 0 ] = itemid;
+        SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
+        SetPVarInt(playerid, "oKepure", true);
+    }
+    else
+    {
+        SetPVarInt(playerid, "oKepure", false);
+        SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
+        RemovePlayerAttachedObject(playerid, 0);
+        PlayerWornItems[ playerid ][ 0 ] = -1;
+    }
+    return 1;
+}
+
+
+Item:OnPlayerUseGlassees(playerid, itemid)
+{
+	if(!GetPVarInt(playerid, "oAkiniai"))
+    {
+        SetPlayerAttachedObject(playerid, 2, GetItemObjectModel(itemid), 2, 0.086000,0.024999,0.001000,85.600021,82.900001,5.199999);
+        EditAttachedObject(playerid, 2);
+        PlayerWornItems[ playerid ][ 2 ] = itemid;
+        SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
+        SetPVarInt(playerid, "oAkiniai", true);
+    }
+    else
+    {
+        SetPVarInt(playerid, "oAkiniai", false);
+        SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
+        RemovePlayerAttachedObject(playerid, 2);
+        PlayerWornItems[ playerid ][ 2 ] = -1;
+    }
+    return 1;
+}
+
+
+
+Item:OnPlayerUseHelmet(playerid, itemid)
+{
+	new string[80];
+	if(IsPlayerAttachedObjectSlotUsed(playerid, 0))
+    {
+        RemovePlayerAttachedObject(playerid, 0);
+        format(string, sizeof(string), "* %s nuo galvos atsisegà ir nusiemà ðalmà." ,GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    }
+    else
+    {
+        SetPlayerAttachedObject(playerid, 0, GetItemObjectModel(itemid), 2, 0.07, 0.017, 0, 88, 75, 0);
+        EditAttachedObject(playerid, 0);
+        format(string, sizeof(string), "* %s ant galvos uþsideda ir uþsisegà ðalmà." ,GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    }
+	return 1;
+}
+
+Item:OnPlayerUseHeroin(playerid, itemid)
+{
+	new string[100];
+	if(!IsItemInPlayerInventory(playerid, ITEM_SVIRKSTAS)) 
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo, kartu neturëdami ðvirkðto.");
+
+
+    format(string, sizeof(string), "* %s pasiemæs ðvirkstà ástato já á venà ant rankos ir susileidþia heroinà." ,GetPlayerNameEx(playerid));
+    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    GivePlayerItem(playerid, ITEM_SVIRKSTAS, -1);
+    GivePlayerItem(playerid, itemid, -1);
+    if(pInfo[ playerid ][ pHeroineAddict ] == 0)
+        pInfo[ playerid ][ pHeroineAddict ] += 3;
+    else
+    {
+        if(!GetPVarInt(playerid, "Addicted"))
+            pInfo[ playerid ][ pHeroineAddict ] += 3+random(4);
+        else
+        {
+            new
+                rand = 3+random(4);
+            if(pInfo[ playerid ][ pHeroineAddict ] - rand > 0)
+                pInfo[ playerid ][ pHeroineAddict ] -= rand;
+            else
+                pInfo[ playerid ][ pHeroineAddict ] = 1;
+            SetPVarInt(playerid, "Addicted", false);
+        }
+    }
+
+    SetPlayerWeather (playerid, -64);
+
+    DrugTimer[ playerid ] = SetTimerEx("DrugsEffects", 12000, false, "i", playerid);
+
+    SetPVarInt(playerid, "DrugHP", 5);
+    SetPVarInt(playerid, "DrugHPLimit", 65);
+    return 1;
+}
+
+Item:OnPlayerUseFishingRod(playerid, itemid)
+{	
+	new string[90];
+	if(IsPlayerAttachedObjectSlotUsed(playerid, 4))
+    {
+        RemovePlayerAttachedObject(playerid, 4);
+
+        format(string, sizeof(string), "* %s sulankso rankose turimà meðkeræ ir ásideda jà." ,GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    }
+    else
+    {
+        SetPlayerAttachedObject(playerid, 4, GetItemObjectModel(itemid), 5, 0.111337, 0.019614, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
+        EditAttachedObject(playerid, 4);
+
+        format(string, sizeof(string), "* %s iðsitraukia turimà sulankstomà meðkeræ ir iðlanksto jà." ,GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    }
+    return 1;
+}
+
+
+Item:OnPlayerUseBeer(playerid, itemid)
+{
+	new string[60];
+	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_DRINK_BEER);
+    format(string, sizeof(string), "* %s atkemðà alaus butelá." ,GetPlayerNameEx(playerid));
+    cmd_ame(playerid, "atidaro alaus butelá.");
+    GivePlayerItem(playerid, itemid, -1);
+    return 1;
+}
+
+Item:OnPlayerUseSprunk(playerid, itemid)
+{
+	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_DRINK_SPRUNK);
+    cmd_ame(playerid, "atidaro sprunk butelá.");
+    GivePlayerItem(playerid, itemid, -1);
+    return 1;
+}
+
+Item:OnPlayerUseVine(playerid, itemid)
+{
+	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_DRINK_WINE);
+	cmd_ame(playerid, "atidaro vyno butelá.");
+	GivePlayerItem(playerid, itemid, -1);
+	return 1;
+}
+
+
+Item:OnPlayerUseMolotov(playerid, itemid)
+{
+	new otherplaya = GetNearestPlayer(playerid, 5.0),
+		string[100];
+    if(pInfo[ playerid ][ pAdmin ] < 2 || (otherplaya != INVALID_PLAYER_ID && pInfo[ otherplaya ][ pAdmin ] < 2))
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo jei ðalia Jûsø nëra budintis Administratorius. ");
+
+
+    
+    if(!IsItemInPlayerInventory(playerid, ITEM_ZIB) && !IsItemInPlayerInventory(playerid, ITEM_MATCHES)) 
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: jûs neturite su kuo uþkurti molotov'à.");
+
+    if(IsItemInPlayerInventory(playerid, ITEM_ZIB))
+    {
+    	AddPlayerItemDurability(playerid, ITEM_ZIB, -1);
+    }
+    else if(IsItemInPlayerInventory(playerid, ITEM_MATCHES))
+    {
+    	AddPlayerItemContentAmount(playerid, ITEM_MATCHES, -1);
+    }
+    
+    new Float:kords[ 3 ],
+        Zona[ 30 ];
+    GetPlayerPos(playerid, kords[ 0 ], kords[ 1 ], kords[ 2 ]);
+    
+    for (new i = 0; i < MAX_FIRE; i++)
+    {
+        if(!IsValidDynamicObject(Fire[ i ][ smoke ]) && !Fire[ i ][ active ])
+        {
+            Fire[ i ][ smoke ] = CreateDynamicObject(18715, kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, 0, 0, 0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), -1, 500.0);
+            SetTimerEx("Explosion", 10000, 0, "fffddidd", kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, i, 0, false, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+            SetTimerEx("Explosion", 60*1000, 0, "fffddidd", kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, i, 1, false, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+            SetTimerEx("Explosion", 5*60*1000, 0, "fffddidd", kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, i, 2, false, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+            SetTimerEx("Explosion", 20*60*1000, 0, "fffddidd", kords[ 0 ], kords[ 1 ], kords[ 2 ]-0.7, i, 3, true, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+            Fire[ i ][ active ] = true;
+            break;
+        }
+    }
+
+    format(string, sizeof(string), "* %s numeta degalø bakelá ant þemës ir atsargiai padegà já. " ,GetPlayerNameEx(playerid));
+    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+
+    GetPlayer2DZone(playerid, Zona, 30);
+
+    Tlc[ 0 ] = kords[ 0 ];
+    Tlc[ 1 ] = kords[ 1 ];
+    Tlc[ 2 ] = kords[ 2 ];
+
+    SendClientMessage(playerid, COLOR_RED, "Dëmesio, bëkite kuo toliau nuo bakelio, kadangi galite nukentëti nuo sprogimo.");
+
+    format(string, 126, "AdmWarn: ([%d]%s) buvo sukurtas sprogimas naudojant degalø bakelá.", playerid, GetName(playerid));
+    SendAdminMessage(COLOR_ADM, string);
+
+    SendTeamMessage(2, COLOR_LIGHTRED, "|________________ávykio praneðimas________________|");
+    SendTeamMessage(2, COLOR_WHITE, "|Dièpeèerinë praneða| Buvo gautas praneðimas apie kilusá/sukeltà sprogimà.");
+    format(string, sizeof(string),    "|Nustatytà vieta| Nustatyta, kad ávykis ávyko: %s ((/tlc))",Zona);
+    SendTeamMessage(2, COLOR_WHITE, string);
+
+    GivePlayerItem(playerid, itemid, -1);
+    return 1;
+}
+
+Item:OnPlayerUseMP3Player(playerid, itemid)
+{
+	new string[64];
+	if(IsPlayerInAnyVehicle(playerid))
+    {
+        new veh = GetPlayerVehicleID(playerid);
+        if(VehicleRadio[ veh ] != 99)
+            RadioName[ playerid ] = 99;
+    }
+    format(string, sizeof(string), "- Radijo stotys\
+                        \n- Garsumas \t[ %d ]\
+                        \n- Iðjungti", GetRadioVolume(playerid));
+    ShowPlayerDialog(playerid, 67, DIALOG_STYLE_LIST,"MP3 Grotuvas", string, "Rinktis", "Atsaukti");
+    return 1;
+}
+
+Item:OnPlayerUseHouseAudio(playerid, itemid)
+{
+	new house_index = GetPlayerHouseIndex(playerid);
+	if(house_index)
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate namuose.");
+	
+	if(!IsPlayerHouseOwner(playerid, house_index))
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo ne Jums priklausanèioje nuosavybëje.");
+
+	if(IsHouseUpgradeInstalled(house_index, Radio))
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiame name jau yra ádiegta garso sistema.");
+
+	SendClientMessage(playerid, COLOR_WHITE, "Sveikiname sëkmingai instaliavus garso sistemà á savo namà. Gero klausymosi!");
+    GivePlayerItem(playerid, itemid, -1);
+    AddHouseUpgrade(house_index, Radio);
+    return 1;
+}
+
+
+
+Item:OnPlayerUseAudioPlayer(playerid, itemid)
+{
+	new string[64];
+	format(string, sizeof(string), "- Radijo stotis\
+                        \n- Padëti\
+                        \n- Paimti");
+    ShowPlayerDialog(playerid, 76, DIALOG_STYLE_LIST,"Magas", string, "Rinktis", "Atsaukti");
+    return 1;
+}
+
+Item:OnPlayerUseBeret(playerid, itemid)
+{
+	if(!GetPVarInt(playerid, "oKepure"))
+    {
+        SetPlayerAttachedObject(playerid, 0, GetItemObjectModel(itemid), 2, 0.118000,0.013000,0.002999,-94.299880,8.799993,-98.400047);
+        EditAttachedObject(playerid, 0);
+        PlayerWornItems[ playerid ][ 0 ] = itemid;
+        SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
+        SetPVarInt(playerid, "oKepure", true);
+    }
+    else
+    {
+        SetPVarInt(playerid, "oKepure", false);
+        SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
+        RemovePlayerAttachedObject(playerid, 0);
+        PlayerWornItems[ playerid ][ 0 ] = -1;
+    }
+    return 1;
+}
+
+
+Item:OnPlayerUseWeapon(playerid, weaponid)
+{
+	new string[90],
+		amount = GetPlayerItemAmount(playerid, weaponid);
+	if(!IsPlayerHaveManyGuns(playerid, weaponid))
+    {
+        GivePlayerWeapon(playerid, weaponid, amount, false);
+
+        string = GetItemName(weaponid);
+        format(string, sizeof(string), "Sëkmingai iðsitraukëtæ %s, kuris turi %d kulkas (-as).", string, amount);
+        SendClientMessage(playerid, GRAD, string);
+
+        GivePlayerWeapon(playerid, weaponid, -amount);
+    }
+    return 1;
+}
+
+
 
 
 
@@ -1323,7 +1487,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
 			                                                                                
 */
 
-stock GivePlayerItem(playerid, itemid, amount = 1)
+stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0)
 {
 	new query[130], freeindex = -1;
 
@@ -1336,9 +1500,13 @@ stock GivePlayerItem(playerid, itemid, amount = 1)
 			continue;
 		}
 
+		if(!IsItemStackable(itemid))
+			break;
+
 		if(PlayerItems[ playerid ][ i ][ ItemId ] == itemid)
 		{
 			PlayerItems[ playerid ][ i ][ Amount ] += amount;
+			PlayerItems[ playerid ][ i ][ ContentAmount ] += contentamount;
 
 			if(amount <= 0)
 			{
@@ -1362,7 +1530,6 @@ stock GivePlayerItem(playerid, itemid, amount = 1)
 
 	PlayerItems[ playerid ][ freeindex ][ ItemId ] = itemid;
 	PlayerItems[ playerid ][ freeindex ][ Amount ] = amount;
-	PlayerItems[ playerid ][ freeindex ][ Extra ] = 0;
 
 	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_items (player_id, item_id, amount) VALUES (%d, %d, %d)",
 		GetPlayerSqlId(playerid),
@@ -1395,28 +1562,86 @@ stock GetPlayerItemAmount(playerid, itemid)
 	return 0;
 }
 
-stock GetPlayerItemExtraValue(playerid, itemid)
+
+stock SetPlayerItemDurability(playerid, itemid, value)
 {
-	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
-		if(PlayerItems[ playerid ][ i ][ Id ])
-			if(PlayerItems[ playerid ][ i ][ ItemId ] == itemid)
-				return PlayerItems[ playerid ][ i ][ Extra ];
+	new index = GetPlayerItemIndex(playerid, itemid);
+	if(index == -1)
+		return 0;
+	else
+	{
+		PlayerItems[ playerid ][ index ][ Durability ] = value;
+		if(PlayerItems[ playerid ][ index ][ Durability ] <= 0)
+			return GivePlayerItem(playerid, itemid, -1);
+	}
 	return 0;
 }
 
-stock SetPlayerItemExtraValue(playerid, itemid, value)
+stock AddPlayerItemDurability(playerid, itemid, value)
 {
-	new query[70];
-	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
-		if(PlayerItems[ playerid ][ i ][ Id ])
-			if(PlayerItems[ playerid ][ i ][ ItemId ] == itemid)
-			{
-				PlayerItems[ playerid ][ i ][ Extra ] = value;
-				mysql_format(DbHandle, query, sizeof(query), "UPDATE player_items SET extra = %d WHERE id = %d",
-					value, PlayerItems[ playerid ][ i ][ Id ]);
-				return mysql_pquery(DbHandle, query);
-			}
+	SetPlayerItemDurability(playerid, itemid, GetPlayerItemDurability(playerid, itemid)+value);
+}
+
+stock GetPlayerItemDurability(playerid, itemid)
+{
+	new index = GetPlayerItemIndex(playerid, itemid);
+	if(index == -1)
+		return 0;
+	else
+		return PlayerItems[ playerid ][ index ][ Durability ];
+}
+
+
+stock AddPlayerItemContentAmount(playerid, itemid, value)
+{
+	SetPlayerItemContentAmount(playerid, itemid, GetPlayerItemContentAmount(playerid, itemid) + value);
+}
+
+stock SetPlayerItemContentAmount(playerid, itemid, value)
+{
+	new index = GetPlayerItemIndex(playerid, itemid);
+	if(index == -1)
+		return 0;
+	else
+	{
+		PlayerItems[ playerid ][ index ][ ContentAmount ] = value;
+		if(PlayerItems[ playerid ][ index ][ ContentAmount ] <= 0)
+			return GivePlayerItem(playerid, itemid, -1);
+	}
 	return 0;
+}
+
+stock GetPlayerItemContentAmount(playerid, itemid)
+{
+	new index = GetPlayerItemIndex(playerid, itemid);
+	if(index == -1)
+		return 0;
+	else
+		return PlayerItems[ playerid ][ index ][ ContentAmount ];
+}
+
+stock ClearWeaponsFromPlayerInventory(playerid)
+{
+	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
+	{
+		if(PlayerItems[ playerid ][ i ][ Id ] && IsItemWeapon(PlayerItems[ playerid ][ i ][ ItemId ]))
+		{
+			GivePlayerItem(playerid, PlayerItems[ playerid ][ i ][ ItemId ], -PlayerItems[ playerid ][ i ][ Amount ]);
+		}
+	}
+	return 1;
+}
+
+stock RemovePlayerDrugItems(playerid)
+{
+	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
+	{
+		if(PlayerItems[ playerid ][ i ][ Id ] && IsItemDrug(PlayerItems[ playerid ][ i ][ ItemId ]))
+		{
+			GivePlayerItem(playerid, PlayerItems[ playerid ][ i ][ ItemId ], -PlayerItems[ playerid ][ i ][ Amount ]);
+		}
+	}
+	return 1;
 }
 
 stock IsPlayerInventoryFull(playerid)
@@ -1453,6 +1678,35 @@ static stock GetPlayerItemIndex(playerid, itemid)
 	return -1;
 }
 
+
+stock GetPlayerItemAtIndex(playerid, index)
+{
+	return PlayerItems[ playerid ][ index ][ ItemId ];
+}
+stock GetPlayerItemAmountAtIndex(playerid, index)
+{
+	return PlayerItems[ playerid ][ index ][ Amount ];
+}
+
+stock ShowPlayerInvInfoForPlayer(playerid, targetid)
+{
+	if(IsPlayerInventoryEmpty(playerid))
+		return 0;
+
+	new string[32 + MAX_ITEM_NAME ];
+	SendClientMessage(targetid, COLOR_GREEN2, "_____________________ Turimi daiktai __________________");
+	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
+	{
+		if(PlayerItems[ playerid ][ i ][ Id ])
+		{
+			format(string, sizeof(string),"%s\tKiekis:%d", GetItemName(PlayerItems[ playerid ][ i ][ ItemId ]),
+				PlayerItems[ playerid ][ i ][ Amount ]);
+			SendClientMessage(targetid, COLOR_WHITE, string);
+		}
+	}
+	return 1;
+}
+
 stock ShowPlayerInventoryDialog(playerid)
 {
 	new string[ 280 ], 
@@ -1466,7 +1720,7 @@ stock ShowPlayerInventoryDialog(playerid)
         else 
         {
 
-        	itemname = GetInvNameByID(PlayerItems[ playerid ][ i ][ ItemId ]);
+        	itemname = GetItemName(PlayerItems[ playerid ][ i ][ ItemId ]);
 
         	if(PlayerItems[ playerid ][ i ][ Amount ] == 1)
         		format(string, sizeof(string), "%s%s\n", string, itemname);
@@ -1538,6 +1792,9 @@ CMD:invweapon(playerid, params[ ])
         
     CheckWeaponCheat(playerid, currgun, 0);
 
+    if(IsPlayerWeaponJobWeapon(playerid, currgun))
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Ðis ginklas yra registruotas frakcijai.");
+    /*
     if(PlayerFaction(playerid) == 1)
     {
         if(currgun == 3 || currgun == 17 || currgun == 31 || currgun == 24 || currgun == 23 ||
@@ -1560,18 +1817,18 @@ CMD:invweapon(playerid, params[ ])
                 return
                         SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio, su ðiuo ginklu negalite atlikti ðio veiksmo, kadangi jis yra tarnybinis");
     }
-
+	*/
     if(currgun > 0 && ammo > 0)
     {
-        if(AddItemToInventory(playerid, currgun, ammo))
-        {
-            RemovePlayerWeapon(playerid, currgun);
-            SendClientMessage (playerid, COLOR_WHITE, " Ginklas sëkmingai ádëtas á inventoriø. ");
-            PlayerPlaySound   (playerid, 1057, 0.0, 0.0, 0.0);
-            return 1;
-        }
-        else
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
+    	if(IsPlayerInventoryFull(playerid))
+    		return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
+
+        GivePlayerItem(playerid, currgun, ammo);
+        RemovePlayerWeapon(playerid, currgun);
+        SendClientMessage(playerid, COLOR_WHITE, " Ginklas sëkmingai ádëtas á inventoriø. ");
+        PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
+        return 1;
+
     }
     return 1;
 }

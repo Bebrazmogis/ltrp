@@ -126,14 +126,13 @@ enum E_CLOTHES_SHOP_CATEGORY_DATA
 };
 static const ClothesShopCategories[][ E_CLOTHES_SHOP_CATEGORY_DATA ] =
 {
-    {1, "Skarelës ant galvos"},
+    {1, "Skarelës"},
     {2, "Kepurës"},
     {3, "Skrybëlës"},
     {4, "Akiniai"},
     {5, "Ðalmai"},
     {6, "Kaukës"},
-    {7, "Skarelës ant veido"},
-    {8, "Kiti daiktai"}
+    {7, "Kiti daiktai"}
 };
 
 
@@ -154,13 +153,23 @@ static const ClothesShopItems[][ E_CLOTHES_SHOP_ITEM_DATA ] =
     {1, ITEM_Bandana7, 18897, 50},
     {1, ITEM_Bandana8, 18898, 50},
     {1, ITEM_Bandana9, 18899, 50},
+    {1, ITEM_Bandana10, 18911, 50},
+    {1, ITEM_Bandana11, 18912, 50},
+    {1, ITEM_Bandana12, 18913, 50},
+    {1, ITEM_Bandana13, 18914, 50},
+    {1, ITEM_Bandana14, 18915, 50},
+    {1, ITEM_Bandana15, 18916, 50},
+    {1, ITEM_Bandana16, 18917, 50},
+    {1, ITEM_Bandana17, 18918, 50},
+    {1, ITEM_Bandana18, 18919, 50},
+    {1, ITEM_Bandana19, 18920, 50},
 
-    {2, ITEM_CapBack3, 19200, 100},
-    {2, ITEM_CapBack4, 18942, 100},
-    {2, ITEM_CapBack5, 18943, 100},
-    {2, ITEM_CapBack7, 18926, 100},
-    {2, ITEM_CapBack8, 18927, 100},
-    {2, ITEM_CapBack9, 18928, 100},
+    {2, ITEM_CapBack3,  19200, 100},
+    {2, ITEM_CapBack4,  18942, 100},
+    {2, ITEM_CapBack5,  18943, 100},
+    {2, ITEM_CapBack7,  18926, 100},
+    {2, ITEM_CapBack8,  18927, 100},
+    {2, ITEM_CapBack9,  18928, 100},
     {2, ITEM_CapBack10, 18929, 100},
     {2, ITEM_CapBack11, 18930, 100},
     {2, ITEM_CapBack12, 18931, 100},
@@ -200,11 +209,11 @@ static const ClothesShopItems[][ E_CLOTHES_SHOP_ITEM_DATA ] =
     {3, ITEM_Beret5, 18925, 50},
                
 
-    {4, ITEM_GlassesType1, 19006, 100},
-    {4, ITEM_GlassesType2, 19007, 100},
-    {4, ITEM_GlassesType3, 19008, 100},
-    {4, ITEM_GlassesType4, 19009, 100},
-    {4, ITEM_GlassesType7, 19012, 100},
+    {4, ITEM_GlassesType1,  19006, 100},
+    {4, ITEM_GlassesType2,  19007, 100},
+    {4, ITEM_GlassesType3,  19008, 100},
+    {4, ITEM_GlassesType4,  19009, 100},
+    {4, ITEM_GlassesType7,  19012, 100},
     {4, ITEM_GlassesType10, 19015, 100},
     {4, ITEM_GlassesType13, 19018, 100},
     {4, ITEM_GlassesType14, 19019, 100},
@@ -236,25 +245,15 @@ static const ClothesShopItems[][ E_CLOTHES_SHOP_ITEM_DATA ] =
     {6, ITEM_HockeyMask1, 19036, 50},
     {6, ITEM_MaskZorro1, 18974, 50},
 
-    {7, ITEM_Bandanaa2, 18911, 50},
-    {7, ITEM_Bandanaa4, 18912, 50},
-    {7, ITEM_Bandanaa5, 18913, 50},
-    {7, ITEM_Bandanaa6, 18914, 50},
-    {7, ITEM_Bandanaa7, 18915, 50},
-    {7, ITEM_Bandanaa8, 18916, 50},
-    {7, ITEM_Bandanaa9, 18917, 50},
-    {7, ITEM_Bandanaa10, 18918, 50},
-    {7, ITEM_Bandanaa11, 18919, 50},
-    {7, ITEM_Bandanaa12, 18920, 50},
 
 
-    {8, ITEM_KREPSYS, 2919, 20},
-    {8, ITEM_LAGAMINAS, 1210, 20},
-    {8, ITEM_KUPRINE, 371, 50},
-    {8, ITEM_WatchType1,19039, 20},
-    {8, ITEM_WatchType2,19040, 20},
-    {8, ITEM_WatchType6,19044, 50},
-    {8, ITEM_WatchType4,19042, 20}
+    {7, ITEM_KREPSYS, 2919, 20},
+    {7, ITEM_LAGAMINAS, 1210, 20},
+    {7, ITEM_KUPRINE, 371, 50},
+    {7, ITEM_WatchType1,19039, 20},
+    {7, ITEM_WatchType2,19040, 20},
+    {7, ITEM_WatchType6,19044, 50},
+    {7, ITEM_WatchType4,19042, 20}
 };
 
 
@@ -564,47 +563,44 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             // Jei perka ið parduotuvës, daiktams yra papildomø sàlygø ir veiksmø.
             if(bInfo[ bizIndex ][ bType ] == Supermarket)
             {
-                new itemid = GetInvItemID(BusinessWares[ bizIndex ][ listitem ][ Name ]);
+                new itemid = GetItemId(BusinessWares[ bizIndex ][ listitem ][ Name ]);
+                
+                if((IsPlayerInventoryFull(playerid) && !IsItemStackable(itemid)) || (IsItemStackable(itemid) && !IsItemInPlayerInventory(playerid, itemid)))
+                    return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
                 switch(itemid)
                 {
                     case ITEM_RODTOOL:
                     {
-                        new tmpid = PlayerHasItemInInvEx(playerid, ITEM_RODTOOL);
-                        if(tmpid < INVENTORY_SLOTS)
-                            InvInfo[ playerid ][ tmpid ][ iAmmount ] += 20;
-                        else
-                        {
-                            if(!AddItemToInventory(playerid, itemid, GetItemAmount(itemid)))
-                                return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
-                        }
+                        GivePlayerItem(playerid, ITEM_RODTOOL, .contentamount = GetItemMaxCapacity(ITEM_RODTOOL));
                     }
                     case ITEM_MEDIC:
                     {
-                        if (!PlayerHasItemInInv(playerid, ITEM_MEDLIC))
+                        if(!IsItemInPlayerInventory(playerid, ITEM_MEDLIC))
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: Neturite recepto. ");
-                        if(!AddItemToInventory( playerid, ITEM_MEDIC, 1))
-                            return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: Nepakanka vietos inventoryje.");
-                        RemoveItemFromInv(playerid, ITEM_MEDLIC);
+                        GivePlayerItem(playerid, ITEM_MEDIC, 1);
+                        GivePlayerItem(playerid, ITEM_MEDLIC, -1);
                     }
                     case ITEM_PHONE:
                     {
-                        if(PlayerHasItemInInv(playerid, ITEM_PHONE))
+                        if(IsItemInPlayerInventory(playerid, ITEM_PHONE))
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau turite telefonà.");
                     }
+                    /*
                     case ITEM_FISH:
                     {
                         if(PlayerHasItemInInv(playerid, ITEM_FISH))
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau turite þuvies krepðá.");
                     }
+                    */
                     case ITEM_RADIO:
                     {
 
-                        if(PlayerHasItemInInv(playerid, ITEM_FISH))
+                        if(IsItemInPlayerInventory(playerid, ITEM_FISH))
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau turite racijà.");
                     }
                 }
-                if(!AddItemToInventory(playerid, itemid, GetItemAmount(itemid)))
-                    return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
+
+                GivePlayerItem(playerid, itemid, GetItemAmount(itemid));
 
                 if (itemid == ITEM_PHONE )
                 {
@@ -881,7 +877,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(bInfo[ bizIndex ][ bType ] == Supermarket)
                     {
                         for(new i = 0; i < sizeof(SupermarketItems); i++)
-                            format(string, sizeof(string), "%s%s\n",string, GetInvNameByID(SupermarketItems[ i ][ ItemId ]));
+                            format(string, sizeof(string), "%s%s\n",string, GetItemName(SupermarketItems[ i ][ ItemId ]));
                         ShowPlayerDialog(playerid, DIALOG_BIZ_WARE_LIST_EDIT_SHOP, DIALOG_STYLE_LIST, "Pasirinkite prekæ", string, "Pasirinkti", "Iðeiti");
                     }
                     else 
@@ -909,13 +905,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 itemIndex;
 
             for(new i = 0; i < sizeof(SupermarketItems); i++)
-                if(!strcmp(GetInvNameByID(SupermarketItems[ i ][ ItemId ]), inputtext))
+                if(!strcmp(GetItemName(SupermarketItems[ i ][ ItemId ]), inputtext))
                 {
                     itemIndex = i;
                     break;
                 }
 
-            format(BusinessWares[ bizIndex ][ wareIndex ][ Name ], MAX_BUSINESS_WARE_NAME, GetInvNameByID(SupermarketItems[ itemIndex ][ ItemId ]));
+            format(BusinessWares[ bizIndex ][ wareIndex ][ Name ], MAX_BUSINESS_WARE_NAME, GetItemName(SupermarketItems[ itemIndex ][ ItemId ]));
             SaveBusinessWare(bizIndex, wareIndex);
             BizOwnerMenu::WareListEditMain(playerid);
             SendClientMessage(playerid, COLOR_NEWS, "Prekë sëkmingai pakeista.");
@@ -995,8 +991,10 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
         if(PlayerMoney[ playerid ] < price)
             return SendClientMessage(playerid, COLOR_LIGHTRED,"Klaida, Jums nepakanka grynøjø pinigø ðiam veiksmui");
 
-        if(!AddItemToInventory( playerid, itemid, 1))
+        if(IsPlayerInventoryFull(playerid))
             return SendClientMessage(playerid, COLOR_LIGHTRED,"Klaida, Jûsø veikëjo inventoriuje nëra laisvos vietos.");
+
+        GivePlayerItem(playerid, itemid, 1);
 
         GivePlayerMoney(playerid, -price);
         SendClientMessage(playerid, COLOR_WHITE,"Prekë sëkmingai ásigyta!");
@@ -1028,8 +1026,10 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
         if(PlayerMoney[ playerid ] < 50)
             return SendClientMessage(playerid, COLOR_LIGHTRED,"Klaida, Jums nepakanka grynøjø pinigø ðiam veiksmui");
 
-        if(!AddItemToInventory(playerid, itemid, 1))
+        if(IsPlayerInventoryFull(playerid))
             return SendClientMessage( playerid, COLOR_LIGHTRED,"Klaida, Jûsø veikëjo inventoriuje nëra laisvos vietos.");
+
+        GivePlayerItem(playerid, itemid, 1);
            
         GivePlayerMoney(playerid, -50);
         SendClientMessage(playerid, COLOR_LIGHTRED2,"Sveikiname, Jûs ásigijote perukà, dabar galite uþsidëti per /inv.");
