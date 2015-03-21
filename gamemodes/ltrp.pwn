@@ -3862,7 +3862,7 @@ public OnPlayerPickUpDynamicPickup( playerid, pickupid )
     }
     return 1;
 }
-new NPCTrain;
+new NPCTrain[2];
 public OnGameModeInit()
 {
     AntiDeAMX();
@@ -3900,19 +3900,31 @@ public OnGameModeInit()
 //=============================[ Prijungiame serverá naudojamus NPC bot'us ]================================
     ConnectNPC("npc1","Kurva");
     ConnectNPC("npc2","kurva2");
-    ConnectNPC("npc3","train_sf");
-    NPCTrain = AddStaticVehicle(538,  -1943.0914, 162.7502, 26.7423, 357.0266, random(255), random(255));
-    new engine, lights, alarm, doors, bonnet, boot, objective;
-    GetVehicleParamsEx(NPCTrain, engine, lights, alarm, doors, bonnet, boot, objective);
-    SetVehicleParamsEx(NPCTrain, engine, lights, alarm, VEHICLE_PARAMS_ON, bonnet, boot, objective);
+    ConnectNPC("passenger_train_driver","cargo_train_loop_slow");
+    //ConnectNPC("cargo_train_driver","cargo_train_loop_slow");
+    NPCTrain[ 0 ] = AddStaticVehicle(538,  -1943.0914, 162.7502, 26.7423, 357.0266, random(255), random(255));
     // Pirðtai kraujuoja raðant ðitas 6 eilutes...
-    sVehicles[ NPCTrain ][ Id          ] = 0;
-    sVehicles[ NPCTrain ][ Model       ] = 538;
-    sVehicles[ NPCTrain ][ SpawnX       ] = -1943.0914;
-    sVehicles[ NPCTrain ][ SpawnY       ] = 162.7502;
-    sVehicles[ NPCTrain ][ SpawnZ      ] = 26.7423;
-    sVehicles[ NPCTrain ][ SpawnA      ] = 357.0266;
+    sVehicles[ NPCTrain[ 0 ] ][ Id          ] = 0;
+    sVehicles[ NPCTrain[ 0 ] ][ Model       ] = 538;
+    sVehicles[ NPCTrain[ 0 ] ][ SpawnX       ] = -1943.0914;
+    sVehicles[ NPCTrain[ 0 ] ][ SpawnY       ] = 162.7502;
+    sVehicles[ NPCTrain[ 0 ] ][ SpawnZ      ] = 26.7423;
+    sVehicles[ NPCTrain[ 0 ] ][ SpawnA      ] = 357.0266;
+
+    NPCTrain[ 1 ] = AddStaticVehicle(537, -1948.7266, 138.5202, 26.3345, 178.6508, random(255), random(255));
+    sVehicles[ NPCTrain[ 0 ] ][ Id          ] = 0;
+    sVehicles[ NPCTrain[ 0 ] ][ Model       ] = 538;
+    sVehicles[ NPCTrain[ 0 ] ][ SpawnX       ] = -1948.7266;
+    sVehicles[ NPCTrain[ 0 ] ][ SpawnY       ] = 138.5202;
+    sVehicles[ NPCTrain[ 0 ] ][ SpawnZ      ] = 26.3345;
+    sVehicles[ NPCTrain[ 0 ] ][ SpawnA      ] = 178.6508;
     
+    for(new i = 0; i < sizeof(NPCTrain); i++)
+    {
+        new engine, lights, alarm, doors, bonnet, boot, objective;
+        GetVehicleParamsEx(NPCTrain[ i ], engine, lights, alarm, doors, bonnet, boot, objective);
+        SetVehicleParamsEx(NPCTrain[ i ], engine, lights, alarm, VEHICLE_PARAMS_ON, bonnet, boot, objective);
+    }
 
     LoadStaticVehicles();
     /*
@@ -4550,8 +4562,10 @@ public OnPlayerSpawn(playerid)
     if(IsPlayerNPC(playerid))
     {
         SetPlayerColor( playerid, TEAM_HIT_COLOR);
-        if(!strcmp(GetName(playerid), "npc3"))
+        if(!strcmp(GetName(playerid), "passenger_train_driver"))
             PutPlayerInVehicle(playerid, NPCTrain, 0);
+        if(!strcmp(GetName(playerid), "cargo_train_driver")) 
+            PutPlayerInVehicle(playerid, NPCTrain[ 1 ]);
         return 1;
     }
 

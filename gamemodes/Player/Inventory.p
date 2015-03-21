@@ -684,21 +684,20 @@ public OnPlayerUseMask(playerid, itemid)
     return 1;
 }
 
-forward OnPlayerStartSmoking(playerid, itemid);
-public OnPlayerStartSmoking(playerid, itemid)
+Item:OnPlayerStartSmoking(playerid, itemid)
 {
     if(!IsItemInPlayerInventory(playerid, ITEM_ZIB) && !IsItemInPlayerInventory(playerid, ITEM_MATCHES)) 
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti rukyti neturëdami kuo prisidegti cigaretës.");
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti rukyti neturëdami kuo prisidegti.");
 
     if(Ruko[playerid] > 0) 
-		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jûs jau røkote.");
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jûs jau rûkote.");
 
 	if(Mires[playerid] > 0) 
 		return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas, kad Jûs ðiuo metu esate kritinëje komos bûsenoje.");
 
 	if(IsItemInPlayerInventory(playerid, ITEM_ZIB))
     {
-    	AddPlayerItemContentAmount(playerid, ITEM_ZIB, -1);
+    	AddPlayerItemDurability(playerid, ITEM_ZIB, -1);
     }
     else if(IsItemInPlayerInventory(playerid, ITEM_MATCHES))
     {
@@ -1640,7 +1639,7 @@ stock GetPlayerItemAmount(playerid, itemid)
 
 stock SetPlayerItemDurability(playerid, itemid, value)
 {
-	new index = GetPlayerItemIndex(playerid, itemid);
+	new index = GetPlayerItemIndex(playerid, itemid), query[80];
 	if(index == -1)
 		return 0;
 	else
@@ -1648,6 +1647,13 @@ stock SetPlayerItemDurability(playerid, itemid, value)
 		PlayerItems[ playerid ][ index ][ Durability ] = value;
 		if(PlayerItems[ playerid ][ index ][ Durability ] <= 0)
 			return GivePlayerItem(playerid, itemid, -1);
+		else 
+		{
+			mysql_format(DbHandle, query, sizeof(query), "UPDATE player_items SET durability = %d WHERE id = %d",
+				PlayerItems[ playerid ][ index ][ Durability ],
+				PlayerItems[ playerid ][ index ][ Id ]);
+			mysql_pquery(DbHandle, query);
+		}
 	}
 	return 0;
 }
@@ -1674,7 +1680,7 @@ stock AddPlayerItemContentAmount(playerid, itemid, value)
 
 stock SetPlayerItemContentAmount(playerid, itemid, value)
 {
-	new index = GetPlayerItemIndex(playerid, itemid);
+	new index = GetPlayerItemIndex(playerid, itemid), query[80];
 	if(index == -1)
 		return 0;
 	else
@@ -1682,6 +1688,13 @@ stock SetPlayerItemContentAmount(playerid, itemid, value)
 		PlayerItems[ playerid ][ index ][ ContentAmount ] = value;
 		if(PlayerItems[ playerid ][ index ][ ContentAmount ] <= 0)
 			return GivePlayerItem(playerid, itemid, -1);
+		else 
+		{
+			mysql_format(DbHandle, query, sizeof(query), "UPDATE player_items SET content_amount = %d WHERE id = %d",
+				PlayerItems[ playerid ][ index ][ ContentAmount ],
+				PlayerItems[ playerid ][ index ][ Id ]);
+			mysql_pquery(DbHandle, query);
+		}
 	}
 	return 0;
 }
