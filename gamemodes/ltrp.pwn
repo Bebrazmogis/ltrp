@@ -1165,44 +1165,7 @@ new Ligos[7][25] = { // Ligos
 {"Sloga"}
 };
 
-enum Shopas {
-    Kaina,
-    Idas,
-    Kiekis
-}
 
-new BuyShop[ ][ Shopas ] = { // Parduotuvës nustatymai
-    {199, ITEM_PHONE,1 },
-    {69, ITEM_MASK, 1 },
-    {250,ITEM_RADIO,1 },
-    {3,  ITEM_ZIB, 50 },
-    {6,  ITEM_CIG, 20 },
-    {59, ITEM_FUEL, 30 },
-    {89, ITEM_TOLKIT, 1 },
-    {139, ITEM_CLOCK, 1 },
-    {2,  ITEM_DICE, 1 },
-    {30, ITEM_VAISTAI, 1 },
-    {5,  ITEM_SVIRKSTAS, 1 },
-    {15, ITEM_NOTE, 1 },
-    {229, ITEM_HELMET, 1 },
-    {50, ITEM_ROD, 1 },
-    {5,  ITEM_RODTOOL, 20 },
-    {2,  ITEM_FISH, 1 },
-    {25, ITEM_MEDIC, 1 },
-//  {50, ITEM_TICKET, 1 },
-    {5,  ITEM_BEER, 1 },
-    {2,  ITEM_SPRUNK, 1 },
-    {6,  ITEM_VINE, 1 },
-    {3, ITEM_PAPER, 1 },
-    {179, ITEM_MP3, 1 },
-    {250, ITEM_MAGNETOLA, 1 },
-    {750, ITEM_AUDIO, 1 },
-    {180, ITEM_BIGAUDIO, 1 },
-    {20, 14, 1 },
-    {230, 43, 50 }, // Fotoparatas
-    {89, 46, 50 }, // Paraðiutas
-    {10, ITEM_MATCHES, 20 }
-};
 
 
 /*Uþkraunamas tr. priemoniø turgus sellcars, sellbikes, sellsport*/
@@ -2507,16 +2470,6 @@ stock ShowVehicleFines( giveplayerid, playerid )
     SetPVarInt(giveplayerid, "Listitem", rows);
     tmpinteger[ giveplayerid ] = playerid;
     ShowPlayerDialog(giveplayerid,168,DIALOG_STYLE_LIST,"Fine list",string,"Detaliau","Atgal");
-    return 1;
-}
-
-stock GetItemAmount( itemid )
-{
-    for ( new i = 0; i < sizeof( BuyShop ); i++ )
-    {
-        if( BuyShop[ i ][ Idas ] == itemid )
-            return BuyShop[ i ][ Kiekis ];
-    }
     return 1;
 }
 
@@ -3909,7 +3862,6 @@ public OnPlayerPickUpDynamicPickup( playerid, pickupid )
     }
     return 1;
 }
-new AnNPC;
 new NPCTrain;
 public OnGameModeInit()
 {
@@ -16577,6 +16529,7 @@ CMD:giveitem(playerid,params[])
 
         format(string, sizeof(string), "AdmWarn: Administratorius (%s) atemë (%s) ið veikëjo (%s)",GetName(playerid), GetItemName(itemid), GetName(giveplayerid));
         SendAdminMessage(COLOR_LIGHTRED, string);
+        GivePlayerItem(giveplayerid, itemid, -GetPlayerItemAmount(giveplayerid, itemid));
     }
     else 
     {
@@ -16585,7 +16538,7 @@ CMD:giveitem(playerid,params[])
             NarkLog(pInfo[ playerid ][ pMySQLID ], 6, pInfo[ giveplayerid ][ pMySQLID ], GetItemName(itemid), amount);
             NarkLog(pInfo[ giveplayerid ][ pMySQLID ], 5, pInfo[ playerid ][ pMySQLID ], GetItemName(itemid), amount);
         }
-        if((IsPlayerInventoryFull(giveplayerid) && !IsItemStackable(itemid)) || (IsItemStackable(itemid) && !IsItemInPlayerInventory(giveplayerid, itemid)))
+        if((IsPlayerInventoryFull(giveplayerid) && !IsItemStackable(itemid)) || (IsPlayerInventoryFull(giveplayerid) && IsItemStackable(itemid) && !IsItemInPlayerInventory(giveplayerid, itemid)))
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, þaidëjo inventorius pilnas.");
 
         if(itemid == ITEM_PHONE)
@@ -16597,6 +16550,7 @@ CMD:giveitem(playerid,params[])
         SendAdminMessage(COLOR_ADM, string );
         format(string, sizeof(string), "Davë daiktà: %s", GetItemName(itemid));
         AdminLog(pInfo[ playerid ][ pMySQLID ], pInfo[ giveplayerid ][ pMySQLID ], string );
+        GivePlayerItem(giveplayerid, itemid, amount);
     }
     return 1;
 }

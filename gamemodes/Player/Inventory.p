@@ -100,6 +100,7 @@ public OnPlayerItemLoad(playerid)
 		index = cache_get_field_content_int(i, "slot");
 		if(index < 0 || index >= MAX_PLAYER_ITEMS)
 			continue;
+
 		PlayerItems[ playerid ][ index ][ Id ] = cache_get_field_content_int(i, "id");
 		PlayerItems[ playerid ][ index ][ ItemId ] = cache_get_field_content_int(i, "item_id");
 		PlayerItems[ playerid ][ index ][ Amount ] = cache_get_field_content_int(i, "amount");
@@ -111,7 +112,7 @@ public OnPlayerItemLoad(playerid)
 }
 
 
-hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
 	switch(dialogid)
 	{
@@ -119,7 +120,6 @@ hook OnPlayerDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(!response)
 				return 1;
-
 			PlayerUsedItemIndex[ playerid ] = listitem;
 			ShowPlayerDialog(playerid, DIALOG_PLAYER_INVENTORY_OPTIONS, DIALOG_STYLE_LIST, GetItemName(PlayerItems[ playerid ][ listitem ][ ItemId ]),
                                 "\n Panaudoti pagal paskirtá\
@@ -969,8 +969,8 @@ Item:OnPlayerUseDice(playerid, itemid)
 
 Item:OnPlayerUseWeedSeeds(playerid, itemid)
 {
-    if(pInfo[ playerid ][ pJob ] != JOB_DRUGS) 
-    	return SendClientMessage(playerid ,GRAD, "{FF6347}Klaida, negalite atlikti ðio veiksmo nebødami narkotikø prekeiviu.");
+    //if(pInfo[ playerid ][ pJob ] != JOB_DRUGS) 
+    //	return SendClientMessage(playerid ,GRAD, "{FF6347}Klaida, negalite atlikti ðio veiksmo nebødami narkotikø prekeiviu.");
     	
     new index = GetPlayerHouseIndex(playerid);
     if(index == -1)
@@ -983,7 +983,7 @@ Item:OnPlayerUseWeedSeeds(playerid, itemid)
     if(!GetHouseFreeWeedSlotCount(index))
     	return SendClientMessage(playerid, COLOR_LIGHTRED, "Ðiame name daugiau þolës auginti nebegalite.");
 
-    AddHouseWeedSapling(index);
+    AddHouseWeedSapling(playerid, index);
 
     GivePlayerItem(playerid, itemid, -1);
     SendClientMessage(playerid, COLOR_WHITE, "Jums sëkmingai pavyko pasëti þolës sëklas, dabar beliekà laukti kol augalas pilnai uþaugs.");
@@ -1549,9 +1549,9 @@ Item:OnPlayerUseWeapon(playerid, weaponid)
 			                                                                                
 */
 
-stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0)
+stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0, durability = 0)
 {
-	new query[140], freeindex = -1;
+	new query[160], freeindex = -1;
 
 	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
 	{
@@ -1563,24 +1563,32 @@ stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0)
 		}
 
 		if(!IsItemStackable(itemid))
-			break;
+		{
+			if(freeindex != -1)
+				break;
+			else 
+				continue;
+		}
 
 		if(PlayerItems[ playerid ][ i ][ ItemId ] == itemid)
 		{
 			PlayerItems[ playerid ][ i ][ Amount ] += amount;
 			PlayerItems[ playerid ][ i ][ ContentAmount ] += contentamount;
+			PlayerItems[ playerid ][ i ][ ContentAmount ] += durability;
 
-			if(amount <= 0)
+			if(PlayerItems[ playerid ][ i ][ Amount ] <= 0)
 			{
-				PlayerItems[ playerid ][ i ][ Id ] = 0;
 				mysql_format(DbHandle, query, sizeof(query), "DELETE FROM player_items WHERE id = %d LIMIT 1", PlayerItems[ playerid ][ i ][ Id ]);
+				PlayerItems[ playerid ][ i ][ Id ] = 0;
 				OnPlayerItemRemoved(playerid, itemid);
 			}
 			else
 			{
-				mysql_format(DbHandle, query, sizeof(query), "UPDATE player_items SET amount = %d WHERE id = %d", 
+				mysql_format(DbHandle, query, sizeof(query), "UPDATE player_items SET amount = %d, content_amount = %d, durability = %d WHERE id = %d", 
 					PlayerItems[ playerid ][ i ][ Amount ],
-					PlayerItems[ playerid ][ i ][ Amount ]);
+					PlayerItems[ playerid ][ i ][ ContentAmount ],
+					PlayerItems[ playerid ][ i ][ Durability ],
+					PlayerItems[ playerid ][ i ][ Id ]);
 			}
 			mysql_pquery(DbHandle, query);
 			return 1;
@@ -1592,11 +1600,15 @@ stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0)
 
 	PlayerItems[ playerid ][ freeindex ][ ItemId ] = itemid;
 	PlayerItems[ playerid ][ freeindex ][ Amount ] = amount;
+	PlayerItems[ playerid ][ freeindex ][ ContentAmount ] = contentamount;
+	PlayerItems[ playerid ][ freeindex ][ Durability ] = durability;
 
-	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_items (player_id, item_id, amount, slot) VALUES (%d, %d, %d, %d)",
+	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_items (player_id, item_id, amount, content_amount, durability, slot) VALUES (%d, %d, %d, %d, %d, %d)",
 		GetPlayerSqlId(playerid),
 		itemid,
 		amount,
+		contentamount,
+		durability,
 		freeindex);
 	new Cache:result = mysql_query(DbHandle, query);
 	PlayerItems[ playerid ][ freeindex ][ Id ] = cache_insert_id();
@@ -1777,7 +1789,7 @@ stock ShowPlayerInventoryDialog(playerid)
     for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
     {
 
-        if(PlayerItems[ playerid ][ i ][ Id ])
+        if(!PlayerItems[ playerid ][ i ][ Id ])
             strcat(string, "{BBBBBB}Tuðèia vieta{FFFFFF}\n");
 
         else 

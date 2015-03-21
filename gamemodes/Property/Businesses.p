@@ -259,42 +259,40 @@ static const ClothesShopItems[][ E_CLOTHES_SHOP_ITEM_DATA ] =
 
 
 enum E_SUPERMARKET_ITEM_DATA {
-    Price,
-    ItemId,
-    Amount
+    ItemId
 };
 
 new SupermarketItems[ ][ E_SUPERMARKET_ITEM_DATA ] = { // Parduotuvës nustatymai
-    {199,ITEM_PHONE,1 },
-    {69, ITEM_MASK, 1 },
-    {250,ITEM_RADIO,1 },
-    {3,  ITEM_ZIB, 50 },
-    {6,  ITEM_CIG, 20 },
-    {59, ITEM_FUEL, 30 },
-    {89, ITEM_TOLKIT, 1 },
-    {139, ITEM_CLOCK, 1 },
-    {2,  ITEM_DICE, 1 },
-    {30, ITEM_VAISTAI, 1},
-    {5,  ITEM_SVIRKSTAS, 1 },
-    {15, ITEM_NOTE, 1 },
-    {229, ITEM_HELMET, 1 },
-    {50, ITEM_ROD, 1 },
-    {5,  ITEM_RODTOOL, 20 },
-    {2,  ITEM_FISH, 1 },
-    {25, ITEM_MEDIC, 1 },
-//  {50, ITEM_TICKET, 1 },
-    {5,  ITEM_BEER, 1 },
-    {2,  ITEM_SPRUNK, 1 },
-    {6,  ITEM_VINE, 1 },
-    {3, ITEM_PAPER, 1 },
-    {179, ITEM_MP3, 1 },
-    {250, ITEM_MAGNETOLA, 1 },
-    {750, ITEM_AUDIO, 1 },
-    {180, ITEM_BIGAUDIO, 1 },
-    {20, 14, 1 },
-    {230, 43, 50 }, // Fotoparatas
-    {89, WEAPON_PARACHUTE, 50 }, // Paraðiutas
-    {10, ITEM_MATCHES, 20 }
+    {ITEM_PHONE},
+    {ITEM_MASK},
+    {ITEM_RADIO},
+    {ITEM_ZIB},
+    {ITEM_CIG},
+    {ITEM_FUEL},
+    {ITEM_TOLKIT},
+    {ITEM_CLOCK},
+    {ITEM_DICE},
+    {ITEM_VAISTAI},
+    {ITEM_SVIRKSTAS},
+    {ITEM_NOTE},
+    {ITEM_HELMET},
+    {ITEM_ROD},
+    {ITEM_RODTOOL},
+    {ITEM_FISH},
+    {ITEM_MEDIC},
+//  {ITEM_TICKET, 1 },
+    {ITEM_BEER},
+    {ITEM_SPRUNK},
+    {ITEM_VINE},
+    {ITEM_PAPER},
+    {ITEM_MP3},
+    {ITEM_MAGNETOLA},
+    {ITEM_AUDIO},
+    {ITEM_BIGAUDIO},
+    {14},
+    {43}, // Fotoparatas
+    {WEAPON_PARACHUTE}, // Paraðiutas
+    {ITEM_MATCHES}
 };
 
 
@@ -565,7 +563,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 new itemid = GetItemId(BusinessWares[ bizIndex ][ listitem ][ Name ]);
                 
-                if((IsPlayerInventoryFull(playerid) && !IsItemStackable(itemid)) || (IsItemStackable(itemid) && !IsItemInPlayerInventory(playerid, itemid)))
+                if((IsPlayerInventoryFull(playerid) && !IsItemStackable(itemid)) || (IsPlayerInventoryFull(playerid) && IsItemStackable(itemid) && !IsItemInPlayerInventory(playerid, itemid)))
                     return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
                 switch(itemid)
                 {
@@ -599,10 +597,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau turite racijà.");
                     }
                 }
+                UpdateBusinessProducts(bizIndex, GetBusinessProductCount(bizIndex)-1);
 
-                GivePlayerItem(playerid, itemid, GetItemAmount(itemid));
+                GivePlayerItem(playerid, itemid, 1, GetItemMaxCapacity(itemid), GetItemMaxDurability(itemid));
+                printf("Item name:%s itemid:%d max durability:%d max capacity:%d", BusinessWares[ bizIndex ][ listitem ][ Name ], itemid, GetItemMaxDurability(itemid), GetItemMaxCapacity(itemid));
 
-                if (itemid == ITEM_PHONE )
+                if(itemid == ITEM_PHONE )
                 {
                     new more = random(32) * 1000;
                     pInfo[playerid][pPhone] = 110000 + GetPlayerSqlId(playerid) + more;
@@ -610,7 +610,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     SendClientMessage(playerid,COLOR_FADE3,string);
                     return 1;
                 }
-                else if (itemid == ITEM_RADIO )
+                else if(itemid == ITEM_RADIO )
                 {
                     pInfo[playerid][pRChannel] = 1;
                     ShowPlayerInfoText( playerid );
@@ -1259,7 +1259,11 @@ stock IsPlayerInBusiness(playerid, bizindex)
 {
     if(bInfo[ bizindex ][ bInteriorId ] == INVALID_INTERIOR_ID)
         return false;
-    return IsPlayerInInterior(playerid, bInfo[ bizindex ][ bInteriorId ]);
+    
+    if(IsPlayerInInterior(playerid, bInfo[ bizindex ][ bInteriorId ]) && GetPlayerVirtualWorld(playerid) == GetBusinessVirtualWorld(bizindex))
+        return true;
+    else 
+        return false;
 }
 stock IsPlayerInAnyBusiness(playerid)
 {
@@ -1282,7 +1286,7 @@ stock GetPlayerBusinessIndex(playerid)
         if(IsPlayerInBusiness(playerid, i))
             return i;
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, bInfo[ i ][ bEnter ][ 0 ], bInfo[ i ][ bEnter ][ 1 ], bInfo[ i ][ bEnter ][ 2 ]))
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, bInfo[ i ][ bEnter ][ 0 ], bInfo[ i ][ bEnter ][ 1 ], bInfo[ i ][ bEnter ][ 2 ]) && !GetPlayerVirtualWorld(playerid))
             return i;
     }
     return -1;
@@ -2344,7 +2348,7 @@ stock BusinessManagementDialog.SelectNewType(playerid)
 
 stock BusinessManagementDialog.InputNewProductAmount(playerid, errostr[] = "")
 {
-    new string[64];
+    new string[128];
     if(!isnull(errostr))
     {
         strcat(string, "{AA0000}");

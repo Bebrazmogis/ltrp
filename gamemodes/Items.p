@@ -436,7 +436,6 @@ stock SelectPlayerItem(playerid, itemid)
 			funcReturned = CallLocalFunction(ItemData[ index ][ UsageFunction ], "ii", playerid, itemid);
 	}
 
-
 	return CallLocalFunction("OnPlayerUseItem", "iii", playerid, itemid, funcReturned);
 }
 
@@ -500,6 +499,14 @@ stock GetItemMaxCapacity(itemid)
 		return 0;
 	else 
 		return ItemData[ index ][ MaxCapacity ];
+}
+stock GetItemMaxDurability(itemid)
+{
+	new index = GetItemIndex(itemid);
+	if(index == -1)
+		return 0;
+	else 
+		return ItemData[ index ][ MaxDurability ];
 }
 
 stock IsItemStackable(itemid)

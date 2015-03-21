@@ -30,12 +30,16 @@
 
 #define MIN_HOUSE_WEED_YIELD            15
 #define MAX_HOUSE_WEED_YIELD            22
+#define MAX_HOUSE_WEED_GROWTH_LEVEL     24
+
+#define HOUSE_WEED_PLANT_OBJECT         19473
+#define HOUSE_WEED_PLANT_HEIGHT         1.744
 
 #define MAX_HOUSE_ITEMS                 MAX_HOUSETRUNK_SLOTS
 #define MAX_HOUSE_FURNITURE             400
 #define MAX_HOUSE_WEED_SAPLINGS         1
 
-#define HOUSE_WEED_GROW_TIME_MS         3600000
+#define HOUSE_WEED_GROW_TIME_MS         60*60*1000
 #define HOUSE_WEED_GROW_TIME_S          (HOUSE_WEED_GROW_TIME_MS / 1000)
 
 #define HouseManagementDialog.          houdiag
@@ -47,8 +51,9 @@
 enum E_HOUSE_WEED_DATA 
 {
     Id,
-    bool:Grown,
+    GrowthLevel,
     Timer:GrowTimer,
+    ObjectId,
 };
 
 enum E_HOUSE_RADIO_DATA {
@@ -135,7 +140,7 @@ public OnGameModeInit()
     // Tokia sudëtinga uþklausa tik tam kad paimti papildomai tekstûros duomenis
     // Bei tam kad bûtø iðrikiuota pagal namo ID, todël vieno namo baldai bus vienas ðalia kito.
     mysql_tquery(DbHandle, "SELECT house_furniture.*,house_furniture_textures.*, furniture.name AS default_name FROM house_furniture LEFT JOIN house_furniture_textures ON house_furniture.id = house_furniture_textures.furniture_id LEFT JOIN furniture ON furniture.id = house_furniture.furniture_id", "OnHouseFurnitureLoad", "");
-    mysql_tquery(DbHandle, "SELECT * FROM house_weed WHERE harvested = 0", "OnHouseWeedLoad", "");
+    mysql_tquery(DbHandle, "SELECT * FROM house_weed WHERE harvested_by IS NULL", "OnHouseWeedLoad", "");
     return 1;
 }
 #if defined _ALS_OnGameModeInit
@@ -303,7 +308,7 @@ public OnHouseFurnitureLoad()
 
 public OnHouseWeedLoad()
 {
-    new hindex, lastHouseId, plantcount, planttime;
+    new hindex, lastHouseId, plantcount, planttime, Float:x, Float:y, Float:z;
 
     for(new i = 0; i < cache_get_row_count(); i++)
     {
@@ -321,15 +326,28 @@ public OnHouseWeedLoad()
 
         HouseWeed[ hindex ][ plantcount ][ Id ] = cache_get_field_content_int(i, "id");
         planttime = cache_get_field_content_int(i, "plant_timestamp");
+        HouseWeed[ hindex ][ plantcount ][ GrowthLevel ] = cache_get_field_content_int(i, "growth_level");
 
         // Jei jau uþaugæs
-        if(planttime + HOUSE_WEED_GROW_TIME_S <= gettime())
+        if(HouseWeed[ hindex ][ plantcount ][ GrowthLevel ] < MAX_HOUSE_WEED_GROWTH_LEVEL)
         {
-            HouseWeed[ hindex ][ plantcount ][ Grown ] = true;
-        }
-        else 
-        {
-            HouseWeed[ hindex ][ plantcount ][ GrowTimer ] = defer WeedGrowTime((HOUSE_WEED_GROW_TIME_S - (gettime()-planttime)) * 1000, hindex, plantcount);
+            x = cache_get_field_content_float(i, "x");
+            y = cache_get_field_content_float(i, "y");
+            z = cache_get_field_content_float(i, "z");
+
+            if(!HouseWeed[ hindex ][ plantcount ][ GrowthLevel ])
+            {
+                HouseWeed[ hindex ][ plantcount ][ GrowTimer ] = defer WeedGrowTime((HOUSE_WEED_GROW_TIME_S - (gettime()-planttime)) * 1000, hindex, plantcount);
+            }
+            else
+            {
+                HouseWeed[ hindex ][ plantcount ][ GrowTimer ] = defer WeedGrowTime((HOUSE_WEED_GROW_TIME_S - (gettime()-cache_get_field_content_int(i, "growth_timestamp"))) * 1000, hindex, plantcount);
+                x += HouseWeed[ hindex ][ plantcount ][ GrowthLevel ] * (HOUSE_WEED_PLANT_HEIGHT / MAX_HOUSE_WEED_GROWTH_LEVEL);
+                y += HouseWeed[ hindex ][ plantcount ][ GrowthLevel ] * (HOUSE_WEED_PLANT_HEIGHT / MAX_HOUSE_WEED_GROWTH_LEVEL);
+                z += HouseWeed[ hindex ][ plantcount ][ GrowthLevel ] * (HOUSE_WEED_PLANT_HEIGHT / MAX_HOUSE_WEED_GROWTH_LEVEL);
+            }
+            HouseWeed[ hindex ][ plantcount ][ ObjectId ] = CreateDynamicObject(HOUSE_WEED_PLANT_OBJECT, x, y, z, random(20), random(20), random(360), GetHouseVirtualWorld(hindex), GetInteriorInteriorId(GetHouseInteriorID(hindex)));
+
         }
         plantcount++;
     }
@@ -729,7 +747,12 @@ stock GetPlayerHouseIndex(playerid, outside=false)
 
 
 stock IsPlayerInHouse(playerid, house_index)
-    return IsPlayerInInterior(playerid, hInfo[ house_index ][ hInteriorId ]);
+{
+    if(IsPlayerInInterior(playerid, hInfo[ house_index ][ hInteriorId ]) && GetPlayerVirtualWorld(playerid) == GetHouseVirtualWorld(house_index))
+        return true;
+    else 
+        return false;
+}
 
 stock IsPlayerInAnyHouse(playerid)
 {
@@ -790,17 +813,18 @@ stock GetHouseWeedPlantCount(houseindex)
 }
 
 
-stock HarvestHouseWeedPlant(house_index, weedindex)
+stock HarvestHouseWeedPlant(playerid, house_index, weedindex)
 {
     new query[80],
         yield = random(MAX_HOUSE_WEED_YIELD - MIN_HOUSE_WEED_YIELD) + MIN_HOUSE_WEED_YIELD;
 
-    mysql_format(DbHandle, query, sizeof(query), "UPDATE house_weed SET harvested = 1, yield = %d WHERE id = %d", 
+    mysql_format(DbHandle, query, sizeof(query), "UPDATE house_weed SET harvested_by = %d, yield = %d WHERE id = %d", 
+        GetPlayerSqlId(playerid),
         yield,
         HouseWeed[ house_index ][ weedindex ][ Id ]);
     mysql_pquery(DbHandle, query);
     HouseWeed[ house_index ][ weedindex ][ Id ] = 0;
-
+    DestroyDynamicObject(HouseWeed[ house_index ][ weedindex ][ ObjectId ]);
     return yield;
 }
 
@@ -914,9 +938,9 @@ stock AddHouseFurniture(hindex, furniture_index, Float:posx, Float:posy, Float:p
 }
 
 
-stock AddHouseWeedSapling(hindex)
+stock AddHouseWeedSapling(playerid, hindex)
 {
-    new query[100], index = -1;
+    new query[140], index = -1, Float:x, Float:y, Float:z;
 
     for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
         if(!HouseWeed[ hindex ][ i ][ Id ])
@@ -927,10 +951,14 @@ stock AddHouseWeedSapling(hindex)
     if(index == -1)
         return 0;
 
-    HouseWeed[ hindex ][ index ][ Grown ] = false;
+    GetPlayerPos(playerid, x, y, z);
+    z -= 2.7;
 
-    mysql_format(DbHandle, query, sizeof(query), "INSERT INTO house_weed (house_id, plant_timestamp) VALUES (%d, %d)",
-        hInfo[ hindex ][ hID ], gettime());
+    HouseWeed[ hindex ][ index ][ GrowthLevel ] = 0;
+    HouseWeed[ hindex ][ index ][ ObjectId ] = CreateDynamicObject(HOUSE_WEED_PLANT_OBJECT, x, y, z, random(20), random(20), random(360), GetHouseVirtualWorld(hindex), GetInteriorInteriorId(GetHouseInteriorID(hindex)));
+
+    mysql_format(DbHandle, query, sizeof(query), "INSERT INTO house_weed (planted_by, house_id, plant_timestamp, x, y, z) VALUES (%d, %d, %d, %f, %f, %f)",
+        GetPlayerSqlId(playerid), hInfo[ hindex ][ hID ], gettime(), x, y, z);
     new Cache:result = mysql_query(DbHandle, query);
     HouseWeed[ hindex ][ index ][ Id ] = cache_insert_id();
     cache_delete(result);
@@ -1226,7 +1254,7 @@ stock RemoveHouseOwner(hindex)
     return 1;
 }
 
-stock DestroyHouseWeed(houseindex)
+stock DestroyHouseWeed(playerid, houseindex)
 {
     new query[100];
 
@@ -1236,11 +1264,11 @@ stock DestroyHouseWeed(houseindex)
             continue;
 
         stop HouseWeed[ houseindex ][ i ][ GrowTimer ];
-        HouseWeed[ houseindex ][ i ][ Grown ] = false;
+        HouseWeed[ houseindex ][ i ][ GrowthLevel ] = 0;
     }
 
-    mysql_format(DbHandle, query, sizeof(query), "UPDATE house_weed SET harvested = 1, yield = 0 WHERE house_id = %d",
-        hInfo[ houseindex ][ hID ]);
+    mysql_format(DbHandle, query, sizeof(query), "UPDATE house_weed SET harvested_by = %d, yield = 0 WHERE house_id = %d",
+        GetPlayerSqlId(playerid), hInfo[ houseindex ][ hID ]);
     return mysql_pquery(DbHandle, query);
 }
 
@@ -1261,14 +1289,57 @@ stock DestroyHouseWeed(houseindex)
 
 timer WeedGrowTime[grow_time](grow_time, houseindex, weedindex)
 {
+    new query[100], Float:x, Float:y, Float:z;
     grow_time = 0;
-    HouseWeed[ houseindex ][ weedindex ][ Grown ] = true;
+    HouseWeed[ houseindex ][ weedindex ][ GrowthLevel ]++;
+    mysql_format(DbHandle, query, sizeof(query), "UPDATE house_weed SET growth_timestamp = %d, growth_level = %d WHERE id = %d",
+        gettime(), HouseWeed[ houseindex ][ weedindex ][ GrowthLevel ], HouseWeed[ houseindex ][ weedindex ][ Id ]);
+    mysql_pquery(DbHandle, query);
+
+    if(HouseWeed[ houseindex ][ weedindex ][ GrowthLevel ] < MAX_HOUSE_WEED_GROWTH_LEVEL)
+        HouseWeed[ houseindex ][ weedindex ][ GrowTimer ] = defer WeedGrowTime(HOUSE_WEED_GROW_TIME_MS, houseindex, weedindex);
+
+    GetDynamicObjectPos(HouseWeed[ houseindex ][ weedindex ][ ObjectId ], x, y, z);
+    SetDynamicObjectPos(HouseWeed[ houseindex ][ weedindex ][ ObjectId ], x, y, z+(HOUSE_WEED_PLANT_HEIGHT / MAX_HOUSE_WEED_GROWTH_LEVEL));
+}
+
+CMD:testgrow(playerid)
+{
+    new hindex = GetPlayerHouseIndex(playerid);
+    if(hindex == -1)
+        return 0;
+
+    for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
+    {
+        if(!HouseWeed[ hindex ][ i ][ Id ])
+            continue;
+
+        stop HouseWeed[ hindex ][ i ][ GrowTimer ];
+        WeedGrowTime(MAX_HOUSE_WEED_SAPLINGS, hindex, i);
+    }
+    SendClientMessage(playerid, COLOR_PURPLE, "PAaugo.");
+    return 1;
 }
 
 
+CMD:lygiai(playerid)
+{
 
+    new hindex = GetPlayerHouseIndex(playerid), string[126];
+    if(hindex == -1)
+        return 0;
 
+    for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
+    {
+        if(!HouseWeed[ hindex ][ i ][ Id ])
+            continue;
 
+        format(string, sizeof(string), "Augalo lygis:%d jo sqlid:%d. I:%d", HouseWeed[ hindex ][ i ][ GrowthLevel ], HouseWeed[ hindex ][ i ][ Id ],
+            i);
+        SendClientMessage(playerid, COLOR_PURPLE, string);
+    }
+    return 1;
+}
 
 
 /*
@@ -1703,8 +1774,8 @@ CMD:sellhouse(playerid, params[])
 
 CMD:cutweed(playerid)
 {
-    if(pInfo[ playerid ][ pJob ] != JOB_DRUGS) 
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Klaida, negalite naudotis ðia galimybe nebûdamas narkotiku prekeiviu.");
+    //if(pInfo[ playerid ][ pJob ] != JOB_DRUGS) 
+    //    return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Klaida, negalite naudotis ðia galimybe nebûdamas narkotiku prekeiviu.");
 
     new house_index = GetPlayerHouseIndex(playerid),
         string[50],
@@ -1712,20 +1783,20 @@ CMD:cutweed(playerid)
         plantcount;
 
     if(house_index == -1)
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs turite bûti prie namo áëjimo arba jo viduje.");
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs turite bûti namo viduje.");
 
     if(!IsPlayerHouseOwner(playerid, house_index))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, namas turi priklausyti Jums, kad atliktumët ðá veiksmà.");
 
     for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
-        if(HouseWeed[ house_index ][ i ][ Id ] && HouseWeed[ house_index ][ i ][ Grown ])
+        if(HouseWeed[ house_index ][ i ][ Id ] && HouseWeed[ house_index ][ i ][ GrowthLevel ] >= MAX_HOUSE_WEED_GROWTH_LEVEL)
         {
             plantcount++;
-            yield += HarvestHouseWeedPlant(house_index, i);
+            yield += HarvestHouseWeedPlant(playerid, house_index, i);
         }
 
     if(!plantcount)
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø namuose neauga þolë.");
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø namuose nëra uþaugusios þolës.");
 
     if(IsPlayerInventoryFull(playerid))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø inventoriuje nebëra vietos.");
@@ -1755,7 +1826,7 @@ CMD:cutdownweed(playerid)
     format(string, sizeof(string), "Sunaikinote %d þolës augalus.", GetHouseWeedPlantCount(house_index));
     SendClientMessage(playerid, COLOR_POLICE, string);
 
-    DestroyHouseWeed(house_index);
+    DestroyHouseWeed(playerid, house_index);
     return 1;
 
 }

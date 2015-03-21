@@ -385,7 +385,12 @@ stock GetPlayerGarageIndex(playerid)
     return -1;
 }
 stock IsPlayerInGarage(playerid, garageindex)
-    return IsPlayerInInterior(playerid, gInfo[ garageindex ][ gInteriorId ]);
+{
+    if(IsPlayerInInterior(playerid, gInfo[ garageindex ][ gInteriorId ]) && GetPlayerVirtualWorld(playerid) == GetGarageVirtualWorld(garageindex))
+        return true;
+    else 
+        return false;
+}
 
 stock IsGarageOwned(garageindex)
 {
