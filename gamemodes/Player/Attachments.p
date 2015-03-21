@@ -36,7 +36,7 @@ stock AddPlayerAttachedObject(playerid, index, modelid, bone, Float:offx = 0.0, 
 		(%d, %d, %d, %d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d, %d)",
 		GetPlayerSqlId(playerid), index, modelid, bone, offx, offy, offz, rotx, roty, rotz, scalex, scaley, scalez, color1, color2);
 
-	mysql_format(DbHandle, query, sizeof(query),"%s ON DUPLICATE KEY UPDATE model_id = VALUES(model_id), off_x = VALUES(off_x), off_y = VALUES(off_y), off_z = VALUES(off_z) \
+	mysql_format(DbHandle, query, sizeof(query),"%s ON DUPLICATE KEY UPDATE model_id = VALUES(model_id), off_x = VALUES(off_x), off_y = VALUES(off_y), off_z = VALUES(off_z), \
 		rot_x = VALUES(rot_x), rot_y = VALUES(rot_y), rot_z = VALUES(rot_z), scale_x = VALUES(scale_x), scale_y = VALUES(scale_y), scale_z = VALUES(scale_z), color1 = VALUES(color1), color2 = VALUES(color2)",query);
 	
 	return mysql_pquery(DbHandle, query);

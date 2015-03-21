@@ -1518,13 +1518,13 @@ Item:OnPlayerUseWeapon(playerid, weaponid)
 		amount = GetPlayerItemAmount(playerid, weaponid);
 	if(!IsPlayerHaveManyGuns(playerid, weaponid))
     {
-        GivePlayerWeapon(playerid, weaponid, amount, false);
-
+       
         string = GetItemName(weaponid);
         format(string, sizeof(string), "Sëkmingai iðsitraukëtæ %s, kuris turi %d kulkas (-as).", string, amount);
         SendClientMessage(playerid, GRAD, string);
 
-        GivePlayerWeapon(playerid, weaponid, -amount);
+        GivePlayerItem(playerid, weaponid, -amount);
+    	GivePlayerWeapon(playerid, weaponid, amount);
     }
     return 1;
 }
@@ -1561,7 +1561,7 @@ stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0, durability
 			continue;
 		}
 
-		if(!IsItemStackable(itemid))
+		if(!IsItemStackable(itemid) && amount > 0)
 		{
 			if(freeindex != -1)
 				break;
@@ -1876,10 +1876,8 @@ CMD:inv(playerid, params[])
 }
 
 
-CMD:invweapon(playerid, params[ ])
+CMD:invweapon(playerid)
 {
-    #pragma unused params
-
     new currgun = GetPlayerWeapon(playerid),
         ammo = GetPlayerAmmo(playerid);
 

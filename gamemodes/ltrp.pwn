@@ -538,7 +538,6 @@ new bool:PlayerOn[MAX_PLAYERS] = { false, ... },
     Unfreeze[MAX_PLAYERS],
     AfkCheck[MAX_PLAYERS],
     OldCar[MAX_PLAYERS],
-    InvInfo[MAX_PLAYERS][INVENTORY_SLOTS][2],
     tmpinteger[MAX_PLAYERS],
     bool:Belt[MAX_PLAYERS],
     Float:Tlc[3],
@@ -1573,18 +1572,6 @@ stock GetFreeRoadBlockSlot( )
     return MAX_ROADBLOCKS;
 }
 
-stock PlayerHasItemInInvExDrugs( playerid, itemid, slot )
-{
-    // Funkcija: PlayerHasItemInInvExDrugs( playerid, itemid, slot )
-
-    for ( new i = 0; i < INVENTORY_SLOTS; i++ )
-    {
-        if ( i != slot && InvInfo[ playerid ][ i ][ iID ] == itemid )
-            return i;
-    }
-
-    return INVENTORY_SLOTS;
-}
 
 stock GetAdminRank( playerid )
 {
@@ -3630,7 +3617,7 @@ stock SaveAccount(playerid)
     format(string, sizeof(string), "%s, Job = '%d', JobContr = '%d', MotoLic = '%d', CarLic = '%d', BoatLic = '%d'", string, pInfo[ playerid ][ pJob ], pInfo[ playerid ][ pJobContr ], pInfo[ playerid ][ pLicMoto ], pInfo[ playerid ][ pLicCar ], pInfo[ playerid ][ pLicBoat ] );
     format(string, sizeof(string), "%s, FlyLic = '%d', GunLic = '%d', BoxStyle = '%d', Deaths = '%d', ConnectedTime = '%d'", string, pInfo[ playerid ][ pLicHeli ], pInfo[ playerid ][ pLicWeapon ], pInfo[ playerid ][ pBoxStyle ], pInfo[ playerid ][ pDeaths ], pInfo[ playerid ][ pOnTime ] );
     format(string, sizeof(string), "%s, Origin = '%s', PayDayHad = '%d', PayDay = '%d', Sex = '%s'", string, pInfo[ playerid ][ pOrigin ], pInfo[ playerid ][ pPayDayHad ], pInfo[ playerid ][ pPayCheck ], pInfo[ playerid ][ pSex ] );
-    format(string, sizeof(string), "%s, pJobCar = '%d', Inventory = '%s', Weapons = '%s', JobSkill = '%d', JobLevel = '%d'", string, pInfo[ playerid ][ pSavings ], PackInventory( playerid ), PackWeapons( playerid ), pInfo[ playerid ][ pJobSkill ], pInfo[ playerid ][ pJobLevel ] );
+    format(string, sizeof(string), "%s, pJobCar = '%d', Inventory = ' ', Weapons = '  ', JobSkill = '%d', JobLevel = '%d'", string, pInfo[ playerid ][ pSavings ], pInfo[ playerid ][ pJobSkill ], pInfo[ playerid ][ pJobLevel ] );
     format(string, sizeof(string), "%s, LeftTime = '%d', Donator = '%d', WalkStyle = '%d', TalkStyle = '%d', HeroineAddict = '%d'", string, pInfo[ playerid ][ pLeftTime ], pInfo[ playerid ][ pDonator ], pInfo[ playerid ][ pWalkStyle ], pInfo[ playerid ][ pTalkStyle ], pInfo[ playerid ][ pHeroineAddict ] );
     format(string, sizeof(string), "%s, AmfaAddict = '%d', MetamfaAddict = '%d', CocaineAddict = '%d'", string, pInfo[ playerid ][ pAmfaAddict ], pInfo[ playerid ][ pMetaAmfaineAddict ], pInfo[ playerid ][ pCocaineAddict ] );
     format(string, sizeof(string), "%s, playerLastLogOn = CURRENT_TIMESTAMP, playerSpawn = '%d', bSpawn = '%d', Card = '%s', ForumName = '%s'", string, _:pInfo[ playerid ][ pSpawn ], pInfo[ playerid ][ pBSpawn ], string2, string3 );
@@ -3663,58 +3650,6 @@ stock PackPoints( playerid )
     return string;
 }
 */
-stock PackWeapons( playerid )
-{
-    new string[ 56 ];
-    for(new i = 0; i < MAX_SAVED_WEAPONS; i++)
-    {
-        format( string, 56, "%s%d/%d/", string,
-        pInfo[ playerid ][ pGun  ][ i ],
-        pInfo[ playerid ][ pAmmo ][ i ]);
-    }
-    return string;
-}
-stock PackInventory( playerid )
-{
-    new string[ 56 ];
-    for(new i = 0; i < INVENTORY_SLOTS; i++)
-    {
-        format(string,56,"%s%d/%d/",string,
-        InvInfo[ playerid ][ i ][ 0 ],
-        InvInfo[ playerid ][ i ][ 1 ]);
-    }
-    return string;
-}
-stock UnPackWeapons( playerid, weps[] )
-{
-    sscanf( weps, "p</>dddd",
-    pInfo[ playerid ][ pGun  ][ 0 ],
-    pInfo[ playerid ][ pAmmo ][ 0 ],
-    pInfo[ playerid ][ pGun  ][ 1 ],
-    pInfo[ playerid ][ pAmmo ][ 1 ]);
-    return 1;
-}
-stock UnPackInventory( playerid, invv[] )
-{
-    sscanf( invv, "p</>dddddddddddddddd",
-    InvInfo[ playerid ][ 0 ][ 0 ],
-    InvInfo[ playerid ][ 0 ][ 1 ],
-    InvInfo[ playerid ][ 1 ][ 0 ],
-    InvInfo[ playerid ][ 1 ][ 1 ],
-    InvInfo[ playerid ][ 2 ][ 0 ],
-    InvInfo[ playerid ][ 2 ][ 1 ],
-    InvInfo[ playerid ][ 3 ][ 0 ],
-    InvInfo[ playerid ][ 3 ][ 1 ],
-    InvInfo[ playerid ][ 4 ][ 0 ],
-    InvInfo[ playerid ][ 4 ][ 1 ],
-    InvInfo[ playerid ][ 5 ][ 0 ],
-    InvInfo[ playerid ][ 5 ][ 1 ],
-    InvInfo[ playerid ][ 6 ][ 0 ],
-    InvInfo[ playerid ][ 6 ][ 1 ],
-    InvInfo[ playerid ][ 7 ][ 0 ],
-    InvInfo[ playerid ][ 7 ][ 1 ]);
-    return 1;
-}
 
 stock UpdateJacker( spot, vehs1 )
 {
@@ -3902,22 +3837,22 @@ public OnGameModeInit()
     ConnectNPC("npc2","kurva2");
     ConnectNPC("passenger_train_driver","cargo_train_loop_slow");
     //ConnectNPC("cargo_train_driver","cargo_train_loop_slow");
-    NPCTrain[ 0 ] = AddStaticVehicle(538,  -1943.0914, 162.7502, 26.7423, 357.0266, random(255), random(255));
+    NPCTrain[ 0 ] = AddStaticVehicle(538,  -1943.0914, 162.7502, 26.7423, 180.0, random(255), random(255));
     // Pirðtai kraujuoja raðant ðitas 6 eilutes...
     sVehicles[ NPCTrain[ 0 ] ][ Id          ] = 0;
     sVehicles[ NPCTrain[ 0 ] ][ Model       ] = 538;
     sVehicles[ NPCTrain[ 0 ] ][ SpawnX       ] = -1943.0914;
     sVehicles[ NPCTrain[ 0 ] ][ SpawnY       ] = 162.7502;
     sVehicles[ NPCTrain[ 0 ] ][ SpawnZ      ] = 26.7423;
-    sVehicles[ NPCTrain[ 0 ] ][ SpawnA      ] = 357.0266;
+    sVehicles[ NPCTrain[ 0 ] ][ SpawnA      ] = 180.0;
 
     NPCTrain[ 1 ] = AddStaticVehicle(537, -1948.7266, 138.5202, 26.3345, 178.6508, random(255), random(255));
-    sVehicles[ NPCTrain[ 0 ] ][ Id          ] = 0;
-    sVehicles[ NPCTrain[ 0 ] ][ Model       ] = 538;
-    sVehicles[ NPCTrain[ 0 ] ][ SpawnX       ] = -1948.7266;
-    sVehicles[ NPCTrain[ 0 ] ][ SpawnY       ] = 138.5202;
-    sVehicles[ NPCTrain[ 0 ] ][ SpawnZ      ] = 26.3345;
-    sVehicles[ NPCTrain[ 0 ] ][ SpawnA      ] = 178.6508;
+    sVehicles[ NPCTrain[ 1 ] ][ Id          ] = 0;
+    sVehicles[ NPCTrain[ 1 ] ][ Model       ] = 538;
+    sVehicles[ NPCTrain[ 1 ] ][ SpawnX       ] = -1948.7266;
+    sVehicles[ NPCTrain[ 1 ] ][ SpawnY       ] = 138.5202;
+    sVehicles[ NPCTrain[ 1 ] ][ SpawnZ      ] = 26.3345;
+    sVehicles[ NPCTrain[ 1 ] ][ SpawnA      ] = 178.6508;
     
     for(new i = 0; i < sizeof(NPCTrain); i++)
     {
@@ -4398,12 +4333,6 @@ public OnPlayerDisconnect(playerid, reason)
     if(GetPVarInt(playerid, "FineOfferMemory"))
         free(Alloc:GetPVarInt(playerid, "FineOfferMemory"));
     
-    if ( pInfo[ playerid ][ pMember ] == 2 || pInfo[ playerid ][ pMember ] == 3 || pInfo[ playerid ][ pMember ] == 6 )
-    {
-        ClearWeaponsFromPlayerInventory( playerid );
-        ResetPlayerWeapons(playerid);
-    }
-    
     switch(reason)
     {
         case 0:
@@ -4563,9 +4492,9 @@ public OnPlayerSpawn(playerid)
     {
         SetPlayerColor( playerid, TEAM_HIT_COLOR);
         if(!strcmp(GetName(playerid), "passenger_train_driver"))
-            PutPlayerInVehicle(playerid, NPCTrain, 0);
+            PutPlayerInVehicle(playerid, NPCTrain[0], 0);
         if(!strcmp(GetName(playerid), "cargo_train_driver")) 
-            PutPlayerInVehicle(playerid, NPCTrain[ 1 ]);
+            PutPlayerInVehicle(playerid, NPCTrain[ 1 ], 0);
         return 1;
     }
 
@@ -5431,7 +5360,7 @@ CMD:leavegun(playerid)
     if(IsPlayerInAnyVehicle(playerid))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite iðmesti ginklo bûdami transporto priemonëje.");
     // MD ir PD negali iðmest.
-    if(PlayerFaction(playerid) == 1 || PlayerFaction(playerid) == 2)
+    if(PlayerFaction(playerid) == 1 || PlayerFaction(playerid) == 2 || IsPlayerWeaponJobWeapon(playerid, GetPlayerWeapon(playerid)))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs negalite iðmesti ginklo.");
 
     new index = -1;
@@ -6444,7 +6373,7 @@ CMD:duty(playerid)
             SetPlayerArmour ( playerid, 0 );
             format(string, sizeof(string), "* pareigûnas %s pasidëjo savo turimus ginklus á savo ginklø saugyklà.", GetPlayerNameEx(playerid));
             ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-            ResetPlayerWeapons(playerid);
+            RemovePlayerJobWeapons(playerid);
             pInfo[playerid][pJobDuty] = 0;
             SetPlayerColor( playerid, TEAM_HIT_COLOR );
             return 1;
@@ -6463,7 +6392,7 @@ CMD:duty(playerid)
         }
         else if(pInfo[playerid][pJobDuty] == 1)
         {
-            ResetPlayerWeapons(playerid);
+            RemovePlayerJobWeapons(playerid);
             pInfo[playerid][pJobDuty] = 0;
             SendClientMessage(playerid, COLOR_LIGHTRED, "[LSFD] Jûs baigiate darbà kaip departamento darbuotojas..");
             SetPlayerColor( playerid, TEAM_HIT_COLOR );
@@ -6497,8 +6426,8 @@ CMD:duty(playerid)
             {
                 format(string, sizeof(string), "*%s ið savo saugyklos pasiemà aðarines dujas, bananà ir ásideda á dëklus.", GetPlayerNameEx(playerid));
                 ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                GivePlayerWeapon(playerid, 41, 500);
-                GivePlayerWeapon(playerid, 3, 1);
+                GivePlayerJobWeapon(playerid, 41, 500);
+                GivePlayerJobWeapon(playerid, 3, 1);
                 pInfo[playerid][pJobDuty] = 1;
                 return 1;
             }
@@ -6506,7 +6435,7 @@ CMD:duty(playerid)
             {
                 format(string, sizeof(string), "*%s iðsiema turimas aðarines dujas, bananà ir ásideda á savo saugyklà.", GetPlayerNameEx(playerid));
                 ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                ResetPlayerWeapons(playerid);
+                RemovePlayerJobWeapons(playerid);
                 pInfo[playerid][pJobDuty] = 0;
                 return 1;
             }
@@ -6766,17 +6695,17 @@ CMD:setswat( playerid, params[ ] )
 		{
 			SetPlayerSkin   ( giveplayerid, 285 );
 			SetPlayerArmour(playerid, 150.0);
-			GivePlayerWeapon( giveplayerid, 34, 20 );
-			GivePlayerWeapon( giveplayerid, 29, 200 );			
-			SetPVarInt      ( giveplayerid, "PDTYPE", 1 );
+			GivePlayerJobWeapon(giveplayerid, 34, 20 );
+			GivePlayerJobWeapon(giveplayerid, 29, 200 );			
+			SetPVarInt      (giveplayerid, "PDTYPE", 1 );
 			return 1;
 		}
 		else if ( type == 2 )
 		{
 			SetPlayerSkin   ( giveplayerid, 285 );		
 			SetPlayerArmour(playerid, 170.0);		
-			GivePlayerWeapon( giveplayerid, 31, 200 );
-			GivePlayerWeapon( giveplayerid, 24, 150 );
+			GivePlayerJobWeapon( giveplayerid, 31, 200 );
+			GivePlayerJobWeapon( giveplayerid, 24, 150 );
 			SetPVarInt      ( giveplayerid, "PDTYPE", 2 );
 			return 1;
 		}
@@ -6784,8 +6713,8 @@ CMD:setswat( playerid, params[ ] )
 		{
 			SetPlayerSkin   ( giveplayerid, 285 );		
 			SetPlayerArmour(playerid, 200.0);			
-			GivePlayerWeapon( giveplayerid, 25, 40 );
-			GivePlayerWeapon( giveplayerid, 29, 200 );
+			GivePlayerJobWeapon( giveplayerid, 25, 40 );
+			GivePlayerJobWeapon( giveplayerid, 29, 200 );
 			SetPVarInt      ( giveplayerid, "PDTYPE", 3 );
 			return 1;
 		}		
@@ -6807,8 +6736,8 @@ CMD:setfd( playerid, params[ ] )
         case 0:
         {
             SetPlayerSkin   ( giveplayerid, 277 );
-            GivePlayerWeapon( giveplayerid, 9, 1 );
-            GivePlayerWeapon( giveplayerid, 42, 2000 );
+            GivePlayerJobWeapon( giveplayerid, 9, 1 );
+            GivePlayerJobWeapon( giveplayerid, 42, 2000 );
         }
         case 1:
         {
@@ -9056,7 +8985,7 @@ CMD:tazer( playerid, params[ ] )
             SetPVarInt( playerid, "TAZER_AMMO_SLOT_2", wepdata[ 1 ] );
             format      ( string, 126, "* %s iðtraukia ið dëklo tazerá. ", GetPlayerNameEx( playerid ) );
             ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-            GivePlayerWeapon( playerid, 23, 2 );
+            GivePlayerJobWeapon( playerid, 23, 2 );
             SetPVarInt( playerid, "TAZER_MODE", 1 );
             return 1;
         }
@@ -9065,7 +8994,7 @@ CMD:tazer( playerid, params[ ] )
             format      ( string, 126, "* %s ideda á dëkla tazerá. ", GetPlayerNameEx( playerid ) );
             ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
-            GivePlayerWeapon( playerid, GetPVarInt( playerid, "TAZER_GUN_SLOT_2" ), GetPVarInt( playerid, "TAZER_AMMO_SLOT_2" ) );
+            GivePlayerJobWeapon( playerid, GetPVarInt( playerid, "TAZER_GUN_SLOT_2" ), GetPVarInt( playerid, "TAZER_AMMO_SLOT_2" ) );
             SetPVarInt( playerid, "TAZER_MODE", 0 );
             return 1;
         }
@@ -10927,7 +10856,7 @@ stock AcceptOffer( playerid )
     {
         case 1:
         {
-            GivePlayerWeapon ( giveplayerid, 41, 500 );
+            GivePlayerJobWeapon ( giveplayerid, 41, 500 );
             SetPVarInt       ( giveplayerid, "OFFER2_ID", playerid );
             SetPVarInt       ( giveplayerid, "OFFER2_COAST", money );
             SetPVarInt       ( giveplayerid, "MECHANIC", 1 );
@@ -17334,54 +17263,6 @@ public OnVehicleRespray(playerid, vehicleid, color1, color2)
     return 1;
 }
 
-stock ShowPlayerMenu( playerid, type )
-{
-    switch ( type )
-    {
-        case MENU_INV:
-        {
-            new tmpstr[ 280 ];
-            for ( new i = 0; i < INVENTORY_SLOTS; i++ )
-            {
-
-                if ( InvInfo[ playerid ][ i ][ iID ] == 0 )
-                    format( tmpstr, 280, "%s {BBBBBB}Tuðèia vieta{FFFFFF}\n", tmpstr );
-
-                else if ( InvInfo[ playerid ][ i ][ iID ] > 0 )
-                {
-                    if ( InvInfo[ playerid ][ i ][ iAmmount ] <= 1 )
-                        format( tmpstr, 280, "%s %s\n", tmpstr, GetInvItemNameBySlot( playerid, i ) );
-
-                    else
-                    {
-                        new itemname[ 65 ];
-                        itemname = GetInvItemNameBySlot( playerid, i );
-                        if ( strlen(itemname) < 7 )
-                            format( itemname, 65, "%s\t\t", itemname );
-                        else
-                            format( itemname, 65, "%s\t", itemname );
-                        format( tmpstr, 280, "%s %s [ {66EE00}%d{FFFFFF} ]\n", tmpstr, itemname, InvInfo[ playerid ][ i ][ iAmmount ] );
-                    }
-                }
-            }
-            ShowPlayerDialog(playerid, 17, DIALOG_STYLE_LIST, "Inventorius", tmpstr, "Naudoti", "Iðjungti");
-        }
-        case MENU_INV2:
-        {
-
-            ShowPlayerDialog(playerid, 18, DIALOG_STYLE_LIST, GetInvItemNameBySlot( playerid, tmpinteger[ playerid ] ),
-                                                "\n Panaudoti pagal paskirtá\
-                                                \n Perduoti kitam veikëjui\
-                                                \n Padëti á tr. priemonæ\
-                                                \n Padëti á namo seifà\
-                                                \n Padëti á garaþà\
-                                                \n Griþti\
-                                                \n {CC0000}Iðmesti", "Naudoti", "Iðjungti");
-        }
-    }
-    return 1;
-}
-
 public OnPlayerSelectedMenuRow(playerid, row)
 {
     return 1;
@@ -21230,8 +21111,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if( pInfo[ playerid ][ pRank ] >= 2 )
                 {
                     if ( IsPlayerHaveManyGuns( playerid, 24 ) ) return true;
-                    RemovePlayerWeapon( playerid, 24 );
-                    GivePlayerWeapon( playerid, 24, 100 );
+                    //RemovePlayerWeapon(playerid, 24);
+                    GivePlayerJobWeapon( playerid, 24, 100 );
                     cmd_wepstore( playerid, "" );
                 }
             }
@@ -21240,8 +21121,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if( pInfo[ playerid ][ pRank ] >= 2 )
                 {
                     if ( IsPlayerHaveManyGuns( playerid, 43 ) ) return true;
-                    RemovePlayerWeapon( playerid, 43 );
-                    GivePlayerWeapon( playerid, 43, 20 );
+                    ///RemovePlayerWeapon( playerid, 43 );
+                    GivePlayerJobWeapon( playerid, 43, 20 );
                     cmd_wepstore( playerid, "" );
                 }
             }
@@ -21250,8 +21131,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if( pInfo[ playerid ][ pRank ] >= 2 )
                 {
                     if ( IsPlayerHaveManyGuns( playerid, 3 ) ) return true;
-                    RemovePlayerWeapon( playerid, 3 );
-                    GivePlayerWeapon( playerid, 3, 1 );
+                    //RemovePlayerWeapon( playerid, 3 );
+                    GivePlayerJobWeapon( playerid, 3, 1 );
                     cmd_wepstore( playerid, "" );
                 }
             }	
@@ -21260,8 +21141,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if( pInfo[ playerid ][ pRank ] >= 2 )
                 {
                     if ( IsPlayerHaveManyGuns( playerid, 41 ) ) return true;
-                    RemovePlayerWeapon( playerid, 41 );
-                    GivePlayerWeapon( playerid, 41, 150 );
+                    //RemovePlayerWeapon( playerid, 41 );
+                    GivePlayerJobWeapon( playerid, 41, 150 );
                     cmd_wepstore( playerid, "" );
                 }
             }					
@@ -23121,8 +23002,6 @@ public OnPlayerLoginEx(playerid, sqlid)
         cache_delete(result);
 
 
-        UnPackInventory(playerid, inv);
-        UnPackWeapons(playerid, weap);
         //UnPackPoints( extraid, points );
 
         CheckBan(playerid);

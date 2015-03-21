@@ -34,7 +34,7 @@ static PlayerWeapons[ MAX_PLAYERS ][ MAX_PLAYER_WEAPONS ][ E_PLAYER_WEAPON_DATA 
 
 forward OnPlayerWeaponLoad(playerid);
 
-#define GivePlayerJobWeapon(%0, %1, %2) wep_GivePlayerWeapon(%0, %1, %2, false, true)
+#define GivePlayerJobWeapon(%0,%1,%2) wep_GivePlayerWeapon(%0, %1, %2, false, true)
 
 stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true, bool:job_weapon = false)
 {
@@ -107,23 +107,27 @@ stock RemovePlayerWeapon(playerid, weaponid)
     // Funkcija: RemovePlayerWeapon(playerid, wepid)
     // Panaikins tik vienà þaidëjo ginklà 
 
-    new weapons[ 13 ][ 2 ];
+    new weapons[ 13 ][ 3 ], query[90];
 
     for(new i = 0; i < 13; i++)
     {
     	GetPlayerWeaponData(playerid, i, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
+    	weapons[ i ][ 2 ] = IsPlayerWeaponJobWeapon(playerid, weapons[ i ][ 0 ]);
 
     	// Jei ginklui reikalingos kulkos, ir tai netas kurá norim paðalinti, progra patikrinti ar ne cheatintas ginklas
     	if(weapons[ i ][ 0 ] != weaponid && IsWeaponHasAmmo(weapons[ i ][ 0 ]))
     		// CheckWeaponCheat reikiant uþblokuos þaidëjà.
     		CheckWeaponCheat(playerid, weapons[ i ][ 0 ], 0);
     }
+    mysql_format(DbHandle, query, sizeof(query), "DELETE FROM player_weapons WHERE weapon_id = %d AND player_id = %d",
+    	weaponid, GetPlayerSqlId(playerid));
+    mysql_pquery(DbHandle, query);
 
     ResetPlayerWeapons(playerid, false);
 
     for(new i = 0; i < 13; i++)	
     	if(weapons[ i ][ 0 ] != weaponid)
-    		GivePlayerWeapon(playerid, weapons[ i ][ 0 ], weapons[ i ][ 1 ], false);
+    		GivePlayerWeapon(playerid, weapons[ i ][ 0 ], weapons[ i ][ 1 ], false, bool:weapons[ i ][ 2 ]);
 }
 
 

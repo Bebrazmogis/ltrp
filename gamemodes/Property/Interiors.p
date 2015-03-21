@@ -303,6 +303,15 @@ stock SaveInterior(interiorindex)
 	return mysql_pquery(DbHandle, query);
 }
 
+static GetInteriorIndex(interiorid)
+{
+	// NE gta sa interior ID.
+	for(new i = 0; i < sizeof(InteriorData); i++)
+		if(InteriorData[ i ][ Id ] == interiorid)
+			return i;
+	return -1;
+}
+
 /*
  		 ______              __                          __                                                                     __                               
  		/      |            /  |                        /  |                                                                   /  |                              
@@ -519,6 +528,34 @@ CMD:stoppreview(playerid)
 	return 1;
 }
 
+CMD:previewgoto(playerid, params[])
+{
+	if(!IsPlayerInPreview[ playerid ] )
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neperþiûrinëjote interjerø.");
+
+	new interiorid, string[150], index = -1;
+	if(sscanf(params, "i", interiorid))
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Naudojimas /previewgoto [Interjero ID]");
+
+	index = GetInteriorIndex(interiorid);
+
+	if(index < 0 || index >= MAX_INTERIORS)
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, tokio interjero nëra.");
+
+	if(PlayerPreviewCategoryIndex[ playerid ] != -1 && PlayerPreviewCategoryIndex[ playerid ] != InteriorData[ index ][ CategoryIndex ])
+		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis interjeras nepriklauso kategorijai kurià perþiûrinëjate.");
+
+	PlayerPreviewCurrentInterior[ playerid ] = index;
+	SetPlayerPos(playerid, InteriorData[ index ][ EnX ],
+							InteriorData[ index ][ EnY ],
+							InteriorData[ index ][ EnZ ]);
+	SetPlayerInterior(playerid, InteriorData[ index ][ Interior ]);
+	SetPlayerVirtualWorld(playerid, InteriorData[ index ][ VirtualWorld ]);
+
+	format(string, sizeof(string),"Dabartinio interjero ID: %d Pasirinkti sekantá ar praeità galite su NUM 4 ar NUM 6, iðeiti galite paraðæ /stoppreview", InteriorData[ PlayerPreviewCurrentInterior[ playerid ] ][ Id ]);
+	SendClientMessage(playerid, -1, string);
+	return 1;
+}
 
 
 /*
@@ -571,7 +608,7 @@ stock InteriorManagementDialog.Information(playerid, interiorid)
 		GTA SA interjero ID: %d\n\
 		Virtualus pasaulis: %d\n\
 		Kategorijos pavadinimas: %s\n\
-		Kategorijos ID: %s\n",
+		Kategorijos ID: %d\n",
 		interiorid,
 		InteriorData[ index ][ Interior ],
 		InteriorData[ index ][ VirtualWorld ],

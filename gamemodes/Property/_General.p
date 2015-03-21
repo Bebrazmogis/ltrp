@@ -1047,16 +1047,25 @@ CMD:enter(playerid)
         if(IsGarageLocked(index))
             return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
 
-        new Float:angle;
-
+        new Float:angle, 
+            vehicleid = GetPlayerVehicleID(playerid);
         GetGarageExitPos(index, pos[ 0 ], pos[ 1 ], pos[ 2 ], angle);
-        SetPlayerPos(playerid, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
+        if(vehicleid)
+        {
+            SetVehicleZAngle(vehicleid, angle);
+            SetVehiclePos(vehicleid, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
+            LinkVehicleToInterior(vehicleid, GetInteriorInteriorId(GetGarageInteriorID(index)));
+            SetVehicleVirtualWorld(vehicleid, GetGarageVirtualWorld(index));
+        }
+        else
+        {
+            SetPlayerPos(playerid, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
+            SetPlayerInterior(playerid, GetInteriorInteriorId(GetGarageInteriorID(index)));
+            SetPlayerVirtualWorld(playerid, GetGarageVirtualWorld(index));
+            SetPlayerFacingAngle(playerid, angle);
+        }
         Unfreeze[ playerid ] = 2;
         TogglePlayerControllable(playerid, false);
-
-        SetPlayerInterior(playerid, GetInteriorInteriorId(GetGarageInteriorID(index)));
-        SetPlayerVirtualWorld(playerid, GetGarageVirtualWorld(index));
-        SetPlayerFacingAngle(playerid, angle);
         return 1;
     }
     return 1;
@@ -1133,17 +1142,21 @@ CMD:exit(playerid)
         if(vehicleid)
         {
             GetGarageVehicleEntrancePos(index, x, y ,z, angle);
+            SetVehicleZAngle(vehicleid, angle);
+            SetVehiclePos(vehicleid, x, y ,z);
+            LinkVehicleToInterior(vehicleid, GetGarageEntranceInteriorID(index));
+            SetVehicleVirtualWorld(vehicleid, GetGarageEntranceVirtualWorld(index));
         }
         else 
+        {
             GetGarageEntrancePos(index, x,y ,z);
-
-        SetPlayerPos(playerid, x, y, z);
-        Unfreeze[ playerid ] = 2;
-        TogglePlayerControllable(playerid, false);
-        SetPlayerVirtualWorld(playerid, GetGarageEntranceVirtualWorld(index));
-        SetPlayerInterior(playerid, GetGarageEntranceInteriorID(index));
-        SetVehicleZAngle(vehicleid, angle);
-        SetPlayerFacingAngle(playerid, angle);
+            SetPlayerPos(playerid, x, y, z);
+            Unfreeze[ playerid ] = 2;
+            TogglePlayerControllable(playerid, false);
+            SetPlayerVirtualWorld(playerid, GetGarageEntranceVirtualWorld(index));
+            SetPlayerInterior(playerid, GetGarageEntranceInteriorID(index));
+            SetPlayerFacingAngle(playerid, angle);
+        }
         return 1;
     }
     return 1;
