@@ -951,6 +951,9 @@ CMD:furniture(playerid, params[])
 CMD:clothes(playerid)
 {
     new bizIndex = GetPlayerBusinessIndex(playerid);
+    if(bizIndex == -1)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate drabuþiø parduotuvëje.");
+        
     if(IsPlayerInBusiness(playerid, bizIndex))
     {
         // BAD. Reikia kesit

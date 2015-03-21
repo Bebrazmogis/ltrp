@@ -48,6 +48,7 @@ native WP_Hash(buffer[], len, const str[]);
 #include <YSI\y_hooks>
 #include <YSI\y_timers>
 
+
 /*#if !defined abs 
     #define abs(%0) ((%0 > 0)?(%0):(-%0))
 #endif
@@ -3908,6 +3909,7 @@ public OnPlayerPickUpDynamicPickup( playerid, pickupid )
     }
     return 1;
 }
+new AnNPC;
 new NPCTrain;
 public OnGameModeInit()
 {
@@ -4080,73 +4082,10 @@ public OnGameModeInit()
     SetWorldTime(laikas[0]+1);
     OldHour = laikas[0];
     printf("Serveryje senoji valanda: %d ", OldHour );
-
-    return 1;
-}
-CMD:mysqlid(playerid)
-{
-    new string[64];
-    format(string, sizeof(string),"Mano sqlid:%d", GetPlayerSqlId(playerid));
-    SendClientMessage(playerid, COLOR_GREEN, string);
-    return 1;
-}
-CMD:testac(playerid, params[])
-{
-    new iterations;
-    if(sscanf(params, "i", iterations))
-        return SendClientMessage(playerid, COLOR_GREEN, "Naudojimas /testac [ iterations]");
-
-    new string[128];
-    for(new i = 0; i < iterations; i++)
-    {
-        format(string ,sizeof(string),"%s %d:%d. ", string, i, CheckWeaponCheat(playerid, GetPlayerWeapon(playerid), 0));
-    }
-    SendClientMessage(playerid, COLOR_GREEN, string);
-    return 1;
-}
-CMD:test(playerid)
-{
-    TogglePlayerControllable(playerid, false);
-    new Float:x, Float:y, Float:z;
-    GetPlayerPos(playerid, x, y, z);
-    defer LOLTIMeR(x ,y ,z);
     return 1;
 }
 
-timer LOLTIMeR[100](Float:X, Float:Y, Float:Z)
-{
-    CreateExplosion(X, Y, Z, 2, 20.0);
-}
 
-CMD:housefurnituredump(playerid, params[])
-{
-    new index = GetPlayerHouseIndex(playerid), string[256], Float:x, Float:y, Float:z;
-    if(index == -1)
-        return SendClientMessage(playerid, COLOR_FADE1, "Nain. you at no house");
-
-    format(string, sizeof(string),"Index:%d furniture count:%d", index, GetHouseFurnitureCount(index));
-    SendClientMessage(playerid, COLOR_FADE1, string);
-    for(new i = 0; i < GetHouseFurnitureCount(index); i++)
-    {
-        GetDynamicObjectPos(GetHouseFurnitureObjectId(index, i), x, y, z);
-        format(string, sizeof(string),"I:%d. Name:%s| Price:%d furniture id:%d sqlid:%d Object id:%d x:%f y:%f z:%f Distance:%f", i, GetHouseFurnitureName(index, i), 
-            GetHouseFurniturePrice(index, i), GetHouseFurnitureId(index, i), HouseFurniture[ index] [ i ][ SqlId ],
-            GetHouseFurnitureObjectId(index, i), x, y, z, GetPlayerDistanceFromPoint(playerid, x,y, z));
-        SendClientMessage(playerid, COLOR_FADE2, string);
-    }
-    return 1;
-}
-
-CMD:checkcolors(playerid)
-{
-    new string[64];
-    for(new i = 0; i < GetFurnitureTextureColorCount(); i++)
-    {
-        format(string, sizeof(string),"Pavadinimas:%s HEX:%s", GetFurnitureTextureColorName(i), GetFurnitureTextureColorRGB(i));
-        SendClientMessage(playerid, GetFurnitureTextureColorRGBA(i), string);
-    }
-    return 1;
-}
 
 AntiDeAMX() {
     new a[][] = {
