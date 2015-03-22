@@ -51,14 +51,14 @@ stock DeletePlayerAttachedObject(playerid, index)
 }
 
 
-public OnPlayerFirstSpawn(playerid, sqlid)
+public OnPlayerFirstSpawn(playerid)
 {
 	#if defined attachments_OnPlayerFirstSpawn
-		attachments_OnPlayerFirstSpawn(playerid, sqlid);
+		attachments_OnPlayerFirstSpawn(playerid);
 	#endif
 
 	new query[70];
-	mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM player_attachments WHERE player_id = %d", sqlid);
+	mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM player_attachments WHERE player_id = %d", GetPlayerSqlId(playerid));
 	mysql_pquery(DbHandle, query, "OnPlayerAttachmentLoad", "i", playerid);
 	return 1;
 }
@@ -69,7 +69,7 @@ public OnPlayerFirstSpawn(playerid, sqlid)
 #endif
 #define OnPlayerFirstSpawn 				attachments_OnPlayerFirstSpawn
 #if defined attachments_OnPlayerFirstSpawn
-	forward attachments_OnPlayerFirstSpawn(playerid, sqlid);
+	forward attachments_OnPlayerFirstSpawn(playerid);
 #endif
 
 
@@ -80,7 +80,7 @@ public OnPlayerAttachmentLoad(playerid)
 	for(new i = 0; i < cache_get_row_count(); i++)
 		SetPlayerAttachedObject(playerid, 
 				cache_get_field_content_int(i, "index"),
-				cache_get_field_content_int(i, "modelid"),
+				cache_get_field_content_int(i, "model_id"),
 				cache_get_field_content_int(i, "bone"),
 				cache_get_field_content_float(i, "off_x"),
 				cache_get_field_content_float(i, "off_y"),

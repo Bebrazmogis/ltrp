@@ -42,6 +42,7 @@ native WP_Hash(buffer[], len, const str[]);
 #include <airbreak>
 #include <GameTextS7.inc>
 #include <fader>
+#include <OnPlayerFirstSpawn>
 #include <mapandreas>
 #include <crashdetect>
 #include <YSI\y_malloc>
@@ -4525,9 +4526,6 @@ public OnPlayerSpawn(playerid)
         FirstSpawn[ playerid ] = false;
         LoadPlayerKomp(playerid);
         LoadPlayerWeapons(playerid);
-
-        // Sukuriame label kurioje administratoriams spectatinantiems bus rodomos þaidëjo komandos. Paèiam þaidëjui turëtø bûti nematoma.
-        SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel("  ", 0x00AA00FF, 0.0, 0.0, 0.0, 5.0, .attachedplayer = playerid, .playerid = INVALID_PLAYER_ID);
     }
     else 
     {
@@ -10964,9 +10962,9 @@ public OnPlayerCommandReceived(playerid, cmdtext[]) {
 public OnPlayerCommandPerformed(playerid, cmdtext[ ], success)
 {
     LastPlayerCommandTimestamp[ playerid ] = gettime();
-    UpdateDynamic3DTextLabelText(SpecCommandLabel[ playerid ], 0x00AA00FF, cmdtext);
-    if(SpecCommandTimer[ playerid ] != -1)
-        KillTimer(SpecCommandTimer[ playerid ]);
+    foreach(new i : Player)
+        if(IsPlayerSpectatingPlayer(i, playerid))
+            UpdateDynamic3DTextLabelText(SpecCommandLabel[ i ], 0x00AA00FF, cmdtext);
     SetTimerEx("SpecLabelDissapear", 30000, false, "i", playerid);
 
 
@@ -10983,7 +10981,9 @@ public OnPlayerCommandPerformed(playerid, cmdtext[ ], success)
 forward SpecLabelDissapear(playerid);
 public SpecLabelDissapear(playerid)
 {
-    UpdateDynamic3DTextLabelText(SpecCommandLabel[ playerid ], 0x00AA00FF, " ");
+    foreach(new i : Player)
+        if(IsPlayerSpectatingPlayer(i, playerid))
+            UpdateDynamic3DTextLabelText(SpecCommandLabel[ i ], 0x00AA00FF, " ");
 }
 
 CMD:invite( playerid, params[ ] )
@@ -16050,7 +16050,7 @@ CMD:specoff( playerid, params[ ] )
             SetPlayerSkin(playerid, pInfo[ playerid ][ pSkin ]);
             new giveplayerid = PlayerSpectatedPlayer[ playerid ];
             PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
-            UpdatePlayerCommandLabel(giveplayerid);
+            DestroyDynamic3DTextLabel(SpecCommandLabel[ playerid ]);
         }
     }
     return 1;
@@ -16074,7 +16074,7 @@ CMD:spec( playerid, params[ ] )
 
         PlayerSpectatedPlayer[ playerid ] = giveplayerid;
 
-        UpdatePlayerCommandLabel(giveplayerid);
+        SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel(" ", 0x00000044, 0.0, 0.0, 0.0, 10.0, .attachedplayer = giveplayerid);
             
         if( !IsPlayerInAnyVehicle( playerid ) )
         {
@@ -23572,18 +23572,6 @@ FUNKCIJA:DrugsEffects( i )
     return 1;
 }
 
-stock UpdatePlayerCommandLabel(playerid)
-{
-    // Pavadinkime tai "administratoriaus pridëjimas á matanèiu þaidëjo komandø label sàraðà".
-    // Ið esmës sunaikinam label, sukuriam já ir parodom visiems kas specatina tà þaidëjà
-    new text[128], playerlist[ MAX_PLAYERS ], count = 0;
-    GetDynamic3DTextLabelText(SpecCommandLabel[ playerid ], text, sizeof(text));
-    DestroyDynamic3DTextLabel(SpecCommandLabel[ playerid ]);
-    foreach(new i : Player)
-        if(IsPlayerSpectatingPlayer(i, playerid))
-            playerlist[ count++ ] = i;
-    SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabelEx(text, 0x00AA00FF, 0.0, 0.0, 0.0, 5.0, .attachedplayer = playerid, .players = playerlist, .maxplayers = count);
-}
 
 stock UpdatePlayerInfoText(playerid ,plstate = PLAYER_STATE_ONFOOT )
 {

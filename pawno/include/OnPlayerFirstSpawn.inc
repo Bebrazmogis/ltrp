@@ -1,9 +1,6 @@
 
 #include <YSI\y_hooks>
 
-#if defined _inc_OnPlayerFirstSpawn
-	#endinput
-#endif
 
 
 static bool:IsPlayerSpawned[ MAX_PLAYERS ]; 
