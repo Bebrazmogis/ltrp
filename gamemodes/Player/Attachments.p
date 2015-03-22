@@ -51,10 +51,10 @@ stock DeletePlayerAttachedObject(playerid, index)
 }
 
 
-public OnPlayerLoginEx(playerid, sqlid)
+public OnPlayerFirstSpawn(playerid, sqlid)
 {
-	#if defined attachments_OnPlayerLoginEx
-		attachments_OnPlayerLoginEx(playerid, sqlid);
+	#if defined attachments_OnPlayerFirstSpawn
+		attachments_OnPlayerFirstSpawn(playerid, sqlid);
 	#endif
 
 	new query[70];
@@ -62,14 +62,14 @@ public OnPlayerLoginEx(playerid, sqlid)
 	mysql_pquery(DbHandle, query, "OnPlayerAttachmentLoad", "i", playerid);
 	return 1;
 }
-#if defined _ALS_OnPlayerLoginEx
-	#undef OnPlayerLoginEx
+#if defined _ALS_OnPlayerFirstSpawn
+	#undef OnPlayerFirstSpawn
 #else 
-	#define _ALS_OnPlayerLoginEx
+	#define _ALS_OnPlayerFirstSpawn
 #endif
-#define OnPlayerLoginEx 				attachments_OnPlayerLoginEx
-#if defined attachments_OnPlayerLoginEx
-	forward attachments_OnPlayerLoginEx(playerid, sqlid);
+#define OnPlayerFirstSpawn 				attachments_OnPlayerFirstSpawn
+#if defined attachments_OnPlayerFirstSpawn
+	forward attachments_OnPlayerFirstSpawn(playerid, sqlid);
 #endif
 
 

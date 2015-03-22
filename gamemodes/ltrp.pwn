@@ -80,7 +80,7 @@ new DbHandle;
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-//#define BEBRAS_HOME_MODE
+#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"
@@ -4566,13 +4566,12 @@ public OnPlayerSpawn(playerid)
         SetPlayerTeam( playerid, playerid );
         return 1;
     }
-    ResetPlayerWeapons( playerid );
     SetPlayerTeam( playerid, playerid );
     SetPlayerScore( playerid, pInfo[ playerid ][ pLevel ] );
-    SetTimerEx("GiveWeapons", 2000, 0, "d", playerid );
+    //SetTimerEx("GiveWeapons", 2000, 0, "d", playerid );
     return 1;
 }
-
+/*
 FUNKCIJA:GiveWeapons(playerid)
 {
     if (!IsPlayerConnected(playerid)) 
@@ -4589,6 +4588,7 @@ FUNKCIJA:GiveWeapons(playerid)
     }
     return 1;
 }
+*/
 
 public OnPlayerDeath(playerid, killerid, reason)
 {

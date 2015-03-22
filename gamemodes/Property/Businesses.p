@@ -728,6 +728,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 }
                 case 3:
                 {
+                    if(IsPlayerInBusiness(playerid, bizIndex) && !IsPlayerInRangeOfBusinessExit(playerid, bizIndex, 5.0))
+                        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs per toli nuo durø.");
+
                     if(IsBusinessLocked(bizIndex))
                     {
                         ShowInfoText(playerid, "~w~DURYS ~g~ATRAKINTOS", 1000);
@@ -746,6 +749,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     return SendClientMessage(playerid, COLOR_NEWS, "INFORMACIJA: prekes á Jûsø verslà/bizná gali atveþti tik kroviniø iðveþiotojai.");
                 case 6:
                 {
+                    if(bInfo[ bizIndex ][ bType ] != Supermarket && bInfo[ bizIndex ][ bType ] != Bar && bInfo[ bizIndex ][ bType ] != Cafe)
+                        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø verslo tipui prekiø redaguoti negalima.");
                     BizOwnerMenu::WareListEditMain(playerid);
                 }
                 case 7:
