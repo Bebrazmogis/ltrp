@@ -1356,6 +1356,14 @@ stock UpdateBusinessType(bizindex, E_BUSINESS_TYPES:type)
         _:type, bInfo[ bizindex ][ bID ]);
     mysql_pquery(DbHandle, query);
 
+    // Jei pakeitë ne á toká patá.
+    if(bInfo[ bizindex ][ bType] != type) 
+    {
+        static EmptyWares[ E_BUSINESS_WARES_DATA ];
+        for(new i = 0; i < MAX_BUSINESS_WARES; i++)
+            BusinessWares[ bizindex ][ i ] = EmptyWares;
+    }
+
     bInfo[ bizindex ][ bType ] = type;
     return 1;
 }

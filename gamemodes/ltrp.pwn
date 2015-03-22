@@ -4321,10 +4321,7 @@ stock NullPlayerInfo( playerid )
         PlayerAttachedWeapons[ playerid ][ i ][ WeaponId ] = 0;
     }
 
-    if(PlayerSpectatedPlayer[ playerid ] != INVALID_PLAYER_ID)
-        UpdatePlayerCommandLabel(PlayerSpectatedPlayer[ playerid ]);
     PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
-
     ShowACTestMsg[ playerid ] = true;
     return 1;
 }
@@ -16048,7 +16045,6 @@ CMD:specoff( playerid, params[ ] )
             TogglePlayerSpectating(playerid, false);
             SetCameraBehindPlayer(playerid);
             SetPlayerSkin(playerid, pInfo[ playerid ][ pSkin ]);
-            new giveplayerid = PlayerSpectatedPlayer[ playerid ];
             PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
             DestroyDynamic3DTextLabel(SpecCommandLabel[ playerid ]);
         }
