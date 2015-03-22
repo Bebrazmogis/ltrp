@@ -600,8 +600,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 }
                 UpdateBusinessProducts(bizIndex, GetBusinessProductCount(bizIndex)-1);
 
-                GivePlayerItem(playerid, itemid, 1, GetItemMaxCapacity(itemid), GetItemMaxDurability(itemid));
-                printf("Item name:%s itemid:%d max durability:%d max capacity:%d", BusinessWares[ bizIndex ][ listitem ][ Name ], itemid, GetItemMaxDurability(itemid), GetItemMaxCapacity(itemid));
+                new capacity = (IsItemSoldFull(itemid)) ? (GetItemMaxCapacity(itemid)) : (0),
+                    durability = (IsItemSoldWithMaxDurability(itemid)) ? (GetItemMaxDurability(itemid)) : (0);
+                GivePlayerItem(playerid, itemid, 1, capacity, durability);
+                printf("Item name:%s itemid:%d max durability:%d max capacity:%d", BusinessWares[ bizIndex ][ listitem ][ Name ], itemid,  durability, capacity);
 
                 if(itemid == ITEM_PHONE )
                 {
@@ -1362,6 +1364,8 @@ stock UpdateBusinessType(bizindex, E_BUSINESS_TYPES:type)
         static EmptyWares[ E_BUSINESS_WARES_DATA ];
         for(new i = 0; i < MAX_BUSINESS_WARES; i++)
             BusinessWares[ bizindex ][ i ] = EmptyWares;
+        mysql_format(DbHandle, query, sizeof(query), "DELETE FROM business_wares WHERE business_id = %d", bInfo[ bizindex ][ bID ]);
+        mysql_pquery(DbHandle, query);
     }
 
     bInfo[ bizindex ][ bType ] = type;
