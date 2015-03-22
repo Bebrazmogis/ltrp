@@ -23,7 +23,7 @@
 
 
 #define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.21
+#define BUILD_DATE                      2015-03.22
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -80,7 +80,7 @@ new DbHandle;
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-#define BEBRAS_HOME_MODE
+//#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"
@@ -3834,7 +3834,7 @@ public OnGameModeInit()
     Elevator_Initialize();
 //=============================[ Prijungiame serverá naudojamus NPC bot'us ]================================
     ConnectNPC("npc1","Kurva");
-    ConnectNPC("npc2","kurva2");
+    ConnectNPC("andromada_pilot","andromada_ls_to_lv");
     ConnectNPC("passenger_train_driver","cargo_train_loop_slow");
     //ConnectNPC("cargo_train_driver","cargo_train_loop_slow");
     NPCTrain[ 0 ] = AddStaticVehicle(538,  -1943.0914, 162.7502, 26.7423, 180.0, random(255), random(255));
@@ -3848,7 +3848,7 @@ public OnGameModeInit()
 
     NPCTrain[ 1 ] = AddStaticVehicle(537, -1948.7266, 138.5202, 26.3345, 178.6508, random(255), random(255));
     sVehicles[ NPCTrain[ 1 ] ][ Id          ] = 0;
-    sVehicles[ NPCTrain[ 1 ] ][ Model       ] = 538;
+    sVehicles[ NPCTrain[ 1 ] ][ Model       ] = 537;
     sVehicles[ NPCTrain[ 1 ] ][ SpawnX       ] = -1948.7266;
     sVehicles[ NPCTrain[ 1 ] ][ SpawnY       ] = 138.5202;
     sVehicles[ NPCTrain[ 1 ] ][ SpawnZ      ] = 26.3345;
@@ -3858,9 +3858,20 @@ public OnGameModeInit()
     {
         new engine, lights, alarm, doors, bonnet, boot, objective;
         GetVehicleParamsEx(NPCTrain[ i ], engine, lights, alarm, doors, bonnet, boot, objective);
-        SetVehicleParamsEx(NPCTrain[ i ], engine, lights, alarm, VEHICLE_PARAMS_ON, bonnet, boot, objective);
+        SetVehicleParamsEx(NPCTrain[ i ], engine, VEHICLE_PARAMS_ON, alarm, VEHICLE_PARAMS_ON, bonnet, boot, objective);
     }
-
+/*
+    NPCPlane = AddStaticVehicle(592, 1960.2163, -2434.0457, 12.5013, 180.0000, -1, -1);
+    sVehicles[ NPCPlane ][ Id          ] = 0;
+    sVehicles[ NPCPlane ][ Model       ] = 592;
+    sVehicles[ NPCPlane ][ SpawnX       ] = 1960.2163;
+    sVehicles[ NPCPlane ][ SpawnY       ] = -2434.0457;
+    sVehicles[ NPCPlane ][ SpawnZ      ] = 12.5013;
+    sVehicles[ NPCPlane ][ SpawnA      ] = 180.0000;
+    new engine, lights, alarm, doors, bonnet, boot, objective;
+    GetVehicleParamsEx(NPCPlane, engine, lights, alarm, doors, bonnet, boot, objective);
+    SetVehicleParamsEx(NPCPlane, VEHICLE_PARAMS_ON, VEHICLE_PARAMS_ON, alarm, VEHICLE_PARAMS_ON, bonnet, boot, objective);
+*/
     LoadStaticVehicles();
     /*
     for(new i = 1; i < MAX_VEHICLES; i++)
@@ -4011,6 +4022,7 @@ public OnGameModeExit()
     #if defined DEBUG
         print("[debug] OnGameModeExit()");
     #endif
+    SendClientMessageToAll(0xFF0000FF,"Serveris perkraunamas.");
     mysql_close( );
     return 1;
 }
@@ -4124,7 +4136,6 @@ public OnPlayerConnect(playerid)
         return 1;
     }
 
-    ResetPlayerWeapons(playerid);
 
     OnLookupComplete(playerid);
     MySQL_Check_Account( playerid );
@@ -4145,9 +4156,10 @@ public OnPlayerConnect(playerid)
     for(new car = 0; car < 21; car++)
         pInfo[ playerid ][ pCar ][ car ] = 0;
 
-    new
-        string[ 128 ];
+    //new
+    //    string[ 128 ];
 
+    /*
     for(new i = 0; i < 47; i++)
     {
         if( GetSlotByID( i ) == 2 || GetSlotByID( i ) == 3 || GetSlotByID( i ) == 4 || GetSlotByID( i ) == 5 || GetSlotByID( i ) == 6 )
@@ -4156,6 +4168,7 @@ public OnPlayerConnect(playerid)
             SetPVarInt ( playerid, string, 0 );
         }
     }
+    */
 
     NullPlayerInfo   ( playerid );
 
@@ -4495,6 +4508,8 @@ public OnPlayerSpawn(playerid)
             PutPlayerInVehicle(playerid, NPCTrain[0], 0);
         if(!strcmp(GetName(playerid), "cargo_train_driver")) 
             PutPlayerInVehicle(playerid, NPCTrain[ 1 ], 0);
+        //if(!strcmp(GetName(playerid), "andromada_pilot"))
+        //    PutPlayerInVehicle(playerid, NPCPlane, 0);
         return 1;
     }
 
@@ -17876,9 +17891,9 @@ CMD:togacmsg(playerid, params[])
 stock OnPlayerChangeWeapon(playerid, oldweapon, newweapon)
 {
     new
-        weapons[ 2 ],
-        eile[ 128 ],
-        string[ 140 ];
+        weapons[ 2 ];
+        //eile[ 128 ],
+        //string[ 140 ];
 
     //RemovePlayerAttachedObject( playerid, 8 );
     //RemovePlayerAttachedObject( playerid, 9 );
@@ -17887,7 +17902,7 @@ stock OnPlayerChangeWeapon(playerid, oldweapon, newweapon)
 
     if( !IsPlayerInAnyVehicle( playerid ) )
     {
-
+        /*
         if( weapons[ 1 ] < 1)
         {
             format( eile, sizeof( eile ), "DELETE FROM `AC` WHERE `ID` = %d AND `WeaponID` = %d", pInfo[ playerid ][ pMySQLID ], oldweapon );
@@ -17895,7 +17910,7 @@ stock OnPlayerChangeWeapon(playerid, oldweapon, newweapon)
             format(string, sizeof( string ), "%dbone", oldweapon );
             SetPVarFloat ( playerid, string, 0 );
         }
-        
+        */
         if(IsWeaponHasAmmo(newweapon))
         {
             CheckWeaponCheat(playerid, newweapon, 0);
@@ -23004,7 +23019,6 @@ public OnPlayerLoginEx(playerid, sqlid)
 
         //UnPackPoints( extraid, points );
 
-        CheckBan(playerid);
         if(CheckLock(playerid))
             return true;
         

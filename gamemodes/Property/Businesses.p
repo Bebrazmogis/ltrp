@@ -567,15 +567,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
                 switch(itemid)
                 {
-                    case ITEM_RODTOOL:
+                    /*case ITEM_RODTOOL:
                     {
                         GivePlayerItem(playerid, ITEM_RODTOOL, .contentamount = GetItemMaxCapacity(ITEM_RODTOOL));
                     }
+                    */
                     case ITEM_MEDIC:
                     {
                         if(!IsItemInPlayerInventory(playerid, ITEM_MEDLIC))
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: Neturite recepto. ");
-                        GivePlayerItem(playerid, ITEM_MEDIC, 1);
+                        //GivePlayerItem(playerid, ITEM_MEDIC, 1);
                         GivePlayerItem(playerid, ITEM_MEDLIC, -1);
                     }
                     case ITEM_PHONE:

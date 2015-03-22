@@ -222,7 +222,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                    SendClientMessage(playerid, COLOR_WHITE, string);
 
 	                  
-	                    GivePlayerItem(id, itemid, amount);
+	                    GivePlayerItem(id, itemid, amount, GetPlayerItemContentAmount(playerid, itemid), GetPlayerItemDurability(playerid, itemid));
 	                    GivePlayerItem(playerid, itemid, -amount);
 	                    PlayerUsedItemIndex[ playerid ] = -1;
                     }
@@ -409,7 +409,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SendClientMessage(playerid, COLOR_WHITE, string);
 
           
-            GivePlayerItem(targetid, itemid, amount);
+            GivePlayerItem(targetid, itemid, amount, GetPlayerItemContentAmount(playerid, itemid), GetPlayerItemDurability(playerid, itemid));
             GivePlayerItem(playerid, itemid, -amount);
             PlayerUsedItemIndex[ playerid ] = -1;
             return 1;
@@ -1686,8 +1686,24 @@ stock SetPlayerItemContentAmount(playerid, itemid, value)
 	else
 	{
 		PlayerItems[ playerid ][ index ][ ContentAmount ] = value;
+
+		if(GetItemMaxCapacity(itemid)*PlayerItems[ playerid ][ index ][ Amount ] != PlayerItems[ playerid ][ index ][ ContentAmount ])
+		{
+			new perteklius = (GetItemMaxCapacity(itemid)*PlayerItems[ playerid ][ index ][ Amount ] - PlayerItems[ playerid ][ index ][ ContentAmount ]) / GetItemMaxCapacity(itemid);
+			printf("Perteklius:%d", perteklius);
+			return GivePlayerItem(playerid, itemid, -perteklius);
+		}
+		/*
 		if(PlayerItems[ playerid ][ index ][ ContentAmount ] <= 0)
-			return GivePlayerItem(playerid, itemid, -1);
+		{
+			if(GetItemMaxCapacity(itemid)*PlayerItems[ playerid ][ index ][ Amount ] != PlayerItems[ playerid ][ index ][ ContentAmount ])
+			{
+				new perteklius = (GetItemMaxCapacity(itemid)*PlayerItems[ playerid ][ index ][ Amount ] - PlayerItems[ playerid ][ index ][ ContentAmount ]) / GetItemMaxCapacity(itemid);
+				printf("Perteklius:%d", perteklius);
+				return GivePlayerItem(playerid, itemid, -perteklius);
+			}
+		}
+		*/
 		else 
 		{
 			mysql_format(DbHandle, query, sizeof(query), "UPDATE player_items SET content_amount = %d WHERE id = %d",

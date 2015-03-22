@@ -210,10 +210,13 @@ CMD:fish( playerid)
 {
     if(IsPlayerInAnyVehicle(playerid)) 
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite þvejoti ið transporto priemonës!");
+
     if(!IsItemInPlayerInventory(playerid, ITEM_ROD)) 
     	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti þvejoti neturëdami þvejybai skirtos meðkerës.");
+
     if(!IsItemInPlayerInventory(playerid, ITEM_RODTOOL)) 
     	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, neturite þuvies masalo, kad galëtumët pradëti þvejoti. Apsilankykite parduotuvëje.");
+
     if(!IsItemInPlayerInventory(playerid, ITEM_FISH) && !IsPlayerOnFishingBoat(playerid)) 
     	return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite pradëti þvejoti neturëdami krepðio þuvims dëti.");
 
@@ -234,7 +237,7 @@ CMD:fish( playerid)
         return 1;
 
     }
-    else if(vehicleid != INVALID_VEHICLE_ID && GetFishInVehicle(vehicleid) >= GetVehicleFishCapacity(GetVehicleModel(vehicleid)))
+    else if(vehicleid != INVALID_VEHICLE_ID && IsABoat(GetVehicleModel(vehicleid)) && GetFishInVehicle(vehicleid) >= GetVehicleFishCapacity(GetVehicleModel(vehicleid)))
     {
         SetPlayerCheckPointEx( playerid, CHECKPOINT_FISH, FISH_SHOP_WATER_POS_X, FISH_SHOP_WATER_POS_Y, FISH_SHOP_WATER_POS_Z, 3.0 );
         SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmësio, Jûsø laivas prisipildë, daugiau negalite naudoti komandos /fish. Dabar veþkite þuvis á supirkimo punktà: /unloadfish");
