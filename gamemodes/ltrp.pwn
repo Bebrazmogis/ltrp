@@ -23,7 +23,7 @@
 
 
 #define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.22
+#define BUILD_DATE                      2015-03.23
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -577,7 +577,6 @@ new bool:PlayerOn[MAX_PLAYERS] = { false, ... },
     Text3D:Units[ MAX_VEHICLES ],
     bool:IsFillingFuel[ MAX_PLAYERS ],
     PlayerFillUpTimer[ MAX_PLAYERS ],
-    PlayerWornItems[ MAX_PLAYERS ][ 10 ],         // Pastaba. Tik akiniai, kepurës, ðalmai ir pnð èia laikomi. 
     PaycheckPickupCheckpoint,
     InfoTextTimer[ MAX_PLAYERS ] = {-1, ...},
     LastPlayerAd[ MAX_PLAYERS ];                                // Timestamp kada raðë paskutiná skelbimà.
@@ -3742,7 +3741,7 @@ public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
     SetPVarFloat ( playerid, string, fScaleZ );
 
     SetPlayerAttachedObject(playerid,index,modelid,boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
-    AddPlayerAttachedObject(playerid,index,modelid,boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
+    AddPlayerAttachedItem(playerid,GetItemIdFromModel(modelid),boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
     return 1;
 }
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
@@ -3835,7 +3834,7 @@ public OnGameModeInit()
     Elevator_Initialize();
 //=============================[ Prijungiame serverá naudojamus NPC bot'us ]================================
     ConnectNPC("npc1","Kurva");
-    ConnectNPC("andromada_pilot","andromada_ls_to_lv");
+    //ConnectNPC("andromada_pilot","andromada_ls_to_lv");
     ConnectNPC("passenger_train_driver","cargo_train_loop_slow");
     //ConnectNPC("cargo_train_driver","cargo_train_loop_slow");
     NPCTrain[ 0 ] = AddStaticVehicle(538,  -1943.0914, 162.7502, 26.7423, 180.0, random(255), random(255));
@@ -7973,9 +7972,8 @@ CMD:open( playerid, params[ ] )
     }
     return 1;
 }
-CMD:bonnet( playerid, params[ ] )
+CMD:bonnet(playerid)
 {
-    #pragma unused params
     if ( !IsPlayerInAnyVehicle( playerid ) )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesëdite transporto priemonëje." );
     if ( GetPlayerState( playerid ) != PLAYER_STATE_DRIVER )
@@ -8957,6 +8955,8 @@ stock SellVehicleToPlayer(owner_playerid, vehicleid, buyer_playerid, price)
 
 CMD:vradio( playerid)
 {
+    if(!IsPlayerInAnyVehicle(playerid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate transporto priemonëje.");
     if ( GetPlayerVehicleSeat( playerid ) == 0 || GetPlayerVehicleSeat( playerid ) == 1 )
     {
         new vehicle = GetPlayerVehicleID( playerid );
@@ -13921,20 +13921,21 @@ CMD:walkstyle( playerid, params[ ] )
     else if(walkstyle == 8) pInfo[ playerid ][ pWalkStyle ] = 8;
     return 1;
 }
-CMD:talkstyle( playerid, params[ ] )
+CMD:talkstyle(playerid, params[])
 {
-    new
-        talkstyle;
+    new talkstyle;
         
-    if(pInfo[ playerid ][ pDonator ] < 1 ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs neesate rëmëjas. ");
-    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 1;
-    if(sscanf(params,"d",talkstyle)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /talkstyle [0 - 4]");
+    if(pInfo[ playerid ][ pDonator ] < 1 ) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs neesate rëmëjas. ");
+
+    if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite keisti kalbëjimo stiliaus bûdamas transporto priemonëje.");
+
+    if(sscanf(params,"d",talkstyle) || talkstyle < 0 || talkstyle > 4) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /talkstyle [0 - 4]");
+
     SendClientMessage(playerid,GRAD,"Stilius sëkmingai pakeistas");
-    if(talkstyle == 0) pInfo[ playerid ][ pTalkStyle ] = 0;
-    else if(talkstyle == 1) pInfo[ playerid ][ pTalkStyle ] = 1;
-    else if(talkstyle == 1) pInfo[ playerid ][ pTalkStyle ] = 2;
-    else if(talkstyle == 1) pInfo[ playerid ][ pTalkStyle ] = 3;
-    else if(talkstyle == 1) pInfo[ playerid ][ pTalkStyle ] = 4;
+    pInfo[ playerid ][ pTalkStyle ] = talkstyle;
     return 1;
 }
 CMD:cartax( playerid, params[ ] )

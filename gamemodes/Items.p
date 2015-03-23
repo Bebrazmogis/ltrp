@@ -175,7 +175,8 @@ enum E_ITEM_FUNCTION_PARAMETERS
 	NoParameters = 0,
 	PlayerId = 1,
 	ItemId = 2,
-
+	InventoryIndex = 4,
+	ItemAmount = 8,
 };
 
 enum E_ITEM_DATA 
@@ -201,12 +202,12 @@ enum E_ITEM_DATA
 stock static const ItemData[ ][ E_ITEM_DATA ] =
 {
 	{INVALID_ITEM_ID,		"Tuðèia",									false, false, false, false, false, false, false,	0,		0,		0,	"",	NoParameters},
-	{ITEM_PHONE, 			"Mobilusis tel.", 							false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUsePhone", PlayerId | ItemId},
+	{ITEM_PHONE, 			"Mobilusis tel.", 							false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUsePhone", PlayerId | ItemId | InventoryIndex},
 	{ITEM_MASK, 			"Veido kaukë", 								false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUseMask", PlayerId | ItemId},
 	{ITEM_RADIO, 			"Racija", 									false, false, false, false, false, false, false,	0,		0,	 	0, "cmd_radiohelp", PlayerId},
 	{ITEM_ZIB, 				"Þiebtuvëlis", 								false, false, false, false, true,  false, true,		0,		20,	 	20, "", NoParameters},
-	{ITEM_CIG,				"Cigareèiø pakelis", 						false, false, false, true, false,  true, false,		0,		0,		20, "OnPlayerStartSmoking", PlayerId | ItemId},
-	{ITEM_FUEL,				"Degalø bakelis", 							false, false, false, true,  false, true, false,		0,		0,		30, "OnPlayerUseFuelTank", PlayerId | ItemId},
+	{ITEM_CIG,				"Cigareèiø pakelis", 						false, false, false, true, false,  true, false,		0,		0,		20, "OnPlayerStartSmoking", PlayerId | ItemId | InventoryIndex},
+	{ITEM_FUEL,				"Degalø bakelis", 							false, false, false, true,  false, true, false,		0,		0,		30, "OnPlayerUseFuelTank", PlayerId | ItemId | InventoryIndex | ItemAmount},
 	{ITEM_TOLKIT,			"Árankiø komplektas",						false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUseToolkit", PlayerId | ItemId},
 	{ITEM_CLOCK,			"Rankinis laikrodis",						false, false, false, false, false, false, false,	0,		0,		0, "OnPlayerUseWatch", PlayerId | ItemId},
 	{ITEM_DICE,				"Loðimo kauliuka", 							false, false, false, false, false, false, false,	0,		0,		0, "OnPlayerUseDice", PlayerId | ItemId},
@@ -395,7 +396,7 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{44,					"Naktiniio matymo akiniai",					false, true, false, false, false, false, false,	368,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId},
 	{45,					"Ðiluminio matymo akiniai",					false, true, false, false, false, false, false,	369,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId},
 	{46,					"Paraðiutas",								false, true, false, false, false, false, false,	371,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId}
-}; false, false,
+}; 
 
 
 
@@ -415,9 +416,11 @@ static stock GetItemIndex(itemid)
 
 
 
-stock SelectPlayerItem(playerid, itemid)
+stock SelectPlayerItem(playerid, invindex)
 {
-	new index = GetItemIndex(itemid);
+	new itemid = GetPlayerItemAtIndex(playerid, invindex),
+		index = GetItemIndex(itemid);
+
 	if(index == -1)
 		return 0;
 
@@ -434,8 +437,16 @@ stock SelectPlayerItem(playerid, itemid)
 			funcReturned = CallLocalFunction(ItemData[ index ][ UsageFunction ], "i", playerid);
 		case ItemId:
 			funcReturned = CallLocalFunction(ItemData[ index ][ UsageFunction ], "i", itemid);
+		case InventoryIndex:
+			funcReturned = CallLocalFunction(ItemData[ index ][ UsageFunction ], "i", invindex);
 		case PlayerId | ItemId:
 			funcReturned = CallLocalFunction(ItemData[ index ][ UsageFunction ], "ii", playerid, itemid);
+		case PlayerId | InventoryIndex:
+			funcReturned = CallLocalFunction(ItemData[ index ][ UsageFunction ], "ii", playerid, invindex);
+		case PlayerId | ItemId | InventoryIndex:
+			funcReturned = CallLocalFunction(ItemData[ index ][ UsageFunction ], "iii", playerid, itemid, invindex);
+		case PlayerId | ItemId | InventoryIndex | ItemAmount:
+			funcReturned = CallLocalFunction(ItemData[ index ][ UsageFunction ], "iiii", playerid, itemid, invindex, GetPlayerItemAmountAtIndex(playerid, invindex));
 	}
 
 	return CallLocalFunction("OnPlayerUseItem", "iii", playerid, itemid, funcReturned);
@@ -511,6 +522,25 @@ stock GetItemMaxDurability(itemid)
 		return ItemData[ index ][ MaxDurability ];
 }
 
+stock IsItemSoldFull(itemid)
+{
+	new index = GetItemIndex(itemid);
+	if(index == -1)
+		return 0;
+	else 
+		return ItemData[ index ][ SellFull ];
+}
+
+
+stock IsItemSoldWithMaxDurability(itemid)
+{
+	new index = GetItemIndex(itemid);
+	if(index == -1)
+		return 0;
+	else 
+		return ItemData[ index ][ SellMaxDurability ];
+}
+
 stock IsItemStackable(itemid)
 {
 	new index = GetItemIndex(itemid);
@@ -542,6 +572,14 @@ stock GetItemId(itemname[])
 {
 	for(new i = 0; i < sizeof(ItemData); i++)
 		if(!strcmp(ItemData[ i ][ Name ], itemname))
+			return ItemData[ i ][ Id ];
+	return INVALID_ITEM_ID;
+}
+
+stock GetItemIdFromModel(modelid)
+{
+	for(new i = 0; i < sizeof(ItemData); i++)
+		if(ItemData[ i ][ ObjectModel ] == modelid)
 			return ItemData[ i ][ Id ];
 	return INVALID_ITEM_ID;
 }

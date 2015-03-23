@@ -424,7 +424,6 @@ public OnBusinessWareLoad()
 
 public OnBusinessFurnitureLoad()
 {
-    printf("OnBusinessFurnitureLoad");
     new 
         id,
         bizindex,
@@ -602,7 +601,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
                 new capacity = (IsItemSoldFull(itemid)) ? (GetItemMaxCapacity(itemid)) : (0),
                     durability = (IsItemSoldWithMaxDurability(itemid)) ? (GetItemMaxDurability(itemid)) : (0);
-                GivePlayerItem(playerid, itemid, 1, capacity, durability);
+                if(!GivePlayerItem(playerid, itemid, 1, capacity, durability))
+                    printf("ERROR. Businesses.p : OnDialogResponse : DIALOG_BIZ_WARE_LIST. GivePlayerItem returned 0.");
                 printf("Item name:%s itemid:%d max durability:%d max capacity:%d", BusinessWares[ bizIndex ][ listitem ][ Name ], itemid,  durability, capacity);
 
                 if(itemid == ITEM_PHONE )

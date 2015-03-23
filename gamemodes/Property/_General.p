@@ -1013,7 +1013,11 @@ CMD:enter(playerid)
     if(index != -1)
     {
         if(!IsValidInterior(GetBusinessInteriorID(index)))
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis verslas neturi interjero.");
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis verslas neturi interjero.");    
+
+        if(IsPlayerInBusiness(playerid, index))
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau verslo viduje.");
+
         if(IsBusinessLocked(index)) 
             return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
         if(PlayerMoney[ playerid ] < GetBusinessEntrancePrice(index)) 
