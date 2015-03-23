@@ -895,7 +895,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     BizOwnerMenu::WareBusinessPriceChange(playerid);
 
                 // Paðalinam prekæ.
-                case 3:
+                case 2:
                 {
                     RemoveBusinessWare(bizIndex, wareIndex);
                     BizOwnerMenu::WareListEditMain(playerid);
