@@ -40,7 +40,7 @@ stock AddPlayerAttachedItem(playerid, itemid, bone, Float:offx = 0.0, Float:offy
 
 	new query[1024];
 	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_attachments (player_id, itemid, bone, off_x, off_y, off_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z, color1, color2) VALUES \
-		(%d, %d, %d, %d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d, %d)",
+		(%d, %d, %d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d, %d)",
 		GetPlayerSqlId(playerid), itemid, bone, offx, offy, offz, rotx, roty, rotz, scalex, scaley, scalez, color1, color2);
 
 	mysql_format(DbHandle, query, sizeof(query),"%s ON DUPLICATE KEY UPDATE off_x = VALUES(off_x), off_y = VALUES(off_y), off_z = VALUES(off_z), \

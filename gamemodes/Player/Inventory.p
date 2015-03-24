@@ -466,6 +466,26 @@ stock OnPlayerItemRemoved(playerid, itemid)
         {
             RemovePlayerAttachedObject( playerid, 4 );
         }
+        case ITEM_BIGAUDIO:
+        {
+        	foreach(Player,id)
+            {
+                if(IsPlayerInDynamicArea(id, aInfo[ playerid ][ aArea ]))
+                    Set3DAudioForPlayer( id, "", playerid);
+            }
+            format(aInfo[ playerid ][ aStation ], 128, "");
+            aInfo[ playerid ][ aKords ][ 0 ] = 0.0;
+            aInfo[ playerid ][ aKords ][ 1 ] = 0.0;
+            aInfo[ playerid ][ aKords ][ 2 ] = 0.0;
+
+            DestroyDynamicObject( aInfo[ playerid ][ aObjekt ] );
+
+            if ( IsValidDynamicArea( aInfo[ playerid ][ aArea ] ) )
+                DestroyDynamicArea( aInfo[ playerid ][ aArea ] );
+
+            aInfo[ playerid ][ aObjekt ] = 0;
+            Itter_Remove(Audio3D,playerid);
+        }
     }
     return 1;
 }
@@ -554,7 +574,7 @@ Item:OnPlayerStartSmoking(playerid, itemid, invindex)
     }
     else if(IsItemInPlayerInventory(playerid, ITEM_MATCHES))
     {
-    	AddPlayerItemDurability(playerid, ITEM_MATCHES, -1);
+    	AddPlayerItemContentAmount(playerid, ITEM_MATCHES, -1);
     }
 
 	switch(itemid)
@@ -1331,7 +1351,7 @@ Item:OnPlayerUseBeret(playerid, itemid)
 }
 
 
-Item:OnPlayerUseWeapon(playerid, weaponid)
+Item:OnPlayerUseWeapon(playerid, weaponid, invindex)
 {
 	new string[90],
 		amount = GetPlayerItemAmount(playerid, weaponid);
@@ -1342,7 +1362,7 @@ Item:OnPlayerUseWeapon(playerid, weaponid)
         format(string, sizeof(string), "Sëkmingai iðsitraukëtæ %s, kuris turi %d kulkas (-as).", string, amount);
         SendClientMessage(playerid, GRAD, string);
 
-        GivePlayerItem(playerid, weaponid, -amount);
+        RemovePlayerItemAtIndex(playerid, invindex);
     	GivePlayerWeapon(playerid, weaponid, amount);
     }
     return 1;
@@ -1380,8 +1400,9 @@ stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0, durability
 			continue;
 		}
 
-		if(IsItemStackable(itemid) && PlayerItems[ playerid ][ i ][ ItemId ] == itemid)
+		if((IsItemStackable(itemid) || amount < 0) && PlayerItems[ playerid ][ i ][ ItemId ] == itemid)
 		{
+			printf("Item is stackalbe of amount is less than 0. Item IDs are equal.They're:%d. Adding at index:%d", itemid, i);
 			PlayerItems[ playerid ][ i ][ Amount ] += amount;
 			PlayerItems[ playerid ][ i ][ ContentAmount ] += contentamount;
 			PlayerItems[ playerid ][ i ][ ContentAmount ] += durability;
@@ -1407,6 +1428,8 @@ stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0, durability
 	// Nebetelpa daiktai
 	if(freeindex == -1)
 		return 0;
+
+	printf("Giving player new item %d at index:%d", itemid, freeindex);
 
 	PlayerItems[ playerid ][ freeindex ][ ItemId ] = itemid;
 	PlayerItems[ playerid ][ freeindex ][ Amount ] = amount;
@@ -1690,9 +1713,15 @@ stock ShowPlayerInventoryDialog(playerid)
         	}
         	if(IsItemContainer(PlayerItems[ playerid] [ i ][ ItemId ]))
         	{
-        		format(string, sizeof(string), "%s\t%d", 
+        		format(string, sizeof(string), "%s\t%d%%", 
         			string,
-        			PlayerItems[ playerid ][ i ][ ContentAmount ]);
+        			floatround(100.0 * float(PlayerItems[ playerid ][ i ][ ContentAmount ]) / GetItemMaxCapacity(PlayerItems[ playerid ][ i ][ ItemId ])));
+        	}
+        	else if(IsItemDegradable(PlayerItems[ playerid ][ i ][ ItemId ]))
+        	{
+        		format(string, sizeof(string), "%s\t%d%%", 
+        			string,
+        			floatround(100.0 * float(PlayerItems[ playerid ][ i ][ Durability ]) / GetItemMaxDurability(PlayerItems[ playerid ][ i ][ ItemId ])));
         	}
         	strcat(string, "\n");
 

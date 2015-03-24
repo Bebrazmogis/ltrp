@@ -205,7 +205,7 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{ITEM_PHONE, 			"Mobilusis tel.", 							false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUsePhone", PlayerId | ItemId | InventoryIndex},
 	{ITEM_MASK, 			"Veido kaukë", 								false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUseMask", PlayerId | ItemId},
 	{ITEM_RADIO, 			"Racija", 									false, false, false, false, false, false, false,	0,		0,	 	0, "cmd_radiohelp", PlayerId},
-	{ITEM_ZIB, 				"Þiebtuvëlis", 								false, false, false, false, true,  false, true,		0,		20,	 	20, "", NoParameters},
+	{ITEM_ZIB, 				"Þiebtuvëlis", 								false, false, false, false, true,  false, true,		0,		20,	 	0, "", NoParameters},
 	{ITEM_CIG,				"Cigareèiø pakelis", 						false, false, false, true, false,  true, false,		0,		0,		20, "OnPlayerStartSmoking", PlayerId | ItemId | InventoryIndex},
 	{ITEM_FUEL,				"Degalø bakelis", 							false, false, false, true,  false, true, false,		0,		0,		30, "OnPlayerUseFuelTank", PlayerId | ItemId | InventoryIndex | ItemAmount},
 	{ITEM_TOLKIT,			"Árankiø komplektas",						false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUseToolkit", PlayerId | ItemId},
@@ -345,13 +345,13 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{ITEM_AMFAMISC,			"Amfetamino sudedamosios dalys",			false, false, true, false, false,  false, false,	0,		0,		0,	"OnPlayerUseDrugIngredient", PlayerId},
 	{ITEM_COCAINEMISC,		"Kokaino sudedamosios dalys",				false, false, true, false, false,  false, false,	0,		0,		0,	"OnPlayerUseDrugIngredient", PlayerId},
 	{ITEM_METAAMFAMISC,		"Metamfetamino sudedamosios dalys",			false, false, true, false, false,  false, false,	0,		0,		0,	"OnPlayerUseDrugIngredient", PlayerId},
-	{ITEM_MATCHES, 			"Degtukø dëþutë",							false, false, true, true,	 true, false, false, 		0,		20,		20,	"", NoParameters},
+	{ITEM_MATCHES, 			"Degtukø dëþutë",							false, false, false, true, false, false, false, 	0,		0,	100, "", NoParameters},
 	{ITEM_KUPRINE,			"Kuprinë",									false, false, false, false, false, false, false,	0,		0,		0, "OnPlayerUseBackpack",	PlayerId},
 	{ITEM_EXTAZY,			"Ekstazi",									true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerUseEctazy", PlayerId},
 	{ITEM_PCP,				"PCP",										true, false, true, false,  false, false, false,	0,		0,		1, "OnPlayerUsePCP", PlayerId},
 	{ITEM_CRACK,			"Krekas",									true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerStartSmoking", PlayerId | ItemId},
 	{ITEM_OPIUM,			"Opijus",									true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerStartSmoking",	PlayerId | ItemId},
-		 false, false,
+
 	// "Guns guns guns" - Call of duty Modern Warfare 
 	{1, 					"Kastetas",									false, true, false, false, false, false, false, 	331,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId},
 	{2, 					"Golfo lazda",								false, true, false, false, false, false, false,	333,	0, 		0, "OnPlayerUseWeapon", PlayerId | ItemId},
@@ -395,7 +395,7 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{43,					"Kamera",									false, true, false, false, false, false, false,	367,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId},
 	{44,					"Naktiniio matymo akiniai",					false, true, false, false, false, false, false,	368,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId},
 	{45,					"Ðiluminio matymo akiniai",					false, true, false, false, false, false, false,	369,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId},
-	{46,					"Paraðiutas",								false, true, false, false, false, false, false,	371,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId}
+	{46,					"Paraðiutas",								false, true, false, false, false, false, false,	371,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId | InventoryIndex}
 }; 
 
 
@@ -571,8 +571,12 @@ stock IsValidItem(itemid)
 stock GetItemId(itemname[])
 {
 	for(new i = 0; i < sizeof(ItemData); i++)
+	{
+		printf("GetItemId(%s). ItemData[%d][Name]:%s ItemData[i][Id]:%d",
+			itemname, i, ItemData[ i ][ Name ], ItemData[ i ][ Id ]);
 		if(!strcmp(ItemData[ i ][ Name ], itemname))
 			return ItemData[ i ][ Id ];
+	}
 	return INVALID_ITEM_ID;
 }
 

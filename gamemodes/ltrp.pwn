@@ -81,7 +81,7 @@ new DbHandle;
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-#define BEBRAS_HOME_MODE
+//#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"
@@ -10927,11 +10927,7 @@ CMD:dice(playerid)
     if(!IsItemInPlayerInventory(playerid, ITEM_DICE))
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, norëdami naudotis ðia komanda privalote savo invetoriuje turëti loðimø kauliukus. " );
 
-    new string[ 110 ],
-        spin = random( 6 ) + 1;
-
-    format(string, sizeof(string), "{FFFFFF}** %s iðmeta kauliukus, kurie ridendamiesi iðsiridenà ant skaièiaus %d.", GetPlayerNameEx(playerid),spin);
-    ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+    OnPlayerUseDice(playerid, ITEM_DICE);
     return 1;
 }
 

@@ -597,7 +597,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau turite racijà.");
                     }
                 }
-                UpdateBusinessProducts(bizIndex, GetBusinessProductCount(bizIndex)-1);
 
                 new capacity = (IsItemSoldFull(itemid)) ? (GetItemMaxCapacity(itemid)) : (0),
                     durability = (IsItemSoldWithMaxDurability(itemid)) ? (GetItemMaxDurability(itemid)) : (0);
@@ -688,7 +687,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             GivePlayerMoney(playerid, -BusinessWares[ bizIndex ][ listitem ][ Price ]);
             UpdatePlayerInfoText(playerid);
             bInfo[ bizIndex ][ bBank ] += BusinessWares[ bizIndex ][ listitem ][ Price ];
-            bInfo[ bizIndex ][ bProducts ]--;
+            UpdateBusinessProducts(bizIndex, GetBusinessProductCount(bizIndex)-1);
             return 1;
         }
         case DIALOG_BIZ_CLOTHESSHOP_LIST:
