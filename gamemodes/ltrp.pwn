@@ -24788,6 +24788,7 @@ FUNKCIJA:Sekunde()
             {
                 case 0:
                 {
+                    cmd_ame(i, "numeta cigaretës nuorukà ant þemës.");
                     SetPlayerSpecialAction(i,SPECIAL_ACTION_NONE);
                     GetPlayerHealth(i,HP);
                     if( HP + 5 < 100 )
