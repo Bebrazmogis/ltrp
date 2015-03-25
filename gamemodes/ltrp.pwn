@@ -45,6 +45,7 @@ native WP_Hash(buffer[], len, const str[]);
 #include <OnPlayerFirstSpawn>
 #include <mapandreas>
 #include <crashdetect>
+#include <filemanager>
 #include <YSI\y_malloc>
 #include <YSI\y_hooks>
 #include <YSI\y_timers>
@@ -20171,7 +20172,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         new index = GetPVarInt(playerid, "VehicleShop_Index"), vehIndex, name[32];
         strmid(name, inputtext, 0, strfind(inputtext, " "));
         for(new i = 0; i < MAX_VEHICLE_SHOP_VEHICLES; i++)
-            if(!strcmp(aVehicleNames[ VehicleShops[ index ][ VehicleModels ][ i ] - 400], name))
+            if(VehicleShops[ index ][ VehicleModels ][ i ] > 400 && !strcmp(aVehicleNames[ VehicleShops[ index ][ VehicleModels ][ i ] - 400], name))
             {
                 vehIndex = i;
                 break;

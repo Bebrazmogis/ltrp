@@ -478,10 +478,10 @@ stock OnPlayerItemRemoved(playerid, itemid)
             aInfo[ playerid ][ aKords ][ 1 ] = 0.0;
             aInfo[ playerid ][ aKords ][ 2 ] = 0.0;
 
-            DestroyDynamicObject( aInfo[ playerid ][ aObjekt ] );
+            DestroyDynamicObject(aInfo[ playerid ][ aObjekt ]);
 
-            if ( IsValidDynamicArea( aInfo[ playerid ][ aArea ] ) )
-                DestroyDynamicArea( aInfo[ playerid ][ aArea ] );
+            if (IsValidDynamicArea(aInfo[ playerid ][ aArea ]))
+                DestroyDynamicArea(aInfo[ playerid ][ aArea ]);
 
             aInfo[ playerid ][ aObjekt ] = 0;
             Itter_Remove(Audio3D,playerid);

@@ -93,6 +93,10 @@ public OnPlayerAttachmentLoad(playerid)
 		itemid = cache_get_field_content_int(i, "item_id");
 		modelid = GetItemObjectModel(itemid);
 		index = GetAttachedItemSlot(itemid);
+		if(index == -1)
+		{
+			printf("ERROR. Attachments.p : OnPlayerAttachmentLoad(%s). Index is -1. Itemid:%d", GetName(playerid), itemid);
+		}
 		SetPlayerAttachedObject(playerid, 
 			index,
 			modelid,
