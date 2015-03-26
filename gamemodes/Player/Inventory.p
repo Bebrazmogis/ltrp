@@ -105,6 +105,7 @@ public OnPlayerItemLoad(playerid)
 		PlayerItems[ playerid ][ index ][ Amount ] = cache_get_field_content_int(i, "amount");
 		PlayerItems[ playerid ][ index ][ ContentAmount ] = cache_get_field_content_int(i, "content_amount");
 		PlayerItems[ playerid ][ index ][ Durability ] = cache_get_field_content_int(i, "durability");
+		OnPlayerItemLoaded(playerid, PlayerItems[ playerid ][ index ][ ItemId ]);
 	}
 	IsPlayerInventoryLoaded[ playerid ] = true;
 	return 1;
@@ -419,6 +420,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 public OnPlayerUseItem(playerid, itemid, success)
 {
 	printf("OnPlayerUseItem(%s, %d, %d)", GetName(playerid), itemid, success);
+}
+
+stock OnPlayerItemLoaded(playerid, itemid)
+{
+	
 }
 
 stock OnPlayerItemRemoved(playerid, itemid)
@@ -1468,6 +1474,7 @@ stock RemovePlayerItemAtIndex(playerid, invindex)
 	new query[60];
 	mysql_format(DbHandle, query, sizeof(query), "DELETE FROM player_items WHERE id = %d", PlayerItems[ playerid ][ invindex ][ Id ]);
 
+	OnPlayerItemRemoved(playerid, PlayerItems[ playerid ][ invindex ][ ItemId ]);
 	PlayerItems[ playerid ][ invindex ][ Id ] = 0;
 	PlayerItems[ playerid ][ invindex ][ ItemId ] = 0;
 	PlayerItems[ playerid ][ invindex ][ Amount ] = 0;

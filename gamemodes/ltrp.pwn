@@ -23,7 +23,7 @@
 
 
 #define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.23
+#define BUILD_DATE                      2015-03.26
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -23048,8 +23048,8 @@ public OnPlayerLoginEx(playerid, sqlid)
         //------------------[Nustatum tikslu spawn vieta]-----------
         SpawnPlayerEx ( playerid );
         //---------------------[Sukuriam Info texta]----------------
-        ShowPlayerInfoText( playerid );
-        GameTextForPlayer ( playerid, string, 5000, 1 );
+        ShowPlayerInfoText(playerid);
+        GameTextForPlayer (playerid, string, 5000, 1 );
         //------------------[Patvarkom Info texta ]-----------------
         UpdatePlayerInfoText( playerid, PLAYER_STATE_ONFOOT );
         loadPlayerNotes( playerid );

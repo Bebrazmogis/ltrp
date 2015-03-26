@@ -601,8 +601,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new capacity = (IsItemSoldFull(itemid)) ? (GetItemMaxCapacity(itemid)) : (0),
                     durability = (IsItemSoldWithMaxDurability(itemid)) ? (GetItemMaxDurability(itemid)) : (0);
                 if(!GivePlayerItem(playerid, itemid, 1, capacity, durability))
-                    printf("ERROR. Businesses.p : OnDialogResponse : DIALOG_BIZ_WARE_LIST. GivePlayerItem returned 0.");
-                printf("Item name:%s itemid:%d max durability:%d max capacity:%d", BusinessWares[ bizIndex ][ listitem ][ Name ], itemid,  durability, capacity);
+                    ErrorLog("ERROR. Businesses.p : OnDialogResponse : DIALOG_BIZ_WARE_LIST. GivePlayerItem returned 0.");
 
                 if(itemid == ITEM_PHONE )
                 {
@@ -615,8 +614,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 else if(itemid == ITEM_RADIO )
                 {
                     pInfo[playerid][pRChannel] = 1;
-                    ShowPlayerInfoText( playerid );
-                    UpdatePlayerInfoText( playerid );
+                    ShowPlayerInfoText(playerid );
+                    UpdatePlayerInfoText(playerid);
                     return 1;
                 }
                 format(string, sizeof(string)," ** Daiktas %s nupirktas, uþ $%d.", BusinessWares[ bizIndex ][ listitem ][ Name ], BusinessWares[ bizIndex ][ listitem ][ Price ]);
