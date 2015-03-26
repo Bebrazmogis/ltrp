@@ -226,6 +226,7 @@ stock GetAttachedItemSlot(itemid)
 			ITEM_MotorcycleHelmet8,
 			ITEM_MotorcycleHelmet9,
 			ITEM_HockeyMask1,
+			ITEM_MASK,
 			ITEM_MaskZorro1:
 					return 0;
 		case ITEM_KREPSYS, ITEM_LAGAMINAS, ITEM_ROD:

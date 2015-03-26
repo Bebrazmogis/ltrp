@@ -51,6 +51,7 @@ native WP_Hash(buffer[], len, const str[]);
 #include <YSI\y_timers>
 
 
+
 /*#if !defined abs 
     #define abs(%0) ((%0 > 0)?(%0):(-%0))
 #endif
@@ -79,10 +80,11 @@ new DbHandle;
 
 #include "Tabula/Zonos.pwn"
 #include "Tabula/liftas.pwn"
+#include "ErrorLog"
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-//#define BEBRAS_HOME_MODE
+#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"
