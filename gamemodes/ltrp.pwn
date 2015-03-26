@@ -574,6 +574,7 @@ new bool:PlayerOn[MAX_PLAYERS] = { false, ... },
     skinlist,
     Text3D:DeathLabel[MAX_PLAYERS],
     LastVehicleDriverSqlId[ MAX_VEHICLES ],
+    bool:IsPlayerDataRecorded[ MAX_PLAYERS ],
     LastAds[ 10 ][ MAX_AD_TEXT ],
     LastPlayerCommandTimestamp[ MAX_PLAYERS ],
     Text3D:SpecCommandLabel[ MAX_PLAYERS ] = {INVALID_3DTEXT_ID, ... },
@@ -3840,7 +3841,7 @@ public OnGameModeInit()
     ResetElevatorQueue();
     Elevator_Initialize();
 //=============================[ Prijungiame serverá naudojamus NPC bot'us ]================================
-    ConnectNPC("npc1","Kurva");
+    ConnectNPC("Banko_Darbuotoja","static_bank");
     //ConnectNPC("andromada_pilot","andromada_ls_to_lv");
     ConnectNPC("passenger_train_driver","cargo_train_loop_slow");
     //ConnectNPC("cargo_train_driver","cargo_train_loop_slow");
@@ -4144,7 +4145,7 @@ public OnPlayerConnect(playerid)
             Kick(playerid);
             return 0;
         }
-        printf("NPC: Connection from %s is allowed.",ip_addr_npc);
+        printf("NPC: Connection from %s is allowed. NPC Name: %s",ip_addr_npc, GetName(playerid));
         SetSpawnInfo(playerid, NO_TEAM, 0, 0.0, 0.0, 0.0, 0.0, 0,0, 0,0, 0,0);
         SpawnPlayer(playerid);
         return 1;
@@ -4355,6 +4356,12 @@ public OnPlayerDisconnect(playerid, reason)
     DestroyDynamic3DTextLabel(DeathLabel[playerid]);
     DestroyDynamic3DTextLabel(SpecCommandLabel[ playerid ]);
 
+    if(IsPlayerDataRecorded[ playerid ])
+    {
+        IsPlayerDataRecorded[ playerid ] = false;
+        StopRecordingPlayerData(playerid);
+    }
+
 
     KillTimer(SpecCommandTimer[ playerid ]);
     SpecCommandTimer[ playerid ] = -1;
@@ -4525,6 +4532,12 @@ public OnPlayerSpawn(playerid)
             PutPlayerInVehicle(playerid, NPCTrain[0], 0);
         if(!strcmp(GetName(playerid), "cargo_train_driver")) 
             PutPlayerInVehicle(playerid, NPCTrain[ 1 ], 0);
+        /*if(!strcmp(GetName(playerid), "Banko_Darbuotoja"))
+        {
+            SetPlayerInterior(playerid, 0);
+            SetPlayerVirtualWorld(playerid, 0);
+        }
+        */
         //if(!strcmp(GetName(playerid), "andromada_pilot"))
         //    PutPlayerInVehicle(playerid, NPCPlane, 0);
         return 1;
@@ -12604,11 +12617,11 @@ CMD:accept( playerid, params[ ] )
         {
             format(string, sizeof(string), " uþriða %s raiðtá ant galvos uþdengdamas akis.", GetPlayerNameEx(playerid));
             cmd_me(targetid, string);
-            cmd_ame(targetid, string);
 
             TextDrawShowForPlayer(playerid, BlindfoldTextdraw);
             SetPlayerCameraPos(playerid, 0.0, 0.0, 1000.0);
             SetPlayerCameraLookAt(playerid, 0.0, 0.0, 1005.0);
+            IsBlindfolded[ playerid ] = true;
         }
         Offer[ playerid ][ 8 ] = INVALID_PLAYER_ID;
     }
@@ -15499,6 +15512,41 @@ CMD:togglefading(playerid)
     PlayerFading = !PlayerFading;
     return 1;
 }
+
+CMD:npcrecord(playerid, params[])
+{
+    if(pInfo[ playerid ][ pAdmin ] < 4 && !IsPlayerAdmin(playerid))
+        return 0;
+
+    if(IsPlayerDataRecorded[ playerid ])
+    {
+        IsPlayerDataRecorded[ playerid ] = false;
+        StopRecordingPlayerData(playerid);
+        SendClientMessage(playerid, COLOR_NEWS, "Áraðymas sëkmingai baigtas. Failas yra scriptfiles direktorijoje.");
+    }
+    else 
+    {
+        if(isnull(params))
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, teisingas naudojimas /npcrecord [Failo pavadinimas kuriame bus áraðas]");
+
+        new type, string[133];
+        format(string, sizeof(string), "%s.rec", params);
+
+        if(fexist(string))
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, áraðas su tokiu pavadinimu jau egzistuoja.");
+
+        if(IsPlayerInAnyVehicle(playerid))
+            type = PLAYER_RECORDING_TYPE_DRIVER;
+        else 
+            type = PLAYER_RECORDING_TYPE_ONFOOT;
+
+        StartRecordingPlayerData(playerid, type, params);
+        SendClientMessage(playerid, COLOR_NEWS, "Áraðinëjimas pradëtas. Já pabaigti galite vël paraðæ /npcrecord");
+        IsPlayerDataRecorded[ playerid ] = true;
+    }   
+    return 1;
+}
+
 CMD:amenu(playerid)
 {
     if ( pInfo[ playerid ][ pAdmin ] >= 4 )
@@ -27576,7 +27624,18 @@ public OnLookupComplete(playerid)
 CMD:blindfold(playerid, params[])
 {
     new targetid,
-        string[ 128 ];
+        string[ 128 ],
+        invindex = -1;
+
+    for(new i = 0; i < GetPlayerItemCount(playerid); i++)
+        if(IsItemBlindfold(GetPlayerItemAtIndex(playerid, i)) && !IsPlayerWearingItem(playerid, GetPlayerItemAtIndex(playerid, i)))
+        {
+            invindex = i;
+            break;
+        }
+
+    if(invindex == -1)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite skarelës arba jà naudojate pats.");
 
     if(GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_CUFFED)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Niekam negalite atriðti/uþriðti raiðèio kai jûsø rankos surakintos.");
@@ -27590,11 +27649,11 @@ CMD:blindfold(playerid, params[])
     if(!IsPlayerInRangeOfPlayer(playerid, targetid, 5.0))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Þaidëjas yra per toli.");
 
+
     if(IsBlindfolded[ targetid ])
     {
         format(string, sizeof(string), "atriða akiø raiðtá nuo %s veido", GetPlayerNameEx(targetid));
         cmd_me(playerid, string);
-        cmd_ame(playerid, string);
         TextDrawHideForPlayer(targetid, BlindfoldTextdraw);
         SetCameraBehindPlayer(targetid);
         IsBlindfolded[ targetid ] = false;

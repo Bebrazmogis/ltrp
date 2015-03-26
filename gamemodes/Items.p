@@ -587,3 +587,36 @@ stock GetItemIdFromModel(modelid)
 			return ItemData[ i ][ Id ];
 	return INVALID_ITEM_ID;
 }
+
+
+
+
+
+
+
+
+stock IsItemBlindfold(itemid)
+{
+	switch(itemid)
+	{
+		case ITEM_Bandana2,
+			ITEM_Bandana4,
+			ITEM_Bandana5,
+			ITEM_Bandana6,
+			ITEM_Bandana7,
+			ITEM_Bandana8,
+			ITEM_Bandana9,
+			ITEM_Bandana10,
+			ITEM_Bandana11,
+			ITEM_Bandana12,
+			ITEM_Bandana13,
+			ITEM_Bandana14,
+			ITEM_Bandana15,
+			ITEM_Bandana16,
+			ITEM_Bandana17,
+			ITEM_Bandana18,
+			ITEM_Bandana19:
+			return true;
+	}
+	return false;
+}
