@@ -24257,11 +24257,15 @@ stock PayDay( playerid )
                 payforbiz += biztax;
         }
 
-        format     ( string, 126, "SELECT `id` FROM `vehicles` WHERE `cOwner` = '%d'", pInfo[playerid][pMySQLID] );
+        format(string, sizeof(string), "SELECT cModel FROM `vehicles` WHERE `cOwner` = '%d'", pInfo[playerid][pMySQLID] );
         new Cache:result = mysql_query(DbHandle,  string );
         rows = cache_get_row_count();
+        for(new i = 0; i < rows; i++)
+        {
+            if(IsVehicleTaxed(cache_get_field_content_int(i, "cModel")))
+                payforcar += cartax;
+        }
         cache_delete(result);
-        payforcar = rows * cartax;
 
         if( pInfo[ playerid ][ pHouseKey ] > 0 )
         {
@@ -26533,6 +26537,15 @@ stock IsVehicleBike( model )
     }
     return false;
 }
+
+stock IsVehicleTaxed(model)
+{
+    if(IsVehicleBike(model))
+        return false;
+    else 
+        return true;
+}
+
 stock GetTrailerPullingVehicle(vehicleid)
 {
     if(!IsValidVehicle(vehicleid))  
