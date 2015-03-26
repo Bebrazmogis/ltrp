@@ -507,7 +507,7 @@ new bool:PlayerOn[MAX_PLAYERS] = { false, ... },
     bool:OOCDisabled = false,
     Checkpoint[MAX_PLAYERS],
     bool:FirstSpawn[ MAX_PLAYERS ] = {true, ... },
-    Offer[MAX_PLAYERS][8],
+    Offer[MAX_PLAYERS][9],
     OfferPrice[MAX_PLAYERS][8],
     OfferID[MAX_PLAYERS][8],
     bool:TogChat[MAX_PLAYERS][4],
@@ -515,6 +515,8 @@ new bool:PlayerOn[MAX_PLAYERS] = { false, ... },
     bool:StartingEngine[MAX_PLAYERS] = { false, ... },
     PlayerText:InfoText[MAX_PLAYERS],
     PlayerText:Greitis[MAX_PLAYERS],
+    Text:BlindfoldTextdraw,
+    bool:IsBlindfolded[ MAX_PLAYERS ],
     Text3D:AdminON[MAX_PLAYERS],
     bool:AdminDuty[MAX_PLAYERS] = { false, ... },
     TalkingLive[MAX_PLAYERS],
@@ -3991,6 +3993,13 @@ public OnGameModeInit()
     printf( "Serveryje sukurtø dinaminiø arenø skaièius: %d", CountDynamicAreas( ) );
     printf( "Visi ðlaubaumai nuleisti ir atrakinti.");
 
+
+    BlindfoldTextdraw = TextDrawCreate(0.0, 0.0, "box");
+    TextDrawTextSize(BlindfoldTextdraw, 640.0, 0.0);
+    TextDrawLetterSize(BlindfoldTextdraw, 0.0, 100.0);
+    TextDrawBoxColor(BlindfoldTextdraw, 0x000000FF);
+    TextDrawUseBox(BlindfoldTextdraw, 1);
+
     //=============================[ Serverio laiko ir atlyginimø nustatymø sutvarkymas ]================================
     new laikas[3];
     gettime(laikas[0],laikas[1], laikas[2]);
@@ -4259,6 +4268,7 @@ stock NullPlayerInfo( playerid )
     Offer[ playerid ][ 3 ] = 255;
     Offer[ playerid ][ 4 ] = 255;
     Offer[ playerid ][ 5 ] = 255;
+    Offer[ playerid ][ 8 ] = INVALID_PLAYER_ID;
 
     TogChat[ playerid ][ 0 ] = true;
     TogChat[ playerid ][ 1 ] = true;
@@ -4327,6 +4337,10 @@ stock NullPlayerInfo( playerid )
 
     PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
     ShowACTestMsg[ playerid ] = true;
+
+    if(IsBlindfolded[ playerid ])
+        TextDrawHideForPlayer(playerid, BlindfoldTextdraw);
+    IsBlindfolded[ playerid ] = false;
     return 1;
 }
 public OnPlayerDisconnect(playerid, reason)
@@ -12146,7 +12160,7 @@ CMD:accept( playerid, params[ ] )
     if(!strlen(accept))
     {
         SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /accept [þodis]");
-        SendClientMessage(playerid,GRAD,"PAGALBA: car, house, biz, live, license, bk, garage, sup, frisk");
+        SendClientMessage(playerid,GRAD,"PAGALBA: car, house, biz, live, license, bk, garage, sup, frisk, blindfold");
         return 1;
     }
     if(!strcmp("car",accept,true))
@@ -12568,6 +12582,35 @@ CMD:accept( playerid, params[ ] )
 
         GivePlayerMoney(playerid, -price);
         return 1;
+    }
+    else if(!strcmp(accept, "blindfold", true))
+    {
+        string = strtok(params, idx);
+        new targetid = strval(string);
+
+        if(Offer[ playerid ][ 8 ] == INVALID_PLAYER_ID)
+            SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: jums nieko nesiûlo uþriðti raiðèio.");
+
+        else if(Offer[ playerid ][ 8 ] != targetid)
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jis nepraðo leidimo uþriðti jums raiðtá ant akiø.");
+
+        else if(!IsPlayerConnected(Offer[ playerid ][ 8 ]))
+            SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
+
+        else if(!IsPlayerInRangeOfPlayer(playerid, Offer[ playerid ][ 8 ], 5.0))
+            SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: þaidëjas nëra prie jûsø.");
+
+        else 
+        {
+            format(string, sizeof(string), " uþriða %s raiðtá ant galvos uþdengdamas akis.", GetPlayerNameEx(playerid));
+            cmd_me(targetid, string);
+            cmd_ame(targetid, string);
+
+            TextDrawShowForPlayer(playerid, BlindfoldTextdraw);
+            SetPlayerCameraPos(playerid, 0.0, 0.0, 1000.0);
+            SetPlayerCameraLookAt(playerid, 0.0, 0.0, 1005.0);
+        }
+        Offer[ playerid ][ 8 ] = INVALID_PLAYER_ID;
     }
     return 1;
 }
@@ -27528,6 +27571,44 @@ public OnLookupComplete(playerid)
 {
     if(IsProxyUser(playerid))
         KickPlayer( "AC", playerid, "Proxy" );
+}
+
+CMD:blindfold(playerid, params[])
+{
+    new targetid,
+        string[ 128 ];
+
+    if(GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_CUFFED)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Niekam negalite atriðti/uþriðti raiðèio kai jûsø rankos surakintos.");
+
+    if(sscanf(params, "u", targetid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas /blindfold [Þaidëjo ID/Dalis vardo]");
+
+    if(!IsPlayerConnected(targetid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Tokio þaidëjo nëra!");
+
+    if(!IsPlayerInRangeOfPlayer(playerid, targetid, 5.0))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Þaidëjas yra per toli.");
+
+    if(IsBlindfolded[ targetid ])
+    {
+        format(string, sizeof(string), "atriða akiø raiðtá nuo %s veido", GetPlayerNameEx(targetid));
+        cmd_me(playerid, string);
+        cmd_ame(playerid, string);
+        TextDrawHideForPlayer(targetid, BlindfoldTextdraw);
+        SetCameraBehindPlayer(targetid);
+        IsBlindfolded[ targetid ] = false;
+    }
+    else 
+    {
+        format(string, sizeof(string), "%s nori jums ant akiø uþriðti raiðá. Per já nieko nematysite. Raðykite /accept blindfold %d", GetPlayerNameEx(playerid), playerid);
+        SendClientMessage(targetid, COLOR_NEWS, string);
+        format(string, sizeof(string), "Veikëjas %s gavo praðymà leisti uþriðti jam raiðtá ant akiø, palaukite kol veikëjas atsakys.", GetPlayerNameEx(targetid));
+        SendClientMessage(playerid, COLOR_NEWS, string);
+
+        Offer[ targetid ][ 8 ] = playerid;
+    }
+    return 1;
 }
 
 CMD:mask( playerid, params[ ] )

@@ -616,6 +616,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     pInfo[playerid][pRChannel] = 1;
                     ShowPlayerInfoText(playerid );
                     UpdatePlayerInfoText(playerid);
+                    SaveAccount(playerid);
                     return 1;
                 }
                 format(string, sizeof(string)," ** Daiktas %s nupirktas, uþ $%d.", BusinessWares[ bizIndex ][ listitem ][ Name ], BusinessWares[ bizIndex ][ listitem ][ Price ]);
