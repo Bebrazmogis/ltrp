@@ -1,10 +1,11 @@
 Logs/**
 mysql_log.html
 server_log.txt
+server.cfg
 scriptfiles/maps/**
 scriptfiles/properties/**
 scriptfiles/vehicles/**
 scriptfiles/AcTest.ini
 scriptfiles/mysql_errlog.txt
 scriptfiles/This_Should_Never_Exist.txt
-npcmodes/**.pwn
+npcmodes/*.pwn
