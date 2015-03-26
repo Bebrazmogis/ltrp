@@ -571,6 +571,7 @@ new bool:PlayerOn[MAX_PLAYERS] = { false, ... },
     vehview[ MAX_PLAYERS ],
     skinlist,
     Text3D:DeathLabel[MAX_PLAYERS],
+    LastVehicleDriverSqlId[ MAX_VEHICLES ],
     LastAds[ 10 ][ MAX_AD_TEXT ],
     LastPlayerCommandTimestamp[ MAX_PLAYERS ],
     Text3D:SpecCommandLabel[ MAX_PLAYERS ] = {INVALID_3DTEXT_ID, ... },
@@ -860,6 +861,7 @@ new Fire[MAX_FIRE][fires];
 #include "Property\Businesses"
 #include "Property\Houses"
 #include "Property\Garages"
+#include "Player\Functions"
 #include "Player\Weapons"
 #include "Player\Inventory"
 #include "Player\Attachments"
@@ -4476,6 +4478,7 @@ public OnPlayerDisconnect(playerid, reason)
         pInfo[ playerid ][ pBackup ] = 0;
     }
 
+
     Laikas[playerid] = 0;
     LaikoTipas[playerid] = 0;
     Ruko[playerid] = 0;
@@ -7062,12 +7065,11 @@ CMD:cw( playerid, params[ ] )
     }
     return 1;
 }
-CMD:oldcar( playerid, params[ ] )
+CMD:oldcar(playerid, params[])
 {
-    #pragma unused params
     new string[ 56 ];
-    format( string, 56, "Paskutinës tr. priemonës, kurià naudojote ID: %d", OldCar[ playerid ] );
-    SendClientMessage( playerid, COLOR_WHITE, string );\
+    format(string, sizeof(string), "Paskutinës tr. priemonës, kurià naudojote ID: %d", OldCar[ playerid ] );
+    SendClientMessage( playerid, COLOR_WHITE, string );
     return 1;
 }
 
@@ -15824,6 +15826,38 @@ CMD:rfc( playerid, params[ ] )
     }
     return 1;
 }
+
+CMD:olddriver(playerid, params[])
+{
+    if(!pInfo[ playerid ][ pAdmin ] && !IsPlayerAdmin(playerid))
+        return 0;
+
+
+    new string[100], vehicleid;
+
+    if(sscanf(params, "i", vehicleid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /olddriver [Tr. priemonës ID]");
+
+    if(!IsValidVehicle(vehicleid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Tokios transporto priemonës nëra.");
+
+    if(LastVehicleDriverSqlId[ vehicleid ])
+    {
+        new id = FindPlayerSqlIdServerID(LastVehicleDriverSqlId[ vehicleid ]);
+        format(string, sizeof(string), "Paskutinis ðioje transporto priemonëje sedëjo %s.", GetSqlIdName(LastVehicleDriverSqlId[ vehicleid ]));
+        if(id != INVALID_PLAYER_ID)
+            format(string, sizeof(string),"%s Jo serverio ID: %d", string, id);
+        else 
+            strcat(string, " Ðis þaidëjas jau yra atsijungæs.");
+        SendClientMessage(playerid, COLOR_WHITE, string);
+    }
+    else 
+    {
+        SendClientMessage(playerid, COLOR_WHITE, "Ðioje transporto priemonëje nuo jos sukûrimo dar niekas nesedëjo.");
+    }
+    return 1;
+}
+
 CMD:gotocar( playerid, params[ ] )
 {
     new
@@ -16712,7 +16746,9 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
         {
             SetPlayerArmedWeapon(playerid, 0);
         }
+        LastVehicleDriverSqlId[ GetPlayerVehicleID(playerid) ] = GetPlayerSqlId(playerid);
     }
+
 
     if(newstate == PLAYER_STATE_DRIVER)
     {
@@ -22827,25 +22863,7 @@ stock MySQL_Check_Account( playerid )
     return ret;
 }
 
-stock GetSqlIdName(sqlid)
-{
-    new name[MAX_PLAYER_NAME];
-    foreach(Player, i)
-    {
-        if(pInfo[ i ][ pMySQLID ] == sqlid)
-        {
-            GetPlayerName(i, name,sizeof(name));
-            return name;
-        } 
-    }
-    new query[60];
-    format(query,sizeof(query),"SELECT Name FROM `players` WHERE id = %d", sqlid);
-    new Cache:result = mysql_query(DbHandle, query);
-    if(cache_get_row_count())
-        cache_get_field_content(0, "Name", name);
-    cache_delete(result);
-    return name;
-}
+
 
 FUNKCIJA:MySQL_Load_Player(extraid, password[])
 {
@@ -25293,27 +25311,27 @@ stock isAtFishPlace( playerid )
     if ( PlayerToPoint( 10.0, playerid, 838.3501,-2066.7195,12.8672 )   ||
 		PlayerToPoint( 10.0, playerid, 852.8965,-2004.0170,13.6268 )   ||
 		PlayerToPoint( 10.0, playerid, 820.8741,-1978.4301,12.8672 )   ||
-		PlayerToPoint( 10.0, playerid, 360.9109,-2087.1472,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 366.8915,-2087.8433,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 371.6957,-2087.9500,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 377.0125,-2088.0688,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 382.4442,-2088.1890,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 387.8258,-2088.3081,7.8359)   ||
-		PlayerToPoint( 10.0, playerid, 393.0408,-2088.4241,7.8359)   ||
-		PlayerToPoint( 10.0, playerid, 396.7432,-2088.3235,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 400.9409,-2088.4832,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 409.2190,-2047.9943,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 398.3943,-2033.1278,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 398.7134,-2022.7917,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 398.6473,-2013.0237,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 379.5823,-1991.6434,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 379.5994,-1983.2726,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 379.2360,-1975.4845,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 379.6255,-1964.2043,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 379.5504,-1957.1350,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 379.6788,-1949.0586,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 379.7071,-1940.9346,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 379.7292,-1934.0704,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 360.9109,-2087.1472,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 366.8915,-2087.8433,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 371.6957,-2087.9500,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 377.0125,-2088.0688,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 382.4442,-2088.1890,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 387.8258,-2088.3081,7.8359)   ||
+		PlayerToPoint( 15.0, playerid, 393.0408,-2088.4241,7.8359)   ||
+		PlayerToPoint( 15.0, playerid, 396.7432,-2088.3235,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 400.9409,-2088.4832,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 409.2190,-2047.9943,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 398.3943,-2033.1278,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 398.7134,-2022.7917,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 398.6473,-2013.0237,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 379.5823,-1991.6434,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 379.5994,-1983.2726,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 379.2360,-1975.4845,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 379.6255,-1964.2043,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 379.5504,-1957.1350,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 379.6788,-1949.0586,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 379.7071,-1940.9346,7.8359 )   ||
+		PlayerToPoint( 15.0, playerid, 379.7292,-1934.0704,7.8359 )   ||
 		PlayerToPoint( 10.0, playerid, 2941.6365,-2052.0046,3.5480 )   ||
 		PlayerToPoint( 10.0, playerid, 2937.7944,-2051.4407,3.5480 )   ||
 		PlayerToPoint( 10.0, playerid, 2925.5537,-2051.4146,3.5480 )   ||
