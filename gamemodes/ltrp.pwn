@@ -84,7 +84,7 @@ new DbHandle;
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-#define BEBRAS_HOME_MODE
+//#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"

@@ -6,7 +6,7 @@
 
 CREATE TABLE IF NOT EXISTS player_attachments (
 	player_id INT NOT NULL,
-	itemid INT NOT NULL,
+	item_id INT NOT NULL,
 	bone TINYINT NOT NULL,
 	off_x FLOAT NOT NULL,
 	off_y FLOAT NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS player_attachments (
 	scale_z FLOAT NOT NULL,
 	color1 TINYINT UNSIGNED NOT NULL,
 	color2 TINYINT UNSIGNED NOT NULL,
-	PRIMARY KEY(player_id, itemid)
+	PRIMARY KEY(player_id, item_id)
 ) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 ALTER TABLE player_attachments ADD FOREIGN KEY(player_id) REFERENCES players(id) ON DELETE CASCADE;
