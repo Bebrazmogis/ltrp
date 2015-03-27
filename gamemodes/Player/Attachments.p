@@ -39,7 +39,7 @@ stock AddPlayerAttachedItem(playerid, itemid, bone, Float:offx = 0.0, Float:offy
 	PlayerWornItems[ playerid ][ GetAttachedItemSlot(itemid) ] = itemid;
 
 	new query[1024];
-	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_attachments (player_id, itemid, bone, off_x, off_y, off_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z, color1, color2) VALUES \
+	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_attachments (player_id, item_id, bone, off_x, off_y, off_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z, color1, color2) VALUES \
 		(%d, %d, %d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d, %d)",
 		GetPlayerSqlId(playerid), itemid, bone, offx, offy, offz, rotx, roty, rotz, scalex, scaley, scalez, color1, color2);
 
@@ -55,7 +55,7 @@ stock DeletePlayerAttachedItem(playerid, itemid)
 	RemovePlayerAttachedObject(playerid, GetAttachedItemSlot(itemid));
 	PlayerWornItems[ playerid ][ GetAttachedItemSlot(itemid) ] = -1;
 
-	mysql_format(DbHandle, query, sizeof(query), "DELETE FROM player_attachments WHERE player_id = %d AND itemid = %d",
+	mysql_format(DbHandle, query, sizeof(query), "DELETE FROM player_attachments WHERE player_id = %d AND item_id = %d",
 		GetPlayerSqlId(playerid), itemid);
 	return mysql_pquery(DbHandle, query);
 }

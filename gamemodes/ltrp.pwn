@@ -23,7 +23,7 @@
 
 
 #define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.26
+#define BUILD_DATE                      2015-03.27
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -4336,6 +4336,10 @@ stock NullPlayerInfo( playerid )
         PlayerAttachedWeapons[ playerid ][ i ][ WeaponId ] = 0;
     }
 
+    for(new i = 0; i < 10; i++) 
+        if(IsPlayerAttachedObjectSlotUsed(playerid, i))
+            RemovePlayerAttachedObject(playerid, i);
+
     PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
     ShowACTestMsg[ playerid ] = true;
 
@@ -4472,8 +4476,9 @@ public OnPlayerDisconnect(playerid, reason)
                 SendClientMessage(MobilePhone[playerid], GRAD, "Dëmesio, ryðys staiga nutrøko." );
                 MobilePhone[MobilePhone[playerid]] = INVALID_PLAYER_ID;
             }
+            else 
+                RingTone[MobilePhone[playerid]] = 0;
             SetPVarInt( MobilePhone[playerid], "CallOwner", true );
-            RingTone[MobilePhone[playerid]] = 0;
             MobilePhone[playerid] = INVALID_PLAYER_ID;
             RingTone[playerid] = 0;
         }
@@ -6415,6 +6420,7 @@ CMD:duty(playerid)
             SetPlayerArmour ( playerid, 0 );
             format(string, sizeof(string), "* pareigûnas %s pasidëjo savo turimus ginklus á savo ginklø saugyklà.", GetPlayerNameEx(playerid));
             ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+            printf("Removing player %s job weapons", GetName(playerid));
             RemovePlayerJobWeapons(playerid);
             pInfo[playerid][pJobDuty] = 0;
             SetPlayerColor( playerid, TEAM_HIT_COLOR );
@@ -15321,11 +15327,10 @@ CMD:makeleader(playerid, params[])
         pInfo[giveplayerid][pRank] = 13;
         strmid(fInfo[fact][fLeader], GetName(giveplayerid), 0, 54, 54);
 
-        ClearWeaponsFromPlayerInventory(giveplayerid);
-        ResetPlayerWeapons( giveplayerid );
+        RemovePlayerJobWeapons(giveplayerid);
         SetPlayerArmour( giveplayerid, 0 );
 
-        format(string, sizeof(string), "NAUJIENA: Administratorius %s, suteikë Jums frakcijos vadová  frakcijai: %s ",GetName(playerid),fInfo[fact][fName]);
+        format(string, sizeof(string), "NAUJIENA: Administratorius %s, suteikë Jums frakcijos vadovo pareigas frakcijai: %s ",GetName(playerid),fInfo[fact][fName]);
         SendClientMessage(giveplayerid,COLOR_NEWS,string);
         format(string, sizeof(string), "INFORMACIJA: Jûs paskyrëte þaidëjá  %s frakcijos %s vadovu.",GetName(giveplayerid),fInfo[fact][fName]);
         SendClientMessage(playerid,GRAD,string);

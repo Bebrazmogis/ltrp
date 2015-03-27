@@ -259,12 +259,14 @@ stock CheckWeaponCheat(playerid, weaponid, type)
 
 	if(type == 0)
 	{
+		printf("CheckWeaponCheat(%s, %d ,%d) type 0 called.", GetName(playerid), weaponid, type);
 		if(IsPlayerInAnyVehicle(playerid))
 		    return false;
 
 		if(IsPlayerWeaponInMemory(playerid, weaponid))
 		 	return false;
 
+		printf("Player weapon was hacked. banning.");
 		GetWeaponName(weaponid, wepname, sizeof(wepname));
 		TogglePlayerControllable(playerid, 0);
 

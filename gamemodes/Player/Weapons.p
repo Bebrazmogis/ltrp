@@ -38,6 +38,7 @@ forward OnPlayerWeaponLoad(playerid);
 
 stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true, bool:job_weapon = false)
 {
+	printf("wep_GivePlayerWeapon(%s, %d, %d, %d, %d)", GetName(playerid), weaponid, ammo, update_db, job_weapon);
 	if(update_db && !job_weapon)
 	{
 		new query[170];
@@ -57,11 +58,14 @@ stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true, bool
 		if(PlayerWeapons[ playerid ][ i ][ WeaponId ] != weaponid)
 			continue;
 
+		if(PlayerWeapons[ playerid ][ i ][ IsJob ] != job_weapon)
+			continue;
+
 		PlayerWeapons[ playerid ][ i ][ Ammo ] += ammo;
 		found = true;
 		break;
 	}
-	if(!found)
+	if(!found && freeindex != -1)
 	{
 		PlayerWeapons[ playerid ][ freeindex ][ WeaponId ] = weaponid;
 		PlayerWeapons[ playerid ][ freeindex ][ Ammo ] = ammo;
@@ -80,6 +84,7 @@ stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true, bool
 
 stock wep_ResetPlayerWeapons(playerid, bool:update_db = true)
 {
+	printf("wep_ResetPlayerWeapons(%s, %d)", GetName(playerid), update_db);
 	if(update_db)
 	{
 		new query[60];
@@ -107,6 +112,7 @@ stock RemovePlayerWeapon(playerid, weaponid)
     // Funkcija: RemovePlayerWeapon(playerid, wepid)
     // Panaikins tik vienà þaidëjo ginklà 
 
+    printf("RemovePlayerWeapon(%s, %d) called", GetName(playerid), weaponid);
     new weapons[ 13 ][ 3 ], query[90];
 
     for(new i = 0; i < 13; i++)
@@ -116,8 +122,11 @@ stock RemovePlayerWeapon(playerid, weaponid)
 
     	// Jei ginklui reikalingos kulkos, ir tai netas kurá norim paðalinti, progra patikrinti ar ne cheatintas ginklas
     	if(weapons[ i ][ 0 ] != weaponid && IsWeaponHasAmmo(weapons[ i ][ 0 ]))
+    	{
+    		printf("RemovePlayerWeapon : Checking for cheated weapon id:%d ammo:%d is job:%d", weapons[ i ][ 0 ], weapons[ i ][ 1 ], weapons[ i ][ 2]);
     		// CheckWeaponCheat reikiant uþblokuos þaidëjà.
     		CheckWeaponCheat(playerid, weapons[ i ][ 0 ], 0);
+    	}
     }
     mysql_format(DbHandle, query, sizeof(query), "DELETE FROM player_weapons WHERE weapon_id = %d AND player_id = %d",
     	weaponid, GetPlayerSqlId(playerid));
@@ -126,7 +135,7 @@ stock RemovePlayerWeapon(playerid, weaponid)
     ResetPlayerWeapons(playerid, false);
 
     for(new i = 0; i < 13; i++)	
-    	if(weapons[ i ][ 0 ] != weaponid)
+    	if(weapons[ i ][ 0 ] != weaponid && weapons[ i ][ 0 ] != 0)
     		GivePlayerWeapon(playerid, weapons[ i ][ 0 ], weapons[ i ][ 1 ], false, bool:weapons[ i ][ 2 ]);
 }
 
@@ -134,9 +143,26 @@ stock RemovePlayerWeapon(playerid, weaponid)
 
 stock RemovePlayerJobWeapons(playerid)
 {
+	printf("RemovePlayerJobWeapons(%s) called", GetName(playerid));
+	new weapons[ 13 ][ 3 ];
+
+	for(new i = 0; i < 13; i++)
+    {
+    	GetPlayerWeaponData(playerid, i, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
+    	weapons[ i ][ 2 ] = IsPlayerWeaponJobWeapon(playerid, weapons[ i ][ 0 ]);
+    }
+
+    ResetPlayerWeapons(playerid, false);
+
+
+    for(new i = 0; i < 13; i++)
+    	if(weapons[ i ][ 0 ] && !weapons[ i ][ 2 ])
+    		GivePlayerWeapon(playerid, weapons[ i ][ 0 ], weapons[ i ][ 1 ], false, false);
+	/*
 	for(new i = 0; i < MAX_PLAYER_WEAPONS; i++)
 		if(PlayerWeapons[ playerid ][ i ][ WeaponId ] && PlayerWeapons[ playerid ][ i ][ IsJob ])
 			RemovePlayerWeapon(playerid, PlayerWeapons[ playerid ][ i ][ WeaponId ]);
+	*/
 	return 1;
 }
 
@@ -166,21 +192,31 @@ public OnPlayerWeaponLoad(playerid)
 
 stock IsPlayerWeaponJobWeapon(playerid, weaponid)
 {
+	printf("IsPlayerWeaponJobWeapon(%s, %d) called", GetName(playerid), weaponid);
 	for(new i = 0; i < MAX_PLAYER_WEAPONS; i++)
+	{
 		if(PlayerWeapons[ playerid ][ i ][ WeaponId ] == weaponid)
+		{
+			printf("IsPlayerWeaponJobWeapon returning true");
 			return PlayerWeapons[ playerid ][ i ][ IsJob ];
+		}
+	}
+	printf("IsPlayerWeaponInMemory returning false.");
 	return false;
 }
 
 stock IsPlayerWeaponInMemory(playerid, weaponid)
 {
+	printf("IsPlayerWeaponInMemory(%s, %d) called", GetName(playerid), weaponid);
 	for(new i = 0; i < MAX_PLAYER_WEAPONS; i++)
 	{
 		if(PlayerWeapons[ playerid ][ i ][ WeaponId ] == weaponid)
 		{
+			printf("IsPlayerWeaponInMemory is true");
 			return true;
 		}
 	}
+	printf("IsPlayerWeaponInMemory is false");
 	return false;
 }
 
