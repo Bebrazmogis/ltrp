@@ -42,6 +42,9 @@
 
 public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
+    #if defined prope_OnPlayerEditDynamicObject
+        prope_OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz);
+    #endif
     new Float:oldX, Float:oldY, Float:oldZ,
         Float:oldRotX, Float:oldRotY, Float:oldRotZ;
     GetDynamicObjectPos(objectid, oldX, oldY, oldZ);
@@ -107,6 +110,15 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
     }
     return 0;
 }
+#if defined _ALS_OnPlayerEditDynamicObject
+    #undef OnPlayerEditDynamicObject
+#else 
+    #define _ALS_OnPlayerEditDynamicObject
+#endif
+#define OnPlayerEditDynamicObject       prope_OnPlayerEditDynamicObject
+#if defined prope_OnPlayerEditDynamicObject
+    forward prope_OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz);
+#endif
 
 
 

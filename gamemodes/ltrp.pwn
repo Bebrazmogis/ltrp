@@ -868,6 +868,7 @@ new Fire[MAX_FIRE][fires];
 #include "Player\Weapons"
 #include "Player\Inventory"
 #include "Player\Attachments"
+#include "Graffiti"
 
 
 new RoadBlocks[MAX_ROADBLOCKS];
@@ -4086,6 +4087,9 @@ public OnPlayerRequestClass(playerid, classid)
 
 stock GetPlayerSqlId(playerid)
     return pInfo[ playerid ][ pMySQLID ];
+
+stock GetPlayerAdminLevel(playerid)
+    return pInfo[ playerid ][ pAdmin ];
 
 stock GetPlayerHouseKey(playerid)
     return pInfo[ playerid ][ pHouseKey ];
@@ -12894,7 +12898,7 @@ CMD:anims( playerid, params[ ] )
 {
     SendClientMessage(playerid,COLOR_GREEN,"________________________ Animacijos ________________________");
     SendClientMessage(playerid,COLOR_WHITE,"/fall /injured /push /handsup /kiss /cell /slapass /bomb /drunk /laugh /facepalm");
-    SendClientMessage(playerid,COLOR_FADE1,"/basketball /medic /spray /robman /taichi /lookout /sit /lay /sup /crossarms");
+    SendClientMessage(playerid,COLOR_FADE1,"/basketball /medic /spraycan /robman /taichi /lookout /sit /lay /sup /crossarms");
     SendClientMessage(playerid,COLOR_WHITE,"/deal /crack /smoke /bar /hike /dance /fuck /lean /walk /rap /caract /sex");
     SendClientMessage(playerid,COLOR_FADE1,"/tired /box /scratch /hide /vomit /eats /cop /stance /wave /rap /skick /aload");
     SendClientMessage(playerid,COLOR_WHITE,"/flag /giver /look /show /shout /endchat /face /gsign /dj /loudtalk");
@@ -13463,7 +13467,7 @@ CMD:push( playerid, params[ ] )
     }
     return 1;
 }
-CMD:spray( playerid, params[ ] )
+CMD:spraycan(playerid)
 {
     if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 1;
     OnePlayAnim(playerid,"SPRAYCAN","spraycan_full",4.0,0,0,0,0,0);
