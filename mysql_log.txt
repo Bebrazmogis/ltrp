@@ -1,0 +1,5 @@
+[23:32:51] [ERROR] mysql_pquery - invalid connection handle (id: 0)
+[23:43:47] [ERROR] mysql_pquery - invalid connection handle (id: 0)
+[23:48:04] [ERROR] mysql_pquery - invalid connection handle (id: 0)
+[23:49:49] [ERROR] mysql_pquery - invalid connection handle (id: 0)
+[23:52:35] [ERROR] mysql_pquery - invalid connection handle (id: 0)
