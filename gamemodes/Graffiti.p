@@ -354,6 +354,21 @@ AddGraffiti(sqlid, text[], Float:x, Float:y, Float:z, fontid, colourid)
 	return sqlid;
 }
 
+stock IsPlayerGraffitiAuthor(playerid, graffitiindex)
+{
+	new query[60], Cache:result, bool:isauthor = false;
+
+	mysql_format(DbHandle, query, sizeof(query), "SELECT author FROM graffiti WHERE id = %d",
+		GraffitiData[ graffitiindex ][ SqlId ]);
+
+	result = mysql_query(DbHandle, query);
+	if(cache_get_row_count())
+		if(cache_get_field_content_int(0, "author") == GetPlayerSqlId(playerid))
+			isauthor = true;
+	cache_delete(result);
+	return isauthor;
+}
+
 /* 			                                                                                                                                      
 	               ,,             ,,                             ,...                                      ,,                             
 	`7MM"""Yb.     db           `7MM                           .d' ""                               mm     db                             
@@ -517,10 +532,43 @@ CMD:spray(playerid, params[])
     	if(!IsGraffitiAllowed[ playerid ])
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
 
-    	if(IsPlayerInAnyInterior(playerid))
+    	else if(IsPlayerInAnyInterior(playerid))
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, grafiti pieðti galima tik lauke.");
 
     	ShowPlayerGraffitiColourDialog(playerid);
+    }
+    else if(!strcmp(action, "edit", true))
+    {
+    	if(!IsGraffitiAllowed[ playerid ])
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
+
+    	else
+    	{
+    		new index = -1;
+	    	for(new i = 0; i < MAX_GRAFFITI; i++)
+	    	{
+	    		if(!GraffitiData[ i ][ SqlId ])
+	    			continue;
+
+	    		if(!IsPlayerInRangeOfDynamicObject(playerid, 8.0, GraffitiData[ i ][ ObjectId ]))
+	    			continue; 
+
+	    		index = i;
+	    		break;
+	    	}
+
+	    	if(index == -1)
+	    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs per toli nuo grafiti.");
+
+	    	else if(!IsPlayerGraffitiAuthor(playerid, index))
+	    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate ðio graffiti autorius.");
+
+	    	else 
+	    	{
+	    		EditDynamicObject(playerid, GraffitiData[ index ][ ObjectId ]);
+	    	}
+    	}
+
     }
     else 	
     	goto spray_help;
