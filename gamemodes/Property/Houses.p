@@ -655,6 +655,15 @@ stock GetHouseFurnitureIndex(hindex, objectid)
     return false;
 }
 
+stock IsAnyHouseFurnitureObject(objectid)
+{
+    foreach(new i : Houses)
+        for(new j = 0; j < MAX_HOUSE_FURNITURE; j++)
+            if(HouseFurniture[ i ][ j ][ SqlId ] && HouseFurniture[ i ][ j ][ ObjectId ] == objectid)
+                return true;
+    return false;
+}
+
 stock IsValidHouse(hindex)
 {
     if(hindex < 0 || hindex >= MAX_HOUSES)

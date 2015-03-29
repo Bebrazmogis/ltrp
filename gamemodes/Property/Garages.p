@@ -427,6 +427,14 @@ stock GetGarageFurnitureCount(garageindex)
 
 
 
+stock IsAnyGarageFurnitureObject(objectid)
+{
+    foreach(new i : Garages)
+        for(new j = 0; j < MAX_GARAGE_FURNITURE; j++)
+            if(GarageFurniture[ i ][ j ][ SqlId ] && GarageFurniture[ i ][ j ][ ObjectId ] == objectid)
+                return true;
+    return false;
+}
 
 stock IsPlayerInAnyGarage(playerid)
 {

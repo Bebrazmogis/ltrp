@@ -2,10 +2,11 @@
 
 
 #define GRAFFITI_BACKROUND_OBJECT		8330
-//#define GRAFFITI_BACKROUND_OBJECT 		2257
 #define MAX_GRAFFITI 					100
 #define GRAFITTI_SPRAY_RIGHT_TIME_MIN 	5
-#define MAX_GRAFFITI_TEXT 				128
+#define GRAFFITI_OBJECT_MATERIAL_SIZE 	OBJECT_MATERIAL_SIZE_512x256
+#define GRAFFITI_TEXT_BOLD 				true
+#define MAX_GRAFFITI_TEXT 				16
 
 #define DIALOG_GRAFFITI_TEXT 			7500
 #define DIALOG_GRAFFITI_FONT_NAME 		7501
@@ -54,6 +55,15 @@
 
 */
 
+enum E_PLAYER_GRAFFITI_DATA 
+{
+	Text[ MAX_GRAFFITI_TEXT ],
+	FontName[ 32 ],
+	FontSize,
+	Colour,
+	ColourId,
+	ObjectId,
+};
 
 enum E_GRAFITTI_DATA 
 {
@@ -63,7 +73,8 @@ enum E_GRAFITTI_DATA
 
 static GraffitiData[ MAX_GRAFFITI ][ E_GRAFITTI_DATA ],
 	Timer:AllowGraffitiTimer[ MAX_PLAYERS ],
-	bool:IsGraffitiAllowed[ MAX_PLAYERS ];
+	bool:IsGraffitiAllowed[ MAX_PLAYERS ],
+	PlayerGraffiti[ MAX_PLAYERS ][ E_PLAYER_GRAFFITI_DATA ];
 
 
 forward OnGraffitiLoad();
@@ -136,15 +147,16 @@ public OnGraffitiLoad()
 		cache_get_field_content(i, "argb", fontname);
 		colour = strval(fontname);
 		cache_get_field_content(i, "name", fontname);
+		printf("Loaded name:%s loaded size:%d", fontname, cache_get_field_content_int(i, "size"));
 
 		SetDynamicObjectMaterialText(
 				GraffitiData[ i ][ ObjectId ], 
 				0,
 				text,
-				OBJECT_MATERIAL_SIZE_256x128,
+				GRAFFITI_OBJECT_MATERIAL_SIZE,
 				fontname,
 				cache_get_field_content_int(i, "size"),
-				0,
+				GRAFFITI_TEXT_BOLD,
 				colour,
 				0x00000000,
 				OBJECT_MATERIAL_TEXT_ALIGN_CENTER
@@ -164,20 +176,30 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(!response)
 				return 1;
 
-			SetPVarString(playerid, "NewGraffiti.Colour", inputtext);
-			ShowPlayerGraffitiNameDialog(playerid);
+			new query[110], Cache:result;
+			mysql_format(DbHandle, query, sizeof(query), "SELECT id, CONVERT(CONV(argb, 16, 10), SIGNED) AS argb FROM graffiti_colours WHERE name = '%e'", inputtext);
+			result = mysql_query(DbHandle, query);
+			if(cache_get_row_count())
+			{
+				cache_get_field_content(0, "argb", query);
+				PlayerGraffiti[ playerid ][ Colour ] = strval(query);
+				//PlayerGraffiti[ playerid ][ Colour ] = cache_get_field_content_int(0, "argb");
+				PlayerGraffiti[ playerid ][ ColourId ] = cache_get_field_content_int(0, "id");
+			}
+			cache_delete(result);
+			UpdatePlayerGraffiti(playerid);
 			return 1;
 		}
 		case DIALOG_GRAFFITI_TEXT:
 		{
 			if(!response)
 				return 1;
-			
-			if(isnull(inputtext))
-				return ShowPlayerGraffitiNameDialog(playerid, "Tekstas negali bûti tuðèias.");
+		
+			if(isnull(inputtext) || strlen(inputtext) >= MAX_GRAFFITI_TEXT)
+				return ShowPlayerGraffitiNameDialog(playerid, "Tekstas sudaryti negali maþiau nei 1 simbolis ar daugiau nei " #MAX_GRAFFITI_TEXT);
 
-			SetPVarString(playerid, "NewGraffiti.Name", inputtext);
-			ShowPlayerGraffitiFontNamDialog(playerid);
+			format(PlayerGraffiti[ playerid ][ Text ], MAX_GRAFFITI_TEXT, inputtext);
+			UpdatePlayerGraffiti(playerid);
 			return 1;
 		}
 		case DIALOG_GRAFFITI_FONT_NAME:
@@ -185,8 +207,17 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(!response)
 				return 1;
 
-			SetPVarString(playerid, "NewGraffiti.FontName", inputtext);
-			ShowPlayerGraffitiFontSizDialog(playerid, inputtext);
+			format(PlayerGraffiti[ playerid ][ FontName ], 32, inputtext);
+
+			// Pakeitus ðriftà reikia rasti jam tinkamà dydá.
+			new query[80], Cache:result;
+			mysql_format(DbHandle, query, sizeof(query), "SELECT size FROM graffiti_fonts WHERE name = '%e'", inputtext);
+			result = mysql_query(DbHandle, query);
+			if(cache_get_row_count())
+				PlayerGraffiti[ playerid ][ FontSize ] = cache_get_field_content_int(0, "size");
+			cache_delete(result);
+
+			UpdatePlayerGraffiti(playerid);
 			return 1;
 		}
 		case DIALOG_GRAFFITI_FONT_SIZE:
@@ -194,45 +225,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(!response)
 				return 1;
 
-			new Float:x, Float:y, Float:z,
-				fontname[ 64 ],
-				fontsize = strval(inputtext),
-				freeindex = GetFreeGraffitiIndex(),
-				text[ MAX_GRAFFITI_TEXT ],
-				colour,
-				colourname[ 32 ]
-				;
-			GetPlayerPos(playerid, x, y, z);
-			GetXYInFrontOfPlayer(playerid, x, y, 2.5);
+			// Èia GUI yra sàraðas skaièiø ið duombazës, todël strval
+			new fontsize = strval(inputtext);
 
-			GetPVarString(playerid, "NewGraffiti.Name", text, sizeof(text));
-			GetPVarString(playerid, "NewGraffiti.FontName", fontname, sizeof(fontname));
-			GetPVarString(playerid, "NewGraffiti.Colour", colourname, sizeof(colourname));
-
-			colour = GetGraffitiColourARGB(colourname);
-
-			if(freeindex == -1)
-			{
-				ErrorLog("Graffiti limit(" #MAX_GRAFFITI ") reached.");
-				SendClientMessage(playerid, COLOR_LIGHTRED, "Ávyko klaida. Ðiuo metu sukurti grafiti neámanoma.");
-				return 1;
-			}
-
-
-			GraffitiData[ freeindex ][ SqlId ] = AddGraffiti(GetPlayerSqlId(playerid), text, x, y, z, GetGraffitiFontId(fontname, fontsize), GetGraffitiColourId(colourname));
-			GraffitiData[ freeindex ][ ObjectId ] = CreateDynamicObject(
-					GRAFFITI_BACKROUND_OBJECT,
-					x,
-					y,
-					z,
-					0.0, 0.0, 0.0 
-				);
-			SetDynamicObjectMaterialText(GraffitiData[ freeindex ][ ObjectId ], 0, text, OBJECT_MATERIAL_SIZE_256x128, fontname, fontsize, 0, colour, 0x00000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
-			SetDynamicObjectMaterialText(GraffitiData[ freeindex ][ ObjectId ], 1, " ");
-			Streamer_Update(playerid);
-			EditDynamicObject(playerid, GraffitiData[ freeindex ][ ObjectId ]);
-			SendClientMessage(playerid, COLOR_NEWS, "Grafiti sëkmingai sukurtas. Dabar galite já nustatyti á vietà.");
-			cmd_ame(playerid, "pradeda kaþkà paiðyti su daþø flakonu.");
+			PlayerGraffiti[ playerid ][ FontSize ] = fontsize;
+			UpdatePlayerGraffiti(playerid);
 			return 1;
 		}
 	}
@@ -246,6 +243,12 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 		graff_OnPlayerEditDynamicObject(playerid, objectid, response, x, y, z, rx, ry, rz);
 	#endif
 
+	if(PlayerGraffiti[ playerid ][ ObjectId ] == objectid && response == EDIT_RESPONSE_FINAL)
+	{
+		SetDynamicObjectPos(PlayerGraffiti[ playerid ][ ObjectId ], x ,y ,z);
+		SetDynamicObjectRot(PlayerGraffiti[ playerid ][ ObjectId ], rx, ry, rz);
+	}
+	/*
 	new query[200];
 	for(new i = 0; i < MAX_GRAFFITI; i++)
 	{
@@ -277,6 +280,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 			DeletePVar(playerid, "NewGraffiti.FontName");
 		}
 	}
+	*/
 	return 0;
 }
 #if defined _ALS_OnPlayerEditDynamicObject
@@ -293,8 +297,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 
 hook OnPlayerDisconnect(playerid)
 {
-	IsGraffitiAllowed[ playerid ] = false;
-	stop AllowGraffitiTimer[ playerid ];
+	EndPlayerGraffitiSpray(playerid);
 }
 
 /*
@@ -347,23 +350,13 @@ stock GetGraffitiFontId(fontname[], fontsize)
 	return fontid;
 }
 
-stock GetGraffitiColourId(colourname[])
-{
-	new query[80], Cache:result, colourid;
-	mysql_format(DbHandle, query, sizeof(query), "SELECT id FROM graffiti_colours WHERE name = '%e'", colourname);
-	result = mysql_query(DbHandle, query);
-	if(cache_get_row_count())
-		colourid = cache_get_field_content_int(0, "id");
-	cache_delete(result);
-	return colourid;
-}
 
-AddGraffiti(sqlid, text[], Float:x, Float:y, Float:z, fontid, colourid)
+AddGraffiti(sqlid, text[], Float:x, Float:y, Float:z, Float:rotx, Float:roty, Float:rotz, fontid, colourid)
 {
 	new query[256], Cache:result;
 
-	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO graffiti (author, `text`, pos_x, pos_y, pos_z, font_id, colour_id) VALUES (%d, '%e', %f, %f, %f, %d, %d)",
-		sqlid, text, x, y, z, fontid, colourid);
+	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO graffiti (author, `text`, pos_x, pos_y, pos_z, rot_x, rot_y, rot_z, font_id, colour_id) VALUES (%d, '%e', %f, %f, %f, %f, %f, %f, %d, %d)",
+		sqlid, text, x, y, z, rotx, roty, rotz, fontid, colourid);
 
 	result = mysql_query(DbHandle, query);
 	sqlid = cache_insert_id();
@@ -384,6 +377,67 @@ stock IsPlayerGraffitiAuthor(playerid, graffitiindex)
 			isauthor = true;
 	cache_delete(result);
 	return isauthor;
+}
+
+stock UpdatePlayerGraffiti(playerid)
+{
+	if(!IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+	{
+		new Float:x, Float:y, Float:z, Float:angle;
+		GetPlayerPos(playerid, x, y, z);
+		GetXYInFrontOfPlayer(playerid, x, y, 2.5);
+		GetPlayerFacingAngle(playerid, angle);
+
+		PlayerGraffiti[ playerid ][ ObjectId ] = CreateDynamicObject(GRAFFITI_BACKROUND_OBJECT, x, y, z, 0.0, 0.0, angle, .playerid = playerid);
+		SetDynamicObjectMaterialText(PlayerGraffiti[ playerid ][ ObjectId ], 1, " ");
+	}
+
+	new fontface[ 32 ], text[ MAX_GRAFFITI_TEXT ];
+	if(isnull(PlayerGraffiti[ playerid ][ FontName ]))
+		fontface = "Arial";
+	else 
+		strcat(fontface, PlayerGraffiti[ playerid ][ FontName ]);
+
+	if(isnull(PlayerGraffiti[ playerid ][ Text ]))
+		text = "Tekstas";
+	else 
+		strcat(text, PlayerGraffiti[ playerid ][ Text ]);
+
+	if(!PlayerGraffiti[ playerid ][ FontSize ])
+		PlayerGraffiti[ playerid ][ FontSize ] = 12;
+
+	if(!PlayerGraffiti[ playerid ][ Colour ])
+	{
+		PlayerGraffiti[ playerid ][ Colour ] = 0xFFFFFFFF;
+		new Cache:result, tmp[16];
+		result = mysql_query(DbHandle, "SELECT id, CONVERT(CONV(argb, 16, 10), SIGNED) AS argb FROM graffiti_colours LIMIT 1");
+		if(cache_get_row_count())
+		{
+			PlayerGraffiti[ playerid ][ ColourId ] = cache_get_field_content_int(0, "id");
+			cache_get_field_content(0, "argb", tmp);
+			PlayerGraffiti[ playerid ][ Colour ] = strval(tmp);
+			printf("ERROR?%d", cache_get_field_content_int(0, "argb"));
+		}
+		cache_delete(result);
+	}
+
+	SetDynamicObjectMaterialText(PlayerGraffiti[ playerid ][ ObjectId ], 0, 
+		text, GRAFFITI_OBJECT_MATERIAL_SIZE, fontface, PlayerGraffiti[ playerid ][ FontSize ], GRAFFITI_TEXT_BOLD, PlayerGraffiti[ playerid ][ Colour ], 0x00000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
+
+	Streamer_Update(playerid);
+	cmd_ame(playerid, "kaþkà paiðo ant sienos");
+}
+
+stock EndPlayerGraffitiSpray(playerid)
+{
+	stop AllowGraffitiTimer[ playerid ];
+	IsGraffitiAllowed[ playerid ] = false;
+
+	if(IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+		DestroyDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]);
+
+	static EmptyPlayerGraffiti[ E_PLAYER_GRAFFITI_DATA ];
+	PlayerGraffiti[ playerid ] = EmptyPlayerGraffiti;
 }
 
 /* 			                                                                                                                                      
@@ -483,8 +537,8 @@ CMD:spray(playerid, params[])
     {
         spray_help:
         SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /spray [veiksmas]");
-        SendClientMessage(playerid, COLOR_WHITE, "GALIMI VEIKSMAI: create, edit");
-        if(IsPlayerAdmin(playerid) || GetPlayerAdminLevel(playerid))
+        SendClientMessage(playerid, COLOR_WHITE, "GALIMI VEIKSMAI: create, delete, pos, text, font, size, colour, save");
+        if(IsPlayerAdmin(playerid) || GetPlayerAdminLevel(playerid) >= 3)
         	SendClientMessage(playerid, COLOR_FADE2, "Galimi administratoriaus veiksmai: allow, dissallow");
         return 1;
     }
@@ -546,7 +600,10 @@ CMD:spray(playerid, params[])
     }
     else if(!strcmp(action, "create", true))
     {
-    	if(!IsGraffitiAllowed[ playerid ])
+    	if(IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau pradëjote pieðti grafiti.");
+
+    	else if(!IsGraffitiAllowed[ playerid ])
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
 
     	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
@@ -555,38 +612,142 @@ CMD:spray(playerid, params[])
     	else if(IsPlayerInAnyInterior(playerid))
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, grafiti pieðti galima tik lauke.");
 
-    	else ShowPlayerGraffitiColourDialog(playerid);
+    	else ShowPlayerGraffitiNameDialog(playerid);
     }
-    else if(!strcmp(action, "edit", true))
+    else if(!strcmp(action, "text", true))
     {
-    	if(!IsGraffitiAllowed[ playerid ])
+    	if(!IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate pradëjæs pieðti grafiti.");
+
+    	else if(!IsGraffitiAllowed[ playerid ])
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
+
+    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+
+    	else
+    		ShowPlayerGraffitiNameDialog(playerid);
+    }
+    else if(!strcmp(action, "font", true))
+    {
+    	if(!IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate pradëjæs pieðti grafiti.");
+
+    	else if(!IsGraffitiAllowed[ playerid ])
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
+
+    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+
+    	else 
+    		ShowPlayerGraffitiFontNamDialog(playerid);
+    }
+    else if(!strcmp(action, "size", true))
+    {
+    	if(!IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate pradëjæs pieðti grafiti.");
+
+    	else if(!IsGraffitiAllowed[ playerid ])
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
+
+    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+
+    	else if(isnull(PlayerGraffiti[ playerid ][ FontName ]))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, pirmiausia pasirinktite ðriftà.");
+
+    	else 
+    		ShowPlayerGraffitiFontSizDialog(playerid, PlayerGraffiti[ playerid ][ FontName ]);
+    }
+    else if(!strcmp(action, "color", true) || !strcmp(action, "colour", true))
+    {
+    	if(!IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate pradëjæs pieðti grafiti.");
+
+    	else if(!IsGraffitiAllowed[ playerid ])
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
+
+    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+
+    	else 
+    		ShowPlayerGraffitiColourDialog(playerid);
+    }
+    else if(!strcmp(action, "pos"))
+    {
+    	if(!IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate pradëjæs pieðti grafiti.");
+
+    	else if(!IsGraffitiAllowed[ playerid ])
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
+
+    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+
+    	else 
+    		EditDynamicObject(playerid, PlayerGraffiti[ playerid ][ ObjectId ]);
+    }
+    else if(!strcmp(action, "save", true))
+    {
+    	if(!IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate pradëjæs pieðti grafiti.");
 
     	else
     	{
-    		new index = -1;
-	    	for(new i = 0; i < MAX_GRAFFITI; i++)
-	    	{
-	    		if(!GraffitiData[ i ][ SqlId ])
-	    			continue;
+    		new Float:x, Float:y, Float:z,
+				Float:rx, Float:ry, Float:rz,
+				freeindex = GetFreeGraffitiIndex()
+			;
 
-	    		if(!IsPlayerInRangeOfDynamicObject(playerid, 8.0, GraffitiData[ i ][ ObjectId ]))
-	    			continue; 
+			if(freeindex == -1)
+			{
+				ErrorLog("Graffiti limit(" #MAX_GRAFFITI ") reached.");
+				SendClientMessage(playerid, COLOR_LIGHTRED, "Ávyko klaida. Ðiuo metu sukurti grafiti neámanoma.");
+			}
+			else 
+			{
+				GetDynamicObjectPos(PlayerGraffiti[ playerid ][ ObjectId ], x, y, z);
+				GetDynamicObjectRot(PlayerGraffiti[ playerid ][ ObjectId ], rx, ry, rz);
 
-	    		index = i;
-	    		break;
-	    	}
+				GraffitiData[ freeindex ][ ObjectId ] = CreateDynamicObject(GRAFFITI_BACKROUND_OBJECT,x, y, z,rx, ry, rz);
+				SetDynamicObjectMaterialText(
+					GraffitiData[ freeindex ][ ObjectId ], 
+					0,
+					PlayerGraffiti[ playerid ][ Text ],
+					GRAFFITI_OBJECT_MATERIAL_SIZE,
+					PlayerGraffiti[ playerid ][ FontName ],
+					PlayerGraffiti[ playerid ][ FontSize ],
+					GRAFFITI_TEXT_BOLD,
+					PlayerGraffiti[ playerid ][ Colour ],
+					0x00000000,
+					OBJECT_MATERIAL_TEXT_ALIGN_CENTER
+				);
+				SetDynamicObjectMaterialText(GraffitiData[ freeindex ][ ObjectId ], 1, " ");
 
-	    	if(index == -1)
-	    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs per toli nuo grafiti.");
+				GraffitiData[ freeindex ][ SqlId ] = AddGraffiti(GetPlayerSqlId(playerid), 
+					PlayerGraffiti[ playerid ][ Text ],
+					x, y, z, 
+					rx, ry, rz,
+					GetGraffitiFontId(PlayerGraffiti[ playerid ][ FontName ], PlayerGraffiti[ playerid ][ FontSize ]),
+					PlayerGraffiti[ playerid ][ ColourId ]);
 
-	    	else if(!IsPlayerGraffitiAuthor(playerid, index))
-	    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate ðio graffiti autorius.");
+				Streamer_Update(playerid);
+				cmd_ame(playerid, "baigia kaþkà paiðyti ant sienos su daþø flakonu.");
+			}
+			EndPlayerGraffitiSpray(playerid);
+    	}
+    }
+    else if(!strcmp(action, "delete", true))
+    {
+    	if(!IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate pradëjæs pieðti grafiti.");
 
-	    	else 
-	    	{
-	    		EditDynamicObject(playerid, GraffitiData[ index ][ ObjectId ]);
-	    	}
+    	else if(!IsGraffitiAllowed[ playerid ])
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
+
+    	else 
+    	{	
+    		EndPlayerGraffitiSpray(playerid);
     	}
 
     }
@@ -612,7 +773,7 @@ CMD:spray(playerid, params[])
 
 timer GraffitiSprayTimeEnd[GRAFITTI_SPRAY_RIGHT_TIME_MIN*60*1000](playerid)
 {
-	stop AllowGraffitiTimer[ playerid ];
-	IsGraffitiAllowed[ playerid ] = false;
 	SendClientMessage(playerid, COLOR_LIGHTRED, "Baigësi laikas per kurá galite pieðti grafiti.");
+	EndPlayerGraffitiSpray(playerid);	
 }
+

@@ -50,12 +50,15 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
     GetDynamicObjectPos(objectid, oldX, oldY, oldZ);
     GetDynamicObjectRot(objectid, oldRotX, oldRotY, oldRotZ);
 
+    if(!IsAnyHouseFurnitureObject(objectid) && !IsAnyBusinessFurnitureObject(objectid) && !IsAnyGarageFurnitureObject(objectid))
+        return 0;
+
     switch(response)
     {
         case EDIT_RESPONSE_FINAL: // Paspaudþia Save migtukà
         {
-            MoveDynamicObject( objectid, x, y, z, 15, rx, ry, rz);
-            SendClientMessage( playerid, COLOR_WHITE,"Objekto redagavimas sëkmingai baigtas." );
+            MoveDynamicObject(objectid, x, y, z, 15, rx, ry, rz);
+            SendClientMessage(playerid, COLOR_WHITE,"Objekto redagavimas sëkmingai baigtas." );
 
         	new house_index = GetPlayerHouseIndex(playerid);
             if(house_index != -1)
@@ -104,7 +107,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
         {
             SetDynamicObjectPos(objectid, oldX, oldY, oldZ);
             SetDynamicObjectRot(objectid, oldRotX, oldRotY, oldRotZ);
-            SendClientMessage( playerid, COLOR_RED,"Redagavimas buvo atðauktas, objektas gràþintas á pradinæ vietà.");
+            SendClientMessage(playerid, COLOR_RED,"Redagavimas buvo atðauktas, objektas gràþintas á pradinæ vietà.");
             return 1;
         }
     }

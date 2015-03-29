@@ -1140,6 +1140,15 @@ stock GetBusinessTypeName(E_BUSINESS_TYPES:type)
     return s;
 }
 
+stock IsAnyBusinessFurnitureObject(objectid)
+{
+    foreach(new i : Business)
+        for(new j = 0; j < MAX_BUSINESS_FURNITURE; j++) 
+            if(BusinessFurniture[ i ][ j ][ SqlId ] && BusinessFurniture[ i ][ j ][ ObjectId ] == objectid)
+                return true;
+    return false;
+}
+
 stock GetBusinessBoughtCommodityCount(business_index)
 {
     new count = 0;
