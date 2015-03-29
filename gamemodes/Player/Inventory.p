@@ -93,15 +93,22 @@ hook OnPlayerDisconnect(playerid, reason)
 
 public OnPlayerItemLoad(playerid)
 {
-	new index;
+	new index, itemid;
 	for(new i = 0; i < cache_get_row_count(); i++)
 	{
 		index = cache_get_field_content_int(i, "slot");
 		if(index < 0 || index >= MAX_PLAYER_ITEMS)
 			continue;
 
+		itemid = cache_get_field_content_int(i, "item_id");
+		if(!IsValidItem(itemid))
+		{
+			ErrorLog("Invalid item ID(%d) in player %s inventory.", itemid, GetName(playerid));
+			continue;
+		}
+
 		PlayerItems[ playerid ][ index ][ Id ] = cache_get_field_content_int(i, "id");
-		PlayerItems[ playerid ][ index ][ ItemId ] = cache_get_field_content_int(i, "item_id");
+		PlayerItems[ playerid ][ index ][ ItemId ] = itemid;
 		PlayerItems[ playerid ][ index ][ Amount ] = cache_get_field_content_int(i, "amount");
 		PlayerItems[ playerid ][ index ][ ContentAmount ] = cache_get_field_content_int(i, "content_amount");
 		PlayerItems[ playerid ][ index ][ Durability ] = cache_get_field_content_int(i, "durability");
@@ -1143,6 +1150,22 @@ Item:OnPlayerUseHelmet(playerid, itemid)
         ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
     }
 	return 1;
+}
+
+Item:OnPlayerUseTool(playerid, itemid)
+{
+	if(!IsPlayerAttachedObjectSlotUsed(playerid, GetAttachedItemSlot(itemid)))
+    {
+        AddPlayerAttachedItem(playerid, itemid, 2, 0.086000,0.024999,0.001000,85.600021,82.900001,5.199999);
+        EditAttachedObject(playerid, GetAttachedItemSlot(itemid));
+        SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
+    }
+    else
+    {
+        SendClientMessage(playerid, COLOR_WHITE,"Daiktas buvo sëkmingai panaikintas/nuimtas.");
+        DeletePlayerAttachedItem(playerid, itemid);
+    }
+    return 1;
 }
 
 Item:OnPlayerUseHeroin(playerid, itemid)

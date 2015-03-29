@@ -40,129 +40,153 @@
 #define ITEM_COCAINE 88
 #define ITEM_KREPSYS 99
 #define ITEM_LAGAMINAS 100
-// Prasideda drabuþiø sistema
-// AKINIAI
-#define ITEM_GlassesType1 101
-#define ITEM_GlassesType2 102
-#define ITEM_GlassesType3 103
-#define ITEM_GlassesType4 104
-#define ITEM_GlassesType7 105
-#define ITEM_GlassesType10 106
-#define ITEM_GlassesType13 107
-#define ITEM_GlassesType14 108
-#define ITEM_GlassesType15 109
-#define ITEM_GlassesType16 110
-#define ITEM_GlassesType17 111
-#define ITEM_GlassesType18 112
-#define ITEM_GlassesType19 113
-#define ITEM_GlassesType20 114
-#define ITEM_GlassesType21 115
-#define ITEM_GlassesType22 116
-#define ITEM_GlassesType23 117
-#define ITEM_GlassesType24 118
-#define ITEM_GlassesType25 119
-#define ITEM_GlassesType26 120
-#define ITEM_GlassesType27 121
-#define ITEM_GlassesType28 122
-// áALMAI
-#define ITEM_MotorcycleHelmet4 123
-#define ITEM_MotorcycleHelmet5 124
-#define ITEM_MotorcycleHelmet6 125
-#define ITEM_MotorcycleHelmet7 126
-#define ITEM_MotorcycleHelmet8 127
-#define ITEM_MotorcycleHelmet9 128
-// KAUKËS
-#define ITEM_HockeyMask1 129
-#define ITEM_MaskZorro1 130
-// Skarelës ant galvos
-#define ITEM_Bandana2    131
-#define ITEM_Bandana4    132
-#define ITEM_Bandana5    133
-#define ITEM_Bandana6    134
-#define ITEM_Bandana7    135
-#define ITEM_Bandana8    136
-#define ITEM_Bandana9   180
-#define ITEM_Bandana10   163
-#define ITEM_Bandana11   164
-#define ITEM_Bandana12   165
-#define ITEM_Bandana13   166
-#define ITEM_Bandana14   167
-#define ITEM_Bandana15   168
-#define ITEM_Bandana16   169
-#define ITEM_Bandana17  170
-#define ITEM_Bandana18  171
-#define ITEM_Bandana19  172
-// KEPURËS
-#define ITEM_CapBack3    137
-#define ITEM_CapBack4    138
-#define ITEM_CapBack5    139
-#define ITEM_CapBack7    140
-#define ITEM_CapBack8    141
-#define ITEM_CapBack9    142
-#define ITEM_CapBack10   143
-#define ITEM_CapBack11   144
-#define ITEM_CapBack12   145
-#define ITEM_CapBack13   146
-#define ITEM_CapBack14   147
-#define ITEM_CapBack15   148
-#define ITEM_CapBack16   149
-#define ITEM_CapBack17   150
-#define ITEM_CapBack18   151
-#define ITEM_CapBack19   152
-#define ITEM_CapBack20   153
-#define ITEM_CapBack21   154
-//SRYBELËS
-#define ITEM_CowboyHat1  155
-#define ITEM_CowboyHat2  156
-#define ITEM_CowboyHat3  157
-#define ITEM_CowboyHat4  158
-#define ITEM_CowboyHat5  159
-#define ITEM_HatBowler1  160
-#define ITEM_HatBowler2  161
-#define ITEM_HatBowler3  162
-
 #define ITEM_AMFAMISC    173
 #define ITEM_COCAINEMISC 174
 #define ITEM_METAAMFAMISC 175
-
-#define ITEM_HAIR1 176
-#define ITEM_HAIR2 177
 #define ITEM_MATCHES 178
 #define ITEM_KUPRINE 179
-
-
-#define ITEM_Beret2 181
-#define ITEM_Beret3 182
-#define ITEM_Beret4 183
-#define ITEM_Beret1 184
-#define ITEM_Beret5 185
-#define ITEM_SkullyCap1 186
-#define ITEM_SkullyCap2 187
-#define ITEM_HatMan1 188
-#define ITEM_HatMan2 189
-#define ITEM_WatchType1 190
-#define ITEM_WatchType2 191
-#define ITEM_WatchType6 192
-#define ITEM_WatchType4 193
-#define ITEM_SantaHat1 194
-#define ITEM_SantaHat2 195
-#define ITEM_HoodyHat3 196
-#define ITEM_EyePatch1 197
-#define ITEM_SillyHelmet2 198
-#define ITEM_SillyHelmet3 199
-#define ITEM_PlainHelmet1 200
-#define ITEM_PoliceGlasses2 201
-#define ITEM_PoliceGlasses3 202
-#define ITEM_HAIR5 203
-#define ITEM_tophat01 204
-#define ITEM_HatBowler6 205
-#define ITEM_pilotHat01 206
-
 #define ITEM_EXTAZY 207
 #define ITEM_PCP 208
 #define ITEM_CRACK 209
 #define ITEM_OPIUM 210
 
+#define ITEM_HoodyHat1					300
+#define ITEM_HoodyHat2					301
+#define ITEM_HoodyHat3					302
+#define ITEM_SkullyCap1					303
+#define ITEM_SkullyCap2					304
+#define ITEM_SkullyCap3					305
+#define ITEM_HatBowler1					306
+#define ITEM_HatBowler2					307
+#define ITEM_HatBowler3					308
+#define ITEM_HatBowler4					309
+#define ITEM_HatBowler5					310
+#define ITEM_Beret1						311
+#define ITEM_Beret2						312
+#define ITEM_Beret3						313
+#define ITEM_Beret4						314
+#define ITEM_Mask1						315
+#define ITEM_Mask2						316
+#define ITEM_Mask3						317
+#define ITEM_Mask4						318
+#define ITEM_Mask5						319
+#define ITEM_Mask6						320
+#define ITEM_Mask7						321
+#define ITEM_Mask8						322
+#define ITEM_Mask9						323
+#define ITEM_Mask10						324
+#define ITEM_HockeyMask1				325
+#define ITEM_HockeyMask2				326
+#define ITEM_HockeyMask3				327
+#define ITEM_MaskZorro1					328
+#define ITEM_GimpMask1					329
+#define ITEM_Bandana1					330
+#define ITEM_Bandana2					331
+#define ITEM_Bandana3					332
+#define ITEM_Bandana4					333
+#define ITEM_Bandana5					334
+#define ITEM_Bandana6					335
+#define ITEM_Bandana7					336
+#define ITEM_Bandana8					337
+#define ITEM_Bandana9					338
+#define ITEM_Bandana10					339
+#define ITEM_Bandana11					340
+#define ITEM_Bandana12					341
+#define ITEM_Bandana13					342
+#define ITEM_Bandana14					343
+#define ITEM_Bandana15					344
+#define ITEM_GlassesType1				345
+#define ITEM_GlassesType2				346
+#define ITEM_GlassesType3				347
+#define ITEM_GlassesType4				348
+#define ITEM_GlassesType5				349
+#define ITEM_GlassesType6				350
+#define ITEM_GlassesType7				351
+#define ITEM_GlassesType8				352
+#define ITEM_GlassesType9				353
+#define ITEM_GlassesType10				354
+#define ITEM_GlassesType11				355
+#define ITEM_GlassesType12				356
+#define ITEM_GlassesType13				357
+#define ITEM_GlassesType14				358
+#define ITEM_GlassesType15				359
+#define ITEM_BlackHat1					360
+#define ITEM_CowboyHat1					361
+#define ITEM_CowboyHat2					362
+#define ITEM_CowboyHat3					363
+#define ITEM_CowboyHat4					364
+#define ITEM_CowboyHat5					365
+#define ITEM_HatCool1					366
+#define ITEM_HatCool2					367
+#define ITEM_HatCool3					368
+#define ITEM_HatTiger1					369
+#define ITEM_MotorcycleHelmet2			370
+#define ITEM_MotorcycleHelmet3			371
+#define ITEM_MotorcycleHelmet4			372
+#define ITEM_MotorcycleHelmet5			373
+#define ITEM_Helmet1					374
+#define ITEM_Helmet2					375
+#define ITEM_Helmet3					376
+#define ITEM_ArmyHelmet1				377
+#define ITEM_ArmyHelmet2				378
+#define ITEM_ArmyHelmet3				379
+#define ITEM_ArmyHelmet4				380
+#define ITEM_ArmyHelmet5				381
+#define ITEM_ArmyHelmet6				382
+#define ITEM_ArmyHelmet7				383
+#define ITEM_ArmyHelmet8				384
+#define ITEM_ArmyHelmet9				385
+#define ITEM_ArmyHelmet10				386
+#define ITEM_ArmyHelmet11				387
+#define ITEM_ArmyHelmet12				388
+#define ITEM_Hat1						389
+#define ITEM_Hat2						390
+#define ITEM_Hat3						391
+#define ITEM_Hat4						392
+#define ITEM_Hat5						393
+#define ITEM_Hat6						394
+#define ITEM_Hat7						395
+#define ITEM_Hat8						396
+#define ITEM_Hat9						397
+#define ITEM_Hat10						398
+#define ITEM_CapBack1					399
+#define ITEM_CapBack3					400
+#define ITEM_CapBack4					402
+#define ITEM_CapBack5					403
+#define ITEM_CapOverEye1				404
+#define ITEM_CapOverEye2				405
+#define ITEM_CapOverEye3				406
+#define ITEM_CapOverEye4				407
+#define ITEM_CapOverEye5				408
+#define ITEM_HatMan1					409
+#define ITEM_HatMan2					410
+#define ITEM_HatMan3					411
+#define ITEM_HardHat2					412
+#define ITEM_HardHat3					413
+#define ITEM_SillyHelmet1				414
+#define ITEM_SillyHelmet2				415
+#define ITEM_SillyHelmet3				416
+#define ITEM_PlainHelmet1				417
+#define ITEM_PlainHelmet2				418
+#define ITEM_PlainHelmet3				419
+#define ITEM_BurgerShotHat1				420
+#define ITEM_CluckinBellHat1			421
+#define ITEM_pilotHat01					422
+#define ITEM_pilotHat02					423
+#define ITEM_fire_hat01					424
+#define ITEM_fire_hat02					425
+#define ITEM_PoliceCap1					426
+#define ITEM_PoliceCap2					427
+#define ITEM_PoliceCap3					428
+#define ITEM_GTASAWrench1				429
+#define ITEM_GTASACrowbar1				430
+#define ITEM_GTASAHammer1				431
+#define ITEM_Flashlight1				432
+#define ITEM_Taser1						433
+#define ITEM_Screwdriver1				434
+#define ITEM_HAIR1						435
+#define ITEM_HAIR2						436
+#define ITEM_HAIR3						437
 
 #define MAX_ITEM_NAME 					64
 
@@ -239,107 +263,144 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{ITEM_AMFA,				"Amfetaminas",								true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerUseAmphetamine", PlayerId | ItemId},
 	{ITEM_METAMFA,			"Metamfetaminas",							true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerUseMetaAmphetamine", PlayerId | ItemId},
 	{ITEM_COCAINE,			"Kokainas",									true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerUseCocaine", PlayerId | ItemId},
-	{ITEM_Bandana2,			"Skarelë 2",								false, false, false, false, false, false, false,	18892,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana4,			"Skarelë 4",								false, false, false, false, false, false, false,	18894,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana5,			"Skarelë 5",								false, false, false, false, false, false, false,	18895,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana6,			"Skarelë 6",								false, false, false, false, false, false, false,	18896,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana7,			"Skarelë 7",								false, false, false, false, false, false, false,	18897,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana8,			"Skarelë 8",								false, false, false, false, false, false, false,	18898,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana9,			"Skarelë 9",								false, false, false, false, false, false, false,	18899,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana10,		"Skarelë 10",								false, false, false, false, false, false, false,	18911,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana11,		"Skarelë 11",								false, false, false, false, false, false, false,	18912,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana12,		"Skarelë 12",								false, false, false, false, false, false, false,	18913,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana13,		"Skarelë 13",								false, false, false, false, false, false, false,	18914,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana14,		"Skarelë 14",								false, false, false, false, false, false, false,	18915,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana15,		"Skarelë 15",								false, false, false, false, false, false, false,	18916,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana16,		"Skarelë 16",								false, false, false, false, false, false, false,	18917,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana17,		"Skarelë 17",								false, false, false, false, false, false, false,	18918,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana18,		"Skarelë 18",								false, false, false, false, false, false, false,	18919,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_Bandana19,		"Skarelë 19",								false, false, false, false, false, false, false,	18920,	0,		0,	"OnPlayerUseBandana", PlayerId | ItemId},
-	{ITEM_EyePatch1,		"Akies raiðtis",							false, false, false, false, false, false, false,	19085,	0,		0,	"OnPlayerUseBandana",	PlayerId | ItemId},
-	{ITEM_Beret2,			"Beretë 2",									false, false, false, false, false, false, false,	18921,	0,		0,	"OnPlayerUseBeret", PlayerId | ItemId},
-	{ITEM_Beret3,			"Beretë 3",									false, false, false, false, false, false, false,	18922,	0,		0,	"OnPlayerUseBeret", PlayerId | ItemId},
-	{ITEM_Beret4,			"Beretë 4",									false, false, false, false, false, false, false,	18923,	0,		0,	"OnPlayerUseBeret", PlayerId | ItemId},
-	{ITEM_Beret1,			"Beretë 1",									false, false, false, false, false, false, false,	18924,	0,		0,	"OnPlayerUseBeret", PlayerId | ItemId},
-	{ITEM_Beret5,			"Beretë 5",									false, false, false, false, false, false, false,	18925,	0,		0,	"OnPlayerUseBeret", PlayerId | ItemId},
-	{ITEM_CapBack3,			"Kepurë 3",									false, false, false, false, false, false, false,	19200,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_CapBack4,			"Kepurë 4",									false, false, false, false, false, false, false,	18942,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_CapBack5,			"Kepurë 5",									false, false, false, false, false, false, false,	18943,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_CapBack7,			"Kepurë 7",									false, false, false, false, false, false, false,	18926,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_CapBack8,			"Kepurë 8",									false, false, false, false, false, false, false,	18927,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_CapBack9,			"Kepurë 9",									false, false, false, false, false, false, false,	18928,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_CapBack10,		"Kepurë 10",								false, false, false, false, false, false, false,	18929,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack11,		"Kepurë 11",								false, false, false, false, false, false, false,	18930,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack12,		"Kepurë 12",								false, false, false, false, false, false, false,	18931,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack13,		"Kepurë 13",								false, false, false, false, false, false, false,	18932,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack14,		"Kepurë 14",								false, false, false, false, false, false, false,	18933,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack15,		"Kepurë 15",								false, false, false, false, false, false, false,	18934,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack16,		"Kepurë 16",								false, false, false, false, false, false, false,	18935,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack17,		"Kepurë 17",								false, false, false, false, false, false, false,	19093,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack18,		"Kepurë 18",								false, false, false, false, false, false, false,	19160,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack19,		"Kepurë 19",								false, false, false, false, false, false, false,	18953,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack20,		"Kepurë 20",								false, false, false, false, false, false, false,	18954,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_CapBack21,		"Kepurë 21",								false, false, false, false, false, false, false,	18961,	0,		0, "OnPlayerUseHat", PlayerId | ItemId},	
-	{ITEM_SkullyCap1,		"Skullycap 1",								false, false, false, false, false, false, false,	18964,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_SkullyCap2,		"Skullycap 2",								false, false, false, false, false, false, false,	18965,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_HatMan1,			"Hatman 1",									false, false, false, false, false, false, false,	18967,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_HatMan2,			"Hatman 2",									false, false, false, false, false, false, false,	18968,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_SantaHat1,		"Kalëdø kepurë 1",							false, false, false, false, false, false, false,	19064,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_SantaHat2,		"Kalëdø kepurë 2",							false, false, false, false, false, false, false,	19065,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_HoodyHat3,		"Hoodyhat 3",								false, false, false, false, false, false, false,	19069,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_SillyHelmet2,		"SillyHelmet 2",							false, false, false, false, false, false, false,	19114,	0,	 	0, "OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_SillyHelmet3,		"SillyHelmet 3",							false, false, false, false, false, false, false,	19115,	0,	 	0, "OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_PlainHelmet1,		"PlainHellmet 1",							false, false, false, false, false, false, false,	19116,	0,	 	0, "OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_tophat01,			"Cilindras",								false, false, false, false, false, false, false,	19352,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_pilotHat01,		"Piloto kepurë",							false, false, false, false, false, false, false,	19520,	0,	 	0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_CowboyHat1,		"Skrybelë  1",								false, false, false, false, false, false, false,	19095,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},		
-	{ITEM_CowboyHat2,		"Skrybelë  2",								false, false, false, false, false, false, false,	18962,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},		
-	{ITEM_CowboyHat3,		"Skrybelë  3",								false, false, false, false, false, false, false,	19096,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},		
-	{ITEM_CowboyHat4,		"Skrybelë  4",								false, false, false, false, false, false, false,	19097,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},		
-	{ITEM_CowboyHat5,		"Skrybelë  5",								false, false, false, false, false, false, false,	19098,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},		
-	{ITEM_HatBowler1,		"Skrybelë B1",								false, false, false, false, false, false, false,	18944,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},		
-	{ITEM_HatBowler2,		"Skrybelë B2",								false, false, false, false, false, false, false,	18945,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},		
-	{ITEM_HatBowler3,		"Skrybelë B3",								false, false, false, false, false, false, false,	18947,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},		
-	{ITEM_HatBowler6,		"Skrybelë B6",								false, false, false, false, false, false, false,	19488,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},		
-	{ITEM_HAIR1,			"Perukas",									false, false, false, false, false, false, false,	19516,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_HAIR2,			"Perukas",									false, false, false, false, false, false, false,	19518,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_HAIR5,			"Perukas",									false, false, false, false, false, false, false,	19274,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	{ITEM_WatchType1,		"Lakrodis 1",								false, false, false, false, false, false, false,	19039,	0,		0, "OnPlayerUseWatch", PlayerId | ItemId},
-	{ITEM_WatchType2,		"Lakrodis 2",								false, false, false, false, false, false, false,	19040,	0,		0, "OnPlayerUseWatch", PlayerId | ItemId},
-	{ITEM_WatchType6,		"Lakrodis 6",								false, false, false, false, false, false, false,	19044,	0,		0, "OnPlayerUseWatch", PlayerId | ItemId},
-	{ITEM_WatchType4,		"Lakrodis 4",								false, false, false, false, false, false, false,	19042,	0,		0, "OnPlayerUseWatch", PlayerId | ItemId},
-	{ITEM_GlassesType1,		"Akiniai 1",								false, false, false, false, false, false, false,	19006,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType2,		"Akiniai 2",								false, false, false, false, false, false, false,	19007,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType3,		"Akiniai 3",								false, false, false, false, false, false, false,	19008,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType4,		"Akiniai 4",								false, false, false, false, false, false, false,	19009,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType7,		"Akiniai 7",								false, false, false, false, false, false, false,	19012,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType10 ,	"Akiniai 10",								false, false, false, false, false, false, false,	19015,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType13 ,	"Akiniai 13",								false, false, false, false, false, false, false,	19018,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType14 ,	"Akiniai 14",								false, false, false, false, false, false, false,	19019,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType15 ,	"Akiniai 15",								false, false, false, false, false, false, false,	19020,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType16 ,	"Akiniai 16",								false, false, false, false, false, false, false,	19021,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType17 ,	"Akiniai 17",								false, false, false, false, false, false, false,	19022,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType18 ,	"Akiniai 18",								false, false, false, false, false, false, false,	19023,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType19 ,	"Akiniai 19",								false, false, false, false, false, false, false,	19024,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType20 ,	"Akiniai 20",								false, false, false, false, false, false, false,	19025,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType21 ,	"Akiniai 21",								false, false, false, false, false, false, false,	19026,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType22 ,	"Akiniai 22",								false, false, false, false, false, false, false,	19027,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType23 ,	"Akiniai 23",								false, false, false, false, false, false, false,	19028,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType24 ,	"Akiniai 24",								false, false, false, false, false, false, false,	19029,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType25 ,	"Akiniai 25",								false, false, false, false, false, false, false,	19030,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType26 ,	"Akiniai 26",								false, false, false, false, false, false, false,	19031,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType27 ,	"Akiniai 27",								false, false, false, false, false, false, false,	19032,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_GlassesType28 ,	"Akiniai 28",								false, false, false, false, false, false, false,	19033,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_PoliceGlasses2,	"Policijos Akiniai 1",						false, false, false, false, false, false, false,	19139,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_PoliceGlasses3,	"Policijos Akiniai 2",						false, false, false, false, false, false, false,	19140,	0,		0,	"OnPlayerUseGlassees", PlayerId | ItemId},
-	{ITEM_MotorcycleHelmet4,"Ðalmas 4",									false, false, false, false, false, false, false,	18978,	0,		0, "OnPlayerUseHelmet",	PlayerId | ItemId},
-	{ITEM_MotorcycleHelmet5,"Ðalmas 5",									false, false, false, false, false, false, false,	18979,	0,		0, "OnPlayerUseHelmet",	PlayerId | ItemId},
-	{ITEM_MotorcycleHelmet6,"Ðalmas 6",									false, false, false, false, false, false, false,	18977,	0,		0, "OnPlayerUseHelmet",	PlayerId | ItemId},
-	{ITEM_MotorcycleHelmet7,"Ðalmas 7",									false, false, false, false, false, false, false,	0,		0,		0, "OnPlayerUseHelmet",	PlayerId | ItemId},
-	{ITEM_MotorcycleHelmet8,"Ðalmas 8",									false, false, false, false, false, false, false,	0,		0,		0, "OnPlayerUseHelmet",	PlayerId | ItemId},
-	{ITEM_MotorcycleHelmet9,"Ðalmas 9",									false, false, false, false, false, false, false,	18952,	0,		0, "OnPlayerUseHelmet",	PlayerId | ItemId},
-	{ITEM_HockeyMask1,		"Ledo ritulio kaukë",						false, false, false, false, false, false, false,	19036,	0,	 	0, "OnPlayerUseMask",		PlayerId | ItemId},
-	{ITEM_MaskZorro1,		"Zoro kaukë",								false, false, false, false, false, false, false,	18974,	0,		0,	"OnPlayerUseMask",		PlayerId | ItemId},
+	{INVALID_ITEM_ID,		"Tuðèia",									false, false, false, false, false, false, false,	0,		0,		0,	"",	NoParameters},
+	{ITEM_HoodyHat1, 		"Ðilta kepurë 1",							false, false, false, false, false, false, false, 	19067,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HoodyHat2, 		"Ðilta kepurë 2",							false, false, false, false, false, false, false, 	19068,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HoodyHat3, 		"Ðilta kepurë 3",							false, false, false, false, false, false, false, 	19069,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_SkullyCap1, 		"Ðilta kepurë 4",							false, false, false, false, false, false, false, 	18964,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_SkullyCap2, 		"Ðilta kepurë 5",							false, false, false, false, false, false, false, 	18965,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},	
+	{ITEM_SkullyCap3, 		"Ðilta kepurë 6",							false, false, false, false, false, false, false, 	18966,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},	
+	{ITEM_HatBowler1, 		"Oranþinë Skrybelë",						false, false, false, false, false, false, false, 	18944,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},		
+	{ITEM_HatBowler2, 		"Juoda Skrybelë",							false, false, false, false, false, false, false, 	18945,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatBowler3, 		"Balta Skrybelë su dryþiu",					false, false, false, false, false, false, false, 	18946,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatBowler4, 		"Raudona Skrybelë su dryþiu",				false, false, false, false, false, false, false, 	18950,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatBowler5, 		"Geltona Skrybelë su dryþiu",				false, false, false, false, false, false, false, 	18951,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Beret1,			"Juoda Beretë", 							false, false, false, false, false, false, false, 	18921,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Beret2,			"Raudona Beretë", 							false, false, false, false, false, false, false, 	18922,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Beret3,			"Mëlyna Beretë", 							false, false, false, false, false, false, false, 	18923,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Beret4,			"Kareiviðka Beretë", 						false, false, false, false, false, false, false, 	18924,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask1,			"Juoda skarelë su kaukolëmis", 				false, false, false, false, false, false, false, 	18911,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask2,			"Juoda skarelë", 							false, false, false, false, false, false, false, 	18912,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask3,			"Þalia skarelë", 							false, false, false, false, false, false, false, 	18913,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask4,			"Kareiviðka skarelë", 						false, false, false, false, false, false, false, 	18914,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask5,			"Rûþava/spalvota skarelë", 					false, false, false, false, false, false, false, 	18915,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask6,			"Geltona Skarelë", 							false, false, false, false, false, false, false, 	18916,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask7,			"Mëlyna skarelë", 							false, false, false, false, false, false, false, 	18917,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask8,			"Pilka skarelë", 							false, false, false, false, false, false, false, 	18918,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask9,			"Balta skarelë", 							false, false, false, false, false, false, false, 	18919,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Mask10, 			"Oranþinë skarelë",							false, false, false, false, false, false, false, 	18920,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HockeyMask1,		"Balta ledo ritulio kaukë", 				false, false, false, false, false, false, false, 	19036,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HockeyMask2,		"Raudona ledo ritulio kaukë", 				false, false, false, false, false, false, false, 	19037,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HockeyMask3,		"Þalia ledo ritulio kaukë", 				false, false, false, false, false, false, false, 	19038,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_MaskZorro1,		"Zoro kaukë", 								false, false, false, false, false, false, false, 	18974,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GimpMask1, 		"Gimp kaukë",								false, false, false, false, false, false, false, 	19163,	0,		0,	"OnPlayerUseMask", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana1, 		"Violetinë skarelë",						false, false, false, false, false, false, false, 	18891,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana2, 		"Raudona skarelë",							false, false, false, false, false, false, false, 	18892,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana3, 		"Balta-raudona skarelë",					false, false, false, false, false, false, false, 	18893,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana4, 		"Oranþinë skarelë su vorais",				false, false, false, false, false, false, false, 	18894,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana5, 		"Juoda skarelë su kaukolëmis",				false, false, false, false, false, false, false, 	18895,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana6, 		"Juoda skarelë",							false, false, false, false, false, false, false, 	18896,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana7, 		"Mëlyna skarelë",							false, false, false, false, false, false, false, 	18897,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana8, 		"Þalia skarelë",							false, false, false, false, false, false, false, 	18898,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana9, 		"Violetinë skarelë",						false, false, false, false, false, false, false, 	18899,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana10, 		"Ryðkiaspalvë skarelë",						false, false, false, false, false, false, false, 	18900,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana11, 		"Tigro raðto skarelë",						false, false, false, false, false, false, false, 	18901,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana12, 		"Sûrio raðto skarelë",						false, false, false, false, false, false, false, 	18902,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana13, 		"Violetinë skarelë",						false, false, false, false, false, false, false, 	18903,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana14, 		"Elektinë skarelë",							false, false, false, false, false, false, false, 	18904,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Bandana15, 		"Gelsva skarelë",							false, false, false, false, false, false, false, 	18905,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType1, 	"Akiniai su raudonu stiklu",				false, false, false, false, false, false, false, 	19006,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType2, 	"Akiniai su geltonu stiklu",				false, false, false, false, false, false, false, 	19007,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType3, 	"Akiniai su þaliu stiklu",					false, false, false, false, false, false, false, 	19008,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType4, 	"Akiniai su mëlynu stiklu",					false, false, false, false, false, false, false, 	19009,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType5, 	"Akiniai su rûþavu stiklu",					false, false, false, false, false, false, false, 	19010,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType6, 	"Akiniai su spirale",						false, false, false, false, false, false, false, 	19011,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType7, 	"Akiniai su pilku stiklu",					false, false, false, false, false, false, false, 	19012,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType8, 	"Akiniai su netikromis akimis",				false, false, false, false, false, false, false, 	19013,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType9, 	"Akiniai su languotais stiklais",			false, false, false, false, false, false, false, 	19014,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType10, 	"X-Ray Akiniai",							false, false, false, false, false, false, false, 	19015,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType11, 	"Geltoni Akiniai",							false, false, false, false, false, false, false, 	19016,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType12, 	"Oranþiniai Akiniai",						false, false, false, false, false, false, false, 	19017,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType13, 	"Rausvi Akiniai",							false, false, false, false, false, false, false, 	19018,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType14, 	"Þydri Akiniai",							false, false, false, false, false, false, false, 	19019,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GlassesType15, 	"Þali Akiniai",								false, false, false, false, false, false, false, 	19020,	0,		0,	"OnPlayerUseGlasses", PlayerId | ItemId | InventoryIndex},
+	{ITEM_BlackHat1, 		"Juoda Skrybelë",							false, false, false, false, false, false, false, 	18639,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CowboyHat1, 		"Ðviesiai ruda kaubojaus skrybelë",			false, false, false, false, false, false, false, 	19095,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CowboyHat2, 		"Juoda-pilka kaubojaus skrybelë",			false, false, false, false, false, false, false, 	18962,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CowboyHat3, 		"Juoda kaubojaus skrybelë",					false, false, false, false, false, false, false, 	19096,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CowboyHat4, 		"Raudona kaubojaus skrybelë",				false, false, false, false, false, false, false, 	19097,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CowboyHat5, 		"Ruda kaubojaus skrybelë",					false, false, false, false, false, false, false, 	19098,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatCool1, 		"Juoda/balta skrybelë",						false, false, false, false, false, false, false, 	18971,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatCool1, 		"Oranþinë/juoda skrybelë",					false, false, false, false, false, false, false, 	18972,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatCool1, 		"Geltona/juoda skrybelë",					false, false, false, false, false, false, false, 	18973,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatTiger1, 		"Tigro skrybelë",							false, false, false, false, false, false, false, 	18970,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_MotorcycleHelmet2,"Mëlynas/baltas/juodas ðalmas", 			false, false, false, false, false, false, false, 	18976,	0,		0,	"OnPlayerUseHelmet", PlayerId | ItemId | InventoryIndex},
+	{ITEM_MotorcycleHelmet3,"Raudonas/juodas ðalmas", 					false, false, false, false, false, false, false, 	18977,	0,		0,	"OnPlayerUseHelmet", PlayerId | ItemId | InventoryIndex},
+	{ITEM_MotorcycleHelmet4,"Baltas/juodas ðalmas", 					false, false, false, false, false, false, false, 	18978,	0,		0,	"OnPlayerUseHelmet", PlayerId | ItemId | InventoryIndex},
+	{ITEM_MotorcycleHelmet5,"Violetinis/juodas ðalmas", 				false, false, false, false, false, false, false, 	18979,	0,		0,	"OnPlayerUseHelmet", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Helmet1, 			"Baltas ðalmas",							false, false, false, false, false, false, false, 	18936,	0,		0,	"OnPlayerUseHelmet", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Helmet2, 			"Raudonas ðalmas",							false, false, false, false, false, false, false, 	18937,	0,		0,	"OnPlayerUseHelmet", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Helmet3, 			"Violetinis ðalmas",						false, false, false, false, false, false, false, 	18938,	0,		0,	"OnPlayerUseHelmet", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet1, 		"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19101,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet2, 		"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19102,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet3, 		"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19103,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet4, 		"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19104,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet5, 		"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19105,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet6, 		"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19106,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet7, 		"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19107,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet8, 		"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19108,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet9, 		"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19109,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet10, 	"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19110,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet11, 	"Kareiviðkas ðalmas",						false, false, false, false, false, false, false, 	19111,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_ArmyHelmet12, 	"Kareiviðkas(rûþavas) ðalmas",				false, false, false, false, false, false, false, 	19112,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat1, 			"Kareiviðkas kepurë",						false, false, false, false, false, false, false, 	18926,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat2, 			"Mëlyna kepurë su snapu",					false, false, false, false, false, false, false, 	18927,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat3, 			"Spalvota kepurë su snapu",					false, false, false, false, false, false, false, 	18928,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat4, 			"Pilka kepurë su snapu",					false, false, false, false, false, false, false, 	18929,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat5, 			"Oranþinë kepurë su snapu",					false, false, false, false, false, false, false, 	18930,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat6, 			"Mëlyna kepurë su snapu",					false, false, false, false, false, false, false, 	18931,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat7, 			"Oranþinë kepurë su snapu",					false, false, false, false, false, false, false, 	18932,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat8, 			"Balta kepurë su snapu",					false, false, false, false, false, false, false, 	18933,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat9, 			"Rausva kepurë su snapu",					false, false, false, false, false, false, false, 	18934,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_Hat10, 			"Sûrio raðto kepurë su snapu",				false, false, false, false, false, false, false, 	18935,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CapBack1, 		"Elektinë kepurë su snapu",					false, false, false, false, false, false, false, 	18939,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CapBack3, 		"Mëlyna kepurë su snapu",					false, false, false, false, false, false, false, 	18940,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CapBack4, 		"Balta kepurë su snapu",					false, false, false, false, false, false, false, 	18942,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CapBack5, 		"Þalia kepurë su snapu",					false, false, false, false, false, false, false, 	18943,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CapOverEye1, 		"Oranþinë kepurë su snapu",					false, false, false, false, false, false, false, 	18955,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CapOverEye2, 		"Mëlyna kepurë su snapu",					false, false, false, false, false, false, false, 	18956,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CapOverEye3, 		"Mëlyna kepurë su snapu",					false, false, false, false, false, false, false, 	18957,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CapOverEye4, 		"Geltona/juoda kepurë su snapu",			false, false, false, false, false, false, false, 	18958,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CapOverEye5, 		"Kareiviðka kepurë su snapu",				false, false, false, false, false, false, false, 	18959,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatMan1, 			"",											false, false, false, false, false, false, false, 	0,		0,		0,	"", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatMan2, 			"",											false, false, false, false, false, false, false, 	0,		0,		0,	"", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatMan3, 			"",											false, false, false, false, false, false, false, 	0,		0,		0,	"", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HardHat2, 		"Statybinis ðalmas",						false, false, false, false, false, false, false, 	19093,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HardHat3, 		"Mësainio kepurë",							false, false, false, false, false, false, false, 	19160,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_SillyHelmet1, 	"Marga kepurë",								false, false, false, false, false, false, false, 	19113,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_SillyHelmet2, 	"Juoda kepurë",								false, false, false, false, false, false, false, 	19114,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_SillyHelmet3, 	"Juoda kepurë su kaukuole",					false, false, false, false, false, false, false, 	19115,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_PlainHelmet1, 	"Tamsi ðalmas",								false, false, false, false, false, false, false, 	19116,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_PlainHelmet2, 	"Raudonas ðalmas",							false, false, false, false, false, false, false, 	19117,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_PlainHelmet3, 	"Þalias ðalmas",							false, false, false, false, false, false, false, 	19118,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_BurgerShotHat1, 	"Mësainio kepurë",							false, false, false, false, false, false, false, 	19094,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_CluckinBellHat1, 	"Viðèiuko kepurë",							false, false, false, false, false, false, false, 	19137,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_pilotHat01, 		"Piloto kepurë",							false, false, false, false, false, false, false, 	19520,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_pilotHat01, 		"Piloto kepurë",							false, false, false, false, false, false, false, 	19521,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_fire_hat01, 		"Geltona Ugniagesio kepurë",				false, false, false, false, false, false, false, 	19330,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_fire_hat02, 		"Tamsi Ugniagesio kepurë",					false, false, false, false, false, false, false, 	19331,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_PoliceCap1, 		"Policijos kepurë",							false, false, false, false, false, false, false, 	18636,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_PoliceCap2, 		"Juoda Policijos skrybelë",					false, false, false, false, false, false, false, 	19099,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_PoliceCap3, 		"Ruda Policijos skrybelë",					false, false, false, false, false, false, false, 	19100,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
+	{ITEM_GTASAWrench1, 	"Raktas",									false, false, false, false, false, false, false, 	18633,	0,		0,	"OnPlayerUseTool", PlayerId | ItemId},
+	{ITEM_GTASACrowbar1, 	"Lauþtuvas",								false, false, false, false, false, false, false, 	18634,	0,		0,	"OnPlayerUseTool", PlayerId | ItemId},
+	{ITEM_GTASAHammer1, 	"Plaktukas",								false, false, false, false, false, false, false, 	18635,	0,		0,	"OnPlayerUseTool", PlayerId | ItemId},
+	{ITEM_Flashlight1, 		"Proþektorius",								false, false, false, false, false, false, false, 	18641,	0,		0,	"OnPlayerUseTool", PlayerId | ItemId},
+	{ITEM_Taser1, 			"Tazeris",									false, false, false, false, false, false, false, 	18642,	0,		0,	"OnPlayerUseTool", PlayerId | ItemId},
+	{ITEM_Screwdriver1, 	"Atsuktuvas",								false, false, false, false, false, false, false, 	18644,	0,		0,	"OnPlayerUseTool", PlayerId | ItemId},
+	//{ITEM_HAIR1,			"Perukas",									false, false, false, false, false, false, false, 	19330,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
+	//{ITEM_HAIR2,			"Perukas",									false, false, false, false, false, false, false, 	19331,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
+	//{ITEM_HAIR3,			"Perukas",									false, false, false, false, false, false, false, 	18636,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
 	{ITEM_KREPSYS,			"Krepðys",									false, false, false, false, false, false, false,	2919,	0,	 	0,	"OnPlayerUseSuitcase",	PlayerId | ItemId},
 	{ITEM_LAGAMINAS,		"Lagaminas",								false, false, false, false, false, false, false,	1210,	0,		0,	"OnPlayerUseSuitcase",	PlayerId | ItemId},
 	{ITEM_AMFAMISC,			"Amfetamino sudedamosios dalys",			false, false, true, false, false,  false, false,	0,		0,		0,	"OnPlayerUseDrugIngredient", PlayerId},
@@ -351,7 +412,6 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{ITEM_PCP,				"PCP",										true, false, true, false,  false, false, false,	0,		0,		1, "OnPlayerUsePCP", PlayerId},
 	{ITEM_CRACK,			"Krekas",									true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerStartSmoking", PlayerId | ItemId},
 	{ITEM_OPIUM,			"Opijus",									true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerStartSmoking",	PlayerId | ItemId},
-
 	// "Guns guns guns" - Call of duty Modern Warfare 
 	{1, 					"Kastetas",									false, true, false, false, false, false, false, 	331,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId | InventoryIndex},
 	{2, 					"Golfo lazda",								false, true, false, false, false, false, false,	333,	0, 		0, "OnPlayerUseWeapon", PlayerId | ItemId | InventoryIndex},
@@ -599,7 +659,10 @@ stock IsItemBlindfold(itemid)
 {
 	switch(itemid)
 	{
-		case ITEM_Bandana2,
+		case 
+			ITEM_Bandana1,
+			ITEM_Bandana2,
+			ITEM_Bandana3,
 			ITEM_Bandana4,
 			ITEM_Bandana5,
 			ITEM_Bandana6,
@@ -611,11 +674,7 @@ stock IsItemBlindfold(itemid)
 			ITEM_Bandana12,
 			ITEM_Bandana13,
 			ITEM_Bandana14,
-			ITEM_Bandana15,
-			ITEM_Bandana16,
-			ITEM_Bandana17,
-			ITEM_Bandana18,
-			ITEM_Bandana19:
+			ITEM_Bandana15:
 			return true;
 	}
 	return false;

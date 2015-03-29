@@ -4567,7 +4567,17 @@ public OnPlayerSpawn(playerid)
     }
     else 
     {
+        // Jei spectatino ir turi ginklø reikia jam juos atiduoti.
+        if(GetPVarInt(playerid, "SpectateWeaponCount"))
+        {
+            new buffer[128], weapons[ 26 ], specifier[16], count = GetPVarInt(playerid, "SpectateWeaponCount")*2;
+            GetPVarString(playerid, "SpectateWeaponString", buffer, sizeof(buffer));
+            format(specifier, sizeof(specifier), "p<|>a<i>[%d]", count);
+            sscanf(buffer, specifier, weapons);
 
+            for(new i = 0; i < count; i+=2)
+                GivePlayerWeapon(playerid, weapons[ i ], weapons[ i + 1]);
+        }
     }
     
     ObjUpdate[ playerid ] = true;
@@ -16206,40 +16216,22 @@ CMD:spec( playerid, params[ ] )
 
         SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel(" ", 0x00000044, 0.0, 0.0, 0.0, 10.0, .attachedplayer = giveplayerid);
             
-        if( !IsPlayerInAnyVehicle( playerid ) )
+        if(!IsPlayerInAnyVehicle(playerid))
         {
-            for ( new slot = 0; slot < 12; slot++ )
-            {
-                new wep,
-                    ammo;
-
-                GetPlayerWeaponData( playerid, slot, wep, ammo );
-                if ( wep > 1 && wep != 19 && wep != 20 && wep < 39 && ammo > 65000)
+            new string[128], count, weaponid, ammo;
+            for(new i = 0; i < 13; i++)
+            {   
+                GetPlayerWeaponData(playerid, i, weaponid, ammo);
+                if(weaponid && ammo)
                 {
-                    new count;
-                    while ( ammo > 65000 )
-                    {
-                        count ++;
-                        GetPlayerWeaponData( playerid, slot, wep, ammo );
-                        if ( count > 20 )
-                            break;
-                    }
-                }
-                if ( wep > 0 && ammo > 0 )
-                {
-                    for ( new i = 0; i < MAX_SAVED_WEAPONS; i++ )
-                    {
-                        if (pInfo[playerid][pGun][i] == 0)
-                        {
-                            pInfo[playerid][pGun][i] = wep;
-                            pInfo[playerid][pAmmo][i] = ammo;
-                            break;
-                        }
-                    }
+                    count++;
+                    format(string, sizeof(string),"%s|%d|%d", string, weaponid, ammo);
                 }
             }
-            ResetPlayerWeapons( playerid );
+            SetPVarString(playerid, "SpectateWeaponString", string);
+            SetPVarInt(playerid, "SpectateWeaponCount", count);
         }
+        ResetPlayerWeapons(playerid);
     }
     return 1;
 }
