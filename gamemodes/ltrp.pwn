@@ -23369,12 +23369,10 @@ stock SpawnPlayerEx( playerid )
 
                 for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
                 {
-                    new itemid = GetPlayerItemAtIndex(playerid, i),
-                        amount = GetPlayerItemAmountAtIndex(playerid, i);
-                    
+                    new itemid = GetPlayerItemAtIndex(playerid, i);
                     if(itemid != ITEM_PHONE)
                     {
-                        GivePlayerItem(playerid, itemid, -amount);
+                        RemovePlayerItemAtIndex(playerid, i);
                     }
                 }
 
@@ -24798,7 +24796,7 @@ FUNKCIJA:Sekunde()
             if ( pInfo[ i ][ pJail ] == 1 && IsAfk == 1 )
             {
                 new airbrk = GetPVarInt( i, "AIRBRK" );
-                if (Data_IsPlayerInRangeOfCoords(i, 10.0, "ooc_jail"))
+                if (!Data_IsPlayerInRangeOfCoords(i, 10.0, "ooc_jail"))
                 {
                     SetPVarInt( i, "AIRBRK", airbrk + 1 );
                     if ( airbrk > 3 )
