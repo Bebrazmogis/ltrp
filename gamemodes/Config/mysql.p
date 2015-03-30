@@ -32,8 +32,15 @@ public OnGameModeInit()
     DbHandle = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_DB, MYSQL_PASS, .pool_size = 4);
     mysql_set_charset("cp1257");
     mysql_option(LOG_TRUNCATE_DATA, false);
-    if(DbHandle) print("Severis sëkmingai prisijungë prie MySQL duomenø bazës.");
-    else SendRconCommand("exit");
+
+    if(DbHandle) 
+    	print("Severis sëkmingai prisijungë prie MySQL duomenø bazës.");
+    else
+    {
+    	printf("MySQL prisijungti nepavyko. Klaidos kodas: %d", mysql_errno());
+    	ErrorLog("MySQL prisijungti nepavyko. Klaidos kodas: %d", mysql_errno());
+    	SendRconCommand("exit");
+    }
 
     #if defined mysql_OnGameModeInit
     	mysql_OnGameModeInit();

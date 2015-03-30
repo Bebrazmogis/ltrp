@@ -92,7 +92,7 @@ static GetKeyIndex(key[])
 		if(CoordinateData[ i ][ Id ] && !strcmp(CoordinateData[ i ][ Key ], key))
 			return LastCoordinateIndex = i;
 
-	printf("[ERROR]Coordinates.p : GetKeyIndex(%s). Key not found", key);
+	ErrorLog("[ERROR]Coordinates.p : GetKeyIndex(%s). Key not found", key);
 	return -1;
 }
 

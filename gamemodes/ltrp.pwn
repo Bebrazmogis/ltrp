@@ -77,10 +77,11 @@ forward OnPlayerLoginEx(playerid, sqlid);
 #define MAX_PLAYERS 256
 
 
+#include "ErrorLog"
 #include "Config/mysql"
+
 #include "Tabula/Zonos.pwn"
 #include "Tabula/liftas.pwn"
-#include "ErrorLog"
 
 #undef  MAX_VEHICLES
 #define MAX_VEHICLES 500

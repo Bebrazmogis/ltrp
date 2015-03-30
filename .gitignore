@@ -1,5 +1,6 @@
 Logs/**
 mysql_log.html
+mysql_log.txt
 server_log.txt
 server_log.err
 server.cfg
