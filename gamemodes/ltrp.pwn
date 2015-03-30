@@ -76,38 +76,11 @@ forward OnPlayerLoginEx(playerid, sqlid);
 #undef  MAX_PLAYERS
 #define MAX_PLAYERS 256
 
-new DbHandle;
 
+#include "Config/mysql"
 #include "Tabula/Zonos.pwn"
 #include "Tabula/liftas.pwn"
 #include "ErrorLog"
-//MySql Prisijungima
-
-#define VPS_MODE // VPS MODE
-//#define BEBRAS_HOME_MODE
-
-#if defined VPS_MODE
-    #define MYSQL_HOST "localhost"
-    #define MYSQL_USER "root"
-    #define MYSQL_PASS "tQsWA_Sz^c*wAx8Ung@3"
-    #define MYSQL_DB   "c1t1_l0ss4nt0s"
-#else
-    #define MYSQL_HOST "localhost"
-    #define MYSQL_USER "root"
-    #define MYSQL_PASS "tQsWA_Sz^c*wAx8Ung@3"
-    #define MYSQL_DB   "c1t1_l0ss4nt0s"
-#endif
-
-#if defined BEBRAS_HOME_MODE
-    #undef MYSQL_PASS
-    #undef MYSQL_DB
-    #define MYSQL_PASS ""
-    #define MYSQL_DB   "ltrp-property-modules"
-#endif
-
-
-/*                  Mysql prisijungimo pabaiga                                  */
-
 
 #undef  MAX_VEHICLES
 #define MAX_VEHICLES 500
@@ -584,7 +557,6 @@ new bool:PlayerOn[MAX_PLAYERS] = { false, ... },
     Text3D:Units[ MAX_VEHICLES ],
     bool:IsFillingFuel[ MAX_PLAYERS ],
     PlayerFillUpTimer[ MAX_PLAYERS ],
-    PaycheckPickupCheckpoint,
     InfoTextTimer[ MAX_PLAYERS ] = {-1, ...},
     LastPlayerAd[ MAX_PLAYERS ];                                // Timestamp kada raðë paskutiná skelbimà.
     //PVarning                [  MAX_PLAYERS ];//Login
@@ -868,6 +840,7 @@ new Fire[MAX_FIRE][fires];
 #include "Player\Weapons"
 #include "Player\Inventory"
 #include "Player\Attachments"
+#include "Bank"
 #include "Graffiti"
 
 
@@ -3645,7 +3618,6 @@ main()
     print( "| GameMode creator: WARRIOR, Gedas" );
     print( "| GameMode translated by: Nova" );
     print( "-----------------------------------------------------------------\n" );
-
 }
 
 
@@ -3755,16 +3727,6 @@ public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
 }
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
 {
-    if(checkpointid == PaycheckPickupCheckpoint)
-    {
-        if(!pInfo[ playerid ][ pTotalPaycheck ])
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate sukaupæs algos.");
-        GivePlayerMoney(playerid, pInfo[ playerid ][ pTotalPaycheck ]);
-        pInfo[ playerid ][ pTotalPaycheck ] = 0;
-        SaveAccount(playerid);
-        SendClientMessage(playerid, COLOR_NEWS, "Sëkmingai pasiemëte algà.");
-        return 1;
-    }
     if( pInfo[ playerid ][ pJob ] == JOB_DRUGS && IsPlayerInRangeOfPoint( playerid, 2, 748.0026,257.0667,27.0859 ) )
     {
         ShowPlayerDialog( playerid, 114, DIALOG_STYLE_LIST,"Narkotikø parduotuvë",
@@ -3787,14 +3749,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 
 public OnPlayerPickUpDynamicPickup( playerid, pickupid )
 {
-    if ( pickupid == Pickups[ 0 ] )
-    {
-        if ( pInfo[ playerid ][ pSavings ] > 0 )
-                return true;
-        ShowPlayerDialog( playerid, 1, DIALOG_STYLE_MSGBOX, "BANKAS", " Los Santos \
-                Bankas\n Norëdami naudotis bankobanko paslaugomis\n Paspauskite mygtukus esanèius þemiau.", "Nuimti", "Padëti" );
-    }
-    else if ( pickupid == Pickups[ 1 ] )
+    if ( pickupid == Pickups[ 1 ] )
         SetPlayerHealth( playerid, 100);
 
     foreach(sEnters, i)
@@ -3820,13 +3775,6 @@ public OnGameModeInit()
 	SetTimer("IndustryUpdate", 60*60*1000, true);
 	SetTimer("CargoShipDeparture",CARGOSHIP_DOCKED_INTERVAL, false);
 	ShipInfo[ LastDepartureTimestamp ] = gettime();
-//=============================[ Prisijungimas prie MySQL duomenø bazës ]================================
-    mysql_log(LOG_ALL, LOG_TYPE_HTML);
-    DbHandle = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_DB, MYSQL_PASS, .pool_size = 4);
-    mysql_set_charset("cp1257");
-    mysql_option(LOG_TRUNCATE_DATA, false);
-    if(DbHandle) print("Severis sëkmingai prisijungë prie MySQL duomenø bazës.");
-    else return SendRconCommand("exit");
     mysql_tquery(DbHandle, "UPDATE vehicles SET cVehID = 0 WHERE cVehID > 0");
 //=============================[ Pagr. Serverio nustatymai ]================================
     ShowPlayerMarkers(0);
@@ -3910,10 +3858,8 @@ public OnGameModeInit()
     CreateDynamicCP(748.0026, 257.0667, 27.0859, 2.0, -1, -1, -1, 6.0 );
     CreateDynamicCP(-279.4338, 2722.4390, 62.4920, 2.0, -1, -1, -1, 6.0 );
 	CreateDynamicCP(1803.4606,-1520.4922,5700.4302, 2.0, -1, -1, -1, 3.0 );
-    PaycheckPickupCheckpoint = CreateDynamicCP(295.7723,1021.7993,2123.6130, 3.0);
     
     //=============================[ Pickup'ai ]================================
-    Pickups[ 0 ] = CreateDynamicPickup(1239, 2, 295.7723,1021.7993,2123.6130); // Banko
     Pickups[ 1 ] = CreateDynamicPickup(1240, 2, 1810.2020,-1583.3362,5703.9175); // Gyvybiø atsistatymø pickup kalëjime
 
     //------------------------[ 3DTextLabeliai. Uþraðai, áëjimai. ]------------------------------------------
@@ -4096,6 +4042,21 @@ stock GetPlayerHouseKey(playerid)
 
 stock Float:GetPlayerMaxHealth(playerid)
     return 100.0 + pInfo[ playerid ][ pHealthLevel ] * 3; 
+
+stock GetPlayerSavings(playerid)
+    return pInfo[ playerid ][ pSavings ];
+
+stock GetPlayerTotalPaycheck(playerid)
+    return pInfo[ playerid ][ pTotalPaycheck ];
+
+stock SetPlayerTotalPaycheck(playerid, value)
+    return pInfo[ playerid ][ pTotalPaycheck ] = value;
+
+stock GetPlayerBankMoney(playerid)
+    return pInfo[ playerid ][ pBank ];
+
+stock SetPlayerBankMoney(playerid, value)
+    return pInfo[ playerid ][ pBank ] = value;
 
 stock GetPlayerIP(playerid)
 {
@@ -18291,73 +18252,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         // Pagaliau prijungiam þaidëjà.
         OnPlayerLoginEx(playerid, sqlid);
         return 1;
-    }
-    else if(dialogid == 1)
-    {
-        if(response == 1)
-        {
-            format(string,128," Los Santos Bank\nJûsø banko sàskaitoje ðiuo metu yra: %d$\n Áraðykite sumà, kurià norite iðsiimti",pInfo[playerid][pBank]);
-            ShowPlayerDialog(playerid,2,DIALOG_STYLE_INPUT,"BANKAS",string,"Iðsimti","Atðaukti");
-            PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-            return 1;
-        }
-        else if(response == 0)
-        {
-            format(string,128," Los Santos Bank\nSu savimi ðiuo metu turite %d$\n Kokià sumà norësite áneðti á bankà?",PlayerMoney[ playerid ]);
-            ShowPlayerDialog(playerid,3,DIALOG_STYLE_INPUT,"BANKAS",string,"Áneðti","Atðaukti");
-            PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-            return 1;
-        }
-    }
-    else if(dialogid == 2)
-    {
-        if(response == 1)
-        {
-            if(!inputtext[0]) return 1;
-            if ( pInfo[ playerid ][ pSavings ] > 0 )
-                return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Banku naudotis negalite, kol esate pasidëje terminuotá  indëlá. " );
-            new money = strval(inputtext);
-            if(pInfo[playerid][pBank] >= money && money > 0)
-            {
-                GivePlayerMoney(playerid,money);
-                SendClientMessage(playerid, COLOR_GREEN, "|______ LOS SANTOS BANK ______|");
-                format(string, 64, "  Buvæs banko balansas: %d$", pInfo[playerid][pBank]);
-                SendClientMessage(playerid, COLOR_FADE1, string);
-                format(string, 64, "  Ið banko buvo iððimta: %d$",money);
-                pInfo[playerid][pBank] = pInfo[playerid][pBank] - money;
-                SendClientMessage(playerid, COLOR_FADE2, string);
-                SendClientMessage(playerid, COLOR_GREEN, "|----------------------------------------|");
-                format(string, 64, "  Ðiuo metu banke yra %d$", pInfo[playerid][pBank]);
-                SendClientMessage(playerid, COLOR_FADE1, string);
-                PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-                SaveAccount( playerid );
-                return 1;
-            }
-        }
-    }
-    else if(dialogid == 3)
-    {
-        if(response == 1)
-        {
-            if(!inputtext[0]) return 1;
-            new money = strval(inputtext);
-            if(PlayerMoney[ playerid ] >= money && money > 0)
-            {
-                GivePlayerMoney(playerid,-money);
-                SendClientMessage(playerid, COLOR_GREEN, "|______ LOS SANTOS BANK ______|");
-                format(string, 64, "  Buvæs banko balansas: %d$", pInfo[playerid][pBank]);
-                SendClientMessage(playerid, COLOR_FADE1, string);
-                format(string, 64, "  Á bankà buvo áneðta: %d$",money);
-                pInfo[playerid][pBank] = pInfo[playerid][pBank] + money;
-                SendClientMessage(playerid, COLOR_FADE2, string);
-                SendClientMessage(playerid, COLOR_GREEN, "|----------------------------------------|");
-                format(string, 64, "  Ðiuo metu banke yra %d$", pInfo[playerid][pBank]);
-                SendClientMessage(playerid, COLOR_FADE1, string);
-                PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-                SaveAccount( playerid );
-                return 1;
-            }
-        }
     }
     else if(dialogid == 5)
     {

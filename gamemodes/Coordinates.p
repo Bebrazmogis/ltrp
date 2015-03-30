@@ -35,10 +35,6 @@ static CoordinateData[ MAX_COORDINATES ][ E_COORDINATE_DATA ],
 
 public OnGameModeInit()
 {
-	#if defined coordinates_OnGameModeInit
-		coordinates_OnGameModeInit();
-	#endif
-
 	new Cache:result = mysql_query(DbHandle, "SELECT * FROM coordinates"),
 		ticks = GetTickCount();
 	for(new i = 0; i < cache_get_row_count(); i++)
@@ -55,6 +51,10 @@ public OnGameModeInit()
 	}
 	printf("[Load]Pakrautos %d koordinaèiø poros. Tai uþtruko %d MS", cache_get_row_count(), GetTickCount() - ticks);
 	cache_delete(result);
+
+	#if defined coordinates_OnGameModeInit
+		coordinates_OnGameModeInit();
+	#endif
 	return 1;
 }
 #if defined _ALS_OnGameModeInit

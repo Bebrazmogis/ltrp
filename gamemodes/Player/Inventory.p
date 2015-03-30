@@ -1170,7 +1170,7 @@ Item:OnPlayerUseTool(playerid, itemid)
 {
 	if(!IsPlayerAttachedObjectSlotUsed(playerid, GetAttachedItemSlot(itemid)))
     {
-        AddPlayerAttachedItem(playerid, itemid, 2, 0.086000,0.024999,0.001000,85.600021,82.900001,5.199999);
+        AddPlayerAttachedItem(playerid, itemid, 5, 0.086000,0.024999,0.001000,85.600021,82.900001,5.199999);
         EditAttachedObject(playerid, GetAttachedItemSlot(itemid));
         SendClientMessage(playerid, 0xFFFFFFFF, "Norëdami pasukti/pakeisti kamerà laikykite klaviðus: {FFFF00}~k~~PED_SPRINT~{FFFFFF}.");
     }
