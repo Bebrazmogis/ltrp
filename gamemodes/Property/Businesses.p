@@ -79,7 +79,7 @@ new Alloc:BizCargoTypes;
 enum E_BUSINESS_WARES_DATA
 {
     Id, 
-    Name[ MAX_BUSINESS_WARE_NAME ],
+    Name[ MAX_BUSINESS_WARE_NAME ], // Kai verslo tipas yra "Supermarket", name[0] bus daikto ID.
     Price
 };
 
@@ -464,8 +464,16 @@ public OnBusinessWareLoad()
             continue;
 
         BusinessWares[ bizindex ][ count ][ Id ] = id;
-        strcat(BusinessWares[ bizindex ][ count ][ Name ], name, MAX_BUSINESS_WARE_NAME);
         BusinessWares[ bizindex ][ count ][ Price ] = price;
+        if(GetBusinessType(bizindex) == Supermarket)
+        {
+            // Parduotuvëse saugom ne daikto pavadinimà bet jo ID.
+            BusinessWares[ bizindex ][ count ][ Name ][ 0 ] = strval(name);
+            if(!IsValidItem(BusinessWares[ bizindex ][ count ][ Name ][ 0 ]))
+                ErrorLog("Invalid item id(%d) loaded for business sqlid %d. ", BusinessWares[ bizindex ][ count ][ Name ][ 0 ], bInfo[ bizindex ][ bID ]);
+        }
+        else 
+            strcat(BusinessWares[ bizindex ][ count ][ Name ], name, MAX_BUSINESS_WARE_NAME);
         count++;
     }
     return 1;
@@ -609,7 +617,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             // Jei perka ið parduotuvës, daiktams yra papildomø sàlygø ir veiksmø.
             if(bInfo[ bizIndex ][ bType ] == Supermarket)
             {
-                new itemid = GetItemId(BusinessWares[ bizIndex ][ listitem ][ Name ]);
+                new itemid =BusinessWares[ bizIndex ][ listitem ][ Name ][ 0 ];
                 
                 if((IsPlayerInventoryFull(playerid) && !IsItemStackable(itemid)) || (IsPlayerInventoryFull(playerid) && IsItemStackable(itemid) && !IsItemInPlayerInventory(playerid, itemid)))
                     return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
@@ -974,7 +982,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     break;
                 }
 
-            format(BusinessWares[ bizIndex ][ wareIndex ][ Name ], MAX_BUSINESS_WARE_NAME, GetItemName(SupermarketItems[ itemIndex ][ ItemId ]));
+            BusinessWares[ bizIndex ][ wareIndex ][ Name ][ 0 ] = SupermarketItems[ itemIndex ][ ItemId ];
             SaveBusinessWare(bizIndex, wareIndex);
             BizOwnerMenu::WareListEditMain(playerid);
             SendClientMessage(playerid, COLOR_NEWS, "Prekë sëkmingai pakeista.");
@@ -1885,15 +1893,31 @@ BizOwnerMenu::WareListEditMain(playerid)
     else 
         strcat(header, bInfo[ bizIndex ][ bName ]);
 
-    for(new i = 0; i < MAX_BUSINESS_WARES; i++)
+    if(bInfo[ bizIndex ][ bType ] == Supermarket)
     {
-        if(isnull(BusinessWares[ bizIndex ][ i ][ Name ]))
-            strcat(string, #BUSINESS_WARES_EMPTY_SLOT "\n");
-        else    
-            format(string, sizeof(string),"%s%s\t%d\n",
-                string,
-                BusinessWares[ bizIndex ][ i ][ Name ],
-                BusinessWares[ bizIndex ][ i ][ Price ]);
+        for(new i = 0; i < MAX_BUSINESS_WARES; i++)
+        {
+            if(isnull(BusinessWares[ bizIndex ][ i ][ Name ]))
+                strcat(string, #BUSINESS_WARES_EMPTY_SLOT "\n");
+            else    
+                format(string, sizeof(string),"%s%s\t%d\n",
+                    string,
+                    GetItemName(BusinessWares[ bizIndex ][ i ][ Name ][ 0 ]),
+                    BusinessWares[ bizIndex ][ i ][ Price ]);
+        }
+    }
+    else 
+    {
+        for(new i = 0; i < MAX_BUSINESS_WARES; i++)
+        {
+            if(isnull(BusinessWares[ bizIndex ][ i ][ Name ]))
+                strcat(string, #BUSINESS_WARES_EMPTY_SLOT "\n");
+            else    
+                format(string, sizeof(string),"%s%s\t%d\n",
+                    string,
+                    BusinessWares[ bizIndex ][ i ][ Name ],
+                    BusinessWares[ bizIndex ][ i ][ Price ]);
+        }
     }
     ShowPlayerDialog(playerid, DIALOG_BIZ_WARE_LIST_EDIT, DIALOG_STYLE_LIST, header, string, "Pirkti", "Iðeiti");
     return 1;
@@ -2163,7 +2187,28 @@ CMD:buy(playerid, params[])
     SetPVarInt(playerid, "BizIndex", bizIndex);
     switch(bInfo[ bizIndex ][ bType ])
     {
-        case Supermarket, Bar, Cafe:
+        case Supermarket:
+        {
+            new header[MAX_BUSINESS_NAME ];
+            if(!isnull(bInfo[ bizIndex ][ bName ]))
+                strcat(header, bInfo[ bizIndex ][ bName ]);
+            else 
+                strcat(header, "Parduotuvë");
+
+            for(new i = 0; i < MAX_BUSINESS_WARES; i++)
+            {
+                if(isnull(BusinessWares[ bizIndex ][ i ][ Name ]))
+                    strcat(string, #BUSINESS_WARES_EMPTY_SLOT "\n");
+                else    
+                    // Parduotuvëse name[0] yra daikto ID.
+                    format(string, sizeof(string),"%s%s\t\t%d\n",
+                        string,
+                        GetItemName(BusinessWares[ bizIndex ][ i ][ Name ][ 0 ]),
+                        BusinessWares[ bizIndex ][ i ][ Price ]);
+            }
+            ShowPlayerDialog(playerid, DIALOG_BIZ_WARE_LIST, DIALOG_STYLE_LIST, header, string, "Pirkti", "Iðeiti");
+        }
+        case Bar, Cafe:
         {
             new header[MAX_BUSINESS_NAME ];
             if(!isnull(bInfo[ bizIndex ][ bName ]))
