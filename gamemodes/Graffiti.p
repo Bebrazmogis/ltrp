@@ -381,48 +381,55 @@ stock IsPlayerGraffitiAuthor(playerid, graffitiindex)
 
 stock UpdatePlayerGraffiti(playerid)
 {
+	// Jei dar nebuvo sukurtas objektas, reiðkia kad tik pradëta.
 	if(!IsValidDynamicObject(PlayerGraffiti[ playerid ][ ObjectId ]))
 	{
-		new Float:x, Float:y, Float:z, Float:angle;
+		new Float:x, Float:y, Float:z, Float:angle, Cache:result, tmp[16];
 		GetPlayerPos(playerid, x, y, z);
 		GetXYInFrontOfPlayer(playerid, x, y, 2.5);
 		GetPlayerFacingAngle(playerid, angle);
 
 		PlayerGraffiti[ playerid ][ ObjectId ] = CreateDynamicObject(GRAFFITI_BACKROUND_OBJECT, x, y, z, 0.0, 0.0, angle, .playerid = playerid);
 		SetDynamicObjectMaterialText(PlayerGraffiti[ playerid ][ ObjectId ], 1, " ");
-	}
 
-	new fontface[ 32 ], text[ MAX_GRAFFITI_TEXT ];
-	if(isnull(PlayerGraffiti[ playerid ][ FontName ]))
-		fontface = "Arial";
-	else 
-		strcat(fontface, PlayerGraffiti[ playerid ][ FontName ]);
-
-	if(isnull(PlayerGraffiti[ playerid ][ Text ]))
-		text = "Tekstas";
-	else 
-		strcat(text, PlayerGraffiti[ playerid ][ Text ]);
-
-	if(!PlayerGraffiti[ playerid ][ FontSize ])
-		PlayerGraffiti[ playerid ][ FontSize ] = 12;
-
-	if(!PlayerGraffiti[ playerid ][ Colour ])
-	{
-		PlayerGraffiti[ playerid ][ Colour ] = 0xFFFFFFFF;
-		new Cache:result, tmp[16];
-		result = mysql_query(DbHandle, "SELECT id, CONVERT(CONV(argb, 16, 10), SIGNED) AS argb FROM graffiti_colours LIMIT 1");
-		if(cache_get_row_count())
+		if(isnull(PlayerGraffiti[ playerid ][ FontName ]))
 		{
-			PlayerGraffiti[ playerid ][ ColourId ] = cache_get_field_content_int(0, "id");
-			cache_get_field_content(0, "argb", tmp);
-			PlayerGraffiti[ playerid ][ Colour ] = strval(tmp);
-			printf("ERROR?%d", cache_get_field_content_int(0, "argb"));
+			result = mysql_query(DbHandle,"SELECT * FROM graffiti_fonts LIMIT 1");
+			if(cache_get_row_count())
+			{
+				cache_get_field_content(0, "name", PlayerGraffiti[ playerid ][ FontName ], DbHandle, 32);
+				PlayerGraffiti[ playerid ][ FontSize ] = cache_get_field_content_int(0, "size");
+			}
+			cache_delete(result);
 		}
-		cache_delete(result);
+
+		if(isnull(PlayerGraffiti[ playerid ][ Text ]))
+			strcat(PlayerGraffiti[ playerid ][ Text ], "Tekstas", 8);
+
+		if(!PlayerGraffiti[ playerid ][ Colour ])
+		{
+			PlayerGraffiti[ playerid ][ Colour ] = 0xFFFFFFFF;
+			result = mysql_query(DbHandle, "SELECT id, CONVERT(CONV(argb, 16, 10), SIGNED) AS argb FROM graffiti_colours LIMIT 1");
+			if(cache_get_row_count())
+			{
+				PlayerGraffiti[ playerid ][ ColourId ] = cache_get_field_content_int(0, "id");
+				cache_get_field_content(0, "argb", tmp);
+				PlayerGraffiti[ playerid ][ Colour ] = strval(tmp);
+				printf("ERROR?%d", cache_get_field_content_int(0, "argb"));
+			}
+			cache_delete(result);
+		}
 	}
 
 	SetDynamicObjectMaterialText(PlayerGraffiti[ playerid ][ ObjectId ], 0, 
-		text, GRAFFITI_OBJECT_MATERIAL_SIZE, fontface, PlayerGraffiti[ playerid ][ FontSize ], GRAFFITI_TEXT_BOLD, PlayerGraffiti[ playerid ][ Colour ], 0x00000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
+		PlayerGraffiti[ playerid ][ Text ], 
+		GRAFFITI_OBJECT_MATERIAL_SIZE, 
+		PlayerGraffiti[ playerid ][ FontName ], 
+		PlayerGraffiti[ playerid ][ FontSize ], 
+		GRAFFITI_TEXT_BOLD,
+		PlayerGraffiti[ playerid ][ Colour ], 
+		0x00000000, 
+		OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
 
 	Streamer_Update(playerid);
 	cmd_ame(playerid, "kaþkà paiðo ant sienos");

@@ -4541,12 +4541,11 @@ public OnPlayerSpawn(playerid)
             PutPlayerInVehicle(playerid, NPCTrain[0], 0);
         if(!strcmp(GetName(playerid), "cargo_train_driver")) 
             PutPlayerInVehicle(playerid, NPCTrain[ 1 ], 0);
-        /*if(!strcmp(GetName(playerid), "Banko_Darbuotoja"))
+        if(!strcmp(GetName(playerid), "Banko_Darbuotoja"))
         {
-            SetPlayerInterior(playerid, 0);
-            SetPlayerVirtualWorld(playerid, 0);
+            SetPlayerSkin(playerid, 76);
         }
-        */
+    
         //if(!strcmp(GetName(playerid), "andromada_pilot"))
         //    PutPlayerInVehicle(playerid, NPCPlane, 0);
         return 1;
