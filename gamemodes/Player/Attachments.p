@@ -156,6 +156,8 @@ stock GetAttachedItemSlot(itemid)
 			ITEM_GlassesType15:
 				return 2;
 		case 
+			ITEM_MASK,
+			ITEM_HELMET,
 			ITEM_Mask1,		
 			ITEM_Mask2,		
 			ITEM_Mask3,		
@@ -210,6 +212,13 @@ stock GetAttachedItemSlot(itemid)
 			ITEM_HatCool2, 
 			ITEM_HatCool3, 
 			ITEM_HatTiger1, 
+			ITEM_MotorcycleHelmet2,
+			ITEM_MotorcycleHelmet3,
+			ITEM_MotorcycleHelmet4,
+			ITEM_MotorcycleHelmet5,
+			ITEM_Helmet1,
+			ITEM_Helmet2,
+			ITEM_Helmet3,
 			ITEM_ArmyHelmet1, 
 			ITEM_ArmyHelmet2, 
 			ITEM_ArmyHelmet3, 
@@ -259,7 +268,16 @@ stock GetAttachedItemSlot(itemid)
 			ITEM_PoliceCap2, 	
 			ITEM_PoliceCap3:
 					return 0;
-		case ITEM_KREPSYS, ITEM_LAGAMINAS, ITEM_ROD:
+		case 
+			ITEM_KREPSYS, 
+			ITEM_LAGAMINAS, 
+			ITEM_ROD,
+			ITEM_GTASAWrench1,		
+			ITEM_GTASACrowbar1,		
+			ITEM_GTASAHammer1,		
+			ITEM_Flashlight1,		
+			ITEM_Taser1,				
+			ITEM_Screwdriver1:
 			return 4;
 
 		case ITEM_KUPRINE:

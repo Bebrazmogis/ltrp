@@ -683,7 +683,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     SaveAccount(playerid);
                     return 1;
                 }
-                format(string, sizeof(string)," ** Daiktas %s nupirktas, uþ $%d.", BusinessWares[ bizIndex ][ listitem ][ Name ], BusinessWares[ bizIndex ][ listitem ][ Price ]);
+                format(string, sizeof(string)," ** Daiktas %s nupirktas, uþ $%d.", GetItemName(itemid), BusinessWares[ bizIndex ][ listitem ][ Price ]);
                 SendClientMessage(playerid, COLOR_FADE3,string);
                 SendClientMessage(playerid, COLOR_FADE2, "PAGALBA: Jeigu reikës daugiau pagalbos, paraðykite /help");
             }

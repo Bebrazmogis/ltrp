@@ -1,6 +1,7 @@
 Logs/**
 mysql_log.html
 server_log.txt
+server_log.err
 server.cfg
 scriptfiles/maps/**
 scriptfiles/properties/**

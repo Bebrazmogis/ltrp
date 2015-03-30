@@ -23,6 +23,7 @@
 #define DIALOG_PLAYER_INVENTORY_OPTIONS 18
 #define DIALOG_PLAYER_INVENTORY_AMOUNT 	10050
 
+#define INVENTORY_EMPTY_SLOT_TEXT 		"{BBBBBB}Tuðèia vieta{FFFFFF}\n"
 
 
 
@@ -127,6 +128,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(!response)
 				return 1;
+
+			// Jeigu ant tuðèio sloto paspaudë, nëra kà daryti daugiau.
+			if(!strcmp(inputtext, #INVENTORY_EMPTY_SLOT_TEXT))
+				return 1;
+
 			PlayerUsedItemIndex[ playerid ] = listitem;
 			printf("OnDialogResponse : DIALOG_PLAYER_INVENTORY. Item name:%s itemid:%d listitem:%d",  GetItemName(PlayerItems[ playerid ][ listitem ][ ItemId ]),  PlayerItems[ playerid ][ listitem ][ ItemId ], listitem);
 
@@ -464,6 +470,10 @@ stock OnPlayerItemRemoved(playerid, itemid)
                     ShowPlayerNameTagForPlayer(i, playerid, pInfo[playerid][pMask]);
                 }
             }
+        }
+        case ITEM_MP3:
+        {
+        	StopPlayerRadio(playerid);
         }
         case ITEM_TOLKIT:
         {
@@ -1435,16 +1445,14 @@ stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0, durability
 
 		if((IsItemStackable(itemid) || amount < 0) && PlayerItems[ playerid ][ i ][ ItemId ] == itemid)
 		{
-			printf("Item is stackalbe of amount is less than 0. Item IDs are equal.They're:%d. Adding at index:%d", itemid, i);
+			printf("Item is stackalbe or amount is less than 0. Item IDs are equal.They're:%d. Adding at index:%d", itemid, i);
 			PlayerItems[ playerid ][ i ][ Amount ] += amount;
 			PlayerItems[ playerid ][ i ][ ContentAmount ] += contentamount;
 			PlayerItems[ playerid ][ i ][ ContentAmount ] += durability;
 
 			if(PlayerItems[ playerid ][ i ][ Amount ] <= 0)
 			{
-				mysql_format(DbHandle, query, sizeof(query), "DELETE FROM player_items WHERE id = %d LIMIT 1", PlayerItems[ playerid ][ i ][ Id ]);
-				PlayerItems[ playerid ][ i ][ Id ] = 0;
-				OnPlayerItemRemoved(playerid, itemid);
+				RemovePlayerItemAtIndex(playerid, i);
 			}
 			else
 			{
@@ -1729,7 +1737,7 @@ stock ShowPlayerInventoryDialog(playerid)
     for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
     {
         if(!PlayerItems[ playerid ][ i ][ Id ])
-            strcat(string, "{BBBBBB}Tuðèia vieta{FFFFFF}\n");
+            strcat(string, #INVENTORY_EMPTY_SLOT_TEXT);
 
         else 
         {

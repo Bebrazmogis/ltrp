@@ -224,7 +224,7 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 {
 	{INVALID_ITEM_ID,		"Tuðèia",									false, false, false, false, false, false, false,	0,		0,		0,	"",	NoParameters},
 	{ITEM_PHONE, 			"Mobilusis tel.", 							false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUsePhone", PlayerId | ItemId | InventoryIndex},
-	{ITEM_MASK, 			"Veido kaukë", 								false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUseMask", PlayerId | ItemId},
+	//{ITEM_MASK, 			"Veido kaukë", 								false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUseMask", PlayerId | ItemId},
 	{ITEM_RADIO, 			"Racija", 									false, false, false, false, false, false, false,	0,		0,	 	0, "cmd_radiohelp", PlayerId},
 	{ITEM_ZIB, 				"Þiebtuvëlis", 								false, false, false, false, true,  false, true,		0,		20,	 	0, "", NoParameters},
 	{ITEM_CIG,				"Cigareèiø pakelis", 						false, false, false, true, false,  true, false,		0,		0,		20, "OnPlayerStartSmoking", PlayerId | ItemId | InventoryIndex},
@@ -240,7 +240,7 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{ITEM_MATS,				"Paketai",									false, false, true, false, false,  false, false,	0,		0,		1, 	"cmd_make", PlayerId},
 	{ITEM_SVIRKSTAS, 		"Ðvirkðtas",								false, false, false, false, false, false, false,	0,		0,	 	1, 	"", NoParameters},
 	{ITEM_NOTE,				"Uþraðø knygutë",							false, false, false, false, false, false, false,	0,		0,		0, "cmd_note", NoParameters},
-	{ITEM_HELMET,			"Ðalmas",									false, false, false, false, false, false, false,	0,		0,		0,	"OnPlayerUseHelmet", PlayerId | ItemId},
+	//{ITEM_HELMET,			"Ðalmas",									false, false, false, false, false, false, false,	0,		0,		0,	"OnPlayerUseHelmet", PlayerId | ItemId},
 	{ITEM_ROD,				"Meðkerë",									false, false, false, false, false, false, false,	18632,	0,		0,	"OnPlayerUseFishingRod", PlayerId | ItemId},
 	{ITEM_RODTOOL,			"Pakelis masalo",							false, false, true, true,	false, true, false, 	0,		0,		20,	"",	PlayerId | ItemId},
 	{ITEM_FISH,				"Krepðys þuvims",							false, false, false, true, false,  false, false,	0,		0,		MAX_FISH_IN_BAG,"", NoParameters},

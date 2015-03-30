@@ -84,7 +84,7 @@ new DbHandle;
 //MySql Prisijungima
 
 #define VPS_MODE // VPS MODE
-#define BEBRAS_HOME_MODE
+//#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"
@@ -20534,7 +20534,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     return 1;
                 }
                 case 1:
-                    return ShowPlayerDialog( playerid, 69, DIALOG_STYLE_INPUT, "MP3 Valdymas", "þemiau áraðykite norimá  garsumá  nuo 0 iki 100 ","Rinktis", "Atðaukti");
+                    return ShowPlayerDialog( playerid, 69, DIALOG_STYLE_INPUT, "MP3 Valdymas", "þemiau áraðykite norimá  garsumà nuo 0 iki 100 ","Rinktis", "Atðaukti");
                 case 2:
                 {
                     format         ( string, 256, "* %s iðjungia MP3 grotuvá ." ,GetPlayerNameEx( playerid ) );
@@ -20749,6 +20749,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     if ( aInfo[ playerid ][ aObjekt ] > 0 )
                     {
+                        if(!IsPlayerInRangeOfPoint(playerid, 5.0, aInfo[ playerid ][ aKords ][ 0 ], aInfo[ playerid ][ aKords ][ 1 ], aInfo[ playerid ][ aKords ][ 2 ]))
+                            return SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs esate per  toli nuo magnetolos.");
+
                         foreach(Player,id)
                         {
                             if ( IsPlayerInDynamicArea( id, aInfo[ playerid ][ aArea ] ) )
@@ -25401,27 +25404,27 @@ stock isAtFishPlace( playerid )
     if ( PlayerToPoint( 10.0, playerid, 838.3501,-2066.7195,12.8672 )   ||
 		PlayerToPoint( 10.0, playerid, 852.8965,-2004.0170,13.6268 )   ||
 		PlayerToPoint( 10.0, playerid, 820.8741,-1978.4301,12.8672 )   ||
-		PlayerToPoint( 15.0, playerid, 360.9109,-2087.1472,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 366.8915,-2087.8433,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 371.6957,-2087.9500,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 377.0125,-2088.0688,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 382.4442,-2088.1890,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 387.8258,-2088.3081,7.8359)   ||
-		PlayerToPoint( 15.0, playerid, 393.0408,-2088.4241,7.8359)   ||
-		PlayerToPoint( 15.0, playerid, 396.7432,-2088.3235,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 400.9409,-2088.4832,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 409.2190,-2047.9943,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 398.3943,-2033.1278,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 398.7134,-2022.7917,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 398.6473,-2013.0237,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 379.5823,-1991.6434,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 379.5994,-1983.2726,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 379.2360,-1975.4845,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 379.6255,-1964.2043,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 379.5504,-1957.1350,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 379.6788,-1949.0586,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 379.7071,-1940.9346,7.8359 )   ||
-		PlayerToPoint( 15.0, playerid, 379.7292,-1934.0704,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 360.9109,-2087.1472,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 366.8915,-2087.8433,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 371.6957,-2087.9500,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 377.0125,-2088.0688,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 382.4442,-2088.1890,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 387.8258,-2088.3081,7.8359)   ||
+		PlayerToPoint( 20.0, playerid, 393.0408,-2088.4241,7.8359)   ||
+		PlayerToPoint( 20.0, playerid, 396.7432,-2088.3235,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 400.9409,-2088.4832,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 409.2190,-2047.9943,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 398.3943,-2033.1278,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 398.7134,-2022.7917,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 398.6473,-2013.0237,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 379.5823,-1991.6434,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 379.5994,-1983.2726,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 379.2360,-1975.4845,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 379.6255,-1964.2043,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 379.5504,-1957.1350,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 379.6788,-1949.0586,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 379.7071,-1940.9346,7.8359 )   ||
+		PlayerToPoint( 20.0, playerid, 379.7292,-1934.0704,7.8359 )   ||
 		PlayerToPoint( 10.0, playerid, 2941.6365,-2052.0046,3.5480 )   ||
 		PlayerToPoint( 10.0, playerid, 2937.7944,-2051.4407,3.5480 )   ||
 		PlayerToPoint( 10.0, playerid, 2925.5537,-2051.4146,3.5480 )   ||
