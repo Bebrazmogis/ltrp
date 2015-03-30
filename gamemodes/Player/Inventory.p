@@ -707,18 +707,20 @@ Item:OnPlayerUseFuelTank(playerid, itemid, invindex, amount)
     ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
     new maxfuel = GetVehicleFuelTank(GetVehicleModel(car));
 
+    if(cInfo[car][cFuel] == maxfuel)
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Ðios transporto priemonës bakas yra pilnas.");
+
     new fuel = GetPlayerItemContentAmount(playerid, itemid);
 
     if(cInfo[car][cFuel] + fuel > maxfuel)
     {
-        //SetPlayerItemContentAmount(playerid, itemid, fuel - maxfuel - cInfo[ car ][ cFuel ]);
-        SetPlayerItem(playerid, invindex, itemid, amount, fuel - maxfuel - cInfo[ car ][ cFuel ]);
+        AddPlayerItemContentAmountIndex(playerid, invindex, ITEM_FUEL, fuel - maxfuel - cInfo[ car ][ cFuel ]);
         cInfo[car][cFuel] = maxfuel;
     }
     else
     {
         cInfo[ car ][ cFuel ] += fuel;
-        GivePlayerItem(playerid, itemid, -1);
+        RemovePlayerItemAtIndex(playerid, invindex);
     }
     return 1;
 }
@@ -743,19 +745,20 @@ Item:OnPlayerUseToolkit(playerid, itemid)
     if(veh == INVALID_VEHICLE_ID) 
     	return SendClientMessage(playerid, GRAD, "Aplink Jus ðiuo metu nëra jokio automobilio, kad atliktumët veiksmà.");
 
+    if(pInfo[ playerid ][ pJob ] != JOB_JACKER)
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite uþkurti/pavogti tr. priemonës nebødamo vagimi.");
+
+    if(!found)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, serveryje turi bûti bent vienas administratorius kad galëtumete tai atlikti.");
+        
+    if(!IsItemInPlayerInventory(playerid, ITEM_TOLKIT))
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs neturite repliø, kad atliktumët ðá veiksmà. ");
+
     if(!isLicCar(veh) && VehicleHasEngine(GetVehicleModel(veh)) && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
     {
         if(cInfo[ veh ][ cLock ] == 1 && cInfo[ veh ][ cOwner ] > 0 && CheckCarKeys(playerid,veh) == 0)
         {
-            if(pInfo[ playerid ][ pJob ] != JOB_JACKER)
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite uþkurti/pavogti tr. priemonës nebødamo vagimi.");
-            if(!found)
-                return 1;
-                
-            if(!IsItemInPlayerInventory(playerid, ITEM_TOLKIT))
-            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs neturite repliø, kad atliktumët ðá veiksmà. ");
             
-
             SetPVarInt(playerid, "CAR_JACK", veh);
             if(cInfo[veh][cLockType] == 0)
                 StartTimer(playerid,60,5);
@@ -1599,6 +1602,7 @@ stock SetPlayerItemContentAmount(playerid, itemid, value)
 
 stock SetPlayerItemContentAmountIndex(playerid, invindex, itemid, value)
 {
+	// Nesuprantu kam èia tas itemid parametras :S
 	new query[100];
 	PlayerItems[ playerid ][ invindex ][ ContentAmount ] = value;
 

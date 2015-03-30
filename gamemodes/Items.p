@@ -184,9 +184,6 @@
 #define ITEM_Flashlight1				432
 #define ITEM_Taser1						433
 #define ITEM_Screwdriver1				434
-#define ITEM_HAIR1						435
-#define ITEM_HAIR2						436
-#define ITEM_HAIR3						437
 
 #define MAX_ITEM_NAME 					64
 
@@ -234,7 +231,7 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{ITEM_FUEL,				"Degalø bakelis", 							false, false, false, true,  false, true, false,		0,		0,		30, "OnPlayerUseFuelTank", PlayerId | ItemId | InventoryIndex | ItemAmount},
 	{ITEM_TOLKIT,			"Árankiø komplektas",						false, false, false, false, false, false, false,	0,		0,	 	0, "OnPlayerUseToolkit", PlayerId | ItemId},
 	{ITEM_CLOCK,			"Rankinis laikrodis",						false, false, false, false, false, false, false,	0,		0,		0, "OnPlayerUseWatch", PlayerId | ItemId},
-	{ITEM_DICE,				"Loðimo kauliuka", 							false, false, false, false, false, false, false,	0,		0,		0, "OnPlayerUseDice", PlayerId | ItemId},
+	{ITEM_DICE,				"Loðimo kauliukas", 						false, false, false, false, false, false, false,	0,		0,		0, "OnPlayerUseDice", PlayerId | ItemId},
 	{ITEM_VAISTAI,			"Vaistai",									false, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerUseMedicine", PlayerId | ItemId},
 	{ITEM_WEED,				"Marihuana",								true, false, true, false, false,  false, false,		0,		0,		1,	"OnPlayerStartSmoking", PlayerId | ItemId },
 	{ITEM_SEED,				"Sëklos", 									false, false, true, false,  false, false, false,	0,		0,		1, "OnPlayerUseWeedSeeds", PlayerId | ItemId},
@@ -372,9 +369,9 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{ITEM_CapOverEye3, 		"Mëlyna kepurë su snapu",					false, false, false, false, false, false, false, 	18957,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
 	{ITEM_CapOverEye4, 		"Geltona/juoda kepurë su snapu",			false, false, false, false, false, false, false, 	18958,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
 	{ITEM_CapOverEye5, 		"Kareiviðka kepurë su snapu",				false, false, false, false, false, false, false, 	18959,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
-	{ITEM_HatMan1, 			"",											false, false, false, false, false, false, false, 	0,		0,		0,	"", PlayerId | ItemId | InventoryIndex},
-	{ITEM_HatMan2, 			"",											false, false, false, false, false, false, false, 	0,		0,		0,	"", PlayerId | ItemId | InventoryIndex},
-	{ITEM_HatMan3, 			"",											false, false, false, false, false, false, false, 	0,		0,		0,	"", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatMan1, 			"-",											false, false, false, false, false, false, false, 	0,		0,		0,	"", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatMan2, 			"-",											false, false, false, false, false, false, false, 	0,		0,		0,	"", PlayerId | ItemId | InventoryIndex},
+	{ITEM_HatMan3, 			"-",											false, false, false, false, false, false, false, 	0,		0,		0,	"", PlayerId | ItemId | InventoryIndex},
 	{ITEM_HardHat2, 		"Statybinis ðalmas",						false, false, false, false, false, false, false, 	19093,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
 	{ITEM_HardHat3, 		"Mësainio kepurë",							false, false, false, false, false, false, false, 	19160,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
 	{ITEM_SillyHelmet1, 	"Marga kepurë",								false, false, false, false, false, false, false, 	19113,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId | InventoryIndex},
@@ -398,15 +395,12 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{ITEM_Flashlight1, 		"Proþektorius",								false, false, false, false, false, false, false, 	18641,	0,		0,	"OnPlayerUseTool", PlayerId | ItemId},
 	{ITEM_Taser1, 			"Tazeris",									false, false, false, false, false, false, false, 	18642,	0,		0,	"OnPlayerUseTool", PlayerId | ItemId},
 	{ITEM_Screwdriver1, 	"Atsuktuvas",								false, false, false, false, false, false, false, 	18644,	0,		0,	"OnPlayerUseTool", PlayerId | ItemId},
-	//{ITEM_HAIR1,			"Perukas",									false, false, false, false, false, false, false, 	19330,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	//{ITEM_HAIR2,			"Perukas",									false, false, false, false, false, false, false, 	19331,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
-	//{ITEM_HAIR3,			"Perukas",									false, false, false, false, false, false, false, 	18636,	0,		0,	"OnPlayerUseHat", PlayerId | ItemId},
 	{ITEM_KREPSYS,			"Krepðys",									false, false, false, false, false, false, false,	2919,	0,	 	0,	"OnPlayerUseSuitcase",	PlayerId | ItemId},
 	{ITEM_LAGAMINAS,		"Lagaminas",								false, false, false, false, false, false, false,	1210,	0,		0,	"OnPlayerUseSuitcase",	PlayerId | ItemId},
 	{ITEM_AMFAMISC,			"Amfetamino sudedamosios dalys",			false, false, true, false, false,  false, false,	0,		0,		0,	"OnPlayerUseDrugIngredient", PlayerId},
 	{ITEM_COCAINEMISC,		"Kokaino sudedamosios dalys",				false, false, true, false, false,  false, false,	0,		0,		0,	"OnPlayerUseDrugIngredient", PlayerId},
 	{ITEM_METAAMFAMISC,		"Metamfetamino sudedamosios dalys",			false, false, true, false, false,  false, false,	0,		0,		0,	"OnPlayerUseDrugIngredient", PlayerId},
-	{ITEM_MATCHES, 			"Degtukø dëþutë",							false, false, false, true, false, false, false, 	0,		0,	100, "", NoParameters},
+	{ITEM_MATCHES, 			"Degtukø dëþutë",							false, false, false, true, false, true, false, 	0,		0,	100, "", NoParameters},
 	{ITEM_KUPRINE,			"Kuprinë",									false, false, false, false, false, false, false,	0,		0,		0, "OnPlayerUseBackpack",	PlayerId},
 	{ITEM_EXTAZY,			"Ekstazi",									true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerUseEctazy", PlayerId},
 	{ITEM_PCP,				"PCP",										true, false, true, false,  false, false, false,	0,		0,		1, "OnPlayerUsePCP", PlayerId},
@@ -456,7 +450,7 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{44,					"Naktiniio matymo akiniai",					false, true, false, false, false, false, false,	368,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId | InventoryIndex},
 	{45,					"Ðiluminio matymo akiniai",					false, true, false, false, false, false, false,	369,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId | InventoryIndex},
 	{46,					"Paraðiutas",								false, true, false, false, false, false, false,	371,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId | InventoryIndex}
-}; 
+};
 
 
 

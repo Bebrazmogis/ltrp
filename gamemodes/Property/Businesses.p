@@ -642,14 +642,21 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     case ITEM_RADIO:
                     {
 
-                        if(IsItemInPlayerInventory(playerid, ITEM_FISH))
+                        if(IsItemInPlayerInventory(playerid, ITEM_RADIO))
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau turite racijà.");
                     }
                 }
 
                 new capacity = (IsItemSoldFull(itemid)) ? (GetItemMaxCapacity(itemid)) : (0),
-                    durability = (IsItemSoldWithMaxDurability(itemid)) ? (GetItemMaxDurability(itemid)) : (0);
-                if(!GivePlayerItem(playerid, itemid, 1, capacity, durability))
+                    durability = (IsItemSoldWithMaxDurability(itemid)) ? (GetItemMaxDurability(itemid)) : (0),
+                    amount = 1;
+
+                if(itemid == WEAPON_CAMERA)
+                {
+                    amount = 50;
+                }
+
+                if(!GivePlayerItem(playerid, itemid, amount, capacity, durability))
                     ErrorLog("ERROR. Businesses.p : OnDialogResponse : DIALOG_BIZ_WARE_LIST. GivePlayerItem returned 0.");
 
                 if(itemid == ITEM_PHONE )
@@ -1059,6 +1066,7 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
         return 1;
 
     }
+    /*
     if(extraid == 115)
     {
         if(!response)
@@ -1092,6 +1100,7 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
         bInfo[ bizIndex ][ bBank ] += 50;
         bInfo[ bizIndex ][ bProducts ]--;
     }
+    */
     #if defined busine_OnPlayerModelSelectionEx
         busine_OnPlayerModelSelectionEx(playerid, response, extraid, modelid);
     #endif
@@ -2178,6 +2187,7 @@ CMD:buy(playerid, params[])
         {
             ShowClothesShopDialog(playerid);
         }
+        /*
         case BarberShop:
         {
             new models[ 3 ];
@@ -2186,6 +2196,7 @@ CMD:buy(playerid, params[])
             models[2] = 19274;
             ShowModelSelectionMenuEx(playerid, models, 3, "Perukai", 115);
         }
+        */
         default: SendClientMessage(playerid, COLOR_LIGHTRED, "Ðis verslas nieko neparduoda.");
     }
     return 1;

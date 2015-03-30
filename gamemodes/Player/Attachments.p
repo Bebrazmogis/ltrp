@@ -156,9 +156,6 @@ stock GetAttachedItemSlot(itemid)
 			ITEM_GlassesType15:
 				return 2;
 		case 
-			ITEM_HAIR1,
-			ITEM_HAIR2,
-			ITEM_HAIR3,
 			ITEM_Mask1,		
 			ITEM_Mask2,		
 			ITEM_Mask3,		
