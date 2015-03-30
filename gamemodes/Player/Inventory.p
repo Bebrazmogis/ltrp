@@ -703,18 +703,17 @@ Item:OnPlayerUseFuelTank(playerid, itemid, invindex, amount)
     if(IsPlayerInVehicle(playerid, car))
     	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite ápilti kuro bûdamas transporto priemonëje.");
 
-    format(string, sizeof(string), "* %s palenkæs degalø bakelá link bako pripilà á tr. priemonæ kuro.", GetPlayerNameEx(playerid));
-    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
     new maxfuel = GetVehicleFuelTank(GetVehicleModel(car));
 
     if(cInfo[car][cFuel] == maxfuel)
     	return SendClientMessage(playerid, COLOR_LIGHTRED, "Ðios transporto priemonës bakas yra pilnas.");
 
-    new fuel = GetPlayerItemContentAmount(playerid, itemid);
+    new fuel = GetPlayerItemContentAmountIndex(playerid, invindex);
 
     if(cInfo[car][cFuel] + fuel > maxfuel)
     {
-        AddPlayerItemContentAmountIndex(playerid, invindex, ITEM_FUEL, fuel - maxfuel - cInfo[ car ][ cFuel ]);
+
+        AddPlayerItemContentAmountIndex(playerid, invindex, ITEM_FUEL, -(maxfuel - cInfo[ car ][ cFuel ]));
         cInfo[car][cFuel] = maxfuel;
     }
     else
@@ -722,6 +721,8 @@ Item:OnPlayerUseFuelTank(playerid, itemid, invindex, amount)
         cInfo[ car ][ cFuel ] += fuel;
         RemovePlayerItemAtIndex(playerid, invindex);
     }
+    format(string, sizeof(string), "* %s palenkæs degalø bakelá link bako pripilà á tr. priemonæ kuro.", GetPlayerNameEx(playerid));
+    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
     return 1;
 }
 	
@@ -1619,6 +1620,10 @@ stock SetPlayerItemContentAmountIndex(playerid, invindex, itemid, value)
 		PlayerItems[ playerid ][ invindex ][ Id ]);
 	mysql_pquery(DbHandle, query);
 	return 0;
+}
+stock GetPlayerItemContentAmountIndex(playerid, invindex)
+{
+	return PlayerItems[ playerid ][ invindex ][ ContentAmount ];
 }
 
 stock GetPlayerItemContentAmount(playerid, itemid)

@@ -468,7 +468,7 @@ public OnBusinessWareLoad()
         if(GetBusinessType(bizindex) == Supermarket)
         {
             // Parduotuvëse saugom ne daikto pavadinimà bet jo ID.
-            BusinessWares[ bizindex ][ count ][ Name ][ 0 ] = strval(name);
+            BusinessWares[ bizindex ][ count ][ Name ][ 0 ] = name[ 0 ];
             if(!IsValidItem(BusinessWares[ bizindex ][ count ][ Name ][ 0 ]))
                 ErrorLog("Invalid item id(%d) loaded for business sqlid %d. ", BusinessWares[ bizindex ][ count ][ Name ][ 0 ], bInfo[ bizindex ][ bID ]);
         }
