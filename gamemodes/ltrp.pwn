@@ -6012,10 +6012,9 @@ CMD:drag( playerid, params[ ] )
         return 1;
     }
 }
-CMD:m( playerid, params[ ] )
+CMD:m(playerid, params[])
 {
-    cmd_megaphone( playerid, params );
-    return 1;
+    return cmd_megaphone(playerid, params);
 }
 CMD:megaphone( playerid, params[ ] )
 {
@@ -6027,12 +6026,12 @@ CMD:megaphone( playerid, params[ ] )
     if(sscanf( params, "s[64]", gMessage)) return SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /m(egaphone) [SKELBIAMAS TEKSTAS]");
     if(Mires[playerid] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje.");
     if(Mute[playerid] == true) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jums yra uþdrausta kalbëtis (/mute), norëdami paðalinti draudimà susisiekite su Administratoriumi.");
-    new idcar = GetPlayerVehicleID( playerid );
-    if( sVehicles[ idcar ][ Faction ] == 2 )
-    {
-        format(string, sizeof(string), "[LSPD] %s!", gMessage);
-        ProxDetector(40.0, playerid, string,COLOR_POLICEM,COLOR_POLICEM,COLOR_POLICEM,COLOR_POLICEM,COLOR_POLICEM);
-    }
+    new idcar = GetNearestVehicle(playerid, 2.0);
+    if(!IsValidVehicle(idcar) || sVehicles[ idcar ][ Faction ] != 2) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, turite bûti policijos transporto priemonëje arba ðalia jos.");
+
+    format(string, sizeof(string), "[LSPD] %s!", gMessage);
+    ProxDetector(40.0, playerid, string,COLOR_POLICEM,COLOR_POLICEM,COLOR_POLICEM,COLOR_POLICEM,COLOR_POLICEM);
     return 1;
 }
 CMD:killcheckpoint(playerid, params[])
@@ -25133,6 +25132,9 @@ stock GetClosestVehicleToVehicle(vehicleid, Float:distance)
 }
 stock GetNearestVehicle(playerid, Float:distance)
 {
+    if(IsPlayerInAnyVehicle(playerid))
+        return GetPlayerVehicleID(playerid);
+
     distance = floatabs(distance);
     new Float:X, Float:Y, Float:Z,
         Float:NearestPos = distance,
