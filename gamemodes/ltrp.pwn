@@ -22173,8 +22173,61 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     {
         if(!response)
             return 1;
-        if( isnull( inputtext ) )
-            return SendClientMessage( playerid, COLOR_LIGHTRED,"Klaida, neáraðëte tr. priemonës numeriø.");
+
+        if(isnull(inputtext))
+            return SendClientMessage(playerid, COLOR_LIGHTRED,"Klaida, neáraðëte tr. priemonës numeriø.");
+
+        new dialog[ 1024 ], Cache:result, name[MAX_PLAYER_NAME], tmp[ 128 ];
+
+        mysql_format(DbHandle, dialog, sizeof(dialog), 
+            "SELECT vehicles.cName, vehicles.cInsurance, vehicles.cCrimes, players.name, arrestedcars.who, arrestedcars.Time, carcrimes.id AS crime_id, carcrimes.crime, carcrimes.reporter, carcrimes.when \
+            FROM vehicles \
+            LEFT JOIN players ON players.id = vehicles.cOwner \
+            LEFT JOIN arrestedcars ON arrestedcars.cMySQL = vehicles.id \
+            LEFT JOIN carcrimes ON carcrimes.numbers = vehicles.cNumbers \
+            WHERE cNumbers = '%e'", inputtext);
+        result = mysql_query(DbHandle, dialog);
+
+        if(!cache_get_row_count())
+            SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, transporto priemonë nerasta.");
+        else 
+        {
+            cache_get_field_content(0, "cName", dialog);
+            cache_get_field_content(0, "name", name);
+
+            format(dialog, sizeof(dialog), "DUOM. BAZË: Tr. Priemonës pavadinimas: %s\n\
+                DUOM. BAZË: Tr. Priemonës numeriai: %s\n\ 
+                DUOM. BAZË: Tr. Priemonës draudimas: %d\n\
+                DUOM. BAZË: Tr. Priemonës savininkas: %s", 
+                dialog, 
+                inputtext,
+                cache_get_field_content_int(0, "cInsurance"),
+                name);
+
+            if(cache_get_field_content_int(0, "cCrimes"))
+                strcat(dialog, "Tr. priemonë ieðkoma.");
+
+            // Processinam arrestedcars duomenis
+            cache_get_field_content(0, "who", name);
+            if(!ismysqlnull(name))
+            {
+                cache_get_field_content(0, "Time", tmp);
+                format(dialog, sizeof(dialog), "%sTr. priemonë buvo areðtuota!\nPareigûnas: %s\nLaikas ir data: %s", dialog, name, tmp);
+            }
+
+            // Processinam carcrimes
+            for(new i = 0; i < cache_get_row_count(); i++)
+            {
+                cache_get_field_content(i, "reporter", name);
+                cache_get_field_content(i, "crime", string);
+                cache_get_field_content(i, "when", tmp);
+                if(ismysqlnull(name))
+                    break;
+                format(dialog, sizeof(dialog), "%s-->áskaita: %s\nPolicininkas: %s\nLaikas: %s", dialog, string, name, tmp);
+            }
+        }
+        cache_delete(result);
+        /*
         new
             etc[ 3 ][ 128 ],
             tModel[ 24 ],
@@ -22250,8 +22303,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
         cache_delete(result);
-        ShowPlayerDialog( playerid, 136, DIALOG_STYLE_LIST,"Informacija rasta", dialog,
-            "Uþdaryti", "" );
+        */
+        ShowPlayerDialog(playerid, 136, DIALOG_STYLE_LIST,"Informacija rasta", dialog, "Uþdaryti", "" );
     }
     else if( dialogid == 132 )
     {
