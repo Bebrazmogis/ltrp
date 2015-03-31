@@ -147,7 +147,6 @@ public OnGraffitiLoad()
 		cache_get_field_content(i, "argb", fontname);
 		colour = strval(fontname);
 		cache_get_field_content(i, "name", fontname);
-		printf("Loaded name:%s loaded size:%d", fontname, cache_get_field_content_int(i, "size"));
 
 		SetDynamicObjectMaterialText(
 				GraffitiData[ i ][ ObjectId ], 
@@ -233,6 +232,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			return 1;
 		}
 	}
+	GraffitiManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
 	return 0;
 }
 
@@ -563,8 +563,10 @@ CMD:spray(playerid, params[])
     if(!strcmp(action, "allow", true))
     {
     	new targetid;
+    	if(!IsPlayerAdmin(playerid) && GetPlayerAdminLevel(playerid) < 4)
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðià komandà galima naudoti tik nuo 4 administratoriaus lygio.");
 
-    	if(sscanf(params, "u", targetid))
+    	else if(sscanf(params, "u", targetid))
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /spray allow [Þaidëjo ID/Dalis vardo] ");
     	else if(!IsPlayerConnected(targetid))
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Tokio þaidëjo nëra!");
@@ -586,7 +588,10 @@ CMD:spray(playerid, params[])
     else if(!strcmp(action, "dissallow"))
     {
     	new targetid;
-    	if(sscanf(params, "u", targetid))
+
+    	if(!IsPlayerAdmin(playerid) && GetPlayerAdminLevel(playerid) < 4)
+    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðià komandà galima naudoti tik nuo 4 administratoriaus lygio.");
+    	else if(sscanf(params, "u", targetid))
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /spray dissallow [Þaidëjo ID/Dalis vardo] ");
     	else if(!IsPlayerConnected(targetid))
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, tokio þaidëjo nëra!");
@@ -784,3 +789,100 @@ timer GraffitiSprayTimeEnd[GRAFITTI_SPRAY_RIGHT_TIME_MIN*60*1000](playerid)
 	EndPlayerGraffitiSpray(playerid);	
 }
 
+
+/*
+			                                                                                                                                                                         
+			                    ,,                      ,,                                                                                                                           
+			      db          `7MM                      db                  `7MMM.     ,MMF'                                                                                   mm    
+			     ;MM:           MM                                            MMMb    dPMM                                                                                     MM    
+			    ,V^MM.     ,M""bMM  `7MMpMMMb.pMMMb.  `7MM  `7MMpMMMb.        M YM   ,M MM   ,6"Yb.  `7MMpMMMb.   ,6"Yb.  .P"Ybmmm .gP"Ya `7MMpMMMb.pMMMb.  .gP"Ya `7MMpMMMb.mmMMmm  
+			   ,M  `MM   ,AP    MM    MM    MM    MM    MM    MM    MM        M  Mb  M' MM  8)   MM    MM    MM  8)   MM :MI  I8  ,M'   Yb  MM    MM    MM ,M'   Yb  MM    MM  MM    
+			   AbmmmqMA  8MI    MM    MM    MM    MM    MM    MM    MM        M  YM.P'  MM   ,pm9MM    MM    MM   ,pm9MM  WmmmP"  8M""""""  MM    MM    MM 8M""""""  MM    MM  MM    
+			  A'     VML `Mb    MM    MM    MM    MM    MM    MM    MM        M  `YM'   MM  8M   MM    MM    MM  8M   MM 8M       YM.    ,  MM    MM    MM YM.    ,  MM    MM  MM    
+			.AMA.   .AMMA.`Wbmd"MML..JMML  JMML  JMML..JMML..JMML  JMML.    .JML. `'  .JMML.`Moo9^Yo..JMML  JMML.`Moo9^Yo.YMMMMMb  `Mbmmd'.JMML  JMML  JMML.`Mbmmd'.JMML  JMML.`Mbmo 
+			                                                                                                             6'     dP                                                   
+			                                                                                                             Ybmmmd'                                                     
+
+		 	       ,,    ,,             ,,                             
+		 	     `7MM    db           `7MM                             
+		 	       MM                   MM                             
+		 	  ,M""bMM  `7MM   ,6"Yb.    MM  ,pW"Wq.   .P"Ybmmm ,pP"Ybd 
+		 	,AP    MM    MM  8)   MM    MM 6W'   `Wb :MI  I8   8I   `" 
+		 	8MI    MM    MM   ,pm9MM    MM 8M     M8  WmmmP"   `YMMMa. 
+		 	`Mb    MM    MM  8M   MM    MM YA.   ,A9 8M        L.   I8 
+		 	 `Wbmd"MML..JMML.`Moo9^Yo..JMML.`Ybmd9'   YMMMMMb  M9mmmP' 
+		 	                                         6'     dP         
+		 	                                         Ybmmmd'           
+*/
+
+
+#define GraffitiManagementDialog.		@graf_
+
+static PlayerUsedGraffitiIndex[ MAX_PLAYERS ],
+		PlayerGraffitiListPage[ MAX_PLAYERS ];
+
+stock GraffitiManagementDialog.ShowMain(playerid)
+{
+	ShowPlayerDialog(playerid, DIALOG_GRAFFITIMENU_MAIN, DIALOG_STYLE_LIST, 
+		"Visi serverio grafiti\n\
+		Aplink mane esantys grafiti\n\
+		Grafiti paieðka pagal tekstà.",
+		"Pasirinkti", "Iðeiti");
+	return 1;
+}
+
+stock GraffitiManagementDialog.ShowFullList(playerid)
+{
+	new query[], Cache:result, string[ 1024 ];
+	mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM graffiti LIMIT %d, %d", 
+		PlayerGraffitiListPage[ playerid ] * GRAFFITI_LIST_ITEMS_PER_PAGE, 
+		(PlayerGraffitiListPage[ playerid ]+1) * GRAFFITI_LIST_ITEMS_PER_PAGE);
+	result = mysql_query(DbHandle, query);
+
+	for(new i = 0; i < cache_get_row_count(); i++)
+	{
+		
+	}
+}
+
+stock GraffitiManagementDialog.ShowNearestList(playerid, Float:distance)
+{
+
+}
+
+
+stock GraffitiManagementDialog.ShowTextInput(playerid, errostr[] = "")
+{
+
+}
+
+GraffitiManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+{
+	switch(dialogid)
+	{
+		case DIALOG_GRAFFITIMENU_MAIN:
+		{
+			if(!response)
+				return 1;
+
+			switch(listitem)
+			{
+				case 0:
+				{
+					PlayerGraffitiListPage[ playerid ] = 0;
+					GraffitiManagementDialog.ShowFullList(playerid);
+				}
+				case 1:
+				{
+					GraffitiManagementDialog.ShowNearestList(playerid, 30.0);
+				}
+				case 2:
+				{
+					GraffitiManagementDialog.ShowTextInput(playerid);
+				}
+			}
+			return 1;
+		}
+	}
+	return 0;
+}

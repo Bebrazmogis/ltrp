@@ -20175,7 +20175,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new str[2048] = "Pridëti transporto priemonæ á turgø\n{FFFFFF}", index = GetPVarInt(playerid, "VehicleShop_Index");
                 for(new i = 0; i < MAX_VEHICLE_SHOP_VEHICLES; i++)
                     if(VehicleShops[ index ][ VehicleModels ][ i ])
-                        format(str, sizeof(str), "%s%s $%d\n", str, aVehicleNames[ VehicleShops[ index ][ VehicleModels ][ i ] - 400], VehicleShops[ index ][ VehiclePrices ][ i ]);
+                        format(str, sizeof(str), "%s%s\t$%d\n", str, aVehicleNames[ VehicleShops[ index ][ VehicleModels ][ i ] - 400], VehicleShops[ index ][ VehiclePrices ][ i ]);
                 ShowPlayerDialog(playerid, DIALOG_VEHICLE_SHOPS_VEH_LIST, DIALOG_STYLE_LIST, "Transporto sàraðas", str, "Pasirinkti", "Iðeiti");
             }
             case 1: // New name 
@@ -20197,14 +20197,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
 
-        new index = GetPVarInt(playerid, "VehicleShop_Index"), vehIndex, name[32];
-        strmid(name, inputtext, 0, strfind(inputtext, " "));
+        new index = GetPVarInt(playerid, "VehicleShop_Index"), vehIndex = -1, name[32];
+        strmid(name, inputtext, 0, strfind(inputtext, "\t"));
         for(new i = 0; i < MAX_VEHICLE_SHOP_VEHICLES; i++)
-            if(VehicleShops[ index ][ VehicleModels ][ i ] > 400 && !strcmp(aVehicleNames[ VehicleShops[ index ][ VehicleModels ][ i ] - 400], name))
+        {
+            if(VehicleShops[ index ][ VehicleModels ][ i ] >= 400 && !strcmp(aVehicleNames[ VehicleShops[ index ][ VehicleModels ][ i ] - 400], name))
             {
                 vehIndex = i;
                 break;
             }
+        }
+
+        if(vehIndex == -1)
+        {
+            ErrorLog("ltrp.pwn : OnDialogResponse : DIALOG_VEHICLE_SHOPS_VEH_LIST. Vehicle was not found. inputtext:%s name:%s", inputtext, name);
+            return 0;
+        }
 
         SetPVarInt(playerid, "VehicleShop_VehIndex", vehIndex);
         ShowPlayerDialog(playerid, DIALOG_VEHICLE_SHOPS_VEH_MAIN, DIALOG_STYLE_LIST, "Transporto valdymas", "Keisti kainà\nIðtrinti", "Pasirinkti", "Iðeiti");
