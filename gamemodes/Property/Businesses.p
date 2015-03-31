@@ -2030,86 +2030,99 @@ stock OnPlayerEnterBiz(playerid,biz)
 
 CMD:cargoprice(playerid,params[])
 {
-    new price,string[220];
-    foreach(new h : Business)
+    new price, 
+        string[220], 
+        bizindex = GetPlayerBusinessIndex(playerid),
+        bizCargo = GetBusinessCargo(bInfo[ bizindex ][ bType ]);
+
+    if(bizindex == -1)
+        SendClientMessage(playerid, GRAD, "[ Klaida ] Jûs neesate prie verslo áëjimo!");
+
+    else if(!IsPlayerBusinessOwner(playerid, bizindex)) 
+        SendClientMessage(playerid,GRAD,"Verslas nëra jûsø, todel Jûs negalite keisti produktu kainos");
+
+    else if(sscanf(params, "d", price ) || price < 0) 
+        SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /cargoprice [kaina]");
+
+    else if(price > bInfo[ bizindex ][ bBank ])
+        SendClientMessage(playerid, GRAD, "[ Klaida ] Jûsø versle nëra pakankamai pinigø net vienam produktui!");
+
+    else if(!GetBusinessCargo(bInfo[ bizindex ][ bType ]))
+        SendClientMessage(playerid, GRAD, " [ Klaida !] Jûsø verslas nereikalauja jokiø produktø!");
+
+    else if(bInfo[ bizindex ][ bProducts ] >= MAX_BUSINESS_PRODUCTS)
+        SendClientMessage(playerid, GRAD, "Klaida, jûsø versle daugiau produktø nebetelpa.");
+
+    else if(price == 0)
     {
-        if(IsPlayerInRangeOfPoint(playerid, 2.0, bInfo[h][bEnter][0],bInfo[h][bEnter][1],bInfo[h][bEnter][2]))
-        {
-            new bizCargo = GetBusinessCargo(bInfo[ h ][ bType ]);
+        StopBusinessBuyingCargo(bizindex, GetBusinessCargo(bInfo[ bizindex ][ bType ]));
+        SendClientMessage(playerid, COLOR_NEWS, "Jûsø verslas nebepriims produktø.");
+    }
 
-            if(!IsPlayerBusinessOwner(playerid, h)) 
-                return SendClientMessage(playerid,GRAD,"Verslas nëra jûsø, todel Jûs negalite keisti produktu kainos");
-            if(sscanf( params, "d", price ) || price < 0) 
-                return SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /cargoprice [kaina]");
-            if(price > bInfo[ h ][ bBank ])
-                return SendClientMessage(playerid, GRAD, "[ Klaida ] Jûsø versle nëra pakankamai pinigø net vienam produktui!");
-            if(!GetBusinessCargo(bInfo[ h ][ bType ]))
-                return SendClientMessage(playerid, GRAD, " [ Klaida !] Jûsø verslas nereikalauja jokiø produktø!");
-            if(bInfo[ h ][ bProducts ] >= MAX_BUSINESS_PRODUCTS)
-                return SendClientMessage(playerid, GRAD, "Klaida, jûsø versle daugiau produktø nebetelpa.");
-
-            if(price == 0)
+    else 
+    {
+        new averagePrice, sellerCount;
+        foreach(CommodityIterator, i)
+            if(Commodities[ i ][ CargoId ] == bizCargo && Commodities[ i ][ SellBuyStatus ] == Selling)
             {
-                StopBusinessBuyingCargo(h, GetBusinessCargo(bInfo[ h ][ bType ]));
-                SendClientMessage(playerid, COLOR_NEWS, "Jûsø verslas nebepriims produktø.");
-                return 1;
+                sellerCount++;
+                averagePrice += Commodities[ i ][ Price ];
             }
 
-			new averagePrice, sellerCount;
-            foreach(CommodityIterator, i)
-                if(Commodities[ i ][ CargoId ] == bizCargo && Commodities[ i ][ SellBuyStatus ] == Selling)
-                {
-					sellerCount++;
-					averagePrice += Commodities[ i ][ Price ];
-                }
-			averagePrice /= sellerCount;	
-			// Jei kaina maþesnë uþ vidurká
-			if(price < averagePrice)
-			{
-				format(string, sizeof(string), "Klaida, minimali kaina yra %d.", averagePrice);
-				return SendClientMessage(playerid, GRAD, string);
-			}
-			// Jei kaina didesnë uþ vidurká+20%
-			if(price > averagePrice + averagePrice / 100 * 20)
-			{
-				format(string, sizeof(string), "Klaida, maksimali kaina yra %d.", averagePrice + averagePrice / 100 * 20);
-				return SendClientMessage(playerid, GRAD, string);
-			}
-            for(new i = 0; i < sizeof(Commodities); i++)
+        // Tikimes kad taip nebus
+        if(!sellerCount)
+        {
+            ErrorLog("cmd_cargoprice(%s). sellerCount is:%d. Commodity name:%s", GetName(playerid), sellerCount, GetCargoName(bizCargo));
+            SendClientMessage(playerid, 0xFF0000FF, "Klaida. Nëra industrijos kuri ðiam verslui gamintø prekes.");
+            return 1;
+        }
+
+        averagePrice /= sellerCount;    
+
+        // Jei kaina maþesnë uþ vidurká
+        if(price < averagePrice)
+        {
+            format(string, sizeof(string), "Klaida, minimali kaina yra %d.", averagePrice);
+            return SendClientMessage(playerid, GRAD, string);
+        }
+        // Jei kaina didesnë uþ vidurká+20%
+        if(price > averagePrice + averagePrice / 100 * 20)
+        {
+            format(string, sizeof(string), "Klaida, maksimali kaina yra %d.", averagePrice + averagePrice / 100 * 20);
+            return SendClientMessage(playerid, GRAD, string);
+        }
+        for(new i = 0; i < sizeof(Commodities); i++)
+        {
+            // Jei jau kazka pirko anksciau.
+            if(Commodities[ i ][ IndustryId ] == bInfo[ bizindex ][ bID ] && Commodities[ i ][ IsBusinessCommodity ])
             {
-                // Jei jau kazka pirko anksciau.
-                if(Commodities[ i ][ IndustryId ] == bInfo[ h ][ bID ] && Commodities[ i ][ IsBusinessCommodity ])
-                {
-                    Commodities[ i ][ Price ] = price;
-                    format(string, sizeof(string),"UPDATE commodities SET Price = %d WHERE industry_id = %d AND type = 'Business' AND cargo_id = %d",
-                        price, bInfo[ h ][ bID ], GetBusinessCargo(bInfo[ h ][ bType ]));
-                    mysql_pquery(DbHandle, string);
-                    break;
-                }
-                if(Commodities[ i ][ IndustryId ] || Commodities[ i ][ CargoId ])
-                    continue;
-
-
-                Commodities[ i ][ IndustryId ] = bInfo[ h ][ bID ];
-                Commodities[ i ][ CargoId ] = GetBusinessCargo(bInfo[ h ][ bType ]);
-                Commodities[ i ][ CurrentStock ] = 0;
-                Commodities[ i ][ SellBuyStatus ] = Buying;
-                Commodities[ i ][ IsBusinessCommodity ] = true;
                 Commodities[ i ][ Price ] = price;
-                Commodities[ i ][ CurrentStock ] = bInfo[ h ][ bProducts ];
-                Itter_Add(CommodityIterator, i);
-                format(string,sizeof(string),"INSERT INTO commodities (industry_id, cargo_id, sell_buy_status, current_stock, type, price) VALUES (%d,%d,'Buying', %d, 'Business', %d) ON DUPLICATE KEY UPDATE price = VALUES(price)",
-                    bInfo[ h ][ bID ], GetBusinessCargo(bInfo[ h ][ bType ]), bInfo[ h ][ bProducts ] / 50, price);
+                format(string, sizeof(string),"UPDATE commodities SET Price = %d WHERE industry_id = %d AND type = 'Business' AND cargo_id = %d",
+                    price, bInfo[ bizindex ][ bID ], GetBusinessCargo(bInfo[ bizindex ][ bType ]));
                 mysql_pquery(DbHandle, string);
                 break;
             }
-            SaveBusiness(h);
-            format(string,sizeof(string),"Verslo produktu kaina nustatyta á %d",price);
-            SendClientMessage(playerid, COLOR_NEWS, string);
-            return 1;
+            if(Commodities[ i ][ IndustryId ] || Commodities[ i ][ CargoId ])
+                continue;
+
+
+            Commodities[ i ][ IndustryId ] = bInfo[ bizindex ][ bID ];
+            Commodities[ i ][ CargoId ] = GetBusinessCargo(bInfo[ bizindex ][ bType ]);
+            Commodities[ i ][ CurrentStock ] = 0;
+            Commodities[ i ][ SellBuyStatus ] = Buying;
+            Commodities[ i ][ IsBusinessCommodity ] = true;
+            Commodities[ i ][ Price ] = price;
+            Commodities[ i ][ CurrentStock ] = bInfo[ bizindex ][ bProducts ];
+            Itter_Add(CommodityIterator, i);
+            format(string,sizeof(string),"INSERT INTO commodities (industry_id, cargo_id, sell_buy_status, current_stock, type, price) VALUES (%d,%d,'Buying', %d, 'Business', %d) ON DUPLICATE KEY UPDATE price = VALUES(price)",
+                bInfo[ bizindex ][ bID ], GetBusinessCargo(bInfo[ bizindex ][ bType ]), bInfo[ bizindex ][ bProducts ] / 50, price);
+            mysql_pquery(DbHandle, string);
+            break;
         }
+        SaveBusiness(bizindex);
+        format(string,sizeof(string),"Verslo produktu kaina nustatyta á %d",price);
+        SendClientMessage(playerid, COLOR_NEWS, string);
     }
-    SendClientMessage(playerid, GRAD, "[ Klaida ] Jûs neesate prie verslo áëjimo!");
     return 1;
 }
 
