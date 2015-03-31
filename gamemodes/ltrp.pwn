@@ -23,7 +23,7 @@
 
 
 #define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.28
+#define BUILD_DATE                      2015-03.31
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -11443,11 +11443,16 @@ CMD:v( playerid, params[ ] )
     {
         select = strtok( params, idx );
         new slot = strval( select );
-        if ( !slot ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v get [/v list SÀRAÐO NUMERIS]" );
-        if ( slot < 0 || slot > 20 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Sàraðo numeris negali bût didesnis uþ 20 ar maþesnis uþ vienetà." );
-        if ( ( pInfo[ playerid ][ pDonator ] < 1 && pInfo[ playerid ][ pCarGet ] > 1 ) || ( pInfo[ playerid ][ pDonator ] == 2 && pInfo[ playerid ][ pCarGet ] > 2 ) || ( pInfo[ playerid ][ pDonator ] == 3 && pInfo[ playerid ][ pCarGet ] > 3 )) return SendClientMessage( playerid, GRAD, "Tu jau esi iðsispawninàs per daug automobiliø" );
-        if ( pInfo[ playerid ][ pCar ][ slot ] == 0) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas tr. priemonës sàraðo numeris neegzistuoja." );
-        if ( checkArrestedCar( playerid, pInfo[ playerid ][ pCar ][ slot ] ) ) return 1;
+        if(!slot ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v get [/v list SÀRAÐO NUMERIS]" );
+        if(slot < 0 || slot > 20 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Sàraðo numeris negali bût didesnis uþ 20 ar maþesnis uþ vienetà." );
+        
+        if((pInfo[ playerid ][ pDonator ] < 1 && pInfo[ playerid ][ pCarGet ] > 1 ) || 
+            (pInfo[ playerid ][ pDonator ] == 2 && pInfo[ playerid ][ pCarGet ] > 2) || 
+            (pInfo[ playerid ][ pDonator ] == 3 && pInfo[ playerid ][ pCarGet ] > 3)) 
+            return SendClientMessage( playerid, GRAD, "Tu jau esi iðsispawninàs per daug automobiliø" );
+        
+        if(pInfo[ playerid ][ pCar ][ slot ] == 0) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas tr. priemonës sàraðo numeris neegzistuoja." );
+        if(checkArrestedCar( playerid, pInfo[ playerid ][ pCar ][ slot ] ) ) return 1;
 
         format (string, 80, "SELECT * FROM `vehicles` WHERE `id` = %d LIMIT 1", pInfo[ playerid ][ pCar ][ slot ] );
         new Cache:result = mysql_query(DbHandle,  string );
@@ -24094,6 +24099,7 @@ FUNKCIJA:MinTime()
         if(pInfo[ i ][ pHunger ] >= 10 && HP - pInfo[ i ][ pHunger ] / 10.0 > 2.0)
             SetPlayerHealth(i, HP - pInfo[ i ][ pHunger ] / 10.0);
 
+        // Persigalgius svaigsta galva
         if(pInfo[ i ][ pHunger ] <= -5)
             SetPlayerDrunkLevel(i, GetPlayerDrunkLevel(i)+900);
 
@@ -26672,7 +26678,8 @@ stock ShowStats( giveplayerid, playerid )
         new string[ 180 ],
             spawnplace[ 256 ],
             nextexp = ( pInfo[ playerid ][ pLevel ] + 1 ) * 4,
-            rankstr[32];
+            rankstr[32], 
+            hunger[16];
         
         switch ( pInfo[ playerid ][ pSpawn ] )
         {
@@ -26701,6 +26708,15 @@ stock ShowStats( giveplayerid, playerid )
             format(rankstr, sizeof(rankstr),"%d/%d",
                     pInfo[playerid][pJobLevel], pInfo[ playerid ][ pJobSkill ]);
 
+        if(pInfo[ playerid ][ pHunger ] < 0)
+            hunger = "Persivalgæs";
+        else if(pInfo[ playerid ][ pHunger ] < 10)
+            hunger = "Sotus";
+        else if(pInfo[ playerid ][ pHunger ] < 15)
+            hunger = "Alkanas";
+        else
+            hunger = "Labai alkanas";
+
 
 		format           ( string, sizeof(string), "|__________________________________%s__________________________________|", 
 		GetName(playerid));  
@@ -26708,8 +26724,8 @@ stock ShowStats( giveplayerid, playerid )
 		format           ( string, sizeof(string), "|VEIKËJAS| Lygis:[%d] Praþaista valandø:[%d] Patirties taðkai:[%d/%d] Amþius:[%d] Lytis:[%s] Tautybë:[%s]" ,
 		pInfo[playerid][pLevel],pInfo[playerid][pOnTime],pInfo[playerid][pExp],nextexp,pInfo[playerid][pAge],pInfo[playerid][pSex],pInfo[playerid][pOrigin]);
 		SendClientMessage( giveplayerid, COLOR_FADE1, string);
-		format           ( string, sizeof(string), "|VEIKËJAS| Telefonas:[%d] Mirèiø skaièius:[%d] Liga:[%s]" ,
-		pInfo[playerid][pPhone],pInfo[playerid][pDeaths],Ligos[pInfo[playerid][pLiga]]);
+		format           ( string, sizeof(string), "|VEIKËJAS| Telefonas:[%d] Mirèiø skaièius:[%d] Liga:[%s] Alkis:[%s]" ,
+		pInfo[playerid][pPhone],pInfo[playerid][pDeaths],Ligos[pInfo[playerid][pLiga]], hunger);
 		SendClientMessage( giveplayerid, COLOR_FADE2, string);		
 		format           ( string, sizeof(string), "|VEIKËJAS| Remëjo lygis:[%d] Áspëjimai:[%d] Atsiradimas:[%s] Gyvybës:[%d] Jëga:[%d]" ,
 		pInfo[playerid][pDonator],pInfo[playerid][pWarn],spawnplace,100+ pInfo[ playerid ][ pHealthLevel ] * 3, pInfo[ playerid ][ pStrengthLevel ]);	
