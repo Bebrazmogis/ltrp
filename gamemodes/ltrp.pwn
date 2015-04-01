@@ -12867,8 +12867,8 @@ CMD:fix( playerid, params[ ] )
         RepairVehicle(veh);
         GivePlayerMoney( playerid, -500 );
 
-        SaveVehicleEx(masina, "cColor1", colorr);
-        SaveVehicleEx(masina, "cColor2", colorr2);
+        SaveVehicleEx(veh, "cColor1", colorr);
+        SaveVehicleEx(veh, "cColor2", colorr2);
         return 1;
     }
     return 1;
