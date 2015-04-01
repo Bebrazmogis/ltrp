@@ -827,6 +827,9 @@ new Fire[MAX_FIRE][fires];
 
 
 #include "Tabula\TAC.pwn" // AntiCheatas
+#include "Player\Weapons" // Yra AC dalykø
+
+
 #include "Coordinates"
 
 #include "Items"
@@ -840,7 +843,6 @@ new Fire[MAX_FIRE][fires];
 #include "Property\Houses"
 #include "Property\Garages"
 #include "Player\Functions"
-#include "Player\Weapons"
 #include "Player\Inventory"
 #include "Player\Attachments"
 #include "Bank"
@@ -2504,7 +2506,7 @@ stock TakeFromTrunk( playerid, veh, slot )
     if ( !PlayerToCar( 5.0, playerid, veh ) ) return 1;
     if ( cInfo[ veh ][ cTrunkWeapon ][ slot ] == 0) return 1;
 
-    new string[ 80 ],
+    new string[ 100 ],
         tmpid = cInfo[ veh ][ cTrunkWeapon ][ slot ];
     if ( tmpid < 50 && !IsPlayerHaveManyGuns( playerid, tmpid ) )
     {
@@ -2516,9 +2518,9 @@ stock TakeFromTrunk( playerid, veh, slot )
 
         if( sVehicles[ veh ][ Faction ] != 2 && sVehicles[ veh ][ Faction ] != 3 )
         {
+            GivePlayerWeapon( playerid, tmpid, cInfo[ veh ][ cTrunkAmmo ][ slot ] );
             cInfo[ veh ][ cTrunkWeapon ][ slot ] = 0;
             cInfo[ veh ][ cTrunkAmmo   ][ slot ] = 0;
-            GivePlayerWeapon( playerid, tmpid,cInfo[ veh ][ cTrunkAmmo ][ slot ] );
             GunLog       ( pInfo[ playerid ][ pMySQLID ], 4, cInfo[ veh ][ cOwner ], GetItemName(tmpid), cInfo[ veh ][ cTrunkAmmo ][ slot ] );
         }
         else 
@@ -2543,8 +2545,8 @@ stock TakeFromTrunk( playerid, veh, slot )
         cInfo[ veh ][ cTrunkItemContent   ][ slot ] = 0;
         cInfo[ veh ][ cTrunkItemDurability   ][ slot ] = 0;
     }
-    format       ( string, 80, "* %s ið tr. priemonës bagaþinës iðtraukia daiktà atrodantá kaip %s " ,GetPlayerNameEx( playerid ), GetItemName(tmpid));
-    ProxDetector ( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
+    format(string, sizeof(string), "* %s ið tr. priemonës bagaþinës iðtraukia daiktà atrodantá kaip %s " ,GetPlayerNameEx( playerid ), GetItemName(tmpid));
+    ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
     SaveCar( veh );
     return 1;
 }
@@ -6546,8 +6548,8 @@ CMD:trunk( playerid, params[ ] )
     if ( boot != 1 )
     return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, tr. priemonës bagaþinë ðiuo metu uþdaryta." );
 
-    new string[ 90 ];
-    format      ( string, 70, "* %s pakelia bagaþinës dangtá ir atidaro tr. priemonës bagaþinæ." ,GetPlayerNameEx( playerid ));
+    new string[ 110 ];
+    format      ( string, sizeof(string), "* %s pakelia bagaþinës dangtá ir atidaro tr. priemonës bagaþinæ." ,GetPlayerNameEx( playerid ));
     ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
     ShowTrunk( playerid, car );
     return 1;

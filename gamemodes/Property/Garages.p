@@ -39,7 +39,9 @@ enum E_GARAGE_ITEM_DATA
 {
     SqlId,
     ItemId,
-    Amount
+    Amount,
+    ContentAmount,
+    Durability,
 };
 
 
