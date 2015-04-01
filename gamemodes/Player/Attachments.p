@@ -298,3 +298,12 @@ stock IsPlayerWearingItem(playerid, itemid)
 	else 
 		return false;
 }
+stock IsPlayerWearingAnyItem(playerid)
+{
+	for(new i = 0; i < GetItemCount(); i++)
+	{
+		if(IsPlayerWearingItem(playerid, GetItemIdAtIndex(i)))
+			return true;
+	}	
+	return false;
+}

@@ -643,8 +643,15 @@ stock GetItemIdFromModel(modelid)
 }
 
 
+stock GetItemCount()
+{
+	return sizeof ItemData;
+}
 
-
+stock GetItemIdAtIndex(index)
+{
+	return ItemData[ index ][ Id ];
+}
 
 
 

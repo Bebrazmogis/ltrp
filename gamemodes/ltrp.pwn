@@ -3761,7 +3761,9 @@ public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
     SetPVarFloat ( playerid, string, fScaleZ );
 
     SetPlayerAttachedObject(playerid,index,modelid,boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
-    AddPlayerAttachedItem(playerid,GetItemIdFromModel(modelid),boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
+    if(response == EDIT_RESPONSE_FINAL)
+        if(IsPlayerWearingAnyItem(playerid))
+            AddPlayerAttachedItem(playerid,GetItemIdFromModel(modelid),boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
     return 1;
 }
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
