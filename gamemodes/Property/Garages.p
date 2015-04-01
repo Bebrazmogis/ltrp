@@ -98,6 +98,8 @@ public OnGameModeInit()
     strcat(query, "garage_items.item_id AS `garage_items.item_id`, ");
     strcat(query, "garage_items.slot AS `garage_items.slot`, ");
     strcat(query, "garage_items.amount AS `garage_items.amount`, ");
+    strcat(query, "garage_items.content_amount AS `garage_items.content_amount`, ");
+    strcat(query, "garage_items.durability AS `garage_items.durability`, ");
     strcat(query, "garage_furniture.id AS `garage_furniture.id`, ");
     strcat(query, "garage_furniture.garage_id AS `garage_furniture.garage_id`,");
     strcat(query, "garage_furniture.furniture_id AS `garage_furniture.furniture_id`, ");
@@ -213,6 +215,8 @@ public OnGarageLoad()
                 GarageItems[ garageCount ][ slot ][ SqlId ] = itemid;
                 GarageItems[ garageCount ][ slot ][ ItemId ] = cache_get_field_content_int(i, "garage_items.item_id");
                 GarageItems[ garageCount ][ slot ][ Amount ] = cache_get_field_content_int(i, "garage_items.amount");
+                GarageItems[ garageCount ][ slot ][ ContentAmount ] = cache_get_field_content_int(i, "garage_items.content_amount");
+                GarageItems[ garageCount ][ slot ][ Durability ] = cache_get_field_content_int(i, "garage_items.durability");
                 garageItemCount++;
             }
             else 
@@ -287,7 +291,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             new string[ 80 ],
                 itemid = GarageItems[ PlayerUsedGarageIndex[ playerid ] ][ listitem ][ ItemId ],
-                amount = GarageItems[ PlayerUsedGarageIndex[ playerid ] ][ listitem ][ Amount ];
+                amount = GarageItems[ PlayerUsedGarageIndex[ playerid ] ][ listitem ][ Amount ],
+                contentamount = GarageItems[ PlayerUsedGarageIndex[ playerid ] ][ listitem ][ ContentAmount ],
+                durability = GarageItems[ PlayerUsedGarageIndex[ playerid ] ][ listitem ][ Durability]
+            ;
 
             if(itemid < 50 && !IsPlayerHaveManyGuns(playerid, itemid))
             {
@@ -308,7 +315,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 if(IsPlayerInventoryFull(playerid))
                     return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Klaida, bet Jûsø inventoriuje nepakanka laisvos vietos ğiam daiktui.");
 
-                GivePlayerItem(playerid, itemid, amount);
+                GivePlayerItem(playerid, itemid, amount, contentamount, durability);
                 RemoveGarageItem(PlayerUsedGarageIndex[ playerid ], listitem);
             }
             format(string, sizeof(string), "* %s pasiemà daiktà iğ spintelës, kuris atrodo kaip %s ", GetPlayerNameEx(playerid), GetItemName(itemid));
@@ -767,23 +774,25 @@ stock SaveGarageFurnitureObject(garageindex, furnitureindex, Float:x, Float:y, F
 }
 
 
-stock SetGarageItem(garageindex, slot, itemid, amount)
+stock SetGarageItem(garageindex, slot, itemid, amount, contentamount, durability)
 {
-    new query[160];
+    new query[180];
 
     GarageItems[ garageindex ][ slot ][ ItemId ] = itemid;
     GarageItems[ garageindex ][ slot ][ Amount ] = amount;
+    GarageItems[ garageindex ][ slot ][ ContentAmount ] = contentamount;
+    GarageItems[ garageindex ][ slot ][ Durability ] = durability;
 
     if(GarageItems[ garageindex ][ slot ][ SqlId ])
     {
-        mysql_format(DbHandle, query, sizeof(query), "UPDATE garage_items SET item_id = %d, amount = %f WHERE id = %d",
-            itemid, amount, GarageItems[ garageindex ][ slot ][ SqlId ]);
+        mysql_format(DbHandle, query, sizeof(query), "UPDATE garage_items SET item_id = %d, amount = %d, content_amount = %d, durability = %d WHERE id = %d",
+            itemid, amount, contentamount, durability, GarageItems[ garageindex ][ slot ][ SqlId ]);
         return mysql_pquery(DbHandle, query);
     }
     else 
     {
-        mysql_format(DbHandle, query, sizeof(query),"INSERT INTO garage_items (garage_id, item_id, slot, amount) VALUES(%d, %d, %d, %d)",
-            gInfo[ garageindex ][ gID ], itemid, slot, amount);
+        mysql_format(DbHandle, query, sizeof(query),"INSERT INTO garage_items (garage_id, item_id, slot, amount, content_amount, durability) VALUES(%d, %d, %d, %d, %d, %d)",
+            gInfo[ garageindex ][ gID ], itemid, slot, amount, contentamount, durability);
         new Cache:result = mysql_query(DbHandle, query);
         GarageItems[ garageindex ][ slot ][ SqlId ] = cache_insert_id();
         cache_delete(result);
@@ -817,6 +826,8 @@ stock RemoveGarageItem(garageindex, itemslot)
     GarageItems[ garageindex ][ itemslot ][ SqlId ] = 0;
     GarageItems[ garageindex ][ itemslot ][ ItemId ] = 0;
     GarageItems[ garageindex ][ itemslot ][ Amount ] = 0;
+    GarageItems[ garageindex ][ itemslot ][ ContentAmount ] = 0;
+    GarageItems[ garageindex ][ itemslot ][ Durability ] = 0;
     return 1; 
 }
 

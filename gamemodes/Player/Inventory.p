@@ -315,7 +315,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                if(!IsPlayerInHouse(playerid, index))
 	                    return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalit daikto ádëti á namà stovëdamas prie jo.");
 
-	                if(!IsPlayerGarageOwner(playerid, index))
+	                if(!IsPlayerHouseOwner(playerid, index))
 	                    return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis namas jums nepriklauso.");
 
 	                new slot = GetHouseFreeitemSlot(index);
@@ -388,7 +388,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                format(string, sizeof(string), "* %s atidaræs spintelæ á jà ádeda %s", GetPlayerNameEx(playerid), itemname);
 	                ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 
-	                SetGarageItem(index, slot, itemid, amount);
+	                SetGarageItem(index, slot, itemid, amount, contentamount, durability);
 
 	               	RemovePlayerItemAtIndex(playerid, PlayerUsedItemIndex[ playerid ]);
 	                return 1;

@@ -29,7 +29,6 @@ public OnGameModeInit()
 
 	new Float:x, Float:y, Float:z;
 	Data_GetCoordinates("bank", x, y, z);
-	printf("X:%f, Y:%f Z:%f wrld:%d int:%d",x,y,z,  Data_GetVirtualWorld("bank"), Data_GetInterior("bank") );
 	BankPickup = CreateDynamicPickup(1239, 1, x, y, z, Data_GetVirtualWorld("bank"), Data_GetInterior("bank"));
 
 	Data_GetCoordinates("bank_paycheck", x, y, z);
