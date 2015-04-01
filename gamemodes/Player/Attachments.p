@@ -187,6 +187,7 @@ stock GetAttachedItemSlot(itemid)
 			ITEM_Beret1,	
 			ITEM_Beret2,	
 			ITEM_Beret3,	
+			ITEM_Beret4,
 			ITEM_Bandana1, 
 			ITEM_Bandana2, 
 			ITEM_Bandana3, 

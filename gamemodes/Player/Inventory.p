@@ -1112,7 +1112,7 @@ Item:OnPlayerUseSuitcase(playerid, itemid)
     return 1;
 }
 
-Item:OnPlayerUseHat(playerid, itemid)
+Item:OnPlayerUseHat(playerid, itemid, invindex)
 {
 	if(!IsPlayerAttachedObjectSlotUsed(playerid, GetAttachedItemSlot(itemid)))
     {

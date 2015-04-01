@@ -4668,6 +4668,7 @@ public OnPlayerDeath(playerid, killerid, reason)
             }
         }
     }
+    SaveAccount(playerid);
     return 1;
 }
 
@@ -12865,6 +12866,9 @@ CMD:fix( playerid, params[ ] )
         SetVehicleHealth(veh, 1000);
         RepairVehicle(veh);
         GivePlayerMoney( playerid, -500 );
+
+        SaveVehicleEx(masina, "cColor1", colorr);
+        SaveVehicleEx(masina, "cColor2", colorr2);
         return 1;
     }
     return 1;
