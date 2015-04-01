@@ -950,17 +950,22 @@ CMD:furniture(playerid, params[])
 {
     if(IsPlayerInTexturePreview(playerid))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Negalite naudoti ðios komandos perþiûrinëdami tekstûras.");
-    new
-        hIndex = GetPlayerHouseIndex(playerid);
-    if(hIndex == -1)
-        hIndex = GetPlayerBusinessIndex(playerid);
-    if(hIndex == -1)
-        hIndex = GetPlayerGarageIndex(playerid);
-    if(hIndex == -1) 
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs negalite keisti/pridëti baldø nebûdami arba sau nepriklausanèioje nuosavybëje." );
 
-    ShowPlayerFurnitureMain(playerid);
-    return true;
+    new index = -1;
+
+    if((index = GetPlayerHouseIndex(playerid)) != -1 && IsPlayerHouseOwner(playerid, index))
+        ShowPlayerFurnitureMain(playerid);
+
+    else if((index = GetPlayerBusinessIndex(playerid)) != -1 && IsPlayerBusinessOwner(playerid, index))
+        ShowPlayerFurnitureMain(playerid);
+
+    else if((index = GetPlayerGarageIndex(playerid)) != -1 && IsPlayerGarageOwner(playerid, index))
+        ShowPlayerFurnitureMain(playerid);
+
+    else 
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs negalite keisti/pridëti baldø nebûdami arba sau nepriklausanèioje nuosavybëje." );
+
+    return 1;
 }
 
 CMD:clothes(playerid)

@@ -948,7 +948,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(bInfo[ bizIndex ][ bType ] == Supermarket)
                     {
                         for(new i = 0; i < sizeof(SupermarketItems); i++)
-                            format(string, sizeof(string), "%s%s\n",string, GetItemName(SupermarketItems[ i ][ ItemId ]));
+                        {
+                            if(IsValidItem(SupermarketItems[ i ][ ItemId ]))
+                                format(string, sizeof(string), "%s%s\n",string, GetItemName(SupermarketItems[ i ][ ItemId ]));
+                            else 
+                                ErrorLog("Supermarket item array contains an invalid item id:%d", SupermarketItems[ i ][ ItemId ]);
+                        }
                         ShowPlayerDialog(playerid, DIALOG_BIZ_WARE_LIST_EDIT_SHOP, DIALOG_STYLE_LIST, "Pasirinkite prekæ", string, "Pasirinkti", "Iðeiti");
                     }
                     else 
@@ -973,14 +978,21 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 return 1;
             new bizIndex = GetPVarInt(playerid, "BizIndex"),
                 wareIndex = GetPVarInt(playerid, "WareIndex"),
-                itemIndex;
+                itemIndex = -1;
 
             for(new i = 0; i < sizeof(SupermarketItems); i++)
-                if(!strcmp(GetItemName(SupermarketItems[ i ][ ItemId ]), inputtext))
+            {
+                if(IsValidItem(SupermarketItems[ i ][ ItemId ]) && !strcmp(GetItemName(SupermarketItems[ i ][ ItemId ]), inputtext))
                 {
                     itemIndex = i;
                     break;
                 }
+            }
+
+            if(itemIndex == -1)
+            {
+                ErrorLog("Businesses.p : OnDialogResponse : DIALOG_BIZ_WARE_LIST_EDIT_SHOP item index is -1. Inputtext:%s", inputtext);
+            }
 
             BusinessWares[ bizIndex ][ wareIndex ][ Name ][ 0 ] = SupermarketItems[ itemIndex ][ ItemId ];
             SaveBusinessWare(bizIndex, wareIndex);
@@ -2213,11 +2225,14 @@ CMD:buy(playerid, params[])
                 if(isnull(BusinessWares[ bizIndex ][ i ][ Name ]))
                     strcat(string, #BUSINESS_WARES_EMPTY_SLOT "\n");
                 else    
-                    // Parduotuvëse name[0] yra daikto ID.
+                {
+                    printf("Itemid from name[0]:%d GetItemName:%s", BusinessWares[ bizIndex ][ i ][ Name ][ 0 ], GetItemName(BusinessWares[ bizIndex ][ i ][ Name ][ 0 ]));
+                     // Parduotuvëse name[0] yra daikto ID.
                     format(string, sizeof(string),"%s%s\t\t%d\n",
                         string,
                         GetItemName(BusinessWares[ bizIndex ][ i ][ Name ][ 0 ]),
                         BusinessWares[ bizIndex ][ i ][ Price ]);
+                }
             }
             ShowPlayerDialog(playerid, DIALOG_BIZ_WARE_LIST, DIALOG_STYLE_LIST, header, string, "Pirkti", "Iðeiti");
         }

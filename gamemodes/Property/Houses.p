@@ -47,6 +47,14 @@
 #define HOUSE_LABEL_DRAW_DISTANCE       20.0
 
 
+enum E_HOUSE_ITEM_DATA
+{
+    SqlId,
+    ItemId,
+    Amount,
+    ContentAmount,
+    Durability,
+};
 
 enum E_HOUSE_WEED_DATA 
 {
@@ -87,9 +95,6 @@ enum E_HOUSE_DATA
     hBank,
     hEntranceInt,
     hEntranceVirw,
-    hItemSqlId[ MAX_HOUSETRUNK_SLOTS ],
-    hItem[ MAX_HOUSETRUNK_SLOTS ],
-    hCount[ MAX_HOUSETRUNK_SLOTS ],
     hGar,
     hInteriorId,
     hUpgrades[ E_HOUSE_UPGRADE_DATA ],
@@ -101,7 +106,8 @@ enum E_HOUSE_DATA
 new hInfo[ MAX_HOUSES ][ E_HOUSE_DATA ],
     HouseFurniture[MAX_HOUSES][ MAX_HOUSE_FURNITURE][ E_HOUSE_FURNITURE_DATA ],
     HouseRadio[ MAX_HOUSES ][ E_HOUSE_RADIO_DATA ],
-    HouseWeed[ MAX_HOUSES ][ MAX_HOUSE_WEED_SAPLINGS ][ E_HOUSE_WEED_DATA ];
+    HouseWeed[ MAX_HOUSES ][ MAX_HOUSE_WEED_SAPLINGS ][ E_HOUSE_WEED_DATA ],
+    HouseItems[ MAX_HOUSES ][ MAX_HOUSE_ITEMS ][ E_HOUSE_ITEM_DATA ];
 
 new Iterator:Houses<MAX_HOUSES>;
 
@@ -197,7 +203,7 @@ public OnHouseLoad()
 
 public OnHouseItemLoad()
 {
-    new id, itemid, houseid, index, amount;
+    new id, itemid, houseid, index, amount, contentamount, durability;
     for(new i = 0; i < cache_get_row_count(); i++)
     {
         id = cache_get_field_content_int(i, "id");
@@ -205,14 +211,18 @@ public OnHouseItemLoad()
         itemid = cache_get_field_content_int(i, "item_id");
         index = cache_get_field_content_int(i, "slot");
         amount = cache_get_field_content_int(i, "amount");
+        contentamount = cache_get_field_content_int(i, "content_amount");
+        durability = cache_get_field_content_int(i, "durability");
 
         foreach(new j : Houses)
         {
             if(hInfo[ j ][ hID ] == houseid)
             {
-                hInfo[ j ][ hItemSqlId ][ index ] = id;
-                hInfo[ j ][ hItem ][ index ] = itemid;
-                hInfo[ j ][ hCount ][ index ] = amount;
+                HouseItems[ j ][ index ][ SqlId ] = id;
+                HouseItems[ j ][ index ][ ItemId ] = itemid;
+                HouseItems[ j ][ index ][ Amount ] = amount;
+                HouseItems[ j ][ index ][ ContentAmount ] = contentamount;
+                HouseItems[ j ][ index ][ Durability ] = durability;
                 break;
             }
         }
@@ -481,7 +491,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 return 1;
 
             new house_index = GetPVarInt(playerid, "HouseIndex"),
-                itemid = hInfo[ house_index ][ hItem ][ listitem ],
+                itemid = HouseItems[ house_index ][ listitem ][ ItemId ],
                 string[90];
 
             // Jei itemid maþesnis uþ 50, tai reiðkia kad tai ginklas
@@ -493,24 +503,27 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(pInfo[ playerid ][ pLevel ] < 2)
                     return SendClientMessage( playerid, COLOR_RED, "Klaida, Jûs privalote bøti pasiekæs 2 lygá, kad naudotumëtës ðia galimybæ.");
                 }
-                GunLog(GetPlayerSqlId(playerid), 2, hInfo[ house_index ][ hOwner ], GetItemName(itemid), hInfo[ house_index ][ hCount ][ listitem ]);
-                GivePlayerWeapon(playerid, itemid, hInfo[ house_index ][ hCount ][ listitem ]);
+                GunLog(GetPlayerSqlId(playerid), 2, hInfo[ house_index ][ hOwner ], GetItemName(itemid), HouseItems[ house_index ][ listitem ][ Amount ]);
+                GivePlayerWeapon(playerid, itemid, HouseItems[ house_index ][ listitem ][ Amount ]);
             }
             // Jei tai áprastas daiktas
             else if(itemid > 50)
             {
                 if(IsItemDrug(itemid))
-                    NarkLog(GetPlayerSqlId(playerid), 2, hInfo[ house_index ][ hOwner ], GetItemName(itemid), hInfo[ house_index ][ hCount ][ listitem ]);
+                    NarkLog(GetPlayerSqlId(playerid), 2, hInfo[ house_index ][ hOwner ], GetItemName(itemid), HouseItems[ house_index ][ listitem ][ Amount ]);
 
                 if(IsPlayerInventoryFull(playerid))
                     return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Klaida, bet Jûsø inventoriuje nepakanka laisvos vietos ðiam daiktui.");
 
-                GivePlayerItem(playerid, itemid, hInfo[ house_index ][ hCount ][ listitem ]);
+                GivePlayerItem(playerid, itemid, HouseItems[ house_index ][ listitem ][ Amount ], HouseItems[ house_index ][ listitem ][ ContentAmount ], HouseItems[ house_index ][ listitem ][ Durability ]);
             }
 
             // Jei pasiekëm ðià vietà, daiktas jau duotas reikia já paðalinti ið namo atminties
-            hInfo[ house_index ][ hItem  ][ listitem ] = 0;
-            hInfo[ house_index ][ hCount ][ listitem ] = 0;
+            HouseItems[ house_index ][ listitem ][ SqlId ] = 0;
+            HouseItems[ house_index ][ listitem ][ ItemId ] = 0;
+            HouseItems[ house_index ][ listitem ][ Amount ] = 0;
+            HouseItems[ house_index ][ listitem ][ ContentAmount ] = 0;
+            HouseItems[ house_index ][ listitem ][ Durability ] = 0;
             SaveHouseInv(house_index);
             format(string, sizeof(string), "* %s pasiemà daiktà ið spintelës, kuris atrodo kaip %s ", GetPlayerNameEx(playerid), GetItemName(itemid));
             ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
@@ -547,12 +560,12 @@ stock ShowHouseInv(playerid, hindex)
     new string[ 5120 ];
     for(new i = 0; i < MAX_HOUSE_ITEMS; i++)
     {
-        if(!hInfo[ hindex ][ hItem ][ i ])
+        if(!HouseItems[ hindex ][ i ][ SqlId ])
             format(string, sizeof(string), "%s%d. Nëra\n", string, i+1);
         else
             format(string, sizeof(string), "%s%d. %s %d\n", string, i+1, 
-                GetItemName(hInfo[ hindex ][ hItem ][ i ]), 
-                hInfo[ hindex ][ hCount ][ i ]);
+                GetItemName(HouseItems[ hindex ][ i ][ ItemId ]), 
+                HouseItems[ hindex ][ i ][ Amount ]);
     }
     SetPVarInt(playerid, "HouseIndex", hindex);
     ShowPlayerDialog(playerid, DIALOG_HOUSE_ITEM_LIST, DIALOG_STYLE_LIST, "Spintelë", string, "Paimti", "Iðeiti");
@@ -598,7 +611,7 @@ stock GetHouseRadioStation(hindex)
 stock GetHouseFreeitemSlot(hindex)
 {
     for(new i = 0; i < MAX_HOUSE_ITEMS; i++)    
-        if(!hInfo[ hindex ][ hItemSqlId ])
+        if(!HouseItems[ hindex ][ i ][ SqlId ])
             return i;
     return -1;
 }   
@@ -1003,14 +1016,16 @@ stock SaveHouseFurnitureObject(hindex, furniture_index, Float:fX, Float:fY, Floa
 
 stock SaveHouseInv(hindex)
 {
-    new query[ 180 ];
-    for(new i = 0; i < MAX_HOUSETRUNK_SLOTS; i++)
+    new query[ 210 ];
+    for(new i = 0; i < MAX_HOUSE_ITEMS; i++)
     {
-        format(query, sizeof(query)," UPDATE house_items SET item_id = %d, slot = %d, amount = %d WHERE id = %d",
-            hInfo[ hindex ][ hItem ], 
+        format(query, sizeof(query)," UPDATE house_items SET item_id = %d, slot = %d, amount = %d, content_amount = %d, durability = %d WHERE id = %d",
+            HouseItems[ hindex ][ i ][ ItemId ],
             i,
-            hInfo[ hindex ][ hCount ],
-            hInfo[ hindex ][ hItemSqlId ]);
+            HouseItems[ hindex ][ i ][ Amount ],
+            HouseItems[ hindex ][ i ][ ContentAmount ],
+            HouseItems[ hindex ][ i ][ Durability ],
+            HouseItems[ hindex ][ i ][ SqlId ]);
         mysql_pquery(DbHandle, query);
     }
     return 1;
@@ -1142,25 +1157,27 @@ stock SetHousePickupModel(hindex, modelid)
 }
 
 
-stock SetHouseItem(hindex, slot, itemid, amount)
+stock SetHouseItem(hindex, slot, itemid, amount, contentamount, durability)
 {
-    new query[160];
+    new query[180];
 
-    hInfo[ hindex ][ hItem ][ slot ] = itemid;
-    hInfo[ hindex ][ hCount ][ slot ] = amount;
+    HouseItems[ hindex ][ slot ][ ItemId ] = itemid;
+    HouseItems[ hindex ][ slot ][ Amount ] = amount;
+    HouseItems[ hindex ][ slot ][ ContentAmount ] = contentamount;
+    HouseItems[ hindex ][ slot ][ Durability ] = durability;
 
-    if(hInfo[ hindex ][ hItemSqlId ][ slot ])
+    if(HouseItems[ hindex ][ slot ][ SqlId ])
     {
-        mysql_format(DbHandle, query, sizeof(query), "UPDATE house_items SET item_id = %d, amount = %f WHERE id = %d",
-            itemid, amount, hInfo[ hindex ][ hItemSqlId ][ slot ]);
+        mysql_format(DbHandle, query, sizeof(query), "UPDATE house_items SET item_id = %d, amount = %f, content_amount = %d, durability = %d WHERE id = %d",
+            itemid, amount, contentamount, durability, HouseItems[ hindex ][ slot ][ SqlId ]);
         return mysql_pquery(DbHandle, query);
     }
     else 
     {
-        mysql_format(DbHandle, query, sizeof(query),"INSERT INTO house_items (house_id, item_id, slot, amount) VALUES(%d, %d, %d, %d)",
-            hInfo[ hindex ][ hID ], itemid, slot, amount);
+        mysql_format(DbHandle, query, sizeof(query),"INSERT INTO house_items (house_id, item_id, slot, amount, content_amount, durability) VALUES(%d, %d, %d, %d, %d, %d)",
+            hInfo[ hindex ][ hID ], itemid, slot, amount, contentamount, durability);
         new Cache:result = mysql_query(DbHandle, query);
-        hInfo[ hindex ][ hItemSqlId ][ slot ] = cache_insert_id();
+        HouseItems[ hindex ][ slot ][ SqlId ] = cache_insert_id();
         cache_delete(result);
         return 1;
     }
@@ -1982,11 +1999,11 @@ stock HouseManagementDialog.Information(playerid, hindex)
     strcat(string, "\n\n___Name esantys daiktai___\n\n");
 
     for(new i = 0; i < MAX_HOUSE_ITEMS; i++)
-        if(hInfo[ hindex ][ hItemSqlId ])
+        if(HouseItems[ hindex ][ i ][ SqlId ])
             format(string, sizeof(string),"%s%s %d\n",
                 string,
-                GetItemName(hInfo[ hindex ][ hItem ]),
-                hInfo[ hindex ][ hCount ]);
+                GetItemName(HouseItems[ hindex ][ i ][ ItemId ]),
+                HouseItems[ hindex ][ i ][ Amount ]);
 
     ShowPlayerDialog(playerid, 9999, DIALOG_STYLE_MSGBOX, "Namo informcija", string, "Gerai", "");
     return 1;

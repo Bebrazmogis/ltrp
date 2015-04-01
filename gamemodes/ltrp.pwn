@@ -22,8 +22,8 @@
 
 
 
-#define VERSION                         1.x.x
-#define BUILD_DATE                      2015-03.31
+#define VERSION                         2.0.0
+#define BUILD_DATE                      2015-04.01
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -762,6 +762,8 @@ enum cars
     cInsurance,
     cTrunkWeapon[MAX_TRUNK_SLOTS],
     cTrunkAmmo[MAX_TRUNK_SLOTS],
+    cTrunkItemContent[ MAX_TRUNK_SLOTS ],
+    cTrunkItemDurability[ MAX_TRUNK_SLOTS ],
     cTicket,
     cHidraulik,
     cCrimes,
@@ -2252,31 +2254,56 @@ stock SavePayDay( idx )
 }
 stock UnPackTrunk(veh,trunkinfo[])
 {
-    sscanf( trunkinfo, "p</>dddddddddddddddddddddddd",
+    sscanf( trunkinfo, "p</>dddddddddddddddddddddddddddddddddddddddddddddddd",
     cInfo[ veh ][ cTrunkWeapon ][ 0 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 0 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 0 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 0 ],
     cInfo[ veh ][ cTrunkWeapon ][ 1 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 1 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 1 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 1 ],
     cInfo[ veh ][ cTrunkWeapon ][ 2 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 2 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 2 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 2 ],
     cInfo[ veh ][ cTrunkWeapon ][ 3 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 3 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 3 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 3 ],
     cInfo[ veh ][ cTrunkWeapon ][ 4 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 4 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 4 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 4 ],
     cInfo[ veh ][ cTrunkWeapon ][ 5 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 5 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 5 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 5 ],
     cInfo[ veh ][ cTrunkWeapon ][ 6 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 6 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 6 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 6 ],
     cInfo[ veh ][ cTrunkWeapon ][ 7 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 7 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 7 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 7 ],
     cInfo[ veh ][ cTrunkWeapon ][ 8 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 8 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 8 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 8 ],
     cInfo[ veh ][ cTrunkWeapon ][ 9 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 9 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 9 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 9 ],
     cInfo[ veh ][ cTrunkWeapon ][ 10 ],
     cInfo[ veh ][ cTrunkAmmo   ][ 10 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 10 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 10 ],
     cInfo[ veh ][ cTrunkWeapon ][ 11 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 11 ]);
+    cInfo[ veh ][ cTrunkAmmo   ][ 11 ],
+    cInfo[ veh ][ cTrunkItemContent   ][ 11 ],
+    cInfo[ veh ][ cTrunkItemDurability   ][ 11 ]);
+
     return 1;
 }
 stock PackTrunk( vehicleid )
@@ -2284,16 +2311,18 @@ stock PackTrunk( vehicleid )
     new string[ 512 ];
     for(new i = 0; i < MAX_TRUNK_SLOTS; i++)
     {
-        format(string, sizeof(string ),"%s%d/%d/",string,
+        format(string, sizeof(string ),"%s%d/%d/%d/%d/",string,
         cInfo[ vehicleid ][ cTrunkWeapon ][ i ],
-        cInfo[ vehicleid ][ cTrunkAmmo   ][ i ]);
+        cInfo[ vehicleid ][ cTrunkAmmo   ][ i ],
+        cInfo[ vehicleid ][ cTrunkItemContent ][ i ],
+        cInfo[ vehicleid ][ cTrunkItemDurability ][ i ]);
     }
     return string;
 }
 stock SaveCar(carid)
 {
     if ( cInfo[ carid ][ cOwner ] == 0 ) return 1;
-    new string[ 1024 ];
+    new string[ 1400 ];
 
     format(string,sizeof(string),"UPDATE `vehicles` SET `cName`='%s',`cOwner`=%d,`cModel`=%d,`cSpawn1`='%f',`cSpawn2`='%f',\
     `cSpawn3`='%f',`cAngle`='%f',`cColor1`=%d,`cColor2`=%d,`cFuel`=%d,`cNumbers`='%s',`cFaction`=%d,`cWheels`=%d,`c\
@@ -2484,12 +2513,17 @@ stock TakeFromTrunk( playerid, veh, slot )
             if ( pInfo[ playerid ][ pLevel ] < 2 )
             return SendClientMessage( playerid, COLOR_RED, "Klaida, Jûs privalote bøti pasiekæs 2 lygá, kad naudotumëtës ðia galimybæ." );
         }
-        GivePlayerWeapon( playerid, tmpid,cInfo[ veh ][ cTrunkAmmo ][ slot ] );
+
         if( sVehicles[ veh ][ Faction ] != 2 && sVehicles[ veh ][ Faction ] != 3 )
         {
             cInfo[ veh ][ cTrunkWeapon ][ slot ] = 0;
             cInfo[ veh ][ cTrunkAmmo   ][ slot ] = 0;
+            GivePlayerWeapon( playerid, tmpid,cInfo[ veh ][ cTrunkAmmo ][ slot ] );
             GunLog       ( pInfo[ playerid ][ pMySQLID ], 4, cInfo[ veh ][ cOwner ], GetItemName(tmpid), cInfo[ veh ][ cTrunkAmmo ][ slot ] );
+        }
+        else 
+        {
+            GivePlayerJobWeapon(playerid, tmpid, cInfo[ veh ][ cTrunkAmmo ][ slot ]);
         }
     }
     else if ( tmpid > 50 )
@@ -2502,10 +2536,12 @@ stock TakeFromTrunk( playerid, veh, slot )
         if(IsPlayerInventoryFull(playerid))
             return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Klaida, bet Jûsø inventoriuje nepakanka laisvos vietos ðiam daiktui..");
 
-        GivePlayerItem(playerid, tmpid, cInfo[ veh ][ cTrunkAmmo   ][ slot ]);
+        GivePlayerItem(playerid, tmpid, cInfo[ veh ][ cTrunkAmmo   ][ slot ], cInfo[ veh ][ cTrunkItemContent ][ slot ], cInfo[ veh ][ cTrunkItemDurability ][ slot ]);
             
         cInfo[ veh ][ cTrunkWeapon ][ slot ] = 0;
         cInfo[ veh ][ cTrunkAmmo   ][ slot ] = 0;
+        cInfo[ veh ][ cTrunkItemContent   ][ slot ] = 0;
+        cInfo[ veh ][ cTrunkItemDurability   ][ slot ] = 0;
     }
     format       ( string, 80, "* %s ið tr. priemonës bagaþinës iðtraukia daiktà atrodantá kaip %s " ,GetPlayerNameEx( playerid ), GetItemName(tmpid));
     ProxDetector ( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
@@ -10968,10 +11004,10 @@ public OnPlayerCommandReceived(playerid, cmdtext[]) {
 public OnPlayerCommandPerformed(playerid, cmdtext[ ], success)
 {
     LastPlayerCommandTimestamp[ playerid ] = gettime();
-    foreach(new i : Player)
-        if(IsPlayerSpectatingPlayer(i, playerid))
-            UpdateDynamic3DTextLabelText(SpecCommandLabel[ i ], 0x00AA00FF, cmdtext);
-    SetTimerEx("SpecLabelDissapear", 30000, false, "i", playerid);
+    //foreach(new i : Player)
+       // if(IsPlayerSpectatingPlayer(i, playerid))
+            //UpdateDynamic3DTextLabelText(SpecCommandLabel[ i ], 0x00AA00FF, cmdtext);
+    //SetTimerEx("SpecLabelDissapear", 30000, false, "i", playerid);
 
 
 
@@ -16184,7 +16220,7 @@ CMD:spec( playerid, params[ ] )
 
         PlayerSpectatedPlayer[ playerid ] = giveplayerid;
 
-        SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel(" ", 0x00000044, 0.0, 0.0, 0.0, 10.0, .attachedplayer = giveplayerid);
+        //SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel(" ", 0x00000044, 0.0, 0.0, 0.0, 10.0, .attachedplayer = giveplayerid);
             
         if(!IsPlayerInAnyVehicle(playerid))
         {
@@ -22213,7 +22249,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             format(dialog, sizeof(dialog), "DUOM. BAZË: Tr. Priemonës pavadinimas: %s\n\
                 DUOM. BAZË: Tr. Priemonës numeriai: %s\n\ 
                 DUOM. BAZË: Tr. Priemonës draudimas: %d\n\
-                DUOM. BAZË: Tr. Priemonës savininkas: %s", 
+                DUOM. BAZË: Tr. Priemonës savininkas: %s\n", 
                 dialog, 
                 inputtext,
                 cache_get_field_content_int(0, "cInsurance"),
@@ -22240,6 +22276,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     break;
                 format(dialog, sizeof(dialog), "%s-->áskaita: %s\nPolicininkas: %s\nLaikas: %s", dialog, string, name, tmp);
             }
+            ShowPlayerDialog(playerid, 136, DIALOG_STYLE_LIST,"Informacija rasta", dialog, "Uþdaryti", "" );
         }
         cache_delete(result);
         /*
@@ -22319,7 +22356,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         cache_delete(result);
         */
-        ShowPlayerDialog(playerid, 136, DIALOG_STYLE_LIST,"Informacija rasta", dialog, "Uþdaryti", "" );
     }
     else if( dialogid == 132 )
     {
@@ -27454,6 +27490,8 @@ stock nullVehicle( vehicleid )
     {
         cInfo[ vehicleid ][ cTrunkWeapon ][ slot ] = 0;
         cInfo[ vehicleid ][ cTrunkAmmo   ][ slot ] = 0;
+        cInfo[ vehicleid ][ cTrunkItemDurability ][ slot ] = 0;
+        cInfo[ vehicleid ][ cTrunkItemContent ][ slot ] = 0;
     } 
 
     for(new i = 0; i < MAX_TRUCKER_CARGO_OBJECTS; i++)

@@ -154,6 +154,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			new itemid = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ ItemId ],
 				amount = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ Amount ],
+				contentamount = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ ContentAmount ],
+				durability = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ Durability ],
 				itemname[ MAX_ITEM_NAME ],
 				string[128];
 
@@ -278,6 +280,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                        if(IsItemDrug(itemid))
 	                            NarkLog(GetPlayerSqlId(playerid), 3, cInfo[ car ][ cOwner ], itemname, amount);
 
+
+
 	                        if(itemid > 21 && itemid < 50)
 	                        {
 	                            if(pInfo[ playerid ][ pLevel ] < 2)
@@ -291,9 +295,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 	                        cInfo[ car ][ cTrunkWeapon ][ slot ] = itemid;
 	                        cInfo[ car ][ cTrunkAmmo   ][ slot ] = amount;
+	                        cInfo[ car ][ cTrunkItemContent ][ slot ] = contentamount;
+	                        cInfo[ car ][ cTrunkItemDurability ][ slot ] = durability;
 
 
-
+	                        SaveCar(car);
 	                        RemovePlayerItemAtIndex(playerid, PlayerUsedItemIndex[ playerid ]);
 	                        return 1;
 	                    }
@@ -340,7 +346,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 
 	                RemovePlayerItemAtIndex(playerid, PlayerUsedItemIndex[ playerid ]);
-	                SetHouseItem(index, slot, itemid, amount);
+	                SetHouseItem(index, slot, itemid, amount, contentamount, durability);
 	                return 1;
 	            }
 	            case 4:
@@ -1129,7 +1135,7 @@ Item:OnPlayerUseHat(playerid, itemid, invindex)
 }
 
 
-Item:OnPlayerUseGlassees(playerid, itemid)
+Item:OnPlayerUseGlasses(playerid, itemid)
 {
 	if(!IsPlayerAttachedObjectSlotUsed(playerid, GetAttachedItemSlot(itemid)))
     {
