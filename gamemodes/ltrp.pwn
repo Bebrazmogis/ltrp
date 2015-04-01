@@ -15546,7 +15546,8 @@ CMD:amenu(playerid)
                                                                  - Garaþai\n\
                                                                  - Industrijos\n\
                                                                  - Interjerai\n\
-                                                                 - Ávairios koordinatës","Rinktis","Atðaukti");
+                                                                 - Ávairios koordinatës\n\
+                                                                 - Grafiti","Rinktis","Atðaukti");
     }
     return 1;
 }
@@ -18725,6 +18726,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     return InteriorManagementDialog.ShowMain(playerid);
                 case 10: 
                     return CoordinateManagementDialog.ShowMain(playerid);
+                case 11:
+                    return GraffitiManagementDialog.ShowMain(playerid);
             }
         }
     }

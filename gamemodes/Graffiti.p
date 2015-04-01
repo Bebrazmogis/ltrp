@@ -13,6 +13,16 @@
 #define DIALOG_GRAFFITI_FONT_SIZE 		7502
 #define DIALOG_GRAFFITI_COLOUR 			7503
 
+#define GraffitiManagementDialog.		graf_
+
+#define DIALOG_GRAFFITIMENU_MAIN		6700	
+#define DIALOG_GRAFFITIMENU_FULL_LIST	6701
+#define DIALOG_GRAFFITIMENU_OPTIONS		6702
+#define DIALOG_GRAFFITIMENU_NEAREST		6703	
+#define DIALOG_GRAFFITIMENU_INPUT_TEXT	6704
+
+#define GRAFFITI_LIST_ITEMS_PER_PAGE	10
+
 
 /*
 	CREATE TABLE IF NOT EXISTS graffiti_fonts 
@@ -54,6 +64,9 @@
 	ALTER TABLE graffiti ADD FOREIGN KEY(colour_id) REFERENCES graffiti_colours(id) ON DELETE CASCADE;
 
 */
+
+static PlayerUsedGraffitiSqlId[ MAX_PLAYERS ],
+		PlayerGraffitiListPage[ MAX_PLAYERS ];
 
 enum E_PLAYER_GRAFFITI_DATA 
 {
@@ -816,14 +829,11 @@ timer GraffitiSprayTimeEnd[GRAFITTI_SPRAY_RIGHT_TIME_MIN*60*1000](playerid)
 */
 
 
-#define GraffitiManagementDialog.		@graf_
 
-static PlayerUsedGraffitiIndex[ MAX_PLAYERS ],
-		PlayerGraffitiListPage[ MAX_PLAYERS ];
 
 stock GraffitiManagementDialog.ShowMain(playerid)
 {
-	ShowPlayerDialog(playerid, DIALOG_GRAFFITIMENU_MAIN, DIALOG_STYLE_LIST, 
+	ShowPlayerDialog(playerid, DIALOG_GRAFFITIMENU_MAIN, DIALOG_STYLE_LIST, "Grafiti valdymas",
 		"Visi serverio grafiti\n\
 		Aplink mane esantys grafiti\n\
 		Grafiti paieðka pagal tekstà.",
@@ -833,27 +843,66 @@ stock GraffitiManagementDialog.ShowMain(playerid)
 
 stock GraffitiManagementDialog.ShowFullList(playerid)
 {
-	new query[], Cache:result, string[ 1024 ];
-	mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM graffiti LIMIT %d, %d", 
+	new Cache:result, string[ 1024 ], text[ MAX_GRAFFITI_TEXT ], name[ MAX_PLAYER_NAME ];
+	mysql_format(DbHandle, string, sizeof(string), "SELECT graffiti.*, players.name FROM graffiti LEFT JOIN players ON graffiti.author = players.id LIMIT %d, %d", 
 		PlayerGraffitiListPage[ playerid ] * GRAFFITI_LIST_ITEMS_PER_PAGE, 
-		(PlayerGraffitiListPage[ playerid ]+1) * GRAFFITI_LIST_ITEMS_PER_PAGE);
+		((PlayerGraffitiListPage[ playerid ]+1) * GRAFFITI_LIST_ITEMS_PER_PAGE)+1);
+	result = mysql_query(DbHandle, string);
+
+	if(PlayerGraffitiListPage[ playerid ])
+		format(string, sizeof(string), "<---Atgal\n");
+
+	for(new i = 0; i < cache_get_row_count()-1; i++)
+	{
+		cache_get_field_content(i, "text", text);
+		cache_get_field_content(i, "name", name);
+		format(string, sizeof(string),"%s%d.%s - %s\n",string, cache_get_field_content_int(i, "id"), text, name);
+	}
+	// Pasiemam mes papildomai vienà patikrinti ar bus kitam puslapy kà rodyti.
+	if(cache_get_row_count() > GRAFFITI_LIST_ITEMS_PER_PAGE)
+		strcat(string, "Toliau--->");
+
+	cache_delete(result);
+	ShowPlayerDialog(playerid, DIALOG_GRAFFITIMENU_FULL_LIST, DIALOG_STYLE_LIST, "Grafiti sàraðas", string, "Pasirinkti", "Iðeiti");
+	return 1;
+}
+
+stock GraffitiManagementDialog.EditOptions(playerid)
+{
+	ShowPlayerDialog(playerid, DIALOG_GRAFFITIMENU_OPTIONS, DIALOG_STYLE_LIST, "Grafiti valdymas", "Iðtrinti\nComing soon", "Pasirinkti", "Iðeiti");
+	return 1;
+}	
+
+stock GraffitiManagementDialog.ShowNearestList(playerid, Float:distance)
+{
+	new query[290], Float:x, Float:y, Float:z, Cache:result, string[ 1024 ], name[ MAX_PLAYER_NAME ];
+	GetPlayerPos(playerid, x, y, z);
+
+	mysql_format(DbHandle, query, sizeof(query), "SELECT graffiti.*, players.name FROM graffiti LEFT JOIN players ON players.id = graffiti.author \
+		WHERE graffiti.pos_x > %f AND graffiti.pos_x < %f AND graffiti.pos_y > %f AND graffiti.pos_y < %f AND graffiti.pos_z > %f AND graffiti.pos_z < %f",
+		x - distance, x + distance,
+		y - distance, y + distance,
+		z - distance, z + distance);
 	result = mysql_query(DbHandle, query);
 
 	for(new i = 0; i < cache_get_row_count(); i++)
 	{
-		
+		cache_get_field_content(i, "text", query);
+		cache_get_field_content(i, "name", name);
+		format(string, sizeof(string), "%s%d.%s - %s\n", string, cache_get_field_content_int(i, "id"), query, name);
 	}
-}
-
-stock GraffitiManagementDialog.ShowNearestList(playerid, Float:distance)
-{
-
+	cache_delete(result);
+	ShowPlayerDialog(playerid, DIALOG_GRAFFITIMENU_NEAREST, DIALOG_STYLE_LIST, "Artimiausi grafiti", string, "Pasirinkti", "Iðeiti");
+	return 1;
 }
 
 
 stock GraffitiManagementDialog.ShowTextInput(playerid, errostr[] = "")
 {
-
+	new string[128];
+	format(string, sizeof(string), "{AA1100}%s\n{FFFFFF}Áveskite grafiti tekstà.", errostr);
+	ShowPlayerDialog(playerid, DIALOG_GRAFFITIMENU_INPUT_TEXT, DIALOG_STYLE_INPUT, "Grafiti paieðka", string, "Ieðkoti", "Iðeiti");
+	return 1;
 }
 
 GraffitiManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
@@ -881,6 +930,102 @@ GraffitiManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem
 					GraffitiManagementDialog.ShowTextInput(playerid);
 				}
 			}
+			return 1;
+		}
+		case DIALOG_GRAFFITIMENU_FULL_LIST:
+		{
+			if(!response)	
+				return GraffitiManagementDialog.ShowMain(playerid);
+
+			if(!listitem)
+			{
+				PlayerGraffitiListPage[ playerid ]--;
+				GraffitiManagementDialog.ShowFullList(playerid);
+			}
+			else if(listitem == GRAFFITI_LIST_ITEMS_PER_PAGE)
+			{
+				PlayerGraffitiListPage[ playerid ]++;
+				GraffitiManagementDialog.ShowFullList(playerid);
+			}
+			else 
+			{
+				new sqlid, tmp[ 16 ];
+				strmid(tmp, inputtext, 0, strfind(inputtext, "."));
+				sqlid = strval(tmp);
+				PlayerUsedGraffitiSqlId[ playerid ] = sqlid;
+				GraffitiManagementDialog.EditOptions(playerid);
+			}
+			return 1;
+		}
+		case DIALOG_GRAFFITIMENU_NEAREST:
+		{
+			if(!response)	
+				return GraffitiManagementDialog.ShowMain(playerid);
+
+			new sqlid, tmp[ 16 ];
+			strmid(tmp, inputtext, 0, strfind(inputtext, "."));
+			sqlid = strval(tmp);
+			PlayerUsedGraffitiSqlId[ playerid ] = sqlid;
+			GraffitiManagementDialog.EditOptions(playerid);
+			return 1;
+		}
+		case DIALOG_GRAFFITIMENU_OPTIONS:
+		{
+			if(!response)	
+				return GraffitiManagementDialog.ShowFullList(playerid);
+
+			new query[50];
+			switch(listitem)
+			{
+				// Iðtrynimas
+				case 0:
+				{
+					mysql_format(DbHandle, query, sizeof(query),"DELETE FROM graffiti WHERE id = %d", PlayerUsedGraffitiSqlId[ playerid ]);
+					mysql_pquery(DbHandle, query);
+
+					for(new i = 0; i < MAX_GRAFFITI; i++)
+						if(GraffitiData[ i ][ SqlId ] == PlayerUsedGraffitiSqlId[ playerid ])
+						{
+							DestroyDynamicObject(GraffitiData[ i ][ ObjectId ]);
+							GraffitiData[ i ][ ObjectId ] = 0;
+							GraffitiData[ i ][ SqlId ] = 0;
+							break;
+						}
+					SendClientMessage(playerid, COLOR_NEWS, "Grafiti sëkmingai paðalintas.");
+					PlayerUsedGraffitiSqlId[ playerid ] = 0;
+				}
+				default: 
+					return GraffitiManagementDialog.ShowMain(playerid);
+			}
+			return 1;
+		}
+		case DIALOG_GRAFFITIMENU_INPUT_TEXT:
+		{
+			if(!response)
+				return GraffitiManagementDialog.ShowMain(playerid);
+
+			if(isnull(inputtext) || strlen(inputtext) >= MAX_GRAFFITI_TEXT)
+				return GraffitiManagementDialog.ShowTextInput(playerid, "Teksto turi sudaryti nuo 0 iki " #MAX_GRAFFITI_TEXT " simboliø.");
+			
+			new query[160], string[ 1024 ], Cache:result;
+			mysql_format(DbHandle, query, sizeof(query), "SELECT graffiti.id, players.name FROM graffiti LEFT JOIN players ON players.id = graffiti.author WHERE text = '%e'", inputtext);
+			result = mysql_query(DbHandle, query);
+
+			if(cache_get_row_count())
+			{
+				for(new i = 0; i < cache_get_row_count(); i++)
+				{
+					cache_get_field_content(i, "name", query);
+					format(string, sizeof(string), "%s%d.%s", string, cache_get_field_content_int(i, "id"), query);
+				}
+				// Naudojam DIALOG_GRAFFITIMENU_NEAREST nes jame toks parsinimas kokio reikia :)
+				ShowPlayerDialog(playerid, DIALOG_GRAFFITIMENU_NEAREST, DIALOG_STYLE_LIST, "Paieðkos rezultatai.", string, "Pasirinkti", "Iðeiti");
+			}
+			else 
+			{
+				GraffitiManagementDialog.ShowTextInput(playerid, "Grafiti su tokiu tekstu nerastas");
+			}
+			cache_delete(result);
 			return 1;
 		}
 	}
