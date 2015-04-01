@@ -1626,6 +1626,10 @@ stock SetPlayerItemContentAmountIndex(playerid, invindex, itemid, value)
 		new perteklius = (GetItemMaxCapacity(itemid)*PlayerItems[ playerid ][ invindex ][ Amount ] - PlayerItems[ playerid ][ invindex ][ ContentAmount ]) / GetItemMaxCapacity(itemid);
 		printf("Perteklius:%d", perteklius);
 		PlayerItems[ playerid ][ invindex ][ Amount ] -= perteklius;
+		if(!PlayerItems[ playerid ][ invindex ][ Amount ])
+		{
+			RemovePlayerItemAtIndex(playerid, invindex);
+		}
 	}
 
 	mysql_format(DbHandle, query, sizeof(query), "UPDATE player_items SET content_amount = %d, amount = %d WHERE id = %d",
