@@ -22,7 +22,7 @@
 
 
 
-#define VERSION                         2.0.5
+#define VERSION                         2.0.6
 #define BUILD_DATE                      2015-04.03
 
 #include <a_samp>

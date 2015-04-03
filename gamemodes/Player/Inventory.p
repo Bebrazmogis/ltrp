@@ -1362,7 +1362,7 @@ Item:OnPlayerUseMP3Player(playerid, itemid)
 Item:OnPlayerUseHouseAudio(playerid, itemid)
 {
 	new house_index = GetPlayerHouseIndex(playerid);
-	if(house_index)
+	if(house_index == -1)
 		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate namuose.");
 	
 	if(!IsPlayerHouseOwner(playerid, house_index))
