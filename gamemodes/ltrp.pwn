@@ -22,8 +22,8 @@
 
 
 
-#define VERSION                         2.0.0
-#define BUILD_DATE                      2015-04.01
+#define VERSION                         2.0.5
+#define BUILD_DATE                      2015-04.03
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -3762,7 +3762,7 @@ public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
 
     SetPlayerAttachedObject(playerid,index,modelid,boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
     if(response == EDIT_RESPONSE_FINAL)
-        if(IsPlayerWearingAnyItem(playerid))
+        if(IsItemWearable(GetItemIdFromModel(modelid)))
             AddPlayerAttachedItem(playerid,GetItemIdFromModel(modelid),boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
     return 1;
 }
@@ -5540,7 +5540,6 @@ CMD:leavefaction(playerid)
     pInfo[playerid][pMember ] = 0;
     pInfo[playerid][pRank   ] = 0;
     pInfo[playerid][pSpawn  ] = DefaultSpawn;
-    ResetPlayerWeapons(playerid);
     RemovePlayerJobWeapons(playerid);
     SaveAccount(playerid);
     SendClientMessage(playerid, COLOR_WHITE, " Sveikiname, Jûs sëkmingai iðëjote ið savo darbovietos.");

@@ -579,7 +579,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
             else if(IsPlayerInBusiness(playerid, propertyIndex))
             {
-                SetHouseFurnitureTextureColor(propertyIndex, furnitureIndex, textureSlot, GetFurnitureTextureColorRGBA(listitem));
+                SetBusinessFurnitureTextureColo(propertyIndex, furnitureIndex, textureSlot, GetFurnitureTextureColorRGBA(listitem));
             }
             else if(IsPlayerInGarage(playerid, propertyIndex))
             {
@@ -848,7 +848,7 @@ stock ShowPlayerOwnedFurnitureList(playerid)
         furnitureCount;
 
     if(furnitureStart != 0)
-        string = #FURNITURE_PREVIOUS_PAGE_BUTTON;
+        string = #FURNITURE_PREVIOUS_PAGE_BUTTON "\n";
 
     if(IsPlayerInAnyHouse(playerid))
     {
