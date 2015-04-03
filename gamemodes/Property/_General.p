@@ -20,6 +20,8 @@
 #define MODEL_SELECTION_FURNITURE       114
 
 
+static PlayerFurniturePage[ MAX_PLAYERS ];
+
 
 /*
                                                                                                
@@ -246,7 +248,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 return ShowPlayerFurnitureMain(playerid);
 
             // Èia taip pat turim "PropertyIndex" PVar su verslo/namo/garaþo indeksu
-            SetPVarInt(playerid, "FurnitureIndex", listitem);
+            new tmp[16], index;
+            strmid(tmp, inputtext, 0, strfind(inputtext, "Baldas ")+8);
+
+            SetPVarInt(playerid, "FurnitureIndex", index);
             ShowPlayerFurnitureEditOptions(playerid);
         }
         case DIALOG_FURNITURE_EDIT_MAIN:
@@ -817,40 +822,51 @@ stock ShowPlayerOwnedFurnitureList(playerid)
 {
     // Funkcija parodo lentelæ su turimais objektais nuosavybëje kurioje ðiuo metu yra.
     new count = 0,
-        string[1024],
-        index;
+        string[2048],
+        index,
+        furnitureStart = PlayerFurniturePage[ playerid ] * FURNITURE_PER_PAGE,
+        furnitureEnd = furnitureStart + FURNITURE_PER_PAGE,
+        furnitureCount;
+
+    if(furnitureStart != 0)
+        string = "<-- Atgal";
 
     if(IsPlayerInAnyHouse(playerid))
     {
-         
         index = GetPlayerHouseIndex(playerid);
-        for(new i = 0; i < GetHouseFurnitureCount(index); i++)
+        furnitureCount = GetHouseFurnitureCount(index);
+        for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
         {
             format(string, sizeof(string), "%sBaldas %d: %s\n",
-                string, count++, GetHouseFurnitureName(index, i));
+                string, i, GetHouseFurnitureName(index, i));
         }
     }
     else if(IsPlayerInAnyBusiness(playerid))
     {
         index = GetPlayerBusinessIndex(playerid);
-        for(new i = 0; i < GetBusinessFurnitureCount(index); i++)
+        furnitureCount = GetBusinessFurnitureCount(index);
+        for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
         {
             format(string, sizeof(string), "%sBaldas %d: %s\n",
-                string, count++, GetBusinessFurnitureName(index, i));
+                string, i, GetBusinessFurnitureName(index, i));
         }
     }  
     else if(IsPlayerInAnyGarage(playerid))
     {
         index = GetPlayerGarageIndex(playerid);
-        for(new i = 0; i < GetGarageFurnitureCount(index); i++)
+        furnitureCount = GetGarageFurnitureCount(index);
+        for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
         {
             format(string, sizeof(string), "%sBaldas %d: %s\n",
-                string, count++, GetGarageFurnitureName(index, i));
+                string, i, GetGarageFurnitureName(index, i));
         }
     }
 
+    if(furnitureEnd < furnitureCount)
+        strcat(string, "Toliau ---->");
+
     if(!count)
-        return SendClientMessage( playerid, COLOR_WHITE,"Jûs neturite baldø.");
+        return SendClientMessage(playerid, COLOR_WHITE,"Jûs neturite baldø.");
 
     SetPVarInt(playerid, "PropertyIndex", index);
     ShowPlayerDialog(playerid, DIALOG_FURNITURE_OWNED_LIST, DIALOG_STYLE_LIST,"Baldø sàraðas", string, "Redaguoti", "<--"); 
