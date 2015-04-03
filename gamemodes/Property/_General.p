@@ -19,6 +19,7 @@
 
 #define MODEL_SELECTION_FURNITURE       114
 
+#define FURNITURE_PER_PAGE              30
 
 static PlayerFurniturePage[ MAX_PLAYERS ];
 
@@ -247,12 +248,27 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response)
                 return ShowPlayerFurnitureMain(playerid);
 
-            // Èia taip pat turim "PropertyIndex" PVar su verslo/namo/garaþo indeksu
-            new tmp[16], index;
-            strmid(tmp, inputtext, 0, strfind(inputtext, "Baldas ")+8);
+            // Yra puslapiai...
+            if(!listitem)
+            {
+                PlayerFurniturePage[ playerid ]--;
+                ShowPlayerOwnedFurnitureList(playerid);
+            }
+            else if(listitem == FURNITURE_PER_PAGE)
+            {
+                PlayerFurniturePage[ playerid ]++;
+                ShowPlayerOwnedFurnitureList(playerid);
+            }
+            else
+            {
+                // Èia taip pat turim "PropertyIndex" PVar su verslo/namo/garaþo indeksu
+                new tmp[16], index;
+                strmid(tmp, inputtext, 0, strfind(inputtext, "Baldas ")+8);
 
-            SetPVarInt(playerid, "FurnitureIndex", index);
-            ShowPlayerFurnitureEditOptions(playerid);
+                SetPVarInt(playerid, "FurnitureIndex", index);
+                ShowPlayerFurnitureEditOptions(playerid);
+            }
+            return 1;
         }
         case DIALOG_FURNITURE_EDIT_MAIN:
         {
@@ -347,7 +363,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
                     }
                     else
-                        SendClientMessage( playerid, COLOR_GREY,"KLAIDA ! Nepavyko redaguoti objekto.");
+                        SendClientMessage(playerid, COLOR_GREY,"KLAIDA ! Nepavyko redaguoti objekto.");
                 }
                 case 2: // Tekstûros
                 {
@@ -968,6 +984,8 @@ CMD:furniture(playerid, params[])
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Negalite naudoti ðios komandos perþiûrinëdami tekstûras.");
 
     new index = -1;
+
+    PlayerFurniturePage[ playerid ] = 0;
 
     if((index = GetPlayerHouseIndex(playerid)) != -1 && IsPlayerHouseOwner(playerid, index))
         ShowPlayerFurnitureMain(playerid);
