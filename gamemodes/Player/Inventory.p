@@ -224,7 +224,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(IsItemStackable(itemid))
                     {
                     	SetPVarInt(playerid, "ItemId", itemid);
-                    	SetPVarInt(playerid, "Amount", amount);
                     	SetPVarInt(playerid, "Player", id);
                     	ShowPlayerInventoryAmountInput(playerid);
                     }
@@ -411,10 +410,17 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				return 1;
 
 			new itemid = GetPVarInt(playerid, "ItemId"),
-        		amount = GetPVarInt(playerid, "Amount"),
         		targetid = GetPVarInt(playerid, "Player"),
         		itemname[ MAX_ITEM_NAME ],
-        		string[120];
+        		string[120],
+        		giveamount;
+
+        	if(sscanf(inputtext, "i", giveamount))
+        		return ShowPlayerInventoryAmountInput(playerid);
+        	
+        	if(giveamount < 0 || giveamount > GetPlayerItemAmount(playerid, itemid))
+        		return ShowPlayerInventoryAmountInput(playerid, "Jûs tiek neturite.");
+
         	itemname = GetItemName(itemid);
 
         	LoopingAnim(playerid, "DEALER", "shop_pay", 4.0, 0, 1, 1, 1, 0);
@@ -426,8 +432,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SendClientMessage(playerid, COLOR_WHITE, string);
 
           
-            GivePlayerItem(targetid, itemid, amount, GetPlayerItemContentAmount(playerid, itemid), GetPlayerItemDurability(playerid, itemid));
-            GivePlayerItem(playerid, itemid, -amount);
+            GivePlayerItem(targetid, itemid, giveamount, GetPlayerItemContentAmount(playerid, itemid), GetPlayerItemDurability(playerid, itemid));
+            GivePlayerItem(playerid, itemid, -giveamount);
             PlayerUsedItemIndex[ playerid ] = -1;
             return 1;
 		}
