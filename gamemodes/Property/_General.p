@@ -21,6 +21,9 @@
 
 #define FURNITURE_PER_PAGE              30
 
+#define FURNITURE_NEXT_PAGE_BUTTON      "Toliau ---->"
+#define FURNITURE_PREVIOUS_PAGE_BUTTON  "<---- Atgal"
+
 static PlayerFurniturePage[ MAX_PLAYERS ];
 
 
@@ -249,12 +252,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 return ShowPlayerFurnitureMain(playerid);
 
             // Yra puslapiai...
-            if(!listitem)
+            if(!strcmp(inputtext, #FURNITURE_PREVIOUS_PAGE_BUTTON))
             {
                 PlayerFurniturePage[ playerid ]--;
                 ShowPlayerOwnedFurnitureList(playerid);
             }
-            else if(listitem == FURNITURE_PER_PAGE)
+            else if(!strcmp(inputtext, #FURNITURE_NEXT_PAGE_BUTTON))
             {
                 PlayerFurniturePage[ playerid ]++;
                 ShowPlayerOwnedFurnitureList(playerid);
@@ -603,7 +606,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 format(string, sizeof(string), "Pardavëte baldà {ffd700}%s{FFFFFF} uþ {ffd700}$%d",
                     GetHouseFurnitureName(propertyIndex, furnitureIndex), price);
 
-                GivePlayerMoney(playerid, -price);
+                GivePlayerMoney(playerid, price);
                 DeleteHouseFurniture(propertyIndex, furnitureIndex);
             }
             else if(IsPlayerInBusiness(playerid, propertyIndex))
@@ -612,7 +615,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 format(string, sizeof(string), "Pardavëte baldà {ffd700}%s{FFFFFF} uþ {ffd700}$%d",
                     GetBusinessFurnitureName(propertyIndex, furnitureIndex), price);
 
-                GivePlayerMoney(playerid, -price);
+                GivePlayerMoney(playerid, price);
                 DeleteBusinessFurniture(propertyIndex, furnitureIndex);
             }
             else if(IsPlayerInGarage(playerid, propertyIndex))
@@ -621,7 +624,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 format(string, sizeof(string), "Pardavëte baldà {ffd700}%s{FFFFFF} uþ {ffd700}$%d",
                     GetGarageFurnitureName(propertyIndex, furnitureIndex), price);
 
-                GivePlayerMoney(playerid, -price);
+                GivePlayerMoney(playerid, price);
                 DeleteGarageFurniture(propertyIndex, furnitureIndex);
             }
             
@@ -845,7 +848,7 @@ stock ShowPlayerOwnedFurnitureList(playerid)
         furnitureCount;
 
     if(furnitureStart != 0)
-        string = "<-- Atgal";
+        string = #FURNITURE_PREVIOUS_PAGE_BUTTON;
 
     if(IsPlayerInAnyHouse(playerid))
     {
@@ -853,6 +856,7 @@ stock ShowPlayerOwnedFurnitureList(playerid)
         furnitureCount = GetHouseFurnitureCount(index);
         for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
         {
+            count++;
             format(string, sizeof(string), "%sBaldas %d: %s\n",
                 string, i, GetHouseFurnitureName(index, i));
         }
@@ -863,6 +867,7 @@ stock ShowPlayerOwnedFurnitureList(playerid)
         furnitureCount = GetBusinessFurnitureCount(index);
         for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
         {
+            count++;
             format(string, sizeof(string), "%sBaldas %d: %s\n",
                 string, i, GetBusinessFurnitureName(index, i));
         }
@@ -873,13 +878,14 @@ stock ShowPlayerOwnedFurnitureList(playerid)
         furnitureCount = GetGarageFurnitureCount(index);
         for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
         {
+            count++;
             format(string, sizeof(string), "%sBaldas %d: %s\n",
                 string, i, GetGarageFurnitureName(index, i));
         }
     }
 
     if(furnitureEnd < furnitureCount)
-        strcat(string, "Toliau ---->");
+        strcat(string, #FURNITURE_NEXT_PAGE_BUTTON);
 
     if(!count)
         return SendClientMessage(playerid, COLOR_WHITE,"Jûs neturite baldø.");

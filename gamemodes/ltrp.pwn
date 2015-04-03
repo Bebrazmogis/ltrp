@@ -11164,7 +11164,7 @@ CMD:setspawn (playerid, params[])
             if(index == -1)
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Turite stovëti prie verslo kurá norite pasirinkti kaip atsiradimo vietà.");
            	if(!IsPlayerHouseOwner(playerid, index))
-        		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis garaþas jums nepriklauso.");
+        		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis verslas jums nepriklauso.");
 
             pInfo[ playerid ][ pBSpawn ] = index;
             pInfo[ playerid ][ pSpawn ] = SpawnBusiness;
@@ -12679,6 +12679,7 @@ CMD:learnfight( playerid, params[ ] )
             3. Bokso kovos stilius $500\n","Iðmokti","Atðaukti");
             return 1;
     }
+    else SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs ne sporto salëje.");
     return 1;
 }
 CMD:stop( playerid, params[ ] )
@@ -14081,6 +14082,18 @@ CMD:housetax( playerid, params[ ] )
     }
     return 1;
 }
+CMD:pos(playerid)
+{
+    if(!IsPlayerAdmin(playerid) && !pInfo[ playerid ][ pAdmin ])
+        return 0;
+
+    new Float:x, Float:y, Float:z, string[64];
+    GetPlayerPos(playerid, x, y, z);
+    format(string, sizeof(string), "Jûsø koordinatës: x - %f y - %f z - %f", x, y, z);
+    SendClientMessage(playerid, COLOR_NEWS, string);
+    return 1;
+}
+
 CMD:goto( playerid, params [ ] )
 {
     if ( pInfo[ playerid ][ pAdmin ] >= 1 )

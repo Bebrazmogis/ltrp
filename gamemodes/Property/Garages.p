@@ -354,7 +354,7 @@ UpdateGarageEntrance(garageindex)
     if(IsValidDynamic3DTextLabel(gInfo[ garageindex ][ gLabel ]))
         DestroyDynamic3DTextLabel(gInfo[ garageindex ][ gLabel ]);
     gInfo[ garageindex ][ gLabel ] = CreateDynamic3DTextLabel(string, COLOR_WHITE, gInfo[ garageindex ][ gEntrance ][ 0 ], gInfo[ garageindex ][ gEntrance ][ 1 ], gInfo[ garageindex ][ gEntrance ][ 2 ], 
-        GARAGE_LABEL_DRAW_DISTANCE, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, 0, 0, -1, 15.0);
+        GARAGE_LABEL_DRAW_DISTANCE, .testlos = 0, .worldid = 0, .interiorid = 0, .streamdistance = 15.0);
     return 1;
 }
 
