@@ -11162,7 +11162,7 @@ CMD:setspawn (playerid, params[])
             new index = GetPlayerBusinessIndex(playerid);
             if(index == -1)
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Turite stovëti prie verslo kurá norite pasirinkti kaip atsiradimo vietà.");
-           	if(!IsPlayerHouseOwner(playerid, index))
+           	if(!IsPlayerBusinessOwner(playerid, index))
         		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis verslas jums nepriklauso.");
 
             pInfo[ playerid ][ pBSpawn ] = index;
@@ -21362,7 +21362,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         continue;
 
                     index = GetBusinessIndex(Commodities[ i ][ IndustryId ]);
-                    format(str, sizeof(str), "%s%d. %s\n", str, GetBusinessID(index), GetBusinessName(index));
+                    if(index == -1)
+                        ErrorLog("Invalid commodity business ID. Id of that business:%d", Commodities[ i ][ IndustryId ]);
+                    else 
+                        format(str, sizeof(str), "%s%d. %s\n", str, GetBusinessID(index), GetBusinessName(index));
                 }
 
 				if(!count)

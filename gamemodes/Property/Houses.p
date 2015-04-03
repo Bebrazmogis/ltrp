@@ -1230,7 +1230,7 @@ stock DeleteHouses()
 {
     new string[ 128 ];
     
-    new Cache:result = mysql_query(DbHandle, "SELECT id, owner, price FROM houses WHERE IS NOT NULL owner");
+    new Cache:result = mysql_query(DbHandle, "SELECT id, owner, price FROM houses WHERE owner IS NOT NULL");
     for(new i = 0; i < cache_get_row_count(); i++)
     {
         mysql_format(DbHandle, string, sizeof(string), "INSERT INTO `komp`(kam, ka, kiek) VALUES(%d, %d, %d)",

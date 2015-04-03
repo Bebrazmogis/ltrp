@@ -266,9 +266,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 // Èia taip pat turim "PropertyIndex" PVar su verslo/namo/garaþo indeksu
                 new tmp[16], index;
-                strmid(tmp, inputtext, 0, strfind(inputtext, "Baldas ")+7);
+                index = strfind(inputtext, "Baldas ")+7;
+                strmid(tmp, inputtext, index, strfind(inputtext, ":", .pos=index+1));
                 printf("General: DIALOG_FURNITURE_OWNED_LIST tmp:%s|", tmp);
 
+                index = strval(tmp);
                 SetPVarInt(playerid, "FurnitureIndex", index);
                 ShowPlayerFurnitureEditOptions(playerid);
             }
@@ -621,7 +623,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
             else if(IsPlayerInGarage(playerid, propertyIndex))
             {
-                price = GetBusinessFurniturePrice(propertyIndex, furnitureIndex) / 2;
+                price = GetGarageFurniturePrice(propertyIndex, furnitureIndex) / 2;
                 format(string, sizeof(string), "Pardavëte baldà {ffd700}%s{FFFFFF} uþ {ffd700}$%d",
                     GetGarageFurnitureName(propertyIndex, furnitureIndex), price);
 
@@ -855,8 +857,10 @@ stock ShowPlayerOwnedFurnitureList(playerid)
     {
         index = GetPlayerHouseIndex(playerid);
         furnitureCount = GetHouseFurnitureCount(index);
-        for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
+        for(new i = furnitureStart; i < furnitureEnd; i++)
         {
+            if(i == furnitureCount) 
+                break;
             count++;
             format(string, sizeof(string), "%sBaldas %d: %s\n",
                 string, i, GetHouseFurnitureName(index, i));
@@ -868,6 +872,8 @@ stock ShowPlayerOwnedFurnitureList(playerid)
         furnitureCount = GetBusinessFurnitureCount(index);
         for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
         {
+            if(i == furnitureCount) 
+                break;
             count++;
             format(string, sizeof(string), "%sBaldas %d: %s\n",
                 string, i, GetBusinessFurnitureName(index, i));
@@ -879,6 +885,8 @@ stock ShowPlayerOwnedFurnitureList(playerid)
         furnitureCount = GetGarageFurnitureCount(index);
         for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
         {
+            if(i == furnitureCount) 
+                break;
             count++;
             format(string, sizeof(string), "%sBaldas %d: %s\n",
                 string, i, GetGarageFurnitureName(index, i));

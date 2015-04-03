@@ -1295,15 +1295,26 @@ stock GetBusinessCount()
 }
 stock GetBusinessProductCount(bizindex)
     return bInfo[ bizindex ][ bProducts ];
+
+CMD:abizdata(playerid, params[])
+{
+
+    return 1;
+}
+
 stock GetBusinessFurnitureCount(bizindex)
 {
     new count = 0;
     for(new i = 0; i < MAX_BUSINESS_FURNITURE; i++)
     {
-        printf("Businesses.p : GetBusinessFurnitureCount. Bizindex:%d i:%d Sqlid:%d MAX_BUSINESS_FURNITURE:" #MAX_BUSINESS_FURNITURE,
-            bizindex, i, BusinessFurniture[ bizindex ][ i ][ SqlId ]);
+        if(i < 0 || i >= MAX_BUSINESS_FURNITURE || bizindex < 0 || bizindex >= MAX_BIZNES)
+            ErrorLog("GetBusinessFurnitureCount(%d) is invalid index. i:%d", bizindex, i);
         if(BusinessFurniture[ bizindex ][ i ][ SqlId ])
+        {
+            printf("Businesses.p GetBusinessFurnitureCount(%d) count incremented with i:%d and sqlid:%d",
+                bizindex, i, BusinessFurniture[ bizindex ][ i ][ SqlId ]);
             count++;
+        }
     }
     return count;
 }
