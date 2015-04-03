@@ -1298,7 +1298,27 @@ stock GetBusinessProductCount(bizindex)
 
 CMD:abizdata(playerid, params[])
 {
+    if(pInfo[ playerid ][ pAdmin ] < 6) 
+        return 0;
 
+    new index = GetPlayerBusinessIndex(playerid), string[128];
+    if(index == -1)
+        return SendClientMessage(playerid, -1, "Turi bûti prie verslo arba viduje.");
+
+    SendClientMessage(playerid, -1, "Pradedamas ciklas per visus objektus verslo...");
+    for(new i = 0; i < MAX_BUSINESS_FURNITURE; i++)
+    {
+        if(BusinessFurniture[ index ][ i ][ SqlId ])
+        {
+            format(string, sizeof(string), "Verslo baldo %d sqlid yra ne nulis(%d)",
+                i, BusinessFurniture[ index ][ i ][ SqlId ]);
+            SendClientMessage(playerid, -1, string);
+        }
+    }
+
+    SendClientMessage(playerid, -1, "Objektø kiekis ið GetBusinessFurnitureCount:");
+    format(string, sizeof(string), "%d", GetBusinessFurnitureCount(index));
+    SendClientMessage(playerid, -1, string);
     return 1;
 }
 

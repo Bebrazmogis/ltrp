@@ -14152,13 +14152,15 @@ CMD:adminduty( playerid, params [ ] )
 }
 CMD:aduty( playerid, params [ ] )
 {
-    new
-        string[ 128 ];
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    new string[ 256 ];
+
+    static DutyStartTimestamp[ MAX_PLAYERS ];
+    if(pInfo[ playerid ][ pAdmin ] >= 1)
     {
         if(AdminDuty[playerid] == false)
         {
             AdminDuty[playerid] = true;
+            DutyStartTimestamp[ playerid ] = gettime();
             SetPlayerHealth(playerid, 999);
             SetPlayerArmour(playerid, 999);
             AdminON[playerid] = Create3DTextLabel("BUDINTIS\nAdministratorius\nAð galiu padëti.",COLOR_GREEN,0.0,0.0,0.7,20.0, 0 );
@@ -14167,7 +14169,6 @@ CMD:aduty( playerid, params [ ] )
             SendAdminMessage(COLOR_ADM,string);
             SetPlayerColor( playerid, TEAM_ADMIN_COLOR );
             SetPlayerAttachedObject( playerid, 3, 19270, 4, -0.018133, -0.025358, 0.0, 0.0, 259.281860, 0.0, 1.0, 1.0, 1.0 );
-            return 1;
         }
         else if(AdminDuty[playerid] == true)
         {
@@ -14177,9 +14178,32 @@ CMD:aduty( playerid, params [ ] )
             SetPlayerHealth(playerid, 100);
             format(string, sizeof(string), "AdmWarn: [ID:%d]%s iðjungë budinèio Administratoriaus statusà.", playerid, GetName(playerid));
             SendAdminMessage(COLOR_ADM,string);
-            SetPlayerColor( playerid, TEAM_HIT_COLOR );
-            RemovePlayerAttachedObject( playerid, 3 );
-            return 1;
+            SetPlayerColor(playerid, TEAM_HIT_COLOR);
+            RemovePlayerAttachedObject(playerid, 3);
+
+            mysql_format(DbHandle, string, sizeof(string), "SELECT longest_watch FROM admin_watch_duty WHERE admin_id = %d",
+                GetPlayerSqlId(playerid));
+            new Cache:result = mysql_query(DbHandle, string);
+
+            new duration = gettime() - DutyStartTimestamp[ playerid ];
+            if(cache_get_row_count())
+            {
+                mysql_format(DbHandle, string, sizeof(string), "UPDATE admin_watch_duty SET total_watch_time = total_watch_time + %d",
+                    duration);
+
+                if(cache_get_field_content_int(0, "longest_watch" < duration))
+                    mysql_format(DbHandle, string, sizeof(string),"%s, longest_watch = %d ", 
+                        string, duration);
+
+                mysql_format(DbHandle, string, sizeof(string), "%s WHERE admin_id = %d", string, GetPlayerSqlId(playerid));
+            }
+            else 
+                mysql_format(DbHandle, string, sizeof(string), "INSERT INTO admin_watch_duty (admin_id, first_watch, last_watch, longest_watch, total_watch_time) \
+                    VALUES (%d, %d, VALUES(first_watch), %d, VALUES(longest_watch))",
+                    GetPlayerSqlId(playerid), DutyStartTimestamp[ playerid ], duration);
+
+            cache_delete(result);
+            mysql_pquery(DbHandle, string);
         }
     }
     return 1;
@@ -15746,6 +15770,10 @@ CMD:are( playerid, params[ ] )
 
         format           ( string, 126, "AdmWarn: Administratorius (%s) patvirtino praneðimà (/report) ið (%s) ", adminname, GetName( giveplayerid ));
         SendAdminMessage ( COLOR_ADM, string );
+
+        mysql_format(DbHandle, string, sizeof(string), "UPDATE admin_watch_duty SET reports_accepted = reports_accepted + 1 WHERE admin_id = %d",
+            GetPlayerSqlId(playerid));
+        mysql_pquery(DbHandle, string);
     }
     return 1;
 }
@@ -15769,6 +15797,10 @@ CMD:dre( playerid, params[ ] )
         SendClientMessage( giveplayerid, COLOR_GREEN, string );
         format           ( string, 126, "AdmWarn: Administratorius (%s) atmetë praneðimà (/report) ið (%s)", GetName( playerid ), GetName( giveplayerid ) );
         SendAdminMessage ( COLOR_ADM, string );
+
+        mysql_format(DbHandle, string, sizeof(string), "UPDATE admin_watch_duty SET reports_rejected = reports_rejected + 1 WHERE admin_id = %d",
+            GetPlayerSqlId(playerid));
+        mysql_pquery(DbHandle, string);
     }
     return 1;
 }

@@ -519,12 +519,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
 
             // Jei pasiekëm ðià vietà, daiktas jau duotas reikia já paðalinti ið namo atminties
-            HouseItems[ house_index ][ listitem ][ SqlId ] = 0;
-            HouseItems[ house_index ][ listitem ][ ItemId ] = 0;
-            HouseItems[ house_index ][ listitem ][ Amount ] = 0;
-            HouseItems[ house_index ][ listitem ][ ContentAmount ] = 0;
-            HouseItems[ house_index ][ listitem ][ Durability ] = 0;
-            SaveHouseInv(house_index);
+            RemoveHouseItem(house_index, listitem);
             format(string, sizeof(string), "* %s pasiemà daiktà ið spintelës, kuris atrodo kaip %s ", GetPlayerNameEx(playerid), GetItemName(itemid));
             ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
             return 1;
@@ -1014,21 +1009,18 @@ stock SaveHouseFurnitureObject(hindex, furniture_index, Float:fX, Float:fY, Floa
     SetDynamicObjectRot(HouseFurniture[ hindex ][ furniture_index ][ ObjectId ], fRX, fRY, fRZ);
 }
 
-stock SaveHouseInv(hindex)
+stock RemoveHouseItem(houseindex, itemindex)
 {
-    new query[ 210 ];
-    for(new i = 0; i < MAX_HOUSE_ITEMS; i++)
-    {
-        format(query, sizeof(query)," UPDATE house_items SET item_id = %d, slot = %d, amount = %d, content_amount = %d, durability = %d WHERE id = %d",
-            HouseItems[ hindex ][ i ][ ItemId ],
-            i,
-            HouseItems[ hindex ][ i ][ Amount ],
-            HouseItems[ hindex ][ i ][ ContentAmount ],
-            HouseItems[ hindex ][ i ][ Durability ],
-            HouseItems[ hindex ][ i ][ SqlId ]);
-        mysql_pquery(DbHandle, query);
-    }
-    return 1;
+    new query[60];
+    mysql_format(DbHandle, query, sizeof(query), "DELETE FROM house_items WHERE id = %d",
+        HouseItems[ houseindex ][ itemindex ][ SqlId ]);
+    mysql_pquery(DbHandle, query);
+
+    HouseItems[ houseindex ][ itemindex ][ SqlId ] = 0;
+    HouseItems[ houseindex ][ itemindex ][ ItemId ] = 0;
+    HouseItems[ houseindex ][ itemindex ][ Amount ] = 0;
+    HouseItems[ houseindex ][ itemindex ][ ContentAmount ] = 0;
+    HouseItems[ houseindex ][ itemindex ][ Durability ] = 0;
 }
 
 
