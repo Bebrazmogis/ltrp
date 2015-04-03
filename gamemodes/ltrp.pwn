@@ -12671,7 +12671,7 @@ CMD:takejob( playerid, params[ ] )
 }
 CMD:learnfight( playerid, params[ ] )
 {
-    if(PlayerToPoint(25.0,playerid, 770.3773,0.6785,1000.7243))
+    if(PlayerToPoint(25.0,playerid, 770.3773,-70.6785,1000.7243))
     {
             ShowPlayerDialog(playerid,10,DIALOG_STYLE_LIST,"Kovos stiliai","\
             1. Gatvës kovos stilius $500\n\
