@@ -304,7 +304,10 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			if(armour > 0.0)
 			{
 				if(armour > damage)
+				{
 					SetPlayerArmour(hitid, armour-damage);
+					damage = 0.0;
+				}
 				else
 				{
 					SetPlayerArmour(hitid, 0.0);
