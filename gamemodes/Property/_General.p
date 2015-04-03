@@ -266,7 +266,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 // Èia taip pat turim "PropertyIndex" PVar su verslo/namo/garaþo indeksu
                 new tmp[16], index;
-                strmid(tmp, inputtext, 0, strfind(inputtext, "Baldas ")+8);
+                strmid(tmp, inputtext, 0, strfind(inputtext, "Baldas ")+7);
+                printf("General: DIALOG_FURNITURE_OWNED_LIST tmp:%s|", tmp);
 
                 SetPVarInt(playerid, "FurnitureIndex", index);
                 ShowPlayerFurnitureEditOptions(playerid);
@@ -1120,6 +1121,12 @@ CMD:enter(playerid)
             SetVehiclePos(vehicleid, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
             LinkVehicleToInterior(vehicleid, GetInteriorInteriorId(GetGarageInteriorID(index)));
             SetVehicleVirtualWorld(vehicleid, GetGarageVirtualWorld(index));
+            foreach(new i : Player) 
+                if(IsPlayerInVehicle(i, vehicleid))
+                {
+                    SetPlayerInterior(i, GetInteriorInteriorId(GetGarageInteriorID(index)));
+                    SetPlayerVirtualWorld(i, GetGarageVirtualWorld(index));
+                }
         }
         else
         {
@@ -1210,6 +1217,12 @@ CMD:exit(playerid)
             SetVehiclePos(vehicleid, x, y ,z);
             LinkVehicleToInterior(vehicleid, GetGarageEntranceInteriorID(index));
             SetVehicleVirtualWorld(vehicleid, GetGarageEntranceVirtualWorld(index));
+            foreach(new i : Player)
+                if(IsPlayerInVehicle(i, vehicleid))
+                {
+                    SetPlayerVirtualWorld(i, GetGarageEntranceVirtualWorld(index));
+                    SetPlayerInterior(i, GetGarageEntranceInteriorID(index));
+                }
         }
         else 
         {

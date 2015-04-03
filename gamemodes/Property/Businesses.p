@@ -1299,8 +1299,12 @@ stock GetBusinessFurnitureCount(bizindex)
 {
     new count = 0;
     for(new i = 0; i < MAX_BUSINESS_FURNITURE; i++)
+    {
+        printf("Businesses.p : GetBusinessFurnitureCount. Bizindex:%d i:%d Sqlid:%d MAX_BUSINESS_FURNITURE:" #MAX_BUSINESS_FURNITURE,
+            bizindex, i, BusinessFurniture[ bizindex ][ i ][ SqlId ]);
         if(BusinessFurniture[ bizindex ][ i ][ SqlId ])
             count++;
+    }
     return count;
 }
 stock GetBusinessFurnitureIndex(bizindex, objectid)
