@@ -313,7 +313,6 @@ enum E_SUPERMARKET_ITEM_DATA {
 
 new SupermarketItems[ ][ E_SUPERMARKET_ITEM_DATA ] = { // Parduotuvës nustatymai
     {ITEM_PHONE},
-    {ITEM_MASK},
     {ITEM_RADIO},
     {ITEM_ZIB},
     {ITEM_CIG},
@@ -324,7 +323,6 @@ new SupermarketItems[ ][ E_SUPERMARKET_ITEM_DATA ] = { // Parduotuvës nustatymai
     {ITEM_VAISTAI},
     {ITEM_SVIRKSTAS},
     {ITEM_NOTE},
-    {ITEM_HELMET},
     {ITEM_ROD},
     {ITEM_RODTOOL},
     {ITEM_FISH},
