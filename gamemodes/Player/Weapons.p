@@ -333,3 +333,10 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 #if defined weapons_OnPlayerWeaponShot
 	forward weapons_OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
 #endif
+
+
+hook OnPlayerDeath(playerid, killerid, reason)
+{
+	wep_ResetPlayerWeapons(playerid);
+	return 1;
+}
