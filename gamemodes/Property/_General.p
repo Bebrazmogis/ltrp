@@ -230,6 +230,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 return SendClientMessage(playerid, COLOR_WHITE,"Jums nepakanka pinigø.");
 
             GetPlayerPos(playerid, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
+            GetXYInFrontOfPlayer(playerid, pos[ 0 ], pos[ 1 ], 2.0);
             SendClientMessage( playerid, COLOR_WHITE,"Baldas nupirktas ir padëtas. Dabar galite já redaguoti !");
             GivePlayerMoney( playerid, -GetFurniturePrice(furnitureIndex));
 

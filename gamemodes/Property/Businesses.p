@@ -551,6 +551,7 @@ public OnBusinessFurnitureLoad()
                         bInfo[ bizindex ][ bID ]);
                 BusinessFurniture[ bizindex ][ bizFurnitureCount ][ ObjectId ] = CreateDynamicObject(GetFurnitureObjectId(furnitureIndex), pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], .worldid = GetBusinessVirtualWorld(bizindex));
             }
+            else ErrorLog("Businesses.p : OnBusinessFurnitureLoad : Furniture id %d not found", fid);
         }
         // Tas pats baldas vël result set'e. Reiðkia keièiam tekstûrà.
         if(!ismysqlnull(strIndex))
