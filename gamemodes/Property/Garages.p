@@ -768,7 +768,7 @@ stock SaveGarageFurnitureObject(garageindex, furnitureindex, Float:x, Float:y, F
     SetDynamicObjectPos(GarageFurniture[ garageindex ][ furnitureindex ][ ObjectId ], x, y, z);
     SetDynamicObjectRot(GarageFurniture[ garageindex ][ furnitureindex ][ ObjectId ], rx, ry, rz);
 
-    mysql_format(DbHandle, query, sizeof(query), "UPDATE garage_furniture pos_x = %f, pos_y = %f, pos_z = %f, rot_x = %f, rot_y = %f, rot_z = %f WHERE id = %d",
+    mysql_format(DbHandle, query, sizeof(query), "UPDATE garage_furniture SET pos_x = %f, pos_y = %f, pos_z = %f, rot_x = %f, rot_y = %f, rot_z = %f WHERE id = %d",
         x, y, z, rx, ry, rz, GarageFurniture[ garageindex ][ furnitureindex ][ SqlId ]);
     return mysql_pquery(DbHandle, query);
 }
