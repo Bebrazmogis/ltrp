@@ -90,7 +90,6 @@ enum E_HOUSE_DATA
     Float:hEnter[3],
     Float:hExit[3],
     hMats,
-    hRadio,
     bool:hLocked,
     hBank,
     hEntranceInt,
@@ -1482,7 +1481,7 @@ CMD:hradio(playerid)
     if(!IsPlayerHouseOwner(playerid, house_index))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, namas turi priklausyti Jums, kad atliktumët ðá veiksmà.");
 
-    if(hInfo[ house_index ][ hRadio ] == 0) 
+    if(!IsHouseUpgradeInstalled(house_index, Radio)) 
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Name nëra garso sistemos.");
 
     format(string, sizeof(string), "- Radijo stotys\
