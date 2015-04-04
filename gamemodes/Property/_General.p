@@ -1355,10 +1355,11 @@ CMD:knock(playerid)
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Negalite belstis bûdami namie!");
 
         format(string, sizeof(string), "* %s beldþiasi á namo duris.", GetPlayerNameEx(playerid));
-        ProxDetector(30.0,  playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+        ProxDetector(30.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 
         format(string, sizeof(string), "* %s beldþiasi á duris.", GetPlayerNameEx(playerid));
-        GetHouseEntrancePos(index, x, y, z);
+        
+        GetHouseExitPos(index, x, y, z);
         ProxDetectorCords(30.0, string, x, y, z, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, GetHouseEntranceVirtualWorld(index), GetInteriorInteriorId(GetHouseEntranceInteriorID(index)));
         return 1;
     }
@@ -1371,7 +1372,7 @@ CMD:knock(playerid)
         ProxDetector(30.0,  playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 
         format(string, sizeof(string), "* %s beldþiasi á duris.", GetPlayerNameEx(playerid));
-        GetBusinessEntrancePos(index, x, y, z);
+        GetBusinessExitPos(index, x, y, z);
         ProxDetectorCords(30.0, string, x, y, z, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, GetBusinessEntranceVirtualWorld(index), GetInteriorInteriorId(GetBusinessEntranceInteriorID(index)));
         return 1;
     }
@@ -1384,7 +1385,7 @@ CMD:knock(playerid)
         ProxDetector(30.0,  playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 
         format(string, sizeof(string), "* %s beldþiasi á duris.", GetPlayerNameEx(playerid));
-        GetGarageEntrancePos(index, x, y, z);
+        GetGarageExitPos(index, x, y, z);
         ProxDetectorCords(30.0, string, x, y, z, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, GetGarageVirtualWorld(index), GetInteriorInteriorId(GetGarageInteriorID(index)));
         return 1;
     }
