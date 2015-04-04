@@ -294,7 +294,7 @@ enum radioInfo
     rUrl  [ 62 ]
 };
 
-#define STATIONS 16
+#define STATIONS 18
 
 #define MAX_RADIO_STATION_URL           64
 new
@@ -315,7 +315,9 @@ new
     { "BassProject", "Electro", "http://bassproject.net/radio/listen256mp3.pls" },
     { "Dubbase  FM", "Dubstep", "http://player.listenlive.co/26151" },
     { "BestNetRadio","90s Alternative","http://107.155.126.42:7070/listen.pls" },
-    { "BestNetRadio","90s Pop Rock","http://107.155.126.42:7080/listen.pls" }
+    { "BestNetRadio","90s Pop Rock","http://107.155.126.42:7080/listen.pls" },
+    { "West Coast Classic", "Rap", "http://streaming.radionomy.com/WestCoastClassics"},
+    { "Radio Salsa", "Rap", "http://streaming.radionomy.com/Radio-Salsa---Clasicos"}
 };
 
 new GunObjects[47] = {
@@ -14191,7 +14193,7 @@ CMD:aduty( playerid, params [ ] )
                 mysql_format(DbHandle, string, sizeof(string), "UPDATE admin_watch_duty SET total_watch_time = total_watch_time + %d",
                     duration);
 
-                if(cache_get_field_content_int(0, "longest_watch" < duration))
+                if(cache_get_field_content_int(0, "longest_watch") < duration)
                     mysql_format(DbHandle, string, sizeof(string),"%s, longest_watch = %d ", 
                         string, duration);
 
