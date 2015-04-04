@@ -16670,7 +16670,19 @@ CMD:gotofc( playerid, params[ ] )
     }
     return true;
 }
+CMD:gotopos(playerid, params[])
+{
+    if(!IsPlayerAdmin(playerid) && !pInfo[ playerid ][ pAdmin ])
+        return 0;
 
+    new Float:x, Float:y, Float:z;
+    if(sscanf(params,"fff", x, y, z))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas naudojimas /gotopos [X] [Y] [Z]");
+
+    SetPlayerPos(playerid, x, y, z);
+    SendClientMessage(playerid, COLOR_NEWS, "Sëkmingai persikëlëte á koordinates.");
+    return 1;
+}
 CMD:gotolb( playerid, params[ ] )
 {
     if ( pInfo[ playerid ][ pAdmin ] >= 1 )
