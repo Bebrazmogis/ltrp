@@ -15832,6 +15832,108 @@ CMD:gotobiz( playerid, params[ ] )
     }
     return 1;
 }
+CMD:gotogarage(playerid, params[])
+{
+    if(!IsPlayerAdmin(playerid) && !pInfo[ playerid ][ pAdmin ])
+        return 0;
+
+    new index, string[60];
+
+    if(sscanf(params, "i", index))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas /gotogarage [Garaþo ID]");
+
+    if(!IsValidGarage(index))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, garaþo su tokiu ID nëra.");
+
+    new Float:x, Float:y, Float:z, Float:angle;
+
+    new vehicleid = GetPlayerVehicleID(playerid);
+    if(vehicleid)
+    {
+        GetGarageVehicleEntrancePos(index, x, y ,z, angle);
+        SetVehicleZAngle(vehicleid, angle);
+        SetVehiclePos(vehicleid, x, y ,z);
+        LinkVehicleToInterior(vehicleid, GetGarageEntranceInteriorID(index));
+        SetVehicleVirtualWorld(vehicleid, GetGarageEntranceVirtualWorld(index));
+        foreach(new i : Player)
+            if(IsPlayerInVehicle(i, vehicleid))
+            {
+                SetPlayerVirtualWorld(i, GetGarageEntranceVirtualWorld(index));
+                SetPlayerInterior(i, GetGarageEntranceInteriorID(index));
+            }
+    }
+    else 
+    {
+        GetGarageEntrancePos(index, x,y ,z);
+        SetPlayerPos(playerid, x, y, z);
+        Unfreeze[ playerid ] = 2;
+        TogglePlayerControllable(playerid, false);
+        SetPlayerVirtualWorld(playerid, GetGarageEntranceVirtualWorld(index));
+        SetPlayerInterior(playerid, GetGarageEntranceInteriorID(index));
+        SetPlayerFacingAngle(playerid, angle);
+    }
+    format(string, sizeof(string), "Sëkmingai nusikëlëte prie garaþo kurio ID %d", index);
+    SendClientMessage(playerid, COLOR_NEWS, string);
+    return 1;
+}
+
+CMD:serverstats(playerid)
+{
+    if(!IsPlayerAdmin(playerid) && pInfo[ playerid ][ pAdmin ] < 4)
+        return 0;
+
+    new playerCount, botCount, string[ 2048 ];
+    for(new i = 0; i < MAX_PLAYERS; i++)
+    {
+        if(IsPlayerConnected(i))
+        {
+            if(IsPlayerNPC(i))
+                botCount++;
+            else 
+                playerCount++;
+        }
+    }
+
+    mysql_stat(string);
+
+    format(string, sizeof(string), "\t\tMySQL\n\n\
+        %s\n\
+        Nebaitos uþklausos: %d\n\
+        Þaidëjø serveryje:%d\n\
+        NPC serveryje:%d\n\n\
+        Dinaminiø objektø: %d\n\
+        Dinaminiø pickup: %d\n\
+        Dinaminiø CP: %d\n\
+        Dinaminiø þemëlapio ikonø: %d\n\
+        Dinaminiø teksto etikeèiø: %d\n\
+        Dinaminiø vietø: %d\n\
+        Matomø dinaminiø objektø: %d\n\
+        Matomø dinaminiø pickup: %d\n\
+        Matomø dinaminiø CP: %d\n\
+        Matomø dinaminiø þemëlapio ikonø: %d\n\
+        Matomø dinaminiø teksto etikeèiø: %d\n\
+        Matomø dinaminiø vietø: %d\n",
+        string,
+        mysql_unprocessed_queries(),
+        playerCount,
+        botCount,
+        Streamer_CountItems(STREAMER_TYPE_OBJECT),
+        Streamer_CountItems(STREAMER_TYPE_PICKUP),
+        Streamer_CountItems(STREAMER_TYPE_CP),
+        Streamer_CountItems(STREAMER_TYPE_MAP_ICON),
+        Streamer_CountItems(STREAMER_TYPE_3D_TEXT_LABEL),
+        Streamer_CountItems(STREAMER_TYPE_AREA),
+        Streamer_GetVisibleItems(STREAMER_TYPE_OBJECT),
+        Streamer_GetVisibleItems(STREAMER_TYPE_PICKUP),
+        Streamer_GetVisibleItems(STREAMER_TYPE_CP),
+        Streamer_GetVisibleItems(STREAMER_TYPE_MAP_ICON),
+        Streamer_GetVisibleItems(STREAMER_TYPE_3D_TEXT_LABEL),
+        Streamer_GetVisibleItems(STREAMER_TYPE_AREA)
+    );
+    ShowPlayerDialog(playerid, 9999, DIALOG_STYLE_MSGBOX, "Info", string, "Gerai", "");
+    return 1;
+}
+
 CMD:setweather( playerid, params[ ] )
 {
     if(pInfo[playerid][pAdmin] >= 2)

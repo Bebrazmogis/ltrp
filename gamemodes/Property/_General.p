@@ -1115,7 +1115,7 @@ CMD:enter(playerid)
     if(index != -1)
     {
         if(!IsValidInterior(GetGarageInteriorID(index)))
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis verslas neturi interjero.");
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis garaþas neturi interjero.");
 
         if(IsGarageLocked(index))
             return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
