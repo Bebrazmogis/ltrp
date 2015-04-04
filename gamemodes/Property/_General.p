@@ -1384,8 +1384,9 @@ CMD:knock(playerid)
         format(string, sizeof(string), "* %s beldþiasi á namo duris.", GetPlayerNameEx(playerid));
         ProxDetector(30.0,  playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 
+        new Float:tmp;
         format(string, sizeof(string), "* %s beldþiasi á duris.", GetPlayerNameEx(playerid));
-        GetGarageExitPos(index, x, y, z);
+        GetGarageExitPos(index, x, y, z, tmp);
         ProxDetectorCords(30.0, string, x, y, z, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, GetGarageVirtualWorld(index), GetInteriorInteriorId(GetGarageInteriorID(index)));
         return 1;
     }

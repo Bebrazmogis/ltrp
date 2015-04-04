@@ -544,7 +544,13 @@ public OnBusinessFurnitureLoad()
             furnitureIndex = GetFurnitureIndex(fid);
             // Neturëtø bût niekada -1, nebent kokie pakeitimai furniture table vyko.
             if(furnitureIndex != -1)
+            {
+                if(BusinessFurniture[ bizindex ][ bizFurnitureCount ][ ObjectId ])
+                    ErrorLog("BusinessFurniture. Overiding object id at bizindex:%d bizFurnitureCount:%d furnituresqlid:%d biz sqlid:%d",
+                        bizindex, bizFurnitureCount, BusinessFurniture[ bizindex ][ bizFurnitureCount ][ SqlId ], 
+                        bInfo[ bizindex ][ bID ]);
                 BusinessFurniture[ bizindex ][ bizFurnitureCount ][ ObjectId ] = CreateDynamicObject(GetFurnitureObjectId(furnitureIndex), pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], .worldid = GetBusinessVirtualWorld(bizindex));
+            }
         }
         // Tas pats baldas vël result set'e. Reiðkia keièiam tekstûrà.
         if(!ismysqlnull(strIndex))
