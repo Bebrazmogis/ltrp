@@ -20815,14 +20815,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 case 0:
                 {
-                    for ( new i = 0; i < STATIONS; i++ )
+                    for(new i = 0; i < STATIONS; i++)
                     {
-                        format ( string, 128, "%s%s\n",
+                        format(string, sizeof(string), "%s%s\n",
                                 string,
                                 RadioStations [ i ][ rName ] );
                     }
-                    format ( string, 128, "%sávesti savo stotá",
-                            string );
+                    strcat(string, "ávesti savo stotá");
                     ShowPlayerDialog( playerid, 77, DIALOG_STYLE_LIST, "Radijo stotys", string, "Rinktis", "Atðaukti" );
                     return 1;
                 }
