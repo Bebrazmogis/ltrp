@@ -428,7 +428,6 @@ stock UpdatePlayerGraffiti(playerid)
 				PlayerGraffiti[ playerid ][ ColourId ] = cache_get_field_content_int(0, "id");
 				cache_get_field_content(0, "argb", tmp);
 				PlayerGraffiti[ playerid ][ Colour ] = strval(tmp);
-				printf("ERROR?%d", cache_get_field_content_int(0, "argb"));
 			}
 			cache_delete(result);
 		}

@@ -14201,8 +14201,8 @@ CMD:aduty( playerid, params [ ] )
             }
             else 
                 mysql_format(DbHandle, string, sizeof(string), "INSERT INTO admin_watch_duty (admin_id, first_watch, last_watch, longest_watch, total_watch_time) \
-                    VALUES (%d, %d, VALUES(first_watch), %d, VALUES(longest_watch))",
-                    GetPlayerSqlId(playerid), DutyStartTimestamp[ playerid ], duration);
+                    VALUES (%d, %d, %d, %d, %d)",
+                    GetPlayerSqlId(playerid), DutyStartTimestamp[ playerid ], DutyStartTimestamp[ playerid ], , duration);
 
             cache_delete(result);
             mysql_pquery(DbHandle, string);
