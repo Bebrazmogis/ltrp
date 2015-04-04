@@ -22,8 +22,8 @@
 
 
 
-#define VERSION                         2.0.6
-#define BUILD_DATE                      2015-04.03
+#define VERSION                         2.0.8
+#define BUILD_DATE                      2015-04.04
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -14202,7 +14202,7 @@ CMD:aduty( playerid, params [ ] )
             else 
                 mysql_format(DbHandle, string, sizeof(string), "INSERT INTO admin_watch_duty (admin_id, first_watch, last_watch, longest_watch, total_watch_time) \
                     VALUES (%d, %d, %d, %d, %d)",
-                    GetPlayerSqlId(playerid), DutyStartTimestamp[ playerid ], DutyStartTimestamp[ playerid ], , duration);
+                    GetPlayerSqlId(playerid), DutyStartTimestamp[ playerid ], DutyStartTimestamp[ playerid ], duration, duration);
 
             cache_delete(result);
             mysql_pquery(DbHandle, string);
