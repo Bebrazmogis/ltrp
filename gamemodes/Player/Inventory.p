@@ -534,7 +534,7 @@ Item:OnPlayerUsePhone(playerid, itemid, invindex)
     }
     else 
     {
-    	ShoPlayerPhoneMenu(playerid);
+    	ShowPlayerPhoneMenu(playerid);
     }
     return 1;
 }

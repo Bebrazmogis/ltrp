@@ -840,6 +840,7 @@ new Fire[MAX_FIRE][fires];
 #include "Player\Functions"
 #include "Player\Inventory"
 #include "Player\Attachments"
+#include "Player\Phone"
 #include "Bank"
 #include "Graffiti"
 
@@ -1368,24 +1369,7 @@ stock GetNumber( playerid, number )
     valstr(string,number);
     return string;
 }
-GetPlayerPhonebookNumber(playerid, name[])
-{
-    for(new i = 0; i < MAX_PHONEBOOK_ENTRIES; i++)
-        if(!isnull(PlayerPhoneBook[ playerid ][ i ][ Name ]) && !strcmp(PlayerPhoneBook[ playerid ][ i ][ Name ], name, true))
-            return PlayerPhoneBook[ playerid ][ i ][ PhoneNumber ];
-    return 0;
-}
-GetPlayerPhonebookName(playerid, number)
-{
-    new s[ MAX_PLAYER_NAME ];
-    for(new i = 0; i < MAX_PHONEBOOK_ENTRIES; i++)
-        if(PlayerPhoneBook[ playerid ][ i ][ PhoneNumber ] == number)
-        {
-            strcat(s, PlayerPhoneBook[ playerid ][ i ][ Name ]);
-            break;
-        }
-    return s;
-}
+
 
 stock PlacePlayerRoadBlockInPos( playerid, type )
 {
@@ -4351,9 +4335,6 @@ stock NullPlayerInfo( playerid )
 	VehicleLoadTime[ playerid ] = 0;
 
     IsFillingFuel[ playerid ] = false;
-
-    for(new i = 0; i < sizeof(PlayerPhoneBook[]); i++)
-        PlayerPhoneBook[ playerid ][ i ][ PhoneNumber ] = 0;
 
     for(new i = 0; i < sizeof(PlayerWornItems[]); i++)
         PlayerWornItems[ playerid ][ i ] = -1;
@@ -10437,7 +10418,6 @@ CMD:ucall( playerid, params[ ] )
     }
     return SendClientMessage( playerid, COLOR_LIGHTRED2, "Klaida, numeris á kurá skambinate ðiuo metu uþimtas." );
 }
-// Telefonu knyga. PHonebook 
 
 
 

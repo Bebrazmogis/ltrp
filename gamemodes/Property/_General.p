@@ -1190,7 +1190,7 @@ CMD:exit(playerid)
         Unfreeze[ playerid ] = 2;
         TogglePlayerControllable(playerid, false);
 
-        StopPlayerRadio(i);
+        StopPlayerRadio(playerid);
         return 1;
     }   
     
