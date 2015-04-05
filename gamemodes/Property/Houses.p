@@ -1320,24 +1320,6 @@ timer WeedGrowTime[grow_time](grow_time, houseindex, weedindex)
     SetDynamicObjectPos(HouseWeed[ houseindex ][ weedindex ][ ObjectId ], x, y, z+(HOUSE_WEED_PLANT_HEIGHT / MAX_HOUSE_WEED_GROWTH_LEVEL));
 }
 
-CMD:testgrow(playerid)
-{
-    new hindex = GetPlayerHouseIndex(playerid);
-    if(hindex == -1)
-        return 0;
-
-    for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
-    {
-        if(!HouseWeed[ hindex ][ i ][ Id ])
-            continue;
-
-        stop HouseWeed[ hindex ][ i ][ GrowTimer ];
-        WeedGrowTime(MAX_HOUSE_WEED_SAPLINGS, hindex, i);
-    }
-    SendClientMessage(playerid, COLOR_PURPLE, "PAaugo.");
-    return 1;
-}
-
 
 CMD:lygiai(playerid)
 {
