@@ -527,16 +527,15 @@ stock OnPlayerItemRemoved(playerid, itemid)
 
 Item:OnPlayerUsePhone(playerid, itemid, invindex)
 {
-    new Hour,
-        Min,
-        Sec,
-        string[90];
-
-    gettime(Hour, Min, Sec);
-    format(string, sizeof(string), " Laikrodis Jûsø telefone ðiuo metu rodo toká laikà: %d:%d", Hour, Min);
-    SendClientMessage(playerid, COLOR_FADE1, string);
-    format(string, sizeof(string), "* %s iðsitraukia mobiløjá telefonà ir pasiþiûri dabartiná laikà.." , GetPlayerNameEx(playerid));
-    ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    if(IsPlayerPhoneOff(playerid))
+    {
+    	SendClientMessage(playerid, COLOR_NEWS, "Telefonas ásijungia...");
+    	TurnPlayerPhoneOn(playerid);
+    }
+    else 
+    {
+    	ShoPlayerPhoneMenu(playerid);
+    }
     return 1;
 }
 

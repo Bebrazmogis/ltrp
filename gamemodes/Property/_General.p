@@ -1024,7 +1024,7 @@ CMD:furniture(playerid, params[])
 CMD:clothes(playerid)
 {
     new bizIndex = -1;
-    if((bisIndex = GetPlayerBusinessIndex(playerid)) != -1 && IsPlayerInBusiness(playerid, bizIndex))
+    if((bizIndex = GetPlayerBusinessIndex(playerid)) != -1 && IsPlayerInBusiness(playerid, bizIndex))
     {
         // BAD. Reikia kesit
         if(_:GetBusinessType(bizIndex) == 4)

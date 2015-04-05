@@ -567,13 +567,6 @@ new bool:PlayerOn[MAX_PLAYERS] = { false, ... },
 new Iterator:Audio3D<MAX_PLAYERS>;
 
 
-// Telefonø knyga
-enum E_PHONEBOOK_DATA {
-    PhoneNumber,
-    Name[ MAX_PLAYER_NAME ]
-};
-
-new PlayerPhoneBook[ MAX_PLAYERS ][ MAX_PHONEBOOK_ENTRIES ][ E_PHONEBOOK_DATA ];
 
 
 // Prikabinami þaidëjo ginklai, komanda /wepaon
@@ -10007,54 +10000,7 @@ CMD:gov( playerid, params[ ] )
     SendChatMessageToAll( COLOR_FADE1, string );
     return 1;
 }
-CMD:sms( playerid, params[ ] )
-{
-    if(pInfo[playerid][pPhone] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Tu neturi mobilaus telefono.");
-    else if(Mires[playerid] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje.");
-    else if(Mute[playerid] == true) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jums yra uþdrausta kalbëtis (/mute), norëdami paðalinti draudimà susisiekite su Administratoriumi.");
-    else if(PlayerMoney[ playerid ] < 1 ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs neturite $1 ");
-    else if ( GetPVarInt( playerid, "PHONE_STATUS" ) == 1 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, turimas mobilusis telefonas iðjungtas." );
-    else if ( pInfo[playerid][pJail] > 0 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, èia mobilaus telefono ryðys yra blokuojamas." );
-    new string[ 256 ],
-        phonenumb,
-        gMessage[ 256 ];
 
-    if ( sscanf( params, "ds[240]", phonenumb, gMessage ) )
-    {
-        new target[ MAX_PLAYER_NAME ];
-        if(strfind(params, " ") != -1) // Jei yra bent du string'ai 
-        {
-            strmid(target, params, 0, strfind(params, " "));
-            phonenumb = GetPlayerPhonebookNumber(playerid, target);
-            strmid(gMessage, params, strfind(params, " "), strlen(params));
-        }   
-    }
-    if ( phonenumb == 0 )
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /sms [ADRESATO NUMERIS][ÞINUTË]");
-    foreach(Player, i)
-    {
-        if(phonenumb == pInfo[i][pPhone] && phonenumb != 0)
-        {
-            if ( GetPVarInt( i, "PHONE_STATUS" ) == 1 )
-                    return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, turimas mobilusis telefonas iðjungtas." );
-
-            format(string, 126, "* %s iðsitraukia mobilujá telefonà, paraðæs SMS þinutæ, iðsiunèia jà.", GetPlayerNameEx(playerid));
-            ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-
-            format(string, 256, "SMS: %s, siuntëjas: %s", gMessage, GetNumber( i, pInfo[ playerid ][ pPhone ] ));
-            SendClientMessage(playerid, COLOR_LIGHTRED2, "Trumpoji þinutë buvo sëkmingai nusiûsta adresatui.");
-            SendChatMessage(i, COLOR_LIGHTRED2, string);
-            SendChatMessage(playerid, COLOR_WHITE, string);
-            ShowInfoText(playerid, "~w~ SMS kaina $1", 5000);
-            GivePlayerMoney(playerid,-1);
-            PlayerPlaySound(i, 1052, 0.0, 0.0, 0.0);
-            return 1;
-        }
-    }
-    return 1;
-}
 stock SendTesterMessage( color, text[ ] )
 {
     foreach(Player,i)
