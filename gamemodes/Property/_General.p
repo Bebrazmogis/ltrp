@@ -64,7 +64,6 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
         case EDIT_RESPONSE_FINAL: // Paspaudþia Save migtukà
         {
             MoveDynamicObject(objectid, x, y, z, 15, rx, ry, rz);
-            SendClientMessage(playerid, COLOR_WHITE,"Objekto redagavimas sëkmingai baigtas." );
 
         	new house_index = GetPlayerHouseIndex(playerid);
             if(house_index != -1)
@@ -78,6 +77,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 
                 new furnitureIndex = GetHouseFurnitureIndex(house_index, objectid);
                 SaveHouseFurnitureObject(house_index, furnitureIndex, x, y, z, rx, ry, rz);
+                SendClientMessage(playerid, COLOR_WHITE,"Objekto redagavimas sëkmingai baigtas." );
                 return 1;
             }
             	
@@ -92,6 +92,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
                 
                 new furnitureIndex = GetBusinessFurnitureIndex(biz_index, objectid);
                 SaveBusinessFurnitureObject(biz_index, furnitureIndex, x, y, z, rx, ry, rz);
+                SendClientMessage(playerid, COLOR_WHITE,"Objekto redagavimas sëkmingai baigtas." );
                 return 1;
             }
             new garage_index = GetPlayerGarageIndex(playerid);
@@ -105,8 +106,10 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
                 
                 new furnitureIndex = GetGarageFurnitureIndex(garage_index, objectid);
                 SaveGarageFurnitureObject(garage_index, furnitureIndex, x, y, z, rx, ry, rz);
+                SendClientMessage(playerid, COLOR_WHITE,"Objekto redagavimas sëkmingai baigtas." );
                 return 1;
             }
+
             
         }
         case EDIT_RESPONSE_CANCEL: // Atðaukia redagavimá .
@@ -1187,10 +1190,7 @@ CMD:exit(playerid)
         Unfreeze[ playerid ] = 2;
         TogglePlayerControllable(playerid, false);
 
-        if(Audio_IsClientConnected(playerid ))
-        {
-            StopPlayerRadio(playerid);
-        }
+        StopPlayerRadio(i);
         return 1;
     }   
     
