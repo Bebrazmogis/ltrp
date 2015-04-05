@@ -1020,11 +1020,8 @@ CMD:furniture(playerid, params[])
 
 CMD:clothes(playerid)
 {
-    new bizIndex = GetPlayerBusinessIndex(playerid);
-    if(bizIndex == -1)
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate drabuþiø parduotuvëje.");
-        
-    if(IsPlayerInBusiness(playerid, bizIndex))
+    new bizIndex = -1;
+    if((bisIndex = GetPlayerBusinessIndex(playerid)) != -1 && IsPlayerInBusiness(playerid, bizIndex))
     {
         // BAD. Reikia kesit
         if(_:GetBusinessType(bizIndex) == 4)
@@ -1035,13 +1032,13 @@ CMD:clothes(playerid)
     else if(IsPlayerInRangeOfPoint(playerid, 20.0, 389.6868,339.0674,999.9752))
     {
         ShowModelSelectionMenu ( playerid, skinlist, "Select Skin" ) ;
-        return true;
     }
     else if(IsPlayerInAnyHouse(playerid))
     {
         ShowModelSelectionMenu(playerid, skinlist, "Select Skin");
-        return true;
     }
+    else 
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Drabuþius galite keisti tik namuose arba drabuþiø parduotuvëje.");
     return 1;
 }
 
