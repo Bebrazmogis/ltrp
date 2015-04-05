@@ -1,3 +1,18 @@
+
+
+
+
+
+
+/*
+        ALTER TABLE garages DROP exit_angle;
+        ALTER TABLE garages 
+            ADD COLUMN vehicle_exit_x FLOAT NOT NULL AFTER exi_z,
+            ADD COLUMN vehicle_exit_y FLOAT NOT NULL AFTER vehicle_exit_x,
+            ADD COLUMN vehicle_exit_z FLOAT NOT NULL AFTER vehicle_exit_y,
+            ADD COLUMN vehicle_exit_angle FLOAT NOT NULL AFTER vehicle_exit_z;
+*/
+
 #include <YSI\y_hooks>
 
 #if !defined MAX_GARAGES
@@ -54,7 +69,8 @@ enum E_GARAGE_DATA
     bool:gLocked,
     Float:gEntrance[ 3 ],
     Float:gVehicleEnter[ 4 ],
-    Float:gExit[ 4 ],
+    Float:gVehicleExit[ 4 ],
+    Float:gExit[ 3 ],
     Text3D:gLabel,
 };
 new gInfo[ MAX_GARAGES ][ E_GARAGE_DATA ],
@@ -195,7 +211,11 @@ public OnGarageLoad()
             gInfo[ garageCount ][ gExit ][ 0 ] = cache_get_field_content_float(i, "exit_x");
             gInfo[ garageCount ][ gExit ][ 1 ] = cache_get_field_content_float(i, "exit_y");
             gInfo[ garageCount ][ gExit ][ 2 ] = cache_get_field_content_float(i, "exit_z");
-            gInfo[ garageCount ][ gExit ][ 3 ] = cache_get_field_content_float(i, "exit_angle");
+
+            gInfo[ garageCount ][ gVehicleExit ][ 0 ] = cache_get_field_content_float(i, "vehicle_exit_x");
+            gInfo[ garageCount ][ gVehicleExit ][ 1 ] = cache_get_field_content_float(i, "vehicle_exit_y");
+            gInfo[ garageCount ][ gVehicleExit ][ 2 ] = cache_get_field_content_float(i, "vehicle_exit_z");
+            gInfo[ garageCount ][ gVehicleExit ][ 3 ] = cache_get_field_content_float(i, "vehicle_exit_angle");
 
             UpdateGarageEntrance(garageCount);
             Itter_Add(Garages, garageCount);
@@ -517,12 +537,19 @@ stock GetGarageVirtualWorld(garageindex)
     return gInfo[ garageindex ][ gID ] + GARAGE_VIRTUAL_WORLD;
 }
 
-stock GetGarageExitPos(garageindex, &Float:x, &Float:y, &Float:z, &Float:a)
+stock GetGarageExitPos(garageindex, &Float:x, &Float:y, &Float:z)
 {
     x = gInfo[ garageindex ][ gExit ][ 0 ];
     y = gInfo[ garageindex ][ gExit ][ 1 ];
     z = gInfo[ garageindex ][ gExit ][ 2 ];
-    a = gInfo[ garageindex ][ gExit ][ 3 ];
+}
+
+stock GetGarageVehicleExitPos(garageindex, &Float:x, &Float:y, &Float:z, &Float:a)
+{
+    x = gInfo[ garageindex ][ gVehicleExit ][ 0 ];
+    y = gInfo[ garageindex ][ gVehicleExit ][ 1 ];
+    z = gInfo[ garageindex ][ gVehicleExit ][ 2 ];
+    a = gInfo[ garageindex ][ gVehicleExit ][ 3 ];
 }
 
 stock GetGarageVehicleEntrancePos(garageindex, &Float:x, &Float:y, &Float:z, &Float:a)
@@ -533,12 +560,21 @@ stock GetGarageVehicleEntrancePos(garageindex, &Float:x, &Float:y, &Float:z, &Fl
     a = gInfo[ garageindex ][ gVehicleEnter ][ 3 ];
 }
 
+stock IsGarageVehicleEntrancePosSet(garageindex)
+{
+    if(gInfo[ garageindex ][ gVehicleEnter ][ 0 ] == 0.0 && gInfo[ garageindex ][ gVehicleEnter ][ 1 ] == 0.0 && gInfo[ garageindex ][ gVehicleEnter ][ 2 ] == 0.0 && gInfo[ garageindex ][ gVehicleEnter ][ 3 ] == 0.0)
+        return false;
+    else 
+        return true;
+}
+
 stock GetGarageEntrancePos(garageindex, &Float:x, &Float:y, &Float:z)
 {
     x = gInfo[ garageindex ][ gEntrance ][ 0 ];
     y = gInfo[ garageindex ][ gEntrance ][ 1 ];
     z = gInfo[ garageindex ][ gEntrance ][ 2 ];
 }
+
 stock GetGarageEntranceVirtualWorld(garageindex)
 {
     #pragma unused garageindex
@@ -644,7 +680,7 @@ stock AddGarageFurniture(garageindex, findex, Float:posx, Float:posy, Float:posz
 
 stock SaveGarage(garageindex)
 {
-    new query[ 512 ], owner[16], interior[16];
+    new query[ 600 ], owner[16], interior[16];
 
     if(gInfo[ garageindex ][ gOwner ] == GARAGE_OWNER_NULL) 
         owner = "NULL";
@@ -658,8 +694,8 @@ stock SaveGarage(garageindex)
 
 
     mysql_format(DbHandle, query, sizeof(query), "UPDATE garages SET  price = %d, owner = %s, interior_id = %s, locked = %d, entrance_x = %f, entrance_y = %f, entrance_z = %f, \
-        vehicle_entrance_x = %f, vehicle_entrance_y = %f, vehicle_entrance_z = %f, vehicle_entrance_angle = %f, exit_x = %f, exit_y = %f, exit_z = %f, exit_angle = %f \
-        WHERE `id` = %d;",
+        vehicle_entrance_x = %f, vehicle_entrance_y = %f, vehicle_entrance_z = %f, vehicle_entrance_angle = %f, exit_x = %f, exit_y = %f, exit_z = %f, vehicle_exit_x = %f \
+        vehicle_exit_y = %f, vehicle_exit_z = %f, vehicle_exit_angle = %d WHERE `id` = %d;",
         gInfo[ garageindex ][ gPrice ],
         owner,
         interior,
@@ -674,7 +710,10 @@ stock SaveGarage(garageindex)
         gInfo[ garageindex ][ gExit ][ 0 ],
         gInfo[ garageindex ][ gExit ][ 1 ],
         gInfo[ garageindex ][ gExit ][ 2 ],
-        gInfo[ garageindex ][ gExit ][ 3 ],
+        gInfo[ garageindex ][ gVehicleExit ][ 0 ],
+        gInfo[ garageindex ][ gVehicleExit ][ 1 ],
+        gInfo[ garageindex ][ gVehicleExit ][ 2 ],
+        gInfo[ garageindex ][ gVehicleExit ][ 3 ],
         gInfo[ garageindex ][ gID ] );
 
     mysql_pquery(DbHandle,  query);
@@ -711,7 +750,7 @@ stock SetGarageInteriorId(garageindex, interiorid)
     return 1;
 }
 
-stock SetGarageVehicleSpawn(garageindex, Float:x, Float:y, Float:z, Float:angle)
+stock SetGarageVehicleEntrance(garageindex, Float:x, Float:y, Float:z, Float:angle)
 {
     new query[180];
 
@@ -721,6 +760,20 @@ stock SetGarageVehicleSpawn(garageindex, Float:x, Float:y, Float:z, Float:angle)
     gInfo[ garageindex ][ gVehicleEnter ][ 3 ] = angle;
 
     mysql_format(DbHandle, query, sizeof(query), "UPDATE garages SET vehicle_entrance_x = %f, vehicle_entrance_y = %f, vehicle_entrance_z = %f, vehicle_entrance_angle = %f WHERE id = %d",
+        x, y, z, angle, gInfo[ garageindex ][ gID ]);
+    return mysql_pquery(DbHandle, query);
+}
+
+stock SetGarageVehicleExit(garageindex, Float:x, Float:y, Float:z, Float:angle)
+{
+    new query[180];
+
+    gInfo[ garageindex ][ gVehicleExit ][ 0 ] = x;
+    gInfo[ garageindex ][ gVehicleExit ][ 1 ] = y;
+    gInfo[ garageindex ][ gVehicleExit ][ 2 ] = z;
+    gInfo[ garageindex ][ gVehicleExit ][ 3 ] = angle;
+
+    mysql_format(DbHandle, query, sizeof(query), "UPDATE garages SET vehicle_exit_x = %f, vehicle_exit_y = %f, vehicle_exit_z = %f, vehicle_exit_angle = %f WHERE id = %d",
         x, y, z, angle, gInfo[ garageindex ][ gID ]);
     return mysql_pquery(DbHandle, query);
 }
@@ -1051,6 +1104,7 @@ enum E_GARAGE_INDEX_USAGE
     GarageInformation,
     GarageRemoveOwner,
     GarageRemove,
+    GarageVehicleExitChange,
 };
 
 
@@ -1061,7 +1115,8 @@ stock GarageManagementDialog.ShowMain(playerid)
         "- Kurti naujà \n\
         - Keisti áëjimà\n\
         - Keisti iðëjimà\n\
-        - Keisti automobilio spawn vietà \n\
+        - Keisti automobilio spawn vietà lauke\n\
+        - Keisti automobilio spawn vietà viduje\n\
         - Keisti kainà\n\
         - Þiûrëti informacijà\n\
         - Paðalinti savininkà \n\
@@ -1187,14 +1242,19 @@ stock GarageManagementDialog.OnDialogResponse(playerid, dialogid, response, list
                 {
                     GarageManagementDialog.InputIndex(playerid, GarageExitChange);
                 }
-                // Keisti automobilio spawn vietà ávaþiavus
+                // Keisti automobilio spawn vietà lauke
                 case 3:
                 {
                     GarageManagementDialog.InputIndex(playerid, GarageVehicleSpawnChange);
 
                 }
-                // Keisti kainà
+                // Keisti automobilio spawn vietà viduje
                 case 4:
+                {
+                    GarageManagementDialog.InputIndex(playerid, GarageVehicleExitChange);
+                }
+                // Keisti kainà
+                case 5:
                 {
                     if(index == -1)
                     {
@@ -1206,7 +1266,7 @@ stock GarageManagementDialog.OnDialogResponse(playerid, dialogid, response, list
                     }
                 }
                 // Þiûrëti informacijà
-                case 5:
+                case 6:
                 {
                     if(index == -1)
                     {
@@ -1218,7 +1278,7 @@ stock GarageManagementDialog.OnDialogResponse(playerid, dialogid, response, list
                     }
                 }
                 // Paðalinti savininkà
-                case 6:
+                case 7:
                 {
                     if(index == -1)
                     {
@@ -1231,12 +1291,12 @@ stock GarageManagementDialog.OnDialogResponse(playerid, dialogid, response, list
                     }
                 }
                 // Interjerø perþiûra
-                case 7:
+                case 8:
                 {
                     ShowInteriorPreviewForPlayer(playerid, "garage");
                 }
                 // Iðtrinti garaþà
-                case 8:
+                case 9:
                 {
                     if(index == -1)
                         GarageManagementDialog.InputIndex(playerid, GarageRemove);
@@ -1281,6 +1341,7 @@ stock GarageManagementDialog.OnDialogResponse(playerid, dialogid, response, list
                     new Float:x, Float:y, Float:z, Float:angle;
                     if(!IsPlayerInAnyVehicle(playerid))
                     {
+                        SendClientMessage(playerid, COLOR_GREEN, "Rekomenduojama transporto priemonës pozicijà keisti bûnant joje.");
                         GetPlayerPos(playerid, x, y, z);
                         GetPlayerFacingAngle(playerid, angle);
                     }
@@ -1290,8 +1351,26 @@ stock GarageManagementDialog.OnDialogResponse(playerid, dialogid, response, list
                         GetVehicleZAngle(GetPlayerVehicleID(playerid), angle);
                     }
 
-                    SetGarageVehicleSpawn(index, x, y, z, angle);
-                    SendClientMessage(playerid, COLOR_GREEN, "Garaþo maðinos atsiradimo pozicija sëkmingai atnaujinta.");
+                    SetGarageVehicleEntrance(index, x, y, z, angle);
+                    SendClientMessage(playerid, COLOR_GREEN, "Garaþo maðinos atsiradimo pozicija lauke sëkmingai atnaujinta.");
+                }
+                case GarageVehicleExitChange:
+                {
+                    new Float:x, Float:y, Float:z, Float:angle;
+                    if(!IsPlayerInAnyVehicle(playerid))
+                    {
+                        SendClientMessage(playerid, COLOR_GREEN, "Rekomenduojama transporto priemonës pozicijà keisti bûnant joje.");
+                        GetPlayerPos(playerid, x, y, z);
+                        GetPlayerFacingAngle(playerid, angle);
+                    }
+                    else 
+                    {
+                        GetVehiclePos(GetPlayerVehicleID(playerid), x, y, z);
+                        GetVehicleZAngle(GetPlayerVehicleID(playerid), angle);
+                    }
+
+                    SetGarageVehicleExit(index, x, y, z, angle);
+                    SendClientMessage(playerid, COLOR_GREEN, "Garaþo maðinos atsiradimo pozicija viduje sëkmingai atnaujinta.");
                 }
                 case GaragePriceChange: GarageManagementDialog.InputNewPrice(playerid);
                 case GarageInformation: GarageManagementDialog.ShowInformation(playerid, index);

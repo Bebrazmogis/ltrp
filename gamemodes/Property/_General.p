@@ -1118,14 +1118,17 @@ CMD:enter(playerid)
         if(!IsValidInterior(GetGarageInteriorID(index)))
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis garaþas neturi interjero.");
 
+        if(!IsGarageVehicleEntrancePosSet(index))
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, garaþo transporto priemonës koordinatës lauke nëra nustatytos.");
+
         if(IsGarageLocked(index))
             return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
 
         new Float:angle, 
             vehicleid = GetPlayerVehicleID(playerid);
-        GetGarageExitPos(index, pos[ 0 ], pos[ 1 ], pos[ 2 ], angle);
         if(vehicleid)
         {
+            GetGarageVehicleExitPos(index, pos[ 0 ], pos[ 1 ], pos[ 2 ], angle);
             SetVehicleZAngle(vehicleid, angle);
             SetVehiclePos(vehicleid, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
             LinkVehicleToInterior(vehicleid, GetInteriorInteriorId(GetGarageInteriorID(index)));
@@ -1139,6 +1142,7 @@ CMD:enter(playerid)
         }
         else
         {
+            GetGarageExitPos(index, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
             SetPlayerPos(playerid, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
             SetPlayerInterior(playerid, GetInteriorInteriorId(GetGarageInteriorID(index)));
             SetPlayerVirtualWorld(playerid, GetGarageVirtualWorld(index));
@@ -1321,7 +1325,6 @@ CMD:ds(playerid, params[])
     index = GetPlayerGarageIndex(playerid);
     if(index != -1)
     {
-        new Float:angle;
         if(IsPlayerInGarage(playerid, index))
         {
             GetGarageEntrancePos(index, x, y, z);
@@ -1330,7 +1333,7 @@ CMD:ds(playerid, params[])
         }
         else 
         {
-            GetGarageExitPos(index, x, y, z, angle);
+            GetGarageExitPos(index, x, y, z);
             world = GetGarageVirtualWorld(index);
             interior = GetInteriorInteriorId(GetGarageInteriorID(index));
         }
@@ -1385,9 +1388,8 @@ CMD:knock(playerid)
         format(string, sizeof(string), "* %s beldþiasi á namo duris.", GetPlayerNameEx(playerid));
         ProxDetector(30.0,  playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 
-        new Float:tmp;
         format(string, sizeof(string), "* %s beldþiasi á duris.", GetPlayerNameEx(playerid));
-        GetGarageExitPos(index, x, y, z, tmp);
+        GetGarageExitPos(index, x, y, z);
         ProxDetectorCords(30.0, string, x, y, z, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, GetGarageVirtualWorld(index), GetInteriorInteriorId(GetGarageInteriorID(index)));
         return 1;
     }
