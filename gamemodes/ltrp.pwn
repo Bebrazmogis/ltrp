@@ -4105,6 +4105,34 @@ stock GetPlayerBankMoney(playerid)
 stock SetPlayerBankMoney(playerid, value)
     return pInfo[ playerid ][ pBank ] = value;
 
+stock GetPlayerPhoneNumber(playerid)
+    return pInfo[ playerid ][ pPhone ];
+
+stock FindPlayerByPhoneNumber(phonenumber)
+{
+    foreach(new i : Player)
+        if(GetPlayerPhoneNumber(i) == phonenumber)  
+            return i;
+    return INVALID_PLAYER_ID;
+}
+
+stock IsValidPlayerNumber(phonenumber)
+{
+    if(FindPlayerByPhoneNumber(phonenumber) != INVALID_PLAYER_ID)   
+        return true;
+
+    else 
+    {
+        new query[70], Cache:result, bool:isValid;
+        mysql_format(DbHandle, query, sizeof(query), "SELECT id FROM players WHERE PhoneNr = %d", phonenumber);
+        result = mysql_query(DbHandle, query);
+        if(cache_get_row_count())
+            isValid = true;
+        cache_delete(result);
+        return isValid;
+    }
+}
+
 stock GetPlayerIP(playerid)
 {
     new
