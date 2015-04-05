@@ -3805,6 +3805,7 @@ public OnPlayerPickUpDynamicPickup( playerid, pickupid )
     return 1;
 }
 new NPCTrain[2];
+new Velykos[ 7 ];
 public OnGameModeInit()
 {
     AntiDeAMX();
@@ -3997,10 +3998,36 @@ public OnGameModeInit()
     SetWorldTime(laikas[0]+1);
     OldHour = laikas[0];
     printf("Serveryje senoji valanda: %d ", OldHour );
+
     return 1;
 }
 
+CMD:velykos(playerid)
+{
+    if(!pInfo[ playerid ][ pAdmin ])
+        return 0;
 
+    if(IsValidDynamicObject(Velykos[ 0 ]))
+    {
+        for(new i = 0; i < sizeof(Velykos); i++)
+        {
+            DestroyDynamicObject(Velykos[ i ]);
+        }
+        SendClientMessage(playerid, COLOR_NEWS, "Kiauðiniai sunaikinti.");
+    }
+    else 
+    {
+        Velykos[ 0 ] = CreateDynamicObject(19341, 2737.77710, -1759.86536, 43.75352,   0.00000, 0.00000, 0.00000);
+        Velykos[ 1 ] = CreateDynamicObject(19343, 1928.37317, -1772.38306, 15.11654,   0.00000, 0.00000, 0.00000);
+        Velykos[ 2 ] = CreateDynamicObject(19345, 1480.43274, -1640.23718, 14.14875,   0.00000, 0.00000, 0.00000);
+        Velykos[ 3 ] = CreateDynamicObject(19341, 1505.98621, -1659.48193, 15.53271,   0.00000, 0.00000, 0.00000);
+        Velykos[ 4 ] = CreateDynamicObject(19343, 1507.57410, -1653.88574, 15.43643,   0.00000, 0.00000, 0.00000);
+        Velykos[ 5 ] = CreateDynamicObject(19341, 1510.14124, -1649.10779, 15.63347,   0.00000, 0.00000, 0.00000);
+        Velykos[ 6 ] = CreateDynamicObject(19343, 1513.59619, -1644.33447, 15.42674,   0.00000, 0.00000, 0.00000);
+        SendClientMessage(playerid, COLOR_NEWS, "Kiauðiniai atsirado.");
+    }
+    return 1;
+}
 
 AntiDeAMX() {
     new a[][] = {
@@ -14053,13 +14080,13 @@ CMD:biztax( playerid, params[ ] )
         new giveplayerid,
             string[ 126 ];
         if ( sscanf( params, "i", giveplayerid ) )
-            return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /cartax [ 1 - 99 ] " );
+            return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /biztax [ 1 - 99 ] " );
 
         if ( giveplayerid < 0 || giveplayerid > 100 )
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Mokestis uþ automobilius negali bût didesnis negu 100.");
+            return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Mokestis uþ verslus negali bût didesnis negu 100.");
 
         biztax = giveplayerid;
-        format         ( string, 126, " Kilometro kaina buvo nustatyta á %d", giveplayerid);
+        format         ( string, 126, " Verslo mokestis buvo nustatytas á %d", giveplayerid);
         SaveMisc();
     }
     return 1;
