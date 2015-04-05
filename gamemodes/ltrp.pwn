@@ -20664,11 +20664,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     for ( new i = 0; i < STATIONS; i++ )
                     {
-                        format ( string, 128, "%s%s\n",
+                        format ( string, sizeof(string), "%s%s\n",
                                 string,
                                 RadioStations [ i ][ rName ] );
                     }
-                    format ( string, 128, "%sávesti savo stotá",
+                    format ( string, sizeof(string), "%sávesti savo stotá",
                             string );
                     ShowPlayerDialog( playerid, 68, DIALOG_STYLE_LIST, "Radijo stotys", string, "Rinktis", "Atðaukti" );
                     return 1;
