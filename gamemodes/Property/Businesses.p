@@ -372,7 +372,7 @@ public OnGameModeInit()
 
 	mysql_tquery(DbHandle, "SELECT * FROM business ORDER BY id ASC", "OnBusinessLoad", "");
     mysql_tquery(DbHandle, "SELECT * FROM business_wares ORDER BY business_id ASC", "OnBusinessWareLoad", "");
-    mysql_tquery(DbHandle, "SELECT business_furniture.*, business_furniture_textures.*, furniture.name AS default_name FROM business_furniture LEFT JOIN business_furniture_textures ON business_furniture.id = business_furniture_textures.furniture_id LEFT JOIN furniture ON furniture.id = business_furniture.furniture_id", "OnBusinessFurnitureLoad", "");
+    mysql_tquery(DbHandle, "SELECT business_furniture.*, business_furniture_textures.*, furniture.name AS default_name FROM business_furniture LEFT JOIN business_furniture_textures ON business_furniture.id = business_furniture_textures.furniture_id LEFT JOIN furniture ON furniture.id = business_furniture.furniture_id ORDER BY business_furniture.business_id", "OnBusinessFurnitureLoad", "");
     mysql_tquery(DbHandle, "SELECT * FROM business_accepted_cargo", "OnBusinessAcceptedCargoLoad", "");
     return 1;
 
@@ -521,7 +521,7 @@ public OnBusinessFurnitureLoad()
         if(bizindex == -1)
             continue;
 
-        // Jei namas kitas, krausime i kita BusinessFurniture[]
+        // Jei verslas kitas, krausime i kita BusinessFurniture[]
         if(!lastBizId || lastBizId != bid)
         {
             lastBizId = bid;
@@ -545,6 +545,9 @@ public OnBusinessFurnitureLoad()
             // Neturëtø bût niekada -1, nebent kokie pakeitimai furniture table vyko.
             if(furnitureIndex != -1)
             {
+                printf("Creating object. bizindex:%d bizFurnitureCount:%d furniture sqlid:%d biz sqlid:%d",
+                    bizindex, bizFurnitureCount, BusinessFurniture[ bizindex ][ bizFurnitureCount ][ SqlId ],
+                    bInfo[ bizindex ][ bID ]);
                 if(BusinessFurniture[ bizindex ][ bizFurnitureCount ][ ObjectId ])
                     ErrorLog("BusinessFurniture. Overiding object id at bizindex:%d bizFurnitureCount:%d furnituresqlid:%d biz sqlid:%d",
                         bizindex, bizFurnitureCount, BusinessFurniture[ bizindex ][ bizFurnitureCount ][ SqlId ], 

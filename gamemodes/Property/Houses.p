@@ -144,7 +144,7 @@ public OnGameModeInit()
     mysql_tquery(DbHandle, "SELECT * FROM `house_items` ORDER BY house_id, slot", "OnHouseItemLoad", "");
     // Tokia sudëtinga uþklausa tik tam kad paimti papildomai tekstûros duomenis
     // Bei tam kad bûtø iðrikiuota pagal namo ID, todël vieno namo baldai bus vienas ðalia kito.
-    mysql_tquery(DbHandle, "SELECT house_furniture.*,house_furniture_textures.*, furniture.name AS default_name FROM house_furniture LEFT JOIN house_furniture_textures ON house_furniture.id = house_furniture_textures.furniture_id LEFT JOIN furniture ON furniture.id = house_furniture.furniture_id", "OnHouseFurnitureLoad", "");
+    mysql_tquery(DbHandle, "SELECT house_furniture.*,house_furniture_textures.*, furniture.name AS default_name FROM house_furniture LEFT JOIN house_furniture_textures ON house_furniture.id = house_furniture_textures.furniture_id LEFT JOIN furniture ON furniture.id = house_furniture.furniture_id ORDER BY house_furniture.house_id", "OnHouseFurnitureLoad", "");
     mysql_tquery(DbHandle, "SELECT * FROM house_weed WHERE harvested_by IS NULL", "OnHouseWeedLoad", "");
     return 1;
 }
@@ -305,7 +305,7 @@ public OnHouseFurnitureLoad()
                 if(HouseFurniture[ houseIndex ][ houseFurnitureCount ][ ObjectId ])
                     ErrorLog("Ovewriting HouseFurniture[%d][%d] objectid:%d",
                         houseIndex, houseFurnitureCount, HouseFurniture[ houseIndex ][ houseFurnitureCount ][ ObjectId ]);
-                 HouseFurniture[ houseIndex ][ houseFurnitureCount ][ ObjectId ] = CreateDynamicObject(GetFurnitureObjectId(furnitureIndex), pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], .worldid=GetHouseVirtualWorld(houseIndex));
+                HouseFurniture[ houseIndex ][ houseFurnitureCount ][ ObjectId ] = CreateDynamicObject(GetFurnitureObjectId(furnitureIndex), pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], .worldid=GetHouseVirtualWorld(houseIndex));
             }
 
         }
@@ -1326,24 +1326,6 @@ timer WeedGrowTime[grow_time](grow_time, houseindex, weedindex)
 }
 
 
-CMD:lygiai(playerid)
-{
-
-    new hindex = GetPlayerHouseIndex(playerid), string[126];
-    if(hindex == -1)
-        return 0;
-
-    for(new i = 0; i < MAX_HOUSE_WEED_SAPLINGS; i++)
-    {
-        if(!HouseWeed[ hindex ][ i ][ Id ])
-            continue;
-
-        format(string, sizeof(string), "Augalo lygis:%d jo sqlid:%d. I:%d", HouseWeed[ hindex ][ i ][ GrowthLevel ], HouseWeed[ hindex ][ i ][ Id ],
-            i);
-        SendClientMessage(playerid, COLOR_PURPLE, string);
-    }
-    return 1;
-}
 
 
 /*
