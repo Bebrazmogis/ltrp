@@ -689,7 +689,8 @@ enum players
     pStrengthLevel,
 	pJobHours,
     pHunger,
-    pTotalPaycheck
+    pTotalPaycheck,
+    bool:pFactionManager,
 };
 new pInfo[MAX_PLAYERS][players];
 
@@ -22977,6 +22978,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         pInfo[ playerid ][ pJobHours ] = cache_get_field_content_int(0, "JobHours");
         pInfo[ playerid ][ pHunger ] = cache_get_field_content_int(0, "Hunger");
         pInfo[ playerid ][ pTotalPaycheck ]  = cache_get_field_content_int(0, "TotalPaycheck");
+        pInfo[ playerid ][ pFactionManager ] = (cache_get_field_content_int(0, "faction_manager")) ? (true) : (false);
     
         cache_delete(result);
 

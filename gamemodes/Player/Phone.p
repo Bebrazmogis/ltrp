@@ -1,15 +1,15 @@
 
 
 /*
-	CREATE TABLE ifNOT EXISTS player_phone_sms (
+	CREATE TABLE IF NOT EXISTS player_phone_sms (
 		id INT AUTO_INCREMENT NOT NULL,
 		recipient_number INT NOT NULL,
 		sender_number INT NOT NULL,
 		`date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		`text` VARCHAR(128) NOT NULL,
-		read BOOLEAN NOT NULL DEFAULT '0',
+		`read` BOOLEAN NOT NULL DEFAULT '0',
 		PRIMARY KEY(id)
-	) ENGINE=INNODB DEFAULT CHRASET=cp1257 COLLATE=cp1257_bin;
+	) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 	
 */
 
@@ -123,6 +123,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if(!response)
 				return 1;
+
+			// Dël \n prie "Naujas kontaktas" taip bûti gali.
+			if(isnull(inputtext))
+				return ShowPlayerPhoneBookMenu(playerid);
 
 			// Naujo kontakto pridëjimas
 			if(!listitem)
@@ -526,7 +530,7 @@ stock PlayerSendSms(playerid, phonenumber, text[])
    			format(string, sizeof(string), "SMS: %s, siuntëjas: %s", 
    				text, GetPlayerPhonebookName(targetplayer, phonenumber));
    		else 
-   			format(string, sizeof(string), "SMS: %s, siuntëjas: %s", text, phonenumber);
+   			format(string, sizeof(string), "SMS: %s, siuntëjas: %d", text, phonenumber);
 
 	    SendClientMessage(playerid, COLOR_LIGHTRED2, "Trumpoji þinutë buvo sëkmingai nusiûsta adresatui.");
 	    SendChatMessage(targetplayer, COLOR_LIGHTRED2, string);
@@ -556,7 +560,7 @@ stock ShowPlayerSMS(playerid, smssqlid)
 	new string[ 1024 ], date[ 32 ], sender[ MAX_PHONEBOOK_CONTACT_NAME ], reciever[ MAX_PHONEBOOK_CONTACT_NAME ], 
 		Cache:result, number;
 
-	mysql_format(DbHandle, string, sizeof(string), "SELCET * FROM player_phone_sms WHERE id = %d", smssqlid);
+	mysql_format(DbHandle, string, sizeof(string), "SELECT * FROM player_phone_sms WHERE id = %d", smssqlid);
 	result = mysql_query(DbHandle, string);
 	if(cache_get_row_count())
 	{
@@ -576,7 +580,7 @@ stock ShowPlayerSMS(playerid, smssqlid)
 			GetPlayerName(playerid, reciever, MAX_PLAYER_NAME);
 			if(!cache_get_field_content_int(0, "read"))
 			{
-				mysql_format(DbHandle, string, sizeof(string), "UPDATE player_phone_sms SET read = 1 WHERE id = %d", smssqlid);
+				mysql_format(DbHandle, string, sizeof(string), "UPDATE player_phone_sms SET `read` = 1 WHERE id = %d", smssqlid);
 				mysql_pquery(DbHandle, string);
 			}
 		}
@@ -647,87 +651,101 @@ stock RemovePlayerContact(playerid, phonebookindex)
 
 public OnPlayerReceivedMessageLoad(playerid, page)
 {
-	new string[ 1024 ], text[ 32 ], date[ 32 ], sender[ MAX_PHONEBOOK_CONTACT_NAME ], read, number;
-	if(page)
-		strcat(string, "{002200}Atgal\n{FFFFFF}");
-	else 
-		strcat(string, "{FFFFFF}");
-
-	for(new i = 0; i < cache_get_row_count(); i++)
+	if(!cache_get_row_count())
 	{
-		number = cache_get_field_content_int(i, "sender_number");
-		if(IsNumberInPlayerPhonebook(playerid, number))
-		{
-			strcat(sender, GetPlayerPhonebookName(playerid, number));
-		}
-		else 
-		{
-			format(sender, sizeof(sender), "%" #PLAYER_PHONE_NUMBER_LENGTH "d", number);
-		}
-
-		cache_get_field_content(i, "date", date);
-		// Trumpinam tekstà, nes èia rodysim tik dalá.
-		cache_get_field_content(i, "text", text, DbHandle, sizeof(text) - 4);
-		strcat(text, "...");
-
-		read = (cache_get_field_content_int(i, "read")) ? ('+') : ('-');
-
-		// Eilutë turi prasidëti "{sqlid}.". Ta ID naudojamas OndialogResponse
-		format(string, sizeof(string), "%s%d. [%c]%s: %s",
-			string, 
-			cache_get_field_content_int(i, "id"),
-			read,
-			sender,
-			text);
+		SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs dar negavote nei vienos þinutës.");
+		ShowPlayerPhoneMenu(playerid);
 	}
+	else
+	{
+		new string[ 1024 ], text[ 32 ], date[ 32 ], sender[ MAX_PHONEBOOK_CONTACT_NAME ], read, number;
+		if(page)
+			strcat(string, "{002200}Atgal\n{FFFFFF}");
+		else 
+			strcat(string, "{FFFFFF}");
 
-	if(cache_get_row_count() > MAX_SMS_PER_PAGE)
-		strcat(string, "{220000}Toliau");
+		for(new i = 0; i < cache_get_row_count(); i++)
+		{
+			number = cache_get_field_content_int(i, "sender_number");
+			if(IsNumberInPlayerPhonebook(playerid, number))
+			{
+				strcat(sender, GetPlayerPhonebookName(playerid, number));
+			}
+			else 
+			{
+				format(sender, sizeof(sender), "%" #PLAYER_PHONE_NUMBER_LENGTH "d", number);
+			}
 
-	ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_SMS_RECEIVE, DIALOG_STYLE_LIST, "Gautos þinutës", string, "Pasirinkti", "Iðeiti");
+			cache_get_field_content(i, "date", date);
+			// Trumpinam tekstà, nes èia rodysim tik dalá.
+			cache_get_field_content(i, "text", text, DbHandle, sizeof(text) - 4);
+			strcat(text, "...");
+
+			read = (cache_get_field_content_int(i, "read")) ? ('+') : ('-');
+
+			// Eilutë turi prasidëti "{sqlid}.". Ta ID naudojamas OndialogResponse
+			format(string, sizeof(string), "%s%d. [%c]%s: %s\n",
+				string, 
+				cache_get_field_content_int(i, "id"),
+				read,
+				sender,
+				text);
+		}
+
+		if(cache_get_row_count() > MAX_SMS_PER_PAGE)
+			strcat(string, "{220000}Toliau");
+
+		ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_SMS_RECEIVE, DIALOG_STYLE_LIST, "Gautos þinutës", string, "Pasirinkti", "Iðeiti");
+	}
 	return 1;
 }
 
 public OnPlayerSentMessageLoad(playerid, page)
 {
-	new string[ 1024 ], text[ 32 ], date[ 32 ], sender[ MAX_PHONEBOOK_CONTACT_NAME ], read, number;
-	if(page)
-		strcat(string, "{002200}Atgal\n{FFFFFF}");
-	else 
-		strcat(string, "{FFFFFF}");
-
-	for(new i = 0; i < cache_get_row_count(); i++)
+	if(!cache_get_row_count())
 	{
-		number = cache_get_field_content_int(i, "recipient_number");
-		if(IsNumberInPlayerPhonebook(playerid, number))
-		{
-			strcat(sender, GetPlayerPhonebookName(playerid, number));
-		}
-		else 
-		{
-			format(sender, sizeof(sender), "%" #PLAYER_PHONE_NUMBER_LENGTH "d", number);
-		}
-
-		cache_get_field_content(i, "date", date);
-		// Trumpinam tekstà, nes èia rodysim tik dalá.
-		cache_get_field_content(i, "text", text, DbHandle, sizeof(text) - 4);
-		strcat(text, "...");
-
-		read = (cache_get_field_content_int(i, "read")) ? ('+') : ('-');
-
-		// Eilutë turi prasidëti "{sqlid}.". Ta ID naudojamas OndialogResponse
-		format(string, sizeof(string), "%s%d. [%c]%s: %s",
-			string, 
-			cache_get_field_content_int(i, "id"),
-			read,
-			sender,
-			text);
+		SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs dar neiðsiuntëtë nei vienos þinutës.");
+		ShowPlayerPhoneMenu(playerid);
 	}
+	else 
+	{
+		new string[ 1024 ], text[ 32 ], date[ 32 ], sender[ MAX_PHONEBOOK_CONTACT_NAME ], read, number;
+		if(page)
+			strcat(string, "{002200}Atgal\n{FFFFFF}");
+		else 
+			strcat(string, "{FFFFFF}");
 
-	if(cache_get_row_count() > MAX_SMS_PER_PAGE)
-		strcat(string, "{220000}Toliau");
+		for(new i = 0; i < cache_get_row_count(); i++)
+		{
+			number = cache_get_field_content_int(i, "recipient_number");
+			if(IsNumberInPlayerPhonebook(playerid, number))
+			{
+				strcat(sender, GetPlayerPhonebookName(playerid, number));
+			}
+			else 
+			{
+				format(sender, sizeof(sender), "%" #PLAYER_PHONE_NUMBER_LENGTH "d", number);
+			}
 
-	ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_SMS_SENT, DIALOG_STYLE_LIST, "Iðsiøstos þinutës", string, "Pasirinkti", "Iðeiti");
+			cache_get_field_content(i, "date", date);
+			// Trumpinam tekstà, nes èia rodysim tik dalá.
+			cache_get_field_content(i, "text", text, DbHandle, sizeof(text) - 4);
+			strcat(text, "...");
+
+			// Eilutë turi prasidëti "{sqlid}.". Ta ID naudojamas OndialogResponse
+			format(string, sizeof(string), "%s%d. [+]%s: %s\n",
+				string, 
+				cache_get_field_content_int(i, "id"),
+				read,
+				sender,
+				text);
+		}
+
+		if(cache_get_row_count() > MAX_SMS_PER_PAGE)
+			strcat(string, "{220000}Toliau");
+
+		ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_SMS_SENT, DIALOG_STYLE_LIST, "Iðsiøstos þinutës", string, "Pasirinkti", "Iðeiti");
+	}
 	return 1;
 }
 

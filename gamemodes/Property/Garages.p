@@ -7,7 +7,7 @@
 /*
         ALTER TABLE garages DROP exit_angle;
         ALTER TABLE garages 
-            ADD COLUMN vehicle_exit_x FLOAT NOT NULL AFTER exi_z,
+            ADD COLUMN vehicle_exit_x FLOAT NOT NULL AFTER exit_z,
             ADD COLUMN vehicle_exit_y FLOAT NOT NULL AFTER vehicle_exit_x,
             ADD COLUMN vehicle_exit_z FLOAT NOT NULL AFTER vehicle_exit_y,
             ADD COLUMN vehicle_exit_angle FLOAT NOT NULL AFTER vehicle_exit_z;
