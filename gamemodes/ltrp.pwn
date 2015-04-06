@@ -23,7 +23,7 @@
 
 
 #define VERSION                         2.1.0
-#define BUILD_DATE                      2015-04.04
+#define BUILD_DATE                      2015-04.06
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -13878,8 +13878,8 @@ CMD:aduty( playerid, params [ ] )
             new duration = gettime() - DutyStartTimestamp[ playerid ];
             if(cache_get_row_count())
             {
-                mysql_format(DbHandle, string, sizeof(string), "UPDATE admin_watch_duty SET total_watch_time = total_watch_time + %d",
-                    duration);
+                mysql_format(DbHandle, string, sizeof(string), "UPDATE admin_watch_duty SET last_watch = FROM_UNIXTIME(%d), total_watch_time = total_watch_time + %d",
+                    DutyStartTimestamp[ playerid ], duration);
 
                 if(cache_get_field_content_int(0, "longest_watch") < duration)
                     mysql_format(DbHandle, string, sizeof(string),"%s, longest_watch = %d ", 
@@ -13889,7 +13889,7 @@ CMD:aduty( playerid, params [ ] )
             }
             else 
                 mysql_format(DbHandle, string, sizeof(string), "INSERT INTO admin_watch_duty (admin_id, first_watch, last_watch, longest_watch, total_watch_time) \
-                    VALUES (%d, %d, %d, %d, %d)",
+                    VALUES (%d, FROM_UNIXTIME(%d), FROM_UNIXTIME(%d), %d, %d)",
                     GetPlayerSqlId(playerid), DutyStartTimestamp[ playerid ], DutyStartTimestamp[ playerid ], duration, duration);
 
             cache_delete(result);

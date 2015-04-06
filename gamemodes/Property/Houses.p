@@ -301,7 +301,12 @@ public OnHouseFurnitureLoad()
             furnitureIndex = GetFurnitureIndex(fid);
             // Neturëtø bût niekada -1, nebent kokie pakeitimai furniture table vyko.
             if(furnitureIndex != -1)
-                HouseFurniture[ houseIndex ][ houseFurnitureCount ][ ObjectId ] = CreateDynamicObject(GetFurnitureObjectId(furnitureIndex), pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], .worldid=GetHouseVirtualWorld(houseIndex));
+            {
+                if(HouseFurniture[ houseIndex ][ houseFurnitureCount ][ ObjectId ])
+                    ErrorLog("Ovewriting HouseFurniture[%d][%d] objectid:%d",
+                        houseIndex, houseFurnitureCount, HouseFurniture[ houseIndex ][ houseFurnitureCount ][ ObjectId ]);
+                 HouseFurniture[ houseIndex ][ houseFurnitureCount ][ ObjectId ] = CreateDynamicObject(GetFurnitureObjectId(furnitureIndex), pos[0], pos[1], pos[2], pos[3], pos[4], pos[5], .worldid=GetHouseVirtualWorld(houseIndex));
+            }
 
         }
         // Tas pats baldas vël result set'e. Reiðkia keièiam tekstûrà.

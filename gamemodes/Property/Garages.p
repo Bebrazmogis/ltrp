@@ -258,6 +258,9 @@ public OnGarageLoad()
 
             new furnitureIndex = GetFurnitureIndex(GarageFurniture[ garageCount ][ garageFurnitureCount ][ FurnitureId ]);
             if(furnitureIndex != -1)
+            {
+                if(GarageFurniture[ garageCount ][ garageFurnitureCount ][ ObjectId ])
+                    ErrorLog("Over writing garage furniture object.");
                 GarageFurniture[ garageCount ][ garageFurnitureCount ][ ObjectId ] = CreateDynamicObject(
                     GetFurnitureObjectId(furnitureIndex), 
                     cache_get_field_content_float(i, "garage_furniture.pos_x"),
@@ -268,6 +271,7 @@ public OnGarageLoad()
                     cache_get_field_content_float(i, "garage_furniture.rot_z"),
                     .worldid=GetGarageVirtualWorld(garageCount)
                 );
+            }
             else
                 printf("Error. Baldo ID %d nerastas atmintyje. Patikrinkite ar baldai kraunami ankðèiau nei garaþai.", GarageFurniture[ garageCount ][ garageFurnitureCount ][ FurnitureId ]);
         }
