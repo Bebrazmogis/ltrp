@@ -15087,6 +15087,40 @@ CMD:makeleader(playerid, params[])
     }
     return 1;
 }
+
+CMD:makefactionmanager(playerid, params[])
+{
+    if(!IsPlayerAdmin(playerid) && pInfo[ playerid ][ pAdmin ] < 4)
+        return 0;
+
+    new targetid, query[ 128 ];
+    if(sscanf(params, "u", targetid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas /makefactionmanager [Þaidëjo ID/Dalis vardo]");
+
+    if(!IsPlayerConnected(targetid)) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
+    
+    if(IsPlayerNPC(targetid)) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "NPC negali bûti frakcijø prieþiûrëtoju.");
+
+    pInfo[ targetid ][ pFactionManager ] = true;
+    mysql_format(DbHandle, query, sizeof(query), "UPDATE players SET faction_manager = 1 WHERE id = %d",
+        GetPlayerSqlId(playerid));
+    mysql_pquery(DbHandle, query);
+
+
+    format(query, sizeof(query),"Administratorius %s suteikë þaidëjui %s frakcijø priþiûrëtojo rangà.",
+        GetName(playerid), GetName(targetid));
+    SendAdminMessage(COLOR_NEWS, query);
+
+    format(query, sizeof(query), "Administratorius %s suteikë jums frakcijø priþiûrëtojo rangà.",
+        GetName(playerid));
+    SendClientMessage(targetid, COLOR_NEWS, query);
+
+    AdminLog(GetPlayerSqlId(playerid), GetPlayerSqlId(targetid), "Paskyrë frakcijø priþiûrëtoju.");
+    return 1;
+}
+
 CMD:setstatcar(playerid, params[])
 {
     if( pInfo[ playerid ][ pAdmin ] >= 4 )
@@ -16028,57 +16062,63 @@ CMD:setvw( playerid, params[ ] )
 }
 CMD:specoff( playerid, params[ ] )
 {
-    if( pInfo[playerid][pAdmin] >= 1 )
+    if(!pInfo[ playerid ][ pAdmin ] && !pInfo[ playerid ][ pFactionManager ])
+        return 0;
+    
+    if(GetPlayerState(playerid) == PLAYER_STATE_SPECTATING)
     {
-        if( GetPlayerState( playerid ) == PLAYER_STATE_SPECTATING )
-        {
-            TogglePlayerSpectating(playerid, false);
-            SetCameraBehindPlayer(playerid);
-            SetPlayerSkin(playerid, pInfo[ playerid ][ pSkin ]);
-            PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
-            DestroyDynamic3DTextLabel(SpecCommandLabel[ playerid ]);
-        }
+        TogglePlayerSpectating(playerid, false);
+        SetCameraBehindPlayer(playerid);
+        SetPlayerSkin(playerid, pInfo[ playerid ][ pSkin ]);
+        PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
+        DestroyDynamic3DTextLabel(SpecCommandLabel[ playerid ]);
     }
     return 1;
 }
-CMD:spec( playerid, params[ ] )
+CMD:spec(playerid, params[])
 {
-    if( pInfo[playerid][pAdmin] >= 1 )
-    {
-        new giveplayerid;
-        if ( sscanf( params, "u", giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /spec [þaidëjo id] ");
-        if ( !IsPlayerConnected(giveplayerid) )  return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje. ");
+    if(!pInfo[ playerid ][ pAdmin ] && !pInfo[ playerid ][ pFactionManager ])
+        return 0;
+    
+    new giveplayerid;
+    if(sscanf(params, "u", giveplayerid)) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /spec [þaidëjo id] ");
 
-        TogglePlayerSpectating( playerid, true );
-        SetPlayerInterior     ( playerid, GetPlayerInterior( giveplayerid ) );
-        SetPlayerVirtualWorld ( playerid, GetPlayerVirtualWorld( giveplayerid ) );
+    if(!IsPlayerConnected(giveplayerid)) 
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje. ");
+
+    if(pInfo[ playerid ][ pFactionManager ] && !pInfo[ playerid ][ pAdmin ] && pInfo[ giveplayerid ][ pAdmin ] && AdminDuty[ giveplayerid ])
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite stebëti administratoriaus darbe.");
+
+    TogglePlayerSpectating(playerid, true);
+    SetPlayerInterior(playerid, GetPlayerInterior(giveplayerid ));
+    SetPlayerVirtualWorld(playerid, GetPlayerVirtualWorld(giveplayerid));
+    
+    if (IsPlayerInAnyVehicle(giveplayerid))
+        PlayerSpectateVehicle(playerid, GetPlayerVehicleID(giveplayerid));
+    else
+        PlayerSpectatePlayer(playerid, giveplayerid);
+
+    PlayerSpectatedPlayer[ playerid ] = giveplayerid;
+
+    //SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel(" ", 0x00000044, 0.0, 0.0, 0.0, 10.0, .attachedplayer = giveplayerid);
         
-        if ( IsPlayerInAnyVehicle( giveplayerid ) )
-            PlayerSpectateVehicle( playerid, GetPlayerVehicleID( giveplayerid ) );
-        else
-            PlayerSpectatePlayer( playerid, giveplayerid );
-
-        PlayerSpectatedPlayer[ playerid ] = giveplayerid;
-
-        //SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel(" ", 0x00000044, 0.0, 0.0, 0.0, 10.0, .attachedplayer = giveplayerid);
-            
-        if(!IsPlayerInAnyVehicle(playerid))
-        {
-            new string[128], count, weaponid, ammo;
-            for(new i = 0; i < 13; i++)
-            {   
-                GetPlayerWeaponData(playerid, i, weaponid, ammo);
-                if(weaponid && ammo)
-                {
-                    count++;
-                    format(string, sizeof(string),"%s|%d|%d", string, weaponid, ammo);
-                }
+    if(!IsPlayerInAnyVehicle(playerid))
+    {
+        new string[128], count, weaponid, ammo;
+        for(new i = 0; i < 13; i++)
+        {   
+            GetPlayerWeaponData(playerid, i, weaponid, ammo);
+            if(weaponid && ammo)
+            {
+                count++;
+                format(string, sizeof(string),"%s|%d|%d", string, weaponid, ammo);
             }
-            SetPVarString(playerid, "SpectateWeaponString", string);
-            SetPVarInt(playerid, "SpectateWeaponCount", count);
         }
-        ResetPlayerWeapons(playerid);
+        SetPVarString(playerid, "SpectateWeaponString", string);
+        SetPVarInt(playerid, "SpectateWeaponCount", count);
     }
+    ResetPlayerWeapons(playerid);
     return 1;
 }
 CMD:intvw( playerid, params[ ] )
