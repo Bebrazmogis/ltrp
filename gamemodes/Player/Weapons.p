@@ -65,6 +65,10 @@ stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true, bool
 		found = true;
 		break;
 	}
+	if(freeindex == -1)
+	{
+		ErrorLog("No slot found for player %s weapon %d", GetName(playerid), weaponid);
+	}
 	if(!found && freeindex != -1)
 	{
 		PlayerWeapons[ playerid ][ freeindex ][ WeaponId ] = weaponid;
@@ -118,6 +122,8 @@ stock RemovePlayerWeapon(playerid, weaponid)
     for(new i = 0; i < 13; i++)
     {
     	GetPlayerWeaponData(playerid, i, weapons[ i ][ 0 ], weapons[ i ][ 1 ]);
+    	if(!weapons[ i ][ 0 ])
+    		continue;
     	weapons[ i ][ 2 ] = IsPlayerWeaponJobWeapon(playerid, weapons[ i ][ 0 ]);
 
     	// Jei ginklui reikalingos kulkos, ir tai netas kurá norim paðalinti, progra patikrinti ar ne cheatintas ginklas
@@ -201,7 +207,7 @@ stock IsPlayerWeaponJobWeapon(playerid, weaponid)
 			return PlayerWeapons[ playerid ][ i ][ IsJob ];
 		}
 	}
-	printf("IsPlayerWeaponInMemory returning false.");
+	printf("IsPlayerWeaponJobWeapon returning false.");
 	return false;
 }
 

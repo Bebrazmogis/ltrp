@@ -23,7 +23,7 @@
 
 
 #define VERSION                         2.1.0
-#define BUILD_DATE                      2015-04.06
+#define BUILD_DATE                      2015-04.07
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -46,9 +46,12 @@ native WP_Hash(buffer[], len, const str[]);
 #include <mapandreas>
 #include <crashdetect>
 #include <filemanager>
+
+#include <YSI\y_dialog>
 #include <YSI\y_malloc>
 #include <YSI\y_hooks>
 #include <YSI\y_timers>
+//#include <YSI\y_inline>
 
 
 
@@ -270,7 +273,7 @@ forward OnPlayerLoginEx(playerid, sqlid);
 #define DIALOG_SECRET_QUESTION_SET      5518
 #define DIALOG_SECRET_ANSWER_SET        5519
 
-#define DEFAULT_SENTER_PICKUP_MODEL     1239
+
 #define DEFAULT_HOUSE_PICKUP_MODEL      1273
 #define DEFAULT_BIZ_PICKUP_MODEL        1239
 
@@ -844,6 +847,7 @@ new Fire[MAX_FIRE][fires];
 #include "Player\Phone"
 #include "Bank"
 #include "Graffiti"
+#include "Entrances"
 
 
 new RoadBlocks[MAX_ROADBLOCKS];
@@ -1087,7 +1091,7 @@ new Load[27][LoadEnum] = { // Truckeriø pasikrovimo koordinatës
     {2349.8130,-2300.7473,13.5469, "þuvies produktai ir þvejybos inventorius", "Ocean Docks garage 7."},
     {2280.2583,-2213.8574,13.5469, "þuvies produktai ir þvejybos inventorius", "Ocean Docks garage 9."}
 };*/
-
+/*
 enum senters
 {
     sID,
@@ -1111,6 +1115,7 @@ enum senters
 new sEnter[ MAX_SENTERS ][ senters ];
 
 new Iterator:sEnters<MAX_SENTERS>;
+*/
 enum jobs
 {
     Float:Job_x,
@@ -1873,7 +1878,7 @@ stock LoadFuelInfo()
     cache_delete(result);
     return 1;
 }
-
+/*
 stock LoadSEnter()
 {
     new Cache:result = mysql_query(DbHandle, "SELECT * FROM `senters`");
@@ -1915,7 +1920,7 @@ stock UpdateSEnterInfo( i )
         sEnter[ i ][ Wirt ],
         sEnter[ i ][ Int2 ]);
     return 1;
-}
+}*/
 
 LoadStaticVehicles()
 {
@@ -2364,6 +2369,7 @@ stock SaveSVehicle(vehid)
         return 1;
     return 0;
 }
+/*
 stock SaveSEnter( id )
 {
     new string[ 512 ],
@@ -2387,7 +2393,7 @@ stock SaveSEnter( id )
     if(mysql_pquery(DbHandle,  string))
         return 1;
     return 0;
-}
+}*/
 stock SaveVehicleEx( masina, mode[], count)// Only for Interator
 {
     if ( cInfo[ masina ][ cOwner ] == 0 ) return 0;
@@ -3697,7 +3703,7 @@ stock LoadServer( )
     LoadMisc();
 //  LoadTax();
     LoadFuelInfo();
-    LoadSEnter();
+   // LoadSEnter();
     //LoadSellCars();
     LoadGarbage();
     LoadIndustries();
@@ -3772,14 +3778,6 @@ public OnPlayerPickUpDynamicPickup( playerid, pickupid )
 {
     if ( pickupid == Pickups[ 1 ] )
         SetPlayerHealth( playerid, 100);
-
-    foreach(sEnters, i)
-    {
-        if(sEnter[ i ][ Pickup ] != pickupid) continue;
-        new string[ 126 ];
-        format( string, 126, "~g~~h~~h~%s~n~~w~Noredami ieiti - Rasykite ~y~/enter", sEnter[ i ][ Name ] ); // Áëjimo tekstas
-        GameTextForPlayer(playerid, string, 4000, 7);
-    }
     return 1;
 }
 new NPCTrain[2];
@@ -3885,21 +3883,21 @@ public OnGameModeInit()
     Pickups[ 1 ] = CreateDynamicPickup(1240, 2, 1810.2020,-1583.3362,5703.9175); // Gyvybiø atsistatymø pickup kalëjime
 
     //------------------------[ 3DTextLabeliai. Uþraðai, áëjimai. ]------------------------------------------
-	CreateDynamic3DTextLabel("Los Santos License Center\nTeorijos ir praktikos egzaminai\n{FFFFFF}/license",COLOR_NEWS, 1491.0953,1306.8651,1093.2891 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
+	//CreateDynamic3DTextLabel("Los Santos License Center\nTeorijos ir praktikos egzaminai\n{FFFFFF}/license",COLOR_NEWS, 1491.0953,1306.8651,1093.2891 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Naujø automobiliø sàlonas\nParduodamø automobiliø sàraðas\nKomanda: {FFFFFF}/v buy",COLOR_NEWS, 2131.8079,-1151.2266,24.0707 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Sunkiøjø tr. priemoniø salonas\nParduodamø automobiliø sàraðas\nKomanda: {FFFFFF}/v buy",COLOR_NEWS, 2748.5361,-2451.3025,13.6599 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Motociklø ir dviraèiø parduotuvë\nParduodamø prekiø sàraðas\nKomanda: {FFFFFF}/v buy",COLOR_NEWS, 1738.9440,-1269.4951,13.5430 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Los Santos uosto salonas\nParduodamø laivø\nKomanda: {FFFFFF}/v buy",COLOR_LIGHTRED2,-444.3486,1154.1063,1.7273,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
-    CreateDynamic3DTextLabel("Los Santos savivaldybë\nKomanda:{FFFFFF}/duty",COLOR_NEWS, 1500.8645,-1814.7734,2410.8157 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
-    CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nÁvaþiavimui /enter",COLOR_POLICE,1753.5140,-1595.8026,13.5380, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
-	CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nIðvaþiavimui naudokite /exit",COLOR_POLICE,1753.4137,-1585.5315,13.0600, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
-    CreateDynamic3DTextLabel("Los Santos Fire Departament\nTr. priemoniø garaþas\nÁvaþiavimui /enter",COLOR_LIGHTRED,1284.9084,-1346.3730,13.6000, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
-	CreateDynamic3DTextLabel("Los Santos Fire Departament\nTr. priemoniø garaþas\nIðvaþiavimui naudokite /exit",COLOR_LIGHTRED,-1763.6812,984.6740,22.0003, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);	
+    //CreateDynamic3DTextLabel("Los Santos savivaldybë\nKomanda:{FFFFFF}/duty",COLOR_NEWS, 1500.8645,-1814.7734,2410.8157 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
+    //CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nÁvaþiavimui /enter",COLOR_POLICE,1753.5140,-1595.8026,13.5380, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
+	//CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nIðvaþiavimui naudokite /exit",COLOR_POLICE,1753.4137,-1585.5315,13.0600, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
+    //CreateDynamic3DTextLabel("Los Santos Fire Departament\nTr. priemoniø garaþas\nÁvaþiavimui /enter",COLOR_LIGHTRED,1284.9084,-1346.3730,13.6000, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
+	//CreateDynamic3DTextLabel("Los Santos Fire Departament\nTr. priemoniø garaþas\nIðvaþiavimui naudokite /exit",COLOR_LIGHTRED,-1763.6812,984.6740,22.0003, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);	
     //CreateDynamic3DTextLabel("áia galite kovos stiliu\n raðykite {FFBB00}/learnfight",COLOR_WHITE,754.9053,-40.0628,1000.5859,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
     //CreateDynamic3DTextLabel("Privatus, uþdaras sandëlys\n Tik privatiems klientams\nKomanda:{FFFFFF}/buyseeds",COLOR_NEWS,-2172.5056,679.8398,55.1615,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Privatus, uþdaras sandëlys\n Jokiø paðaliniø\nKomanda: {FFFFFF}/buymats",COLOR_NEWS,-2074.3081,-2246.5073,31.6890,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
-    CreateDynamic3DTextLabel("Los Santos reklamos skyrius\nSkelbkite,raðykite savo skelbimus á eterá\nKomanda: {FFFFFF}/ad",COLOR_NEWS,1128.8257,-1489.5168,22.7690,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
-    CreateDynamic3DTextLabel("Tr. priemonës sutvarkymas\n\nKomanda: {FFBB00}/fix [SPALVA1] [SPALVA2] / KAINA: 500 $",COLOR_WHITE,2075.5986,-1831.0374,13.5545,8.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, 0, 0, -1, 15.0);
+    //CreateDynamic3DTextLabel("Los Santos reklamos skyrius\nSkelbkite,raðykite savo skelbimus á eterá\nKomanda: {FFFFFF}/ad",COLOR_NEWS,1128.8257,-1489.5168,22.7690,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
+    //CreateDynamic3DTextLabel("Tr. priemonës sutvarkymas\n\nKomanda: {FFBB00}/fix [SPALVA1] [SPALVA2] / KAINA: 500 $",COLOR_WHITE,2075.5986,-1831.0374,13.5545,8.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, 0, 0, -1, 15.0);
 
     CreateAllTrash( );
     //Produkcija( );
@@ -5949,7 +5947,7 @@ CMD:pay( playerid, params[ ] )
 {
     new giveplayerid,
         items,
-        string[ 90 ],
+        string[ 128 ],
         IP[ 16 ],
         IP2[ 16 ];
         
@@ -7149,157 +7147,6 @@ CMD:oldcar(playerid, params[])
     new string[ 56 ];
     format(string, sizeof(string), "Paskutinës tr. priemonës, kurià naudojote ID: %d", OldCar[ playerid ] );
     SendClientMessage( playerid, COLOR_WHITE, string );
-    return 1;
-}
-
-
-CMD:enter(playerid)
-{
-    new tmpcar = GetPlayerVehicleID( playerid );
-    foreach(sEnters,i)
-    {
-        if ( PlayerToPoint( 2.0, playerid, sEnter[ i ][ sEnter_x ], sEnter[ i ][ sEnter_y ], sEnter[ i ][ sEnter_z ] ) && GetPlayerInterior(playerid) == sEnter[ i ][ Int2   ] && GetPlayerVirtualWorld(playerid) == sEnter[ i ][ Wirt   ])
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            if ( !IsPlayerInAnyVehicle( playerid ) )
-            {
-                SetPlayerPos         ( playerid, sEnter[ i ][ sExit_x ], sEnter[ i ][ sExit_Y ], sEnter[ i ][ sExit_z ] );
-                SetPlayerVirtualWorld( playerid, sEnter[ i ][ Wirt2   ] );
-                SetPlayerInterior    ( playerid, sEnter[ i ][ Int     ] );
-            }
-            break;
-        }
-    }
-    if ( PlayerToPoint( 2.0, playerid, 1753.5140,-1595.8026,13.5380 ) && PlayerFaction( playerid ) == 1 )
-    {
-        if ( IsPlayerInAnyVehicle( playerid ) )
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            foreach(Player,playa)
-            {
-                if ( IsPlayerInVehicle( playa, tmpcar ) )
-                    SetPlayerVirtualWorld( playa, 0 );
-            }
-            SetVehiclePos   ( tmpcar, 1753.4137,-1585.5315,13.0600 );
-            SetVehicleVirtualWorld( tmpcar, 0 );
-            SetPlayerInterior     ( playerid, 0 );
-            VGaraze[ tmpcar ] = true;
-            return 1;
-        }
-        else
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            SetPlayerPos( playerid, 1753.4137,-1585.5315,13.0600 );
-            SetPlayerVirtualWorld( playerid, 0 );
-            SetPlayerInterior     ( playerid, 0 );
-            return 1;
-        }
-    }
-    if ( PlayerToPoint( 2.0, playerid, 1284.9084,-1346.3730,13.6000 ) && PlayerFaction( playerid ) == 2 )
-    {
-        if ( IsPlayerInAnyVehicle( playerid ) )
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            foreach(Player,playa)
-            {
-                if ( IsPlayerInVehicle( playa, tmpcar ) )
-                    SetPlayerVirtualWorld( playa, 0 );
-            }
-            SetVehiclePos   ( tmpcar, -1763.6812,984.6740,22.0003 );
-            SetVehicleVirtualWorld( tmpcar, 0 );
-            SetPlayerInterior     ( playerid, 0 );
-            VGaraze[ tmpcar ] = true;
-            return 1;
-        }
-        else
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            SetPlayerPos( playerid, -1763.6812,984.6740,22.0003 );
-            SetPlayerVirtualWorld( playerid, 0 );
-            SetPlayerInterior     ( playerid, 0 );
-            return 1;
-        }
-    }	
-    return 1;
-}
-CMD:exit(playerid)
-{
-    new tmpcar = GetPlayerVehicleID( playerid );
-    
-    foreach(sEnters,i)
-    {
-        if ( PlayerToPoint( 2.0, playerid, sEnter[ i ][ sExit_x ], sEnter[ i ][ sExit_Y ], sEnter[ i ][ sExit_z ] ) && GetPlayerInterior(playerid) == sEnter[ i ][ Int   ] && GetPlayerVirtualWorld(playerid) == sEnter[ i ][ Wirt2   ])
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            if ( !IsPlayerInAnyVehicle( playerid ) )
-            {
-                SetPlayerPos         ( playerid, sEnter[ i ][ sEnter_x ], sEnter[ i ][ sEnter_y ], sEnter[ i ][ sEnter_z ] );
-                SetPlayerVirtualWorld( playerid, sEnter[ i ][ Wirt   ] );
-                SetPlayerInterior    ( playerid, sEnter[ i ][ Int2     ] );
-            }
-            break;
-        }
-    }
-    if (PlayerToPoint( 2.0, playerid, 1753.4137,-1585.5315,13.0600 ) && PlayerFaction( playerid ) == 1 )
-    {
-        if ( IsPlayerInAnyVehicle( playerid ) )
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            foreach(Player,playa)
-            {
-                if ( IsPlayerInVehicle( playa, tmpcar ) )
-                    SetPlayerVirtualWorld( playa, 0 );
-            }
-            SetVehiclePos   ( tmpcar, 1753.5140,-1595.8026,13.5380 );
-            SetVehicleVirtualWorld( tmpcar, 0 );
-            SetPlayerInterior     ( playerid, 0 );
-            VGaraze[ tmpcar ] = true;
-            return 1;
-        }
-        else
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            SetPlayerPos( playerid, 1753.5140,-1595.8026,13.5380 );
-            SetPlayerVirtualWorld( playerid, 0 );
-            SetPlayerInterior     ( playerid, 0 );
-            return 1;
-        }
-    }
-    if (PlayerToPoint( 2.0, playerid, -1763.6812,984.6740,22.0003 ) && PlayerFaction( playerid ) == 2 )
-    {
-        if ( IsPlayerInAnyVehicle( playerid ) )
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            foreach(Player,playa)
-            {
-                if ( IsPlayerInVehicle( playa, tmpcar ) )
-                    SetPlayerVirtualWorld( playa, 0 );
-            }
-            SetVehiclePos   ( tmpcar, 1284.9084,-1346.3730,13.6000 );
-            SetVehicleVirtualWorld( tmpcar, 0 );
-            SetPlayerInterior     ( playerid, 0 );
-            VGaraze[ tmpcar ] = true;
-            return 1;
-        }
-        else
-        {
-            Unfreeze[ playerid ] = 2;
-            TogglePlayerControllable( playerid, false );
-            SetPlayerPos( playerid, 1284.9084,-1346.3730,13.6000 );
-            SetPlayerVirtualWorld( playerid, 0 );
-            SetPlayerInterior     ( playerid, 0 );
-            return 1;
-        }
-    }	
     return 1;
 }
 
@@ -10696,6 +10543,9 @@ public OnPlayerCommandReceived(playerid, cmdtext[]) {
 
 public OnPlayerCommandPerformed(playerid, cmdtext[ ], success)
 {
+    #if defined DEBUG 
+        printf("[debug] OnPlayerCommandPerformed(%s, %ds %d)", GetName(playerid), cmdtext, success);
+    #endif
     LastPlayerCommandTimestamp[ playerid ] = gettime();
     //foreach(new i : Player)
        // if(IsPlayerSpectatingPlayer(i, playerid))
@@ -18624,14 +18474,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 }
                 case 4:
                 {
-                    ShowPlayerDialog( playerid, 53, DIALOG_STYLE_LIST,"Serverio iëjimai","- Kurti naujà \n\
-                                                                                               - Keisti áëjimà \n\
-                                                                                               - Keisti iðëjimà \n\
-                                                                                               - Keisti pavadinimá \n\
-                                                                                               - Þiûrëti ID\n\
-                                                                                               - Iðtrinti\n\
-                                                                                               - Pakeisti pasaulá\n\
-                                                                                               - Pakeisti pickup modelá", "Rinktis", "Atðaukti" );
+                    EntranceManagementDialog.ShowMain(playerid);
                     return 1;
                 }
                 case 5:
@@ -19258,6 +19101,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+    /*
     else if ( dialogid == 53 )
     {
         if ( response == 1 )
@@ -19335,7 +19179,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 }
             }
         }
-    }
+    }*/
+    /*
     // Iejimo suskurimas
     else if ( dialogid == 54 )
     {
@@ -19474,6 +19319,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         SendClientMessage(playerid, GRAD, "Pasaulis sëkmingai buvo pakeistas" );
         SaveSEnter( id );
     }
+    */
     else if ( dialogid == 145 )
     {
         if ( response == 1 )
@@ -19955,6 +19801,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+    /*
     else if ( dialogid == 56 )
     {
         if ( response == 1 )
@@ -19991,6 +19838,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+    */
+
     else if ( dialogid == 58 )
     {
         if ( response == 1 )
@@ -27047,6 +26896,9 @@ stock FactionID( mysqlid )
     }
     return 0;
 }
+stock GetPlayerFactionId(playerid)
+    return pInfo[ playerid ][ pMember ];
+
 stock PlayerFaction( playerid )
 {
     foreach(Faction,id)
