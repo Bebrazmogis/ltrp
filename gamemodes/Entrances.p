@@ -672,6 +672,7 @@ stock AddNewEntrance(Float:x, Float:y, Float:z, interiorid, worldid)
 	EntranceData[ index ][ EnZ ] = z;
 	EntranceData[ index ][ EnInt ] = interiorid;
 	EntranceData[ index ][ EnVW ] = worldid;
+	EntranceData[ index ][ VehicleEntrance ] = -1;
 	cache_delete(result);
 	return index;
 }

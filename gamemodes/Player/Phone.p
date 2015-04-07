@@ -513,7 +513,8 @@ stock ShowPlayerSentMessages(playerid, page = 0)
 
 stock PlayerSendSms(playerid, phonenumber, text[])
 {
-	new string[ 256 ], targetplayer;
+	new string[ 256 ], targetplayer, 
+		sendernumber = GetPlayerPhoneNumber(playerid);
 	mysql_format(DbHandle, string, sizeof(string), "INSERT INTO player_phone_sms (sender_number, recipient_number, `text`) VALUES (%d, %d, '%e')",
 		GetPlayerPhoneNumber(playerid),
 		phonenumber, 
@@ -526,11 +527,11 @@ stock PlayerSendSms(playerid, phonenumber, text[])
    	targetplayer = FindPlayerByPhoneNumber(phonenumber);
    	if(targetplayer != INVALID_PLAYER_ID)
    	{
-   		if(IsNumberInPlayerPhonebook(targetplayer, phonenumber))
+   		if(IsNumberInPlayerPhonebook(targetplayer, sendernumber))
    			format(string, sizeof(string), "SMS: %s, siuntëjas: %s", 
-   				text, GetPlayerPhonebookName(targetplayer, phonenumber));
+   				text, GetPlayerPhonebookName(targetplayer, sendernumber));
    		else 
-   			format(string, sizeof(string), "SMS: %s, siuntëjas: %d", text, phonenumber);
+   			format(string, sizeof(string), "SMS: %s, siuntëjas: %d", text, sendernumber);
 
 	    SendClientMessage(playerid, COLOR_LIGHTRED2, "Trumpoji þinutë buvo sëkmingai nusiûsta adresatui.");
 	    SendChatMessage(targetplayer, COLOR_LIGHTRED2, string);
@@ -820,7 +821,7 @@ CMD:phonebook(playerid)
 
 CMD:call(playerid, params[ ])
 {
-    if(IsItemInPlayerInventory(playerid, ITEM_PHONE))
+    if(!IsItemInPlayerInventory(playerid, ITEM_PHONE))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Tu neturi mobilaus telefono.");
     if(Mires[ playerid ] > 0)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje.");

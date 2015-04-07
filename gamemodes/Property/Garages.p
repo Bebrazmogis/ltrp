@@ -406,13 +406,15 @@ stock GetPlayerGarageIndex(playerid)
         if(IsPlayerInGarage(playerid, i))
             return i;
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, gInfo[ i ][ gEntrance ][ 0 ], gInfo[ i ][ gEntrance ][ 1 ], gInfo[ i ][ gEntrance ][ 2 ]))
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, gInfo[ i ][ gEntrance ][ 0 ], gInfo[ i ][ gEntrance ][ 1 ], gInfo[ i ][ gEntrance ][ 2 ])
+            && GetPlayerVirtualWorld(playerid) == GetGarageVirtualWorld(i))
             return i;
 
         if(IsPlayerInAnyVehicle(playerid))
         {
-            new Float:distance = GetVehicleDistanceFromPoint(GetPlayerVehicleID(playerid), gInfo[ i ][ gVehicleEnter ][ 0 ], gInfo[ i ][ gVehicleEnter ][ 1 ], gInfo[ i ][ gVehicleEnter ][ 2 ]);
-            if(distance <= 5.0)
+            new vehicleid = GetPlayerVehicleID(playerid);
+            new Float:distance = GetVehicleDistanceFromPoint(vehicleid, gInfo[ i ][ gVehicleEnter ][ 0 ], gInfo[ i ][ gVehicleEnter ][ 1 ], gInfo[ i ][ gVehicleEnter ][ 2 ]);
+            if(distance <= 5.0 && GetVehicleVirtualWorld(vehicleid) == GetGarageEntranceVirtualWorld(i))
                 return i;
         }
     }
@@ -420,7 +422,8 @@ stock GetPlayerGarageIndex(playerid)
 }
 stock IsPlayerInGarage(playerid, garageindex)
 {
-    if(IsPlayerInInterior(playerid, gInfo[ garageindex ][ gInteriorId ]) && GetPlayerVirtualWorld(playerid) == GetGarageVirtualWorld(garageindex))
+    if(IsPlayerInInterior(playerid, gInfo[ garageindex ][ gInteriorId ]) 
+        && GetPlayerVirtualWorld(playerid) == GetGarageVirtualWorld(garageindex))
         return true;
     else 
         return false;
