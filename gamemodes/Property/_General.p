@@ -212,7 +212,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             // Ðita funkcija pripildys pateiktos kategorijos objektø ir graþins kieká.
             GetCategoryFurnitureObjects(GetFurnitureCategoryId(listitem), furnitureObjectIDs, furnitureObjectCount, sizeof(furnitureObjectIDs));
             SetPVarInt(playerid, "FurnCategId", GetFurnitureCategoryId(listitem));
-            ShowModelSelectionMenuEx(playerid, furnitureObjectIDs, furnitureObjectCount, GetFurnitureCategoryName(listitem), MODEL_SELECTION_FURNITURE);
+            ShowModelSelectionMenuEx(playerid, furnitureObjectIDs, furnitureObjectCount, GetFurnitureCategoryName(listitem), MODEL_SELECTION_FURNITURE, 45.0, 45.0, 45.0);
             return 1;
         }
         case DIALOG_FURNITURE_CONFIRM_PURCHA:
