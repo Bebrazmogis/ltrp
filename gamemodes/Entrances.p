@@ -307,7 +307,8 @@ stock GetPlayerExit(playerid)
 
 		new Float:tmpDistance = GetPlayerDistanceFromPoint(playerid, EntranceData[ i ][ ExX ], EntranceData[ i ][ ExY ], EntranceData[ i ][ ExZ ]);
 		if((tmpDistance < lowestDistance || lowestDistance == -1.0) 
-			&& GetPlayerVirtualWorld(playerid) == EntranceData[ i ][ ExVW ] && GetPlayerInterior(playerid) == EntranceData[ i ][ ExInt ])
+			&& GetPlayerVirtualWorld(playerid) == EntranceData[ i ][ ExVW ] 
+			&& GetPlayerInterior(playerid) == EntranceData[ i ][ ExInt ])
 		{
 			winner = i;
 			lowestDistance = tmpDistance;
@@ -747,6 +748,8 @@ CMD:exit(playerid)
 
 	if(entrindex == -1)
 		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate prie iðëjimo.");
+	else if(PlayerInEntrance[ playerid ] != entrindex)
+		ErrorLog("Player %s is not in entrance to which he is near %d its sqlid:%d", GetName(playerid), entrindex, EntranceData[ entrindex ][ SqlId ]);
 	else 
 	{
 		Unfreeze[ playerid ] = 2;
