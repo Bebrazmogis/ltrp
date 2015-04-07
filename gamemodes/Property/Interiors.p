@@ -350,6 +350,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		SetPlayerVirtualWorld(playerid, InteriorData[ interiorIndex ][ VirtualWorld ]);
 		format(string, sizeof(string),"Dabartinio interjero ID: %d Pasirinkti sekantá ar praeità galite su NUM 4 ar NUM 6, iðeiti galite paraðæ /stoppreview", InteriorData[ PlayerPreviewCurrentInterior[ playerid ] ][ Id ]);
 		SendClientMessage(playerid, -1, string);
+		InteriorPrview_FreezePlayer(playerid);
 		return 1;
 	}
 	if((newkeys & KEY_ANALOG_RIGHT) && !(oldkeys & KEY_ANALOG_RIGHT))
@@ -367,6 +368,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		SetPlayerVirtualWorld(playerid, InteriorData[ interiorIndex ][ VirtualWorld ]);
 		format(string, sizeof(string),"Dabartinio interjero ID: %d Pasirinkti sekantá ar praeità galite su NUM 4 ar NUM 6, iðeiti galite paraðæ /stoppreview", InteriorData[ PlayerPreviewCurrentInterior[ playerid ] ][ Id ]);
 		SendClientMessage(playerid, -1, string);
+		InteriorPrview_FreezePlayer(playerid);
 		return 1;
 	}
 	return 1;
@@ -443,6 +445,16 @@ stock ShowInteriorPreviewForPlayer(playerid, category[] = "")
 	return 1;
 }
 
+InteriorPrview_FreezePlayer(playerid)
+{
+	TogglePlayerControllable(playerid, false);
+	defer InteriorFreezeDelay(playerid);
+}
+
+timer InteriorFreezeDelay[1000](playerid)
+{
+	TogglePlayerControllable(playerid, true);
+}
 
 
 stock GetNextInteriorInCategory(categoryindex, start = -1)
