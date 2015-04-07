@@ -22,7 +22,7 @@
 
 
 
-#define VERSION                         2.1.0
+#define VERSION                         2.1.1
 #define BUILD_DATE                      2015-04.07
 
 #include <a_samp>
@@ -3890,7 +3890,7 @@ public OnGameModeInit()
     //CreateDynamic3DTextLabel("Los Santos uosto salonas\nParduodamø laivø\nKomanda: {FFFFFF}/v buy",COLOR_LIGHTRED2,-444.3486,1154.1063,1.7273,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Los Santos savivaldybë\nKomanda:{FFFFFF}/duty",COLOR_NEWS, 1500.8645,-1814.7734,2410.8157 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nÁvaþiavimui /enter",COLOR_POLICE,1753.5140,-1595.8026,13.5380, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
-	//CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nIðvaþiavimui naudokite /exit",COLOR_POLICE,1753.4137,-1585.5315,13.0600, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
+	//CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nIðvaþiavimui naudokite /exit",COLOR_POLICE,I5I^, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
     //CreateDynamic3DTextLabel("Los Santos Fire Departament\nTr. priemoniø garaþas\nÁvaþiavimui /enter",COLOR_LIGHTRED,1284.9084,-1346.3730,13.6000, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
 	//CreateDynamic3DTextLabel("Los Santos Fire Departament\nTr. priemoniø garaþas\nIðvaþiavimui naudokite /exit",COLOR_LIGHTRED,-1763.6812,984.6740,22.0003, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);	
     //CreateDynamic3DTextLabel("áia galite kovos stiliu\n raðykite {FFBB00}/learnfight",COLOR_WHITE,754.9053,-40.0628,1000.5859,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
@@ -19247,7 +19247,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SaveSEnter( id );
         }
     }
-	else if ( dialogid == 80 )
+	*/
+    else if ( dialogid == 80 )
 	{
 	    if ( response == 1 )
 	    {
@@ -19271,6 +19272,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			return 1;
 		}
 	}
+    /*
     else if ( dialogid == DIALOG_SENTER_INPUT_ID )
     {
         if ( !response )
