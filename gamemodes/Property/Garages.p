@@ -407,7 +407,7 @@ stock GetPlayerGarageIndex(playerid)
             return i;
 
         if(IsPlayerInRangeOfPoint(playerid, 5.0, gInfo[ i ][ gEntrance ][ 0 ], gInfo[ i ][ gEntrance ][ 1 ], gInfo[ i ][ gEntrance ][ 2 ])
-            && GetPlayerVirtualWorld(playerid) == GetGarageVirtualWorld(i))
+            && GetPlayerVirtualWorld(playerid) == GetGarageEntranceVirtualWorld(i))
             return i;
 
         if(IsPlayerInAnyVehicle(playerid))
