@@ -379,7 +379,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!response)
                 return 1;
 
-            new string[128],
+            new string[256],
                 house_index = GetPVarInt(playerid, "HouseIndex");
             switch(listitem)
             {
