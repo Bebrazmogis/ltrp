@@ -828,6 +828,8 @@ enum E_ENTRANCE_INDEX_INPUT_USAGE
 	Settings,
 	Information,
 	Delete,
+	TextColour,
+	TextAlpha,
 };
 
 
@@ -843,6 +845,8 @@ EntranceManagementDialog.ShowMain(playerid)
 		- Keisti transporto priemonës pozicijà\n\
 		- Keisti nustatymus\n\
 		- Þiûrëti informacijà\n\
+		- Keisti teksto spalvà\n\
+		- Keisti teksto ryðkumà\n\
 		- Paðalinti áëjimà", 
 		"Pasirinkti", "Iðeiti");
 	return 1;
@@ -879,8 +883,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				case 4: EntranceManagementDialog.ChangeSettings(playerid, entrindex);
 				// Ziureti informacijà
 				case 5: EntranceManagementDialog.Information(playerid, entrindex);
+				// Teksto spalva 
+				case 6: EntranceManagementDialog.ChangeTextColour(playerid, entrindex);
+				// Teksto ryskumas (ALPHA)
+				case 7: EntranceManagementDialog.ChangeTextAlpha(playerid, entrindex);
 				// Delete entrance 
-				case 6: EntranceManagementDialog.Delete(playerid, entrindex);
+				case 8: EntranceManagementDialog.Delete(playerid, entrindex);
 
 			}
 			return 1;
@@ -903,7 +911,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					switch(usage)
 					{
-						case NewText, Position, VehiclePosition: EntranceManagementDialog.ShowTypeSelect(playerid, index, usage);
+						case NewText, Position, VehiclePosition, TextColour, TextAlpha: EntranceManagementDialog.ShowTypeSelect(playerid, index, usage);
 						case Settings: EntranceManagementDialog.ChangeSettings(playerid, index);
 						case Information: EntranceManagementDialog.Information(playerid, index);
 						case Delete: EntranceManagementDialog.Delete(playerid, index);
@@ -928,6 +936,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				case NewText: EntranceManagementDialog.ChangeText(playerid, index, type);
 				case Position: EntranceManagementDialog.ChangeLocation(playerid, index, type);
 				case VehiclePosition: EntranceManagementDialog.ChangeVehicleLocation(playerid, index, type);
+				case TextColour: EntranceManagementDialog.ChangeTextColour(playerid, index, type);
+				case TextAlpha: EntranceManagementDialog.ChangeTextAlpha(playerid, index, type);
 			}
 			DeletePVar(playerid, "IndexUsage");
 			DeletePVar(playerid, "Index");
@@ -1244,4 +1254,23 @@ stock EntranceManagementDialog.Delete(playerid, index)
 		Dialog_ShowCallback(playerid, using inline DeleteConfirm, DIALOG_STYLE_MSGBOX, "{FF0000}Dëmesio.", "Ar tikrai norite paðalinti ðá iðëjimà?", "Taip", "Ne", DIALOG_ENTRANCE_MENU_DELETE);
 	}
 	return 1;
+}
+
+EntranceManagementDialog.ChangeTextColour(playerid, entrindex, type = 0)
+{
+
+	if(!IsValidEntrance(entrindex))
+		EntranceManagementDialog.ShowIndexInput(playerid, TextColour);
+	else if(!type)
+		EntranceManagementDialog.ShowTypeSelect(playerid, entrindex, TextColour);
+	else 
+	{
+
+	}
+	return 1;
+}
+
+EntranceManagementDialog.ChangeTextAlpha(playerid, entrindex)
+{
+
 }
