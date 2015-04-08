@@ -22,7 +22,7 @@
 
 
 
-#define VERSION                         2.1.1
+#define VERSION                         2.1.2
 #define BUILD_DATE                      2015-04.08
 
 #include <a_samp>
@@ -272,6 +272,7 @@ forward OnPlayerLoginEx(playerid, sqlid);
 #define DIALOG_SECRET_QUESTION          5517
 #define DIALOG_SECRET_QUESTION_SET      5518
 #define DIALOG_SECRET_ANSWER_SET        5519
+#define DIALOG_VEHICLE_SCRAP_CONFIRM    5520
 
 
 #define DEFAULT_HOUSE_PICKUP_MODEL      1273
@@ -6866,7 +6867,7 @@ CMD:ad( playerid, params[ ] )
     if (isnull(params)) 
         return SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /ad [JÛSØ REKLAMA]");
     coast = strlen( params );
-    if ( coast < 39 )
+    if ( coast < 40 )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Negalite paskelbti reklamos, kurios nesudaro net 40 simboliø. " );
     if ( PlayerMoney[ playerid ] < 250 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, neturite pakankamai pinigø (250$), kad atliktumët ðá veiksmà. ");
 
@@ -10800,17 +10801,21 @@ CMD:v( playerid, params[ ] )
     }
     if(!strcmp("scrap",select,true))
     {
-        new
-            idcar = INVALID_VEHICLE_ID;
+        new idcar = INVALID_VEHICLE_ID;
 
         if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-            idcar = GetPlayerVehicleID( playerid );
+            idcar = GetPlayerVehicleID(playerid);
         else
-            idcar = GetNearestVehicle( playerid, 5.0 );
-        if ( idcar == INVALID_VEHICLE_ID ) return SendClientMessage( playerid, COLOR_LIGHTRED,"Dëmesio, norëdami sunaikinti tr. priemonæ privalote sedëti joje.");
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ðis automobilis nepriklauso Jums, tad negalite atlikti ðio veiksmo");
-        new Query[256],
-            Kaina1 = GetVehiclePrice( GetVehicleModel( idcar ) ),
+            idcar = GetNearestVehicle(playerid, 5.0);
+
+        if(idcar == INVALID_VEHICLE_ID ) 
+            return SendClientMessage(playerid, COLOR_LIGHTRED,"Dëmesio, norëdami sunaikinti tr. priemonæ privalote sedëti joje.");
+        
+        if(cInfo[ idcar ][ cOwner ] != pInfo[ playerid ][ pMySQLID ]) 
+            return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ðis automobilis nepriklauso Jums, tad negalite atlikti ðio veiksmo");
+        
+        new string[ 100 ],
+            Kaina1 = GetVehiclePrice(GetVehicleModel(idcar)),
             Float:Kaina2 = Kaina1 / 2,
             Float:Kaina3 = 0;
 
@@ -10819,29 +10824,13 @@ CMD:v( playerid, params[ ] )
         else
             Kaina3 = Kaina2 / cInfo[idcar][cDuzimai];
 
-        if( Kaina3 < 1 ) return 1;
+        if(Kaina3 < 1) return 1;
 
-        GivePlayerMoney(playerid, floatround( Kaina3 ));
-        foreach(Player,i)
-        {
-            if ( pInfo[ i ][ pDubKey ] == cInfo[ idcar ][ cID ] )
-                pInfo[ i ][ pDubKey ] = 0;
-        }
-        format( Query, 126, "UPDATE players SET pDubKey = 0 WHERE pDubKey = %d", cInfo[ idcar ][ cID ] );
-        mysql_query(DbHandle,  Query, false);
-        
-        cInfo[idcar][cVehID] = 0;
-        DestroyVehicle(idcar);
-        if ( pInfo[ playerid ][ pCarGet ] > 0 )
-            pInfo[ playerid ][ pCarGet ] --;
-
-        format(Query,sizeof(Query),"DELETE FROM `vehicles` WHERE `ID` = '%i'", cInfo[ idcar ][ cID ]);
-        mysql_query(DbHandle,  Query, false);
-        nullVehicle( idcar );
-        LoadPlayerVehicles( playerid );
-
-        PayLog( pInfo[ playerid ][ pMySQLID ],16, -2, GetVehicleModel( idcar ) );
-        SendClientMessage( playerid, COLOR_LIGHTRED, "Dëmesio, Jûsø pasirinkta tr. priemonë buvo sunaikinta negràþinamai." );
+        SetPVarInt(playerid, "Scrap.Price", floatround(Kaina3));
+        SetPVarInt(playerid, "Scrap.VehicleID", idcar);
+        format(string, sizeof(string),"Ar tikrai norite negráþtamai sunaikinti ðià transporto priemonæ?\nUþ tai gausite ${FFFFFF}%d",
+            Kaina3);
+        ShowPlayerDialog(playerid, DIALOG_VEHICLE_SCRAP_CONFIRM, DIALOG_STYLE_MSGBOX, "{AA0000}Dëmesio.", string, "Sunaikinti", "Iðeiti");
         return 1;
     }
     if(!strcmp("removedubs",select,true))
@@ -16119,7 +16108,7 @@ CMD:ahelp( playerid, params[ ] )
             SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 1] /kick /ban /warn /jail /noooc /adminduty /gethere /check /afrisk /fon "),
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 1] /freeze /slap /spec /specoff /setint /setvw /intvw /masked /aheal /spawn ");
             SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 1] /mark /lockacc /rc  /setskin  /aproperty /apkills /fon ");
-            SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 1] PERSIKËLIMAS: /gotols /gotofc /gotobb /gotopc /goto /gotomark");
+            SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 1] PERSIKËLIMAS: /gotols /gotofc /gotobb /gotopc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos");
             SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc");				
         }
         if ( pInfo[ playerid ][ pAdmin ] >= 2 )
@@ -16131,6 +16120,7 @@ CMD:ahelp( playerid, params[ ] )
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 4] /auninvite /givemoney /giveweapon /amenu /intmenu"),
             SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 4] /makeleader /setstat /setstatcar /gotohouse /gotobiz");			
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 4] /makeadmin /makemoderator /cartax /housetax /biztax");
+            SendClientMessage(playerid, COLOR_WHITE, "[AdmLvl 4] /makefactinomanager ");
         }
     }
     return 1;
@@ -22496,6 +22486,42 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
         return 1;
+    }
+    if(dialogid == DIALOG_VEHICLE_SCRAP_CONFIRM)
+    {
+        if(response)
+        {
+            new price = GetPVarInt(playerid, "Scrap.Price"),
+                vehicleid = GetPVarInt(playerid, "Scrap.VehicleID"),
+                query[ 70 ];
+
+            if(!IsValidVehicle(vehicleid))
+                return 1;
+
+            GivePlayerMoney(playerid, price);
+            foreach(Player,i)
+            {
+                if ( pInfo[ i ][ pDubKey ] == cInfo[ vehicleid ][ cID ] )
+                    pInfo[ i ][ pDubKey ] = 0;
+            }
+            mysql_format(DbHandle, query, sizeof(query), "UPDATE players SET pDubKey = 0 WHERE pDubKey = %d", cInfo[ vehicleid ][ cID ] );
+            mysql_pquery(DbHandle,  query);
+            
+            cInfo[ vehicleid ][cVehID] = 0;
+            DestroyVehicle(vehicleid);
+            if(pInfo[ playerid ][ pCarGet ] > 0)
+                pInfo[ playerid ][ pCarGet ] --;
+
+            mysql_format(DbHandle, query, sizeof(query), "DELETE FROM `vehicles` WHERE `ID` = '%i'", cInfo[ vehicleid ][ cID ]);
+            mysql_pquery(DbHandle, query);
+            nullVehicle(vehicleid);
+            LoadPlayerVehicles(playerid);
+
+            PayLog(pInfo[ playerid ][ pMySQLID ],16, -2, GetVehicleModel(vehicleid));
+            SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio, Jûsø pasirinkta tr. priemonë buvo sunaikinta negràþinamai." );
+        }
+        DeletePVar(playerid, "Scrap.Price");
+        DeletePVar(playerid, "Scrap.VehicleID");
     }
     return 1;
 }
