@@ -23,7 +23,7 @@
 
 
 #define VERSION                         2.1.2
-#define BUILD_DATE                      2015-04.08
+#define BUILD_DATE                      2015-04.09
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -3123,15 +3123,19 @@ stock CanPlayerUseTruckerVehicle(playerid, model)
 			return true; //forklift gali imt visi.
 		case 600, 543, 605, 422, 478, 554:
 			return true;
+
 		case 413, 459, 482:
 			if(hours >= 12)
 				return true;
+
 		case 440, 498, 499:
 			if(hours >= 24)
 				return true;
+
 		case 414, 578, 428, 455:
 			if(hours >= 32)
 				return true;
+                
 		case 456:
 			if(hours >= 48)
 				return true;
@@ -5446,6 +5450,12 @@ CMD:stats( playerid, params[ ] )
 
 CMD:leavegun(playerid)
 {
+    static LastUsed[ MAX_PLAYERS ];
+
+    if(gettime() <= LastUsed[ playerid ])
+        return 0;
+    LastUsed[ playerid ] = gettime();
+
 	if(Mires[ playerid ] > 0)
 		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite iðmesti ginklo bûdamas komos bûsenoje.");
 
@@ -5453,6 +5463,7 @@ CMD:leavegun(playerid)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs nelaikote ginklo.");
     if(IsPlayerInAnyVehicle(playerid))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite iðmesti ginklo bûdami transporto priemonëje.");
+
     // MD ir PD negali iðmest.
     if(PlayerFaction(playerid) == 1 || PlayerFaction(playerid) == 2 || IsPlayerWeaponJobWeapon(playerid, GetPlayerWeapon(playerid)))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs negalite iðmesti ginklo.");
@@ -10814,8 +10825,7 @@ CMD:v( playerid, params[ ] )
         if(cInfo[ idcar ][ cOwner ] != pInfo[ playerid ][ pMySQLID ]) 
             return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ðis automobilis nepriklauso Jums, tad negalite atlikti ðio veiksmo");
         
-        new string[ 100 ],
-            Kaina1 = GetVehiclePrice(GetVehicleModel(idcar)),
+        new Kaina1 = GetVehiclePrice(GetVehicleModel(idcar)),
             Float:Kaina2 = Kaina1 / 2,
             Float:Kaina3 = 0;
 
