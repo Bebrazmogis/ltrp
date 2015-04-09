@@ -1724,7 +1724,7 @@ CMD:sellhouse(playerid, params[])
 {
 
     new house_index = GetPlayerHouseIndex(playerid, true),
-        string[50],
+        string[ 128 ],
         giveplayerid,
         price,
         IP[ 16 ],
