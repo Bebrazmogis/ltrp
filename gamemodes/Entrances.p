@@ -23,6 +23,7 @@
 			id INT AUTO_INCREMENT NOT NULL,
 			`entrance_text` VARCHAR(128) NOT NULL,
 			exit_text VARCHAR(128) NOT NULL,
+			entrance_text_colour INT NOT NULL,
 			entrance_x FLOAT NOT NULL,
 			entrance_y FLOAT NOT NULL,
 			entrance_z FLOAT NOT NULL,
@@ -30,6 +31,7 @@
 			entrance_interior INT NOT NULL,
 			entrance_pickup_model SMALLINT UNSIGNED NOT NULL DEFAULT '0',
 			entrance_label BOOLEAN NOT NULL DEFAULT '0',
+			exit_text_colour INT NOT NULL,
 			exit_x FLOAT NOT NULL,
 			exit_y FLOAT NOT NULL,
 			exit_z FLOAT NOT NULL,
@@ -46,6 +48,10 @@
 	
 		ALTER TABLE entrances ADD FOREIGN KEY(vehicle_entrance) REFERENCES entrances_vehicle(id) ON DELETE SET NULL;
 		ALTER TABLE entrances ADD FOREIGN KEY(faction_entrance) REFERENCES factions(id) ON DELETE SET NULL;
+
+
+		ALTER TABLE entrances ADD COLUMN entrance_text_colour INT NOT NULL AFTER exit_text,
+			ADD COLUMN exit_text_colour INT NOT NULL AFTER entrance_label;
 		
 */	
 #define DEFAULT_ENTRANCE_PICKUP_MODEL     1239
@@ -54,11 +60,22 @@
 #define MAX_ENTRANCE_VEHICLES 			MAX_ENTRANCES / 2
 #define MAX_ENTRANCE_TEXT				128
 #define ENTRANCE_LABEL_COLOUR			0x1299A2AA
-#define DIALOG_ENTRANCE_MENU_TYPE_SELEC 	1500
-#define DIALOG_ENTRANCE_MENU_DELETE			1501
-#define DIALOG_ENTRANCE_MENU_INFO			1502
-#define DIALOG_ENTRANCE_MENU_SETTINGS		1503
-#define DIALOG_ENTRANCE_MENU_TEXT			1504
+#define DIALOG_ENTRANCE_MENU_TYPE_SELEC 1500
+#define DIALOG_ENTRANCE_MENU_DELETE		1501
+#define DIALOG_ENTRANCE_MENU_INFO		1502
+#define DIALOG_ENTRANCE_MENU_SETTINGS	1503
+#define DIALOG_ENTRANCE_MENU_TEXT		1504
+#define DIALOG_ENTRANCE_MENU_ALPHA 		1505
+#define DIALOG_ENTRANCE_MENU_TEXT_COLOR 1506
+#define DIALOG_ENTRANCE_MENU_COLOUR_CUS 1507
+
+#define EntranceManagementDialog. 		fa_
+
+#define DIALOG_ENTRANCE_MENU_MAIN 		53
+#define DIALOG_ENTRANCE_MENU_INPUT_INDE 5463
+
+#define ENTRANCE_TYPE_ENTRANCE 			1
+#define ENTRANCE_TYPE_EXIT 				2
 
 
 enum E_ENTRANCE_VEHICLE_DATA 
@@ -78,12 +95,14 @@ enum E_ENTRANCE_DATA
 {
 	SqlId,
 	EnText[ MAX_ENTRANCE_TEXT ],
+	EnTextColour,
 	Float:EnX,
 	Float:EnY,
 	Float:EnZ,
 	EnVW,
 	EnInt,
 	ExText[ MAX_ENTRANCE_TEXT ],
+	ExTextColour,
 	Float:ExX,
 	Float:ExY,
 	Float:ExZ,
@@ -104,6 +123,23 @@ enum E_ENTRANCE_DATA
 static EntranceData[ MAX_ENTRANCES ][ E_ENTRANCE_DATA ],
 		EntranceVehicleData[ MAX_ENTRANCE_VEHICLES ][ E_ENTRANCE_VEHICLE_DATA ],
 		PlayerInEntrance[ MAX_PLAYERS ] = {-1, ... };
+
+enum E_TEXT_COLOUR_DATA 
+{
+	RGB,
+	Name[ 16 ],
+};
+
+static const TextColours[ ][ E_TEXT_COLOUR_DATA ] = 
+{
+	{0xFFFFFF00, "Balta"},
+	{0x00000000, "Juoda"},
+	{0xFF000000, "Raudona"},
+	{0x00FF0000, "Þalia"},
+	{0x0000FF00, "Mëlyna"},
+	{0xFFFF0000, "Geltona"},
+	{0xFF800000, "Oranþinë"}
+};
 
 
 forward OnEntranceVehicleDataLoad();
@@ -185,12 +221,14 @@ public OnStaticEntranceLoad()
 		EntranceData[ i ][ EnZ ] = cache_get_field_content_float(i, "entrance_z");
 		EntranceData[ i ][ EnVW ] = cache_get_field_content_int(i, "entrance_virtual_world");
 		EntranceData[ i ][ EnInt ] = cache_get_field_content_int(i, "entrance_interior");
+		EntranceData[ i ][ EnTextColour ] = cache_get_field_content_int(i, "entrance_text_colour");
 
 		EntranceData[ i ][ ExX ] = cache_get_field_content_float(i, "exit_x");
 		EntranceData[ i ][ ExY ] = cache_get_field_content_float(i, "exit_y");
 		EntranceData[ i ][ ExZ ] = cache_get_field_content_float(i, "exit_z");
 		EntranceData[ i ][ ExVW ] = cache_get_field_content_int(i, "exit_virtual_world");
 		EntranceData[ i ][ ExInt ] = cache_get_field_content_int(i, "exit_interior");
+		EntranceData[ i ][ ExTextColour ] = cache_get_field_content_int(i, "exit_text_colour");
 
 		EntranceData[ i ][ EnPickupModel ] = cache_get_field_content_int(i, "entrance_pickup_model");
 		EntranceData[ i ][ ExPickupModel ] = cache_get_field_content_int(i, "exit_pickup_model");
@@ -365,7 +403,7 @@ stock UpdateEntrance(entranceindex)
 	if(IsValidDynamic3DTextLabel(EntranceData[ entranceindex ][ ExLabelId ]))
 		DestroyDynamic3DTextLabel(EntranceData[ entranceindex ][ ExLabelId ]);
 
-	if(EntranceData[ entranceindex ][ EnPickupModel ])
+	if(EntranceData[ entranceindex ][ EnPickupModel ] != -1)
 	{
 		EntranceData[ entranceindex ][ EnPickup ] = CreateDynamicPickup(
 			EntranceData[ entranceindex ][ EnPickupModel ], 
@@ -376,12 +414,12 @@ stock UpdateEntrance(entranceindex)
 			EntranceData[ entranceindex ][ EnVW ]);
 	}
 	else 
-		EntranceData[ entranceindex ][ EnPickup ] = -1;
+		EntranceData[ entranceindex ][ EnPickupModel ] = -1;
 
 	if(EntranceData[ entranceindex ][ EnLabel ])
 		EntranceData[ entranceindex ][ EnLabelId ] = CreateDynamic3DTextLabel(
 			EntranceData[ entranceindex ][ EnText ], 
-			ENTRANCE_LABEL_COLOUR, 
+			EntranceData[ entranceindex ][ EnTextColour ], 
 			EntranceData[ entranceindex ][ EnX ], 
 			EntranceData[ entranceindex ][ EnY ],
 			EntranceData[ entranceindex ][ EnZ ], 
@@ -392,7 +430,7 @@ stock UpdateEntrance(entranceindex)
 	else 
 		EntranceData[ entranceindex ][ EnLabelId ] = INVALID_3DTEXT_ID;
 
-	if(EntranceData[ entranceindex ][ ExPickupModel ])
+	if(EntranceData[ entranceindex ][ ExPickupModel ] != -1)
 	{
 		EntranceData[ entranceindex ][ ExPickup ] = CreateDynamicPickup(
 			EntranceData[ entranceindex ][ ExPickupModel ], 
@@ -403,12 +441,12 @@ stock UpdateEntrance(entranceindex)
 			EntranceData[ entranceindex ][ ExVW ]);
 	}
 	else 
-		EntranceData[ entranceindex ][ ExPickup ] = -1;
+		EntranceData[ entranceindex ][ ExPickupModel ] = -1;
 
 	if(EntranceData[ entranceindex ][ ExLabel ])
 		EntranceData[ entranceindex ][ ExLabelId ] = CreateDynamic3DTextLabel(
 			EntranceData[ entranceindex ][ ExText ], 
-			ENTRANCE_LABEL_COLOUR, 
+			EntranceData[ entranceindex ][ ExTextColour ], 
 			EntranceData[ entranceindex ][ ExX ], 
 			EntranceData[ entranceindex ][ ExY ],
 			EntranceData[ entranceindex ][ ExZ ], 
@@ -566,6 +604,80 @@ stock SetExitVehicleLocation(entranceindex, Float:x, Float:y, Float:z, Float:ang
 	return 1;
 }
 
+stock SetEntranceTextColour(entranceindex, type, rgb)
+{
+	// Pirmi 8 bitai turi bût tuðti.
+	for(new i = 0; i < 8; i++)
+		if(rgb & (0b1 << i))
+		{
+			return 0;
+		}
+
+	if(type ==  ENTRANCE_TYPE_ENTRANCE)
+	{
+		for(new i = 8; i < 32; i++)
+		if((EntranceData[ entranceindex ][ EnTextColour ] & (0b1 << i)) && !(rgb & (0b1 << i)))
+			EntranceData[ entranceindex ][ EnTextColour ] ^= (0b1 << i);
+
+		EntranceData[ entranceindex ][ EnTextColour ] |= rgb;
+	}
+	else if(type == ENTRANCE_TYPE_EXIT)
+	{
+		for(new i = 8; i < 32; i++)
+		if((EntranceData[ entranceindex ][ ExTextColour ] & (0b1 << i)) && !(rgb & (0b1 << i)))
+			EntranceData[ entranceindex ][ ExTextColour ] ^= (0b1 << i);
+
+		EntranceData[ entranceindex ][ ExTextColour ] |= rgb;
+	}
+
+
+	UpdateEntrance(entranceindex);
+	return SaveEntranceTextColours(entranceindex);
+}
+
+stock SetEntranceTextColourAlpha(entranceindex, type, alpha)
+{
+	if(type != ENTRANCE_TYPE_EXIT && type != ENTRANCE_TYPE_ENTRANCE)
+		return 0;
+
+	// Alpha turi bût 0-255
+	if(alpha < 0 || alpha > 255)
+		return 0;
+
+	if(type == ENTRANCE_TYPE_EXIT)
+	{
+		for(new i = 0; i < 8; i++)
+		{
+			if((EntranceData[ entranceindex ][ ExTextColour ] & (0b1 << i)) && !(alpha & (0b1 << i)))
+				EntranceData[ entranceindex ][ ExTextColour ] ^= (0b1 << i);
+		}
+		EntranceData[ entranceindex ][ ExTextColour ] |= alpha;
+	}
+	else if(type == ENTRANCE_TYPE_ENTRANCE)
+	{
+		for(new i = 0; i < 8; i++)
+		{
+			if((EntranceData[ entranceindex ][ EnTextColour ] & (0b1 << i)) && !(alpha & (0b1 << i)))
+				EntranceData[ entranceindex ][ EnTextColour ] ^= (0b1 << i);
+		}
+		EntranceData[ entranceindex ][ EnTextColour ] |= alpha;
+	}
+	UpdateEntrance(entranceindex);
+	SaveEntranceTextColours(entranceindex);
+	return 1;
+}
+
+stock SaveEntranceTextColours(entranceindex)
+{
+	new query[110];
+	mysql_format(DbHandle, query, sizeof(query), "UPDATE entrances SET entrance_text_colour = %d, exit_text_colour = %d WHERE id = %d",
+		EntranceData[ entranceindex ][ EnTextColour ],
+		EntranceData[ entranceindex ][ ExTextColour ],
+		EntranceData[ entranceindex ][ SqlId ]);
+	return mysql_pquery(DbHandle, query);
+}
+
+
 stock SetEntrancePickupData(entranceindex, pickupmodel)
 {
 	new query[ 90 ];
@@ -663,8 +775,8 @@ stock AddNewEntrance(Float:x, Float:y, Float:z, interiorid, worldid)
 	if(index == -1)
 		return 0;
 
-	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO entrances (entrance_x, entrance_y, entrance_z, entrance_interior, entrance_virtual_world) VALUES (%f, %f, %f, %d, %d)",
-		x, y, z, interiorid, worldid);
+	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO entrances (entrance_x, entrance_y, entrance_z, entrance_interior, entrance_virtual_world, entrance_pickup_model) VALUES (%f, %f, %f, %d, %d, %d)",
+		x, y, z, interiorid, worldid, DEFAULT_ENTRANCE_PICKUP_MODEL);
 	result = mysql_query(DbHandle, query);
 
 	EntranceData[ index ][ SqlId ] = cache_insert_id();
@@ -674,7 +786,13 @@ stock AddNewEntrance(Float:x, Float:y, Float:z, interiorid, worldid)
 	EntranceData[ index ][ EnInt ] = interiorid;
 	EntranceData[ index ][ EnVW ] = worldid;
 	EntranceData[ index ][ VehicleEntrance ] = -1;
+	EntranceData[ index ][ EnPickupModel ] = DEFAULT_ENTRANCE_PICKUP_MODEL;
 	cache_delete(result);
+
+	EntranceData[ index ][ EnTextColour ] = 0xFFFFFFFF;
+	EntranceData[ index ][ ExTextColour ] = 0xFFFFFFFF;
+	SaveEntranceTextColours(index);
+
 	return index;
 }
 
@@ -815,10 +933,6 @@ CMD:exit(playerid)
 */
 
 
-#define EntranceManagementDialog. 		fa_
-
-#define DIALOG_ENTRANCE_MENU_MAIN 		53
-#define DIALOG_ENTRANCE_MENU_INPUT_INDE 5463
 
 enum E_ENTRANCE_INDEX_INPUT_USAGE
 {
@@ -831,10 +945,6 @@ enum E_ENTRANCE_INDEX_INPUT_USAGE
 	TextColour,
 	TextAlpha,
 };
-
-
-#define ENTRANCE_TYPE_ENTRANCE 			1
-#define ENTRANCE_TYPE_EXIT 				2
 
 EntranceManagementDialog.ShowMain(playerid)
 {
@@ -868,10 +978,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				// Kurti naujà
 				case 0:
 				{
-					new Float:x, Float:y, Float:z;
+					new Float:x, Float:y, Float:z, string[ 120 ];
 					GetPlayerPos(playerid, x, y, z);
 					entrindex = AddNewEntrance(x, y, z, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid));
-					EntranceManagementDialog.ChangeText(playerid, entrindex);
+					format(string, sizeof(string), "Sukûrëte áëjimà. Jo ID: %d. Jo tikriausiai nematysite kol nepakeisite nustatymø/nepridësite teksto.", entrindex);
+					SendClientMessage(playerid, COLOR_NEWS, string);
+					EntranceManagementDialog.ShowMain(playerid);
+					//EntranceManagementDialog.ChangeText(playerid, entrindex);
 				}
 				// Keisti tekstà
 				case 1: EntranceManagementDialog.ChangeText(playerid, entrindex);
@@ -963,7 +1076,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else 
 			{
-				printf("Inline changetext. exitenterstatus:%d", exitenterstatus);
 				if(exitenterstatus == ENTRANCE_TYPE_ENTRANCE)
 				{
 					SetEntranceText(entrindex, inputtext);
@@ -977,6 +1089,145 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				else 
 					SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida.");
 				EntranceManagementDialog.ShowMain(playerid);
+			}
+			return 1;
+		}
+		case DIALOG_ENTRANCE_MENU_ALPHA:
+		{
+			if(!response)
+				EntranceManagementDialog.ShowMain(playerid);
+			else 
+			{
+				new alpha, 
+					index = GetPVarInt(playerid, "En.Index"),
+					status = GetPVarInt(playerid, "En.Status");
+				if(sscanf(inputtext, "i", alpha) || alpha < 1 || alpha > 100)
+				{
+					SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida skaièius negali bûti maþesnis uþ 1 ar didesnis uþ 100.");
+					EntranceManagementDialog.ChangeTextAlpha(playerid, index, status);
+				}
+				else 
+				{
+					// Mums ávedë nuo 1 iki 100. Bet mums reikia nuo 0 iki 255.
+					// Kitaip tariant gavom procentus :)
+					alpha = 255 / 100 * alpha;
+					
+					SetEntranceTextColourAlpha(index, status, alpha);
+					EntranceManagementDialog.ShowMain(playerid);
+				}
+				DeletePVar(playerid, "En.Index");
+				DeletePVar(playerid, "En.Status");
+			}
+			return 1;
+		}
+		case DIALOG_ENTRANCE_MENU_TEXT_COLOR:
+		{
+			if(!response)
+				EntranceManagementDialog.ShowMain(playerid);
+
+			else 
+			{
+				new index = GetPVarInt(playerid, "En.Index"),
+					status = GetPVarInt(playerid, "En.Status");
+
+				if(!listitem)
+				{
+					EntranceManagementDialog.CustomColour(playerid, index, status);
+				}
+				else 
+				{
+					for(new i = 0; i < sizeof TextColours; i++)
+						if(!strcmp(inputtext, TextColours[ i ][ Name ]))
+						{
+							printf("Found colour at i %d. Name:%s binary:%b", i, TextColours[ i ][ Name ], TextColours[ i ][ RGB]);
+							SetEntranceTextColour(index, status, TextColours[ i ][ RGB ]);
+							break;
+						}
+					EntranceManagementDialog.ShowMain(playerid);
+				}
+			}
+			return 1;
+		}
+		case DIALOG_ENTRANCE_MENU_COLOUR_CUS:
+		{
+			new colour,
+				index = GetPVarInt(playerid, "En.Index"),
+				status = GetPVarInt(playerid, "En.Status");
+
+			if(!response)
+				EntranceManagementDialog.ChangeTextColour(playerid, index, status);
+			else 
+			{
+				printf("inputtext2:%s len:%d", inputtext, strlen(inputtext));
+				if(strlen(inputtext) != 6) 
+					EntranceManagementDialog.CustomColour(playerid, index, status);
+				else 
+				{
+					for(new i = 0; i < strlen(inputtext); i++)
+						if((inputtext[ i ] >= '0' && inputtext[ i ] <= '9') || (inputtext[ i ] >= 'A' && inputtext[ i ] <= 'F'))
+						{
+							//tmp[ i ] = inputtext2[ i ];
+						}
+						else 
+							EntranceManagementDialog.CustomColour(playerid, index, status);
+
+					new val = sscanf(inputtext, "h", colour);
+					printf("Sscanf returned:%d", val);
+					val = SetEntranceTextColour(index, status, colour);
+					printf("SetEntranceTextColour returned:%d binary colour:%b", val, colour);
+					EntranceManagementDialog.ShowMain(playerid);
+				}
+
+			}
+			return 1;
+		}
+		case DIALOG_ENTRANCE_MENU_SETTINGS:
+		{
+			if(!response)
+				EntranceManagementDialog.ShowMain(playerid);
+			else 
+			{
+				new entrindex = GetPVarInt(playerid, "En.Index");
+				switch(listitem)
+				{
+					case 0:
+					{
+						if(EntranceData[ entrindex ][ EnPickupModel ] == -1)
+						{
+							SetEntrancePickupData(entrindex, DEFAULT_ENTRANCE_PICKUP_MODEL);
+						}
+						else 
+							SetEntrancePickupData(entrindex, -1);
+					}
+					case 1:
+					{
+						if(EntranceData[ entrindex ][ ExPickupModel ] == -1)
+							SetExitPickupData(entrindex, DEFAULT_ENTRANCE_PICKUP_MODEL);
+						else 
+							SetExitPickupData(entrindex, -1);
+					}
+					case 2:
+					{
+						SetEntranceLabel(entrindex, !EntranceData[ entrindex ][ EnLabel ]);
+					}
+					case 3:
+					{
+						SetExitLabel(entrindex, !EntranceData[ entrindex ][ ExLabel ]);
+					}
+					case 4:
+					{
+						if(EntranceData[ entrindex ][ VehicleEntrance ] == -1)
+						{
+							SendClientMessage(playerid, COLOR_NEWS, "Nustatytas ávaþiavimas su transporto priemonëmis. Jis neveiks kol nepridësite koorrdinaèiø.");
+						}
+						else 
+						{
+							RemoveEntranceVehicleData(entrindex);
+						}
+					}
+				}
+				EntranceManagementDialog.ChangeSettings(playerid, entrindex);
+				return 1;
 			}
 			return 1;
 		}
@@ -995,7 +1246,6 @@ EntranceManagementDialog.ShowIndexInput(playerid, E_ENTRANCE_INDEX_INPUT_USAGE:u
 
 EntranceManagementDialog.ShowTypeSelect(playerid, entranceindex, E_ENTRANCE_INDEX_INPUT_USAGE:usage)
 {
-	printf("EntranceManagementDialog.ShowTypeSelect(%d, %d, %d)", playerid, entranceindex, usage);
 	//new E_ENTRANCE_INDEX_INPUT_USAGE:usage = E_ENTRANCE_INDEX_INPUT_USAGE:GetPVarInt(playerid, "IndexUsage");
 	SetPVarInt(playerid, "IndexUsage", _:usage);
 	SetPVarInt(playerid, "Index", entranceindex);
@@ -1009,52 +1259,16 @@ EntranceManagementDialog.ShowTypeSelect(playerid, entranceindex, E_ENTRANCE_INDE
 	ShowPlayerDialog(playerid, DIALOG_ENTRANCE_MENU_TYPE_SELEC, DIALOG_STYLE_MSGBOX, " ", "Kà norite redaguoti. Áëjimà ar iðëjimà?", "Áëjimà", "Iðëjimà");
 }
 
-EntranceManagementDialog.ChangeText(playerid, entrindex2, exitenter = 0)
+EntranceManagementDialog.ChangeText(playerid, entrindex, exitenter = 0)
 {
-	new entrindex = entrindex2,
-		exitenterstatus = exitenter;
 	if(!IsValidEntrance(entrindex))
 		EntranceManagementDialog.ShowIndexInput(playerid, NewText);
-	else if(!exitenterstatus)
+	else if(!exitenter)
 		EntranceManagementDialog.ShowTypeSelect(playerid, entrindex, NewText);
 	else 
 	{
 		SetPVarInt(playerid, "En.Index", entrindex);
 		SetPVarInt(playerid, "En.Status", exitenter);
-		/*
-		TextChangeDialog:
-		inline ChangeText(pid, dialogid, response, listitem, string:inputtext[])
-		{
-			#pragma unused pid, dialogid, listitem
-			if(!response)
-				return 1;
-
-			if(isnull(inputtext) || strlen(inputtext) >= MAX_ENTRANCE_TEXT)
-			{
-				SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, tekstà gali sudaryti nuo 1 iki " #MAX_ENTRANCE_TEXT " simboliø.");
-				goto TextChangeDialog;
-			}
-			else 
-			{
-				printf("Inline changetext. exitenterstatus:%d", exitenterstatus);
-				if(exitenterstatus == ENTRANCE_TYPE_ENTRANCE)
-				{
-					SetEntranceText(entrindex, inputtext);
-					SendClientMessage(playerid, COLOR_NEWS, "Áëjimo tekstas sëkmingai pakeistas.");
-				}
-				else if(exitenterstatus == ENTRANCE_TYPE_EXIT)
-				{
-					SetExitText(entrindex, inputtext);
-					SendClientMessage(playerid, COLOR_NEWS, "Iðëjimo tekstas sëkmingai pakeistas.");
-				}
-				else 
-					SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida.");
-				EntranceManagementDialog.ShowMain(playerid);
-			}
-			return 1;
-		}
-		*/	
-		//Dialog_ShowCallback(playerid, using inline ChangeText, DIALOG_STYLE_INPUT, "Tekstas.", "Áveskite naujà tekstà", "Tæsti", "Iðeiti", DIALOG_ENTRANCE_MENU_TEXT);
 		ShowPlayerDialog(playerid, DIALOG_ENTRANCE_MENU_TEXT, DIALOG_STYLE_INPUT, "Teksto keitimas.", "Áveskite naujà tekstà", "Tæsti", "Iðeiti");
 	}
 	return 1;
@@ -1141,63 +1355,15 @@ stock EntranceManagementDialog.ChangeSettings(playerid, index)
 			Áëjimo 3D label[%s]\n\
 			Iðëjimo 3D label[%s]\n\
 			Leisti ávaþiuoti su tr. priemonëmis[%s]",
-			(EntranceData[ index ][ EnPickup ] == -1) ? ("{FF0000}-{FFFFFF}") : ("{00FF00}+{FFFFFF}"),
-			(EntranceData[ index ][ ExPickup ] == -1) ? ("{FF0000}-{FFFFFF}") : ("{00FF00}+{FFFFFF}"),
+			(EntranceData[ index ][ EnPickupModel ] == -1) ? ("{FF0000}-{FFFFFF}") : ("{00FF00}+{FFFFFF}"),
+			(EntranceData[ index ][ ExPickupModel ] == -1) ? ("{FF0000}-{FFFFFF}") : ("{00FF00}+{FFFFFF}"),
 			(!EntranceData[ index ][ EnLabel ]) ? ("{FF0000}-{FFFFFF}") : ("{00FF00}+{FFFFFF}"),
 			(!EntranceData[ index ][ ExLabel ]) ? ("{FF0000}-{FFFFFF}") : ("{00FF00}+{FFFFFF}"),
 			(EntranceData[ index ][ VehicleEntrance ] == -1) ? ("{FF0000}Ne{FFFFFF}") : ("{00FF00}Taip{FFFFFF}")
 		);
 
-		inline EntranceSettings(pid, dialogid, response, listitem, string:inputtext[])
-		{
-			#pragma unused pid, dialogid, inputtext
-			if(!response)
-				EntranceManagementDialog.ShowMain(playerid);
-			else 
-			{
-				switch(listitem)
-				{
-					case 0:
-					{
-						if(EntranceData[ entrindex ][ EnPickup ] == -1)
-						{
-							SetEntrancePickupData(entrindex, DEFAULT_ENTRANCE_PICKUP_MODEL);
-						}
-						else 
-							SetEntrancePickupData(entrindex, -1);
-					}
-					case 1:
-					{
-						if(EntranceData[ entrindex ][ ExPickup ] == -1)
-							SetExitPickupData(entrindex, DEFAULT_ENTRANCE_PICKUP_MODEL);
-						else 
-							SetExitPickupData(entrindex, -1);
-					}
-					case 2:
-					{
-						SetEntranceLabel(entrindex, !EntranceData[ entrindex ][ EnLabel ]);
-					}
-					case 3:
-					{
-						SetExitLabel(entrindex, !EntranceData[ entrindex ][ ExLabel ]);
-					}
-					case 4:
-					{
-						if(EntranceData[ entrindex ][ VehicleEntrance ] == -1)
-						{
-							SendClientMessage(playerid, COLOR_NEWS, "Nustatytas ávaþiavimas su transporto priemonëmis. Jis neveiks kol nepridësite koorrdinaèiø.");
-						}
-						else 
-						{
-							RemoveEntranceVehicleData(entrindex);
-						}
-					}
-				}
-				EntranceManagementDialog.ChangeSettings(playerid, entrindex);
-				return 1;
-			}
-		}
-		Dialog_ShowCallback(playerid, using inline EntranceSettings, DIALOG_STYLE_LIST, "Áëjimo/iðëjimo nustatymai", string, "Pasirinkti", "Iðeiti", DIALOG_ENTRANCE_MENU_SETTINGS);
+		SetPVarInt(playerid, "En.Index", index);
+		ShowPlayerDialog(playerid, DIALOG_ENTRANCE_MENU_SETTINGS, DIALOG_STYLE_LIST, "Áëjimo/iðëjimo nustatymai", string, "Pasirinkti", "Iðeiti");
 	}
 	return 1;
 }
@@ -1216,17 +1382,6 @@ stock EntranceManagementDialog.Information(playerid, index)
 			EntranceData[ index ][ SqlId ],
 			(EntranceData[ index ][ VehicleEntrance ] == -1) ? ("neáleidþiamos"):("áleidþiamos")
 		);
-/*s
-		inline EntranceInfo(pid, dialogid, response, listitem, string:inputtext[])
-		{
-			#pragma unused pid, dialogid, listitem, inputtext
-			SendClientMessage(playerid, COLOR_LIGHTRED, "yes");
-			if(response)
-				EntranceManagementDialog.ShowMain(playerid);
-			return 1;
-		}*/
-		printf("Info str:%s", string);
-		//Dialog_ShowCallback(playerid, using inline EntranceInfo, DIALOG_STYLE_MSGBOX, "Informacija", string, "Gerai", "", DIALOG_ENTRANCE_MENU_INFO);	
 		ShowPlayerDialog(playerid, DIALOG_ENTRANCE_MENU_INFO, DIALOG_STYLE_MSGBOX, "Informacija", string, "Gerai", "");
 	}
 	return 1;
@@ -1236,7 +1391,7 @@ stock EntranceManagementDialog.Delete(playerid, index)
 {
 	new entrindex = index;
 	if(!IsValidEntrance(entrindex))
-		EntranceManagementDialog.ShowIndexInput(playerid, Settings);
+		EntranceManagementDialog.ShowIndexInput(playerid, Delete);
 	else 
 	{
 		inline DeleteConfirm(pid, dialogid, response, listitem, string:inputtext[])
@@ -1265,12 +1420,36 @@ EntranceManagementDialog.ChangeTextColour(playerid, entrindex, type = 0)
 		EntranceManagementDialog.ShowTypeSelect(playerid, entrindex, TextColour);
 	else 
 	{
+		SetPVarInt(playerid, "En.Index", entrindex);
+		SetPVarInt(playerid, "En.Status", type);
+		new string[ 1024 ];
+		string = "Ávesti savo spalvà";
+		for(new i = 0; i < sizeof TextColours; i++)
+			format(string, sizeof(string), "%s\n%s", string, TextColours[ i ][ Name ]);
 
+		ShowPlayerDialog(playerid, DIALOG_ENTRANCE_MENU_TEXT_COLOR, DIALOG_STYLE_LIST, "Teksto spalva", string, "Pasirinkti", "Iðeiti");
 	}
 	return 1;
 }
 
-EntranceManagementDialog.ChangeTextAlpha(playerid, entrindex)
+EntranceManagementDialog.ChangeTextAlpha(playerid, entrindex, type = 0)
 {
+	if(!IsValidEntrance(entrindex))
+		EntranceManagementDialog.ShowIndexInput(playerid, TextAlpha);
+	else if(!type)
+		EntranceManagementDialog.ShowTypeSelect(playerid, entrindex, TextAlpha);
+	else 
+	{
+		SetPVarInt(playerid, "En.Index", entrindex);
+		SetPVarInt(playerid, "En.Status", type);
+		ShowPlayerDialog(playerid, DIALOG_ENTRANCE_MENU_ALPHA, DIALOG_STYLE_INPUT, "Teksto ryðkumas", "Áveskite teksto permatomumà iðreikðta skaièiumi nuo 1 iki 00.\nVisiðkai permatomas tekstas 1\nVisiðkai nepermatomas tekstas: 100", "Testi", "Iðeiti");
+	}
+	return 1;
+}
 
+EntranceManagementDialog.CustomColour(playerid, entrindex, type)
+{
+	SetPVarInt(playerid, "En.Index", entrindex);
+	SetPVarInt(playerid, "En.Status", type);
+	ShowPlayerDialog(playerid, DIALOG_ENTRANCE_MENU_COLOUR_CUS, DIALOG_STYLE_INPUT, "Teksto spalva", "Áraðykite formatu: RRGGBB\nSkaièiai gali bûti nuo 0 iki F", "Tæsti", "Atgal");
 }
