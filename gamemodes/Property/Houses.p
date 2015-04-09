@@ -73,7 +73,7 @@ enum E_HOUSE_FURNITURE_DATA {
     SqlId,
     FurnitureId,
     ObjectId,
-    Name[ MAX_FURNITURE_NAME]
+    //Name[ MAX_FURNITURE_NAME]
 };
 
 enum E_HOUSE_UPGRADE_DATA {
@@ -104,6 +104,7 @@ enum E_HOUSE_DATA
 
 new hInfo[ MAX_HOUSES ][ E_HOUSE_DATA ],
     HouseFurniture[MAX_HOUSES][ MAX_HOUSE_FURNITURE][ E_HOUSE_FURNITURE_DATA ],
+    HouseFurnitureName[ MAX_HOUSES ][ MAX_HOUSE_FURNITURE ][ MAX_FURNITURE_NAME ],
     HouseRadio[ MAX_HOUSES ][ E_HOUSE_RADIO_DATA ],
     HouseWeed[ MAX_HOUSES ][ MAX_HOUSE_WEED_SAPLINGS ][ E_HOUSE_WEED_DATA ],
     HouseItems[ MAX_HOUSES ][ MAX_HOUSE_ITEMS ][ E_HOUSE_ITEM_DATA ];
@@ -294,9 +295,9 @@ public OnHouseFurnitureLoad()
             HouseFurniture[ houseIndex ][ houseFurnitureCount ][ SqlId ] = id;
             HouseFurniture[ houseIndex ][ houseFurnitureCount ][ FurnitureId ] = fid;
             if(ismysqlnull(name))
-                cache_get_field_content(i, "default_name", HouseFurniture[ houseIndex ][ houseFurnitureCount ][ Name ], DbHandle, MAX_FURNITURE_NAME);
+                cache_get_field_content(i, "default_name", HouseFurnitureName[ houseIndex ][ houseFurnitureCount ], DbHandle, MAX_FURNITURE_NAME);
             else 
-                strcat(HouseFurniture[ houseIndex ][ houseFurnitureCount ][ Name ], name, MAX_FURNITURE_NAME);
+                strcat(HouseFurnitureName[ houseIndex ][ houseFurnitureCount ], name, MAX_FURNITURE_NAME);
 
             furnitureIndex = GetFurnitureIndex(fid);
             // Neturëtø bût niekada -1, nebent kokie pakeitimai furniture table vyko.
@@ -645,7 +646,13 @@ stock GetHouseFurnitureCount(hindex)
     return count;
 }
 stock GetHouseFurniturePrice(hindex, findex)
-    return GetFurniturePrice(GetFurnitureIndex(HouseFurniture[ hindex ][ findex ][ FurnitureId ]));
+{
+    new furnitureindex = GetFurnitureIndex(HouseFurniture[ hindex ][ findex ][ FurnitureId ]);
+    if(furnitureindex == -1)
+        ErrorLog("Houses.p : GetHouseFurniturePrice(%d, %d) index is -1. FurnitureID:%d HouseSqlID:%d House furniture sqlid:%d", 
+            hindex, findex, HouseFurniture[ hindex ][ findex ][ FurnitureId ], hInfo[ hindex ][ hID ], HouseFurniture[ hindex ][ findex ][ SqlId ]);
+    return GetFurniturePrice(furnitureindex);
+}
 
 stock GetHouseFurnitureObjectModel(hindex, findex)
     return GetFurnitureObjectId(HouseFurniture[ hindex ][ findex ][ FurnitureId ]);
@@ -706,9 +713,11 @@ stock IsPlayerInRangeOfHouseExit(playerid, hindex, Float:distance)
 
 stock GetHouseFurnitureName(hindex, findex)
 {
-    new s[MAX_FURNITURE_NAME ];
-    strcat(s, HouseFurniture[ hindex ][ findex ][ Name ]);
-    return s;
+    //return HouseFurniture[ hindex ][ findex ][ Name ];
+    //new s[MAX_FURNITURE_NAME ];
+    //strcat(s, HouseFurniture[ hindex ][ findex ][ Name ]);
+    //return s;
+    return HouseFurnitureName[ hindex ][ findex ];
 }
 
 stock GetHousePickupHouseIndex(pickupid)
@@ -948,7 +957,7 @@ stock AddHouseFurniture(hindex, furniture_index, Float:posx, Float:posy, Float:p
     HouseFurniture[ hindex ][ i ][ SqlId ] = cache_insert_id();
     cache_delete(result);
     HouseFurniture[ hindex ][ i ][ FurnitureId ] = GetFurnitureID(furniture_index);
-    format(HouseFurniture[ hindex ][ i ][ Name ], MAX_FURNITURE_NAME, GetFurnitureName(furniture_index));
+    format(HouseFurnitureName[ hindex ][ i ], MAX_FURNITURE_NAME, GetFurnitureName(furniture_index));
     HouseFurniture[ hindex ][ i ][ ObjectId ] = CreateDynamicObject(GetFurnitureObjectId(furniture_index), 
         posx, posy, posz, 
         rotx, roty, rotz, 
@@ -1086,7 +1095,7 @@ stock SetHouseFurnitureTextureColor(hindex, findex, materialindex, color)
 stock SetHouseFurnitureName(hindex, findex, name[])
 {
     new query[100];
-    format(HouseFurniture[ hindex ][ findex ][ Name ], MAX_FURNITURE_NAME, name);
+    format(HouseFurnitureName[ hindex ][ findex ], MAX_FURNITURE_NAME, name);
     mysql_format(DbHandle, query, sizeof(query), "UPDATE house_furniture SET name = '%e' WHERE id = %d", 
         name, HouseFurniture[ hindex ][ findex ][ SqlId ]);
     return mysql_pquery(DbHandle, query);
