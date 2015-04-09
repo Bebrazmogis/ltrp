@@ -424,7 +424,7 @@ stock ShowPlayerNewPhoneContactDialog(playerid, E_NEW_CONTACT_INPUT_TYPE:type, e
 	new string[ 128 ];
 	if(type == CONTACT_INPUT_TYPE_NUMBER)
 	{
-		format(string, sizeof(string), "{AA1111}%s\n{FFFFFF}Áveskite naujo kontakto numberá.", errorstr);
+		format(string, sizeof(string), "{AA1111}%s\n{FFFFFF}Áveskite naujo kontakto numerá.", errorstr);
 		ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_BOOK_NEW_1, DIALOG_STYLE_INPUT, "Naujas kontaktas: numeris", string, "Toliau", "Atgal");
 	}
 	else if(type == CONTACT_INPUT_TYPE_NAME)
