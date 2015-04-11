@@ -826,8 +826,8 @@ enum fires
 new Fire[MAX_FIRE][fires];
 
 
-#include "Tabula\TAC.pwn" // AntiCheatas
 #include "Player\Weapons" // Yra AC dalykø
+#include "Tabula\TAC.pwn" // AntiCheatas
 
 
 #include "Coordinates"
@@ -13687,10 +13687,10 @@ CMD:gethere( playerid, params [ ] )
 CMD:adminduty( playerid, params [ ] )
 {
     if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-        cmd_aduty(playerid, "");
+        cmd_aduty(playerid);
     return 1;
 }
-CMD:aduty( playerid, params [ ] )
+CMD:aduty(playerid)
 {
     new string[ 256 ];
 
@@ -23706,10 +23706,10 @@ public OnDynamicObjectMoved(objectid)
 
             ShipInfo[ Status ] = Docked;
             ShipInfo[ LastArrivalTimestamp ] = gettime();
-            return 1;
+            break;
         }
     }
-    else 
+    else if(objectid == ShipInfo[ ObjectIDs ][ 0 ])
         ErrorLog("OnDynamicObjectMoved(%d) invalid ship status:%d", objectid, ShipInfo[ Status ]);
     return 0;
 }
