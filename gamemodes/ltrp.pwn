@@ -4432,6 +4432,7 @@ public OnPlayerDisconnect(playerid, reason)
     ProxDetector(20.0, playerid, string,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5);
     if(AdminDuty[playerid] == true)
     {
+        cmd_aduty(playerid);
         Delete3DTextLabel(AdminON[playerid]);
         AdminDuty[playerid] = false;
     }
