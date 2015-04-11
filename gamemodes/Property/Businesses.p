@@ -1423,7 +1423,8 @@ stock GetPlayerBusinessIndex(playerid)
         if(IsPlayerInBusiness(playerid, i))
             return i;
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, bInfo[ i ][ bEnter ][ 0 ], bInfo[ i ][ bEnter ][ 1 ], bInfo[ i ][ bEnter ][ 2 ]) && !GetPlayerVirtualWorld(playerid))
+        if(IsPlayerInRangeOfPoint(playerid, 5.0, bInfo[ i ][ bEnter ][ 0 ], bInfo[ i ][ bEnter ][ 1 ], bInfo[ i ][ bEnter ][ 2 ]) 
+            && GetPlayerVirtualWorld(playerid) == GetBusinessEntranceVirtualWorld(i))
             return i;
     }
     return -1;
@@ -2531,7 +2532,7 @@ stock BusinessManagementDialog.Information(playerid, index)
 
         for(new i = 0; i < MAX_BUSINESS_WARES; i++)
             if(strcmp(BusinessWares[ index ][ i ][ Name ], BUSINESS_WARES_EMPTY_SLOT))
-                format(string, sizeof(string), "%s%s %d",string, BusinessWares[ index ][ i ][ Name ], BusinessWares[ index ][ i ][ Price ]);
+                format(string, sizeof(string), "%s%s %d\n",string, BusinessWares[ index ][ i ][ Name ], BusinessWares[ index ][ i ][ Price ]);
     }
     
 
