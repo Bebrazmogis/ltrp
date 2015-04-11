@@ -774,7 +774,7 @@ stock SetGarageInteriorId(garageindex, interiorid)
 
 stock SetGarageVehicleEntrance(garageindex, Float:x, Float:y, Float:z, Float:angle)
 {
-    new query[180];
+    new query[220]
 
     gInfo[ garageindex ][ gVehicleEnter ][ 0 ] = x;
     gInfo[ garageindex ][ gVehicleEnter ][ 1 ] = y;
@@ -788,7 +788,7 @@ stock SetGarageVehicleEntrance(garageindex, Float:x, Float:y, Float:z, Float:ang
 
 stock SetGarageVehicleExit(garageindex, Float:x, Float:y, Float:z, Float:angle)
 {
-    new query[180];
+    new query[220];
 
     gInfo[ garageindex ][ gVehicleExit ][ 0 ] = x;
     gInfo[ garageindex ][ gVehicleExit ][ 1 ] = y;
