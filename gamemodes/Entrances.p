@@ -821,7 +821,8 @@ CMD:enter(playerid)
 		entrindex = GetPlayerEntrance(playerid);
 
 	if(entrindex == -1)
-		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate prie áëjimo.");
+		return 0;
+		//SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate prie áëjimo.");
 
 	else if(vehicleid && !IsVehicleEntrance(entrindex))
 		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, su transporto priemone ávaþiuoti èia negalite.");
@@ -867,7 +868,8 @@ CMD:exit(playerid)
 		entrindex = GetPlayerExit(playerid);
 
 	if(entrindex == -1)
-		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate prie iðëjimo.");
+		return 0;
+		//SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate prie iðëjimo.");
 	else if(PlayerInEntrance[ playerid ] != entrindex)
 		ErrorLog("Player %s is not in entrance to which he is near %d its sqlid:%d", GetName(playerid), entrindex, EntranceData[ entrindex ][ SqlId ]);
 	else 
