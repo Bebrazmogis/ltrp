@@ -22,7 +22,7 @@
 
 
 
-#define VERSION                         2.1.2
+#define VERSION                         2.1.3
 #define BUILD_DATE                      2015-04.09
 
 #include <a_samp>
@@ -10717,7 +10717,7 @@ CMD:setspawn (playerid, params[])
            	if(!IsPlayerBusinessOwner(playerid, index))
         		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis verslas jums nepriklauso.");
 
-            pInfo[ playerid ][ pBSpawn ] = index;
+            pInfo[ playerid ][ pBSpawn ] = GetBusinessID(index);
             pInfo[ playerid ][ pSpawn ] = SpawnBusiness;
             SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite ðalia savo biznio.");
         }
@@ -10729,7 +10729,7 @@ CMD:setspawn (playerid, params[])
         	if(!IsPlayerGarageOwner(playerid, index))
         		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis garaþas jums nepriklauso.");
 
-        	pInfo[ playerid ][ pBSpawn ] = index;
+        	pInfo[ playerid ][ pBSpawn ] = GetGarageID(index);
         	pInfo[ playerid ][ pSpawn ] = SpawnGarage;
         	SendClientMessage(playerid, COLOR_NEWS, "Vieta sëkmingai pakeista. Kità kartà prisijungæ á serverá atsirasite prie garaþo.");
         }
@@ -23252,10 +23252,10 @@ stock SpawnPlayerEx( playerid )
                 case SpawnFaction: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 0 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 1 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
                 case SpawnBusiness:
                 {
-                    new housekey = pInfo[ playerid ][ pBSpawn ];
-                    SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], bInfo[ housekey ][ bEnter ][ 0 ],bInfo[ housekey ][ bEnter ][ 1 ],bInfo[ housekey ][ bEnter ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
-                    SetPlayerVirtualWorld( playerid, bInfo[ housekey ][ bEntranceVirw ] );
-                    SetPlayerInterior    ( playerid, bInfo[ housekey ][ bEntranceInt ] );
+                    new index = GetBusinessIndex(pInfo[ playerid ][ pBSpawn ]);
+                    SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], bInfo[ index ][ bEnter ][ 0 ],bInfo[ index ][ bEnter ][ 1 ],bInfo[ index ][ bEnter ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
+                    SetPlayerVirtualWorld(playerid, bInfo[ index ][ bEntranceVirw ]);
+                    SetPlayerInterior(playerid, bInfo[ index ][ bEntranceInt ]);
                 }
                 case SpawnLosSantos: 
                 {
@@ -23266,10 +23266,11 @@ stock SpawnPlayerEx( playerid )
                 }
                 case SpawnGarage:
                 {
-                	GetGarageEntrancePos(pInfo[ playerid ][ pBSpawn ], x, y, z);
+                    new index = GetGarageIndex(pInfo[ playerid ][ pBSpawn ]);
+                	GetGarageEntrancePos(index, x, y, z);
                     SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
-                    SetPlayerVirtualWorld(playerid, GetGarageEntranceVirtualWorld(pInfo[ playerid ][ pBSpawn ]));
-                    SetPlayerInterior(playerid, GetGarageEntranceInteriorID(pInfo[ playerid ][ pBSpawn ]));	
+                    SetPlayerVirtualWorld(playerid, GetGarageEntranceVirtualWorld(index));
+                    SetPlayerInterior(playerid, GetGarageEntranceInteriorID(index));	
                 }
                 default:
                 {
@@ -23707,6 +23708,8 @@ public OnDynamicObjectMoved(objectid)
             return 1;
         }
     }
+    else 
+        ErrorLog("OnDynamicObjectMoved(%d) invalid ship status:%d", objectid, ShipInfo[ Status ]);
     return 0;
 }
 

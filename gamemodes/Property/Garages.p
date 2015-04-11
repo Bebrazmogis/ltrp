@@ -501,6 +501,21 @@ stock GetGarageInteriorID(garageindex)
     return gInfo[ garageindex ][ gInteriorId ];
 }
 
+stock GetGarageID(garageindex)
+{
+    return gInfo[ garageindex ][ gID ];
+}
+
+stock GetGarageIndex(garageid)
+{
+    foreach(new i : Garages) 
+    {
+        if(gInfo[ i ][ gID ] == garageid)
+            return i;    
+    }
+    return -1;
+}
+
 stock GetGarageFurnitureIndex(garageindex, objectid)
 {
     for(new i = 0; i < MAX_GARAGE_FURNITURE; i++)
