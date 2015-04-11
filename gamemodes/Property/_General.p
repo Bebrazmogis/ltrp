@@ -1095,7 +1095,7 @@ CMD:enter(playerid)
         
         // Jei produktu nera ir ne savininkas, neieis :(
         if(_:GetBusinessType(index) != 0 && GetBusinessProductCount(index) <= 0 && !IsPlayerBusinessOwner(playerid, index) && GetBusinessEntrancePrice(index))
-            return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
+            return GameTextForPlayer(playerid, "~r~UZRAKINTA del prekiu stokos", 2000, 1);
         
         GetBusinessExitPos(index, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
         SetPlayerPos(playerid, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
@@ -1104,6 +1104,7 @@ CMD:enter(playerid)
 
         SetPlayerInterior(playerid, GetInteriorInteriorId(GetBusinessInteriorID(index)));
         SetPlayerVirtualWorld(playerid, GetBusinessVirtualWorld(index));
+        
         if(!IsPlayerBusinessOwner(playerid, index))
         {
             OnPlayerEnterBiz(playerid, index);
