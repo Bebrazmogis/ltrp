@@ -10840,7 +10840,7 @@ CMD:v( playerid, params[ ] )
         SetPVarInt(playerid, "Scrap.Price", floatround(Kaina3));
         SetPVarInt(playerid, "Scrap.VehicleID", idcar);
         format(string, sizeof(string),"Ar tikrai norite negráþtamai sunaikinti ðià transporto priemonæ?\nUþ tai gausite ${FFFFFF}%d",
-            Kaina3);
+            floatround(Kaina3));
         ShowPlayerDialog(playerid, DIALOG_VEHICLE_SCRAP_CONFIRM, DIALOG_STYLE_MSGBOX, "{AA0000}Dëmesio.", string, "Sunaikinti", "Iðeiti");
         return 1;
     }
