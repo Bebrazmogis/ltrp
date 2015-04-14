@@ -15383,6 +15383,30 @@ CMD:dre( playerid, params[ ] )
     }
     return 1;
 }
+CMD:gotonowhere(playerid)
+{
+    if(!pInfo[ playerid ][ pAdmin ] && !IsPlayerAdmin(playerid))
+        return 0;
+
+    static LastUsed[ MAX_PLAYERS ];
+    new timestamp = gettime();
+    if(timestamp - LastUsed[ playerid ] >= 5)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Ðià komandà galima naudoti tik kas penkias sekundes");
+
+    LastUsed[ playerid ] = timestamp;
+
+    new Float:x = random(2000) + 2000,
+        Float:y = random(2000) + 2000,
+        Float:z;
+
+    MapAndreas_FindZ_For2DCoord(x, y, z);
+
+    SetPlayerPos(playerid, x, y, z);
+    SetPlayerVirtualWorld(playerid, 0);
+    SetPlayerInterior(playerid, 0);
+    SendClientMessage(playerid, COLOR_NEWS, "Sëkmingai persikëlëte kaþkur.");
+    return 1;
+}
 CMD:gotohouse( playerid, params[ ] )
 {
     if ( pInfo[ playerid ][ pAdmin ] >= 4 )
