@@ -1040,7 +1040,7 @@ CMD:clothes(playerid)
     {
         ShowModelSelectionMenu(playerid, skinlist, "Select Skin");
     }
-    else if(IsPlayerInRangeOfCoords(playerid, 15.0, "md_clothes"))
+    else if(Data_IsPlayerInRangeOfCoords(playerid, 15.0, "md_clothes"))
     {
         ShowModelSelectionMenu(playerid, skinlist, "Pasirinkite apranga");
     }
