@@ -1216,6 +1216,7 @@ stock DeleteHouseFurniture(hindex, furniture_index)
     DestroyDynamicObject(HouseFurniture[ hindex ][ furniture_index ][ ObjectId]);
     HouseFurniture[ hindex ][ furniture_index ][ SqlId ] = 0;
     HouseFurniture[ hindex ][ furniture_index ][ FurnitureId ] = 0;
+    HouseFurniture[ hindex ][ furniture_index ][ ObjectId ] = 0;
     return 1;
 }
 
