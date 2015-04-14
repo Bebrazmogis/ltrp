@@ -10697,7 +10697,7 @@ CMD:setspawn (playerid, params[])
             if(index == -1)
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, turite stovëti prie namo kurá norite pasirinkti kaip atsiradimo vietà.");
 
-            if(!IsPlayerHouseOwned(playerid, index) && !IsPlayerHouseTenant(playerid, index))
+            if(!IsPlayerHouseOwner(playerid, index) && !IsPlayerHouseTenant(playerid, index))
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, turite bûti namo savininkas arba já nuomotis kad galëtumëte já pasirinkti kaip atsiradimo vietà.");
 
             pInfo[ playerid ][ pBSpawn ] = GetHouseID(index);
