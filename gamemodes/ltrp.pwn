@@ -15982,7 +15982,7 @@ CMD:spec(playerid, params[])
 
     //SpecCommandLabel[ playerid ] = CreateDynamic3DTextLabel(" ", 0x00000044, 0.0, 0.0, 0.0, 10.0, .attachedplayer = giveplayerid);
         
-    if(!IsPlayerInAnyVehicle(playerid))
+    if(!IsPlayerInAnyVehicle(playerid) && !GetPVarInt(playerid, "SpectateWeaponCount"))
     {
         new string[128], count, weaponid, ammo;
         for(new i = 0; i < 13; i++)
