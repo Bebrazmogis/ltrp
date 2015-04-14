@@ -23,7 +23,7 @@
 
 
 #define VERSION                         2.1.3
-#define BUILD_DATE                      2015-04.09
+#define BUILD_DATE                      2015-04.12
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -10693,13 +10693,16 @@ CMD:setspawn (playerid, params[])
         }
         else if(!strcmp(params, "Namas", true))
         {
-            if( pInfo[ playerid ][ pHouseKey ] > 0 )
-            {
-                pInfo[ playerid ][ pSpawn ] = SpawnHouse;
-                SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite nomuojamam/nuosavame name.");
-            }
-            else
-                SendClientMessage( playerid, COLOR_LIGHTRED,"Klaida, Jûs nesinomuojate jokio gyvenamojo namo ar Jums nepriklauso joks namas");
+            new index = GetPlayerHouseIndex(playerid, true);
+            if(index == -1)
+                return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, turite stovëti prie namo kurá norite pasirinkti kaip atsiradimo vietà.");
+
+            if(!IsPlayerHouseOwned(playerid, index) && !IsPlayerHouseTenant(playerid, index))
+                return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, turite bûti namo savininkas arba já nuomotis kad galëtumëte já pasirinkti kaip atsiradimo vietà.");
+
+            pInfo[ playerid ][ pBSpawn ] = GetHouseID(index);
+            pInfo[ playerid ][ pSpawn ] = SpawnHouse;
+            SendClientMessage(playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite ðalia savo namo.");
         }
         else if(!strcmp(params, "Frakcija", true))
         {
@@ -10722,7 +10725,7 @@ CMD:setspawn (playerid, params[])
 
             pInfo[ playerid ][ pBSpawn ] = GetBusinessID(index);
             pInfo[ playerid ][ pSpawn ] = SpawnBusiness;
-            SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite ðalia savo biznio.");
+            SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite ðalia savo verslo.");
         }
         else if(!strcmp(params, "Garazas", true) || !strcmp(params, "Garaþas", true))
         {
@@ -22828,8 +22831,6 @@ public OnPlayerLoginEx(playerid, sqlid)
         printf("OnPlayerLoginEx(%s, %d)", GetName(playerid), sqlid);
     #endif
     new string[1024],
-        inv[ 126 ],
-        weap[ 126 ],
         Cache:result;
     format(string, sizeof(string), "SELECT * FROM players WHERE id = %d", sqlid);
     result = mysql_query(DbHandle, string);
@@ -22878,8 +22879,6 @@ public OnPlayerLoginEx(playerid, sqlid)
         pInfo[ playerid ][ pVirWorld ] = cache_get_field_content_int(0, "VirWorld");
         pInfo[ playerid ][ pRChannel ] = cache_get_field_content_int(0, "RChanel");
         pInfo[ playerid ][ pUcpID    ] = cache_get_field_content_int(0, "ucpuser");
-        cache_get_field_content(0, "Inventory", inv); // s[80]
-        cache_get_field_content(0, "Weapons", weap); // s[56]
         pInfo[ playerid ][ pDubKey ] = cache_get_field_content_int(0, "pDubKey");
         pInfo[ playerid ][ pJobSkill ] = cache_get_field_content_int(0, "JobSkill");
         pInfo[ playerid ][ pJobLevel ] = cache_get_field_content_int(0, "JobLevel");
@@ -23244,12 +23243,12 @@ stock SpawnPlayerEx( playerid )
                     new housekey;
                     foreach(Houses,h)
                     {
-                        if ( pInfo[ playerid ][ pHouseKey ] == hInfo[ h ][ hID ] )
+                        if (pInfo[ playerid ][ pBSpawn ] == hInfo[ h ][ hID ] )
                         {
                             housekey = h;
                         }
                     }
-                    SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], hInfo[ housekey ][ hEnter ][ 0 ],hInfo[ housekey ][ hEnter ][ 1 ],hInfo[ housekey ][ hEnter ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
+                    SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], hInfo[ housekey ][ hEnter ][ 0 ],hInfo[ housekey ][ hEnter ][ 1 ],hInfo[ housekey ][ hEnter ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
                     SetPlayerVirtualWorld( playerid, hInfo[ housekey ][ hEntranceVirw ] );
                     SetPlayerInterior    ( playerid, hInfo[ housekey ][ hEntranceInt ] );
                 }

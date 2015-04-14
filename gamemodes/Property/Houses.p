@@ -816,6 +816,9 @@ stock IsPlayerRentingAnyHouse(playerid)
     return false;
 }
 
+stock IsPlayerHouseTenant(playerid, index)
+    return IsPlayerRentingHouse(playerid, index);
+
 stock IsPlayerRentingHouse(playerid, index)
 {
     if(GetPlayerHouseKey(playerid) == hInfo[ index ][ hID ])
