@@ -1040,6 +1040,10 @@ CMD:clothes(playerid)
     {
         ShowModelSelectionMenu(playerid, skinlist, "Select Skin");
     }
+    else if(IsPlayerInRangeOfCoords(playerid, 15.0, "md_clothes"))
+    {
+        ShowModelSelectionMenu(playerid, skinlist, "Pasirinkite apranga");
+    }
     else 
         SendClientMessage(playerid, COLOR_LIGHTRED, "Drabuþius galite keisti tik namuose arba drabuþiø parduotuvëje.");
     return 1;
