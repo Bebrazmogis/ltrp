@@ -1509,7 +1509,7 @@ CMD:evict(playerid, params[])
     new house_index = GetPlayerHouseIndex(playerid, true),
         targetid;
 
-    if(house_index)
+    if(house_index == -1)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs turite bûti prie namo áëjimo arba jo viduje.");
 
     if(!IsPlayerHouseOwner(playerid, house_index))
