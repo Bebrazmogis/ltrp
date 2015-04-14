@@ -1402,12 +1402,13 @@ CMD:housedeposit(playerid, params[])
     if(PlayerMoney[ playerid ] < money) 
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite dëti sumos, kurios neturite.");
 
-    format(string, sizeof(string),"Padëjote %d á namo seifà, dabar jame yra $%d", money, hInfo[ house_index ][ hBank ]);
-    SendClientMessage(playerid, COLOR_NEWS, string);
-
     GivePlayerMoney( playerid, -money );
     hInfo[ house_index ][ hBank ] += money;
     PayLog(GetPlayerSqlId(playerid), 19, hInfo[ house_index ][ hOwner ], money );
+
+    format(string, sizeof(string),"Padëjote %d á namo seifà, dabar jame yra $%d", money, hInfo[ house_index ][ hBank ]);
+    SendClientMessage(playerid, COLOR_NEWS, string);
+
     SaveHouse(house_index);
     SaveAccount(playerid);
     return 1;
