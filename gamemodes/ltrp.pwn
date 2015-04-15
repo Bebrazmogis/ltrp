@@ -22,8 +22,10 @@
 
 
 
-#define VERSION                         2.1.4
-#define BUILD_DATE                      2015-04.14
+#define VERSION                         2.1.5
+#define BUILD_DATE                      2015-04.15
+
+#define MYSQL_USE_YINLINE
 
 #include <a_samp>
 native IsValidVehicle(vehicleid);
@@ -82,6 +84,7 @@ forward OnPlayerLoginEx(playerid, sqlid);
 
 #include "ErrorLog"
 #include "Config/mysql"
+
 
 #include "Tabula/Zonos.pwn"
 #include "Tabula/liftas.pwn"
@@ -832,6 +835,8 @@ new Fire[MAX_FIRE][fires];
 
 
 #include "Coordinates"
+
+#include "BugReporting"
 
 #include "Items"
 
@@ -15206,7 +15211,8 @@ CMD:amenu(playerid)
                                                                  - Industrijos\n\
                                                                  - Interjerai\n\
                                                                  - Ávairios koordinatës\n\
-                                                                 - Grafiti","Rinktis","Atðaukti");
+                                                                 - Grafiti\n\
+                                                                 - Serverio klaidos","Rinktis","Atðaukti");
     }
     return 1;
 }
@@ -15390,7 +15396,7 @@ CMD:gotonowhere(playerid)
 
     static LastUsed[ MAX_PLAYERS ];
     new timestamp = gettime();
-    if(timestamp - LastUsed[ playerid ] >= 5)
+    if(timestamp - LastUsed[ playerid ] < 5)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Ðià komandà galima naudoti tik kas penkias sekundes");
 
     LastUsed[ playerid ] = timestamp;
@@ -18534,6 +18540,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     return CoordinateManagementDialog.ShowMain(playerid);
                 case 11:
                     return GraffitiManagementDialog.ShowMain(playerid);
+                case 12:
+                    return BugReportManagementDialog.ShowMain(playerid);
             }
         }
     }
