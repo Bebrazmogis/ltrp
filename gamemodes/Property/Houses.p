@@ -1214,9 +1214,17 @@ stock DeleteHouseFurniture(hindex, furniture_index)
     mysql_pquery(DbHandle, string);
 
     DestroyDynamicObject(HouseFurniture[ hindex ][ furniture_index ][ ObjectId]);
-    HouseFurniture[ hindex ][ furniture_index ][ SqlId ] = 0;
-    HouseFurniture[ hindex ][ furniture_index ][ FurnitureId ] = 0;
-    HouseFurniture[ hindex ][ furniture_index ][ ObjectId ] = 0;
+
+
+    new i;
+    for(i = furniture_index; i < MAX_HOUSE_FURNITURE-1; i++)
+    {
+        HouseFurniture[ hindex ][ i ] = HouseFurniture[ hindex ][ i + 1];
+        HouseFurnitureName[ hindex ][ i ] = HouseFurnitureName[ hindex ][ i + 1 ];
+    }
+    HouseFurniture[ hindex ][ i ][ SqlId ] = 0;
+    HouseFurniture[ hindex ][ i ][ FurnitureId ] = 0;
+    HouseFurniture[ hindex ][ i ][ ObjectId ] = 0;
     return 1;
 }
 

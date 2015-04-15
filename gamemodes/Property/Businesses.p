@@ -1769,9 +1769,15 @@ stock DeleteBusinessFurniture(bizindex, furniture_index)
     mysql_pquery(DbHandle, string);
 
     DestroyDynamicObject(BusinessFurniture[ bizindex ][ furniture_index ][ ObjectId ]);
-    BusinessFurniture[ bizindex ][ furniture_index ][ SqlId ] = 0;
-    BusinessFurniture[ bizindex ][ furniture_index ][ FurnitureId ] = 0;
-    BusinessFurniture[ bizindex ][ furniture_index ][ ObjectId ] = 0;
+
+    new i;
+    for(i = furniture_index; i < MAX_BUSINESS_FURNITURE-1; i++)
+    {
+        BusinessFurniture[ bizindex ][ i ] = BusinessFurniture[ bizindex ][ i + 1];
+    }
+    BusinessFurniture[ bizindex ][ i ][ SqlId ] = 0;
+    BusinessFurniture[ bizindex ][ i ][ FurnitureId ] = 0;
+    BusinessFurniture[ bizindex ][ i ][ ObjectId ] = 0;
     return 1;
 }
 

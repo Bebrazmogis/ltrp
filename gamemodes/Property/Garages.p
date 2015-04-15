@@ -968,8 +968,16 @@ stock DeleteGarageFurniture(garageindex, furnitureindex)
 
     mysql_format(DbHandle, query, sizeof(query), "DELETE FROM garage_furniture WHERE id = %d", GarageFurniture[ garageindex ][ furnitureindex ][ SqlId ]);
 
+    // Move stuff to fill the space;
+    new i;
+    for(i = furnitureindex; i < MAX_GARAGE_FURNITURE-1; i++)
+    {
+        GarageFurniture[ garageindex ][ i ] = GarageFurniture[ garageindex ][ i + 1];
+    }
+
+    // Clean the last one.
     static furn[ E_PROPERTY_FURNITURE_DATA ];
-    GarageFurniture[ garageindex ][ furnitureindex ] = furn;
+    GarageFurniture[ garageindex ][ i ] = furn;
 
     return mysql_pquery(DbHandle, query);
 }
