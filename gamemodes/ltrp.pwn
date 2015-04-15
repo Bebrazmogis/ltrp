@@ -21130,7 +21130,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(index == -1)
                         ErrorLog("Invalid commodity business ID. Id of that business:%d", Commodities[ i ][ IndustryId ]);
                     else 
+                    {
                         format(str, sizeof(str), "%s%d. %s\n", str, GetBusinessID(index), GetBusinessName(index));
+                        count++;
+                    }
                 }
 
 				if(!count)
