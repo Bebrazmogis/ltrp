@@ -1521,6 +1521,9 @@ stock DeleteBusiness(index)
         bInfo[ index ][ bID ]);
     mysql_pquery(DbHandle, query);
 
+    mysql_format(DbHandle, query, sizeof(query), "DELETE FROM commodities WHERE industry_id = %d AND type = 'business'", bInfo[ index ][ bID ]);
+    mysql_pquery(DbHandle, query);
+
     DestroyDynamicPickup(bInfo[ index ][ bPickup ]);
     DestroyDynamic3DTextLabel(bInfo[ index ][ bLabel ]);
 
