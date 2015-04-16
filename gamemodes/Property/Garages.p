@@ -716,8 +716,8 @@ stock SaveGarage(garageindex)
 
 
     mysql_format(DbHandle, query, sizeof(query), "UPDATE garages SET  price = %d, owner = %s, interior_id = %s, locked = %d, entrance_x = %f, entrance_y = %f, entrance_z = %f, \
-        vehicle_entrance_x = %f, vehicle_entrance_y = %f, vehicle_entrance_z = %f, vehicle_entrance_angle = %f, exit_x = %f, exit_y = %f, exit_z = %f, vehicle_exit_x = %f \
-        vehicle_exit_y = %f, vehicle_exit_z = %f, vehicle_exit_angle = %d WHERE `id` = %d;",
+        vehicle_entrance_x = %f, vehicle_entrance_y = %f, vehicle_entrance_z = %f, vehicle_entrance_angle = %f, exit_x = %f, exit_y = %f, exit_z = %f, vehicle_exit_x = %f, \
+        vehicle_exit_y = %f, vehicle_exit_z = %f, vehicle_exit_angle = %f WHERE `id` = %d",
         gInfo[ garageindex ][ gPrice ],
         owner,
         interior,
