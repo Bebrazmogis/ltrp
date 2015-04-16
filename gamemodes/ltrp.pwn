@@ -23278,7 +23278,7 @@ stock SpawnPlayerEx( playerid )
                     new housekey;
                     foreach(Houses,h)
                     {
-                        if (pInfo[ playerid ][ pBSpawn ] == hInfo[ h ][ hID ] )
+                        if (pInfo[ playerid ][ pBSpawn ] == hInfo[ h ][ hID ])
                         {
                             housekey = h;
                         }
@@ -26573,11 +26573,11 @@ stock ShowStats( giveplayerid, playerid )
         
         switch ( pInfo[ playerid ][ pSpawn ] )
         {
-            case 0: spawnplace = "Idlewood Pizza Stack";
-            case 1: spawnplace = "Nomuojamas/nuosavas namas";
-            case 2: spawnplace = "Frakcijos vieta.";
-            case 3: spawnplace = "Verslas";
-            case 4: spawnplace = "Los Santos Unity Station";
+            case DefaultSpawn: spawnplace = "Idlewood Pizza Stack";
+            case SpawnHouse: spawnplace = "Nomuojamas/nuosavas namas";
+            case SpawnFaction: spawnplace = "Frakcijos vieta.";
+            case SpawnBusiness: spawnplace = "Verslas";
+            case SpawnLosSantos: spawnplace = "Los Santos Unity Station";
             default: spawnplace = "Idlewood Pizza Stack";
         }        
         if(pInfo[ playerid ][ pJob ] == JOB_TRUCKER) // Nes furistai ant tiek geresni uþ kitus.
