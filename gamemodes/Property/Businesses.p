@@ -1516,7 +1516,7 @@ stock RemoveBusinessOwner(bizindex)
 
 stock DeleteBusiness(index)
 {
-    new query[60];
+    new query[100];
     mysql_format(DbHandle ,query, sizeof(query), "DELETE FROM business WHERE id = %d LIMIT 1",
         bInfo[ index ][ bID ]);
     mysql_pquery(DbHandle, query);
