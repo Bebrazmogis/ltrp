@@ -65,7 +65,7 @@ stock wep_GivePlayerWeapon(playerid, weaponid, ammo, bool:update_db = true, bool
 		found = true;
 		break;
 	}
-	if(freeindex == -1)
+	if(!found && freeindex == -1)
 	{
 		ErrorLog("No slot found for player %s weapon %d", GetName(playerid), weaponid);
 	}
