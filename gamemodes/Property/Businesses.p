@@ -86,8 +86,7 @@ enum E_BUSINESS_WARES_DATA
 enum E_BUSINESS_FURNITURE_DATA {
     SqlId,
     FurnitureId,
-    ObjectId,
-    Name[ MAX_FURNITURE_NAME]
+    ObjectId
 };
 
 
@@ -113,7 +112,8 @@ enum E_BUSINESS_DATA
 };
 new bInfo[ MAX_BIZNES ][ E_BUSINESS_DATA ],
     BusinessWares[ MAX_BIZNES ][ MAX_BUSINESS_WARES ][ E_BUSINESS_WARES_DATA ],
-    BusinessFurniture[ MAX_BIZNES ][ MAX_BUSINESS_FURNITURE ][ E_BUSINESS_FURNITURE_DATA ];
+    BusinessFurniture[ MAX_BIZNES ][ MAX_BUSINESS_FURNITURE ][ E_BUSINESS_FURNITURE_DATA ],
+    BusinessFurnitureName[ MAX_BIZNES ][ MAX_BUSINESS_FURNITURE ][ MAX_FURNITURE_NAME ];
 
 new Iterator:Business<MAX_BIZNES>;
 
@@ -537,9 +537,9 @@ public OnBusinessFurnitureLoad()
             BusinessFurniture[ bizindex ][ bizFurnitureCount ][ SqlId ] = id;
             BusinessFurniture[ bizindex ][ bizFurnitureCount ][ FurnitureId ] = fid;
             if(ismysqlnull(name))
-                cache_get_field_content(i, "default_name", BusinessFurniture[ bizindex ][ bizFurnitureCount ][ Name ], DbHandle, MAX_FURNITURE_NAME);
+                cache_get_field_content(i, "default_name", BusinessFurnitureName[ bizindex ][ bizFurnitureCount ], DbHandle, MAX_FURNITURE_NAME);
             else 
-                strcat(BusinessFurniture[ bizindex ][ bizFurnitureCount ][ Name ], name, MAX_FURNITURE_NAME);
+                strcat(BusinessFurnitureName[ bizindex ][ bizFurnitureCount ], name, MAX_FURNITURE_NAME);
 
             furnitureIndex = GetFurnitureIndex(fid);
             // Neturëtø bût niekada -1, nebent kokie pakeitimai furniture table vyko.
@@ -1444,7 +1444,8 @@ stock AddBusiness(Float:enx, Float:eny, Float:enz, entrance_interior, entrance_v
     new query[256],
         index = -1;
     
-    static EmptyBusiness[ E_BUSINESS_DATA ], FurnitureData[ MAX_BUSINESS_FURNITURE ][ E_BUSINESS_FURNITURE_DATA ];
+    static EmptyBusiness[ E_BUSINESS_DATA ], FurnitureData[ MAX_BUSINESS_FURNITURE ][ E_BUSINESS_FURNITURE_DATA ],
+        EmptyFurnitureName[ MAX_BUSINESS_FURNITURE ][ MAX_FURNITURE_NAME ];
 
     for(new i = 0; i < MAX_BIZNES; i++) 
     {
@@ -1454,6 +1455,8 @@ stock AddBusiness(Float:enx, Float:eny, Float:enz, entrance_interior, entrance_v
             // Nustatom á tuðèius masyvus, just in case.
             bInfo[ i ] = EmptyBusiness;
             BusinessFurniture[ i ] = FurnitureData;
+            BusinessFurnitureName[ i ] = EmptyFurnitureName;
+
             break;
         }
     }
@@ -1634,12 +1637,10 @@ stock GetBusinessFurnitureId(bizindex, furnitureindex)
 
 stock GetBusinessFurnitureName(bizindex, furnitureIndex)
 {
-    new s[MAX_FURNITURE_NAME ];
-    if(!isnull(BusinessFurniture[ bizindex ][ furnitureIndex ][ Name ]))
-        strcat(s, BusinessFurniture[ bizindex ][ furnitureIndex ][ Name ]);
+    if(!isnull(BusinessFurnitureName[ bizindex ][ furnitureIndex ]))
+        return BusinessFurnitureName[ bizindex ][ furnitureIndex ];
     else 
-        strcat(s, GetFurnitureName(GetFurnitureIndex(BusinessFurniture[ bizindex ][ furnitureIndex ][ FurnitureId ])));
-    return s;
+        return GetFurnitureName(GetFurnitureIndex(BusinessFurniture[ bizindex ][ furnitureIndex ][ FurnitureId ]));
 }
 
 stock GetBusinessID(index)
@@ -1749,7 +1750,7 @@ stock SetBusinessPickupModel(bizindex, modelid)
 stock SetBusinessFurnitureName(bizindex, furnitureindex, name[])
 {
     new query[100];
-    format(BusinessFurniture[ bizindex ][ furnitureindex ][ Name ], MAX_FURNITURE_NAME, name);
+    format(BusinessFurnitureName[ bizindex ][ furnitureindex ], MAX_FURNITURE_NAME, name);
     mysql_format(DbHandle, query, sizeof(query), "UPDATE business_furniture SET name = '%e' WHERE id = %d", 
         name, BusinessFurniture[ bizindex ][ furnitureindex ][ SqlId ]);
     return mysql_pquery(DbHandle, query);
@@ -1781,6 +1782,7 @@ stock DeleteBusinessFurniture(bizindex, furniture_index)
     BusinessFurniture[ bizindex ][ i ][ SqlId ] = 0;
     BusinessFurniture[ bizindex ][ i ][ FurnitureId ] = 0;
     BusinessFurniture[ bizindex ][ i ][ ObjectId ] = 0;
+    strdel(BusinessFurnitureName[ bizindex ][ i ]);
     return 1;
 }
 
