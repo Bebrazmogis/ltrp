@@ -652,6 +652,13 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	return 0;
 }
 
+hook OnPlayerDisconnect(playerid, reason)
+{
+	static null[ E_FURNITURE_TEXTURE_PREVIEW ];
+	PlayerTexturePreview[ playerid ] = null;
+	return 1;	
+}
+
 
 CMD:ftexture(playerid, params[])
 {
