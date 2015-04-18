@@ -470,7 +470,11 @@ stock OnPlayerItemRemoved(playerid, itemid)
         case ITEM_RADIO:
         {
             pInfo[ playerid ][ pRChannel ] = 0;
-            UpdatePlayerInfoText( playerid );
+            if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+            	UpdatePlayerInfoText(playerid, PLAYER_STATE_DRIVER);
+            else 
+            	UpdatePlayerInfoText(playerid);
+
         }
         case ITEM_MASK,ITEM_MaskZorro1, ITEM_HockeyMask1:
         {
