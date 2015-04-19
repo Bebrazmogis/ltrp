@@ -245,7 +245,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					// Keisti bûsenà
 					case 2:
 					{
-						BugReportManagementDialog.ShowNewStatus(playerid);
+						BugReportManagementDialog.ShowNewStatus(playerid, AdminBugSqlId[ playerid ]);
 					}
 					// Raðyti komentarà
 					case 3:
@@ -275,7 +275,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if(isnull(inputtext) || strlen(inputtext) >= MAX_BUG_STATUS)
 				{
 					SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida. Klaidos statusà gali sudaryti nuo 1 iki " #MAX_BUG_STATUS " simboliø");
-					BugReportManagementDialog.ShowNewStatus(playerid);
+					BugReportManagementDialog.ShowNewStatus(playerid, AdminBugSqlId[ playerid ]);
 				}
 				else 
 				{
@@ -530,9 +530,21 @@ stock BugReportManagementDialog.ShowComments(playerid, bugsqlid)
 	return mysql_pquery_inline(DbHandle, query, using inline AdminBugComments, "");
 }
 
-stock BugReportManagementDialog.ShowNewStatus(playerid)
+stock BugReportManagementDialog.ShowNewStatus(playerid, bugsqlid)
 {
-	ShowPlayerDialog(playerid, DIALOG_BUGREP_MENU_NEW_STATUS, DIALOG_STYLE_INPUT, "Klaidos bûsena", "Áraðykite naujà klaidos bûsenà.\nPavyzdþiui \"Patvirtinta\", \"Atmesta\" ar panaðiai", "Iðsaugoti", "Atgal");
+	new query[ 60 ];
+	mysql_format(DbHandle, query, sizeof(query), "SELECT status FROM bug_reports WHERE id = %d", bugsqlid);
+
+	inline AdminBugNewStatus()
+	{
+		new string[ 170 ];
+		cache_get_field_content(0, "status", string);
+		format(string, sizeof(string), "Áraðykite naujà klaidos bûsenà.\nPavyzdþiui \"Patvirtinta\", \"Atmesta\" ar panaðiai", "Iðsaugoti\n\nDabartinë bûsena: %s", string);
+		ShowPlayerDialog(playerid, DIALOG_BUGREP_MENU_NEW_STATUS, DIALOG_STYLE_INPUT, "Klaidos bûsena", string, "Atgal");
+		
+		return 1;
+	}
+	mysql_pquery_inline(DbHandle, query, using inline AdminBugNewStatus, "");
 	return 1;
 }
 
