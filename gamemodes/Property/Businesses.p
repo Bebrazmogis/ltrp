@@ -1418,16 +1418,25 @@ stock IsPlayerInRangeOfBusinessExit(playerid, bizindex, Float:distance)
 
 stock GetPlayerBusinessIndex(playerid)
 {
+    new winner = -1, Float:winningdistance = -1.0, Float:tmpdistance;
     foreach(new i : Business)
     {
         if(IsPlayerInBusiness(playerid, i))
             return i;
 
-        if(IsPlayerInRangeOfPoint(playerid, 5.0, bInfo[ i ][ bEnter ][ 0 ], bInfo[ i ][ bEnter ][ 1 ], bInfo[ i ][ bEnter ][ 2 ]) 
+        tmpdistance = GetPlayerDistanceFromPoint(playerid, bInfo[ i ][ bEnter ][ 0 ], bInfo[ i ][ bEnter ][ 1 ], bInfo[ i ][ bEnter ][ 2 ]);
+        if(tmpdistance <= 5.0 
+            && (tmpdistance <= winningdistance || winningdistance == -1.0)
             && GetPlayerVirtualWorld(playerid) == GetBusinessEntranceVirtualWorld(i))
-            return i;
+        {
+            winner = i;
+            winningdistance = tmpdistance;
+        }
+        //if(IsPlayerInRangeOfPoint(playerid, 5.0, bInfo[ i ][ bEnter ][ 0 ], bInfo[ i ][ bEnter ][ 1 ], bInfo[ i ][ bEnter ][ 2 ]) 
+        //    && GetPlayerVirtualWorld(playerid) == GetBusinessEntranceVirtualWorld(i))
+        //    return i;
     }
-    return -1;
+    return winner;
 }
 
 
