@@ -1417,7 +1417,7 @@ Item:OnPlayerUseWeapon(playerid, weaponid, invindex)
     {
        
         string = GetItemName(weaponid);
-        format(string, sizeof(string), "Sëkmingai iðsitraukëtæ %s, kuris turi %d kulkas (-as).", string, amount);
+        format(string, sizeof(string), "Sëkmingai iðsitraukëtæ %s, kuris turi %d kulkà(-as).", string, amount);
         SendClientMessage(playerid, GRAD, string);
 
         RemovePlayerItemAtIndex(playerid, invindex);
