@@ -1649,7 +1649,11 @@ stock GetBusinessFurnitureName(bizindex, furnitureIndex)
     if(!isnull(BusinessFurnitureName[ bizindex ][ furnitureIndex ]))
         return BusinessFurnitureName[ bizindex ][ furnitureIndex ];
     else 
-        return GetFurnitureName(GetFurnitureIndex(BusinessFurniture[ bizindex ][ furnitureIndex ][ FurnitureId ]));
+    {
+        new s[MAX_FURNITURE_NAME ];
+        format(s, sizeof(s),  GetFurnitureName(GetFurnitureIndex(BusinessFurniture[ bizindex ][ furnitureIndex ][ FurnitureId ])));
+        return s;
+    }
 }
 
 stock GetBusinessID(index)
