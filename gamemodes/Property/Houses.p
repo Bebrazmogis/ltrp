@@ -764,15 +764,25 @@ stock ToggleHouseLock(hindex)
 
 stock GetPlayerHouseIndex(playerid, outside=false)
 {
+    new winner = -1, Float:winningdistance = -1.0, Float:tmpdistance;
     foreach(new i : Houses)
     {
         if(IsPlayerInInterior(playerid, hInfo[ i ][ hInteriorId ])
             && GetPlayerVirtualWorld(playerid) == HOUSE_VIRTUAL_WORLD+hInfo[ i ][ hID ])
             return i;
-        if(outside && IsPlayerInRangeOfPoint(playerid, 3.0, hInfo[ i ][ hEnter ][ 0 ], hInfo[ i ][ hEnter ][ 1 ], hInfo[ i ][ hEnter ][ 2 ]))
-            return i;
+
+        tmpdistance = GetPlayerDistanceFromPoint(playerid, hInfo[ i ][ hEnter ][ 0 ], hInfo[ i ][ hEnter ][ 1 ], hInfo[ i ][ hEnter ][ 2 ]);
+        if(tmpdistance <= 3.0
+            && (tmpdistance < winningdistance || winningdistance < 0)
+            && GetPlayerVirtualWorld(playerid) == GetHouseEntranceVirtualWorld(i))
+        {
+            winningdistance = tmpdistance;
+            winner = i;
+        }
+        //if(outside && IsPlayerInRangeOfPoint(playerid, 3.0, hInfo[ i ][ hEnter ][ 0 ], hInfo[ i ][ hEnter ][ 1 ], hInfo[ i ][ hEnter ][ 2 ]))
+        //    return i;
     }
-    return -1;
+    return winner;
 }
 
 
