@@ -874,7 +874,7 @@ stock ShowPlayerOwnedFurnitureList(playerid)
     {
         index = GetPlayerBusinessIndex(playerid);
         furnitureCount = GetBusinessFurnitureCount(index);
-        for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
+        for(new i = furnitureStart; i < furnitureEnd; i++)
         {
             if(i == furnitureCount) 
                 break;
@@ -887,7 +887,7 @@ stock ShowPlayerOwnedFurnitureList(playerid)
     {
         index = GetPlayerGarageIndex(playerid);
         furnitureCount = GetGarageFurnitureCount(index);
-        for(new i = furnitureStart; i < furnitureEnd, i != furnitureCount; i++)
+        for(new i = furnitureStart; i < furnitureEnd; i++)
         {
             if(i == furnitureCount) 
                 break;
