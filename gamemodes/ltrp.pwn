@@ -638,6 +638,7 @@ enum players
     pHouseKey,
     pPhone,
     pRChannel,
+    pRSlot,
     Float:pCrashPos[3],
     pInt,
     pVirWorld,
@@ -3641,7 +3642,9 @@ stock SaveAccount(playerid)
     format(string, sizeof(string), "%s, playerLastLogOn = CURRENT_TIMESTAMP, playerSpawn = '%d', bSpawn = '%d', Card = '%s', ForumName = '%s'", string, _:pInfo[ playerid ][ pSpawn ], pInfo[ playerid ][ pBSpawn ], string2, string3 );
     format(string, sizeof(string), "%s, ExtazyAddict = '%d', PCPAddict = '%d', CrackAddict = '%d', OpiumAddict = '%d', Points = '%d'", string, pInfo[ playerid ][ pExtazyAddict ], pInfo[ playerid ][ pPCPAddict ], pInfo[ playerid ][ pCrackAddict ], pInfo[ playerid ][ pOpiumAddict ], pInfo[ playerid ][ pPoints ]);
     format(string, sizeof(string), "%s, HealthLevel = %d, StrengthLevel = %d, JobHours = %d, Hunger = %d, TotalPaycheck = %d ",string, pInfo[ playerid ][ pHealthLevel ],pInfo[ playerid ][ pStrengthLevel ], pInfo[ playerid ][ pJobHours ], pInfo[ playerid ][ pHunger ], pInfo[ playerid ][ pTotalPaycheck ]);
-    format(string, sizeof(string), "%s WHERE Name = '%s'", string, GetName( playerid ));
+    format(string, sizeof(string), "%s, radio_slot = %d ", string, pInfo[ playerid ][ pRSlot ]);
+    format(string, sizeof(string), "%s WHERE Name = '%s'", string, GetName(playerid));
+    
     mysql_query(DbHandle, string, false);
     printf("Vartotojas buvo sëkmingai iðsaugotas duomenø bazëje (uþklausa truko: %d)",strlen(string));
     return 1;
@@ -4304,13 +4307,13 @@ stock NullPlayerInfo( playerid )
     pInfo[ playerid ][ pCarGet   ] = 0;
     pInfo[ playerid ][ pHouseKey ] = 0;
     pInfo[ playerid ][ pPhone    ] = 0;
+    pInfo[ playerid ][ pRSlot ] = 0;
 
     SetPVarInt( playerid, "P_SMONEY", 0 );// Serverio puses pinigeliai.
     SetPVarInt( playerid, "TOG_FAMILY", 1 );
     SetPVarInt( playerid, "PDTYPE", 0 );
     SetPVarInt( playerid, "BACKUP", INVALID_PLAYER_ID );
     SetPVarInt( playerid, "CallOwner", false );
-    SetPVarInt( playerid, "RadioSlot", 1 );
     SetPVarInt( playerid, "Addicted", false );
 
     Offer[ playerid ][ 0 ] = 255;
@@ -7361,8 +7364,8 @@ CMD:r( playerid, params[ ] )
     if ( sscanf( params, "s[256]", text ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /r [tekstas]" );
 
     SetPlayerChatBubble( playerid, text, COLOR_FADE1, 20.0, 10000 );
-    format          ( string, 256,"**[KN: %d, S: %d] %s: %s.", pInfo[ playerid ][ pRChannel ], GetPVarInt(playerid, "RadioSlot"), GetPlayerNameEx( playerid ), text );
-    SendRadioMessage( pInfo[ playerid ][ pRChannel ], GetPVarInt(playerid, "RadioSlot"), 0x8D8DFF00, string );
+    format          ( string, 256,"**[KN: %d, S: %d] %s: %s.", pInfo[ playerid ][ pRChannel ], pInfo[ playerid ][ pRSlot ], GetPlayerNameEx( playerid ), text );
+    SendRadioMessage( pInfo[ playerid ][ pRChannel ], pInfo[ playerid ][ pRSlot ], 0x8D8DFF00, string );
     format          ( string, 256, " %s sako:[RACIJA] %s", GetPlayerNameEx( playerid ), text );
     ProxDetector2   ( 20.0, playerid, string, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5 );
     return 1;
@@ -7380,8 +7383,8 @@ CMD:rlow( playerid, params[ ] )
     if ( sscanf( params, "s[256]", text ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /rlow [tekstas]" );
 
     SetPlayerChatBubble( playerid, text, COLOR_FADE1, 2.0, 10000 );
-    format          ( string, 256,"**[KN: %d, S: %d] %s:[Tyliai] %s.", pInfo[ playerid ][ pRChannel ], GetPVarInt(playerid, "RadioSlot"), GetPlayerNameEx( playerid ), text );
-    SendRadioMessage( pInfo[ playerid ][ pRChannel ], GetPVarInt(playerid, "RadioSlot"), 0x8D8DFF00, string );
+    format          ( string, 256,"**[KN: %d, S: %d] %s:[Tyliai] %s.", pInfo[ playerid ][ pRChannel ], pInfo[ playerid ][ pRSlot ], GetPlayerNameEx( playerid ), text );
+    SendRadioMessage( pInfo[ playerid ][ pRChannel ], pInfo[ playerid ][ pRSlot ], 0x8D8DFF00, string );
     format          ( string, 256, " %s sako:[RACIJA][Tyliai] %s", GetPlayerNameEx( playerid ), text );
     ProxDetector2   ( 2.0, playerid, string, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5 );
     return 1;
@@ -7398,7 +7401,7 @@ CMD:setchannel( playerid, params[ ] )
     if ( giveplayerid < 100 || giveplayerid > 100000 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, pasirinkti racijos kanalà galite nuo 100 iki 100000." );
     SendClientMessage( playerid, COLOR_LIGHTRED2, "Sëkmingai nustatytas racijos kanalas, dabar galite per já kalbëti naudodami /r." );
     pInfo[ playerid ][ pRChannel ] = giveplayerid;
-    SetPVarInt(playerid, "RadioSlot", slot);
+    pInfo[ playerid ][ pRSlot ] = slot;
     SaveAccount( playerid );
     UpdatePlayerInfoText( playerid );
     return 1;
@@ -7412,7 +7415,7 @@ CMD:setslot( playerid, params[ ] )
     if ( giveplayerid < 1 || giveplayerid > 3 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Dëmesio, radijo kanalø vietos ribojamos nuo 1 iki 3." );
     if ( Mires[ playerid ] > 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje." );
     SendClientMessage( playerid, COLOR_LIGHTRED2, "Sëkmingai buvo nustatytas pasirinktas radijo kanalas." );
-    SetPVarInt(playerid, "RadioSlot", giveplayerid);
+    pInfo[ playerid ][ pRSlot ] = giveplayerid;
     UpdatePlayerInfoText( playerid );
     return 1;
 }
@@ -22872,6 +22875,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         pInfo[ playerid ][ pWarn ] = cache_get_field_content_int(0, "Warnings");
         pInfo[ playerid ][ pVirWorld ] = cache_get_field_content_int(0, "VirWorld");
         pInfo[ playerid ][ pRChannel ] = cache_get_field_content_int(0, "RChanel");
+        pInfo[ playerid ][ pRSlot ] = cache_get_field_content_int(0, "radio_slot");
         pInfo[ playerid ][ pUcpID    ] = cache_get_field_content_int(0, "ucpuser");
         pInfo[ playerid ][ pDubKey ] = cache_get_field_content_int(0, "pDubKey");
         pInfo[ playerid ][ pJobSkill ] = cache_get_field_content_int(0, "JobSkill");
@@ -23475,7 +23479,7 @@ stock UpdatePlayerInfoText(playerid ,plstate = PLAYER_STATE_ONFOOT )
     if ( pInfo[ playerid ][ pRChannel ] > 0 )
     {
         format( string, 40, "~w~R.kanalas: %d~n~", pInfo[ playerid ][ pRChannel ] );
-        format( string, 40, "%s~w~R.slot: %d~n~", string, GetPVarInt(playerid, "RadioSlot") );
+        format( string, 40, "%s~w~R.slot: %d~n~", string, pInfo[ playerid ][ pRSlot ]);
     }
 
     if ( plstate == PLAYER_STATE_DRIVER )
@@ -25047,7 +25051,7 @@ stock SendRadioMessage(chanel, slot, color, string[])
     {
         if(chanel == 911 && pInfo[ i ][ pMember ] != 2) continue;
         if(chanel == 912 && pInfo[ i ][ pMember ] != 3) continue;
-        if(pInfo[i][pRChannel] == chanel && GetPVarInt(i, "RadioSlot") == slot)
+        if(pInfo[i][pRChannel] == chanel && pInfo[ i ][ pRSlot ] == slot)
             SendChatMessage(i, color, string);
     }
     return 1;
