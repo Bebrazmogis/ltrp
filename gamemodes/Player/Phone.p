@@ -1021,6 +1021,53 @@ CMD:sms(playerid, params[ ])
     return 1;
 }
 
+CMD:turnphone(playerid)
+{
+    new string[ 126 ];
+    if(!IsItemInPlayerInventory(playerid, ITEM_PHONE)) 
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs neturite su savimi telefono. ");
+
+    if(!GetPVarInt(playerid, "PHONE_STATUS"))
+    {
+        SetPVarInt(playerid, "PHONE_STATUS", 1);
+        format(string, sizeof(string), "* %s iðjungia telefonà." ,GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+
+    }
+    else
+    {
+        SetPVarInt(playerid, "PHONE_STATUS", 0);
+        format(string, sizeof(string), "* %s ájungia telefonà." ,GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    }
+    return 1;
+}
+CMD:speaker(playerid)
+{
+    new string[ 126 ];
+    if(pInfo[ playerid ][ pPhone ] == 0 ) 
+    	return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs neturite su savimi telefono. ");
+
+    if(NearPhone(playerid)) 
+   		return SendClientMessage( playerid, COLOR_GREY, "   Jûs dabar kalbat per taksofonà!");
+
+    if(MobilePhone[ playerid ] == INVALID_PLAYER_ID)
+    	return SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs su niekuo nekalbate.");
+
+    if(GetPVarInt(playerid, "SPEAKER") == 0)
+    {
+        SetPVarInt(playerid, "SPEAKER", 1);
+        format(string, sizeof(string), "* %s ájungia telefono garsiakalbá.", GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    }
+    else
+    {
+        SetPVarInt(playerid, "SPEAKER", 0);
+        format(string, sizeof(string), "* %s áðjungia telefono garsiakalbá." ,GetPlayerNameEx(playerid));
+        ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+    }
+    return 1;
+}
 
 
 

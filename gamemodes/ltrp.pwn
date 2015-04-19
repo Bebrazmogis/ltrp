@@ -23,7 +23,7 @@
 
 
 #define VERSION                         2.1.6
-#define BUILD_DATE                      2015-04.15
+#define BUILD_DATE                      2015-04.19
 
 #define MYSQL_USE_YINLINE
 
@@ -4859,7 +4859,7 @@ public OnPlayerText(playerid, text[])
         else
         format(string, 256, "%s sako (taksofonu): %s", GetPlayerNameEx(playerid), text);
         ProxDetector(10.0, playerid, string,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5);
-        if( !NearPhone( playerid ) )
+        if(!NearPhone(playerid))
         {
             if( IsPlayerConnected( MobilePhone[ playerid ] ) )
             {
@@ -4884,7 +4884,7 @@ public OnPlayerText(playerid, text[])
                     }
                     else
                     {
-                        if( GetPVarInt  ( playerid, "SPEAKER" ) == 0 )
+                        if( GetPVarInt  ( MobilePhone[ playerid ], "SPEAKER" ) == 0 )
                         {
                             format(string, 256, "%s sako (telefonu): %s", GetNumber( MobilePhone[ playerid ], pInfo[ playerid ][ pPhone ] ), text);
                             SendClientMessage( MobilePhone[ playerid ], COLOR_LIGHTRED2, string );
@@ -4900,7 +4900,7 @@ public OnPlayerText(playerid, text[])
                 }
                 else
                 {
-                    if( GetPVarInt  ( playerid, "SPEAKER" ) == 0 )
+                    if( GetPVarInt(MobilePhone[ playerid ], "SPEAKER" ) == 0 )
                     {
                         format(string, 256, "%s sako (telefonu): %s", GetNumber( MobilePhone[ playerid ], pInfo[ playerid ][ pPhone ] ), text);
                         SendClientMessage( MobilePhone[ playerid ], COLOR_LIGHTRED2, string );
@@ -9351,47 +9351,6 @@ CMD:sup( playerid, params[ ] )
     return 1;
 }
 
-CMD:turnphone( playerid, params[ ] )
-{
-    #pragma unused params
-    new string[ 126 ];
-    if ( pInfo[ playerid ][ pPhone ] == 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs neturite su savimi telefono. " );
-    if ( GetPVarInt( playerid, "PHONE_STATUS" ) == 0 )
-    {
-        SetPVarInt  ( playerid, "PHONE_STATUS", 1 );
-        format      ( string, 126, "* %s iğjungia telefonà." ,GetPlayerNameEx( playerid ) );
-        ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-
-    }
-    else
-    {
-        SetPVarInt  ( playerid, "PHONE_STATUS", 0 );
-        format      ( string, 126, "* %s ájungia telefonà." ,GetPlayerNameEx( playerid ) );
-        ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-    }
-    return 1;
-}
-CMD:speaker( playerid, params[ ] )
-{
-    #pragma unused params
-    new string[ 126 ];
-    if ( pInfo[ playerid ][ pPhone ] == 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs neturite su savimi telefono. " );
-    if ( NearPhone( playerid ) ) return SendClientMessage( playerid, COLOR_GREY, "   Jûs dabar kalbat per taksofonà!" );
-    if ( MobilePhone[ playerid ] == INVALID_PLAYER_ID ) return true;
-    if ( GetPVarInt( playerid, "SPEAKER" ) == 0 )
-    {
-        SetPVarInt  ( playerid, "SPEAKER", 1 );
-        format      ( string, 126, "* %s ájungia telefono garsiakalbá." ,GetPlayerNameEx( playerid ) );
-        ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-    }
-    else
-    {
-        SetPVarInt  ( playerid, "SPEAKER", 0 );
-        format      ( string, 126, "* %s áğjungia telefono garsiakalbá." ,GetPlayerNameEx( playerid ) );
-        ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-    }
-    return 1;
-}
 FUNKCIJA:CameraMove( playerid, camera )
 {
     if ( Camera[ playerid ] >=0 )
@@ -24933,28 +24892,6 @@ stock SendChatMessage(playerid,color,text[])
 		strdel(string, 0, strlen(string));
 		strmid(string, text, 81 + colorCount * 8, strlen(text));
 		SendClientMessage(playerid, color, string);
-
-
-        // Originalas
-        /*strmid( message2, text, 0, 81, 82 );
-        format( string, 132, "%s ...", message2 );
-        SendClientMessage( playerid, color, string );
-
-        strmid( string, text, 81, 160, 200 );
-        format( string, 132, "... %s", string );
-        SendClientMessage( playerid, color, string );
-        */
-		
-        /*
-        Ilgersnio teksto versija.
-        strmid(message2, text, 0, 120, 121);
-        strcat(message2, " ...");
-        SendClientMessage( playerid, color, message2 );
-
-        strmid(string, text, 120, strlen(text));
-        strins(string, "... ", 0);
-        SendClientMessage( playerid, color, string );
-        */
         return 1;
     }
     else return
