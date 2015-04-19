@@ -582,14 +582,6 @@ stock GetGarageVehicleEntrancePos(garageindex, &Float:x, &Float:y, &Float:z, &Fl
     a = gInfo[ garageindex ][ gVehicleEnter ][ 3 ];
 }
 
-stock IsGarageVehicleEntrancePosSet(garageindex)
-{
-    if(gInfo[ garageindex ][ gVehicleEnter ][ 0 ] == 0.0 && gInfo[ garageindex ][ gVehicleEnter ][ 1 ] == 0.0 && gInfo[ garageindex ][ gVehicleEnter ][ 2 ] == 0.0 && gInfo[ garageindex ][ gVehicleEnter ][ 3 ] == 0.0)
-        return false;
-    else 
-        return true;
-}
-
 stock GetGarageEntrancePos(garageindex, &Float:x, &Float:y, &Float:z)
 {
     x = gInfo[ garageindex ][ gEntrance ][ 0 ];
@@ -625,7 +617,17 @@ stock GetGarageFreeItemSlot(garageindex)
 } 
 
 
-/* INSERT INTO mysql */
+/*                                                                                                                                                                            
+                                                                                                                                                                       ,,  
+    `7MMF'`7MN.   `7MF'.M"""bgd `7MM"""YMM  `7MM"""Mq. MMP""MM""YMM     `7MMF'`7MN.   `7MF'MMP""MM""YMM   .g8""8q.                                                   `7MM  
+      MM    MMN.    M ,MI    "Y   MM    `7    MM   `MM.P'   MM   `7       MM    MMN.    M  P'   MM   `7 .dP'    `YM.                                                   MM  
+      MM    M YMb   M `MMb.       MM   d      MM   ,M9      MM            MM    M YMb   M       MM      dM'      `MM     `7MMpMMMb.pMMMb.`7M'   `MF',pP"Ybd  ,dW"Yvd   MM  
+      MM    M  `MN. M   `YMMNq.   MMmmMM      MMmmdM9       MM            MM    M  `MN. M       MM      MM        MM       MM    MM    MM  VA   ,V  8I   `" ,W'   MM   MM  
+      MM    M   `MM.M .     `MM   MM   Y  ,   MM  YM.       MM            MM    M   `MM.M       MM      MM.      ,MP       MM    MM    MM   VA ,V   `YMMMa. 8M    MM   MM  
+      MM    M     YMM Mb     dM   MM     ,M   MM   `Mb.     MM            MM    M     YMM       MM      `Mb.    ,dP'       MM    MM    MM    VVV    L.   I8 YA.   MM   MM  
+    .JMML..JML.    YM P"Ybmmd"  .JMMmmmmMMM .JMML. .JMM.  .JMML.        .JMML..JML.    YM     .JMML.      `"bmmd"'       .JMML  JMML  JMML.  ,V     M9mmmP'  `MbmdMM .JMML.
+                                                                                                                                            ,V                    MM       
+                                                                                                                                         OOb"                   .JMML.      */
 
 stock AddGarage(Float:x, Float:y, Float:z, Float:angle)
 {
@@ -742,6 +744,21 @@ stock SaveGarage(garageindex)
     return 1;
 }
 
+IsGarageVehicleEntrancePosSet(garageindex)
+{
+    if(gInfo[ garageindex ][ gVehicleEnter ][ 0 ] == 0.0 && gInfo[ garageindex ][ gVehicleEnter ][ 1 ] == 0.0 && gInfo[ garageindex ][ gVehicleEnter ][ 2 ] == 0.0 && gInfo[ garageindex ][ gVehicleEnter ][ 3 ] == 0.0)
+        return false;
+    else 
+        return true;
+}
+
+IsGarageVehicleExitPosSet(garageindex)
+{
+    if(gInfo[ garageindex ][ gVehicleExit ][ 0 ] == 0.0 && gInfo[ garageindex ][ gVehicleExit ][ 1 ] == 0.0 && gInfo[ garageindex ][ gVehicleExit ][ 2 ] == 0.0 && gInfo[ garageindex ][ gVehicleExit ][ 3 ] == 0.0)
+        return false;
+    else 
+        return true;
+}
 
 stock SetGarageEntrancePos(garageindex, Float:x, Float:y, Float:z)
 {
@@ -753,22 +770,37 @@ stock SetGarageEntrancePos(garageindex, Float:x, Float:y, Float:z)
     gInfo[ garageindex ][ gEntrance ][ 0 ] = x;
     gInfo[ garageindex ][ gEntrance ][ 1 ] = y;
     gInfo[ garageindex ][ gEntrance ][ 2 ] = z;
+    if(!IsGarageVehicleEntrancePosSet(garageindex))
+    {
+        gInfo[ garageindex ][ gVehicleEnter ][ 0 ] = x;
+        gInfo[ garageindex ][ gVehicleEnter ][ 1 ] = y;
+        gInfo[ garageindex ][ gVehicleEnter ][ 2 ] = z;
+    }
     UpdateGarageEntrance(garageindex);
     return 1;
 }
-stock SetGarageInteriorId(garageindex, interiorid)
+stock SetGarageExitLocation(garageindex, interiorid, Float:x, Float:y, Float:z)
 {
     // interiorid parametras èia yra NE GTA SA interjero ID, o interjero SQL ID(interiors.p).
-    new query[120], Float:x, Float:y, Float:z;
-    GetInteriorEntrancePos(interiorid, x, y, z);
-    mysql_format(DbHandle, query, sizeof(query), "UPDATE garages SET interior_id = %d, exit_x = %f, exit_y = %f, exit_z = %f WHERE id = %d",
-        interiorid, x, y, z, gInfo[ garageindex ][ gID ]);
-    mysql_pquery(DbHandle, query);
+    new query[120];
 
     gInfo[ garageindex][ gInteriorId ] = interiorid;
     gInfo[ garageindex][ gExit ][ 0 ] = x;
     gInfo[ garageindex][ gExit ][ 1 ] = y;
     gInfo[ garageindex][ gExit ][ 2 ] = z;
+    if(!IsGarageVehicleExitPosSet(garageindex))
+    {
+        gInfo[ garageindex][ gVehicleExit ][ 0 ] = x;
+        gInfo[ garageindex][ gVehicleExit ][ 1 ] = y;
+        gInfo[ garageindex][ gVehicleExit ][ 2 ] = z;
+        SaveGarage(garageindex);
+    }
+    else 
+    {
+        mysql_format(DbHandle, query, sizeof(query), "UPDATE garages SET interior_id = %d, exit_x = %f, exit_y = %f, exit_z = %f WHERE id = %d",
+        interiorid, x, y, z, gInfo[ garageindex ][ gID ]);
+        mysql_pquery(DbHandle, query);
+    }
     return 1;
 }
 
@@ -1360,11 +1392,12 @@ stock GarageManagementDialog.OnDialogResponse(playerid, dialogid, response, list
                 }
                 case GarageExitChange:
                 {
+                    new Float:x, Float:y, Float:z;
                     if(!IsPlayerInAnyInterior(playerid))
                         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs turite bûti interjere.");
 
-                    SetGarageInteriorId(index, GetPlayerInteriorId(playerid));
-                    SendClientMessage(playerid, COLOR_GREEN, "Garaþo áëjimo pozicija sëkmingai atnaujinta.");
+                    SetGarageExitLocation(index, GetPlayerInteriorId(playerid), x, y, z);
+                    SendClientMessage(playerid, COLOR_GREEN, "Garaþo iðëjimo pozicija sëkmingai atnaujinta.");
                 }
                 case GarageVehicleSpawnChange:
                 {
