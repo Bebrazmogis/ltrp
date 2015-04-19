@@ -713,10 +713,6 @@ stock IsPlayerInRangeOfHouseExit(playerid, hindex, Float:distance)
 
 stock GetHouseFurnitureName(hindex, findex)
 {
-    //return HouseFurniture[ hindex ][ findex ][ Name ];
-    //new s[MAX_FURNITURE_NAME ];
-    //strcat(s, HouseFurniture[ hindex ][ findex ][ Name ]);
-    //return s;
     return HouseFurnitureName[ hindex ][ findex ];
 }
 

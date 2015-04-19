@@ -21,13 +21,14 @@ enum E_PROPERTY_FURNITURE_DATA {
 enum E_FURNITURE_DATA {
 	Id,
 	ObjectId,
-	Name[ MAX_FURNITURE_NAME ],
+	//Name[ MAX_FURNITURE_NAME ],
 	Price,
 	Category	
 };
 
 
-new static FurnitureObjects[ MAX_FURNITURE_OBJECTS ][ E_FURNITURE_DATA ];
+new static FurnitureObjects[ MAX_FURNITURE_OBJECTS ][ E_FURNITURE_DATA ],
+	FurnitureObjectNames[ MAX_FURNITURE_OBJECTS ][ MAX_FURNITURE_NAME ];
 
 enum E_FURNITURE_CATEGORY_DATA {
 	Id,
@@ -122,7 +123,8 @@ public OnGameModeInit()
 		}
 		FurnitureObjects[ i ][ Id ] = cache_get_field_content_int(i, "id");
 		FurnitureObjects[ i ][ ObjectId ] = cache_get_field_content_int(i, "object_id");
-		cache_get_field_content(i, "name", FurnitureObjects[ i ][ Name ], DbHandle, MAX_FURNITURE_NAME);
+		//cache_get_field_content(i, "name", FurnitureObjects[ i ][ Name ], DbHandle, MAX_FURNITURE_NAME);
+		cache_get_field_content(i, "name", FurnitureObjectNames[ i ], DbHandle, MAX_FURNITURE_NAME);
 		FurnitureObjects[ i ][ Price ] = cache_get_field_content_int(i, "price");
 		cache_get_field_content(i, "category", category);
 
@@ -195,9 +197,7 @@ stock GetFurnitureIndex(id)
 }
 stock GetFurnitureName(index)
 {
-	new s[ MAX_FURNITURE_NAME ];
-	strcat(s, FurnitureObjects[ index ][ Name ]);
-	return s;
+	return FurnitureObjectNames[ index ];
 }
 
 stock GetObjectFurnitureIndex(objectid, categoryid = -1)

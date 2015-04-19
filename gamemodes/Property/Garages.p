@@ -774,7 +774,7 @@ stock SetGarageEntrancePos(garageindex, Float:x, Float:y, Float:z)
     {
         gInfo[ garageindex ][ gVehicleEnter ][ 0 ] = x;
         gInfo[ garageindex ][ gVehicleEnter ][ 1 ] = y;
-        gInfo[ garageindex ][ gVehicleEnter ][ 2 ] = z;
+        gInfo[ garageindex ][ gVehicleEnter ][ 2 ] = z+1.0;
     }
     UpdateGarageEntrance(garageindex);
     return 1;
@@ -792,7 +792,7 @@ stock SetGarageExitLocation(garageindex, interiorid, Float:x, Float:y, Float:z)
     {
         gInfo[ garageindex][ gVehicleExit ][ 0 ] = x;
         gInfo[ garageindex][ gVehicleExit ][ 1 ] = y;
-        gInfo[ garageindex][ gVehicleExit ][ 2 ] = z;
+        gInfo[ garageindex][ gVehicleExit ][ 2 ] = z+1.0;
         SaveGarage(garageindex);
     }
     else 
