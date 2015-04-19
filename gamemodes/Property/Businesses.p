@@ -1791,7 +1791,7 @@ stock DeleteBusinessFurniture(bizindex, furniture_index)
     BusinessFurniture[ bizindex ][ i ][ SqlId ] = 0;
     BusinessFurniture[ bizindex ][ i ][ FurnitureId ] = 0;
     BusinessFurniture[ bizindex ][ i ][ ObjectId ] = 0;
-    strdel(BusinessFurnitureName[ bizindex ][ i ]);
+    strdel(BusinessFurnitureName[ bizindex ][ i ], 0, MAX_FURNITURE_NAME);
     return 1;
 }
 

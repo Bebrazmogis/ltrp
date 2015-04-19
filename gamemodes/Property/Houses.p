@@ -772,7 +772,8 @@ stock GetPlayerHouseIndex(playerid, outside=false)
             return i;
 
         tmpdistance = GetPlayerDistanceFromPoint(playerid, hInfo[ i ][ hEnter ][ 0 ], hInfo[ i ][ hEnter ][ 1 ], hInfo[ i ][ hEnter ][ 2 ]);
-        if(tmpdistance <= 3.0
+        if(outside 
+            && tmpdistance <= 3.0
             && (tmpdistance < winningdistance || winningdistance < 0)
             && GetPlayerVirtualWorld(playerid) == GetHouseEntranceVirtualWorld(i))
         {

@@ -22,7 +22,7 @@
 
 
 
-#define VERSION                         2.1.6
+#define VERSION                         2.1.7
 #define BUILD_DATE                      2015-04.19
 
 #define MYSQL_USE_YINLINE
@@ -592,7 +592,6 @@ enum E_JACKER_BOUGHT_VEHICLE_DATA {
     AmountNeeded
 };
 new JackerBoughtVehicles[ 3 ][ E_JACKER_BOUGHT_VEHICLE_DATA ];
-
 
 
 
@@ -13854,6 +13853,38 @@ CMD:kick( playerid, params [ ] )
     }
     return 1;
 }
+/*
+CMD:reconnectnpc(playerid, params[])
+{
+    if(!pInfo[ playerid ][ pAdmin ] && !IsPlayerAdmin(playerid))
+        return 0;
+
+    new npcid;
+    if(isnull(params))
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas /reconnectnpc [ NPC vardas ]");
+
+    else if((npcid = FindNPCByName(params)) == INVALID_PLAYER_ID)
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, tokio NPC nëra.");
+
+    else 
+    {
+        Kick(npcid);
+        SendClientMessage(playerid, COLOR_LIGHTRED, "NPC iðmestas, jis vël prisijungs po sekundës.");
+        defer NpcReconnectDelay(playerid, params, strlen(params));
+    }
+    return 1;
+}
+
+timer NpcReconnectDelay[1000](adminid, npcname[], len)
+{
+    new string[ 60 ];
+    ConnectNPC(npcname);
+
+    format(string, sizeof(string), "NPC %s jungiamas á serverá.", npcname);
+    SendClientMessage(adminid, COLOR_LIGHTRED, string);
+}*/
+
+
 CMD:ban( playerid, params [ ] )
 {
     new
@@ -25200,6 +25231,22 @@ stock GetPlayerLastName(playerid)
     GetPlayerName(playerid,name,MAX_PLAYER_NAME);
     split(name, namestring, '_');
     return namestring[1];
+}
+
+stock FindNPCByName(npcname[])
+{
+    new name[ MAX_PLAYER_NAME ];
+    
+    if(isnull(npcname))
+        return INVALID_PLAYER_ID;
+
+    foreach(new i : Bot)
+    {
+        GetPlayerName(i, name, sizeof(name));
+        if(!strcmp(name, npcname))
+            return i;
+    }
+    return INVALID_PLAYER_ID;
 }
 stock ClearChatbox(playerid, lines)
 {
