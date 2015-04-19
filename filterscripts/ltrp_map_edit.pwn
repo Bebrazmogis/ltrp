@@ -12421,8 +12421,6 @@ public OnFilterScriptInit()
 	SetDynamicObjectMaterial(coffis, 0, 11317,"carshow_sfse","concpanel_la");
 	coffis = CreateDynamicObject(19357, 2531.71997, -1537.08142, 24.80000,   0.00000, 0.00000, 0.00000);
 	SetDynamicObjectMaterial(coffis, 0, 11317,"carshow_sfse","concpanel_la");
-	coffis = CreateDynamicObject(19357, 2531.63745, 24.80000, 24.80000,   0.00000, 0.00000, 0.00000);
-	SetDynamicObjectMaterial(coffis, 0, 11317,"carshow_sfse","concpanel_la");
 	new coffig = CreateDynamicObject(19379, 2517.76904, -1534.00183, 23.04550,   0.00000, 90.00000, 0.00000);
 	SetDynamicObjectMaterial(coffig, 0, 11317,"carshow_sfse","concreteslab_small");
 	coffig = CreateDynamicObject(19379, 2528.21118, -1534.00183, 23.04550,   0.00000, 90.00000, 0.00000);
