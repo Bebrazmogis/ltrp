@@ -409,7 +409,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             GetBusinessFurnitureId(propertyIndex, furnitureIndex),
                             GetBusinessFurnitureName(propertyIndex, furnitureIndex),
                             GetBusinessFurnitureObjectId(propertyIndex, furnitureIndex),
-                            GetBusinessFurniturePrice(propertyIndex, furnitureIndex));
+                            GetBusinessFurniturePrice(propertyIndex, furnitureIndex) / 2);
                     }
                     else if(IsPlayerInGarage(playerid, propertyIndex))
                     {
@@ -421,7 +421,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             GetGarageFurnitureId(propertyIndex, furnitureIndex),
                             GetGarageFurnitureName(propertyIndex, furnitureIndex),
                             GetGarageFurnitureObjectId(propertyIndex, furnitureIndex),
-                            GetGarageFurniturePrice(propertyIndex, furnitureIndex));
+                            GetGarageFurniturePrice(propertyIndex, furnitureIndex) / 2);
                     }
                     
                     ShowPlayerDialog(playerid, DIALOG_FURNITURE_SELL, DIALOG_STYLE_MSGBOX,"Baldo pardavimas", string, "Parduoti", "Atðaukti");
