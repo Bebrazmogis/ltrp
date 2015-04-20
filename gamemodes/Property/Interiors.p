@@ -10,7 +10,7 @@
 
 #include <YSI\y_hooks>
 
-#define MAX_INTERIORS					200
+#define MAX_INTERIORS					300
 #define INVALID_INTERIOR_ID             0
 #define MAX_INTERIOR_CATEGORY_NAME 		32
 #define MAX_INTERIOR_CATEGORIES 		10
