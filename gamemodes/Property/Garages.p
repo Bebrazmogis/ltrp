@@ -680,6 +680,8 @@ stock AddGarageFurniture(garageindex, findex, Float:posx, Float:posy, Float:posz
         rotx, roty, rotz, 
         GetGarageVirtualWorld(garageindex),
         .streamdistance = 35.0);
+    format(GarageFurniture[ garageindex ][ i ][ Name ], MAX_FURNITURE_NAME, GetFurnitureName(findex));
+
 
     return GarageFurniture[ garageindex ][ i ][ ObjectId ];
 }
