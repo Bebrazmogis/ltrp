@@ -87,7 +87,10 @@ stock Tabu_SetPlayerWeather(playerid, weather)
 	return SetPlayerWeather(playerid, weather);
 }
 #define SetPlayerWeather Tabu_SetPlayerWeather
-stock Tabu_SetPlayerAttachedObject(playerid, index, modelid, bone, Float:fOffsetX = 0.0, Float:fOffsetY = 0.0, Float:fOffsetZ = 0.0, Float:fRotX = 0.0, Float:fRotY = 0.0, Float:fRotZ = 0.0, Float:fScaleX = 1.0, Float:fScaleY = 1.0, Float:fScaleZ = 1.0, materialcolor1 = 0, materialcolor2 = 0)
+
+
+
+Tabu_SetPlayerAttachedObject(playerid, index, modelid, bone, Float:fOffsetX = 0.0, Float:fOffsetY = 0.0, Float:fOffsetZ = 0.0, Float:fRotX = 0.0, Float:fRotY = 0.0, Float:fRotZ = 0.0, Float:fScaleX = 1.0, Float:fScaleY = 1.0, Float:fScaleZ = 1.0, materialcolor1 = 0, materialcolor2 = 0)
 {
 	new
 		string[ 128 ],
@@ -128,6 +131,7 @@ stock Tabu_SetPlayerAttachedObject(playerid, index, modelid, bone, Float:fOffset
    	SetPVarInt ( playerid, string, 1 );
 	return SetPlayerAttachedObject(playerid, index, modelid, bone, fOffsetX, fOffsetY,fOffsetZ, fRotX, fRotY, fRotZ, fScaleX, fScaleY, fScaleZ, materialcolor1, materialcolor2);
 }
+
 stock Tabu_SetPlayerSpecialAction( playerid, actionid )
 {
 	if( actionid == SPECIAL_ACTION_USECELLPHONE )
@@ -177,7 +181,10 @@ stock Tabu_SetPlayerSpecialAction( playerid, actionid )
 	return SetPlayerSpecialAction( playerid, actionid );
 }
 #define SetPlayerSpecialAction Tabu_SetPlayerSpecialAction
-#define SetPlayerAttachedObject Tabu_SetPlayerAttachedObject
+//#define SetPlayerAttachedObject Tabu_SetPlayerAttachedObject
+
+
+
 stock Tabu_SetPlayerInt( playerid, intas )
 {
 	pInfo[ playerid ][ pInt ] = intas;
@@ -185,48 +192,7 @@ stock Tabu_SetPlayerInt( playerid, intas )
 }
 #define SetPlayerInterior Tabu_SetPlayerInt
 
-/*
-stock Tabu_GivePlayerWeapon(playerid,weaponid,ammo)
-{
-	new
-		eile[350],
-		rows,
-		Cache:result;
 
-	format(eile, sizeof(eile), "SELECT * FROM `AC` WHERE `WeaponID` = %d AND `ID` = %d", weaponid, pInfo[ playerid ][ pMySQLID ] );
-	result = mysql_query(DbHandle, eile);
-	rows = cache_get_row_count();
-
-	if( !rows )
-	{
-		format( eile, sizeof( eile ), "INSERT INTO `AC` (ID, WeaponID) VALUES (%d, %d)", pInfo[ playerid ][ pMySQLID ], weaponid );
-		mysql_query(DbHandle, eile, false);
-	}
-	cache_delete(result);
-	return GivePlayerWeapon( playerid, weaponid, ammo );
-}
-
-stock Tabu_ResetPlayerWeapons( playerid )
-{
-	new
-		eile[ 128 ],
-		eile2[ 128 ];
-	for(new i = 0; i < 47; i++)
-	{
-	  	if( GetSlotByID( i ) == 2 || GetSlotByID( i ) == 3 || GetSlotByID( i ) == 4 || GetSlotByID( i ) == 5 || GetSlotByID( i ) == 6 )
-		{
-	  	    format(eile, sizeof( eile ), "%dbone", i );
-	  	    format(eile2, sizeof( eile2 ), "%dbone2", i );
-            SetPVarInt ( playerid, eile2, GetPVarInt ( playerid, eile ) );
-	     	SetPVarInt ( playerid, eile, 0 );
-	   	}
- 	}
-
-	format( eile, sizeof( eile ), "DELETE FROM `AC` WHERE `ID` = %d", pInfo[ playerid ][ pMySQLID ] );
-	mysql_query(DbHandle, eile, false);
-	return ResetPlayerWeapons( playerid );
-}
-*/
 stock ac_GetPlayerSpeed(playerid,get3d)
 {
 	new Float:x,Float:y,Float:z;
