@@ -26826,7 +26826,7 @@ stock GunLog( Kas, Ivykis, Kam, Ka[ ], Kiek )
         case 7: Tipas = "Padëjo á garaþo inventoriø";
         case 8: Tipas = "Pasiimë ið garaþo inventoriaus";
     }
-    format( string, sizeof(string), "INSERT INTO gunlog (Kas,Ka,Kiek,Kam,Priezastis) VALUES (%d,'%s',%d,%d,'%s')", Kas, Ka, Kiek, Kam, Tipas );
+    mysql_format(DbHandle, string, sizeof(string), "INSERT INTO gunlog (Kas,Ka,Kiek,Kam,Priezastis) VALUES (%d,'%e',%d,%d,'%e')", Kas, Ka, Kiek, Kam, Tipas );
     mysql_pquery(DbHandle,  string );
     return 1;
 }
