@@ -23,7 +23,7 @@
 
 
 #define VERSION                         2.1.7
-#define BUILD_DATE                      2015-04.19
+#define BUILD_DATE                      2015-04.20
 
 #define MYSQL_USE_YINLINE
 
@@ -15406,29 +15406,55 @@ CMD:gotonowhere(playerid)
     SendClientMessage(playerid, COLOR_NEWS, "Sëkmingai persikëlëte kaþkur.");
     return 1;
 }
-CMD:gotohouse( playerid, params[ ] )
+CMD:gotohouse(playerid, params[])
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if(pInfo[ playerid ][ pAdmin ] < 4)
+        return 0;
+    
+    new houseindex, Float:x, Float:y, Float:z;
+    if(sscanf(params, "d", houseindex)) 
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /gotohouse [namo id]");
+    if(!IsValidHouse(houseindex))
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, tokio namo nëra.");
+    else 
     {
-        new tmp;
-        if ( sscanf( params, "d", tmp ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /gotohouse [namo id]");
-        SetPlayerPos( playerid, hInfo[ tmp ][ hEnter ][ 0 ],
-                                hInfo[ tmp ][ hEnter ][ 1 ],
-                                hInfo[ tmp ][ hEnter ][ 2 ]);
-        SendClientMessage( playerid, COLOR_WHITE, "[AdmCmd] Persikeletë á nurodytà vietà: gyvenamasis namas");
+        GetHouseEntrancePos(houseindex, x, y, z);
+        SetPlayerPos(playerid, x, y, z);
+        SetPlayerInterior(playerid, GetHouseEntranceInteriorID(houseindex));
+        SetPlayerVirtualWorld(playerid, GetHouseEntranceVirtualWorld(houseindex));
+        SendClientMessage(playerid, COLOR_WHITE, "[AdmCmd] Persikeletë á nurodytà vietà: gyvenamasis namas");
     }
     return 1;
 }
-CMD:gotobiz( playerid, params[ ] )
+CMD:gotobiz(playerid, params[])
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if(pInfo[ playerid ][ pAdmin ] < 4)
+        return 0;
+
+    new bizindex, tmp[16];
+    // Jeigu neávedë indekso arba ávedë daugiau kaþkà bet tai ne þodis "sqlid"
+    if((sscanf(params, "is[16]", bizindex, tmp) || isnull(tmp) || strcmp(tmp, "sqlid", true)) && sscanf(params, "d", bizindex)) 
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /gotobiz [biznio id]");
+
+    else if(!IsValidBusiness(bizindex) && (strcmp(tmp, "sqlid", true) || isnull(tmp)))
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, tokio verslo nëra.");
+
+    else if(!isnull(tmp) && !strcmp(tmp, "sqlid", true) && !IsValidBusinessSqlId(bizindex))
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, tokio verslo nëra.");
+    else 
     {
-        new tmp;
-        if ( sscanf( params, "d", tmp ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /gotobiz [biznio id]");
-        SetPlayerPos( playerid, bInfo[ tmp ][ bEnter ][ 0 ],
-                                bInfo[ tmp ][ bEnter ][ 1 ],
-                                bInfo[ tmp ][ bEnter ][ 2 ]);
-        SendClientMessage( playerid, COLOR_WHITE, "[AdmCmd] Persikeletë á nurodytà vietà: biznis/verslas");
+        new Float:x, Float:y, Float:z;
+        if(!isnull(tmp) && !strcmp(tmp, "sqlid", true))
+        {
+            bizindex = GetBusinessIndex(bizindex);
+        }
+
+        GetBusinessEntrancePos(bizindex, x, y, z);
+        SetPlayerPos(playerid, x, y, z);
+        SetPlayerInterior(playerid, GetBusinessEntranceInteriorID(bizindex));
+        SetPlayerVirtualWorld(playerid, GetBusinessEntranceVirtualWorld(bizindex));
+
+        SendClientMessage(playerid, COLOR_WHITE, "[AdmCmd] Persikeletë á nurodytà vietà: biznis/verslas");
     }
     return 1;
 }
