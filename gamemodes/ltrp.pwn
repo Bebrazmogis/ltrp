@@ -17741,7 +17741,7 @@ public OnPlayerUpdate(playerid)
 
     GetWeaponName( gunid, wepname, sizeof(wepname) );
 
-    if( gunid == 19 || gunid == 20 || gunid == 21 || gunid == 26 || gunid == 27 || GetSlotByID( gunid ) == 7 || GetSlotByID( gunid ) == 8 || GetSlotByID( gunid ) == 12 )
+    if(GetWeaponSlotByID(gunid) == 7)
     {
         format( str, sizeof(str), "Neleistinai gautas ginklas (%s)", wepname);
         TogglePlayerControllable(playerid, 0);
