@@ -6,6 +6,14 @@
  *                                *
  **********************************/
 
+ /**********************************
+ *                                *
+ *   @Bugfix:      Bebras         *
+ *   @Version:     0.3.2          *
+ *   @Date:    	   20.04.2015     *
+ *                                *
+ **********************************/
+
 #if defined _zcmd_included
 	#endinput
 #endif	
@@ -91,6 +99,8 @@ public OnPlayerCommandText(playerid, cmdtext[])
         funcname[MAX_FUNC_NAME];
     while (cmdtext[++pos] > ' ') 
 	{
+		if(pos == sizeof(funcname))
+			break;
 		funcname[pos-1] = tolower(cmdtext[pos]); 
 	}
 	format(funcname, sizeof(funcname), "cmd_%s", funcname);
