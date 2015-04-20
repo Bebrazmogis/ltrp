@@ -1396,6 +1396,7 @@ stock GarageManagementDialog.OnDialogResponse(playerid, dialogid, response, list
                     if(!IsPlayerInAnyInterior(playerid))
                         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs turite bûti interjere.");
 
+                    GetPlayerPos(playerid, x, y, z);
                     SetGarageExitLocation(index, GetPlayerInteriorId(playerid), x, y, z);
                     SendClientMessage(playerid, COLOR_GREEN, "Garaþo iðëjimo pozicija sëkmingai atnaujinta.");
                 }
