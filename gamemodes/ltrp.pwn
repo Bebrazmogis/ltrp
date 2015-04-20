@@ -3759,10 +3759,13 @@ public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
     format(string, 128, "%dScaleZ", modelid );
     SetPVarFloat ( playerid, string, fScaleZ );
 
-    SetPlayerAttachedObject(playerid,index,modelid,boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
     if(response == EDIT_RESPONSE_FINAL)
+    {
         if(IsItemWearable(GetItemIdFromModel(modelid)))
-            AddPlayerAttachedItem(playerid,GetItemIdFromModel(modelid),boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
+           AddPlayerAttachedItem(playerid,GetItemIdFromModel(modelid),boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
+        else 
+            SetPlayerAttachedObject(playerid,index,modelid,boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
+    }
     return 1;
 }
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
@@ -26737,7 +26740,8 @@ stock NearPhone( playerid )
 		 PlayerToPoint( 5.0, playerid, 1542.4297,-1684.7871,13.5545) ||
 		 PlayerToPoint( 5.0, playerid, 1522.2264,-1830.7876,13.5469) ||
 		 PlayerToPoint( 5.0, playerid, 2166.6946,-1155.4084,24.8679) ||
-		 PlayerToPoint( 5.0, playerid, 1771.3378,-1543.3586,9.4434 ) ||		 
+		 PlayerToPoint( 5.0, playerid, 1771.3378,-1543.3586,9.4434 ) ||		
+         IsPlayerInRangeOfPoint(playerid, 5.0, 378.5848,-1717.8740,23.2230) ||
          PlayerToPoint( 5.0, playerid, -22.9650,1075.2723,19.7422 ) )
          return 1;
     else return 0;
