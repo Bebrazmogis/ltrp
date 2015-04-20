@@ -317,9 +317,63 @@ public OnHouseFurnitureLoad()
         }
     }
     printf("Pakrauti %d namu objektai.", cache_get_row_count());
+    SanityChecks();
     return 1;
 }
+CMD:housesanity(playerid)
+{
+    if(pInfo[ playerid ][ pAdmin ] < 6)
+        return 0;
 
+    SendClientMessage(playerid, COLOR_LIGHTRED, "Pradëta..");
+
+    new string[128];
+    format(string, sizeof(string), "SanityChecks: houses.p Klaidø skaièius: %d", SanityChecks());
+    SendClientMessage(playerid, 0xFF0000FF, string);
+    return 1;
+}
+static stock SanityChecks()
+{
+    new query[128], Cache:result, houseid, errors;
+    for(new i = 0; i < MAX_HOUSES; i++)
+    {
+        if(!hInfo[ i ][ hID ])
+            continue;
+
+        for(new j = 0; j < MAX_HOUSE_FURNITURE; j++)
+        {
+            if(!HouseFurniture[ i ][ j ][ SqlId ])
+                continue;
+
+            mysql_format(DbHandle, query, sizeof(query), "SELECT house_id FROM house_furniture WHERE id = %d",
+                HouseFurniture[ i ][ j ][ SqlId ]);
+            result = mysql_query(DbHandle, query);
+            if(cache_get_row_count())
+            {
+                houseid = cache_get_field_content_int(0, "house_id");
+                if(houseid != hInfo[ i ][ hID ])
+                {
+                    printf("ERROR. House sqlid %d furniture sqlid %d does not belong to it. Its righful owner is house sqlid:%d",
+                        hInfo[ i ][ hID ], HouseFurniture[ i ][ j ][ SqlId ], houseid);
+                    errors++;
+                }
+            }
+            cache_delete(result);
+
+            mysql_format(DbHandle, query, sizeof(query), "SELECT id FROM furniture WHERE id = %d",
+                HouseFurniture[ i ][ j ][ FurnitureId ]);
+            result = mysql_query(DbHandle ,query);
+            if(!cache_get_row_count())
+            {
+                printf("ERRROR. House sqlid %d furniture sqlid %d has an invalid furniture id %d",
+                    hInfo[ i ][ hID ], HouseFurniture[ i ][ j ][ SqlId ], HouseFurniture[ i ][ j ][ FurnitureId ]);
+                errors++;
+            }
+            cache_delete(result);
+        }
+    }
+    return errors;
+}
 
 public OnHouseWeedLoad()
 {

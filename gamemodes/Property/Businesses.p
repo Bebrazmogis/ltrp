@@ -1553,8 +1553,20 @@ stock DeleteBusiness(index)
 
 stock IsValidBusiness(bizindex)
 {
+    if(bizindex < 0 || bizindex >= MAX_BIZNES)
+        return false;
+
     if(bInfo[ bizindex ][ bID ])
         return true;
+    else 
+        return false;
+}
+
+stock IsValidBusinessSqlId(bizsqlid)
+{
+    foreach(new i : Business)
+        if(bInfo[ i ][ bID ] == bizsqlid)
+            return true;
     return false;
 }
 

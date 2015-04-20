@@ -22,7 +22,7 @@
 
 
 
-#define VERSION                         2.1.7
+#define VERSION                         2.1.8
 #define BUILD_DATE                      2015-04.20
 
 #define MYSQL_USE_YINLINE
@@ -16182,13 +16182,13 @@ CMD:ahelp( playerid, params[ ] )
         if ( pInfo[ playerid ][ pAdmin ] >= 2 )
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 2] /dtc /gotocar /mute/rac ");
         if ( pInfo[ playerid ][ pAdmin ] >= 3 )
-            SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 3] /sethp /setarmour /forcelogout /hideadmins /serverguns /giveitem /checkgun /kickall ");
+            SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 3] /sethp /setarmour /forcelogout /hideadmins /serverguns /checkgun /kickall ");
         if ( pInfo[ playerid ][ pAdmin ] >= 4 )
         {
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 4] /auninvite /givemoney /giveweapon /amenu /intmenu"),
             SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 4] /makeleader /setstat /setstatcar /gotohouse /gotobiz");			
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 4] /makeadmin /makemoderator /cartax /housetax /biztax");
-            SendClientMessage(playerid, COLOR_WHITE, "[AdmLvl 4] /makefactinomanager ");
+            SendClientMessage(playerid, COLOR_WHITE, "[AdmLvl 4] /makefactinomanager  /giveitem ");
         }
     }
     return 1;

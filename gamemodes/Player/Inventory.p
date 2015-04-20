@@ -1165,6 +1165,7 @@ Item:OnPlayerUseGlasses(playerid, itemid)
 Item:OnPlayerUseHelmet(playerid, itemid)
 {
 	new string[80];
+	printf("OnPlayerUseHelmet(%d, %d) IsPlayerAttachedObjectSlotUsed:%d", playerid, itemid, GetAttachedItemSlot(itemid));
 	if(IsPlayerAttachedObjectSlotUsed(playerid, GetAttachedItemSlot(itemid)))
     {
         DeletePlayerAttachedItem(playerid, itemid);
@@ -1173,9 +1174,9 @@ Item:OnPlayerUseHelmet(playerid, itemid)
     }
     else
     {
-        AddPlayerAttachedItem(playerid, itemid, 2, 0.07, 0.017, 0, 88, 75, 0);
+        AddPlayerAttachedItem(playerid, itemid, 2, 0.07, 0.017, 0.0, 88.0, 75.0, 0.0);
         EditAttachedObject(playerid, GetAttachedItemSlot(itemid));
-        format(string, sizeof(string), "* %s ant galvos uþsideda ir uþsisegà ðalmà." ,GetPlayerNameEx(playerid));
+        format(string, sizeof(string), "* %s ant galvos uþsideda ir uþsisegà ðalmà.", GetPlayerNameEx(playerid));
         ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
     }
 	return 1;

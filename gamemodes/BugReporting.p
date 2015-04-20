@@ -539,8 +539,8 @@ stock BugReportManagementDialog.ShowNewStatus(playerid, bugsqlid)
 	{
 		new string[ 170 ];
 		cache_get_field_content(0, "status", string);
-		format(string, sizeof(string), "Áraðykite naujà klaidos bûsenà.\nPavyzdþiui \"Patvirtinta\", \"Atmesta\" ar panaðiai", "Iðsaugoti\n\nDabartinë bûsena: %s", string);
-		ShowPlayerDialog(playerid, DIALOG_BUGREP_MENU_NEW_STATUS, DIALOG_STYLE_INPUT, "Klaidos bûsena", string, "Atgal");
+		format(string, sizeof(string), "Áraðykite naujà klaidos bûsenà.\nPavyzdþiui \"Patvirtinta\", \"Atmesta\" ar panaðiai\n\nDabartinë bûsena: %s", string);
+		ShowPlayerDialog(playerid, DIALOG_BUGREP_MENU_NEW_STATUS, DIALOG_STYLE_INPUT, "Klaidos bûsena", string, "Iðsaugoti", "Atgal");
 		
 		return 1;
 	}
