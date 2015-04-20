@@ -29,15 +29,11 @@ ALTER TABLE player_attachments ADD FOREIGN KEY(player_id) REFERENCES players(id)
 new PlayerWornItems[ MAX_PLAYERS ][ 10 ];         // Pastaba. Tik akiniai, kepurës, ðalmai ir pnð èia laikomi. 
 
 
-
-
-
 stock AddPlayerAttachedItem(playerid, itemid, bone, Float:offx = 0.0, Float:offy = 0.0, Float:offz = 0.0, Float:rotx = 0.0,
 	Float:roty = 0.0, Float:rotz = 0.0, Float:scalex = 1.0, Float:scaley = 1.0, Float:scalez = 1.0, color1 = 0, color2 = 0)
 {
 	SetPlayerAttachedObject(playerid, GetAttachedItemSlot(itemid), GetItemObjectModel(itemid), bone, offx, offy, offz, rotx, roty, rotz, scalex, scaley, scalez, color1, color2);
 	PlayerWornItems[ playerid ][ GetAttachedItemSlot(itemid) ] = itemid;
-
 	new query[1024];
 	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO player_attachments (player_id, item_id, bone, off_x, off_y, off_z, rot_x, rot_y, rot_z, scale_x, scale_y, scale_z, color1, color2) VALUES \
 		(%d, %d, %d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d, %d)",
@@ -95,7 +91,7 @@ public OnPlayerAttachmentLoad(playerid)
 		index = GetAttachedItemSlot(itemid);
 		if(index == -1)
 		{
-			printf("ERROR. Attachments.p : OnPlayerAttachmentLoad(%s). Index is -1. Itemid:%d", GetName(playerid), itemid);
+			ErrorLog("ERROR. Attachments.p : OnPlayerAttachmentLoad(%s). Index is -1. Itemid:%d", GetName(playerid), itemid);
 		}
 		SetPlayerAttachedObject(playerid, 
 			index,
