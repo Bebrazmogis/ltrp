@@ -136,7 +136,7 @@ static const ClothesShopCategories[][ E_CLOTHES_SHOP_CATEGORY_DATA ] =
     {8, "Motociklininko ðalmai"},
     {9, "Kareiviðka apranga"},
     {10, "Kepurës su snapu"},
-    {11, "Kepurës"},
+    //{11, "Kepurës"},
     {12, "Darbo priemonës ir kieti ðalmai"},
     {13, "Keistos kepurës"},
     {14, "Specialiø institucijø apranga"},
