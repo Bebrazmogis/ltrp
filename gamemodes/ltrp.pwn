@@ -22561,8 +22561,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 pInfo[ playerid ][ pCarGet ] --;
 
             mysql_format(DbHandle, query, sizeof(query), "DELETE FROM `vehicles` WHERE `ID` = '%i'", cInfo[ vehicleid ][ cID ]);
-            mysql_pquery(DbHandle, query);
+            // No threading. LoadPlayerVehicles ið naujo krauna visus id... Tai gali dar nebût iðtrintas su paralelinem.
+            mysql_query(DbHandle, query, false);
             nullVehicle(vehicleid);
+
             LoadPlayerVehicles(playerid);
 
             PayLog(pInfo[ playerid ][ pMySQLID ],16, -2, GetVehicleModel(vehicleid));
