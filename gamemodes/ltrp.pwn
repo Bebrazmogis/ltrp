@@ -53,6 +53,7 @@ native WP_Hash(buffer[], len, const str[]);
 #include <YSI\y_malloc>
 #include <YSI\y_hooks>
 #include <YSI\y_timers>
+#include <YSI\y_va>
 //#include <YSI\y_inline>
 
 
@@ -24904,6 +24905,7 @@ stock SendNEWS(color,string[])
     return 1;
 }
 stock IsKeyJustDown(key, newkeys, oldkeys) { if((newkeys & key) && !(oldkeys & key)) return 1; return 0; }
+
 stock SendChatMessage(playerid,color,text[])
 {
     if(strlen(text) > 100)
@@ -25042,6 +25044,20 @@ stock SendTeamMessage(team, color, string[])
     }
     return 1;
 }
+
+
+stock SendAdminWarningMessage(const format[], va_args<>)
+{
+    new str[ 180 ];
+    va_format(str, sizeof (str), format, va_start<2>);
+    strins(str, "[AdmWarn]", 0);
+
+    foreach(new i : Player)
+        if((IsPlayerAdmin(i) || pInfo[ i ][ pAdmin ]) && TogChat[ i ][ 3 ])
+            SendChatMessage(i, COLOR_ADM, str);
+    return 1;
+}
+
 stock SendAdminMessagePlayer( playerid, color, text[ ] )
 {
     if ( pInfo[ playerid ][ pAdmin ] >= 1 && TogChat[ playerid ][ 3 ] == true )

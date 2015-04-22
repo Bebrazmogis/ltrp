@@ -784,7 +784,7 @@ Item:OnPlayerUseToolkit(playerid, itemid)
     {
         if(cInfo[ veh ][ cLock ] == 1 && cInfo[ veh ][ cOwner ] > 0 && CheckCarKeys(playerid,veh) == 0)
         {
-            
+            SendAdminWarningMessage("%s bando pavogti transporto priemonæ.", GetName(playerid));
             SetPVarInt(playerid, "CAR_JACK", veh);
             if(cInfo[veh][cLockType] == 0)
                 StartTimer(playerid,60,5);
