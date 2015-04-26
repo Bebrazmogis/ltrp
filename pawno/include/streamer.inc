@@ -43,7 +43,7 @@
 
 // Include File Version
 
-public Streamer_IncludeFileVersion = 0x275101;
+public Streamer_IncludeFileVersion = 0x275201;
 
 #pragma unused Streamer_IncludeFileVersion
 
@@ -113,6 +113,8 @@ native Streamer_GetCellDistance(&Float:distance);
 native Streamer_SetCellDistance(Float:distance);
 native Streamer_GetCellSize(&Float:size);
 native Streamer_SetCellSize(Float:size);
+native Streamer_ToggleErrorCallback(toggle);
+native Streamer_IsToggleErrorCallback();
 
 // Natives (Updates)
 
@@ -290,3 +292,4 @@ forward OnPlayerEnterDynamicRaceCP(playerid, checkpointid);
 forward OnPlayerLeaveDynamicRaceCP(playerid, checkpointid);
 forward OnPlayerEnterDynamicArea(playerid, areaid);
 forward OnPlayerLeaveDynamicArea(playerid, areaid);
+forward Streamer_OnPluginError(error[]);
