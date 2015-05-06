@@ -45,6 +45,7 @@ native WP_Hash(buffer[], len, const str[]);
 #include <GameTextS7.inc>
 #include <fader>
 #include <OnPlayerFirstSpawn>
+#include <mysql_pause_player>
 #include <mapandreas>
 #include <crashdetect>
 #include <filemanager>
