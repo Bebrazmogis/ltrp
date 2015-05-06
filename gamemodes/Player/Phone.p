@@ -1,17 +1,5 @@
 
 
-/*
-	CREATE TABLE IF NOT EXISTS player_phone_sms (
-		id INT AUTO_INCREMENT NOT NULL,
-		recipient_number INT NOT NULL,
-		sender_number INT NOT NULL,
-		`date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-		`text` VARCHAR(128) NOT NULL,
-		`read` BOOLEAN NOT NULL DEFAULT '0',
-		PRIMARY KEY(id)
-	) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
-	
-*/
 
 
 #include <YSI\y_hooks>
@@ -27,17 +15,13 @@
 #define DIALOG_PLAYER_PHONE_SMS_CONTENT 8108
 
 
-#define MAX_PHONEBOOK_CONTACT_NAME		64
 #define MAX_SMS_PER_PAGE 				20
 #define PLAYER_PHONE_NUMBER_LENGTH		6
+#define MAX_PLAYER_PHONES 				5
 
-// Telefonø knyga
-enum E_PHONEBOOK_DATA {
-    PhoneNumber,
-    Name[ MAX_PHONEBOOK_CONTACT_NAME ]
-};
 
-new PlayerPhoneBook[ MAX_PLAYERS ][ MAX_PHONEBOOK_ENTRIES ][ E_PHONEBOOK_DATA ];
+static PlayerPhones[ MAX_PLAYERS ][ MAX_PLAYER_PHONES ][ E_PRIVATE_PHONE_DATA ];
+
 
 enum E_NEW_CONTACT_INPUT_TYPE 
 {
@@ -50,6 +34,7 @@ static PlayerSMSListPage[ MAX_PLAYERS ];
 
 forward OnPlayerReceivedMessageLoad(playerid, page);
 forward OnPlayerSentMessageLoad(playerid, page);
+forward OnPlayerPhoneLoad(playerid);
 
 forward OnPlayerCallPlayer(playerid, targetplayer);
 forward OnPlayerCallService(playerid, phonenumber);
@@ -68,10 +53,44 @@ forward OnPlayerCallService(playerid, phonenumber);
                                                                                                
 */
 
+public OnPlayerFirstSpawn(playerid)
+{
+	#if defined phone_OnPlayerFirstSpawn
+		phone_OnPlayerFirstSpawn(playerid);
+	#endif
+
+	new pquery[ 80 ];
+	mysql_format(DbHandle, query, "SELECT * FROM phones WHERE location_type = %d AND location_id = %d",
+		PlayerInventory, GetPlayerSqlId(playerid));
+	mysql_pquery(DbHandle, query, "OnPlayerPhoneLoad", "i", playerid);
+	return 1;
+}
+#if defined _ALS_OnPlayerFirstSpawn
+	#undef OnPlayerFirstSpawn
+#else 
+	#define _ALS_OnPlayerFirstSpawn
+#endif
+#define OnPlayerFirstSpawn 				phone_OnPlayerFirstSpawn
+#if defined OnPlayerFirstSpawn
+	forward OnPlayerFirstSpawn(playerid);
+#endif
+
+public OnPlayerPhoneLoad(playerid)
+{
+	for(new i = 0; i  < cache_get_row_count(); i++)
+	{
+		PlayerPhones[ playerid ][ i ][ Number ] = cache_get_field_content_int(i, "number");
+		PlayerPhones[ playerid ][ i ][ Online ] = cache_get_field_content_int(i, "online");
+	}
+	return 1;
+}
+
 hook OnPlayerDisconnect(playerid, reason)
 {
-	for(new i = 0; i < sizeof(PlayerPhoneBook[]); i++)
-        PlayerPhoneBook[ playerid ][ i ][ PhoneNumber ] = 0;
+	static emptyPlayerPhone[ E_PRIVATE_PHONE_DATA ];
+	
+	for(new i = 0; i < MAX_PLAYER_PHONES; i++)
+        PlayerPhones[ playerid ][ i ] = emptyPlayerPhone;
 }
 
 
@@ -544,6 +563,26 @@ stock PlayerSendSms(playerid, phonenumber, text[])
     return 1;
 }
 
+/*
+GivePlayerPhone(playerid, phonenumber)
+{
+	new slot = -1;
+	for(new i = 0; i < MAX_PLAYER_PHONES; i++)
+		if(!PlayerPhoneNumbers[ playerid ][ i ])
+		{
+			slot = i ;
+			break;
+		}
+
+	if(slot == -1)
+		return 0;
+
+	PlayerPhoneNumbers[ playerid ][ slot ] = phonenumber;
+
+	new query[];
+	mysql_format(DbHandle, query, "INSERT INTO ")
+}
+*/
 stock IsServicePhoneNumber(phonenumber)
 {
 	switch(phonenumber)
@@ -603,6 +642,32 @@ stock ShowPlayerSMS(playerid, smssqlid)
 	}	
 	cache_delete(result);
 	return 1;
+}
+
+
+FindPlayerByPhoneNumber(phonenumber)
+{
+    foreach(new i : Player)
+        if(GetPlayerPhoneNumber(i) == phonenumber)  
+            return i;
+    return INVALID_PLAYER_ID;
+}
+
+IsValidPlayerNumber(phonenumber)
+{
+    if(FindPlayerByPhoneNumber(phonenumber) != INVALID_PLAYER_ID)   
+        return true;
+
+    else 
+    {
+        new query[70], Cache:result, bool:isValid;
+        mysql_format(DbHandle, query, sizeof(query), "SELECT id FROM players WHERE PhoneNr = %d", phonenumber);
+        result = mysql_query(DbHandle, query);
+        if(cache_get_row_count())
+            isValid = true;
+        cache_delete(result);
+        return isValid;
+    }
 }
 
 

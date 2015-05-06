@@ -48,6 +48,7 @@ native WP_Hash(buffer[], len, const str[]);
 #include <mapandreas>
 #include <crashdetect>
 #include <filemanager>
+#include <Cards>
 
 #include <YSI\y_dialog>
 #include <YSI\y_malloc>
@@ -155,7 +156,7 @@ forward OnPlayerLoginEx(playerid, sqlid);
 #define MAX_FISH_IN_BAG                 350
 #define MAX_BUSINESS_PRODUCTS           2000
 #define MAX_TRUCKER_CARGO_NAME          32
-#define MAX_PHONEBOOK_ENTRIES           10
+
 #define MAX_DROPPED_WEAPONS            50
 #define MAX_FISHING_SPOTS               20
 
@@ -840,6 +841,7 @@ new Fire[MAX_FIRE][fires];
 #include "BugReporting"
 
 #include "Items"
+#include "Phones"
 
 #include "FishingSystem"
 #include "Job_TaxiDriver"
@@ -856,6 +858,7 @@ new Fire[MAX_FIRE][fires];
 #include "Bank"
 #include "Graffiti"
 #include "Entrances"
+#include "Gambling/Blackjack"
 
 
 new RoadBlocks[MAX_ROADBLOCKS];
@@ -4097,30 +4100,6 @@ stock SetPlayerBankMoney(playerid, value)
 stock GetPlayerPhoneNumber(playerid)
     return pInfo[ playerid ][ pPhone ];
 
-stock FindPlayerByPhoneNumber(phonenumber)
-{
-    foreach(new i : Player)
-        if(GetPlayerPhoneNumber(i) == phonenumber)  
-            return i;
-    return INVALID_PLAYER_ID;
-}
-
-stock IsValidPlayerNumber(phonenumber)
-{
-    if(FindPlayerByPhoneNumber(phonenumber) != INVALID_PLAYER_ID)   
-        return true;
-
-    else 
-    {
-        new query[70], Cache:result, bool:isValid;
-        mysql_format(DbHandle, query, sizeof(query), "SELECT id FROM players WHERE PhoneNr = %d", phonenumber);
-        result = mysql_query(DbHandle, query);
-        if(cache_get_row_count())
-            isValid = true;
-        cache_delete(result);
-        return isValid;
-    }
-}
 
 stock GetPlayerIP(playerid)
 {
@@ -22992,7 +22971,7 @@ public OnPlayerLoginEx(playerid, sqlid)
     else 
         cache_delete(result);
 
-    new contactCount = 0;
+    /*new contactCount = 0;
     format(string, sizeof(string), "SELECT phone_number, name FROM player_phone_contacts WHERE player_id = %d ORDER BY entry_date ASC", pInfo[ playerid ][ pMySQLID ]);
     result = mysql_query(DbHandle, string);
     for(new i = 0; i < cache_get_row_count(); i++)
@@ -23002,6 +22981,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         contactCount++;
     }
     cache_delete(result);
+    */
     return 1;
 }
 

@@ -3,7 +3,7 @@ new DbHandle;
 
 
 #define VPS_MODE
-//#define BEBRAS_HOME_MODE
+#define BEBRAS_HOME_MODE
 
 #if defined VPS_MODE
     #define MYSQL_HOST "localhost"

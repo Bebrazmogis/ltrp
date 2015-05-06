@@ -95,6 +95,12 @@ stock SetCardSelectable(Text:cardid,set)
         TextDrawSetSelectable(cardid,set);
         return 1;
 }
+
+stock GetRandomCard()
+{
+        return random(52) + 1;
+}
+
 stock static GetTXDModel(cardtype)
 {
         new str[16] = "_";
