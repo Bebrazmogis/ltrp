@@ -145,7 +145,7 @@ public OnGameModeInit()
         houses_OnGameModeInit();
     #endif
     new query[90];
-    mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM phones WHERE location = %d ORDER BY location, location_id", _:HouseInventory);
+    mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM phones WHERE location_type = %d ORDER BY location_id", _:HouseInventory);
 
     mysql_tquery(DbHandle, "SELECT * FROM `houses` ORDER BY `id` ASC", "OnHouseLoad", "");
     mysql_tquery(DbHandle, "SELECT * FROM `house_items` ORDER BY house_id, slot", "OnHouseItemLoad", "");

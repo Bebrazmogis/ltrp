@@ -187,7 +187,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                switch(itemid)
                     {
                     	// Ðità galbût keisime.
-                        case ITEM_PHONE, ITEM_RADIO, ITEM_FISH, ITEM_TEORIJA: 
+                        case ITEM_RADIO, ITEM_FISH, ITEM_TEORIJA: 
                         	return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: ðio daikto negalima atiduoti kitam þaidëjui.");
 
                         case ITEM_ROD:
@@ -264,7 +264,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                    {
 	                        switch(itemid)
 	                        {
-	                            case ITEM_PHONE, ITEM_RADIO, ITEM_FISH, ITEM_TEORIJA: 
+	                            case ITEM_RADIO, ITEM_FISH, ITEM_TEORIJA: 
 	                            	return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: ðio daikto negalima dëti á automobilá.");
 	                            case ITEM_ROD:
 	                            {
@@ -324,7 +324,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 	                switch(itemid)
 	                {
-	                    case ITEM_PHONE, ITEM_RADIO, ITEM_FISH, ITEM_TEORIJA: return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: ðio daikto negalima dëti á spintelà.");
+	                    case ITEM_RADIO, ITEM_FISH, ITEM_TEORIJA: return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: ðio daikto negalima dëti á spintelà.");
 	                    case ITEM_ROD:
 	                    {
 	                        if(IsPlayerAttachedObjectSlotUsed(playerid, 4))
@@ -367,7 +367,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 	                switch(itemid)
 	                {
-	                    case ITEM_PHONE, ITEM_RADIO, ITEM_FISH, ITEM_TEORIJA: return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: ðio daikto negalima dëti á spintelà.");
+	                    case ITEM_RADIO, ITEM_FISH, ITEM_TEORIJA: return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: ðio daikto negalima dëti á spintelà.");
 	                    case ITEM_ROD:
 	                    {
 	                        if(IsPlayerAttachedObjectSlotUsed(playerid, 4))

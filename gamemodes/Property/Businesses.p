@@ -573,8 +573,8 @@ public OnBusinessAcceptedCargoLoad()
     {
         // Pavojingi dalykai :s
         BizCargoTypes = malloc(rows*2);
-        if(!BizCargoTypes)
-            print("ERROR Allocating memory in Businesses.p : OnBusinessAcceptedCargoLoad()");
+        if(!BizCargoTypes || BizCargoTypes == NO_ALLOC)
+            ErrorLog("ERROR Allocating memory in Businesses.p : OnBusinessAcceptedCargoLoad()");
         else 
         {
             new type, cargoid;
@@ -2078,7 +2078,7 @@ GetBusinessCargoStock(index)
 stock GetBusinessCargo(E_BUSINESS_TYPES:biz_type)
 {
     new type, cargoid;
-    if(Malloc_SlotSize(BizCargoTypes) == -1)
+    if(BizCargoTypes == NO_ALLOC || !Malloc_SlotSize(BizCargoTypes))
         return 0;
 
     for(new i = 0; i < Malloc_SlotSize(BizCargoTypes); i += 2)

@@ -144,7 +144,7 @@ public OnGameModeInit()
     strcat(query, "LEFT JOIN garage_furniture_textures ON garage_furniture.id = garage_furniture_textures.furniture_id ");
     strcat(query, "LEFT JOIN furniture ON garage_furniture.furniture_id = furniture.id ");
     strcat(query, "LEFT JOIN phones ON phones.location_id = garages.id");
-    mysql_format(DbHandle, query, sizeof(query),"%s WHERE location_type = %d", query, _:GarageInventory);
+    mysql_format(DbHandle, query, sizeof(query),"%s WHERE location_type = %d ", query, _:GarageInventory);
     strcat(query, "ORDER BY garages.id, garage_items.garage_id, garage_furniture.garage_id, garage_furniture_textures.furniture_id");
 
     mysql_pquery(DbHandle, query, "OnGarageLoad", "");
