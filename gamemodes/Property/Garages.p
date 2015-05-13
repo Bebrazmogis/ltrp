@@ -28,6 +28,8 @@
     #define MAX_GARAGE_FURNITURE        400
 #endif
 
+#define MAX_GARAGE_PHONES               3
+
 #define MIN_GARAGE_PRICE                0
 #define MAX_GARAGE_PRICE                999999
 
@@ -75,7 +77,8 @@ enum E_GARAGE_DATA
 };
 new gInfo[ MAX_GARAGES ][ E_GARAGE_DATA ],
 	GarageItems[ MAX_GARAGES ][ MAX_GARAGE_ITEMS ][ E_GARAGE_ITEM_DATA ],
-	GarageFurniture[ MAX_GARAGES ][ MAX_GARAGE_FURNITURE ][ E_PROPERTY_FURNITURE_DATA ];
+	GarageFurniture[ MAX_GARAGES ][ MAX_GARAGE_FURNITURE ][ E_PROPERTY_FURNITURE_DATA ],
+    GaragePhones[ MAX_GARAGES ][ MAX_GARAGE_PHONES ][ E_PRIVATE_PHONE_DATA ];
 
 static PlayerUsedGarageIndex[ MAX_PLAYERS ];
 
@@ -132,12 +135,16 @@ public OnGameModeInit()
     strcat(query, "garage_furniture_textures.txd_name AS `garage_furniture_textures.txd_name`, ");
     strcat(query, "garage_furniture_textures.texture_name AS `garage_furniture_textures.texture_name`, ");
     strcat(query, "garage_furniture_textures.color AS `garage_furniture_textures.color`,");
-    strcat(query, "furniture.name AS `default_furniture_name` ");
+    strcat(query, "furniture.name AS `default_furniture_name`, ");
+    strcat(query, "phones.number AS `phones.number`, ");
+    strcat(query, "phones.online AS `phones.online` ");
     strcat(query, "FROM `garages`  ");
     strcat(query, "LEFT JOIN garage_items ON garages.id = garage_items.garage_id ");
     strcat(query, "LEFT JOIN garage_furniture ON garages.id = garage_furniture.garage_id ");
     strcat(query, "LEFT JOIN garage_furniture_textures ON garage_furniture.id = garage_furniture_textures.furniture_id ");
     strcat(query, "LEFT JOIN furniture ON garage_furniture.furniture_id = furniture.id ");
+    strcat(query, "LEFT JOIN phones ON phones.location_id = garages.id");
+    mysql_format(DbHandle, query, sizeof(query),"%s WHERE location_type = %d", query, _:GarageInventory);
     strcat(query, "ORDER BY garages.id, garage_items.garage_id, garage_furniture.garage_id, garage_furniture_textures.furniture_id");
 
     mysql_pquery(DbHandle, query, "OnGarageLoad", "");
@@ -165,12 +172,14 @@ public OnGarageLoad()
     new garageCount = -1,
         garageItemCount,
         garageFurnitureCount,
+        garagePhoneCount,
         lastGarageId = -1,
         lastFurnitureId = -1,
         lastItemId = -1,
         itemid,
         garageid,
         furnituresqlid,
+        lastphonenumber,
         tmp[32],
         ticks = GetTickCount()
     ;
@@ -184,6 +193,7 @@ public OnGarageLoad()
         {
             garageItemCount = 0;
             garageFurnitureCount = -1;
+            garagePhoneCount = -1;
             garageCount++;
 
             lastGarageId = garageid;
@@ -287,6 +297,17 @@ public OnGarageLoad()
             cache_get_field_content(i, "garage_furniture_textures.texture_name", texture);
             color = cache_get_field_content_int(i, "garage_furniture_textures.color");
             SetDynamicObjectMaterial(GarageFurniture[ garageCount ][ garageFurnitureCount ][ ObjectId ], index, object, txd, texture, color);
+        }
+
+        // Telefonai. 
+        cache_get_field_content(i, "phones.number", tmp);
+        // Jei ne null ir tokio telefono dar nekrovëm.
+        if(!ismysqlnull(tmp) && (lastphonenumber != strval(tmp) || !lastphonenumber))
+        {
+            lastphonenumber = strval(tmp);
+            garagePhoneCount++;
+            GaragePhones[ garageCount ][ garagePhoneCount ][ Number ] = lastphonenumber;
+            GaragePhones[ garageCount ][ garagePhoneCount ][ Online ] = (cache_get_field_content_int(i, "online")) ? (true) : (false);
         }
     }
     printf("Serveryje yra sukurti %d garazai. Ju krovimas uztruko %d MS",garageCount+1, GetTickCount() - ticks);
@@ -615,6 +636,34 @@ stock GetGarageFreeItemSlot(garageindex)
             return i;
     return -1;
 } 
+
+GetGaragePhonenumberGarageIndex(phonenumber)
+{
+    foreach(new i : Garages)
+        for(new j = 0; j < MAX_GARAGE_PHONES; j++)
+            if(GaragePhones[ i ][ j ][ Number ] == phonenumber)
+                return i;
+    return -1;
+}
+
+IsPhoneInAnyGarage(phonenumber)
+{
+    foreach(new i : Garages)
+        for(new j = 0; j < MAX_GARAGE_PHONES; j++)
+            if(GaragePhones[ i ][ j ][ Number ] == phonenumber)
+                return true;
+    return false;
+}
+
+IsGaragePhonenumberOnline(phonenumber)
+{
+    foreach(new i : Garages)
+        for(new j = 0; j < MAX_GARAGE_PHONES; j++)
+            if(GaragePhones[ i ][ j ][ Number ] == phonenumber && GaragePhones[ i ][ j ][ Online ])
+                return true;
+    return false;
+}
+
 
 
 /*                                                                                                                                                                            

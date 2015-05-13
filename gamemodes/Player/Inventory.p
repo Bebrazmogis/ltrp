@@ -531,15 +531,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
 
 Item:OnPlayerUsePhone(playerid, itemid, invindex)
 {
-    if(IsPlayerPhoneOff(playerid))
-    {
-    	SendClientMessage(playerid, COLOR_NEWS, "Telefonas ásijungia...");
-    	TurnPlayerPhoneOn(playerid);
-    }
-    else 
-    {
-    	ShowPlayerPhoneMenu(playerid);
-    }
+	ShowPlayerPhoneList(playerid);
     return 1;
 }
 

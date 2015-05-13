@@ -2,12 +2,12 @@
  * Phones.p yra LTRP modifikacijos dalis
  * Kodo autorius: Bebras 2015
  *
- * ApraÅ¡ymas
+ * Apraðymas
  *
- * Telefonai nÄ—ra Å¾aidÄ—jo ar kieno kito duomenÅ³ dalis. Telefonai gali bÅ«ti laikomi Å¾aidÄ—jo inventoriuje, namusoe, garaÅ¾e ar transproto priemonÄ—je.
- * DuomenÅ³ bazÄ—je telefonus identifikuoja jo numeris kuris taip pat naudojamas skambinimui Å¾aidime
- * Å is skriptas taip pat atsakingas uÅ¾ taksofonÅ³ krovimÄ…, paruoÅ¡imÄ… bei administravimÄ…. 
- * Visi taksofonai taip pat turi savo numerÄ¯ kuris NEGALI bÅ«ti naudojamas Å¾aidÄ—jo telefonui.
+ * Telefonai nëra þaidëjo ar kieno kito duomenø dalis. Telefonai gali bûti laikomi þaidëjo inventoriuje, namusoe, garaþe ar transproto priemonëje.
+ * Duomenø bazëje telefonus identifikuoja jo numeris kuris taip pat naudojamas skambinimui þaidime
+ * Ðis skriptas taip pat atsakingas uþ taksofonø krovimà, paruoðimà bei administravimà. 
+ * Visi taksofonai taip pat turi savo numerá kuris NEGALI bûti naudojamas þaidëjo telefonui.
  *
 **/
 
@@ -22,30 +22,41 @@ CREATE TABLE IF NOT EXISTS phones (
 	PRIMARY KEY(number),
 	INDEX(location_type),
 	INDEX(location_id)
-) ENGINE=INNODB DEAFULT CHARSET=cp1257 COLLATE=cp1257_bin;
+) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 
 CREATE TABLE IF NOT EXISTS phone_contacts (
   number int(11) NOT NULL,
-  phone_number int(11) NOT NULL,
+  contact_number int(11) NOT NULL,
   name varchar(24) NOT NULL,
   entry_date int(11) NOT NULL,
-  PRIMARY KEY (number, phone_number)
+  PRIMARY KEY (number, contact_number)
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1257;
 
 ALTER TABLE phone_contacts ADD FOREIGN KEY(number) REFERENCES phones(number) ON DELETE CASCADE;
 
 CREATE TABLE IF NOT EXISTS phone_sms (
-	number INT AUTO_INCREMENT NOT NULL,
-	recipient_number INT NOT NULL,
 	sender_number INT NOT NULL,
+	recipient_number INT NOT NULL,
 	`date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`text` VARCHAR(128) NOT NULL,
 	`read` BOOLEAN NOT NULL DEFAULT '0',
-	PRIMARY KEY(number)
+	PRIMARY KEY(sender_number)
 ) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
-ALTER TABLE phone_contacts ADD FOREIGN KEY(number) REFERENCES phones(number) ON DELETE CASCADE;
+ALTER TABLE phone_sms ADD FOREIGN KEY(sender_number) REFERENCES phones(number) ON DELETE CASCADE;
+
+CREATE TABLE IF NOT EXISTS phone_conversation_logs (
+	id INT AUTO_INCREMENT NOT NULL,
+	from_number INT NOT NULL,
+	to_number INT NOT NULL,
+	`text` VARCHAR(128),
+	date DATETIME NOT NULL,
+	PRIMARY KEY(id)
+) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+ALTER TABLE phone_conversation_logs ADD FOREIGN KEY(from_number) REFERENCES phones(number) ON DELETE CASCADE;
+ALTER TABLE phone_conversation_logs ADD FOREIGN KEY(to_number) REFERENCES phones(number) ON DELETE CASCADE;
 
 
 CREATE TABLE IF NOT EXISTS payphones (
@@ -72,6 +83,10 @@ CREATE TABLE IF NOT EXISTS payphones (
 #define MAX_PHONES 						700
 #define MAX_PHONEBOOK_ENTRIES           10
 
+#define PHONE_PRICE_PER_SECOND 			2
+
+#define GetPhoneTalkPrice(%0)			(PHONE_PRICE_PER_SECOND*%0)
+
 /* 	                                                                          
 	                               ,,           ,,        ,,                  
 	`7MMF'   `7MF'                 db          *MM      `7MM                  
@@ -85,7 +100,7 @@ CREATE TABLE IF NOT EXISTS payphones (
 	                                                                           */
 
 
-// Vietos kur gali bÅ«ti telefonas
+// Vietos kur gali bûti telefonas
 enum E_PRIVATE_PHONE_LOCATIONS 
 {
 	PlayerInventory,
@@ -105,23 +120,15 @@ enum E_PRIVATE_PHONE_DATA
 enum E_PAYPHONE_DATA 
 {
 	Number,
-	Float:X,
-	Float:Y,
-	Float:Z,
+	Float:PosX,
+	Float:PosY,
+	Float:PosZ,
 	Interior,
 	VirtualWorld,
 };
 
-// TelefonÅ³ knygÅ³ duomenys
-enum E_PHONEBOOK_DATA 
-{
-	OwnerNumber,
-    ContactNumber,
-    Name[ MAX_PHONEBOOK_CONTACT_NAME ]
-};
 
-static PlayerPhoneBook[ MAX_PHONES ][ MAX_PHONEBOOK_ENTRIES ][ E_PHONEBOOK_DATA ],
-	PayphoneData[ MAX_PAYPHONES ][ E_PAYPHONE_DATA ];
+static PayphoneData[ MAX_PAYPHONES ][ E_PAYPHONE_DATA ];
 
 
 
@@ -156,12 +163,122 @@ public OnPayphoneLoad()
 			break;
 		}
 		PayphoneData[ i ][ Number ] = cache_get_field_content_int(i, "number");
-		PayphoneData[ i ][ X ] = cache_get_field_content_float(i, "pos_x");
-		PayphoneData[ i ][ Y ] = cache_get_field_content_float(i, "pos_y");
-		PayphoneData[ i ][ Z ] = cache_get_field_content_float(i, "pos_z");
+		PayphoneData[ i ][ PosX ] = cache_get_field_content_float(i, "pos_x");
+		PayphoneData[ i ][ PosY ] = cache_get_field_content_float(i, "pos_y");
+		PayphoneData[ i ][ PosZ ] = cache_get_field_content_float(i, "pos_z");
 		PayphoneData[ i ][ Interior ] = cache_get_field_content_int(i, "interior");
 		PayphoneData[ i ][ VirtualWorld ] = cache_get_field_content_int(i, "virtual_world");
 	}
 	printf("Loaded %d payphones.", cache_get_row_count());
 	return 1;
+}
+
+
+
+
+
+
+IsValidPhoneNumber(phonenumber)
+{
+	new query[60], Cache:result, bool:valid = false;
+
+	mysql_format(DbHandle, query, sizeof(query), "SELECT number FROM phones WHERE number = %d", phonenumber);
+	result = mysql_query(DbHandle, query);
+	if(cache_get_row_count())
+		valid = true;
+	cache_delete(result);
+
+	return valid;
+}
+
+
+IsValidPlayerNumber(phonenumber)
+{
+	new query[90], Cache:result, bool:valid = false;
+
+	mysql_format(DbHandle, query, sizeof(query), "SELECT number FROM phones WHERE number = %d AND location_type = %d", phonenumber, _:PlayerInventory);
+	result = mysql_query(DbHandle, query);
+	if(cache_get_row_count())
+		valid = true;
+	cache_delete(result);
+
+	return valid;
+}
+
+
+
+
+
+E_PRIVATE_PHONE_LOCATIONS:GetPhoneNumberLocation(phonenumber)
+{
+	foreach(new i : Player)
+		if(IsPlayerPhonenumber(i, phonenumber))
+			return PlayerInventory;
+	if(IsPhoneInAnyHouse(phonenumber))
+		return HouseInventory;
+
+	if(IsPhoneInAnyGarage(phonenumber))
+		return GarageInventory;
+
+	if(IsPhoneInAnyVehicle(phonenumber))
+		return VehicleTrunk;
+
+	return E_PRIVATE_PHONE_LOCATIONS:-1;
+}
+
+IsPhoneNumberOnline(phonenumber)
+{
+	new E_PRIVATE_PHONE_LOCATIONS:location = GetPhoneNumberLocation(phonenumber);
+
+	switch(location)
+	{
+		case PlayerInventory:
+			return IsPlayerPhonenumberOnline(phonenumber);
+		case HouseInventory:
+			return IsHousePhonenumberOnline(phonenumber);
+		case GarageInventory:
+			return IsGaragePhonenumberOnline(phonenumber);
+		case VehicleTrunk:
+			return IsVehiclePhonenumberOnline(phonenumber);
+	}
+	return false;
+}
+
+IsPayphoneNumber(phonenumber)
+{
+	if(!phonenumber)
+		return 0;
+
+	for(new i = 0; i < MAX_PAYPHONES; i++)	
+		if(PayphoneData[ i ][ Number ] == phonenumber)
+			return true;
+
+	return false;
+}
+
+AddPhonebookContact(phonenumber, contactnumber, contactname[])
+{
+	new query[ 256 ];
+	mysql_format(DbHandle, query, sizeof(query), "INSERT INTO phone_contacts (number, contact_number, name, entry_date) VALUES (%d, %d, '%e', %d) \ 
+		ON DUPLICATE KEY UPDATE name = VALUES(name), entry_date = VALUES(entry_date)",
+		phonenumber, contactnumber, contactname, gettime());
+	return mysql_pquery(DbHandle, query);
+}
+
+
+RemovePhonebookContact(phonenumber, contactnumber)
+{
+	new query[ 100 ];
+	mysql_format(DbHandle, query, sizeof(query), "DELETE FROM phone_contacts WHERE number = %d AND contact_number = %d",
+		phonenumber, contactnumber);
+	return mysql_pquery(DbHandle, query);
+}
+
+
+stock LogPhoneConversation(fromnumber, tonumber, const text[])
+{
+    new query[ 256 ];
+    mysql_format(DbHandle, query, sizeof(query), "INSERT INTO phone_conversation_logs (from_number, to_number, `text`, date) VALUES (%d, %d, '%e', %d)",
+    	fromnumber, tonumber, text);
+    return mysql_pquery(DbHandle, query);
 }

@@ -32,6 +32,9 @@
 #define MAX_HOUSE_WEED_YIELD            22
 #define MAX_HOUSE_WEED_GROWTH_LEVEL     24
 
+
+#define MAX_HOUSE_PHONES                3
+
 #define HOUSE_WEED_PLANT_OBJECT         19473
 #define HOUSE_WEED_PLANT_HEIGHT         1.744
 
@@ -107,7 +110,8 @@ new hInfo[ MAX_HOUSES ][ E_HOUSE_DATA ],
     HouseFurnitureName[ MAX_HOUSES ][ MAX_HOUSE_FURNITURE ][ MAX_FURNITURE_NAME ],
     HouseRadio[ MAX_HOUSES ][ E_HOUSE_RADIO_DATA ],
     HouseWeed[ MAX_HOUSES ][ MAX_HOUSE_WEED_SAPLINGS ][ E_HOUSE_WEED_DATA ],
-    HouseItems[ MAX_HOUSES ][ MAX_HOUSE_ITEMS ][ E_HOUSE_ITEM_DATA ];
+    HouseItems[ MAX_HOUSES ][ MAX_HOUSE_ITEMS ][ E_HOUSE_ITEM_DATA ],
+    HousePhones[ MAX_HOUSES ][ MAX_HOUSE_PHONES ][ E_PRIVATE_PHONE_DATA ];
 
 new Iterator:Houses<MAX_HOUSES>;
 
@@ -117,6 +121,7 @@ forward OnHouseLoad();
 forward OnHouseItemLoad();
 forward OnHouseFurnitureLoad();
 forward OnHouseWeedLoad();
+forward OnHousePhoneLoad();
 
 /*
                                                                                                
@@ -139,7 +144,8 @@ public OnGameModeInit()
     #if defined houses_OnGameModeInit
         houses_OnGameModeInit();
     #endif
-
+    new query[90];
+    mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM phones WHERE location = %d ORDER BY location, location_id", _:HouseInventory);
 
     mysql_tquery(DbHandle, "SELECT * FROM `houses` ORDER BY `id` ASC", "OnHouseLoad", "");
     mysql_tquery(DbHandle, "SELECT * FROM `house_items` ORDER BY house_id, slot", "OnHouseItemLoad", "");
@@ -147,6 +153,7 @@ public OnGameModeInit()
     // Bei tam kad bûtø iðrikiuota pagal namo ID, todël vieno namo baldai bus vienas ðalia kito.
     mysql_tquery(DbHandle, "SELECT house_furniture.*,house_furniture_textures.*, furniture.name AS default_name FROM house_furniture LEFT JOIN house_furniture_textures ON house_furniture.id = house_furniture_textures.furniture_id LEFT JOIN furniture ON furniture.id = house_furniture.furniture_id ORDER BY house_furniture.house_id", "OnHouseFurnitureLoad", "");
     mysql_tquery(DbHandle, "SELECT * FROM house_weed WHERE harvested_by IS NULL", "OnHouseWeedLoad", "");
+    mysql_tquery(DbHandle, query, "OnHousePhoneLoad", "");
     return 1;
 }
 #if defined _ALS_OnGameModeInit
@@ -320,6 +327,30 @@ public OnHouseFurnitureLoad()
     SanityChecks();
     return 1;
 }
+
+public OnHousePhoneLoad()
+{
+    new phonecount, oldindex = -1, index;
+    for(new i = 0; i < cache_get_row_count(); i++)
+    {
+        index = GetHouseIndex(cache_get_field_content_int(i, "location_id"));
+        if(index == -1)
+        {
+            ErrorLog("Invalid house phone number %d", cache_get_field_content_int(i, "number"));
+            continue;
+        }
+        if(oldindex != index || oldindex == -1)
+        {
+            oldindex = index;
+            phonecount = 0;
+        }
+        HousePhones[ index ][ phonecount ][ Number ] = cache_get_field_content_int(i, "number");
+        HousePhones[ index ][ phonecount ][ Online ] = (cache_get_field_content_int(i, "online")) ? (true) : (false);
+        phonecount++;
+    }
+    return 1;
+}
+
 CMD:housesanity(playerid)
 {
     if(pInfo[ playerid ][ pAdmin ] < 6)
@@ -922,6 +953,33 @@ stock HarvestHouseWeedPlant(playerid, house_index, weedindex)
     return yield;
 }
 
+
+GetHousePhonenumberHouseIndex(phonenumber)
+{
+    foreach(new i : Houses)
+        for(new j = 0; j < MAX_HOUSE_PHONES; j++)
+            if(HousePhones[ i ][ j ][ Number ] == phonenumber)
+                return i;
+    return -1;
+}
+
+IsPhoneInAnyHouse(phonenumber)
+{
+    foreach(new i : Houses)
+        for(new j = 0; j < MAX_HOUSE_PHONES; j++)
+            if(HousePhones[ i ][ j ][ Number ] == phonenumber)
+                return true;
+    return false;
+}
+
+IsHousePhonenumberOnline(phonenumber)
+{
+    foreach(new i : Houses)
+        for(new j = 0; j < MAX_HOUSE_PHONES; j++)
+            if(HousePhones[ i ][ j ][ Number ] == phonenumber && HousePhones[ i ][ j ][ Online ])
+                return true;
+    return false;
+}
 
 /*
                                                       

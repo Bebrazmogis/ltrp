@@ -856,10 +856,11 @@ new Fire[MAX_FIRE][fires];
 #include "Player\Inventory"
 #include "Player\Attachments"
 #include "Player\Phone"
+#include "Vehicles\vPhone"
 #include "Bank"
 #include "Graffiti"
 #include "Entrances"
-#include "Gambling/Blackjack"
+//#include "Gambling/Blackjack"
 
 
 new RoadBlocks[MAX_ROADBLOCKS];
@@ -1361,7 +1362,7 @@ stock NullAnimVariables( playerid )
     UsingLoopAnim[ playerid ] = false;
     AnimsPrelo   [ playerid ] = false;
 }
-
+/*
 stock GetNumber( playerid, number )
 {
     new
@@ -1388,6 +1389,7 @@ stock GetNumber( playerid, number )
     return string;
 }
 
+*/
 
 stock PlacePlayerRoadBlockInPos( playerid, type )
 {
@@ -4098,8 +4100,8 @@ stock GetPlayerBankMoney(playerid)
 stock SetPlayerBankMoney(playerid, value)
     return pInfo[ playerid ][ pBank ] = value;
 
-stock GetPlayerPhoneNumber(playerid)
-    return pInfo[ playerid ][ pPhone ];
+//stock GetPlayerPhoneNumber(playerid)
+//    return pInfo[ playerid ][ pPhone ];
 
 
 stock GetPlayerIP(playerid)
@@ -4468,31 +4470,6 @@ public OnPlayerDisconnect(playerid, reason)
     if(Boxing[playerid] == true)
         BoxEnd(playerid);
         
-    if (MobilePhone[playerid] != INVALID_PLAYER_ID)
-    {
-        if( MobilePhone[playerid] > MAX_PLAYERS )
-        {
-            SetPlayerSpecialAction( playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
-            RemovePlayerAttachedObject( playerid, 3 );
-            MobilePhone[ playerid ] = INVALID_PLAYER_ID;
-            RingTone   [ playerid ] = 0;
-            if ( NearPhone( playerid ) )
-                TogglePlayerControllable( playerid, true );
-        }
-        else
-        {
-            if (MobilePhone[MobilePhone[playerid]] == playerid)
-            {
-                SendClientMessage(MobilePhone[playerid], GRAD, "Dëmesio, ryðys staiga nutrøko." );
-                MobilePhone[MobilePhone[playerid]] = INVALID_PLAYER_ID;
-            }
-            else 
-                RingTone[MobilePhone[playerid]] = 0;
-            SetPVarInt( MobilePhone[playerid], "CallOwner", true );
-            MobilePhone[playerid] = INVALID_PLAYER_ID;
-            RingTone[playerid] = 0;
-        }
-    }
 
     if (PlayerOn[ playerid ] == true )
     {
@@ -4646,30 +4623,6 @@ public OnPlayerDeath(playerid, killerid, reason)
     #if defined DEBUG
         printf("[debug] OnPlayerDeath(%s, %d, %d)", GetName(playerid), killerid, reason);
     #endif
-    if (MobilePhone[playerid] != INVALID_PLAYER_ID)
-    {
-        if( MobilePhone[playerid] > MAX_PLAYERS )
-        {
-            SetPlayerSpecialAction( playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
-            RemovePlayerAttachedObject( playerid, 3 );
-            MobilePhone[ playerid ] = INVALID_PLAYER_ID;
-            RingTone   [ playerid ] = 0;
-            if ( NearPhone( playerid ) )
-                TogglePlayerControllable( playerid, true );
-        }
-        else
-        {
-            if (MobilePhone[MobilePhone[playerid]] == playerid)
-            {
-                SendClientMessage(MobilePhone[playerid], GRAD, "Dëmesio, staiga nutrûko ryðys." );
-                MobilePhone[MobilePhone[playerid]] = INVALID_PLAYER_ID;
-            }
-            SetPVarInt( MobilePhone[playerid], "CallOwner", true );
-            RingTone[MobilePhone[playerid]] = 0;
-            MobilePhone[playerid] = INVALID_PLAYER_ID;
-            RingTone[playerid] = 0;
-        }
-    }
     
     if(Mires[playerid] == 0)
     {
@@ -4791,7 +4744,6 @@ public OnVehicleDeath(vehicleid, killerid)
 public OnPlayerText(playerid, text[])
 {
     new string[ 256 ],
-        query[ 512 ],
         zone[30];
 
     GetPlayer2DZone(playerid, zone, 30);
@@ -4811,285 +4763,6 @@ public OnPlayerText(playerid, text[])
     if ( AfkCheck[ playerid ] != 0 )
         AfkCheck[ playerid ] = 0;
 
-    if(MobilePhone[playerid] != INVALID_PLAYER_ID && RingTone[ playerid ] == 0)
-    {
-        if( !NearPhone( playerid ) )
-        format(string, 256, "%s sako (telefonu): %s", GetPlayerNameEx(playerid), text);
-        else
-        format(string, 256, "%s sako (taksofonu): %s", GetPlayerNameEx(playerid), text);
-        ProxDetector(10.0, playerid, string,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5);
-        if(!NearPhone(playerid))
-        {
-            if( IsPlayerConnected( MobilePhone[ playerid ] ) )
-            {
-                if (TalkingLive[playerid] != 255) // Interviu telefonu sistema
-                {
-                    if (TalkingLive[playerid] == MobilePhone[ playerid ] && PlayerToPlayer(5.0, playerid, TalkingLive[playerid]))
-                    {
-                        format(string,179, "[SAN NEWS] Tiesioginis interviø %s: %s", GetName( playerid ), text );
-                        SendNEWS(COLOR_GREEN,string);
-                        if( GetPVarInt  ( playerid, "SPEAKER" ) == 0 )
-                        {
-                            format(string, 256, "%s sako (telefonu): %s", GetNumber( MobilePhone[ playerid ], pInfo[ playerid ][ pPhone ] ), text);
-                            SendClientMessage( MobilePhone[ playerid ], COLOR_LIGHTRED2, string );
-                        }
-                        else
-                        {
-                            format(string, 256, "%s sako (telefonu): %s", GetNumber( MobilePhone[ playerid ], pInfo[ playerid ][ pPhone ] ), text);
-                            SendClientMessage( MobilePhone[ playerid ], COLOR_LIGHTRED2, string );
-                            format(string, 256, "%d sako (telefonu): %s", pInfo[ playerid ][ pPhone ], text);
-                            ProxDetector2(10.0, MobilePhone[ playerid ], string,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5);
-                        }
-                    }
-                    else
-                    {
-                        if( GetPVarInt  ( MobilePhone[ playerid ], "SPEAKER" ) == 0 )
-                        {
-                            format(string, 256, "%s sako (telefonu): %s", GetNumber( MobilePhone[ playerid ], pInfo[ playerid ][ pPhone ] ), text);
-                            SendClientMessage( MobilePhone[ playerid ], COLOR_LIGHTRED2, string );
-                        }
-                        else
-                        {
-                            format(string, 256, "%s sako (telefonu): %s", GetNumber( MobilePhone[ playerid ], pInfo[ playerid ][ pPhone ] ), text);
-                            SendClientMessage( MobilePhone[ playerid ], COLOR_LIGHTRED2, string );
-                            format(string, 256, "%d sako (telefonu): %s", pInfo[ playerid ][ pPhone ], text);
-                            ProxDetector2(10.0, MobilePhone[ playerid ], string,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5);
-                        }
-                    }
-                }
-                else
-                {
-                    if( GetPVarInt(MobilePhone[ playerid ], "SPEAKER" ) == 0 )
-                    {
-                        format(string, 256, "%s sako (telefonu): %s", GetNumber( MobilePhone[ playerid ], pInfo[ playerid ][ pPhone ] ), text);
-                        SendClientMessage( MobilePhone[ playerid ], COLOR_LIGHTRED2, string );
-                    }
-                    else
-                    {
-                        format(string, 256, "%s sako (telefonu): %s", GetNumber( MobilePhone[ playerid ], pInfo[ playerid ][ pPhone ] ), text);
-                        SendClientMessage( MobilePhone[ playerid ], COLOR_LIGHTRED2, string );
-                        format(string, 256, "%d sako (telefonu): %s", pInfo[ playerid ][ pPhone ], text);
-                        ProxDetector2(10.0, MobilePhone[ playerid ], string,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5);
-                    }
-                }
-            }
-        }
-        else
-        {
-            format(string, 256, "Anonimas sako (taksofonu): %s", text);
-            SendClientMessage( MobilePhone[ playerid ], COLOR_LIGHTRED2, string );
-        }
-        SetPlayerChatBubble( playerid, text, COLOR_FADE1, 20.0, 10000 );
-        if(MobilePhone[playerid] == 911)
-        {
-            if ( strcmp( "policija", text, true, strlen( text ) ) == 0 ) // PD kvietimas
-            {
-                SendClientMessage(playerid, COLOR_FADE2, "LOS SANTOS pagalbos linija: tuojaus sujungsime Jus su policijos departamentu.");
-                MobilePhone[playerid] = 912;
-                SendClientMessage(playerid, COLOR_WHITE, "LOS SANTOS POLICIJOS DEPARTAMENTAS: Los Santos policija klauso, koks Jûsø praneðimas ir vieta?");
-                return false;
-            }
-            else if (strcmp("medikais", text, true, strlen(text)) == 0) // MD kvietimas
-            {
-                SendClientMessage(playerid, COLOR_FADE2, "LOS SANTOS pagalbos linija: tuojaus sujungsime Jus su ligonine ar kita medicinos ástaiga.");
-                MobilePhone[playerid] = 913;
-                SendClientMessage(playerid, COLOR_WHITE, "LOS SANTOS ligoninë: Los Santos ligoninë klauso, apibûdinkite kas nutiko ir kur nutiko.");
-                return 0;
-            }
-            else if ( strcmp( "abu", text, true, strlen( text ) ) == 0 ) // Abiejø kvietimas
-            {
-                SendClientMessage(playerid, COLOR_FADE2, "LOS SANTOS pagalbos linija: tuojaus sujungsime su bendros pagalbos centru.");
-                MobilePhone[playerid] = 914;
-                SendClientMessage(playerid, COLOR_WHITE, "LOS SANTOS bendra pagalbos linija: apibûdinkite savo ávyki, bei ávykio vietà.");
-                return false;
-            }
-            else
-            {
-                SendClientMessage(playerid, COLOR_FADE2, "LOS SANTOS pagalbos linija: Atleiskite, bet að nesuprantu su kuo Jûs reikia sujungti: Policija ar medikais?");
-                return false;
-            }
-        }
-        else if(MobilePhone[playerid] == 912) // Iðkvietimo parodymas PD
-        {
-            SendClientMessage(playerid, COLOR_FADE2, "LOS SANTOS POLICIJOS DEPARTAMENTAS: Jûsø praneðimas uþfiksuotas ir praneðtas pareigønams.");
-            SendClientMessage(playerid, COLOR_FADE1, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti.");
-            SendTeamMessage(1, COLOR_LIGHTRED, "|________________Gautas praneðimas apie ávyki________________|");
-            if( !NearPhone( playerid ) )
-            {
-                mysql_real_escape_string(text, text, DbHandle, 128);
-                mysql_real_escape_string(zone, zone, DbHandle, 128);
-                format( query, sizeof( query ), "INSERT INTO `lastcall` (number, crime, position) VALUES (%d, '%s', '%s')",
-                    pInfo[playerid][pPhone], text, zone );
-                format(string, 256, "| ávyki praneðë | %d, nustatytà vieta: %s", pInfo[playerid][pPhone], zone);
-            }
-            else
-            {
-                mysql_real_escape_string(text, text, DbHandle, 128);
-                mysql_real_escape_string(zone, zone, DbHandle, 128);
-                format(string, 256, "| ávyki praneðë | Klaida, praneðëjas nenustatytas" );
-                format( query, sizeof( query ), "INSERT INTO `lastcall` (number, crime, position) VALUES (0, '%s', '%s')",
-                    text, zone );
-            }
-            SendTeamMessage(1, COLOR_WHITE, string);
-            format(string, 256, "| ávykis: %s",text);
-            GetPlayerPos( playerid, Tlc[ 0 ], Tlc[ 1 ], Tlc[ 2 ] );
-            SendTeamMessage(1, COLOR_WHITE, string);
-            SetPVarInt( playerid, "CallOwner", false );
-            MobilePhone[playerid] = INVALID_PLAYER_ID;
-            if( !NearPhone( playerid ) )
-            {
-                SetPlayerSpecialAction( playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
-                RemovePlayerAttachedObject( playerid, 3 );
-            }
-            else
-            TogglePlayerControllable( playerid, true );
-            mysql_query(DbHandle,  query, false);
-            return false;
-        }
-        else if(MobilePhone[playerid] == 999)
-        {
-            SendTeamMessage(4, COLOR_LIGHTRED, "|_____________Gautas praneðimas apie ávyki_____________|");
-            if( !NearPhone( playerid ) )
-            format                  ( string, 179, "| ávyki praneðë | %d", pInfo[playerid][pPhone] );
-            else
-            format                  ( string, 179, "| ávyki praneðë | Klaida, praneðëjas nenustatytas" );
-            SendTeamMessage(4, COLOR_WHITE, string);
-            format                  ( string, 179, "| ávykio praneðimas | %s", text );
-            SendTeamMessage(4, COLOR_WHITE, string);
-            SetPVarInt( playerid, "CallOwner", false );
-            MobilePhone[playerid] = INVALID_PLAYER_ID;
-            if( !NearPhone( playerid ) )
-            {
-                SetPlayerSpecialAction( playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
-                RemovePlayerAttachedObject( playerid, 3 );
-            }
-            else
-            TogglePlayerControllable( playerid, true );
-        }
-        else if(MobilePhone[playerid] == 913) // Iðkvietimo parodymas MD
-        {
-            SendClientMessage(playerid, COLOR_FADE2, "LOS SANTOS LIGONINë: Jûsø praneðimas uþfiksuotas ir praneðtas møsø medikams.");
-            SendClientMessage(playerid, COLOR_FADE1, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti, medikai jau atvyksta");
-            SendTeamMessage(2, COLOR_LIGHTRED, "|________________Gautas praneðimas apie ávyki________________|");
-            mysql_real_escape_string(text, text, DbHandle, 128);
-            mysql_real_escape_string(zone, zone, DbHandle, 128);
-            if( !NearPhone( playerid ) )
-            {
-                format( query, sizeof( query ), "INSERT INTO `lastcall` (number, crime, position) VALUES (%d, '%s', '%s')",
-                    pInfo[playerid][pPhone], text, zone );
-                format(string, 256, "| ávyki praneðë | %d, nustatyti vieta: %s", pInfo[playerid][pPhone], zone);
-            }
-            else
-            {
-                format(string, 256, "| ávyki praneðë | Klaida, praneðëjas nenustatytas" );
-                format( query, sizeof( query ), "INSERT INTO `lastcall` (number, crime, position) VALUES (0, '%s', '%s')",
-                    text, zone );
-            }
-            SendTeamMessage(2, COLOR_WHITE, string);
-            format(string, 256, "| ávikio praneðimas | %s",text);
-            SendTeamMessage(2, COLOR_WHITE, string);
-            GetPlayerPos( playerid, Tlc[ 0 ], Tlc[ 1 ], Tlc[ 2 ] );
-            SetPVarInt( playerid, "CallOwner", false );
-            MobilePhone[playerid] = INVALID_PLAYER_ID;
-            if( !NearPhone( playerid ) )
-            {
-                SetPlayerSpecialAction( playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
-                RemovePlayerAttachedObject( playerid, 3 );
-            }
-            else
-            TogglePlayerControllable( playerid, true );
-            mysql_query(DbHandle,  query, false);
-            return false;
-        }
-        else if(MobilePhone[playerid] == 914) // Iðkvietimo parodymas MD/PD
-        {
-            SendClientMessage(playerid, COLOR_FADE2, "LOS SANTOS pagalbos linija Jûsø ávykis buvo praneðtas visiems departamentams.");
-            SendClientMessage(playerid, COLOR_FADE1, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti.");
-            SendTeamMessage(2, COLOR_LIGHTRED, "|________________Gautas praneðimas apie ávyki________________|");
-            SendTeamMessage(1, COLOR_LIGHTRED, "|________________Gautas praneðimas apie ávyki________________|");
-            mysql_real_escape_string(text, text, DbHandle, 128);
-            mysql_real_escape_string(zone, zone, DbHandle, 128);
-            if( !NearPhone( playerid ) )
-            {
-                format( query, sizeof( query ), "INSERT INTO `lastcall` (number, crime, position) VALUES (%d, '%s', '%s')",
-                    pInfo[playerid][pPhone], text, zone );
-                format(string, 256, "| ávyki praneðë | %d, nustatyta vieta: %s", pInfo[playerid][pPhone], zone);
-            }
-            else
-            {
-                format(string, 256, "| ávyki praneðë | Klaida, praneðëjas nenustatytas" );
-                format( query, sizeof( query ), "INSERT INTO `lastcall` (number, crime, position) VALUES (0, '%s', '%s')",
-                    text, zone );
-            }
-            SendTeamMessage(2, COLOR_WHITE, string);
-            SendTeamMessage(1, COLOR_WHITE, string);
-            format(string, 256, "| ávikio praneðimas | %s",text);
-            SendTeamMessage(2, COLOR_WHITE, string);
-            SendTeamMessage(1, COLOR_WHITE, string);
-            SetPVarInt( playerid, "CallOwner", false );
-            MobilePhone[playerid] = INVALID_PLAYER_ID;
-            if( !NearPhone( playerid ) )
-            {
-                SetPlayerSpecialAction( playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
-                RemovePlayerAttachedObject( playerid, 3 );
-            }
-            else
-            TogglePlayerControllable( playerid, true );
-            mysql_query(DbHandle,  query, false);
-            return false;
-        }
-        else if(MobilePhone[playerid] == 816) // Mechanikø iðkvietimo parodymas
-        {
-            SendClientMessage(playerid, COLOR_FADE2, "Automatinis atsakiklis: Dëkojame uþ tai, kad naudojatës Los Santos serviso paslaugomis.");
-            SendJobMessage(JOB_MECHANIC, COLOR_LIGHTRED, "|________________Gautas iðkvietimas mechanikui________________|");
-            if( !NearPhone( playerid ) )
-        format(string, 256, "| Iðkvietimas gautas nuo | %d", pInfo[playerid][pPhone]);
-            else
-            format(string, 256, "| Iðkvietimas gautas nuo | Asmuo nebuvo nustatytas.");
-            SendJobMessage(JOB_MECHANIC, COLOR_WHITE, string);
-            format(string, 256, "| Iðkvietimo vieta|  %s",text);
-            SendJobMessage(JOB_MECHANIC, COLOR_WHITE, string);
-            SetPVarInt( playerid, "CallOwner", false );
-            MobilePhone[playerid] = INVALID_PLAYER_ID;
-            if( !NearPhone( playerid ) )
-            {
-                SetPlayerSpecialAction( playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
-                RemovePlayerAttachedObject( playerid, 3 );
-            }
-            else
-            TogglePlayerControllable( playerid, true );
-            return false;
-        }
-        else if(MobilePhone[playerid] == 817) // Taksi iðkvietimo parodymas
-        {
-            foreach(Player, mech )
-            {
-                if( GetVehicleModel( GetPlayerVehicleID( mech ) ) == 420 || GetVehicleModel( GetPlayerVehicleID( mech ) ) == 438 )
-                {
-                    SendClientMessage( mech, COLOR_YELLOW, "|________________Gautas TAXI iðkvietimas________________|");
-                    if( !NearPhone( playerid ) )
-                    format(string, 256, "| TAXI iðkvietëjas | %d, nurodyta iðkvietimo vieta: %s", pInfo[playerid][pPhone], zone);
-                    else
-                    format(string, 256, "| TAXI iðkvietëjas | nebuvo nustatytas nei asmuo, nei vieta.");
-                    SendClientMessage( mech, COLOR_WHITE, string);
-                    format(string, 256, "| Iðkvietimo vieta | %s", text);
-                    SendClientMessage( mech, COLOR_WHITE, string);
-                }
-            }
-            SendClientMessage(playerid, COLOR_FADE2, "Automatinis atsakiklis: Jûs sëkmingai iðsikvietët TAXI, dëkojame, kad naudojatës møsø paslaugomis.");
-            SetPVarInt( playerid, "CallOwner", false );
-            MobilePhone[playerid] = INVALID_PLAYER_ID;
-            if( !NearPhone( playerid ) )
-            {
-                SetPlayerSpecialAction( playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
-                RemovePlayerAttachedObject( playerid, 3 );
-            }
-            else
-                TogglePlayerControllable( playerid, true );
-            return false;
-        }
-        return false;
-    }
     if (TalkingLive[playerid] != 255) // Interviu sistema
     {
         if (PlayerToPlayer(5.0, playerid, TalkingLive[playerid]))
@@ -7649,8 +7322,6 @@ CMD:note( playerid, params[ ] )
                 return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Klaida!");
 
             valstr(ed,number);
-            if( number > 0 && strcmp(GetNumber( playerid, number ), ed, true) )
-                return true;
 
             mysql_real_escape_string(param,param);
 
@@ -10138,6 +9809,7 @@ CMD:buysex( playerid, params[ ] )
             ,"Pirkti","Iðjungti");
     return 1;
 }
+/*
 CMD:ucall( playerid, params[ ] )
 {
     if ( !NearPhone( playerid ) )
@@ -10233,7 +9905,7 @@ CMD:ucall( playerid, params[ ] )
     return SendClientMessage( playerid, COLOR_LIGHTRED2, "Klaida, numeris á kurá skambinate ðiuo metu uþimtas." );
 }
 
-
+*/
 
 CMD:payfines( playerid, params[ ] )
 {
@@ -11083,6 +10755,7 @@ CMD:v( playerid, params[ ] )
         SetVehicleVirtualWorld( masina, VW );
         LoadVehicleCargo(cInfo[ masina ][ cID ], masina);
         LoadVehicleFish(cInfo[ masina ][ cID ], masina);
+        LoadVehiclePhones(cInfo[ masina ][ cID ], masina);
 
         SetPlayerCheckPointEx( playerid, CHECKPOINT_CAR, cInfo[ masina ][ cSpawn ][ 0 ],
                                            cInfo[ masina ][ cSpawn ][ 1 ],
@@ -24014,47 +23687,6 @@ FUNKCIJA:MinTime()
         // Persigalgius svaigsta galva
         if(pInfo[ i ][ pHunger ] <= -5)
             SetPlayerDrunkLevel(i, GetPlayerDrunkLevel(i)+900);
-
-        if( MobilePhone[ i ] != INVALID_PLAYER_ID && GetPVarInt( i, "CallOwner" ) )
-        {
-            if( pInfo[ i ][ pBank ] >= 10 )
-            {
-                if( pInfo[ i ][ pBank ] == 10)
-                    SendClientMessage( i, COLOR_LIGHTRED, "Jûsø sàskaita beveik tuðèia, jums liko 30 sekundþiø.");
-                pInfo[ i ][ pBank ] -= 10;
-            }
-            else
-            {
-                if (MobilePhone[i] != INVALID_PLAYER_ID)
-                {
-                    if( MobilePhone[i] > MAX_PLAYERS )
-                    {
-                        SetPlayerSpecialAction( i, SPECIAL_ACTION_STOPUSECELLPHONE);
-                        RemovePlayerAttachedObject( i, 3 );
-                        MobilePhone[ i ] = INVALID_PLAYER_ID;
-                        SetPVarInt( i, "CallOwner", false );
-                        RingTone   [ i ] = 0;
-                        if ( NearPhone( i ) )
-                            TogglePlayerControllable( i, true );
-                    }
-                    /*
-                    else
-                    {
-                        SetPVarInt( i, "CallOwner", false );
-                        SetPVarInt( MobilePhone[i], "CallOwner", false );
-                        if (MobilePhone[MobilePhone[i]] == i)
-                        {
-                            SendClientMessage(MobilePhone[i], GRAD, "Ryðys nutrûko!" );
-                            MobilePhone[MobilePhone[i]] = INVALID_PLAYER_ID;
-                        }
-                        RingTone[MobilePhone[i]] = 0;
-                        MobilePhone[i] = INVALID_PLAYER_ID;
-                        RingTone[i] = 0;
-                    }
-                    */
-                }
-            }
-        }
     }
 
     if ( Hour > OldHour || Hour == 0 && OldHour == 23 )
@@ -24732,39 +24364,6 @@ FUNKCIJA:Sekunde()
                 }
             }
         }
-        if(RingTone[i] != 0)
-        {
-            if (RingTone[i] < 0)
-                RingTone[i] = 0;
-            if ( RingTone[i] == 10 || RingTone[i] == 7 || RingTone[i] == 4 || RingTone[i] == 1)
-            {
-                format(string, 49, "* Telefonas skamba (( %s ))",GetPlayerNameEx( i ));
-                ProxDetector(20.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-                new Float:POS[ 3 ];
-                GetPlayerPos   ( i, POS[ 0 ], POS[ 1 ], POS[ 2 ] );
-                PlayerPlaySound( i, 20600, POS[ 0 ], POS[ 1 ], POS[ 2 ] );
-            }
-            RingTone[i]--;
-            if(RingTone[i] == 0)
-            {
-                foreach (Player, ii)
-                {
-                    if (PlayerOn[ii] == false) continue;
-                    if (MobilePhone[ii] == i)
-                    {
-                        if ( NearPhone( ii ) )
-                            TogglePlayerControllable( ii, true );
-                        SetPlayerSpecialAction( ii, SPECIAL_ACTION_STOPUSECELLPHONE );
-                        RemovePlayerAttachedObject( ii, 3 );
-                        SendClientMessage(ii, GRAD, "Jis/ji nepakëlë telefono ragelio." );
-                        MobilePhone[ii] = INVALID_PLAYER_ID;
-                        SetPVarInt( ii, "CallOwner", INVALID_PLAYER_ID );
-                        RingTone[ii] = 0;
-                        break;
-                    }
-                }
-            }
-        }
         if ( GetPVarInt( i, "EATING" ) >= 1 )
         {
             SetPVarInt( i, "EATING", GetPVarInt( i, "EATING" )-1 );
@@ -25027,6 +24626,7 @@ stock SendTeamMessage(team, color, string[])
     }
     return 1;
 }
+
 
 
 stock SendAdminWarningMessage(const format[], va_args<>)
@@ -27539,4 +27139,21 @@ public OnSQLConnectionLost()
     SendAdminMessage(0xFF0000FF, "Dëmesio. Dingo ryðys su duomenø baze. Jei ðios þinutës tæsis, imkitës veiksmø.");
     format(string, sizeof(string),"Bandoma prisijungti vël: %d", mysql_reconnect());
     SendAdminMessage(0xFF0000FF, string);
+}
+
+stock IsNumeric(const string[]) 
+{
+    new length = strlen(string);
+    if(length == 0)
+    {
+        return false;
+    }
+    for(new i = 0; i < length; i++)
+    {
+        if(string[ i ] > '9' || string[ i ] < '0')
+        {
+            return false;
+        }
+    }
+    return true;
 }
