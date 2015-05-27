@@ -22,8 +22,8 @@
 
 
 
-#define VERSION                         2.1.8
-#define BUILD_DATE                      2015-04.20
+#define VERSION                         2.2.0
+#define BUILD_DATE                      2015-05.13
 
 #define MYSQL_USE_YINLINE
 

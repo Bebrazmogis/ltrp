@@ -43,6 +43,7 @@ static PlayerItems[ MAX_PLAYERS ][ MAX_PLAYER_ITEMS ][ E_PLAYER_INVENTORY_DATA ]
 
 
 forward OnPlayerItemLoad(playerid);
+forward OnPlayerItemLoaded(playerid, loadeditemcount);
 
 
 /*
@@ -94,7 +95,7 @@ hook OnPlayerDisconnect(playerid, reason)
 
 public OnPlayerItemLoad(playerid)
 {
-	new index, itemid;
+	new index, itemid, loadeditemcount;
 	for(new i = 0; i < cache_get_row_count(); i++)
 	{
 		index = cache_get_field_content_int(i, "slot");
@@ -113,11 +114,30 @@ public OnPlayerItemLoad(playerid)
 		PlayerItems[ playerid ][ index ][ Amount ] = cache_get_field_content_int(i, "amount");
 		PlayerItems[ playerid ][ index ][ ContentAmount ] = cache_get_field_content_int(i, "content_amount");
 		PlayerItems[ playerid ][ index ][ Durability ] = cache_get_field_content_int(i, "durability");
-		OnPlayerItemLoaded(playerid, PlayerItems[ playerid ][ index ][ ItemId ]);
+		loadeditemcount++;
 	}
 	IsPlayerInventoryLoaded[ playerid ] = true;
+	CallLocalFunction("OnPlayerItemLoaded", "ii", playerid, loadeditemcount);
 	return 1;
 }
+
+public OnPlayerItemLoaded(playerid, loadeditemcount)
+{
+	#if defined inv_OnPlayerItemLoaded
+		inv_OnPlayerItemLoaded(playerid, loadeditemcount);
+	#endif
+	return printf("[%d]Loaded %d items.", GetPlayerSqlId(playerid), loadeditemcount);
+}
+
+#if defined _ALS_OnPlayerItemLoaded
+	#undef OnPlayerItemLoaded
+#else 
+	#define _ALS_OnPlayerItemLoaded
+#endif
+#define OnPlayerItemLoaded 				inv_OnPlayerItemLoaded
+#if defined OnPlayerItemLoaded
+	forward OnPlayerItemLoaded(playerid, loadeditemcount);
+#endif
 
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
@@ -195,6 +215,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             if(IsPlayerAttachedObjectSlotUsed(playerid, 4))
                                 RemovePlayerAttachedObject(playerid, 4);
                         }
+                        case ITEM_PHONE:
+                        {
+                        	new phonenumber = GetPlayerPhoneNumber(playerid, GetPlayerPhoneIndexFromInvIndex(playerid, PlayerUsedItemIndex[ playerid ]));
+                        	OnPlayerPhoneLocationChange(playerid, PlayerInventory, PlayerInventory, phonenumber, id);
+                        }
                     }
                     if(IsItemDrug(itemid))
                     {
@@ -271,6 +296,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                                if(IsPlayerAttachedObjectSlotUsed(playerid, 4))
 	                                    RemovePlayerAttachedObject(playerid, 4);
 	                            }
+	                            case ITEM_PHONE:
+		                        {
+		                        	new phonenumber = GetPlayerPhoneNumber(playerid, GetPlayerPhoneIndexFromInvIndex(playerid, PlayerUsedItemIndex[ playerid ]));
+		                        	OnPlayerPhoneLocationChange(playerid, PlayerInventory, VehicleTrunk, phonenumber, car);
+		                        }
 	                        }
 	                        new wep = GetPlayerWeapon(playerid);
 	                        if(wep)
@@ -330,6 +360,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                        if(IsPlayerAttachedObjectSlotUsed(playerid, 4))
 	                            RemovePlayerAttachedObject(playerid, 4);
 	                    }
+	                    case ITEM_PHONE:
+                        {
+                        	new phonenumber = GetPlayerPhoneNumber(playerid, GetPlayerPhoneIndexFromInvIndex(playerid, PlayerUsedItemIndex[ playerid ]));
+                        	OnPlayerPhoneLocationChange(playerid, PlayerInventory, HouseInventory, phonenumber, index);
+                        }
 	                }
 	                if(IsItemDrug(itemid))
 	                    NarkLog(GetPlayerSqlId(playerid), 1, GetHouseOwner(index), itemname, amount);
@@ -373,6 +408,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                        if(IsPlayerAttachedObjectSlotUsed(playerid, 4))
 	                            RemovePlayerAttachedObject(playerid, 4);
 	                    }
+	                    case ITEM_PHONE:
+                        {
+                        	new phonenumber = GetPlayerPhoneNumber(playerid, GetPlayerPhoneIndexFromInvIndex(playerid, PlayerUsedItemIndex[ playerid ]));
+                        	OnPlayerPhoneLocationChange(playerid, PlayerInventory, GarageInventory, phonenumber, index);
+                        }
 	                }
 	                if(IsItemDrug(itemid))
 	                    NarkLog(GetPlayerSqlId(playerid), 7, GetGarageOwner(index), itemname, amount);
@@ -445,11 +485,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 public OnPlayerUseItem(playerid, itemid, success)
 {
 	printf("OnPlayerUseItem(%s, %d, %d)", GetName(playerid), itemid, success);
-}
-
-stock OnPlayerItemLoaded(playerid, itemid)
-{
-	
 }
 
 stock OnPlayerItemRemoved(playerid, itemid)
@@ -531,7 +566,11 @@ stock OnPlayerItemRemoved(playerid, itemid)
 
 Item:OnPlayerUsePhone(playerid, itemid, invindex)
 {
-	ShowPlayerPhoneList(playerid);
+	new phoneindex = GetPlayerPhoneIndexFromInvIndex(playerid, invindex);
+	if(phoneindex == -1)
+		return 0;
+
+	ShowPlayerPhoneMenu(playerid, phoneindex);
     return 1;
 }
 
@@ -707,6 +746,12 @@ Item:OnPlayerStartSmoking(playerid, itemid, invindex)
             SetPVarInt(playerid, "DrugHPLimit", 75);
         }
 	}
+	return 1;
+}
+
+Item:OnPlayerUsePhoneCredit(playerid, itemid)
+{
+	SendClientMessage(playerid, COLOR_NEWS, "Norëdami pasipildyti telefono sàskaità, telefono meniu pasirinkite \"Papildyti sàskaità\"");
 	return 1;
 }
 
@@ -1696,11 +1741,11 @@ stock IsPlayerInventoryEmpty(playerid)
 		return true;
 }
 
-stock GetPlayerItemCount(playerid)
+stock GetPlayerItemCount(playerid, itemid = INVALID_ITEM_ID)
 {
 	new count = 0;
 	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
-		if(PlayerItems[ playerid ][ i ][ Id ])
+		if((itemid == INVALID_ITEM_ID && PlayerItems[ playerid ][ i ][ Id ]) || (itemid != INVALID_ITEM_ID && PlayerItems[ playerid ][ i ][ ItemId ] == itemid))
 			count++;
 	return count;	
 }
@@ -1756,7 +1801,11 @@ stock ShowPlayerInventoryDialog(playerid)
 
         	itemname = GetItemName(PlayerItems[ playerid ][ i ][ ItemId ]);
 
-        	if(PlayerItems[ playerid ][ i ][ Amount ] == 1)
+        	// Jei telefonas rodom ne kieká, o telefono numerá.
+        	if(PlayerItems[ playerid ][ i ][ ItemId ] == ITEM_PHONE)
+        		format(string, sizeof(string), "%s%s\t%d", string, itemname, GetPlayerPhoneNumber(playerid, GetPlayerPhoneIndexFromInvIndex(playerid, i)));
+
+        	else if(PlayerItems[ playerid ][ i ][ Amount ] == 1)
         		format(string, sizeof(string), "%s%s", string, itemname);
         	else 
         	{
@@ -1786,7 +1835,7 @@ stock ShowPlayerInventoryDialog(playerid)
 
         }
     }
-    ShowPlayerDialog(playerid, DIALOG_PLAYER_INVENTORY, DIALOG_STYLE_LIST, "Inventorius", string, "Naudoti", "Iðjungti");
+    ShowPlayerDialog(playerid, DIALOG_PLAYER_INVENTORY, DIALOG_STYLE_TABLIST, "Inventorius", string, "Naudoti", "Iðjungti");
     return 1;
 }
 

@@ -13,8 +13,7 @@
 #define DIALOG_PLAYER_PHONE_SMS_RECEIVE 8106
 #define DIALOG_PLAYER_PHONE_SMS_SENT 	8107
 #define DIALOG_PLAYER_PHONE_SMS_CONTENT 8108
-#define DIALOG_PLAYER_PHONE_LIST 		8109
-
+#define DIALOG_PLAYER_PHONE_CREDIT_LIST	8109
 
 
 #define MAX_SMS_PER_PAGE 				20
@@ -35,8 +34,16 @@ enum E_PLAYER_TALK_SESSION
 	Speaker,
 };
 
-static PlayerPhones[ MAX_PLAYERS ][ MAX_PLAYER_PHONES ][ E_PRIVATE_PHONE_DATA ],
-	PlayerUsedPhone[ MAX_PLAYERS ],
+enum E_PLAYER_PHONE_DATA 
+{
+	Number,
+	bool:Online,
+	InventoryIndex,
+	Credit,
+};
+
+static PlayerPhones[ MAX_PLAYERS ][ MAX_PLAYER_PHONES ][ E_PLAYER_PHONE_DATA ],
+	PlayerUsedPhone[ MAX_PLAYERS ] = {-1, ...},
 	PlayerTalkSession[ MAX_PLAYERS ][ E_PLAYER_TALK_SESSION ];
 
 
@@ -56,8 +63,6 @@ forward OnPlayerPhoneLoad(playerid);
 
 forward OnPlayerCallNumber(playerid, callerphoneindex, phonenumber);
 forward OnPlayerTalkSessionEnd(callownerid, contactid, callerphonenumber, contactnumber, talklength, bool:endedbyowner);
-//forward OnPlayerCallPlayer(playerid, targetplayer);
-forward OnPlayerCallService(playerid, phonenumber);
 
 /*
                                                                                                
@@ -106,7 +111,7 @@ public OnPlayerPhoneLoad(playerid)
 
 hook OnPlayerDisconnect(playerid, reason)
 {
-	static emptyPlayerPhone[ E_PRIVATE_PHONE_DATA ], emptyPlayerSession[ E_PLAYER_TALK_SESSION ];
+	static emptyPlayerPhone[ E_PLAYER_PHONE_DATA ], emptyPlayerSession[ E_PLAYER_TALK_SESSION ];
 
 	if(IsPlayerInTalkSession(playerid))
 	{
@@ -134,19 +139,33 @@ hook OnPlayerDeath(playerid, killerid, reason)
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+	new wat[128];
+	format(wat, sizeof(wat), "inputtext:%s. PlayerUsedPhone: %d", inputtext, PlayerUsedPhone[ playerid ]);
+	SendClientMessage(playerid, COLOR_LIGHTRED, wat);
+
+	if(PlayerUsedPhone[ playerid ] != -1)
+	{
+		format(wat, sizeof(wat), "Phonenumber at that index:%d", PlayerPhones[ playerid ][ PlayerUsedPhone[ playerid ] ][ Number ]);
+		SendClientMessage(playerid, -1, wat);
+	}
+
 	switch(dialogid)
 	{
+		/*
 		case DIALOG_PLAYER_PHONE_LIST:
 		{
 			if(response)
 			{
-				new tmp[16];
-				strmid(tmp, inputtext, 0, strfind(inputtext, "\t"));
-				PlayerUsedPhone[ playerid ] = GetPlayerPhoneIndex(playerid, strval(tmp));
+				//new tmp[16];
+				//strmid(tmp, inputtext, 0, strfind(inputtext, "\t"));
+				//printf("TMp:%s inputtext:%s", tmp, inputtext);
+				// 0.3.7. INputtext  yra tik pirmas stulpelis..
+				PlayerUsedPhone[ playerid ] = GetPlayerPhoneIndex(playerid, strval(inputtext));
 				ShowPlayerPhoneMenu(playerid);
 			}	
 			return 1;
 		}
+		*/
 		case DIALOG_PLAYER_PHONE_MAIN:
 		{
 			if(!response)
@@ -154,6 +173,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if(IsPlayerInTalkSession(playerid) && !listitem)
 				SendClientMessage(playerid, COLOR_LIGHTRED, "Kalbantis telefonu negalite áeiti jo á meniu.");
+			// Jei telefonas iðjungtas IR pasirinko NE ájungimà neleidþiam nieko daryt.
+			else if(!IsPlayerPhoneOnline(playerid, PlayerUsedPhone[ playerid ]) && listitem != 4)
+				SendClientMessage(playerid, COLOR_LIGHTRED, "Jûsø telefonas iðjungtas.");
 			else 
 			{
 				switch(listitem)
@@ -175,7 +197,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					// Telefonu knyga
 					case 1:
 					{
-						ShowPlayerPhoneBookMenu(playerid, GetPlayerPhoneNumber(playerid, PlayerUsedPhone[ playerid ]));
+						ShowPlayerPhoneBookMenu(playerid, PlayerUsedPhone[ playerid ]);
 					}
 					// Gautos þinutës 
 					case 2:
@@ -189,6 +211,30 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PlayerSMSListPage[ playerid ] = 0;
 						ShowPlayerSentMessages(playerid, PlayerUsedPhone[ playerid ]);
 					}
+					// Ájungti/Iðjungti
+					case 4:
+					{
+						if(PlayerPhones[ playerid ][ PlayerUsedPhone[ playerid ] ][ Online ])
+						{
+							SetPlayerPhoneOnlineStatus(playerid, PlayerUsedPhone[ playerid ], false);
+							SendClientMessage(playerid, COLOR_WHITE, "Telefonas iðjungtas.");
+						}
+						else 
+						{
+							SetPlayerPhoneOnlineStatus(playerid, PlayerUsedPhone[ playerid ], true);
+							SendClientMessage(playerid, COLOR_WHITE, "Telefonas ájungtas.");
+						}
+					}
+					// Papildyti sàskaità
+					case 5:
+					{
+						if(!GetPlayerPhoneCreditSum(playerid))
+							SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs neturite sàskaitos papildymo korteliø!");
+						else 
+						{
+							ShowPlayerPhoneCreditList(playerid, PlayerUsedPhone[ playerid ]);
+						}
+					}
 				}
 			}
 			return 1;
@@ -200,7 +246,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			// Dël \n prie "Naujas kontaktas" taip bûti gali.
 			if(isnull(inputtext))
-				return ShowPlayerPhoneBookMenu(playerid, GetPlayerPhoneNumber(playerid, PlayerUsedPhone[ playerid ]));
+				return ShowPlayerPhoneBookMenu(playerid, PlayerUsedPhone[ playerid ]);
 
 			// Naujo kontakto pridëjimas
 			if(!listitem)
@@ -222,7 +268,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case DIALOG_PLAYER_PHONE_BOOK_NEW_1:
 		{
 			if(!response)
-				ShowPlayerPhoneBookMenu(playerid, GetPlayerPhoneNumber(playerid, PlayerUsedPhone[ playerid ]));
+				ShowPlayerPhoneBookMenu(playerid, PlayerUsedPhone[ playerid ]);
 			else 
 			{
 				new phonenumber; 
@@ -257,7 +303,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case DIALOG_PLAYER_PHONE_OPTIONS:
 		{
 			if(!response)	
-				ShowPlayerPhoneBookMenu(playerid, GetPlayerPhoneNumber(playerid, PlayerUsedPhone[ playerid ]));
+				ShowPlayerPhoneBookMenu(playerid, PlayerUsedPhone[ playerid ]);
 			else 
 			{
 				new bookindex = GetPVarInt(playerid, "UsedContact");
@@ -270,23 +316,23 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						new phonenumber = GetPlayerPhonebookContactNumber(playerid, PlayerUsedPhone[ playerid ], bookindex);
 
 						if(IsPlayerInTalkSession(playerid))
-								SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs jau kalbate telefonu!");
+							SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs jau kalbate telefonu!");
 
-						else if(IsServicePhoneNumber(phonenumber))
-						{
-							OnPlayerCallService(playerid, phonenumber);
-						}
+						else if(!PlayerPhones[ playerid ][ PlayerUsedPhone[ playerid ] ][ Credit ])
+							SendClientMessage(playerid, COLOR_LIGHTRED, "Jûsø sàskaita tuðèia todël skambinti negalite!");
+						
+						else if(IsPlayerPhonenumber(playerid, phonenumber))
+							SendClientMessage(playerid, COLOR_LIGHTRED, "Negalite skambinti sau");
+						
+						else if(!IsValidPhoneNumber(phonenumber) || !IsPhoneNumberOnline(phonenumber))
+							SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: su abonentu susisiekti neámanoma, praðome pabandyti vëliau.");
+
+						else if(IsPhoneNumberInCall(phonenumber))
+							SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: numeris uþimtas.");
+
 						else 
-						{
-							if(!IsValidPhoneNumber(phonenumber) || !IsPhoneNumberOnline(phonenumber))
-								SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: su abonentu susisiekti neámanoma, praðome pabandyti vëliau.");
-
-							else if(IsPhoneNumberInCall(phonenumber))
-								SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: numeris uþimtas.");
-
-							else 
-								OnPlayerCallNumber(playerid, PlayerUsedPhone[ playerid ],phonenumber);
-						}	
+							OnPlayerCallNumber(playerid, PlayerUsedPhone[ playerid ],phonenumber);
+					
 					}
 					// SMS 
 					case 1:
@@ -326,7 +372,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case DIALOG_PLAYER_PHONE_SMS_RECEIVE:
 		{
 			if(!response)
-				ShowPlayerPhoneMenu(playerid);
+				ShowPlayerPhoneMenu(playerid, PlayerUsedPhone[ playerid ]);
 			else 
 			{
 				// Jei ne pirmas puslapis, gali pasirinkti "Atgal"
@@ -352,7 +398,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		case DIALOG_PLAYER_PHONE_SMS_SENT:
 		{
 			if(!response)
-				ShowPlayerPhoneMenu(playerid);
+				ShowPlayerPhoneMenu(playerid, PlayerUsedPhone[ playerid ]);
 			else 
 			{
 				// Jei ne pirmas puslapis, gali pasirinkti "Atgal"
@@ -377,7 +423,37 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case DIALOG_PLAYER_PHONE_SMS_CONTENT:
 		{
-			ShowPlayerPhoneMenu(playerid);
+			ShowPlayerPhoneMenu(playerid, PlayerUsedPhone[ playerid ]);
+			return 1;
+		}
+		case DIALOG_PLAYER_PHONE_CREDIT_LIST:
+		{
+			if(!response)
+				ShowPlayerPhoneMenu(playerid, PlayerUsedPhone[ playerid ]);
+			else 
+			{
+				new itemid;
+				switch(listitem)
+				{
+					case 0: itemid = ITEM_PHONE_CREDIT_5;
+					case 1: itemid = ITEM_PHONE_CREDIT_10;
+					case 2: itemid = ITEM_PHONE_CREDIT_20;
+					case 3: itemid = ITEM_PHONE_CREDIT_50;
+					case 4: itemid = ITEM_PHONE_CREDIT_100;
+					case 5: itemid = ITEM_PHONE_CREDIT_200;
+					case 6: itemid = ITEM_PHONE_CREDIT_500;
+					case 7: itemid = ITEM_PHONE_CREDIT_1000;
+				}
+				if(!itemid)
+					ErrorLog("Players/Phone.p : OnDialogResponse : DIALOG_PLAYER_PHONE_CREDIT_LIST. Itemid is 0. inputtext: %s", inputtext);
+				else 
+				{
+					GivePlayerItem(playerid, itemid, -1);
+					// Ðita eilutë priklauso nuo to kad sàraðe bus rodomi tik skaièiai ir kad vis dar inputtext yra tik pirmasis stulpelis(0.3.7)
+					AddPlayerPhoneCredit(playerid, PlayerUsedPhone[ playerid ], strval(inputtext));
+					ShowPlayerPhoneCreditList(playerid, PlayerUsedPhone[ playerid ]);
+				}
+			}
 			return 1;
 		}
 	}
@@ -389,7 +465,7 @@ hook OnPlayerText(playerid, text[])
 {
 	new string[180], contactid, contactphoneindex, zone[30], phonenumber = GetPlayerPhoneNumber(playerid, PlayerTalkSession[ playerid ][ PhoneIndex ]);
 	GetPlayer2DZone(playerid, zone, sizeof(zone));
-	if(IsPlayerInTalkSession(playerid))
+	if(IsPlayerInTalkSession(playerid) && PlayerTalkSession[ playerid ][ ContactAnswered ])
 	{
 		LogPhoneConversation(phonenumber, PlayerTalkSession[ playerid ][ ContactNumber ], text);
 		if(IsServicePhoneNumber(PlayerTalkSession[ playerid ][ ContactNumber ]))
@@ -549,6 +625,66 @@ hook OnPlayerText(playerid, text[])
 	return 1;
 }
 
+public OnPlayerItemLoaded(playerid, loadeditemcount)
+{
+	#if defined phone_OnPlayerItemLoaded
+		phone_OnPlayerItemLoaded(playerid, loadeditemcount);
+	#endif
+
+	new phonecount = 0;
+	for(new i = 0; i < loadeditemcount; i++)
+		if(GetPlayerItemAtIndex(playerid, i) == ITEM_PHONE)
+			PlayerPhones[ playerid ][ phonecount++ ][ InventoryIndex ] = i;
+
+	for(new i = 0; i < MAX_PLAYER_PHONES; i++)
+		if(!PlayerPhones[ playerid ][ i ][ InventoryIndex ])
+			ErrorLog("Player %d has more phones than phone items. Phone number:%d", GetPlayerSqlId(playerid), PlayerPhones[ playerid ][ i ][ Number ]);
+	return 1;
+}
+#if defined _ALS_OnPlayerItemLoaded
+	#undef OnPlayerItemLoaded
+#else 
+	#define _ALS_OnPlayerItemLoaded
+#endif
+#define OnPlayerItemLoaded 				phone_OnPlayerItemLoaded
+#if defined phone_OnPlayerItemLoaded
+	forward phone_OnPlayerItemLoaded(playerid, loadeditemcount);
+#endif
+
+
+OnPlayerPhoneLocationChange(playerid, E_PRIVATE_PHONE_LOCATIONS:oldlocation, E_PRIVATE_PHONE_LOCATIONS:newlocation, phonenumber, locationid)
+{
+	// èia IG locationid, NE sqlid.
+	if(IsPlayerInTalkSession(playerid))
+	{
+		// Jeigu ðnekëdamas telefonu perdavë kitam þaidëjui
+		if(oldlocation == newlocation && oldlocation == PlayerInventory && playerid != locationid)
+		{
+			// Reikia perkelti pokalbio sesijà kitam þaidëjui
+			// Bet jeigu jis jau kalba telefonu, ðità sesijà numetam 
+
+			if(IsPlayerInTalkSession(locationid))
+				EndPlayerTalkSession(playerid, IsPlayerCallOwner(playerid));
+			else 
+			{
+				PlayerTalkSession[ locationid ] = PlayerTalkSession[ playerid ];
+
+				// Baigiam sesijà þaidëjui bet nebaigiam pokalbio.
+				static emptyPlayerSession[ E_PLAYER_TALK_SESSION ];
+				PlayerTalkSession[ playerid ] = emptyPlayerSession;
+				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
+	    		RemovePlayerAttachedObject(playerid, 3);
+			}
+		}
+		// Jeigu pasikeitë pozicija NE þaidëjui, pokalbis baigiamas
+		else EndPlayerTalkSession(playerid, true);
+	}
+	else
+	{
+		UpdatePhoneNumberLocation(phonenumber, newlocation, locationid);
+	}
+	return 1;
+}
 
 public OnPlayerCallNumber(playerid, callerphoneindex, phonenumber)
 {
@@ -564,43 +700,7 @@ public OnPlayerCallNumber(playerid, callerphoneindex, phonenumber)
     PlayerTalkSession[ playerid ][ ContactNumber ] = phonenumber;
     PlayerTalkSession[ playerid ][ PhoneIndex ] = callerphoneindex;
 
-    if(phonelocation == PlayerInventory)
-    {
-    	new targetplayer = FindPlayerByPhoneNumber(phonenumber),
-    		targetphoneindex = GetPlayerPhoneIndex(targetplayer, phonenumber);
-
-    	// Jei skaminantis þaidëjas yra adresato telefonø knygoje
-	    if(IsNumberInPlayerPhonebook(targetplayer, targetphoneindex, GetPlayerPhoneNumber(playerid, callerphoneindex))) 
-	    	format(string, sizeof(string), "Jûsø telefonas skamba (/p)ickup, skambina: %s", 
-	    		GetPlayerPhonebookName(targetplayer, targetphoneindex, GetPlayerPhoneNumber(playerid, callerphoneindex)));
-	    else 
-	    	format(string, sizeof(string), "Jûsø telefonas skamba (/p)ickup, skambina: %d", GetPlayerPhoneNumber(playerid, callerphoneindex));
-	    SendClientMessage(targetplayer, COLOR_LIGHTRED, string);
-
-	    GetPlayerName(targetplayer, string, MAX_PLAYER_NAME);
-	    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
-
-	    format(string, sizeof(string), "* %s skamba ir vibruoja kisenëje telefonas.", string);
-	    SendClientMessage(playerid, COLOR_WHITE, "Naudokite T, kad kalbëtumete telefonu. (/h)angup kad padëtumete ragelá");
-	    ProxDetector(0.0, targetplayer, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
-
-	    new Float:x, Float:y, Float:z;
-	    GetPlayerPos(targetplayer, x, y, z);
-
-	    PlayerPlaySound(playerid, 3600, 0,0,0);
-	    PlaySoundForPlayersInRange(20600, 10.5, x,y,z);
-    }
-  	return 1;
-}
-
-public OnPlayerCallService(playerid, phonenumber)
-{
-	PlayerTalkSession[ playerid ][ CallOwner ] = true;
-	PlayerTalkSession[ playerid ][ CallTimestamp ] = gettime();
-	PlayerTalkSession[ playerid ][ ContactNumber ] = phonenumber;
-	PlayerTalkSession[ playerid ][ PhoneIndex ] = GetPlayerPhoneIndex(playerid, phonenumber);
-
-	switch(phonenumber)
+    switch(phonenumber)
 	{
 		case 911:
 		{
@@ -624,13 +724,38 @@ public OnPlayerCallService(playerid, phonenumber)
 		{
 			MobilePhone[playerid] = 999;
 		}
-	}
-	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
-    cmd_ame(playerid, "iðsitraukia telefonà ið kiðenës ir surenka numerá.");
-    PlayerPlaySound(playerid, 3600, 0,0,0);
-	return 1;
-}
+		default:
+		{	
+			if(phonelocation == PlayerInventory)
+		    {
+		    	new targetplayer = FindPlayerByPhoneNumber(phonenumber),
+		    		targetphoneindex = GetPlayerPhoneIndex(targetplayer, phonenumber);
 
+		    	// Jei skaminantis þaidëjas yra adresato telefonø knygoje
+			    if(IsNumberInPlayerPhonebook(targetplayer, targetphoneindex, GetPlayerPhoneNumber(playerid, callerphoneindex))) 
+			    	format(string, sizeof(string), "Jûsø telefonas skamba (/p)ickup, skambina: %s", 
+			    		GetPlayerPhonebookName(targetplayer, targetphoneindex, GetPlayerPhoneNumber(playerid, callerphoneindex)));
+			    else 
+			    	format(string, sizeof(string), "Jûsø telefonas skamba (/p)ickup, skambina: %d", GetPlayerPhoneNumber(playerid, callerphoneindex));
+			    SendClientMessage(targetplayer, COLOR_LIGHTRED, string);
+
+			    GetPlayerName(targetplayer, string, MAX_PLAYER_NAME);
+			    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+
+			    format(string, sizeof(string), "* %s skamba ir vibruoja kisenëje telefonas.", string);
+			    SendClientMessage(playerid, COLOR_WHITE, "Naudokite T, kad kalbëtumete telefonu. (/h)angup kad padëtumete ragelá");
+			    ProxDetector(0.0, targetplayer, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
+
+			    new Float:x, Float:y, Float:z;
+			    GetPlayerPos(targetplayer, x, y, z);
+
+			    PlayerPlaySound(playerid, 3600, 0,0,0);
+			    PlaySoundForPlayersInRange(20600, 10.5, x,y,z);
+		    }
+		}
+	}
+  	return 1;
+}
 
 public OnPlayerTalkSessionEnd(callownerid, contactid, callerphonenumber, contactnumber, talklength, bool:endedbyowner)
 {
@@ -657,23 +782,32 @@ public OnPlayerTalkSessionEnd(callownerid, contactid, callerphonenumber, contact
 
 */
 
-stock ShowPlayerPhoneMenu(playerid)
+
+stock ShowPlayerPhoneMenu(playerid, phoneindex)
 {
-    ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_MAIN, DIALOG_STYLE_LIST, "Telefono meniu", 
-    	"{FFFFFF}Laikas\n\
+	new header[64], body[ 128 ];
+	PlayerUsedPhone[ playerid ] = phoneindex;
+	format(header, sizeof(header), "Numeris:%d Sàskaitos likutis: %d", PlayerPhones[ playerid ][ phoneindex ][ Number ], PlayerPhones[ playerid ][ phoneindex ][ Credit ]);
+
+	body = "{FFFFFF}Laikas\n\
     	Telefono knyga\n\
     	Gautos þinutës\n\
-    	Iðsiøstos þinutës", 
+    	Iðsiøstos þinutës\n";
+
+    strcat(body, (PlayerPhones[ playerid ][ phoneindex ][ Online ]) ? ("Iðjungti") : ("Ájungti"));
+    strcat(body, "\nPapildyti sàskaità");
+
+    ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_MAIN, DIALOG_STYLE_LIST, header, 
+    	body, 
     	"Pasirinkti", "Iðeiti");
    	return 1;
 }
 
-stock ShowPlayerPhoneBookMenu(playerid, number)
+stock ShowPlayerPhoneBookMenu(playerid, phoneindex)
 {
 	new query[ 90 ];
-	mysql_format(DbHandle, query, sizeof(query), "SELECT phone_number, name FROM phone_contacts WHERE number = %d", number);
+	mysql_format(DbHandle, query, sizeof(query), "SELECT contact_number, name FROM phone_contacts WHERE number = %d", PlayerPhones[ playerid ][ phoneindex ][ Number ]);
 	MySQL_FreezePlayer(playerid);
-	PlayerUsedPhone[ playerid ] = GetPlayerPhoneIndex(playerid, number);
 
 	inline ContactListLoad()
 	{
@@ -682,7 +816,7 @@ stock ShowPlayerPhoneBookMenu(playerid, number)
 		for(new i = 0; i < cache_get_row_count(); i++)
 		{
 			cache_get_field_content(i, "name", name);
-			contactnumber = cache_get_field_content_int(i, "phone_number");
+			contactnumber = cache_get_field_content_int(i, "contact_number");
 			format(string, sizeof(string), "%s%s\t%d\n",
 				string, name, contactnumber);
 		}
@@ -694,41 +828,7 @@ stock ShowPlayerPhoneBookMenu(playerid, number)
 	return 1;
 }
 
-ShowPlayerPhoneList(playerid)
-{
-	new query[ 140 ];
-	for(new i = 0; i < MAX_PLAYER_PHONES; i++)
-		if(PlayerPhones[ playerid ][ i ][ Number ])
-			format(query, sizeof(query), "%d,", PlayerPhones[ playerid ][ i ][ Number ]);
 
-	query[ strlen(query)-1 ] = ' '; 
-
-	mysql_format(DbHandle, query, sizeof(query), "SELECT recipient_number FROM phone_sms WHERE recipient_number = IN (%s) AND read = 0 ORDER BY recipient_number", query);
-
-	MySQL_FreezePlayer(playerid);
-
-	inline PhoneList()
-	{
-		new oldnumber, count, i = 0, number, string[256];
-		while(i < cache_get_row_count())
-		{
-			number = cache_get_field_content_int(i, "recipient_number");
-			while(number == oldnumber || !oldnumber)
-			{
-				oldnumber = number;
-				count++;
-				i++;
-			}
-			format(string, sizeof(string), "%s%d\t(%d)", string, number, count);
-			count = 0;
-			i++;
-		}
-		MySQL_UnfreezePlayer(playerid);
-		ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_LIST, DIALOG_STYLE_TABLIST, "Turimi telefonai", string, "Pasirinkti", "Iðeiti");
-		return 1;
-	}
-	return mysql_pquery_inline(DbHandle, query, using inline PhoneList, "");
-}
 
 stock ShowPlayerNewPhoneContactDialog(playerid, E_NEW_CONTACT_INPUT_TYPE:type, errorstr[] = "")
 {
@@ -752,6 +852,33 @@ stock ShowPlayerNewSMSDialog(playerid, phoneindex, errorstr[] = "")
 	PlayerUsedPhone[ playerid ] = phoneindex;
 	format(string, sizeof(string), "{AA1111}%s\n{FFFFFF}Áveskite þinutës tekstà", errorstr);
 	ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_NEW_SMS, DIALOG_STYLE_INPUT, "Nauja SMS þinutë", string, "Siøsti", "Atgal");
+	return 1;
+}
+
+ShowPlayerPhoneCreditList(playerid, phoneindex)
+{
+	new header[ 64 ], body[ 180 ];
+	format(header, sizeof(header), "%d sàskaitos likutis: %d", PlayerPhones[ playerid ][ phoneindex ][ Number ], PlayerPhones[ playerid ][ phoneindex ][ Credit ]);
+
+	format(body, sizeof(body), "Papildymo vertë $\tTurimas kiekis\n\
+		5\t%d\n\
+		10\t%d\n\
+		20\t%d\n\
+		50\t%d\n\
+		100\t%d\n\
+		200\t%d\n\
+		500\t%d\n\
+		1000\t%d\n", 
+		GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_5),
+		GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_10),
+		GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_20),
+		GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_50),
+		GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_100),
+		GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_200),
+		GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_500),
+		GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_1000)
+	);
+	ShowPlayerDialog(playerid, DIALOG_PLAYER_PHONE_CREDIT_LIST, DIALOG_STYLE_TABLIST_HEADERS, header, body, "Naudoti", "Atgal");
 	return 1;
 }
 
@@ -861,14 +988,18 @@ GetPlayerPhoneIndex(playerid, phonenumber)
 	return -1;
 }
 
+GetPlayerPhoneIndexFromInvIndex(playerid, inventoryindex)
+{
+	for(new i = 0; i < MAX_PLAYER_PHONES; i++)
+		if(PlayerPhones[ playerid ][ i ][ InventoryIndex ] == inventoryindex)
+			return i;
+	return -1;
+}
+
 
 GetPlayerPhoneNumber(playerid, phoneindex)
 	return PlayerPhones[ playerid ][ phoneindex ][ Number ];
 
-IsPlayerPhoneOff(playerid, phoneindex)
-{
-	return !PlayerPhones[ playerid ][ phoneindex ][ Online ];
-}
 
 SetPlayerPhoneOnlineStatus(playerid, phoneindex, bool:set)
 {
@@ -920,10 +1051,23 @@ IsPlayerPhonenumberOnline(phonenumber)
 	return false;	
 }
 
+GetPlayerPhoneCreditSum(playerid)
+{
+	return GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_5) * 5 + GetPlayerItemCount(playerid, ITEM_PHONE_CREDIT_10) * 10;
+}
+
+AddPlayerPhoneCredit(playerid, phoneindex, value)
+{
+	new query[80];
+	PlayerPhones[ playerid ][ phoneindex ][ Credit ] += value;
+	mysql_format(DbHandle, query, sizeof(query), "UPDATE phones SET credit = %d WHERE number = %d", PlayerPhones[ playerid ][ phoneindex ][ Credit ],PlayerPhones[ playerid ][ phoneindex ][ Number ]);
+	return mysql_pquery(DbHandle, query);
+}
+
 GetPlayerPhonebookContactNumber(playerid, phoneindex, contactindex)
 {
 	new query[ 110 ], Cache:result, number;
-	mysql_format(DbHandle, query, sizeof(query), "SELECT contact_number FROM phone_contacts WHERE number = %d LIMIT %d, %d", GetPlayerPhoneNumber(playerid, phoneindex), contactindex+1, contactindex+2);
+	mysql_format(DbHandle, query, sizeof(query), "SELECT contact_number FROM phone_contacts WHERE number = %d LIMIT %d, %d", GetPlayerPhoneNumber(playerid, phoneindex), contactindex, contactindex+1);
 	result = mysql_query(DbHandle, query);
 	if(cache_get_row_count())
 		number = cache_get_field_content_int(0, "contact_number");
@@ -959,8 +1103,8 @@ EndPlayerTalkSession(playerid, bool:endedbyowner)
 
 stock ShowPlayerReceivedMessages(playerid, phoneindex, page = 0)
 {
-	new query[ 110 ];
-	mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM phone_sms WHERE recipient_number = %d ORDER BY `date` ASC LIMIT %d, %d",
+	new query[ 280 ];
+	mysql_format(DbHandle, query, sizeof(query), "SELECT phone_sms.*, phone_contacts.name FROM phone_sms LEFT JOIN phone_contacts ON phone_sms.sender_number = phone_contacts.contact_number AND phone_sms.sender_number = phone_contacts.number WHERE recipient_number = %d ORDER BY `date` ASC LIMIT %d, %d",
 		GetPlayerPhoneNumber(playerid, phoneindex), 
 		page * MAX_SMS_PER_PAGE, 
 		((page+1) * MAX_SMS_PER_PAGE)+1); // Imam viena daugiau, kad þinutume ar bus kitas puslapis.
@@ -969,8 +1113,8 @@ stock ShowPlayerReceivedMessages(playerid, phoneindex, page = 0)
 
 stock ShowPlayerSentMessages(playerid, phoneindex, page = 0)
 {
-	new query[ 110 ];
-	mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM phone_sms WHERE sender_number = %d ORDER BY `date` ASC LIMIT %d, %d", 
+	new query[ 280 ];
+	mysql_format(DbHandle, query, sizeof(query), "SELECT phone_sms.*, phone_contacts.name FROM phone_sms LEFT JOIN phone_contacts ON phone_sms.recipient_number = phone_contacts.contact_number AND phone_sms.recipient_number = phone_contacts.number WHERE sender_number = %d ORDER BY `date` ASC LIMIT %d, %d", 
 		GetPlayerPhoneNumber(playerid, phoneindex), 
 		page * MAX_SMS_PER_PAGE, 
 		((page+1) * MAX_SMS_PER_PAGE)+1); // Imam viena daugiau, kad þinutume ar bus kitas puslapis.
@@ -1060,6 +1204,21 @@ GetFirstPlayerPhoneIndex(playerid)
 	return -1;
 }
 
+GivePlayerPhone(playerid, phonenumber)
+{
+	new query[ 128 ];
+	for(new i = 0; i < MAX_PLAYER_PHONES; i++)
+		if(!PlayerPhones[ playerid ][ i ][ Number ])
+		{
+			PlayerPhones[ playerid ][ i ][ Number ] = phonenumber;
+			PlayerPhones[ playerid ][ i ][ Online ] = true;
+			mysql_format(DbHandle, query, sizeof(query), "INSERT INTO phones (number, added_on, location_type, location_id) VALUES (%d, FROM_UNIXTIME(%d), %d, %d)",
+				phonenumber, gettime(), _:PlayerInventory, GetPlayerSqlId(playerid));
+			return mysql_pquery(DbHandle, query);
+		}
+	return 0;
+}
+
 
 stock IsServicePhoneNumber(phonenumber)
 {
@@ -1146,7 +1305,7 @@ public OnPlayerReceivedMessageLoad(playerid, phoneindex, page)
 	if(!cache_get_row_count())
 	{
 		SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs dar negavote nei vienos þinutës.");
-		ShowPlayerPhoneMenu(playerid);
+		ShowPlayerPhoneMenu(playerid, phoneindex);
 	}
 	else
 	{
@@ -1159,11 +1318,10 @@ public OnPlayerReceivedMessageLoad(playerid, phoneindex, page)
 		for(new i = 0; i < cache_get_row_count(); i++)
 		{
 			number = cache_get_field_content_int(i, "sender_number");
-			if(IsNumberInPlayerPhonebook(playerid, phoneindex, number))
-			{
-				strcat(sender, GetPlayerPhonebookName(playerid, phoneindex, number));
-			}
-			else 
+
+			cache_get_field_content(i, "name", sender);
+			// Jeigu vartotojo nëra playerid kontaktø sàraðe, rodom numerá.
+			if(ismysqlnull(sender))
 			{
 				format(sender, sizeof(sender), "%" #PLAYER_PHONE_NUMBER_LENGTH "d", number);
 			}
@@ -1197,7 +1355,7 @@ public OnPlayerSentMessageLoad(playerid, phoneindex, page)
 	if(!cache_get_row_count())
 	{
 		SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs dar neiðsiuntëtë nei vienos þinutës.");
-		ShowPlayerPhoneMenu(playerid);
+		ShowPlayerPhoneMenu(playerid, phoneindex);
 	}
 	else 
 	{
@@ -1210,11 +1368,8 @@ public OnPlayerSentMessageLoad(playerid, phoneindex, page)
 		for(new i = 0; i < cache_get_row_count(); i++)
 		{
 			number = cache_get_field_content_int(i, "recipient_number");
-			if(IsNumberInPlayerPhonebook(playerid, phoneindex, number))
-			{
-				strcat(sender, GetPlayerPhonebookName(playerid, phoneindex, number));
-			}
-			else 
+			cache_get_field_content(i, "name", sender);
+			if(ismysqlnull(sender)) 
 			{
 				format(sender, sizeof(sender), "%" #PLAYER_PHONE_NUMBER_LENGTH "d", number);
 			}
@@ -1241,6 +1396,9 @@ public OnPlayerSentMessageLoad(playerid, phoneindex, page)
 	return 1;
 }
 
+stock GetPlayerPhoneLimit()
+	return MAX_PLAYER_PHONES;
+
 /*
 			                                                                                                                 
 			             ,,                                                AW                                                
@@ -1257,7 +1415,7 @@ public OnPlayerSentMessageLoad(playerid, phoneindex, page)
 
 
 
-timer PlayerCallNumb[2000](pid, att, ph, E_PRIVATE_PHONE_LOCATIONS:plo)
+timer PlayerCallNumb[2000](pid, att, ph, E_PRIVATE_PHONE_LOCATIONS:pl)
 {
 	// Kalba telefonu, reiðkia atsakë..
 	if(IsPlayerInTalkSession(pid))
@@ -1265,7 +1423,7 @@ timer PlayerCallNumb[2000](pid, att, ph, E_PRIVATE_PHONE_LOCATIONS:plo)
 	
 	SendClientMessage(pid, COLOR_WHITE, "TELEFONAS: kvieèiama...");
 
-	switch(plo)
+	switch(pl)
 	{
 		case PlayerInventory:
 		{
@@ -1312,7 +1470,7 @@ timer PlayerCallNumb[2000](pid, att, ph, E_PRIVATE_PHONE_LOCATIONS:plo)
 		return 1;
 	}
 
-	defer PlayerCallNumb(pid, att, ph, plo);
+	defer PlayerCallNumb(pid, att, ph, pl);
 	
 	return 1;
 }
@@ -1322,14 +1480,15 @@ timer PlayerCallNumb[2000](pid, att, ph, E_PRIVATE_PHONE_LOCATIONS:plo)
 timer PhoneTalkTimer[1000](callerid, contactid)
 {
 	new timetalking = gettime() - PlayerTalkSession[ callerid ][ AnswerTimestamp ],
-		price = GetPhoneTalkPrice(timetalking);
+		price = GetPhoneTalkPrice(timetalking),
+		phoneindex = PlayerTalkSession[ callerid ][ PhoneIndex ];
 
-	if(price + 10 * PHONE_PRICE_PER_SECOND >= GetPlayerBankMoney(callerid))
+	if(price + 10 * PHONE_PRICE_PER_SECOND >= PlayerPhones[ callerid ][ phoneindex ][ Credit ])
 	{
 		SendClientMessage(callerid, COLOR_WHITE, "Operatorë: jûsø sàskaita tuðèia. Galite tæsti ðá pokalbá neilgiau kaip 10 sekundþiø.");
 		SendClientMessage(contactid, COLOR_WHITE, "Operatorë: jûsø sàskaita tuðèia. Galite tæsti ðá pokalbá neilgiau kaip 10 sekundþiø.");
 	}
-	if(price >= GetPlayerBankMoney(callerid))
+	if(price >= PlayerPhones[ callerid ][ phoneindex ][ Credit ])
 	{
 		EndPlayerTalkSession(callerid, true);
 		SendClientMessage(contactid, COLOR_WHITE, "Jûsø paðnekovui baigësi sàskaita.");
@@ -1549,11 +1708,17 @@ CMD:call(playerid, params[ ])
 	// Jeigu viskas gerai.
 	if(phoneindex != -1 && contactnumber)
 	{
-		if(!IsPlayerPhoneOnline(playerid, phoneindex))
+		if(IsPlayerPhonenumber(playerid, contactnumber))
+			SendClientMessage(playerid, COLOR_LIGHTRED, "Negalite skambinti sau.");
+
+		else if(!PlayerPhones[ playerid ][ phoneindex ][ Credit ])
+			SendClientMessage(playerid, COLOR_LIGHTRED, "Jûsø sàskaita tuðèia todël skambinti negalite!");
+
+		else if(!IsPlayerPhoneOnline(playerid, phoneindex))
 			SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø telefonas iðjungtas.");
 
-		else if(!IsValidPhoneNumber(contactnumber))
-			SendClientMessage(playerid, COLOR_LIGHTRED, "Þinutës iðsiøsti nepavyko!");
+		else if(!IsValidPhoneNumber(contactnumber) || !IsPhoneNumberOnline(contactnumber))
+			SendClientMessage(playerid, COLOR_LIGHTRED, "Su abnonentu nëra galimybës susiekti!");
 
         else 
         {

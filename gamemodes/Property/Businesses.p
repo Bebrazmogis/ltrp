@@ -339,7 +339,14 @@ new SupermarketItems[ ][ E_SUPERMARKET_ITEM_DATA ] = { // Parduotuvës nustatymai
     {14},
     {43}, // Fotoparatas
     {WEAPON_PARACHUTE}, // Paraðiutas
-    {ITEM_MATCHES}
+    {ITEM_MATCHES},
+    {ITEM_PHONE_CREDIT_5},
+    {ITEM_PHONE_CREDIT_10},
+    {ITEM_PHONE_CREDIT_20},
+    {ITEM_PHONE_CREDIT_50},
+    {ITEM_PHONE_CREDIT_100},
+    {ITEM_PHONE_CREDIT_200},
+    {ITEM_PHONE_CREDIT_500}
 };
 
 
@@ -643,11 +650,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         //GivePlayerItem(playerid, ITEM_MEDIC, 1);
                         GivePlayerItem(playerid, ITEM_MEDLIC, -1);
                     }
+                    /*
                     case ITEM_PHONE:
                     {
                         if(IsItemInPlayerInventory(playerid, ITEM_PHONE))
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau turite telefonà.");
                     }
+                    */
                     /*
                     case ITEM_FISH:
                     {
@@ -677,9 +686,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
                 if(itemid == ITEM_PHONE )
                 {
-                    new more = random(32) * 1000;
-                    pInfo[playerid][pPhone] = 110000 + GetPlayerSqlId(playerid) + more;
-                    format(string, sizeof(string)," ** Mobilus telefonas nupirktas, jo numeris: %d",pInfo[playerid][pPhone]);
+                    if(GetPlayerPhoneCount(playerid) >= GetPlayerPhoneLimit())
+                        return SendClientMessage(playerid, COLOR_LIGHTRED, "** Nebegalite turëti daugiau telefonø.");
+
+                    new number = GeneratePhoneNumber();
+                    GivePlayerPhone(playerid, number);
+                    //new more = random(32) * 1000;
+                    //pInfo[playerid][pPhone] = 110000 + GetPlayerSqlId(playerid) + more;
+                    format(string, sizeof(string)," ** Mobilus telefonas nupirktas, jo numeris: %d", number);
                     SendClientMessage(playerid,COLOR_FADE3,string);
                     return 1;
                 }

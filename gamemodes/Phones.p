@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS phones (
 	added_on DATETIME NOT NULL,
 	location_type TINYINT NOT NULL,
 	location_id INT NOT NULL,
+	credit INT NOT NULL DEFAULT '0',
 	PRIMARY KEY(number),
 	INDEX(location_type),
 	INDEX(location_id)
@@ -36,15 +37,19 @@ CREATE TABLE IF NOT EXISTS phone_contacts (
 ALTER TABLE phone_contacts ADD FOREIGN KEY(number) REFERENCES phones(number) ON DELETE CASCADE;
 
 CREATE TABLE IF NOT EXISTS phone_sms (
+	id INT AUTO_INCREMENT NOT NULL,
 	sender_number INT NOT NULL,
 	recipient_number INT NOT NULL,
 	`date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`text` VARCHAR(128) NOT NULL,
 	`read` BOOLEAN NOT NULL DEFAULT '0',
-	PRIMARY KEY(sender_number)
+	PRIMARY KEY(id),
+	INDEX(sender_number),
+	INDEX(recipient_number)
 ) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 ALTER TABLE phone_sms ADD FOREIGN KEY(sender_number) REFERENCES phones(number) ON DELETE CASCADE;
+ALTER TABLE phone_sms ADD FOREIGN KEY(recipient_number) REFERENCES phones(number) ON DELETE CASCADE;
 
 CREATE TABLE IF NOT EXISTS phone_conversation_logs (
 	id INT AUTO_INCREMENT NOT NULL,
@@ -82,8 +87,9 @@ CREATE TABLE IF NOT EXISTS payphones (
 #define MAX_PHONEBOOK_CONTACT_NAME		64
 #define MAX_PHONES 						700
 #define MAX_PHONEBOOK_ENTRIES           10
+#define MAX_PHONENUMBER_LENGTH 			6
 
-#define PHONE_PRICE_PER_SECOND 			2
+#define PHONE_PRICE_PER_SECOND 			1
 
 #define GetPhoneTalkPrice(%0)			(PHONE_PRICE_PER_SECOND*%0)
 
@@ -114,6 +120,7 @@ enum E_PRIVATE_PHONE_DATA
 {
 	Number,
 	bool:Online,
+	LocationIndex, 
 };
 
 // Taksofonai
@@ -173,10 +180,44 @@ public OnPayphoneLoad()
 	return 1;
 }
 
+/*
+		                                                                                
+		                                                 ,,                             
+		`7MM"""YMM                                mm     db                             
+		  MM    `7                                MM                                    
+		  MM   d `7MM  `7MM  `7MMpMMMb.  ,p6"bo mmMMmm `7MM  ,pW"Wq.`7MMpMMMb.  ,pP"Ybd 
+		  MM""MM   MM    MM    MM    MM 6M'  OO   MM     MM 6W'   `Wb MM    MM  8I   `" 
+		  MM   Y   MM    MM    MM    MM 8M        MM     MM 8M     M8 MM    MM  `YMMMa. 
+		  MM       MM    MM    MM    MM YM.    ,  MM     MM YA.   ,A9 MM    MM  L.   I8 
+		.JMML.     `Mbod"YML..JMML  JMML.YMbmd'   `Mbmo.JMML.`Ybmd9'.JMML  JMML.M9mmmP' 
+		                                                                                
+		                                                                                
+*/
 
 
 
+GeneratePhoneNumber(prefix = 86, length = 9, offset = 0) 
+{
+	// written by stupid Yiin -_-
 
+    (length > 11) && (length = 11);
+
+    new sz_phonePrefix[11]; 
+    valstr(sz_phonePrefix, prefix);
+    new prefixLength = strlen(sz_phonePrefix);
+
+    if(prefixLength >= length) {
+        return 0;
+    }
+
+    new phoneNumber = gettime() + GetTickCount() + offset;
+    phoneNumber %= floatround(floatpower(10.0, length - prefixLength));
+
+    new sz_phoneNumber[12]; 
+    format(sz_phoneNumber, 12, "%i%i", prefix, phoneNumber);
+    ErrorLog("Generated phonenumber:%s", phoneNumber);
+    return strval(sz_phoneNumber);
+}
 
 IsValidPhoneNumber(phonenumber)
 {
@@ -205,7 +246,13 @@ IsValidPlayerNumber(phonenumber)
 	return valid;
 }
 
-
+UpdatePhoneNumberLocation(phonenumber, E_PRIVATE_PHONE_LOCATIONS:location, locationid)
+{
+	new query[100];
+	mysql_format(DbHandle, query, sizeof(query), "UPDATE phones SET location_type = %d, location_id = %d WHERE number = %d",
+		_:location, locationid, phonenumber);
+	return mysql_pquery(DbHandle, query);
+}
 
 
 
@@ -278,7 +325,7 @@ RemovePhonebookContact(phonenumber, contactnumber)
 stock LogPhoneConversation(fromnumber, tonumber, const text[])
 {
     new query[ 256 ];
-    mysql_format(DbHandle, query, sizeof(query), "INSERT INTO phone_conversation_logs (from_number, to_number, `text`, date) VALUES (%d, %d, '%e', %d)",
-    	fromnumber, tonumber, text);
+    mysql_format(DbHandle, query, sizeof(query), "INSERT INTO phone_conversation_logs (from_number, to_number, `text`, date) VALUES (%d, %d, '%e', FROM_UNIXTIME(%d))",
+    	fromnumber, tonumber, text, gettime());
     return mysql_pquery(DbHandle, query);
 }

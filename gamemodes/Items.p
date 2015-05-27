@@ -184,6 +184,14 @@
 #define ITEM_Flashlight1				432
 #define ITEM_Taser1						433
 #define ITEM_Screwdriver1				434
+#define ITEM_PHONE_CREDIT_5				435
+#define ITEM_PHONE_CREDIT_10			436
+#define ITEM_PHONE_CREDIT_20			437
+#define ITEM_PHONE_CREDIT_50			438
+#define ITEM_PHONE_CREDIT_100			439
+#define ITEM_PHONE_CREDIT_200			440
+#define ITEM_PHONE_CREDIT_500			441
+#define ITEM_PHONE_CREDIT_1000			442
 
 #define MAX_ITEM_NAME 					64
 
@@ -405,7 +413,15 @@ stock static const ItemData[ ][ E_ITEM_DATA ] =
 	{ITEM_PCP,				"PCP",										true, false, true, false,  false, false, false,	0,		0,		1, "OnPlayerUsePCP", PlayerId},
 	{ITEM_CRACK,			"Krekas",									true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerStartSmoking", PlayerId | ItemId},
 	{ITEM_OPIUM,			"Opijus",									true, false, true, false, false,  false, false,	0,		0,		1, "OnPlayerStartSmoking",	PlayerId | ItemId},
-	// "Guns guns guns" - Call of duty Modern Warfare 
+	{ITEM_PHONE_CREDIT_5,	"Sàskaitos papildymas $5",					false, false, false, false, false, false, false, 0,		0, 		0, 	"OnPlayerUsePhoneCredit", PlayerId | ItemId},
+	{ITEM_PHONE_CREDIT_10,	"Sàskaitos papildymas $10",					false, false, false, false, false, false, false, 0,		0, 		0, 	"OnPlayerUsePhoneCredit", PlayerId | ItemId},
+	{ITEM_PHONE_CREDIT_20,	"Sàskaitos papildymas $20",					false, false, false, false, false, false, false, 0,		0, 		0, 	"OnPlayerUsePhoneCredit", PlayerId | ItemId},
+	{ITEM_PHONE_CREDIT_50,	"Sàskaitos papildymas $50",					false, false, false, false, false, false, false, 0,		0, 		0, 	"OnPlayerUsePhoneCredit", PlayerId | ItemId},
+	{ITEM_PHONE_CREDIT_100,	"Sàskaitos papildymas $100",				false, false, false, false, false, false, false, 0,		0, 		0, 	"OnPlayerUsePhoneCredit", PlayerId | ItemId},
+	{ITEM_PHONE_CREDIT_200,	"Sàskaitos papildymas $200",				false, false, false, false, false, false, false, 0,		0, 		0, 	"OnPlayerUsePhoneCredit", PlayerId | ItemId},
+	{ITEM_PHONE_CREDIT_500,	"Sàskaitos papildymas $500",				false, false, false, false, false, false, false, 0,		0, 		0, 	"OnPlayerUsePhoneCredit", PlayerId | ItemId},
+	{ITEM_PHONE_CREDIT_1000,"Sàskaitos papildymas $1000",				false, false, false, false, false, false, false, 0,		0, 		0, 	"OnPlayerUsePhoneCredit", PlayerId | ItemId},
+	// "Guns guns guns" - Call of duty Modern Warfare 	
 	{1, 					"Kastetas",									false, true, false, false, false, false, false, 	331,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId | InventoryIndex},
 	{2, 					"Golfo lazda",								false, true, false, false, false, false, false,	333,	0, 		0, "OnPlayerUseWeapon", PlayerId | ItemId | InventoryIndex},
 	{3,						"Bananas",									false, true, false, false, false, false, false,	334,	0,		0, "OnPlayerUseWeapon", PlayerId | ItemId | InventoryIndex},

@@ -410,13 +410,16 @@ stock ShowGarageInv(playerid, garageindex)
     for(new slot = 0; slot < MAX_GARAGE_ITEMS; slot++)
     {
         if(!GarageItems[ garageindex ][ slot ][ SqlId ])
-            format(string, sizeof(string), "%s%d. Nëra\n", string,slot+1);
+            format(string, sizeof(string), "%s%d\tNëra\n", string,slot+1);
+        // Su telefonais kiek kitaip formatuojam
+        else if(GarageItems[ garageindex ][ slot ][ ItemId ] == ITEM_PHONE)
+            format(string, sizeof(string), "%s%d. %s\t%d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]), Get)
         else
-            format(string, sizeof(string), "%s%d. %s %d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]) ,GarageItems[ garageindex ][ slot ][ Amount ]);
+            format(string, sizeof(string), "%s%d. %s\t%d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]) ,GarageItems[ garageindex ][ slot ][ Amount ]);
     }
     strcat(string, "\nIðjungti");
     PlayerUsedGarageIndex[ playerid ] = garageindex;
-    ShowPlayerDialog(playerid, DIALOG_GARAGE_INVENTORY, DIALOG_STYLE_LIST, "Inventorius", string, "Paimti", "Atgal");
+    ShowPlayerDialog(playerid, DIALOG_GARAGE_INVENTORY, DIALOG_STYLE_TABLIST, "Inventorius", string, "Paimti", "Atgal");
     return 1;
 }
 
