@@ -109,10 +109,10 @@ CREATE TABLE IF NOT EXISTS payphones (
 // Vietos kur gali bûti telefonas
 enum E_PRIVATE_PHONE_LOCATIONS 
 {
-	PlayerInventory,
-	HouseInventory,
-	GarageInventory,
-	VehicleTrunk,
+	PlayerInventory = 1,
+	HouseInventory = 2,
+	GarageInventory = 3,
+	VehicleTrunk = 4,
 };
 
 // Nuosavo telefono duomenys
@@ -121,6 +121,7 @@ enum E_PRIVATE_PHONE_DATA
 	Number,
 	bool:Online,
 	LocationIndex, 
+	Credit,
 };
 
 // Taksofonai

@@ -34,15 +34,16 @@ enum E_PLAYER_TALK_SESSION
 	Speaker,
 };
 
+/*
 enum E_PLAYER_PHONE_DATA 
 {
 	Number,
 	bool:Online,
 	InventoryIndex,
 	Credit,
-};
+};*/
 
-static PlayerPhones[ MAX_PLAYERS ][ MAX_PLAYER_PHONES ][ E_PLAYER_PHONE_DATA ],
+static PlayerPhones[ MAX_PLAYERS ][ MAX_PLAYER_PHONES ][ E_PRIVATE_PHONE_DATA ],
 	PlayerUsedPhone[ MAX_PLAYERS ] = {-1, ...},
 	PlayerTalkSession[ MAX_PLAYERS ][ E_PLAYER_TALK_SESSION ];
 
@@ -111,7 +112,7 @@ public OnPlayerPhoneLoad(playerid)
 
 hook OnPlayerDisconnect(playerid, reason)
 {
-	static emptyPlayerPhone[ E_PLAYER_PHONE_DATA ], emptyPlayerSession[ E_PLAYER_TALK_SESSION ];
+	static emptyPlayerPhone[ E_PRIVATE_PHONE_DATA ], emptyPlayerSession[ E_PLAYER_TALK_SESSION ];
 
 	if(IsPlayerInTalkSession(playerid))
 	{
@@ -634,10 +635,10 @@ public OnPlayerItemLoaded(playerid, loadeditemcount)
 	new phonecount = 0;
 	for(new i = 0; i < loadeditemcount; i++)
 		if(GetPlayerItemAtIndex(playerid, i) == ITEM_PHONE)
-			PlayerPhones[ playerid ][ phonecount++ ][ InventoryIndex ] = i;
+			PlayerPhones[ playerid ][ phonecount++ ][ LocationIndex ] = i;
 
 	for(new i = 0; i < MAX_PLAYER_PHONES; i++)
-		if(!PlayerPhones[ playerid ][ i ][ InventoryIndex ])
+		if(!PlayerPhones[ playerid ][ i ][ LocationIndex ])
 			ErrorLog("Player %d has more phones than phone items. Phone number:%d", GetPlayerSqlId(playerid), PlayerPhones[ playerid ][ i ][ Number ]);
 	return 1;
 }
@@ -991,7 +992,7 @@ GetPlayerPhoneIndex(playerid, phonenumber)
 GetPlayerPhoneIndexFromInvIndex(playerid, inventoryindex)
 {
 	for(new i = 0; i < MAX_PLAYER_PHONES; i++)
-		if(PlayerPhones[ playerid ][ i ][ InventoryIndex ] == inventoryindex)
+		if(PlayerPhones[ playerid ][ i ][ LocationIndex ] == inventoryindex)
 			return i;
 	return -1;
 }

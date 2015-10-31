@@ -413,7 +413,7 @@ stock ShowGarageInv(playerid, garageindex)
             format(string, sizeof(string), "%s%d\tNëra\n", string,slot+1);
         // Su telefonais kiek kitaip formatuojam
         else if(GarageItems[ garageindex ][ slot ][ ItemId ] == ITEM_PHONE)
-            format(string, sizeof(string), "%s%d. %s\t%d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]), Get)
+            format(string, sizeof(string), "%s%d. %s\t%d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]), GetPlayerPhoneNumber(playerid, GetPlayerPhoneIndexFromInvIndex(playerid, slot)));
         else
             format(string, sizeof(string), "%s%d. %s\t%d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]) ,GarageItems[ garageindex ][ slot ][ Amount ]);
     }

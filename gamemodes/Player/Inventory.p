@@ -1766,7 +1766,7 @@ stock GetPlayerItemAtIndex(playerid, index)
 stock GetPlayerItemAmountAtIndex(playerid, index)
 {
 	return PlayerItems[ playerid ][ index ][ Amount ];
-}
+} 
 
 stock ShowPlayerInvInfoForPlayer(playerid, targetid)
 {
