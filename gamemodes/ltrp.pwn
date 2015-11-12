@@ -489,7 +489,7 @@ new DroppedWeapons[ MAX_DROPPED_WEAPONS ][ E_DROPPED_WEAPON_DATA ];
 #define MAX_AD_TEXT                     170
 
     // Kintamieji
-new bool:PlayerOn[MAX_PLAYERS] = { false, ... },
+new
     bool:OOCDisabled = false,
     Checkpoint[MAX_PLAYERS],
     bool:FirstSpawn[ MAX_PLAYERS ] = {true, ... },
@@ -852,10 +852,15 @@ new Fire[MAX_FIRE][fires];
 #include "Property\Businesses"
 #include "Property\Houses"
 #include "Property\Garages"
+
 #include "Player\Functions"
 #include "Player\Inventory"
 #include "Player\Attachments"
 #include "Player\Phone"
+#include "Player\Auth"
+#include "Player\Spawn"
+#include "Player\Death"
+
 #include "Vehicles\vPhone"
 #include "Bank"
 #include "Graffiti"
@@ -3655,6 +3660,8 @@ stock SaveAccount(playerid)
     printf("Vartotojas buvo sëkmingai iðsaugotas duomenø bazëje (uþklausa truko: %d)",strlen(string));
     return 1;
 }
+
+
 main()
 {
     ServerStartTimestamp = gettime();
@@ -4070,7 +4077,7 @@ public OnPlayerRequestClass(playerid, classid)
     
     if( PlayerOn[ playerid ] )
         SpawnPlayerEx( playerid );
-    return false;
+    return 1;
 }
 
 stock GetPlayerSqlId(playerid)
@@ -4617,6 +4624,8 @@ FUNKCIJA:GiveWeapons(playerid)
     return 1;
 }
 */
+
+
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
@@ -10262,84 +10271,6 @@ CMD:uninvite( playerid, params[ ] )
        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs neturite galimybës naudotis ðia komanda.");
 }
 
-
-CMD:setspawn (playerid, params[])
-{
-    if(isnull(params))
-    {
-        SetSpawnInfo:
-        SendClientMessage(playerid, COLOR_LIGHTRED, "|________VEIKËJO ATSIRADIMO VIETA PRISIJUNGUS________|");
-        SendClientMessage(playerid, COLOR_LIGHTRED2, "Atsiradimo vietà taip pat galite redaguoti vartotojo valdymo pulte: ltrp.lt");
-        SendClientMessage(playerid, COLOR_WHITE, "KOMANDOS NAUDOJIMAS: /setspawn [VIETA]");
-        SendClientMessage(playerid, COLOR_WHITE, "VIETOS: Idlewood, Los Santos, Namas, Frakcija, Verslas, Garaþas");
-        SendClientMessage(playerid, COLOR_LIGHTRED2, "_______________________________");
-    }
-    else
-    {
-        if(!strcmp(params, "Idlewood", true))
-        {
-            pInfo[ playerid ][ pSpawn ] = DefaultSpawn;
-            SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite Idlewood rajone..");
-        }
-		else if(!strcmp(params, "Los Santos", true))
-        {
-            pInfo[ playerid ][ pSpawn ] = SpawnLosSantos;
-            SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite Los Santos Unity Station.");
-        }
-        else if(!strcmp(params, "Namas", true))
-        {
-            new index = GetPlayerHouseIndex(playerid, true);
-            if(index == -1)
-                return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, turite stovëti prie namo kurá norite pasirinkti kaip atsiradimo vietà.");
-
-            if(!IsPlayerHouseOwner(playerid, index) && !IsPlayerHouseTenant(playerid, index))
-                return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, turite bûti namo savininkas arba já nuomotis kad galëtumëte já pasirinkti kaip atsiradimo vietà.");
-
-            pInfo[ playerid ][ pBSpawn ] = GetHouseID(index);
-            pInfo[ playerid ][ pSpawn ] = SpawnHouse;
-            SendClientMessage(playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite ðalia savo namo.");
-        }
-        else if(!strcmp(params, "Frakcija", true))
-        {
-            if( PlayerFaction( playerid ) > 0 )
-            {
-                pInfo[ playerid ][ pSpawn ] = SpawnFaction;
-                SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite frakcijos nustatytoje atsiradimo vietoje.");
-            }
-            else
-                SendClientMessage( playerid, COLOR_LIGHTRED,"Klaida, Jûs nepriklausote jokiai frakcijai. Pasitikrinkite veikëjo informacija komanda /stats.");
-
-        }
-        else if(!strcmp(params, "Verslas", true))
-        {
-            new index = GetPlayerBusinessIndex(playerid);
-            if(index == -1)
-                return SendClientMessage(playerid, COLOR_LIGHTRED, "Turite stovëti prie verslo kurá norite pasirinkti kaip atsiradimo vietà.");
-           	if(!IsPlayerBusinessOwner(playerid, index))
-        		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis verslas jums nepriklauso.");
-
-            pInfo[ playerid ][ pBSpawn ] = GetBusinessID(index);
-            pInfo[ playerid ][ pSpawn ] = SpawnBusiness;
-            SendClientMessage( playerid, COLOR_NEWS,"Vieta sëkmingai nustatyta, dabar prisijungæ á serverá kità kartà atsirasite ðalia savo verslo.");
-        }
-        else if(!strcmp(params, "Garazas", true) || !strcmp(params, "Garaþas", true))
-        {
-        	new index = GetPlayerGarageIndex(playerid);
-        	if(index == -1)
-        		return SendClientMessage(playerid, COLOR_LIGHTRED, "Turite stovëti prie garaþo prie kurio norite atsirasti.");
-        	if(!IsPlayerGarageOwner(playerid, index))
-        		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis garaþas jums nepriklauso.");
-
-        	pInfo[ playerid ][ pBSpawn ] = GetGarageID(index);
-        	pInfo[ playerid ][ pSpawn ] = SpawnGarage;
-        	SendClientMessage(playerid, COLOR_NEWS, "Vieta sëkmingai pakeista. Kità kartà prisijungæ á serverá atsirasite prie garaþo.");
-        }
-        else 
-            goto SetSpawnInfo;
-        SaveAccount(playerid);
-    }
-    return true;
-}
 
 CMD:lock(playerid)
 {
@@ -22595,7 +22526,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         pInfo[ playerid ][ pJobHours ] = cache_get_field_content_int(0, "JobHours");
         pInfo[ playerid ][ pHunger ] = cache_get_field_content_int(0, "Hunger");
         pInfo[ playerid ][ pTotalPaycheck ]  = cache_get_field_content_int(0, "TotalPaycheck");
-        pInfo[ playerid ][ pFactionManager ] = (cache_get_field_content_int(0, "faction_manager")) ? (true) : (false);
+        //pInfo[ playerid ][ pFactionManager ] = (cache_get_field_content_int(0, "faction_manager")) ? (true) : (false);
     
         cache_delete(result);
 
@@ -22633,7 +22564,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         SendClientMessage( playerid, COLOR_FADE1,string);
         format           ( string, 56, "~w~Sveikas ~n~~h~~g~%s", GetName( playerid ) );
         //------------------[Nustatum tikslu spawn vieta]-----------
-        SpawnPlayerEx ( playerid );
+        SpawnPlayerEx(playerid);
         //---------------------[Sukuriam Info texta]----------------
         ShowPlayerInfoText(playerid);
         GameTextForPlayer (playerid, string, 5000, 1 );
@@ -22743,244 +22674,6 @@ stock LoadPlayerKomp(playerid)
     return 1;
 }
 
-// SUTVARKOM SPAWN
-stock SpawnPlayerEx( playerid )
-{
-    new
-        string[ 256 ],
-        string2[ 256 ],
-        Float:x,
-        Float:y,
-        Float:z;
-        
-    if(pInfo[ playerid ][ pJailTime ] >= 1 && Mires[playerid] == 0 )
-    {
-        switch(pInfo[playerid][pJail])
-        {
-            case 1:
-            {
-                Data_GetCoordinates("ooc_jail", x, y, z);
-                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
-                SetPlayerVirtualWorld(playerid, playerid);
-
-                format( string, sizeof( string ), "SELECT `Priezastis` FROM `nuobaudos` WHERE `Ka` = 'uþdarë á kalëjimá ' AND `Kam` = %d ORDER BY `Data` DESC LIMIT 1", pInfo[ playerid ][ pMySQLID ]);
-                new Cache:result = mysql_query(DbHandle,  string );
-                
-                if(cache_get_row_count())
-                {
-                    cache_get_field_content(0, "Priezastis", string);
-                    format( string2, sizeof( string2 ), "Prieþastis: %s", string);
-                    SendClientMessage       ( playerid, COLOR_LIGHTRED, "Jûs buvote pasodintas á OOC Jail!" );
-                    SendClientMessage       ( playerid, COLOR_LIGHTRED, string2 );
-                }
-                cache_delete(result);
-            }
-            case 2:
-            {
-                SetPlayerInterior(playerid, Data_GetInterior("ic_prison"));
-                Data_GetCoordinates("ic_prison", x, y, z);
-                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0);
-            }
-            case 3:
-            {
-                SetPlayerInterior(playerid, Data_GetInterior("ic_custody"));
-                Data_GetCoordinates("ic_custody", x, y, z);
-                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
-            }
-        }
-    }
-    else if( Mires[ playerid ] > 0 )
-    {
-        if( Mires[ playerid ] == 1 )
-        {
-            if(pInfo[ playerid ][ pJailTime ] >= 1)
-            {
-                switch(pInfo[playerid][pJail])
-                {
-                    case 1:
-                    {
-                        Data_GetCoordinates("ooc_jail", x, y, z);
-                        SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
-                        SetPlayerVirtualWorld( playerid, playerid );
-
-                        format( string, sizeof( string ), "SELECT `Priezastis` FROM `nuobaudos` WHERE `Ka` = 'uþdarë á kalëjimá ' AND `Kam` = %d ORDER BY `Data` DESC LIMIT 1", pInfo[ playerid ][ pMySQLID ]);
-                        new Cache:result = mysql_query(DbHandle,  string );
-
-                        if(cache_get_row_count())
-                        {
-                            cache_get_field_content(0, "Priezastis", string);
-                            format( string2, sizeof( string2 ), "Prieþastis: %s", string);
-                            SendClientMessage       ( playerid, COLOR_LIGHTRED, "Jûs buvote pasodintas á OOC Jail!" );
-                            SendClientMessage       ( playerid, COLOR_LIGHTRED, string2 );
-                        }
-                        cache_delete(result);
-                    }
-                    case 2:
-                    {
-                        SetPlayerInterior(playerid, Data_GetInterior("ic_prison"));
-                        Data_GetCoordinates("ic_prison", x, y, z);
-                        SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0);
-                    }
-                    case 3:
-                    {
-                        SetPlayerInterior(playerid, Data_GetInterior("ic_custody"));
-                        Data_GetCoordinates("ic_custody", x, y, z);
-                        SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
-                    }
-                }
-            }
-            else
-            {
-                Data_GetCoordinates("hospital_discharge", x, y, z);
-                SetSpawnInfo(playerid, NO_TEAM, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0);
-                SetPlayerInterior(playerid, Data_GetInterior("hospital_discharge"));
-                SetPlayerVirtualWorld(playerid, Data_GetVirtualWorld("hospital_discharge"));
-                pInfo[playerid][pDeaths] ++;
-
-                for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
-                {
-                    new itemid = GetPlayerItemAtIndex(playerid, i);
-                    if(itemid != ITEM_PHONE)
-                    {
-                        RemovePlayerItemAtIndex(playerid, i);
-                    }
-                }
-
-                DestroyDynamic3DTextLabel( DeathLabel[playerid] );
-                SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs buvote paleistas ið ligoninës.");
-                SendClientMessage(playerid, COLOR_LIGHTRED, "Gydymas kainavo 150$. Ginklai bei kiti daiktai buvo pamesti, iðskyrus telefonà.");
-            }
-            Mires[ playerid ] = 0;
-        }
-        else
-        {
-            format( string, 256, "((\n" );
-
-            for(new i = 0; i < 47; i++)
-            {
-                format(string2, 256, "%d", i);
-                if( GetPVarInt( playerid, string2 ) == 0 || GetSlotByID( i ) > 6 ) continue;
-
-                format(string, 256, "%s%s hits: %d\n", string, WepNames[i], GetPVarInt( playerid, string2 ));
-            }
-
-            format( string, 256, "%s ))", string );
-
-            SendClientMessage( playerid, COLOR_GREY, string );
-            DeathLabel[playerid] = CreateDynamic3DTextLabel(string, COLOR_RED, pInfo[playerid][pCrashPos][0],pInfo[playerid][pCrashPos][1],pInfo[playerid][pCrashPos][2]+2, 30.0, playerid, INVALID_VEHICLE_ID, 1);
-            NullWeapons( playerid );
-            SetSpawnInfo            ( playerid, NO_TEAM, pInfo[ playerid ][ pSkin ], pInfo[playerid][pCrashPos][0],pInfo[playerid][pCrashPos][1],pInfo[playerid][pCrashPos][2], 0, 0, 0, 0, 0, 0, 0 );
-            SetPlayerInterior     ( playerid, pInfo[playerid][pInt] );
-            SetPlayerVirtualWorld ( playerid, pInfo[playerid][pVirWorld] );
-            SendClientMessage       ( playerid, COLOR_LIGHTRED, "Dëmesio, Jûs buvote mirtinai suþeistas ir dabar Jums reikia skubios pagalbos." );
-            SendClientMessage       ( playerid, COLOR_LIGHTRED, "Apaèioje eina laikas iki mirties, jei norite mirti nelaukæ raðykite /die." );
-        }
-    }
-    else if( pInfo[ playerid ][ pJailTime ] >= 1 )
-    {
-        switch(pInfo[playerid][pJail])
-        {
-            case 1:
-            {
-                Data_GetCoordinates("ooc_jail", x, y, z);
-                SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ],x, y ,z, 0, 0, 0, 0, 0, 0, 0 );
-                SetPlayerVirtualWorld( playerid, playerid );
-
-                format( string, sizeof( string ), "SELECT `Priezastis` FROM `nuobaudos` WHERE `Ka` = 'uþdarë á kalëjimá ' AND `Kam` = %d ORDER BY `Data` DESC LIMIT 1", pInfo[ playerid ][ pMySQLID ]);
-                new Cache:result = mysql_query(DbHandle,  string );
-                if(cache_get_row_count())
-                {
-                    cache_get_field_content(0, "Priezastis", string);
-                    format( string2, sizeof( string2 ), "Prieþastis: %s", string);
-                    SendClientMessage       ( playerid, COLOR_LIGHTRED, "Jûs buvote pasodintas á OOC Jail!" );
-                    SendClientMessage       ( playerid, COLOR_LIGHTRED, string2 );
-                }
-                cache_delete(result);
-            }
-            case 2:
-            {
-                SetPlayerInterior(playerid, Data_GetInterior("ic_prison"));
-                Data_GetCoordinates("ic_prison", x, y, z);
-                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0);
-            }
-            case 3:
-            {
-                SetPlayerInterior(playerid, Data_GetInterior("ic_custody"));
-                Data_GetCoordinates("ic_custody", x, y, z);
-                SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y ,z, 0, 0, 0, 0, 0, 0, 0 );
-            }
-        }
-    }
-    else
-    {
-        if( pInfo[ playerid ][ pCrash ] == 1 )
-        {
-            SetSpawnInfo( playerid, NO_TEAM, pInfo[ playerid ][ pSkin ], pInfo[ playerid ][ pCrashPos ][ 0 ],pInfo[ playerid ][ pCrashPos ][ 1 ], pInfo[ playerid ][ pCrashPos ][ 2 ]+1.0, 0, 0, 0, 0, 0, 0, 0 );
-            format      ( string, sizeof(string), "~r~KLAIDA! ~n~~h~~g~Gryztate atgal" );
-            GameTextForPlayer    ( playerid, string, 5000, 1 );
-            SetPlayerInterior( playerid, pInfo[playerid][pInt] );
-            SetPlayerVirtualWorld( playerid, pInfo[playerid][pVirWorld] );
-            pInfo[ playerid ][ pCrash ] = 0;
-        }
-        else
-        {
-            switch(pInfo[ playerid ][ pSpawn ])
-            {
-                case SpawnHouse:
-                {
-                    new housekey;
-                    foreach(Houses,h)
-                    {
-                        if (pInfo[ playerid ][ pBSpawn ] == hInfo[ h ][ hID ])
-                        {
-                            housekey = h;
-                        }
-                    }
-                    SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], hInfo[ housekey ][ hEnter ][ 0 ],hInfo[ housekey ][ hEnter ][ 1 ],hInfo[ housekey ][ hEnter ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
-                    SetPlayerVirtualWorld( playerid, hInfo[ housekey ][ hEntranceVirw ] );
-                    SetPlayerInterior    ( playerid, hInfo[ housekey ][ hEntranceInt ] );
-                }
-                case SpawnFaction: SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 0 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 1 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
-                case SpawnBusiness:
-                {
-                    new index = GetBusinessIndex(pInfo[ playerid ][ pBSpawn ]);
-                    if(index != -1)
-                    {
-                        SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], bInfo[ index ][ bEnter ][ 0 ],bInfo[ index ][ bEnter ][ 1 ],bInfo[ index ][ bEnter ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
-                        SetPlayerVirtualWorld(playerid, bInfo[ index ][ bEntranceVirw ]);
-                        SetPlayerInterior(playerid, bInfo[ index ][ bEntranceInt ]);
-                    }
-                }
-                case SpawnLosSantos: 
-                {
-                    Data_GetCoordinates("spawn_los_santos", x, y, z);
-                    SetPlayerInterior(playerid, Data_GetInterior("spawn_los_santos"));
-                    SetPlayerVirtualWorld(playerid, Data_GetVirtualWorld("spawn_los_santos"));
-                    SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0 );
-                }
-                case SpawnGarage:
-                {
-                    new index = GetGarageIndex(pInfo[ playerid ][ pBSpawn ]);
-                    if(index != -1)
-                    {
-                        GetGarageEntrancePos(index, x, y, z);
-                        SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z, 0, 0, 0, 0, 0, 0, 0 );
-                        SetPlayerVirtualWorld(playerid, GetGarageEntranceVirtualWorld(index));
-                        SetPlayerInterior(playerid, GetGarageEntranceInteriorID(index));    
-                    }
-                }
-                default:
-                {
-                    Data_GetCoordinates("default_spawn", x, y, z);
-                    SetPlayerInterior(playerid, Data_GetInterior("default_spawn"));
-                    SetPlayerVirtualWorld(playerid, Data_GetVirtualWorld("default_spawn"));
-                    SetSpawnInfo(playerid, 0, pInfo[ playerid ][ pSkin ], x, y, z,0, 0, 0, 0, 0, 0, 0);
-                }
-            }
-        }
-    }
-    return SpawnPlayer( playerid );
-}
 
 stock returnFuelText( vehicle, model )
 {

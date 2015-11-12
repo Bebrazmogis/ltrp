@@ -1,0 +1,6 @@
+Factions need to be modularizedsferg (Spawn.p laukia to)
+
+pSpawn ir pBspawn pInfo elementai turi bûti paðalinti. Yra alaternatyva: Spawn.p
+
+Spawn.p:
+	Nepadarytas admin tvarkymas spawnu.

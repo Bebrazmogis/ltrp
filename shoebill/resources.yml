@@ -1,0 +1,28 @@
+
+repositories:
+  - id: central
+    url: http://repo1.maven.org/maven2/
+
+  - id: gtaun-public-repo
+    url: http://repo.gtaun.net/content/groups/public
+
+  - id: sonatype-oss-snapshots
+    url: https://oss.sonatype.org/content/repositories/snapshots/
+
+# When to update cache?
+# Options: always / daily / interval:[minutes]
+cacheUpdatePolicy: always
+
+# If Maven checks for Updates or use old artifacts
+offlineMode: false
+
+# Your needed runtimes
+runtimes:
+  - net.gtaun:shoebill-runtime:1.1-SNAPSHOT
+  - net.gtaun:shoebill-common:1.0-SNAPSHOT
+
+# Additional plugins
+plugins:
+
+# Your gamemode
+gamemode: example-lvdm-1.0-SNAPSHOT

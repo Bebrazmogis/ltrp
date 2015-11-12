@@ -1,0 +1,21 @@
+# Shoebill foldername
+shoebillPath: shoebill
+
+folder:
+    bootstrap: bootstrap
+    repository: repository
+    libraries: libraries
+    plugins: plugins
+    gamemodes: gamemodes
+
+# Let dependencymanager try to resolve needed dependencies
+resolveDependencies: true
+
+# Allows to override the artifact from maven repo with local file
+allowArtifactOverrideIgnoreGroupId: true
+
+# See: http://en.wikipedia.org/wiki/Windows_code_pages#List
+serverCodepage: 1252
+
+# Custom maven path
+#customRepositoryPath: ''
