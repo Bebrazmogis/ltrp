@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.gtaun:shoebill-common:1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/gtaun/shoebill-common/1.0-SNAPSHOT/shoebill-common-1.0-20150726.013238-13.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/gtaun/shoebill-common/1.0-SNAPSHOT/shoebill-common-1.0-20150726.013238-13-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/gtaun/shoebill-common/1.0-SNAPSHOT/shoebill-common-1.0-20150726.013238-13-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

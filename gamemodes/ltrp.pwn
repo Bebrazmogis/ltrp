@@ -22,6 +22,7 @@
 
 
 
+
 #define VERSION                         2.2.0
 #define BUILD_DATE                      2015-05.13
 
@@ -30,6 +31,7 @@
 #include <a_samp>
 native IsValidVehicle(vehicleid);
 native WP_Hash(buffer[], len, const str[]);
+native CallShoebillFunction(name[], {Float,_}:...);
 #include <mSelection>
 //#define  TIMER_FIX_TIMER_SLOTS          512
 //#include <timerfix>
@@ -747,6 +749,28 @@ enum E_FACTION_DATA
     fPayDay[MAX_FACTION_RANKS],
 };
 new fInfo[20][E_FACTION_DATA];
+
+forward GetFactionPosition(factionindex, &Float:x, &Float:y, &Float:z);
+public GetFactionPosition(factionindex, &Float:x, &Float:y, &Float:z)
+{
+	x = fInfo[ factionindex ][ fSpawn ][ 0 ];
+	x = fInfo[ factionindex ][ fSpawn ][ 1 ];
+	x = fInfo[ factionindex ][ fSpawn ][ 2 ];
+}
+
+forward GetFactionInterior(factionindex);
+public GetFactionInterior(factionindex)
+{
+	return fInfo[ factionindex ][ fInt ];
+}
+
+forward GetFactionVirtualWorld(factionindex);
+public GetFactionVirtualWorld(factionindex)
+{
+	return 0;
+}
+
+
 new Iterator:Faction<16>;
 
 enum cars
@@ -857,9 +881,9 @@ new Fire[MAX_FIRE][fires];
 #include "Player\Inventory"
 #include "Player\Attachments"
 #include "Player\Phone"
-#include "Player\Auth"
-#include "Player\Spawn"
-#include "Player\Death"
+//#include "Player\Auth"
+//#include "Player\Spawn"
+//#include "Player\Death"
 
 #include "Vehicles\vPhone"
 #include "Bank"
@@ -4075,8 +4099,8 @@ public OnPlayerRequestClass(playerid, classid)
         return 1;
     }
     
-    if( PlayerOn[ playerid ] )
-        SpawnPlayerEx( playerid );
+    //if( PlayerOn[ playerid ] )
+     //   SpawnPlayerEx( playerid );
     return 1;
 }
 
@@ -4248,7 +4272,7 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 5158, 2837.7734, -2334.4766, 11.9922, 0.25);
     
     SetPlayerColor(playerid,TEAM_HIT_COLOR);
-    ShowPlayerLoginDialog(playerid);
+    //ShowPlayerLoginDialog(playerid);
     return 1;
 }
 
@@ -4258,7 +4282,7 @@ stock NullPlayerInfo( playerid )
     pInfo[ playerid ][ pMoney    ] = 0;
     pInfo[ playerid ][ pBank     ] = 0;
     pInfo[ playerid ][ pExp      ] = 0;
-    PlayerOn[ playerid ] = false;
+//    PlayerOn[ playerid ] = false;
     pInfo[ playerid ][ pAdmin    ] = 0;
     PlayerMoney     [ playerid ] = 0;
 
@@ -4478,10 +4502,10 @@ public OnPlayerDisconnect(playerid, reason)
         BoxEnd(playerid);
         
 
-    if (PlayerOn[ playerid ] == true )
+    if (IsPlayerLoggedIn(playerid))
     {
         SaveAccount( playerid );
-        PlayerOn[ playerid ] = false;
+        //PlayerOn[ playerid ] = false;
     }
 
     if ( pInfo[ playerid ][ pBackup ] == 1 )
@@ -4541,7 +4565,7 @@ public OnPlayerSpawn(playerid)
         return 1;
     }
 
-    if(PlayerOn[ playerid ] == false)
+    if(!IsPlayerLoggedIn(playerid))
     {
         SendClientMessage(playerid, GRAD, "Jûs nesate prisijungæs prie serverio, praðome prisijungti.");
         Kick(playerid);
@@ -10145,7 +10169,7 @@ public OnPlayerCommandReceived(playerid, cmdtext[]) {
         printf("[debug] OnPlayerCommandReceived(%s, %s)", GetName(playerid), cmdtext);
     #endif
 
-    if(PlayerOn[playerid] == false)
+    if(!IsPlayerLoggedIn(playerid))
     {
         SendClientMessage( playerid, GRAD, " Jûs nesate prisijungæs, praðome prisijungti.");
         return 0;
@@ -14695,7 +14719,6 @@ CMD:forcelogout(playerid, params[])
         SendClientMessage(playerid, COLOR_WHITE, szMessage);
 
         SaveAccount(playerLID);
-        PlayerOn[playerLID] = false;
 
         SendClientMessage(playerLID, COLOR_GREY, "Jûs buvote atjungtas.");
         ShowPlayerLoginDialog(playerid);
@@ -22547,7 +22570,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         format( string, sizeof(string), "INSERT INTO `IPLog` (Kas, IP) VALUES (%d,'%s')", pInfo[ playerid ][ pMySQLID ], pInfo[ playerid ][ pConnectionIP ] );
         mysql_query(DbHandle,  string, false);
         
-        PlayerOn[ playerid ] = true;
+        //PlayerOn[ playerid ] = true;
         //--------------------[Tackes uzkraunam]--------------------
         LoadPlayerVehicles( playerid );
 
@@ -22564,7 +22587,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         SendClientMessage( playerid, COLOR_FADE1,string);
         format           ( string, 56, "~w~Sveikas ~n~~h~~g~%s", GetName( playerid ) );
         //------------------[Nustatum tikslu spawn vieta]-----------
-        SpawnPlayerEx(playerid);
+//        SpawnPlayerEx(playerid);
         //---------------------[Sukuriam Info texta]----------------
         ShowPlayerInfoText(playerid);
         GameTextForPlayer (playerid, string, 5000, 1 );
@@ -23342,7 +23365,7 @@ FUNKCIJA:MinTime()
 
     foreach(Player,i)
     {
-        if ( PlayerOn[ i ] == false ) continue;
+        if (!IsPlayerLoggedIn(i)) continue;
 
         CheckIfAFKing( i );
 
@@ -23477,7 +23500,7 @@ FUNKCIJA:MinTime()
 
 stock PayDay( playerid )
 {
-        if ( PlayerOn[ playerid ] == false ) return 1;
+        if (!IsPlayerLoggedIn(playerid)) return 1;
 
         new Bank = pInfo[ playerid ][ pBank ],
             //fullPaycheck = pInfo[ playerid ][ pTotalPaycheck ],
@@ -23856,7 +23879,7 @@ FUNKCIJA:Sekunde()
 
 
 
-        if(PlayerOn[i] == false)
+        if(!IsPlayerLoggedIn(i))
         {
             SetPVarInt( i, "LOGIN_TIME", GetPVarInt( i, "LOGIN_TIME" ) +1 );
             if ( GetPVarInt( i, "LOGIN_TIME" ) > 30 )
@@ -25512,7 +25535,7 @@ stock GetCarOwner(vehicleid)
 {
     foreach(Player,playerid)
     {
-        if ( PlayerOn[ playerid ] == false ) continue;
+        if (!IsPlayerLoggedIn(playerid)) continue;
         if ( pInfo[ playerid ][ pMySQLID ] == cInfo[ vehicleid ][ cOwner ] )
         return playerid;
     }
@@ -26231,6 +26254,16 @@ stock PlayerFaction( playerid )
     }
     return 0;
 }
+
+forward GetFactionIndex(factionid);
+public GetFactionIndex(factionid)
+{
+	for(new i = 0; i < sizeof fInfo; i++)
+		if(fInfo[i][fID] && fInfo[i][fID] == factionid)
+			return i;
+	return -1;
+}
+
 stock savePlayerNotes( playerid, slot )
 {
     new string[ 126 ],
@@ -26849,4 +26882,30 @@ stock IsNumeric(const string[])
         }
     }
     return true;
+}
+
+stock IsPlayerLoggedIn(playerid)
+{
+	new ishe;
+	CallShoebillFunction("isPlayerLoggedIn", playerid, ishe);
+	return ishe;
+}
+
+forward OnPlayerDataLoad(playerid);
+forward OnShoebillPlayerLogin(playerid, failedloginattemps);
+forward OnPlayerSpawnSetUp(playerid);
+
+public OnPlayerDataLoad(playerid)
+{
+	printf("ltrp.pwn : OnPlayerDataLoad called. Params:%d", playerid);
+}
+
+public OnShoebillPlayerLogin(playerid, failedloginattemps)
+{
+	printf("ltrp.pwn : OnShoebillPlayerLogin called. Params:%d %d", playerid, failedloginattemps);
+}
+
+public OnPlayerSpawnSetUp(playerid)
+{
+	printf("ltrp.pwn : OnPlayerSpawnSetUp called. Params:%d", playerid);
 }

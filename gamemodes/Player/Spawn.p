@@ -179,7 +179,7 @@ SetUpSpawn(playerid)
             }
             case SpawnFaction:
             {
-
+            	
             	SetSpawnInfo( playerid, 0, pInfo[ playerid ][ pSkin ], fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 0 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 1 ],fInfo[ PlayerFaction( playerid ) ][ fSpawn ][ 2 ], 0, 0, 0, 0, 0, 0, 0 );
 
             }
@@ -190,7 +190,7 @@ SetUpSpawn(playerid)
                 {
                     GetBusinessEntrancePos(index, x, y, z);
                 	virtualworld = GetBusinessEntranceVirtualWorld(index);
-                	interior = GetBusinessEntranceVirtualWorld(index);
+                	interior = GetBusinessEntranceInteriorID(index);
                 }
                 else ErrorLog("Player %d has spawn set to business %d, but business does not exists or ir is not loaded", GetPlayerSqlId(playerid), PlayerSpawnUI[ playerid ]);
             }

@@ -21,7 +21,7 @@ new DbHandle;
     #undef MYSQL_PASS
     #undef MYSQL_DB
     #define MYSQL_PASS ""
-    #define MYSQL_DB   "ltrp-property-modules"
+    #define MYSQL_DB   "ltrp-java"
 #endif
 
 

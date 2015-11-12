@@ -25,4 +25,4 @@ runtimes:
 plugins:
 
 # Your gamemode
-gamemode: example-lvdm-1.0-SNAPSHOT
+gamemode: LtrpGamemode-1.0-SNAPSHOT

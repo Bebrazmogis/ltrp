@@ -709,17 +709,20 @@ stock GetHouseExitPos(hindex, &Float:x, &Float:y, &Float:z)
     z = hInfo[ hindex ][ hExit ][ 2 ];
 }
 
-stock GetHouseEntrancePos(hindex, &Float:x, &Float:y, &Float:z)
+forward GetHouseEntrancePos(hindex, &Float:x, &Float:y, &Float:z);
+public GetHouseEntrancePos(hindex, &Float:x, &Float:y, &Float:z)
 {
     x = hInfo[ hindex ][ hEnter ][ 0 ];
     y = hInfo[ hindex ][ hEnter ][ 1 ];
     z = hInfo[ hindex ][ hEnter ][ 2 ];
 }
 
-stock GetHouseEntranceVirtualWorld(hindex)
+forward GetHouseEntranceVirtualWorld(hindex);
+public GetHouseEntranceVirtualWorld(hindex)
     return hInfo[ hindex ][ hEntranceVirw ];
 
-stock GetHouseEntranceInteriorID(hindex)
+forward GetHouseEntranceInteriorID(hindex);
+public GetHouseEntranceInteriorID(hindex)
     return hInfo[ hindex ][ hEntranceInt ];
 
 stock GetHouseFurnitureCount(hindex)
@@ -809,7 +812,8 @@ stock GetHousePickupHouseIndex(pickupid)
     return -1;
 }
 
-stock GetHouseIndex(hid)
+forward GetHouseIndex(hid);
+public GetHouseIndex(hid)
 {
     foreach(new i : Houses)
         if(hInfo[ i ][ hID ] == hid)

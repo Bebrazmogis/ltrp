@@ -530,7 +530,8 @@ stock GetGarageID(garageindex)
     return gInfo[ garageindex ][ gID ];
 }
 
-stock GetGarageIndex(garageid)
+forward GetGarageIndex(garageid);
+public GetGarageIndex(garageid)
 {
     foreach(new i : Garages) 
     {
@@ -606,19 +607,21 @@ stock GetGarageVehicleEntrancePos(garageindex, &Float:x, &Float:y, &Float:z, &Fl
     a = gInfo[ garageindex ][ gVehicleEnter ][ 3 ];
 }
 
-stock GetGarageEntrancePos(garageindex, &Float:x, &Float:y, &Float:z)
+forward GetGarageEntrancePos(garageindex, &Float:x, &Float:y, &Float:z);
+public GetGarageEntrancePos(garageindex, &Float:x, &Float:y, &Float:z)
 {
     x = gInfo[ garageindex ][ gEntrance ][ 0 ];
     y = gInfo[ garageindex ][ gEntrance ][ 1 ];
     z = gInfo[ garageindex ][ gEntrance ][ 2 ];
 }
-
-stock GetGarageEntranceVirtualWorld(garageindex)
+forward GetGarageEntranceVirtualWorld(garageindex);
+public GetGarageEntranceVirtualWorld(garageindex)
 {
     #pragma unused garageindex
     return 0;
 }
-stock GetGarageEntranceInteriorID(garageindex)
+forward GetGarageEntranceInteriorID(garageindex);
+public GetGarageEntranceInteriorID(garageindex)
 {
     #pragma unused garageindex
     return 0;

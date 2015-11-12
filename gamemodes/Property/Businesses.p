@@ -1300,8 +1300,8 @@ stock GetBusinessCargoIndex(biz_index, cargoid)
 }
 
 
-
-stock GetBusinessIndex(bizid)
+forward GetBusinessIndex(bizid);
+public GetBusinessIndex(bizid)
 {
     foreach(new i : Business)
         if(bInfo[ i ][ bID ] == bizid)
@@ -1392,7 +1392,8 @@ stock GetBusinessExitPos(bizindex, &Float:x, &Float:y, &Float:z)
     z = bInfo[ bizindex ][ bExit ][ 2 ];
 }
 
-stock GetBusinessEntrancePos(bizindex, &Float:x, &Float:y, &Float:z)
+forward GetBusinessEntrancePos(bizindex, &Float:x, &Float:y, &Float:z);
+public GetBusinessEntrancePos(bizindex, &Float:x, &Float:y, &Float:z)
 {
     x = bInfo[ bizindex ][ bEnter ][ 0 ];
     y = bInfo[ bizindex ][ bEnter ][ 1 ];
@@ -1698,10 +1699,12 @@ stock GetBusinessVirtualWorld(bizindex)
 stock GetBusinessFurnitureObjectModel(bizindex, furnitureIndex)
     return GetFurnitureObjectId(BusinessFurniture[ bizindex ][ furnitureIndex ][ FurnitureId ]);
 
-stock GetBusinessEntranceVirtualWorld(bizindex)
+forward GetBusinessEntranceVirtualWorld(bizindex);
+public GetBusinessEntranceVirtualWorld(bizindex)
     return bInfo[ bizindex ][ bEntranceVirw ];
 
-stock GetBusinessEntranceInteriorID(bizindex)
+forward GetBusinessEntranceInteriorID(bizindex);
+public GetBusinessEntranceInteriorID(bizindex)
     return bInfo[ bizindex][ bEntranceInt ];
 
 stock IsPlayerInRangeOfBizFurniture(playerid, bizindex, furnitureindex, Float:distance)

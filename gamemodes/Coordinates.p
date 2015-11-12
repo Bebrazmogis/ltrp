@@ -95,9 +95,15 @@ static GetKeyIndex(key[])
 	ErrorLog("[ERROR]Coordinates.p : GetKeyIndex(%s). Key not found", key);
 	return -1;
 }
-
-stock Data_GetCoordinates(key[], &Float:x, &Float:y, &Float:z)
+stock AFunction()
 {
+	return 1;
+}
+
+forward Data_GetCoordinates(key[], &Float:x, &Float:y, &Float:z);
+public Data_GetCoordinates(key[], &Float:x, &Float:y, &Float:z)
+{
+	printf("Data_GetCoordinates");
 	new index = GetKeyIndex(key);
 	if(index == -1)
 		return;
@@ -107,7 +113,8 @@ stock Data_GetCoordinates(key[], &Float:x, &Float:y, &Float:z)
 	z = CoordinateData[ index ][ PosZ ];
 }
 
-stock Data_GetInterior(key[])
+forward Data_GetInterior(key[]);
+public Data_GetInterior(key[])
 {
 	new index = GetKeyIndex(key);
 	if(index == -1)
@@ -116,7 +123,8 @@ stock Data_GetInterior(key[])
 		return CoordinateData[ index ][ Interior ];
 }
 
-stock Data_GetVirtualWorld(key[])
+forward Data_GetVirtualWorld(key[]);
+public Data_GetVirtualWorld(key[])
 {
 	new index = GetKeyIndex(key);
 	if(index == -1)
