@@ -1,2 +1,3 @@
 -Xms32m
 -Xmx512m
+-Doracle.jdbc.Trace=true

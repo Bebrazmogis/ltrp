@@ -59,6 +59,19 @@
             <version>0.2.10</version>
         </dependency>
 
+        <dependency>
+            <groupId>jacksum</groupId>
+            <artifactId>jacksum</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.37</version>
+        </dependency>
+
+
     </dependencies>
 
     <properties>
@@ -74,7 +87,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <compilerArgument>-parameters</compilerArgument>
+                    <compilerArgument></compilerArgument>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>

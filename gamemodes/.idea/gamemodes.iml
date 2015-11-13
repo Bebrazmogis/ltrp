@@ -11,6 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="jacksum" level="project" />
     <orderEntry type="library" name="Maven: net.gtaun:shoebill-api:1.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.gtaun:shoebill-utilities:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.13" level="project" />
@@ -20,5 +21,7 @@
     <orderEntry type="library" name="Maven: net.gtaun:shoebill-common:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.1" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.10" level="project" />
+    <orderEntry type="library" name="Maven: jacksum:jacksum:1.0" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.37" level="project" />
   </component>
 </module>

@@ -380,3 +380,368 @@ com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown database 'ltr
 [2015-11-12 19:57:15][INFO][out] Pawn functions added
 [2015-11-12 19:57:15][INFO][out] PawnCallbacks :: constructor
 [2015-11-12 19:57:15][INFO][out] NULL?false
+[2015-11-12 20:22:27][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 20:22:27][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 20:22:27][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 20:22:27][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 20:22:27][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 20:22:27][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 20:22:28][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 20:22:28][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 20:22:28][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 20:22:28][INFO][out] JDBCDAO initialized
+[2015-11-12 20:22:28][INFO][out] Pawn functions added
+[2015-11-12 20:22:28][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 20:44:03][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 20:44:03][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 20:44:03][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 20:44:03][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 20:44:03][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 20:44:03][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 20:44:03][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 20:44:03][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 20:44:04][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 20:44:04][INFO][out] JDBCDAO initialized
+[2015-11-12 20:44:04][INFO][out] Pawn functions added
+[2015-11-12 20:44:04][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 20:45:50][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 20:45:50][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 20:45:50][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 20:45:50][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 20:45:50][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 20:45:50][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 20:45:50][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 20:45:50][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 20:45:50][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 20:45:50][INFO][out] JDBCDAO initialized
+[2015-11-12 20:45:50][INFO][out] Pawn functions added
+[2015-11-12 20:45:50][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 20:45:50][INFO][out] About to do it
+[2015-11-12 20:47:21][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 20:47:21][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 20:47:21][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 20:47:21][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 20:47:21][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 20:47:21][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 20:47:22][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 20:47:22][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 20:47:22][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 20:47:22][INFO][out] JDBCDAO initialized
+[2015-11-12 20:47:22][INFO][out] Pawn functions added
+[2015-11-12 20:47:22][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 20:47:22][INFO][out] About to do it
+[2015-11-12 21:51:28][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 21:51:28][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 21:51:28][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 21:51:28][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 21:51:28][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 21:51:28][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 21:51:29][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 21:51:29][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 21:51:29][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 21:51:29][INFO][out] JDBCDAO initialized
+[2015-11-12 21:51:29][INFO][out] Pawn functions added
+[2015-11-12 21:51:29][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 21:51:29][INFO][out] About to do it
+[2015-11-12 21:51:29][INFO][out] Okay
+[2015-11-12 21:52:30][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 21:52:30][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 21:52:30][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 21:52:30][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 21:52:30][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 21:52:30][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 21:52:31][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 21:52:31][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 21:52:31][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 21:52:31][INFO][out] JDBCDAO initialized
+[2015-11-12 21:52:31][INFO][out] Pawn functions added
+[2015-11-12 21:52:31][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 21:52:31][INFO][out] About to do it
+[2015-11-12 21:52:31][INFO][out] Okay
+[2015-11-12 21:53:13][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 21:53:13][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 21:53:13][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 21:53:13][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 21:53:13][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 21:53:13][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 21:53:14][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 21:53:14][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 21:53:14][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 21:53:14][INFO][out] JDBCDAO initialized
+[2015-11-12 21:53:14][INFO][out] Pawn functions added
+[2015-11-12 21:53:14][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 21:53:14][INFO][out] About to do it
+[2015-11-12 21:53:14][INFO][out] Okay
+[2015-11-12 21:56:05][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 21:56:05][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 21:56:05][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 21:56:05][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 21:56:05][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 21:56:05][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 21:56:06][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 21:56:06][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 21:56:06][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 21:56:06][INFO][out] JDBCDAO initialized
+[2015-11-12 21:56:06][INFO][out] Pawn functions added
+[2015-11-12 21:56:06][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 21:56:06][INFO][out] About to do it
+[2015-11-12 21:56:06][INFO][out] Okay
+[2015-11-12 21:56:33][INFO][AbstractPoolBackedDataSource] Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeby99c1y9u4vj1hfazwj|96bacf, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeby99c1y9u4vj1hfazwj|96bacf, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/ltrp-java, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 6, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+[2015-11-12 22:01:46][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 22:01:46][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 22:01:46][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 22:01:46][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 22:01:46][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 22:01:46][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 22:01:47][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 22:01:47][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 22:01:47][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 22:01:47][INFO][out] JDBCDAO initialized
+[2015-11-12 22:01:47][INFO][out] Pawn functions added
+[2015-11-12 22:01:47][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 22:01:47][INFO][out] About to do it
+[2015-11-12 22:01:47][INFO][out] Okay
+[2015-11-12 22:02:28][INFO][AbstractPoolBackedDataSource] Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeby99c1ya1fuj6rwvwn|96bacf, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeby99c1ya1fuj6rwvwn|96bacf, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/ltrp-java, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 6, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+[2015-11-12 22:04:46][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 22:04:46][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 22:04:46][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 22:04:46][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 22:04:46][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 22:04:46][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 22:04:46][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 22:04:46][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 22:04:46][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 22:04:47][INFO][out] JDBCDAO initialized
+[2015-11-12 22:04:47][INFO][out] Pawn functions added
+[2015-11-12 22:04:47][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 22:04:47][INFO][out] About to do it
+[2015-11-12 22:04:47][INFO][out] Okay
+[2015-11-12 22:05:11][INFO][AbstractPoolBackedDataSource] Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeby99c1ya5al71dhezle|96bacf, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeby99c1ya5al71dhezle|96bacf, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/ltrp-java, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 6, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+[2015-11-12 22:08:09][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 22:08:09][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 22:08:09][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 22:08:09][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 22:08:09][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 22:08:09][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 22:08:09][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 22:08:09][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 22:08:09][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 22:08:09][INFO][out] JDBCDAO initialized
+[2015-11-12 22:08:09][INFO][out] Pawn functions added
+[2015-11-12 22:08:09][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 22:08:09][INFO][out] About to do it
+[2015-11-12 22:08:09][INFO][out] Okay
+[2015-11-12 22:08:09][INFO][out] NULL?true
+[2015-11-12 22:09:34][INFO][AbstractPoolBackedDataSource] Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeby99c1ya9mwd1vg53nu|96bacf, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeby99c1ya9mwd1vg53nu|96bacf, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/ltrp-java, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 6, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+[2015-11-12 22:13:16][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 22:13:16][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 22:13:16][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 22:13:16][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 22:13:16][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 22:13:16][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 22:13:17][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 22:13:17][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 22:13:17][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 22:13:17][INFO][out] JDBCDAO initialized
+[2015-11-12 22:13:17][INFO][out] Pawn functions added
+[2015-11-12 22:13:17][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 22:13:17][INFO][out] About to do it
+[2015-11-12 22:13:17][INFO][out] Okay
+[2015-11-12 22:13:17][INFO][out] NULL?true
+[2015-11-12 22:13:39][INFO][AbstractPoolBackedDataSource] Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeby99c1yag8b8r504l4|96bacf, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeby99c1yag8b8r504l4|96bacf, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/ltrp-java, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 6, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+[2015-11-12 22:21:57][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 22:21:57][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 22:21:57][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 22:21:57][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 22:21:57][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 22:21:57][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 22:21:57][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 22:21:57][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 22:21:57][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 22:21:57][INFO][out] JDBCDAO initialized
+[2015-11-12 22:21:57][INFO][out] Pawn functions added
+[2015-11-12 22:21:57][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 22:21:57][INFO][out] About to do it
+[2015-11-12 22:21:57][INFO][out] Okay
+[2015-11-12 22:21:57][INFO][out] NULL?true
+[2015-11-12 22:21:57][INFO][AbstractPoolBackedDataSource] Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeby99c1yardwspf4j3x|96bacf, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeby99c1yardwspf4j3x|96bacf, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/ltrp-java, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 6, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:21:58][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 22:23:51][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 22:23:51][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 22:23:51][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 22:23:51][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 22:23:51][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 22:23:51][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 22:23:51][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 22:23:51][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 22:23:51][INFO][out] JDBCDAO initialized
+[2015-11-12 22:23:51][INFO][out] Pawn functions added
+[2015-11-12 22:23:51][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 22:23:51][INFO][out] About to do it
+[2015-11-12 22:23:51][INFO][out] Okay
+[2015-11-12 22:23:51][INFO][out] NULL?true
+[2015-11-12 22:23:51][INFO][AbstractPoolBackedDataSource] Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeby99c1yattsp1e3p12v|96bacf, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeby99c1yattsp1e3p12v|96bacf, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/ltrp-java, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 6, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:23:51][INFO][out] com.mchange.v2.c3p0.impl.NewProxyResultSet@11f9e9 [wrapping: com.mysql.jdbc.JDBC4ResultSet@10da945]
+[2015-11-12 22:29:04][INFO][ShoebillImpl] Could not find shoebill\log4j.xml file. The default configuration will be used.
+[2015-11-12 22:29:04][INFO][ShoebillImpl] Shoebill Runtime 1.1-SNAPSHOT (for SA-MP 0.3.7)
+[2015-11-12 22:29:04][INFO][ShoebillImpl] Build date: 2015-07-23 20:04:59 MESZ (+0200)
+[2015-11-12 22:29:04][INFO][ShoebillImpl] System environment: Windows 8 (x86, 6.2)
+[2015-11-12 22:29:04][INFO][ShoebillImpl] JVM: Java HotSpot(TM) Server VM 25.5-b02
+[2015-11-12 22:29:04][INFO][ShoebillImpl] Java: Java Platform API Specification 1.8
+[2015-11-12 22:29:04][INFO][ResourceManagerImpl] Load gamemode: LTRP
+[2015-11-12 22:29:04][INFO][MLog] MLog clients using slf4j logging.
+[2015-11-12 22:29:04][INFO][C3P0Registry] Initializing c3p0-0.9.5.1 [built 16-June-2015 00:06:36 -0700; debug? true; trace: 10]
+[2015-11-12 22:29:04][INFO][out] JDBCDAO initialized
+[2015-11-12 22:29:04][INFO][out] Pawn functions added
+[2015-11-12 22:29:04][INFO][out] PawnCallbacks :: constructor
+[2015-11-12 22:29:04][INFO][out] About to do it
+[2015-11-12 22:29:04][INFO][out] Okay
+[2015-11-12 22:29:04][INFO][out] NULL?true
+[2015-11-12 22:29:04][INFO][AbstractPoolBackedDataSource] Initializing c3p0 pool... com.mchange.v2.c3p0.ComboPooledDataSource [ acquireIncrement -> 3, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, dataSourceName -> 1hgeby99c1yb0j9b183ztds|96bacf, debugUnreturnedConnectionStackTraces -> false, description -> null, driverClass -> com.mysql.jdbc.Driver, extensions -> {}, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, forceSynchronousCheckins -> false, forceUseNamedDriverClass -> false, identityToken -> 1hgeby99c1yb0j9b183ztds|96bacf, idleConnectionTestPeriod -> 0, initialPoolSize -> 3, jdbcUrl -> jdbc:mysql://localhost:3306/ltrp-java, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 6, maxStatements -> 0, maxStatementsPerConnection -> 0, minPoolSize -> 1, numHelperThreads -> 3, preferredTestQuery -> null, privilegeSpawnedThreads -> false, properties -> {user=******, password=******}, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, userOverrides -> {}, usesTraditionalReflectiveProxies -> false ]

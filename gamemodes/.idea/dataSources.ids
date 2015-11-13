@@ -7,6 +7,634 @@
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <schema name="" catalog="ltrp-java"/>
+    <table name="ac" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="Mw=="/>
+      <column name="WeaponID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+    </table>
+    <table name="acclock" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="lid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="admin" sqlType="VARCHAR" precision="900" scale="0" nullable="false" jdbcType="12"/>
+      <column name="reason" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="laikas" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="lid"/>
+    </table>
+    <table name="actionlog" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Kas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Veiksmas" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Data" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="adminlog" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Kuris" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="Kam" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="Ka" sqlType="VARCHAR" precision="126" scale="0" nullable="false" jdbcType="12" def="J05JZWtvJw=="/>
+      <column name="Kada" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="arrestedcars" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cMySql" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="numbers" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12" def="J1RCUiAwMDAn"/>
+      <column name="who" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12" def="J05pZWthc19OaWVrYXMn"/>
+      <column name="bauda" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="Time" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="bans" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="54" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ip" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12"/>
+      <column name="admin" sqlType="VARCHAR" precision="54" scale="0" nullable="false" jdbcType="12"/>
+      <column name="reason" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Banned" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="when" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="bug_report_comments" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="bug_report_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="author" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="comment" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="author" unique="false" columns="author"/>
+      <index name="bug_report_id" unique="false" columns="bug_report_id"/>
+    </table>
+    <table name="bug_reports" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="reported_by" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="category" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="content" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="status" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="J25lcGVyxb5pxatyxJd0YSc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="reported_by" unique="false" columns="reported_by"/>
+    </table>
+    <table name="business" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="owner" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="entrance_price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="interior_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="entrance_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_interior" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="entrance_virtual" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="exit_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="locked" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="bank" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="type" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="products" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="pickup_model" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="interior_id" unique="false" columns="interior_id"/>
+      <index name="owner" unique="false" columns="owner"/>
+    </table>
+    <table name="business_accepted_cargo" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="business_type" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="cargo_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="business_type"/>
+    </table>
+    <table name="business_furniture" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="business_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="furniture_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pos_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="business_id" unique="false" columns="business_id"/>
+      <index name="furniture_id" unique="false" columns="furniture_id"/>
+    </table>
+    <table name="business_furniture_textures" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="furniture_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="index" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="object_model" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="txd_name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="J25vbmUn"/>
+      <column name="texture_name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="J25vbmUn"/>
+      <column name="color" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="furniture_id,index"/>
+      <index name="furniture_id" unique="false" columns="furniture_id"/>
+    </table>
+    <table name="business_wares" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="business_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="business_id" unique="false" columns="business_id"/>
+    </table>
+    <table name="carcrimes" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="numbers" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="crime" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="reporter" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12" def="J0pvbmFzX1ZhaWNpdWxpcyc="/>
+      <column name="when" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="numbers" unique="false" columns="numbers"/>
+    </table>
+    <table name="cartickets" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="numbers" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="crime" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="reporter" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12" def="J0pvbmFzX1ZhaWNpdWxpcyc="/>
+      <column name="price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="paid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="when" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="numbers" unique="false" columns="numbers"/>
+    </table>
+    <table name="cjlog" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Kas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="VehicleID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Veiksmas" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Data" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="commodities" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="industry_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cargo_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="sell_buy_status" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <column name="current_stock" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="type" sqlType="VARCHAR" precision="9" scale="0" nullable="false" jdbcType="12"/>
+      <column name="price" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="industry_id,cargo_id,type"/>
+      <index name="cargo_id" unique="false" columns="cargo_id"/>
+    </table>
+    <table name="coordinates" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="angle" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="interior" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="virtual_world" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="key" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="comment" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="crimes" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
+      <column name="crime" sqlType="VARCHAR" precision="126" scale="0" nullable="false" jdbcType="12"/>
+      <column name="reporter" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
+      <column name="When" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="name" unique="false" columns="name"/>
+    </table>
+    <table name="duomenys" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="Modelis" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Bakas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Valgo" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Slotai" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Slotai2" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+    </table>
+    <table name="entrances" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="entrance_text" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="exit_text" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="entrance_text_colour" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="entrance_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_virtual_world" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="entrance_interior" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="entrance_pickup_model" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5" def="MA=="/>
+      <column name="entrance_label" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="exit_text_colour" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="exit_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_virtual_world" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="exit_interior" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="exit_pickup_model" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5" def="MA=="/>
+      <column name="exit_label" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="vehicle_entrance" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="faction_entrance" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="faction_entrance" unique="false" columns="faction_entrance"/>
+      <index name="vehicle_entrance" unique="false" columns="vehicle_entrance"/>
+    </table>
+    <table name="entrances_vehicle" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="entrance_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_angle" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_angle" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="factions" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="fName" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva2lhJw=="/>
+      <column name="fLeader" sqlType="VARCHAR" precision="56" scale="0" nullable="false" jdbcType="12"/>
+      <column name="fSpawn1" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="fSpawn2" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="fSpawn3" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="fSpawn4" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="JzAn"/>
+      <column name="fRank1" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank2" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank3" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank4" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank5" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank6" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank7" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank8" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fInt" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="fBank" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="fMatsPriv" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="fPayDay" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12" def="Jy8wLzAvMC8wLzAvMC8wLzAn"/>
+      <column name="fRank9" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank10" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank11" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank12" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="fRank13" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="fishing_spots" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="min_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="min_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="max_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="max_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="max_fish" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5" def="MTAw"/>
+      <column name="area_color" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="JzB4RkZGRkZGQUEn"/>
+      <column name="replenish_time" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="furniture" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="object_id" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="category" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="furniture_textures" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="object_model" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="txd_name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="texture_name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="garage_furniture" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="garage_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="furniture_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pos_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="furniture_id" unique="false" columns="furniture_id"/>
+      <index name="garage_id" unique="false" columns="garage_id"/>
+    </table>
+    <table name="garage_furniture_textures" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="furniture_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="index" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="object_model" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="txd_name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="J25vbmUn"/>
+      <column name="texture_name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="J25vbmUn"/>
+      <column name="color" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="furniture_id,index"/>
+      <index name="furniture_id" unique="false" columns="furniture_id"/>
+    </table>
+    <table name="garage_items" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="garage_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="slot" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="amount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="content_amount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="durability" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="garage_id" unique="false" columns="garage_id"/>
+    </table>
+    <table name="garages" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="owner" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="interior_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="locked" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="entrance_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="vehicle_entrance_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="vehicle_entrance_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="vehicle_entrance_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="vehicle_entrance_angle" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="exit_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="vehicle_exit_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="vehicle_exit_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="vehicle_exit_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="vehicle_exit_angle" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="interior_id" unique="false" columns="interior_id"/>
+      <index name="owner" unique="false" columns="owner"/>
+    </table>
+    <table name="garazai" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="owner" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="lock" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="x" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="y" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="z" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="x2" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="y2" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="z2" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="a" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="Inventory" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="JzAvMC8wLzAvMC8wLzAvMC8wLzAvMC8wLyc="/>
+      <column name="gExit1" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="gExit2" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="gExit3" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="gExit4" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="garbage_positions" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="model_id" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="pos_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="mission_location" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="graffiti" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="author" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="text" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="pos_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="font_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="colour_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="author" unique="false" columns="author"/>
+      <index name="colour_id" unique="false" columns="colour_id"/>
+      <index name="font_id" unique="false" columns="font_id"/>
+    </table>
+    <table name="graffiti_colours" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="argb" sqlType="VARCHAR" precision="8" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="graffiti_fonts" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="size" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="house_furniture" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="house_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="furniture_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="64" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pos_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="furniture_id" unique="false" columns="furniture_id"/>
+      <index name="house_id" unique="false" columns="house_id"/>
+    </table>
+    <table name="house_furniture_textures" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="furniture_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="index" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="object_model" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="txd_name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="J25vbmUn"/>
+      <column name="texture_name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="J25vbmUn"/>
+      <column name="color" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="furniture_id,index"/>
+      <index name="furniture_id" unique="false" columns="furniture_id"/>
+    </table>
+    <table name="house_items" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="house_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="slot" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="amount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="content_amount" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="durability" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="house_id" unique="false" columns="house_id"/>
+    </table>
+    <table name="house_weed" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="house_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="plant_timestamp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="planted_by" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="growth_timestamp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="growth_level" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="harvested_by" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="yield" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="harvested_by" unique="false" columns="harvested_by"/>
+      <index name="house_id" unique="false" columns="house_id"/>
+    </table>
+    <table name="houses" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="owner" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="interior_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="entrance_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="entrance_interior" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="entrance_virtual" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="exit_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7" def="MA=="/>
+      <column name="exit_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7" def="MA=="/>
+      <column name="exit_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7" def="MA=="/>
+      <column name="locked" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="bank" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="rent_price" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5" def="MA=="/>
+      <column name="pickup_model" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5" def="MTI3Mw=="/>
+      <column name="refrigerator" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="radio" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="interior_id" unique="false" columns="interior_id"/>
+      <index name="owner" unique="false" columns="owner"/>
+    </table>
+    <table name="industries" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="interiors" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="center_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="center_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="center_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="interior" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="virtual_world" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="width" sqlType="FLOAT" precision="12" scale="0" nullable="true" jdbcType="7"/>
+      <column name="length" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="height" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="category" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="J0dlbmVyYWwn"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="iplog" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Kas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="IP" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Data" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="komp" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="kam" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="kam2" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="ka" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="kiek" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="kiek2" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="priimta" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="laikas" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="Kas" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12" def="J05pZWthcyc="/>
+      <index name="id" unique="true" columns="id"/>
+    </table>
+    <table name="lastcall" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="crime" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12" def="J0pva3Mn"/>
+      <column name="position" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="when" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="numbers" unique="false" columns="number"/>
+    </table>
+    <table name="misc" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="biudzetas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fare" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cartax" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="housetax" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="biztax" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+    </table>
+    <table name="narklog" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Kas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Ka" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Kiek" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Kam" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Priezastis" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Data" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="notes" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="owner" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="slot" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="note" sqlType="VARCHAR" precision="126" scale="0" nullable="false" jdbcType="12"/>
+    </table>
+    <table name="paylog" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Kas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="Ivykis" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Suma" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="Kam" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="Kada" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="payphones" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="pos_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="pos_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="virtual_world" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="interior" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="number"/>
+    </table>
+    <table name="phone_contacts" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="contact_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
+      <column name="entry_date" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="number,contact_number"/>
+    </table>
+    <table name="phone_conversation_logs" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="from_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="to_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="text" sqlType="VARCHAR" precision="128" scale="0" nullable="true" jdbcType="12"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="from_number" unique="false" columns="from_number"/>
+      <index name="to_number" unique="false" columns="to_number"/>
+    </table>
+    <table name="phone_sms" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="sender_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="recipient_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="text" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="read" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="recipient_number" unique="false" columns="recipient_number"/>
+      <index name="sender_number" unique="false" columns="sender_number"/>
+    </table>
+    <table name="phones" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="online" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
+      <column name="added_on" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="location_type" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="location_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="credit" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="number"/>
+      <index name="location_id" unique="false" columns="location_id"/>
+      <index name="location_type" unique="false" columns="location_type"/>
+    </table>
+    <table name="player_attachments" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="player_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="bone" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="off_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="off_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="off_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="rot_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="scale_x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="scale_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="scale_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="color1" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="color2" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="player_id,item_id"/>
+    </table>
     <table name="player_crashes" schema="" catalog="ltrp-java" type="TABLE">
       <column name="player_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="timestamp" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
@@ -17,6 +645,16 @@
       <foreign-key name="player_crashes_ibfk_2" columns="player_id" ref-table="players" ref-schema="" ref-catalog="ltrp-java" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="player_crashes_ibfk_1" columns="player_id" ref-table="players" ref-schema="" ref-catalog="ltrp-java" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
     </table>
+    <table name="player_items" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="player_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="amount" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="content_amount" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="durability" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="slot" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
     <table name="player_jailtime" schema="" catalog="ltrp-java" type="TABLE">
       <column name="player_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="reamining_time" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -25,6 +663,28 @@
       <primary-key name="PRIMARY" columns="player_id"/>
       <foreign-key name="player_jailtime_ibfk_1" columns="player_id" ref-table="players" ref-schema="" ref-catalog="ltrp-java" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <index name="jailer_id" unique="false" columns="jailer_id"/>
+    </table>
+    <table name="player_phone_contacts" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="player_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="phone_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="name" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
+      <column name="entry_date" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="player_id,phone_number"/>
+    </table>
+    <table name="player_phone_sms" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="recipient_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="sender_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="text" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="read" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="player_weapons" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="player_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="weapon_id" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="ammo" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <primary-key name="PRIMARY" columns="player_id,weapon_id"/>
     </table>
     <table name="players" schema="" catalog="ltrp-java" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -118,6 +778,143 @@
       <exported-key name="player_crashes_ibfk_2" table="player_crashes" schema="" catalog="ltrp-java" columns="player_id"/>
       <exported-key name="player_crashes_ibfk_1" table="player_crashes" schema="" catalog="ltrp-java" columns="player_id"/>
       <exported-key name="player_jailtime_ibfk_1" table="player_jailtime" schema="" catalog="ltrp-java" columns="player_id"/>
+    </table>
+    <table name="scars" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="sID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="sModel" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="NDAw"/>
+      <column name="sCar_x" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="sCar_y" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="sCar_z" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="sCar_a" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="sColor1" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="sColor2" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="sFaction" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="sRang" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="sJob" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="sID"/>
+    </table>
+    <table name="senters" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="sID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="sEnter_x" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="sEnter_y" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="sEnter_z" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="sExit_x" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="sExit_y" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="sExit_z" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="Interior" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="Interior2" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="Wirt" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="Name" sqlType="VARCHAR" precision="42" scale="0" nullable="false" jdbcType="12" def="J0pva2lhJw=="/>
+      <column name="Wirt2" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="PickupModel" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5" def="MTIzOQ=="/>
+      <primary-key name="PRIMARY" columns="sID"/>
+    </table>
+    <table name="spraytags" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="faction" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="tag" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="x" sqlType="VARCHAR" precision="7" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="y" sqlType="VARCHAR" precision="7" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="z" sqlType="VARCHAR" precision="7" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="a" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="tickets" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
+      <column name="crime" sqlType="VARCHAR" precision="126" scale="0" nullable="false" jdbcType="12"/>
+      <column name="reporter" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
+      <column name="price" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="paid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="When" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="name" unique="false" columns="name"/>
+    </table>
+    <table name="trucker_cargo" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
+      <column name="limit" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="production" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="consumption" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="slot" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="type" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="vehicle_cargo" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="vehicle_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cargo_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="amount" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="is_static" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <primary-key name="PRIMARY" columns="vehicle_id,cargo_id"/>
+      <index name="cargo_id" unique="false" columns="cargo_id"/>
+    </table>
+    <table name="vehicle_fish" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="vehicle_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="amount" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <primary-key name="PRIMARY" columns="vehicle_id"/>
+    </table>
+    <table name="vehicle_shop_spawns" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="shop_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="angle" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="shop_id" unique="false" columns="shop_id"/>
+    </table>
+    <table name="vehicle_shop_vehicles" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="shop_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="model" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="price" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="shop_id,model"/>
+    </table>
+    <table name="vehicle_shops" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="64" scale="0" nullable="false" jdbcType="12"/>
+      <column name="x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="vehicles" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cName" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cOwner" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cModel" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="cSpawn1" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="cSpawn2" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="cSpawn3" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="cAngle" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMCc="/>
+      <column name="cColor1" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="LTE="/>
+      <column name="cColor2" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="LTE="/>
+      <column name="cLock" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <column name="cFuel" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MTAw"/>
+      <column name="cNumbers" sqlType="VARCHAR" precision="34" scale="0" nullable="false" jdbcType="12" def="J18n"/>
+      <column name="cFaction" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cWheels" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cTuning" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cInsurance" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <column name="cDuzimai" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cLockType" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cAlarm" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cTrunk" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" def="JzAvMC8wLzAvMC8wLzAvMC8n"/>
+      <column name="cTicket" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cHidraulik" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cCrimes" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cVehID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="cDamage" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12" def="JzAvMC8wLzAvMTAwMC8n"/>
+      <column name="cKM" sqlType="VARCHAR" precision="7" scale="0" nullable="false" jdbcType="12" def="JzAuMDAwMDAn"/>
+      <column name="cVW" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="warns" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="lid" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="admin" sqlType="VARCHAR" precision="900" scale="0" nullable="false" jdbcType="12"/>
+      <column name="reason" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="laikas" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <primary-key name="PRIMARY" columns="lid"/>
     </table>
   </data-source>
 </component>

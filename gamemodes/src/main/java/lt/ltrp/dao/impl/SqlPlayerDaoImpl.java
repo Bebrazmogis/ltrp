@@ -5,6 +5,7 @@ import lt.ltrp.player.CrashData;
 import lt.ltrp.player.JailData;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.SpawnData;
+import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.WeaponData;
@@ -75,6 +76,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     public SpawnData getSpawnData(LtrpPlayer player) {
         SpawnData spawnData = null;
         String sql = "SELECT skin, spawn_type, spawn_ui FROM players WHERE id = ? LIMIT 1";
+        System.out.println("SqlPlayerDaoImpl :: getSpawnData. Userid: " + player.getUserId());
         try(
                 Connection connecetion = dataSource.getConnection();
                 PreparedStatement stmt = connecetion.prepareStatement(sql);
@@ -86,7 +88,12 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 spawnData.setId(result.getInt("spawn_ui"));
                 spawnData.setType(SpawnData.SpawnType.values()[result.getInt("spawn_type")]);
                 spawnData.setSkin(result.getInt("skin"));
-                spawnData.setWeaponData(new WeaponData[3]);
+                System.out.println("SqlPlayerDaoImpl :: getSpawnData. Skin loaded:" + spawnData.getSkin());
+                WeaponData[] weaponData = new WeaponData[3];
+                for(int i = 0; i < weaponData.length; i++) {
+                    weaponData[i] = new WeaponData(WeaponModel.NONE, 0);
+                }
+                spawnData.setWeaponData(weaponData);
             }
         } catch (SQLException e) {
             e.printStackTrace();

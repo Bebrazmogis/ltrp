@@ -38,6 +38,17 @@ public class LtrpPlayer implements Player {
         return null;
     }
 
+    public static LtrpPlayer get(Player player) {
+        if(player.isNpc())
+            return null;
+
+        for(LtrpPlayer p : players) {
+            if(p.player == player)
+                return p;
+        }
+        return null;
+    }
+
     public LtrpPlayer(Player player, int userid) {
         this.player = player;
         this.userId = userid;

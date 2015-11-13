@@ -17,5 +17,6 @@ lt\ltrp\player\SpawnData.class
 lt\ltrp\event\player\PlayerSpawnSetUpEvent.class
 lt\ltrp\dao\impl\SqlPlayerDaoImpl.class
 lt\ltrp\event\player\PlayerLogInEvent.class
+lt\ltrp\Util\Whirlpool.class
 lt\ltrp\player\LtrpPlayer.class
 lt\ltrp\player\SpawnData$SpawnType.class

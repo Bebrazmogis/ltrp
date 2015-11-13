@@ -13,7 +13,7 @@ public class PawnFunc {
     public static AmxCallable getNativeMethod(String name) {
         AmxCallable nativeMethod = null;
         for(AmxInstance instance : Shoebill.get().getAmxInstanceManager().getAmxInstances()) {
-            if((nativeMethod = instance.getNative(name)) != null)
+            if((nativeMethod = instance.getPublic(name)) != null)
                 break;
         }
         return nativeMethod;

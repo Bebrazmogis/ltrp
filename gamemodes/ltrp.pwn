@@ -60,6 +60,11 @@ native CallShoebillFunction(name[], {Float,_}:...);
 #include <YSI\y_va>
 //#include <YSI\y_inline>
 
+forward _KickTimer(playerid);
+public _KickTimer(playerid)
+	return Kick(playerid);
+
+#define Kick(%0) SetTimerEx("_KickTimer", 100, false, "i", %0)
 
 
 /*#if !defined abs 
@@ -4028,6 +4033,9 @@ public OnGameModeInit()
     OldHour = laikas[0];
     printf("Serveryje senoji valanda: %d ", OldHour );
 
+    new Float:x, Float:y, Float:z;
+    Data_GetCoordinates("default_spawn", x, y, z);
+    printf("ltrp.pwn OnGameModeInit %f %f %f", x ,y ,z);
     return 1;
 }
 
@@ -4192,11 +4200,12 @@ public OnPlayerConnect(playerid)
         SpawnPlayer(playerid);
         return 1;
     }
-
+    printf("ltrp.pwn End of NPC stuff OnPlayerConnect");
 
     OnLookupComplete(playerid);
-    MySQL_Check_Account( playerid );
+    //MySQL_Check_Account( playerid );
     CheckBan(playerid);	
+    printf("ltrp.pwn stuff done");
 //=============================[ Iconos þemëlapyje rodomos visiems ]================================
     SetPlayerMapIcon( playerid, 70, fInfo[ 2 ][ fSpawn ][ 0 ], fInfo[ 2 ][ fSpawn ][ 1 ] ,fInfo[ 2 ][ fSpawn ][ 2 ], 22, 0, MAPICON_LOCAL ); //Ligoninë
     SetPlayerMapIcon( playerid, 71, 2861.1670,-1405.5068,11.7382, 52, 0, MAPICON_LOCAL ); //Bankas
@@ -4226,7 +4235,7 @@ public OnPlayerConnect(playerid)
         }
     }
     */
-
+    printf("ltrp.pwn something");
     NullPlayerInfo   ( playerid );
 
     //=============================[ Informacijos tekstas ]================================
@@ -4272,6 +4281,7 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 5158, 2837.7734, -2334.4766, 11.9922, 0.25);
     
     SetPlayerColor(playerid,TEAM_HIT_COLOR);
+    printf("ltrp.pwn End of OnPlayerConnect");
     //ShowPlayerLoginDialog(playerid);
     return 1;
 }
@@ -22479,45 +22489,45 @@ public OnPlayerLoginEx(playerid, sqlid)
     {
         PlayerPlaySound( playerid, 1057, 0.0, 0.0, 0.0);
         pInfo[ playerid ][ pMySQLID ] = cache_get_field_content_int(0, "id");
-        pInfo[ playerid ][ pLevel ] = cache_get_field_content_int(0, "Level");
-        pInfo[ playerid ][ pAdmin ] = cache_get_field_content_int(0, "AdminLevel");
-        pInfo[ playerid ][ pOnTime ] = cache_get_field_content_int(0, "ConnectedTime");
-        pInfo[ playerid ][ pBoxStyle ] = cache_get_field_content_int(0, "BoxStyle");
-        cache_get_field_content(0, "Sex", pInfo[ playerid ][ pSex ], DbHandle, 12);
-        pInfo[ playerid ][ pAge ] = cache_get_field_content_int(0, "Age");
-        cache_get_field_content(0, "Origin", pInfo[ playerid ][ pOrigin ], DbHandle, 24);
-        pInfo[ playerid ][ pLiga ] = cache_get_field_content_int(0, "Liga");
-        pInfo[ playerid ][ pExp ] = cache_get_field_content_int(0, "Respect");
-        pInfo[ playerid ][ pMoney ] = cache_get_field_content_int(0, "Money");
-        pInfo[ playerid ][ pBank ] = cache_get_field_content_int(0, "Bank");
-        pInfo[ playerid ][ pDeaths ] = cache_get_field_content_int(0, "Deaths");
-        pInfo[ playerid ][ pWantedLevel ] = cache_get_field_content_int(0, "WantedLevel");
-        pInfo[ playerid ][ pJob ] = cache_get_field_content_int(0, "Job");
-        pInfo[ playerid ][ pJail ] = cache_get_field_content_int(0, "Jailed");
-        pInfo[ playerid ][ pJailTime ] = cache_get_field_content_int(0, "JailTime");
-        pInfo[ playerid ][ pLead ] = cache_get_field_content_int(0, "Leader");
-        pInfo[ playerid ][ pMember ] = cache_get_field_content_int(0, "Member");
+        pInfo[ playerid ][ pLevel ] = cache_get_field_content_int(0, "level");
+        pInfo[ playerid ][ pAdmin ] = cache_get_field_content_int(0, "admin_level");
+        pInfo[ playerid ][ pOnTime ] = cache_get_field_content_int(0, "connected_time");
+        pInfo[ playerid ][ pBoxStyle ] = cache_get_field_content_int(0, "box_style");
+        cache_get_field_content(0, "sex", pInfo[ playerid ][ pSex ], DbHandle, 12);
+        pInfo[ playerid ][ pAge ] = cache_get_field_content_int(0, "age");
+        cache_get_field_content(0, "origin", pInfo[ playerid ][ pOrigin ], DbHandle, 24);
+        pInfo[ playerid ][ pLiga ] = cache_get_field_content_int(0, "disease");
+        pInfo[ playerid ][ pExp ] = cache_get_field_content_int(0, "respect");
+        pInfo[ playerid ][ pMoney ] = cache_get_field_content_int(0, "money");
+        pInfo[ playerid ][ pBank ] = cache_get_field_content_int(0, "bank");
+        pInfo[ playerid ][ pDeaths ] = cache_get_field_content_int(0, "deaths");
+        pInfo[ playerid ][ pWantedLevel ] = cache_get_field_content_int(0, "wanted_level");
+        pInfo[ playerid ][ pJob ] = cache_get_field_content_int(0, "job");
+        pInfo[ playerid ][ pJail ] = cache_get_field_content_int(0, "jailed");
+        pInfo[ playerid ][ pJailTime ] = cache_get_field_content_int(0, "jail_time");
+        pInfo[ playerid ][ pLead ] = cache_get_field_content_int(0, "leader");
+        pInfo[ playerid ][ pMember ] = cache_get_field_content_int(0, "member");
         pInfo[ playerid ][ pSavings ] = cache_get_field_content_int(0, "pJobCar");
-        pInfo[ playerid ][ pRank ] = cache_get_field_content_int(0, "Rank");
-        pInfo[ playerid ][ pSkin ] = cache_get_field_content_int(0, "Skinas");
-        pInfo[ playerid ][ pJobContr ] = cache_get_field_content_int(0, "JobContr");
-        pInfo[ playerid ][ pInt ] = cache_get_field_content_int(0, "Intas");
-        pInfo[ playerid ][ pPhone ] = cache_get_field_content_int(0, "PhoneNr");
+        pInfo[ playerid ][ pRank ] = cache_get_field_content_int(0, "rank");
+        pInfo[ playerid ][ pSkin ] = cache_get_field_content_int(0, "skin");
+        pInfo[ playerid ][ pJobContr ] = cache_get_field_content_int(0, "job_contract");
+        //pInfo[ playerid ][ pInt ] = cache_get_field_content_int(0, "Intas");
+        pInfo[ playerid ][ pPhone ] = cache_get_field_content_int(0, "phonenumber");
         pInfo[ playerid ][ pHouseKey ] = cache_get_field_content_int(0, "House");
-        pInfo[ playerid ][ pCrashPos ][ 0 ] = cache_get_field_content_float(0, "Pos_x");
-        pInfo[ playerid ][ pCrashPos ][ 1 ] = cache_get_field_content_float(0, "Pos_y");
-        pInfo[ playerid ][ pCrashPos ][ 2 ] = cache_get_field_content_float(0, "Pos_z");
+        //pInfo[ playerid ][ pCrashPos ][ 0 ] = cache_get_field_content_float(0, "Pos_x");
+        //pInfo[ playerid ][ pCrashPos ][ 1 ] = cache_get_field_content_float(0, "Pos_y");
+        //pInfo[ playerid ][ pCrashPos ][ 2 ] = cache_get_field_content_float(0, "Pos_z");
         pInfo[ playerid ][ pLicCar ] = cache_get_field_content_int(0, "CarLic");
         pInfo[ playerid ][ pLicHeli ] = cache_get_field_content_int(0, "FlyLic");
         pInfo[ playerid ][ pLicBoat ] = cache_get_field_content_int(0, "BoatLic");
         pInfo[ playerid ][ pLicMoto ] = cache_get_field_content_int(0, "MotoLic");
         pInfo[ playerid ][ pLicWeapon ] = cache_get_field_content_int(0, "GunLic");
-        pInfo[ playerid ][ pPayCheck ] = cache_get_field_content_int(0, "PayDay");
-        pInfo[ playerid ][ pPayDayHad ] = cache_get_field_content_int(0, "PayDayHad");
-        pInfo[ playerid ][ pCrash ] = cache_get_field_content_int(0, "Crashed");
-        pInfo[ playerid ][ pWarn ] = cache_get_field_content_int(0, "Warnings");
-        pInfo[ playerid ][ pVirWorld ] = cache_get_field_content_int(0, "VirWorld");
-        pInfo[ playerid ][ pRChannel ] = cache_get_field_content_int(0, "RChanel");
+        pInfo[ playerid ][ pPayCheck ] = cache_get_field_content_int(0, "payday");
+        pInfo[ playerid ][ pPayDayHad ] = cache_get_field_content_int(0, "pay_day_had");
+        //pInfo[ playerid ][ pCrash ] = cache_get_field_content_int(0, "Crashed");
+        pInfo[ playerid ][ pWarn ] = cache_get_field_content_int(0, "warnings");
+        pInfo[ playerid ][ pVirWorld ] = cache_get_field_content_int(0, "virtual_world");
+        pInfo[ playerid ][ pRChannel ] = cache_get_field_content_int(0, "radio_channel");
         pInfo[ playerid ][ pRSlot ] = cache_get_field_content_int(0, "radio_slot");
         pInfo[ playerid ][ pUcpID    ] = cache_get_field_content_int(0, "ucpuser");
         pInfo[ playerid ][ pDubKey ] = cache_get_field_content_int(0, "pDubKey");
@@ -22535,8 +22545,8 @@ public OnPlayerLoginEx(playerid, sqlid)
         pInfo[ playerid ][ pAmfaAddict ] = cache_get_field_content_int(0, "AmfaAddict");
         pInfo[ playerid ][ pMetaAmfaineAddict ] = cache_get_field_content_int(0, "MetamfaAddict");
         pInfo[ playerid ][ pCocaineAddict ] = cache_get_field_content_int(0, "CocaineAddict");
-       	pInfo[ playerid ][ pSpawn ] = E_PLAYER_SPAWN_LOCATIONS: cache_get_field_content_int(0, "playerSpawn");
-        pInfo[ playerid ][ pBSpawn ] = cache_get_field_content_int(0, "bSpawn");
+       	pInfo[ playerid ][ pSpawn ] = E_PLAYER_SPAWN_LOCATIONS: cache_get_field_content_int(0, "spawn_type");
+        pInfo[ playerid ][ pBSpawn ] = cache_get_field_content_int(0, "spawn_ui");
         cache_get_field_content(0, "Card", pInfo[ playerid ][ pCard ], DbHandle, 256); // s[256]
         cache_get_field_content(0, "ForumName", pInfo[ playerid ][ pForumName ], DbHandle, 256); // s[256]
         pInfo[ playerid ][ pExtazyAddict ] = cache_get_field_content_int(0, "ExtazyAddict");
@@ -26886,7 +26896,7 @@ stock IsNumeric(const string[])
 
 stock IsPlayerLoggedIn(playerid)
 {
-	new ishe;
+	new bool:ishe;
 	CallShoebillFunction("isPlayerLoggedIn", playerid, ishe);
 	return ishe;
 }
@@ -26908,4 +26918,30 @@ public OnShoebillPlayerLogin(playerid, failedloginattemps)
 public OnPlayerSpawnSetUp(playerid)
 {
 	printf("ltrp.pwn : OnPlayerSpawnSetUp called. Params:%d", playerid);
+}
+
+forward AFunction(thing[], &Float:x, &Float:y, &Float:z);
+public AFunction(thing[], &Float:x, &Float:y, &Float:z)
+{
+	x = 1242.0;
+	y = 2334.5;
+	z = 75.32;
+	printf("ltrp.pwn : AFunction returning %f %f %f", x ,y ,z);
+}
+
+forward AFunction2(&Float:x, &Float:y, &Float:z);
+public AFunction2(&Float:x, &Float:y, &Float:z)
+{
+	x = 1242.0;
+	y = 2334.5;
+	z = 75.32;
+	printf("ltrp.pwn : AFunction2 returning %f %f %f", x ,y ,z);
+}
+
+forward Data_GetCoordinatesArray(key[]);
+stock Data_GetCoordinatesArray(key[])
+{
+	new Float:data[3];
+	Data_GetCoordinates(key, data[ 0 ], data[ 1 ], data[ 2]);
+	return data;
 }

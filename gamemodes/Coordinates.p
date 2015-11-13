@@ -42,12 +42,13 @@ public OnGameModeInit()
 		CoordinateData[ i ][ Id ] = cache_get_field_content_int(i, "id");
 		CoordinateData[ i ][ PosX ] = cache_get_field_content_float(i, "x");
 		CoordinateData[ i ][ PosY ] = cache_get_field_content_float(i, "y");
-		CoordinateData[ i ][ PosZ ] = cache_get_field_content_float(i, "z");	
+		CoordinateData[ i ][ PosZ ] = cache_get_field_content_float(i, "z");
 		CoordinateData[ i ][ PosAngle ] = cache_get_field_content_float(i, "angle");
 		CoordinateData[ i ][ Interior ] = cache_get_field_content_int(i, "interior");
 		CoordinateData[ i ][ VirtualWorld ] = cache_get_field_content_int(i, "virtual_world");
 		cache_get_field_content(i, "key", CoordinateData[ i ][ Key ], DbHandle, MAX_COORDINATE_KEY);
 		cache_get_field_content(i, "comment", CoordinateData[ i ][ Comment ], DbHandle, MAX_COORDINATE_COMMENT);
+		printf("Loaded: %s. %f %f %f",CoordinateData[ i ][ Key ], CoordinateData[ i ][PosX] ,CoordinateData[ i ][ PosY ], CoordinateData[ i ][ PosZ ]);	
 	}
 	printf("[Load]Pakrautos %d koordinaèiø poros. Tai uþtruko %d MS", cache_get_row_count(), GetTickCount() - ticks);
 	cache_delete(result);
@@ -95,15 +96,13 @@ static GetKeyIndex(key[])
 	ErrorLog("[ERROR]Coordinates.p : GetKeyIndex(%s). Key not found", key);
 	return -1;
 }
-stock AFunction()
-{
-	return 1;
-}
+
+
 
 forward Data_GetCoordinates(key[], &Float:x, &Float:y, &Float:z);
 public Data_GetCoordinates(key[], &Float:x, &Float:y, &Float:z)
 {
-	printf("Data_GetCoordinates");
+	printf("ltrp.pwn : Data_GetCoordinates(%s, %f, %f, %f)", key, x, y ,z);
 	new index = GetKeyIndex(key);
 	if(index == -1)
 		return;
@@ -111,6 +110,7 @@ public Data_GetCoordinates(key[], &Float:x, &Float:y, &Float:z)
 	x = CoordinateData[ index ][ PosX ];
 	y = CoordinateData[ index ][ PosY ];
 	z = CoordinateData[ index ][ PosZ ];
+	printf("ltrp.pwn : Data_GetCoordinates returned %f %f %f. %f %f %f", x, y, z, CoordinateData[ index ][ PosX ], CoordinateData[ index ][ PosY ], CoordinateData[ index ][ PosZ ]);
 }
 
 forward Data_GetInterior(key[]);

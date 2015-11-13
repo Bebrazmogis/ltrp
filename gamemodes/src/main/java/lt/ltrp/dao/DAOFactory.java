@@ -48,7 +48,10 @@ public abstract class DAOFactory {
         return instance;
     }
 
+    public abstract Connection getConnection() throws SQLException;
+
     public abstract PlayerDao getPlayerDao();
+
 }
 
 class JdbcDAO extends DAOFactory {
