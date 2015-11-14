@@ -23,11 +23,12 @@ public class LtrpPlayer implements Player {
 
     private Player player;
 
-    private int userId;
+    private int userId, adminLevel, level;
+
     private String password;
     private JailData jailData;
 
-    private boolean loggedIn, dataLoaded;
+    private boolean loggedIn, dataLoaded, isFactionManager;
 
 
     public static LtrpPlayer get(int id) {
@@ -47,6 +48,14 @@ public class LtrpPlayer implements Player {
                 return p;
         }
         return null;
+    }
+
+    public static void sendAdminMessage(String s) {
+        for(LtrpPlayer p : players) {
+            if(p.isAdmin() || p.getAdminLevel() > 0) {
+                p.sendMessage(Color.GREENYELLOW, s);
+            }
+        }
     }
 
     public LtrpPlayer(Player player, int userid) {
@@ -92,6 +101,22 @@ public class LtrpPlayer implements Player {
         this.jail(new JailData(type, time, jailer.getName()));
     }
 
+    public int getAdminLevel() {
+        return adminLevel;
+    }
+
+    public void setAdminLevel(int adminLevel) {
+        this.adminLevel = adminLevel;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public boolean isLoggedIn() {
         return loggedIn;
     }
@@ -115,6 +140,23 @@ public class LtrpPlayer implements Player {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isFactionManager() {
+        return isFactionManager;
+    }
+
+    public void setFactionManager(boolean isFactionManager) {
+        this.isFactionManager = isFactionManager;
+    }
+
+    public void sendErrorMessage(String s) {
+        this.sendMessage(Color.RED, s);
+    }
+
+
+
+
+    // Overrides
 
     @Override
     public boolean isOnline() {

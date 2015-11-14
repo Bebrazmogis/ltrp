@@ -21,4 +21,5 @@ public interface PlayerDao {
     public CrashData getCrashData(LtrpPlayer player);
     public boolean remove(LtrpPlayer player, CrashData data);
     public boolean remove(LtrpPlayer player, JailData jailData);
+    public boolean setFactionManager(LtrpPlayer player);
 }

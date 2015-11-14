@@ -10208,12 +10208,15 @@ public OnPlayerCommandPerformed(playerid, cmdtext[ ], success)
 
 
     if ( !success )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Neþinoma komanda: Jûsø paraðyta komanda neegzistuoja. Pabandykite dar kartà arba naudokitës /askq komanda. " );
+    {
+    	SendClientMessage( playerid, COLOR_LIGHTRED, "Neþinoma komanda: Jûsø paraðyta komanda neegzistuoja. Pabandykite dar kartà arba naudokitës /askq komanda. " );
+    	return 0;
+    }
 
     if ( AfkCheck[ playerid ] != 0 )
         AfkCheck[ playerid ] = 0;
 
-    return true;
+    return 0;
 }
 
 forward SpecLabelDissapear(playerid);
@@ -14535,7 +14538,7 @@ CMD:makeleader(playerid, params[])
     }
     return 1;
 }
-
+/*
 CMD:makefactionmanager(playerid, params[])
 {
     if(!IsPlayerAdmin(playerid) && pInfo[ playerid ][ pAdmin ] < 4)
@@ -14568,7 +14571,7 @@ CMD:makefactionmanager(playerid, params[])
     AdminLog(GetPlayerSqlId(playerid), GetPlayerSqlId(targetid), "Paskyrë frakcijø priþiûrëtoju.");
     return 1;
 }
-
+*/
 CMD:setstatcar(playerid, params[])
 {
     if( pInfo[ playerid ][ pAdmin ] >= 4 )
@@ -15226,6 +15229,7 @@ CMD:rtc( playerid, params[ ] )
     }
     return 1;
 }
+/*
 CMD:rc(playerid, params[])
 {
     if(pInfo[ playerid ][ pAdmin ] < 1)
@@ -15245,6 +15249,7 @@ CMD:rc(playerid, params[])
     SetVehicleVirtualWorld(vehicleid, 0);
     return 1;
 }
+*/
 CMD:rjc( playerid, params[ ] )
 {
     if ( pInfo[ playerid ][ pAdmin ] >= 1 )
@@ -15755,148 +15760,7 @@ CMD:aproperty( playerid, params[ ] )
     }
     return 1;
 }
-CMD:ahelp( playerid, params[ ] )
-{
-    if( pInfo[playerid][pAdmin] >= 1 )
-    {
-        #pragma unused params
 
-        SendClientMessage( playerid, COLOR_LIGHTRED, "|____________________________ADMINISTRATORIAUS SKYRIUS____________________________|");
-        if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-        {
-            SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 1] /kick /ban /warn /jail /noooc /adminduty /gethere /check /afrisk /fon "),
-            SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 1] /freeze /slap /spec /specoff /setint /setvw /intvw /masked /aheal /spawn ");
-            SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 1] /mark /lockacc /rc  /setskin  /aproperty /apkills /fon ");
-            SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 1] PERSIKËLIMAS: /gotols /gotofc /gotobb /gotopc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos");
-            SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc");				
-        }
-        if ( pInfo[ playerid ][ pAdmin ] >= 2 )
-            SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 2] /dtc /gotocar /mute/rac ");
-        if ( pInfo[ playerid ][ pAdmin ] >= 3 )
-            SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 3] /sethp /setarmour /forcelogout /hideadmins /serverguns /checkgun /kickall ");
-        if ( pInfo[ playerid ][ pAdmin ] >= 4 )
-        {
-            SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 4] /auninvite /givemoney /giveweapon /amenu /intmenu"),
-            SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 4] /makeleader /setstat /setstatcar /gotohouse /gotobiz");			
-            SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 4] /makeadmin /makemoderator /cartax /housetax /biztax");
-            SendClientMessage(playerid, COLOR_WHITE, "[AdmLvl 4] /makefactinomanager  /giveitem ");
-        }
-    }
-    return 1;
-}
-CMD:getoldcar( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        new car;
-        if ( sscanf( params, "d", car ) )
-        {
-            if ( OldCar[ playerid ] == 0 )
-                return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /getoldcar [ automobilio id ] " );
-            new Float: T[ 3 ];
-
-            GetPlayerPos( playerid, T[ 0 ], T[ 1 ], T[ 2 ] );
-            SetVehiclePos( OldCar[ playerid ], T[ 0 ], T[ 1 ], T[ 2 ] );
-            SetVehicleVirtualWorld( OldCar[ playerid ], GetPlayerVirtualWorld(playerid) );
-            return 1;
-        }
-        if(!IsValidVehicle(car))
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, tokios transporto priemonës nëra.");
-        new Float: T[ 3 ];
-
-        GetPlayerPos( playerid, T[ 0 ], T[ 1 ], T[ 2 ] );
-        SetVehiclePos( car, T[ 0 ], T[ 1 ], T[ 2 ] );
-        SetVehicleVirtualWorld( car, GetPlayerVirtualWorld(playerid) );
-    }
-    return 1;
-}
-CMD:gotopc( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-        SetPlayerPos( playerid, 2292.1936,26.7535,25.9974);
-        else SetVehiclePos( GetPlayerVehicleID( playerid ), 2292.1936,26.7535,25.9974);
-        SetPlayerInterior    ( playerid, 0);
-        SetPlayerVirtualWorld( playerid, 0);
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Palomino Creek");
-    }
-    return 1;
-}
-CMD:gotols( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-        SetPlayerPos( playerid, 1540.1237, -1675.2844, 13.5500);
-        else SetVehiclePos( GetPlayerVehicleID( playerid ), 1540.1237, -1675.2844, 13.5500);
-        SetPlayerInterior    ( playerid, 0);
-        SetPlayerVirtualWorld( playerid, 0);
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Los Santos.");
-    }
-    return 1;
-}
-CMD:gotomg( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-        SetPlayerPos( playerid, 1313.8589,314.4103,19.4098);
-        else SetVehiclePos( GetPlayerVehicleID( playerid ), 1313.8589,314.4103,19.4098);
-        SetPlayerInterior    ( playerid, 0);
-        SetPlayerVirtualWorld( playerid, 0);
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Montgomery.");
-    }
-    return 1;
-}
-CMD:gotobb( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-        SetPlayerPos( playerid, 230.9343,-146.9140,1.4297);
-        else SetVehiclePos( GetPlayerVehicleID( playerid ), 230.9343,-146.9140,1.4297);
-        SetPlayerInterior    ( playerid, 0);
-        SetPlayerVirtualWorld( playerid, 0);
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Blueberry");
-    }
-    return 1;
-}
-CMD:gotodl( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-            SetPlayerPos( playerid, 641.5609,-559.9846,16.0626 );
-        else
-            SetVehiclePos( GetPlayerVehicleID( playerid ), 641.5609,-559.9846,16.0626 );
-        SetPlayerInterior    ( playerid, 0 );
-        SetPlayerVirtualWorld( playerid, 0 );
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Dillimore");
-    }
-    return 1;
-}
-CMD:gotofc( playerid, params[ ] )
-{
-
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-            SetPlayerPos( playerid, -183.3534,1034.6022,19.7422 );
-        else
-            SetVehiclePos( GetPlayerVehicleID( playerid ), -183.3534,1034.6022,19.7422 );
-        SetPlayerInterior    ( playerid, 0 );
-        SetPlayerVirtualWorld( playerid, 0 );
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Fort Carson");
-    }
-    return true;
-}
 CMD:gotopos(playerid, params[])
 {
     if(!IsPlayerAdmin(playerid) && !pInfo[ playerid ][ pAdmin ])
@@ -15910,21 +15774,7 @@ CMD:gotopos(playerid, params[])
     SendClientMessage(playerid, COLOR_NEWS, "Sëkmingai persikëlëte á koordinates.");
     return 1;
 }
-CMD:gotolb( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-            SetPlayerPos( playerid, -837.1216,1537.0032,22.5471 );
-        else
-            SetVehiclePos( GetPlayerVehicleID( playerid ), -837.1216,1537.0032,22.5471 );
-        SetPlayerInterior    ( playerid, 0 );
-        SetPlayerVirtualWorld( playerid, 0 );
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Las Barrancas");
-    }
-    return true;
-}
+
 CMD:mark( playerid, params[ ] )
 {
     if ( pInfo[ playerid ][ pAdmin ] >= 1 )

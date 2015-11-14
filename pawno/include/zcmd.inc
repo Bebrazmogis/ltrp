@@ -14,6 +14,16 @@
  *                                *
  **********************************/
 
+ /**********************************
+ *                                *
+ *   @Modification:Bebras         *
+ *   @Version:     0.3.3          *
+ *   @Date:    	   13.11.2015     *
+ *	 @Notes: 	   Support for Java*
+ *                                *
+ **********************************/
+
+
 #if defined _zcmd_included
 	#endinput
 #endif	
@@ -109,15 +119,19 @@ public OnPlayerCommandText(playerid, cmdtext[])
 	{
 		if (zcmd_g_HasOPCE)
 		{
-			return CallLocalFunction("OnPlayerCommandPerformed", "isi", playerid, cmdtext, CallLocalFunction(funcname, "is", playerid, "\1"));
+			CallLocalFunction("OnPlayerCommandPerformed", "isi", playerid, cmdtext, CallLocalFunction(funcname, "is", playerid, "\1"));
 		}
-		return CallLocalFunction(funcname, "is", playerid, "\1");	
+		else CallLocalFunction(funcname, "is", playerid, "\1");	
 	}
-	if (zcmd_g_HasOPCE)
+	else 
 	{
-		return CallLocalFunction("OnPlayerCommandPerformed", "isi", playerid, cmdtext, CallLocalFunction(funcname, "is", playerid, cmdtext[pos]));
+		if (zcmd_g_HasOPCE)
+		{
+			CallLocalFunction("OnPlayerCommandPerformed", "isi", playerid, cmdtext, CallLocalFunction(funcname, "is", playerid, cmdtext[pos]));
+		}
+		else CallLocalFunction(funcname, "is", playerid, cmdtext[pos]);
 	}
-	return CallLocalFunction(funcname, "is", playerid, cmdtext[pos]);
+	return 0;
 }
 
 #if defined _ALS_OnPlayerCommandText

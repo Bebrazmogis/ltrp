@@ -36,11 +36,11 @@ public class AuthController {
             InputDialog.create(player, manager, true)
                     .caption("Prisijungimas")
                     .buttonOk("Jungtis")
-                    .buttonCancel("IÅ¡eiti")
-                    .message("{FFFFFF} Sveiki prisijungÄ™ Ä¯ {cca267}Lithuanian role-play (ltrp.lt){FFFFFF} serverÄ¯, dabar galite prisijungti\n\n\n" +
+                    .buttonCancel("Iðeiti")
+                    .message("{FFFFFF} Sveiki prisijungæ á {cca267}Lithuanian role-play (ltrp.lt){FFFFFF} serverá, dabar galite prisijungti\n\n\n" +
                             "Vartotojas: {cca267}" + player.getName() + "\n{FFFFFF}  Skripto versija: {cca267} " + LtrpGamemode.Version +
                             " {FFFFFF}, atnaujintas: {cca267} " + LtrpGamemode.BuildDate + " " +
-                            "\n\n\n{FFFFFF}Ä®veskite slaptaÅ¾odÄ¯:")
+                            "\n\n\n{FFFFFF}Áveskite slaptaþodá:")
                     .onClickCancel(dialog -> dialog.getPlayer().kick())
                     .onClickOk((dialog, password) -> {
                         if (player.getPassword().equals(Whirlpool.hash(password))) {
@@ -52,7 +52,7 @@ public class AuthController {
                             if (failedLoginAttempts == MAX_LOGIN_TRIES)
                                 dialog.getPlayer().kick();
                             else {
-                                dialog.addLine("\n\n{AA0000}SlaptaÅ¾odis neteisingas. Tai " + failedLoginAttempts + " bandymas iÅ¡ " + MAX_LOGIN_TRIES);
+                                dialog.addLine("\n\n{AA0000}Slaptaþodis neteisingas. Tai " + failedLoginAttempts + " bandymas ið " + MAX_LOGIN_TRIES);
                                 dialog.show();
                             }
 

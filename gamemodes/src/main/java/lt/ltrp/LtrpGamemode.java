@@ -3,13 +3,16 @@ package lt.ltrp;
 
 import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.dao.DAOFactory;
+import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerController;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
+import net.gtaun.shoebill.event.player.PlayerCommandEvent;
 import net.gtaun.shoebill.event.server.GameModeInitEvent;
+import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.resource.Gamemode;
 import net.gtaun.util.event.EventManager;
@@ -53,6 +56,9 @@ public class LtrpGamemode extends Gamemode {
         //    System.out.println(f);
        // }
         //getPos.call("default_spawn", x, y, z);
+
+
+
 
         eventManager.registerHandler(GameModeInitEvent.class, e-> {
             System.out.println("\n\n\n\n\n\n\n\n");

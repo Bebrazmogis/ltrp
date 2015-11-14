@@ -4,17 +4,22 @@ package lt.ltrp.player;
 
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.PawnFunc;
+import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
 import net.gtaun.shoebill.amx.AmxCallable;
+import net.gtaun.shoebill.common.command.CommandEntry;
+import net.gtaun.shoebill.common.command.CustomCommandHandler;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.amx.AmxUnloadEvent;
+import net.gtaun.shoebill.event.player.PlayerCommandEvent;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.shoebill.event.player.PlayerSpawnEvent;
 import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
@@ -30,11 +35,56 @@ public class PlayerController {
 
     private Map<LtrpPlayer, Boolean> spawnsSetUp = new HashMap<>();
 
+
     public PlayerController(EventManager manager) {
 
         playerDao = LtrpGamemode.getDao().getPlayerDao();
 
+
         managerNode = manager.createChildNode();
+
+        PlayerCommandManager playerCommandManager = new PlayerCommandManager(HandlerPriority.NORMAL, managerNode);
+       /* playerCommandManager.setUsageMessageSupplier((p, cmd, prefix, params, help) -> {
+            System.out.println("Amount of command entries:" + playerCommandManager.getCommandEntries().size());
+            List<CommandEntry> entries = playerCommandManager.getCommandEntries();
+            for(CommandEntry entry : entries) {
+                System.out.println("PATH:"+entry.getPath());
+                System.out.println("Class:"+entry.getClass());
+            }
+            return "hello";
+        });
+        */
+        playerCommandManager.replaceTypeParser(LtrpPlayer.class, s -> {
+            int id = Player.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return LtrpPlayer.get(id);
+        });
+        playerCommandManager.replaceTypeParser(Vehicle.class, s -> {
+            int id = Vehicle.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return Vehicle.get(id);
+        });
+        playerCommandManager.registerCommands(new AdminCommands());
+        playerCommandManager.registerCommand("test", new Class[]{LtrpPlayer.class}, new String[]{"player"}, (e, something) -> {
+            System.out.println("its test alright");
+            return true;
+        });
+        //playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
+
+
+
+        managerNode.registerHandler(PlayerCommandEvent.class, e -> {
+            System.out.println("PlayerController :: constructor. PlayerCommandEvent received. Command:" + e.getCommand());
+        });
+
 
         managerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.HIGHEST, e -> {
             Logger.getLogger(PlayerController.class.getName()).log(Level.INFO, "PlayerConnectEvent received");
@@ -46,15 +96,6 @@ public class PlayerController {
             spawn.run();
 
             new AuthController(managerNode, player);
-
-            System.out.println("\n\n\n\n\n\n\n\n");
-            float x = 0.0f, y = 0.0f, z = 0.0f;
-            AmxCallable func = PawnFunc.getNativeMethod("AFunction");
-            if(func != null) {
-                func.call("default_spawn", x ,y ,z);
-            }
-            else System.out.println("its null :|");
-            System.out.println("REsult. " + x + " " + y + " " + z);
         });
 
 
@@ -140,7 +181,7 @@ public class PlayerController {
         LtrpPlayer player = LtrpPlayer.get(id);
         if(player != null) {
             return player.isLoggedIn();
-        }
+        } else System.out.println("PLAYER IS NULLLL");
         return false;
     }
 

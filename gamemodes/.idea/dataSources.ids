@@ -26,14 +26,6 @@
       <column name="Data" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
-    <table name="adminlog" schema="" catalog="ltrp-java" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="Kuris" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="Kam" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="Ka" sqlType="VARCHAR" precision="126" scale="0" nullable="false" jdbcType="12" def="J05JZWtvJw=="/>
-      <column name="Kada" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
     <table name="arrestedcars" schema="" catalog="ltrp-java" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="cMySql" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
@@ -539,6 +531,14 @@
       <primary-key name="PRIMARY" columns="id"/>
       <index name="numbers" unique="false" columns="number"/>
     </table>
+    <table name="logs_admin" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="admin_name" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
+      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="date" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="action" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
     <table name="misc" schema="" catalog="ltrp-java" type="TABLE">
       <column name="biudzetas" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="fare" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -774,6 +774,7 @@
       <column name="Hunger" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
       <column name="TotalPaycheck" sqlType="INT UNSIGNED" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="radio_slot" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
+      <column name="faction_manager" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <exported-key name="player_crashes_ibfk_2" table="player_crashes" schema="" catalog="ltrp-java" columns="player_id"/>
       <exported-key name="player_crashes_ibfk_1" table="player_crashes" schema="" catalog="ltrp-java" columns="player_id"/>

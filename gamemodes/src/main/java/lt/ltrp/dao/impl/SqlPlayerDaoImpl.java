@@ -69,7 +69,24 @@ public class SqlPlayerDaoImpl implements PlayerDao {
 
     @Override
     public boolean loadData(LtrpPlayer player) {
-        return false;
+        boolean loaded = false;
+        String sql = "SELECT admin_level, level FROM players WHERE id = ? LIMIT 1";
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, player.getUserId());
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                player.setAdminLevel(result.getInt("admin_level"));
+                player.setLevel(result.getInt("level"));
+
+                loaded = true;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return loaded;
     }
 
     @Override
@@ -166,6 +183,21 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     @Override
     public boolean remove(LtrpPlayer player, JailData jailData) {
         String sql = "DELETE FROM player_jailtime WHERE player_id = ?";
+        try(
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, player.getUserId());
+            return stmt.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean setFactionManager(LtrpPlayer player) {
+        String sql = "UPDATE players SET faction_manager = 1 WHERE id = ?";
         try(
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
