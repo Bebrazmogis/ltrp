@@ -552,9 +552,9 @@ public OnBusinessFurnitureLoad()
             // Neturëtø bût niekada -1, nebent kokie pakeitimai furniture table vyko.
             if(furnitureIndex != -1)
             {
-                printf("Creating object. bizindex:%d bizFurnitureCount:%d furniture sqlid:%d biz sqlid:%d",
-                    bizindex, bizFurnitureCount, BusinessFurniture[ bizindex ][ bizFurnitureCount ][ SqlId ],
-                    bInfo[ bizindex ][ bID ]);
+               // printf("Creating object. bizindex:%d bizFurnitureCount:%d furniture sqlid:%d biz sqlid:%d",
+                 //   bizindex, bizFurnitureCount, BusinessFurniture[ bizindex ][ bizFurnitureCount ][ SqlId ],
+                   // bInfo[ bizindex ][ bID ]);
                 if(BusinessFurniture[ bizindex ][ bizFurnitureCount ][ ObjectId ])
                     ErrorLog("BusinessFurniture. Overiding object id at bizindex:%d bizFurnitureCount:%d furnituresqlid:%d biz sqlid:%d",
                         bizindex, bizFurnitureCount, BusinessFurniture[ bizindex ][ bizFurnitureCount ][ SqlId ], 
@@ -634,8 +634,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 new itemid =BusinessWares[ bizIndex ][ listitem ][ Name ][ 0 ];
                 
-                if((IsPlayerInventoryFull(playerid) && !IsItemStackable(itemid)) || (IsPlayerInventoryFull(playerid) && IsItemStackable(itemid) && !IsItemInPlayerInventory(playerid, itemid)))
-                    return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
+                //if((IsPlayerInventoryFull(playerid) && !IsItemStackable(itemid)) || (IsPlayerInventoryFull(playerid) && IsItemStackable(itemid) && !IsItemInPlayerInventory(playerid, itemid)))
+                //if()
+                //    return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
                 switch(itemid)
                 {
                     /*case ITEM_RODTOOL:
@@ -643,13 +644,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         GivePlayerItem(playerid, ITEM_RODTOOL, .contentamount = GetItemMaxCapacity(ITEM_RODTOOL));
                     }
                     */
-                    case ITEM_MEDIC:
+                    /*case ITEM_MEDIC:
                     {
                         if(!IsItemInPlayerInventory(playerid, ITEM_MEDLIC))
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: Neturite recepto. ");
                         //GivePlayerItem(playerid, ITEM_MEDIC, 1);
                         GivePlayerItem(playerid, ITEM_MEDLIC, -1);
-                    }
+                    }*/
                     /*
                     case ITEM_PHONE:
                     {
@@ -664,12 +665,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau turite þuvies krepðá.");
                     }
                     */
-                    case ITEM_RADIO:
+                    /*case ITEM_RADIO:
                     {
 
                         if(IsItemInPlayerInventory(playerid, ITEM_RADIO))
                             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs jau turite racijà.");
-                    }
+                    }*/
                 }
 
                 new capacity = (IsItemSoldFull(itemid)) ? (GetItemMaxCapacity(itemid)) : (0),
@@ -681,22 +682,98 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     amount = 50;
                 }
 
-                if(!GivePlayerItem(playerid, itemid, amount, capacity, durability))
-                    ErrorLog("ERROR. Businesses.p : OnDialogResponse : DIALOG_BIZ_WARE_LIST. GivePlayerItem returned 0.");
+                new success = 0;
+				switch(itemid)
+				{
+					case ITEM_PHONE: 
+					{
+						success = GivePlayerPhoneItem(playerid, ITEM_PHONE);
+					}
+					case ITEM_CIG:
+					{
+						success = GivePlayerCigarettesItem(playerid, ITEM_CIG);
+					}
+					case ITEM_FUEL:
+					{
+						success = GivePlayerFuelTankItem(playerid, ITEM_FUEL, 30);
+					}
+					
+					case ITEM_ROD:
+					{
+						success = GivePlayerFishRodItem(playerid, ITEM_ROD);
+					}
+					case ITEM_RODTOOL:
+					{
+						success = GivePlayerDurableItem(playerid, ITEM_RODTOOL, 20, 20, 1, 10);
+					}
+					case ITEM_FISH:
+					{
+						success = GivePlayerContainerItem(playerid, ITEM_FISH, 0, 100, 0, 11);
+					}
+					case ITEM_BEER, ITEM_VINE, ITEM_SPRUNK:
+					{
+						new action;
+						if(itemid == ITEM_BEER)
+							action = SPECIAL_ACTION_DRINK_BEER;
+						else if(itemid == ITEM_VINE)
+							action = SPECIAL_ACTION_DRINK_WINE;
+						else 
+							action = SPECIAL_ACTION_DRINK_SPRUNK;
+						success = GivePlayerDrinkItem(playerid, itemid, 10, action);
+					}
+					case ITEM_RADIO, ITEM_DICE:
+					{
+						new lol;
+						if(itemid == ITEM_RADIO)
+							lol = 7;
+						else 
+							lol = 8;
+						success = GivePlayerBasicItem(playerid, itemid, 1, lol, 0);
+					}
+					case ITEM_ZIB, ITEM_MATCHES:
+					{
+						success = GivePlayerBasicItem(playerid, itemid, 1, 12, 0);
+					}
+					case 43, 14, WEAPON_PARACHUTE:
+					{
+						success = GivePlayerWeaponItem(playerid, itemid, amount);
+					}    
+				   
+				    // NOT IMPLEMENTEDE YET
+				    /*
+				    ITEM_CLOCK
+				    ITEM_TOLKIT
+				    ITEM_MP3
+				    ITEM_MAGNETOLA
+				    ITEM_AUDIO
+				    ITEM_VAISTAI
+				    ITEM_SVIRKSTAS
+				    ITEM_NOTE
+				    ITEM_MEDIC
+				    ITEM_PAPER
+				    ITEM_BIGAUDIO
+				    */
+				    
+				}
+                if(!success)
+	                return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
+                //if(!GivePlayerItem(playerid, itemid, amount, capacity, durability))
+                //    ErrorLog("ERROR. Businesses.p : OnDialogResponse : DIALOG_BIZ_WARE_LIST. GivePlayerItem returned 0.");
 
-                if(itemid == ITEM_PHONE )
+                /*if(itemid == ITEM_PHONE )
                 {
                     if(GetPlayerPhoneCount(playerid) >= GetPlayerPhoneLimit())
                         return SendClientMessage(playerid, COLOR_LIGHTRED, "** Nebegalite turëti daugiau telefonø.");
 
                     new number = GeneratePhoneNumber();
-                    GivePlayerPhone(playerid, number);
+                    //GivePlayerPhone(playerid, number);
                     //new more = random(32) * 1000;
                     //pInfo[playerid][pPhone] = 110000 + GetPlayerSqlId(playerid) + more;
                     format(string, sizeof(string)," ** Mobilus telefonas nupirktas, jo numeris: %d", number);
                     SendClientMessage(playerid,COLOR_FADE3,string);
                     return 1;
                 }
+                */
                 else if(itemid == ITEM_RADIO )
                 {
                     pInfo[playerid][pRChannel] = 1;
@@ -1099,7 +1176,16 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
         if(IsPlayerInventoryFull(playerid))
             return SendClientMessage(playerid, COLOR_LIGHTRED,"Klaida, Jûsø veikëjo inventoriuje nëra laisvos vietos.");
 
-        GivePlayerItem(playerid, itemid, 1);
+       // GivePlayerItem(playerid, itemid, 1);
+       	new bone = GetItemBone(itemid);
+       	if(IsToolItem(itemid))
+       		GivePlayerToolItem(playerid, itemid, modelid, bone);
+       	else if(IsMaskItem(itemid))
+       		GivePlayerMaskItem(playerid, itemid, modelid, bone);
+       	else if(IsSuitcaseItem(itemid))
+       		GivePlayerSuitcaseItem(playerid, itemid, modelid, bone);
+       	else
+       		GivePlayerClothingItem(playerid, itemid, modelid, bone);
 
         GivePlayerMoney(playerid, -price);
         SendClientMessage(playerid, COLOR_WHITE,"Prekë sëkmingai ásigyta!");

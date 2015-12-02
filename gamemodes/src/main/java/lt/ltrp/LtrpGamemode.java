@@ -3,6 +3,7 @@ package lt.ltrp;
 
 import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.dao.DAOFactory;
+import lt.ltrp.item.ItemController;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerController;
 import net.gtaun.shoebill.Shoebill;
@@ -31,6 +32,7 @@ public class LtrpGamemode extends Gamemode {
     @Override
     protected void onEnable() throws Throwable {
         EventManager eventManager = getEventManager();
+        ItemController.init();
 
         new PlayerController(eventManager);
         new PawnCallbacks(eventManager);
@@ -56,8 +58,6 @@ public class LtrpGamemode extends Gamemode {
         //    System.out.println(f);
        // }
         //getPos.call("default_spawn", x, y, z);
-
-
 
 
         eventManager.registerHandler(GameModeInitEvent.class, e-> {

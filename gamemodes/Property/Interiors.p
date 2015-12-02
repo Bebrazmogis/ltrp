@@ -377,6 +377,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 hook OnPlayerDisconnect(playerid, reason)
 {
 	IsPlayerInPreview[ playerid ] = false;
+	return 1;
 }
 
 stock EndInteriorPreviewForPlayer(playerid)

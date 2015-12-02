@@ -63,7 +63,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
     {
         case EDIT_RESPONSE_FINAL: // Paspaudþia Save migtukà
         {
-            MoveDynamicObject(objectid, x, y, z, 15, rx, ry, rz);
+            //MoveDynamicObject(objectid, x, y, z, 15, rx, ry, rz);
 
         	new house_index = GetPlayerHouseIndex(playerid);
             if(house_index != -1)
@@ -109,7 +109,6 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
                 SendClientMessage(playerid, COLOR_WHITE,"Objekto redagavimas sëkmingai baigtas." );
                 return 1;
             }
-
             
         }
         case EDIT_RESPONSE_CANCEL: // Atðaukia redagavimá .
@@ -1075,6 +1074,7 @@ CMD:enter(playerid)
 
         SetPlayerInterior(playerid, GetInteriorInteriorId(GetHouseInteriorID(index)));
         SetPlayerVirtualWorld(playerid,GetHouseVirtualWorld(index));
+        CallShoebillFunction("OnPlayerEnterHouse", playerid, GetHouseID(index));
         if(Audio_IsClientConnected(playerid))
         {
             if(IsHouseRadioTurnedOn(index))
@@ -1109,6 +1109,7 @@ CMD:enter(playerid)
         SetPlayerInterior(playerid, GetInteriorInteriorId(GetBusinessInteriorID(index)));
         SetPlayerVirtualWorld(playerid, GetBusinessVirtualWorld(index));
         
+        CallShoebillFunction("OnPlayerEnterBusiness", playerid, GetBusinessID(index));
         if(!IsPlayerBusinessOwner(playerid, index))
         {
             OnPlayerEnterBiz(playerid, index);
@@ -1153,6 +1154,7 @@ CMD:enter(playerid)
             SetPlayerVirtualWorld(playerid, GetGarageVirtualWorld(index));
             SetPlayerFacingAngle(playerid, angle);
         }
+        CallShoebillFunction("OnPlayerEnterGarage", playerid, GetGarageID(index), vehicleid);
         Unfreeze[ playerid ] = 2;
         TogglePlayerControllable(playerid, false);
         return 1;
@@ -1192,6 +1194,7 @@ CMD:exit(playerid)
         SetPlayerVirtualWorld(playerid, GetHouseEntranceVirtualWorld(index));
         SetPlayerInterior(playerid, GetHouseEntranceInteriorID(index));
 
+        CallShoebillFunction("OnPlayerExitHouse", playerid, GetHouseID(index));
         Unfreeze[ playerid ] = 2;
         TogglePlayerControllable(playerid, false);
 
@@ -1210,6 +1213,7 @@ CMD:exit(playerid)
 
         GetBusinessEntrancePos(index, x, y, z);
         SetPlayerPos(playerid, x, y, z);
+        CallShoebillFunction("OnPlayerExitBusiness", playerid, GetBusinessID(index));
         Unfreeze[ playerid ] = 2;
         TogglePlayerControllable(playerid, false);
         SetPlayerVirtualWorld(playerid, GetBusinessEntranceVirtualWorld(index));
@@ -1249,6 +1253,7 @@ CMD:exit(playerid)
             SetPlayerInterior(playerid, GetGarageEntranceInteriorID(index));
             SetPlayerFacingAngle(playerid, angle);
         }
+        CallShoebillFunction("OnPlayerExitGarage", playerid, GetGarageID(index), vehicleid);
         return 1;
     }
     return 1;

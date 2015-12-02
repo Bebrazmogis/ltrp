@@ -126,6 +126,7 @@ hook OnPlayerDisconnect(playerid, reason)
     PlayerUsedPhone[ playerid ] = -1;
 
     PlayerTalkSession[ playerid ] = emptyPlayerSession;
+    return 1;
 }
 
 hook OnPlayerDeath(playerid, killerid, reason)

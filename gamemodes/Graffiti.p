@@ -311,6 +311,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 hook OnPlayerDisconnect(playerid)
 {
 	EndPlayerGraffitiSpray(playerid);
+	return 1;
 }
 
 /*

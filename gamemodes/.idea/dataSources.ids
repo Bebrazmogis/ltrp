@@ -580,11 +580,14 @@
       <primary-key name="PRIMARY" columns="number"/>
     </table>
     <table name="phone_contacts" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="contact_number" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="name" sqlType="VARCHAR" precision="24" scale="0" nullable="false" jdbcType="12"/>
       <column name="entry_date" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="number,contact_number"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="contact_number" unique="false" columns="contact_number"/>
+      <index name="number" unique="false" columns="number"/>
     </table>
     <table name="phone_conversation_logs" schema="" catalog="ltrp-java" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -642,18 +645,30 @@
       <column name="pos_y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
       <column name="pos_z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
       <primary-key name="PRIMARY" columns="player_id"/>
-      <foreign-key name="player_crashes_ibfk_2" columns="player_id" ref-table="players" ref-schema="" ref-catalog="ltrp-java" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
       <foreign-key name="player_crashes_ibfk_1" columns="player_id" ref-table="players" ref-schema="" ref-catalog="ltrp-java" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="player_crashes_ibfk_2" columns="player_id" ref-table="players" ref-schema="" ref-catalog="ltrp-java" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
     </table>
     <table name="player_items" schema="" catalog="ltrp-java" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="player_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="item_id" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
-      <column name="amount" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
-      <column name="content_amount" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
-      <column name="durability" sqlType="SMALLINT UNSIGNED" precision="5" scale="0" nullable="false" jdbcType="5"/>
-      <column name="slot" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="class_name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="doses_left" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="weapon_model" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="ammo" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="model_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="bone" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="anim_lib" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="anim_name" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dmg_increase" sqlType="FLOAT" precision="12" scale="0" nullable="true" jdbcType="7"/>
+      <column name="phonenumber" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="durability" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="max_durability" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="items" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="size" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <index name="phonenumber" unique="true" columns="phonenumber"/>
     </table>
     <table name="player_jailtime" schema="" catalog="ltrp-java" type="TABLE">
       <column name="player_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
@@ -776,8 +791,8 @@
       <column name="radio_slot" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ=="/>
       <column name="faction_manager" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
-      <exported-key name="player_crashes_ibfk_2" table="player_crashes" schema="" catalog="ltrp-java" columns="player_id"/>
       <exported-key name="player_crashes_ibfk_1" table="player_crashes" schema="" catalog="ltrp-java" columns="player_id"/>
+      <exported-key name="player_crashes_ibfk_2" table="player_crashes" schema="" catalog="ltrp-java" columns="player_id"/>
       <exported-key name="player_jailtime_ibfk_1" table="player_jailtime" schema="" catalog="ltrp-java" columns="player_id"/>
     </table>
     <table name="scars" schema="" catalog="ltrp-java" type="TABLE">

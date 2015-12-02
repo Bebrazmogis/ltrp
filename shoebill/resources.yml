@@ -18,8 +18,8 @@ offlineMode: false
 
 # Your needed runtimes
 runtimes:
-  - net.gtaun:shoebill-runtime:1.1-SNAPSHOT
-  - net.gtaun:shoebill-common:1.0-SNAPSHOT
+  - net.gtaun:shoebill-runtime:1.2-SNAPSHOT
+  - net.gtaun:shoebill-common:1.2-SNAPSHOT
 
 # Additional plugins
 plugins:

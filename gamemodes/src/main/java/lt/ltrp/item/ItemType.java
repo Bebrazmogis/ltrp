@@ -1,0 +1,50 @@
+package lt.ltrp.item;
+
+/**
+ * @author Bebras
+ *         2015.11.29.
+ */
+public enum ItemType {
+
+
+    Wrench(1),
+    Crowbar(2),
+    Hammer(3),
+    Flashlight(4),
+    Tazer(5),
+    Screwdriver(6),
+    Radio(7),
+    Dice(8),
+    FishingRod(9),
+    FishingBait(10),
+    FishingBag(11),
+    Lighter(12),
+    Fueltank(13),
+    Cigarettes(14),
+    Phone(15),
+    Clothing(16),
+    MeleeWeapon(17),
+    Suitcase(18),
+    Mask(19),
+    Weapon(20),
+    Drink(21),
+    WeedSeed(22),
+    ;
+
+    private int id;
+
+    ItemType(int id) {
+        this.id = id;
+
+    }
+
+    public static ItemType getById(int id) {
+        for(ItemType type : ItemType.values()) {
+            if(type.id == id) {
+                return type;
+            }
+        }
+        return null;
+    }
+
+}

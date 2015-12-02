@@ -9,6 +9,8 @@ import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
+import lt.ltrp.item.FixedSizeInventory;
+import lt.ltrp.item.Item;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.CommandEntry;
 import net.gtaun.shoebill.common.command.CustomCommandHandler;
@@ -73,6 +75,7 @@ public class PlayerController {
             return Vehicle.get(id);
         });
         playerCommandManager.registerCommands(new AdminCommands());
+        playerCommandManager.registerCommands(new GeneralCommands());
         playerCommandManager.registerCommand("test", new Class[]{LtrpPlayer.class}, new String[]{"player"}, (e, something) -> {
             System.out.println("its test alright");
             return true;
@@ -113,16 +116,19 @@ public class PlayerController {
         managerNode.registerHandler(PlayerLogInEvent.class, e -> {
             Logger.getLogger(getClass().getSimpleName()).log(Level.INFO, "PlayerLogInEvent received");
             LtrpPlayer player = e.getPlayer();
+            player.setLoggedIn(true);
             player.sendMessage("{FFFFFF}Sveikiname sugrįžus, Jūs prisijungėte su veikėju " + player.getName() + ". Sėkmės serveryje!");
             // If the users' spawn is already set up
             if(spawnsSetUp.containsKey(player) && spawnsSetUp.get(player)) {
                 spawnPlayer(player);
                 new Thread(() -> {
                     playerDao.loadData(player);
+                    Item[] items = playerDao.getItems(player);
+                    Logger.getLogger(getClass().getSimpleName()).log(Level.INFO, "PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUserId());
+                    player.setInventory(new FixedSizeInventory(player.getName() + " kuprinės"));
+                    player.getInventory().add(items);
                     managerNode.dispatchEvent(new PlayerDataLoadEvent(player));
                 }).start();
-            } else {
-                player.setLoggedIn(true);
             }
             // Legacy code for Pawn loading.
             AmxCallable onPlayerLoginPawn = PawnFunc.getNativeMethod("OnPlayerLoginEx");

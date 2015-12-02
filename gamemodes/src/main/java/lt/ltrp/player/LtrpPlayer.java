@@ -1,9 +1,14 @@
 package lt.ltrp.player;
 
 import lt.ltrp.Util.PawnFunc;
+import lt.ltrp.data.*;
+import lt.ltrp.data.Animation;
+import lt.ltrp.item.Inventory;
+import lt.ltrp.property.Property;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.*;
+import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.exception.AlreadyExistException;
 import net.gtaun.shoebill.exception.IllegalLengthException;
 import net.gtaun.shoebill.object.*;
@@ -27,9 +32,15 @@ public class LtrpPlayer implements Player {
 
     private String password;
     private JailData jailData;
+    private Property property;
+    private Inventory inventory;
+    private LtrpWeaponData[] weapons;
 
     private boolean loggedIn, dataLoaded, isFactionManager;
 
+    public static List<LtrpPlayer> get() {
+        return players;
+    }
 
     public static LtrpPlayer get(int id) {
         for(LtrpPlayer p : players) {
@@ -50,6 +61,19 @@ public class LtrpPlayer implements Player {
         return null;
     }
 
+    public static LtrpPlayer getClosest(LtrpPlayer player, float maxdistance) {
+        LtrpPlayer closest = null;
+        float closestDistance = maxdistance;
+        for(LtrpPlayer p : players) {
+            float distance = p.getLocation().distance(player.getLocation());
+            if(distance <= closestDistance) {
+                closest = p;
+                closestDistance = distance;
+            }
+        }
+        return closest;
+    }
+
     public static void sendAdminMessage(String s) {
         for(LtrpPlayer p : players) {
             if(p.isAdmin() || p.getAdminLevel() > 0) {
@@ -61,7 +85,9 @@ public class LtrpPlayer implements Player {
     public LtrpPlayer(Player player, int userid) {
         this.player = player;
         this.userId = userid;
+        this.weapons = new LtrpWeaponData[13];
         players.add(this);
+
     }
 
     public int getUserId() {
@@ -97,8 +123,62 @@ public class LtrpPlayer implements Player {
         }
     }
 
+
     public void jail(JailData.JailType type, int time, LtrpPlayer jailer) {
         this.jail(new JailData(type, time, jailer.getName()));
+    }
+
+    // Internal weapon management
+    private void addWeapon(WeaponModel model, int ammo) {
+        addWeapon(new LtrpWeaponData(model, ammo, false));
+    }
+
+    private void addWeapon(LtrpWeaponData weaponData) {
+        for(int i = 0; i < weapons.length; i++) {
+            if(weapons[i] == null) {
+                weapons[i] = weaponData;
+                break;
+            }
+        }
+    }
+
+    private void addWeapon(WeaponData weaponData) {
+        addWeapon(new LtrpWeaponData(weaponData, false));
+    }
+
+    private void clearWeapons() {
+        for(int i = 0; i < weapons.length; i++) {
+            weapons[i] = null;
+        }
+    }
+
+    // public method for removing weapons
+    public void removeWeapon(LtrpWeaponData weaponData) {
+        LtrpWeaponData[] newWeapons = new LtrpWeaponData[13];
+        int newWeaponCount = 0;
+        for(int i = 0; i < weapons.length; i++) {
+            if(weapons[i] != weaponData) {
+                newWeapons[newWeaponCount++] = weapons[i];
+            }
+        }
+        resetWeapons();
+        this.weapons = newWeapons;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
+    public Property getProperty() {
+        return property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
     }
 
     public int getAdminLevel() {
@@ -153,7 +233,52 @@ public class LtrpPlayer implements Player {
         this.sendMessage(Color.RED, s);
     }
 
+    public void sendActionMessage(String s, float distance) {
+        this.sendMessage(lt.ltrp.data.Color.ACTION, "* "+ getName() + " " + s, distance);
+    }
 
+    public void sendActionMessage(String s) {
+        this.sendActionMessage(s, 20.0f);
+    }
+
+    public void sendStateMessage(String s, float distance) {
+        this.sendMessage(lt.ltrp.data.Color.ACTION, "* " + s + " ((" + getName() + "))", distance);
+    }
+
+    public void sendStateMessage(String s) {
+        this.sendStateMessage(s, 20.0f);
+    }
+
+    public void sendMessage(Color color, String s, float distance) {
+        for(LtrpPlayer p : players) {
+            if(getDistanceToPlayer(p) <= distance) {
+                p.sendMessage(color, s);
+            }
+        }
+    }
+
+    public float getDistanceToPlayer(LtrpPlayer player) {
+        return player.getLocation().distance(this.getLocation());
+    }
+
+
+    public LtrpPlayer getClosestPlayer(float maxdistance) {
+        return getClosest(this, maxdistance);
+    }
+
+    public LtrpPlayer getClosestPlayer() {
+        return this.getClosestPlayer(Float.MAX_VALUE);
+    }
+
+    public void applyAnimation(Animation animation) {
+        applyAnimation(animation.getAnimLib(), animation.getAnimName(), animation.getSpeed(),
+                animation.isLoop() ? 1 : 0,
+                animation.isLockX() ? 1 : 0,
+                animation.isLockY() ? 1 : 0,
+                animation.isFreeze() ? 1 : 0,
+                animation.getTime(),
+                animation.isForseSync() ? 1 : 0);
+    }
 
 
     // Overrides
@@ -242,6 +367,17 @@ public class LtrpPlayer implements Player {
     public WeaponModel getArmedWeapon() {
         return player.getArmedWeapon();
     }
+
+    public LtrpWeaponData getArmedWeaponData() {
+        WeaponModel armedWeapon = this.player.getArmedWeapon();
+        for(LtrpWeaponData wd : weapons) {
+            if(wd.getModel() == armedWeapon) {
+                return wd;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public void setArmedWeapon(WeaponModel weaponModel) {
@@ -386,21 +522,33 @@ public class LtrpPlayer implements Player {
     @Override
     public void setSpawnInfo(float v, float v1, float v2, int i, int i1, float v3, int i2, int i3, WeaponModel weaponModel, int i4, WeaponModel weaponModel1, int i5, WeaponModel weaponModel2, int i6) {
         player.setSpawnInfo(v, v1, v2, i, i1, v3, i2, i3, weaponModel, i4, weaponModel1, i5, weaponModel2, i6);
+        addWeapon(weaponModel, i4);
+        addWeapon(weaponModel1, i5);
+        addWeapon(weaponModel2, i6);
     }
 
     @Override
     public void setSpawnInfo(Vector3D vector3D, int i, int i1, float v, int i2, int i3, WeaponData weaponData, WeaponData weaponData1, WeaponData weaponData2) {
         player.setSpawnInfo(vector3D, i, i1, v, i2, i3, weaponData, weaponData1, weaponData2);
+        addWeapon(weaponData);
+        addWeapon(weaponData1);
+        addWeapon(weaponData2);
     }
 
     @Override
     public void setSpawnInfo(Location location, float v, int i, int i1, WeaponData weaponData, WeaponData weaponData1, WeaponData weaponData2) {
         player.setSpawnInfo(location, v, i, i1, weaponData, weaponData1, weaponData2);
+        addWeapon(weaponData);
+        addWeapon(weaponData1);
+        addWeapon(weaponData2);
     }
 
     @Override
     public void setSpawnInfo(AngledLocation angledLocation, int i, int i1, WeaponData weaponData, WeaponData weaponData1, WeaponData weaponData2) {
         player.setSpawnInfo(angledLocation, i, i1, weaponData, weaponData1, weaponData2);
+        addWeapon(weaponData);
+        addWeapon(weaponData1);
+        addWeapon(weaponData2);
     }
 
     @Override
@@ -426,6 +574,11 @@ public class LtrpPlayer implements Player {
     @Override
     public void setWeaponAmmo(WeaponModel weaponModel, int i) {
         player.setWeaponAmmo(weaponModel, i);
+        for(WeaponData wd : weapons) {
+            if(wd.getModel() == weaponModel) {
+                wd.setAmmo(i);
+            }
+        }
     }
 
     @Override
@@ -749,13 +902,19 @@ public class LtrpPlayer implements Player {
     }
 
     @Override
-    public WeaponData getWeaponData(int i) {
-        return player.getWeaponData(i);
+    public LtrpWeaponData getWeaponData(int i) {
+        return (LtrpWeaponData)player.getWeaponData(i);
     }
 
     @Override
     public void giveWeapon(WeaponModel weaponModel, int i) {
         player.giveWeapon(weaponModel, i);
+        addWeapon(weaponModel, i);
+    }
+
+    public void giveWeapon(LtrpWeaponData weaponData) {
+        player.giveWeapon(weaponData);
+        addWeapon(weaponData);
     }
 
     @Override
@@ -766,6 +925,7 @@ public class LtrpPlayer implements Player {
     @Override
     public void resetWeapons() {
         player.resetWeapons();
+        clearWeapons();
     }
 
     @Override

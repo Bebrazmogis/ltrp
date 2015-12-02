@@ -1,6 +1,7 @@
 package lt.ltrp.dao;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import lt.ltrp.dao.impl.SqlPhoneDaoImpl;
 import lt.ltrp.dao.impl.SqlPlayerDaoImpl;
 
 import java.beans.PropertyVetoException;
@@ -51,6 +52,7 @@ public abstract class DAOFactory {
     public abstract Connection getConnection() throws SQLException;
 
     public abstract PlayerDao getPlayerDao();
+    public abstract PhoneDao getPhoneDao();
 
 }
 
@@ -58,6 +60,7 @@ class JdbcDAO extends DAOFactory {
 
     private ComboPooledDataSource ds;
     private PlayerDao playerDao;
+    private PhoneDao phoneDao;
 
     public JdbcDAO(ComboPooledDataSource ds) throws IOException, SQLException {
         this.ds = ds;
@@ -99,6 +102,7 @@ class JdbcDAO extends DAOFactory {
         in.close();
         */
         this.playerDao = new SqlPlayerDaoImpl(ds);
+        this.phoneDao = new SqlPhoneDaoImpl(ds);
         System.out.println("JDBCDAO initialized");
     }
 
@@ -111,6 +115,11 @@ class JdbcDAO extends DAOFactory {
     @Override
     public PlayerDao getPlayerDao() {
         return playerDao;
+    }
+
+    @Override
+    public PhoneDao getPhoneDao() {
+        return phoneDao;
     }
 }
 

@@ -32,10 +32,13 @@
 native IsValidVehicle(vehicleid);
 native WP_Hash(buffer[], len, const str[]);
 native CallShoebillFunction(name[], {Float,_}:...);
+
+
+
+
+
 #include <mSelection>
 //#define  TIMER_FIX_TIMER_SLOTS          512
-//#include <timerfix>
-//#include <a_http>
 #include <foreach>
 #include <a_mysql>
 #include <audio>
@@ -62,10 +65,11 @@ native CallShoebillFunction(name[], {Float,_}:...);
 
 forward _KickTimer(playerid);
 public _KickTimer(playerid)
-	return Kick(playerid);
+    return Kick(playerid);
 
 #define Kick(%0) SetTimerEx("_KickTimer", 100, false, "i", %0)
 
+#include "java"
 
 /*#if !defined abs 
     #define abs(%0) ((%0 > 0)?(%0):(-%0))
@@ -209,7 +213,7 @@ forward OnPlayerLoginEx(playerid, sqlid);
 #define CHECKPOINT_BACKUP 5
 #define CHECKPOINT_TRASH                6
 #define CHECKPOINT_TRASH_DROPOFF        7
-#define CHECKPOINT_SHIP					8
+#define CHECKPOINT_SHIP                 8
 
 // Kiti nustatymai
 #define MAX_WEED_SEEDS  200 // Kiek daugiausiai þolës seeds gali laikyti þmogus
@@ -269,9 +273,9 @@ forward OnPlayerLoginEx(playerid, sqlid);
 #define DIALOG_VEHICLE_CARGO_LIST       5502
 #define DIALOG_INDUSTRY_INFO            5503
 #define DIALOG_SOLD_COMMODITY_LIST      5504
-#define DIALOG_COMMODITY_SELL			5505
-#define DIALOG_TPDA_MAIN				5506
-#define DIALOG_SHIP_INFO				5507 
+#define DIALOG_COMMODITY_SELL           5505
+#define DIALOG_TPDA_MAIN                5506
+#define DIALOG_SHIP_INFO                5507 
 #define DIALOG_VEHICLE_SHOPS_LIST       63
 #define DIALOG_VEHICLE_SHOPS_DELETE_CON 5508
 #define DIALOG_VEHICLE_SHOPS_NEW_NAME   5509
@@ -355,9 +359,9 @@ new PlayerFading = true;
 #define MAX_INDUSTRY_NAME               64
 
 // LS dokai. 2808.9011,-2438.3188,13.6285
-#define SHIP_POS_X						2808.9011
-#define SHIP_POS_Y						-2438.3188
-#define SHIP_POS_Z						13.6285
+#define SHIP_POS_X                      2808.9011
+#define SHIP_POS_Y                      -2438.3188
+#define SHIP_POS_Z                      13.6285
 
 
 enum E_CARGO_BOX_DATA
@@ -380,7 +384,7 @@ enum E_INDUSTRIES_DATA {
     Float:PosY,
     Float:PosZ,
     Text3D:Label,
-	Pickup,
+    Pickup,
     bool:IsBuyingCargo
 };
 
@@ -422,8 +426,8 @@ enum E_VEHICLE_CARGO {
 };
 
 enum E_SHIP_STATUS {
-	Docked, // Stovi uoste, priema krovinius
-	Moving, // Iðplaukia
+    Docked, // Stovi uoste, priema krovinius
+    Moving, // Iðplaukia
     Arriving // Atplaukia. Rodomi judantys objektai.
 };
 
@@ -432,10 +436,10 @@ enum E_SHIP_STATUS {
 
 
 enum E_SHIP_DATA {
-	E_SHIP_STATUS:Status,
-	LastDepartureTimestamp,
+    E_SHIP_STATUS:Status,
+    LastDepartureTimestamp,
     LastArrivalTimestamp,
-	CurrentStock, // Skaièiuojamas cargo slotais, ne vienetais. 
+    CurrentStock, // Skaièiuojamas cargo slotais, ne vienetais. 
     ObjectIDs[ 11 ] // Hard-coded nes tai yra CreateDynamicObject skaièius.
 };
 
@@ -469,7 +473,7 @@ new const CargoShipObjectPositions[ ][ E_CARGOSHIP_OBJECT_DATA ] =
 new VehicleCargo[ MAX_VEHICLES ][ MAX_TRUCKER_CARGO ][ E_VEHICLE_CARGO ],
     IsVehicleLoaded[ MAX_VEHICLES ],
     VehicleLoadTimer[ MAX_PLAYERS ] = {-1, ...},
-	VehicleLoadTime[ MAX_PLAYERS ];
+    VehicleLoadTime[ MAX_PLAYERS ];
 
 new Iterator:IndustryIterator<MAX_INDUSTRIES>;
 new Iterator:TruckerCargoIterator<MAX_TRUCKER_CARGO>;
@@ -618,12 +622,12 @@ new aInfo[ MAX_PLAYERS ][ DAHX ];
 
 enum E_PLAYER_SPAWN_LOCATIONS 
 {
-	DefaultSpawn, 
-	SpawnFaction,
-	SpawnHouse,
-	SpawnBusiness,
-	SpawnGarage,
-	SpawnLosSantos,
+    DefaultSpawn, 
+    SpawnFaction,
+    SpawnHouse,
+    SpawnBusiness,
+    SpawnGarage,
+    SpawnLosSantos,
 };
 
 enum players
@@ -705,7 +709,7 @@ enum players
     pPoints,
     pHealthLevel,
     pStrengthLevel,
-	pJobHours,
+    pJobHours,
     pHunger,
     pTotalPaycheck,
     bool:pFactionManager,
@@ -758,21 +762,21 @@ new fInfo[20][E_FACTION_DATA];
 forward GetFactionPosition(factionindex, &Float:x, &Float:y, &Float:z);
 public GetFactionPosition(factionindex, &Float:x, &Float:y, &Float:z)
 {
-	x = fInfo[ factionindex ][ fSpawn ][ 0 ];
-	x = fInfo[ factionindex ][ fSpawn ][ 1 ];
-	x = fInfo[ factionindex ][ fSpawn ][ 2 ];
+    x = fInfo[ factionindex ][ fSpawn ][ 0 ];
+    x = fInfo[ factionindex ][ fSpawn ][ 1 ];
+    x = fInfo[ factionindex ][ fSpawn ][ 2 ];
 }
 
 forward GetFactionInterior(factionindex);
 public GetFactionInterior(factionindex)
 {
-	return fInfo[ factionindex ][ fInt ];
+    return fInfo[ factionindex ][ fInt ];
 }
 
 forward GetFactionVirtualWorld(factionindex);
 public GetFactionVirtualWorld(factionindex)
 {
-	return 0;
+    return 0;
 }
 
 
@@ -886,15 +890,12 @@ new Fire[MAX_FIRE][fires];
 #include "Player\Inventory"
 #include "Player\Attachments"
 #include "Player\Phone"
-//#include "Player\Auth"
-//#include "Player\Spawn"
-//#include "Player\Death"
 
 #include "Vehicles\vPhone"
 #include "Bank"
 #include "Graffiti"
 #include "Entrances"
-//#include "Gambling/Blackjack"
+
 
 
 new RoadBlocks[MAX_ROADBLOCKS];
@@ -1023,18 +1024,18 @@ Float:CloseGate[][8] = {
     {5779.0, -258.30231, 1040.26111, 20.47970, 0.0, 0.00, 0.00, 2.0},
     {1569.0, -979.44855, -2429.74902, 2232.50000, 0.0, 0.00, 180.00, 1.0},
     {968.0, 1544.68, -1630.99, 13.33,   0.00, 90.00, 90.00, 1.0},
-	{968.0, 1557.84, -1608.66, 13.20,   0.00, 90.00, 90.00, 1.0},
-	{10184.0, 1590.14, -1638.37, 14.30,   0.00, 0.00, 90.00, 1.0},
-	{1569.0, -10.01, 2053.78, 2129.00,   0.00, 0.00, 90.00, 1.0},
-	{1495.0,1794.00976562,-1525.18676758,5699.42480469,   0.00, 0.00, 360.00, 1.0},
-	{1495.0,1797.00830078,-1525.15258789,5699.42480469,   0.00, 0.00, 180.00, 1.0},
-	{1495.0,1808.73071289,-1545.87463379,5699.42480469,   0.00, 0.00, 0.00, 1.0},
-	{1495.0,1811.73828125,-1545.82873535,5699.42480469,0.00000000,0.00000000,180.00000000, 1.0},
-	{1495.0,1808.76147461,-1547.63208008,5699.42480469,0.00000000,0.00000000,0.00000000, 1.0},
-	{1495.0,1811.76184082,-1547.60510254,5699.42480469,0.00000000,0.00000000,180.00000000, 1.0},
-	{1495.0, 1760.05, -1561.55, 8.59,   0.00, 0.00, 0.00, 1.0},
-	{1966.0, 1813.71191, -1536.81494, 13.50000,   0.00000, 0.00000, 88.30000, 1.0},
-	{1569.0, 1467.07, -2758.31, 5284.21,   0.00, 0.00, 0.00, 2.0}
+    {968.0, 1557.84, -1608.66, 13.20,   0.00, 90.00, 90.00, 1.0},
+    {10184.0, 1590.14, -1638.37, 14.30,   0.00, 0.00, 90.00, 1.0},
+    {1569.0, -10.01, 2053.78, 2129.00,   0.00, 0.00, 90.00, 1.0},
+    {1495.0,1794.00976562,-1525.18676758,5699.42480469,   0.00, 0.00, 360.00, 1.0},
+    {1495.0,1797.00830078,-1525.15258789,5699.42480469,   0.00, 0.00, 180.00, 1.0},
+    {1495.0,1808.73071289,-1545.87463379,5699.42480469,   0.00, 0.00, 0.00, 1.0},
+    {1495.0,1811.73828125,-1545.82873535,5699.42480469,0.00000000,0.00000000,180.00000000, 1.0},
+    {1495.0,1808.76147461,-1547.63208008,5699.42480469,0.00000000,0.00000000,0.00000000, 1.0},
+    {1495.0,1811.76184082,-1547.60510254,5699.42480469,0.00000000,0.00000000,180.00000000, 1.0},
+    {1495.0, 1760.05, -1561.55, 8.59,   0.00, 0.00, 0.00, 1.0},
+    {1966.0, 1813.71191, -1536.81494, 13.50000,   0.00000, 0.00000, 88.30000, 1.0},
+    {1569.0, 1467.07, -2758.31, 5284.21,   0.00, 0.00, 0.00, 2.0}
 };
 
 new const
@@ -1053,18 +1054,18 @@ Float:MoveGate[][6] = {
     {-258.30231, 1040.26111, 16.9797, 0.0, 0.00, 0.00},
     {-979.44849, -2429.74902, 2232.50000, 0.00000, 0.00000, 100.00000},
     {1544.78, -1631.00, 13.43,   0.00, 0.00, 90.00},
-	{1557.94, -1608.76, 13.30,   0.00, 0.00, 90.00},
-	{1590.14, -1640.47, 16.22,   0.00, -90.00, 90.00},
-	{-10.11, 2053.88, 2129.10,   0.00, 0.00, 0.00},
-	{1792.7498,-1525.28676758,5699.52480469,   0.00, 0.00, 360.00},
-	{1798.2883,-1525.25258789,5699.52480469,   0.00, 0.00, 180.00},
-	{1807.4307,-1545.97463379,5699.52480469,   0.00, 0.00, 0.00},
-	{1813.0383,-1545.92873535,5699.52480469,0.00000000,0.00000000,180.00000000},
-	{1807.4815,-1547.73208008,5699.52480469,0.00000000,0.00000000,0.00000000},
-	{1812.9818,-1547.70510254,5699.52480469,0.00000000,0.00000000,180.00000000},
-	{1758.7714, -1562.55, 8.69,   0.00, 0.00, 0.00},
-	{1813.3119, -1536.8149, 15.9800,   90.00000, 0.00000, 88.30000},
-	{1467.17, -2758.41, 5284.31,   0.00, 0.00, 90.00}
+    {1557.94, -1608.76, 13.30,   0.00, 0.00, 90.00},
+    {1590.14, -1640.47, 16.22,   0.00, -90.00, 90.00},
+    {-10.11, 2053.88, 2129.10,   0.00, 0.00, 0.00},
+    {1792.7498,-1525.28676758,5699.52480469,   0.00, 0.00, 360.00},
+    {1798.2883,-1525.25258789,5699.52480469,   0.00, 0.00, 180.00},
+    {1807.4307,-1545.97463379,5699.52480469,   0.00, 0.00, 0.00},
+    {1813.0383,-1545.92873535,5699.52480469,0.00000000,0.00000000,180.00000000},
+    {1807.4815,-1547.73208008,5699.52480469,0.00000000,0.00000000,0.00000000},
+    {1812.9818,-1547.70510254,5699.52480469,0.00000000,0.00000000,180.00000000},
+    {1758.7714, -1562.55, 8.69,   0.00, 0.00, 0.00},
+    {1813.3119, -1536.8149, 15.9800,   90.00000, 0.00000, 88.30000},
+    {1467.17, -2758.41, 5284.31,   0.00, 0.00, 90.00}
 };
 new 
     bool:Gates[sizeof(CloseGate)] = { false, ... },
@@ -2012,26 +2013,26 @@ LoadStaticVehicles()
     printf("Serveryje yra %d transporto priemones.", cache_get_row_count());
     cache_delete(result);
 
-	result = mysql_query(DbHandle, "SELECT vehicle_id,cargo_id,amount FROM vehicle_cargo WHERE is_static = 1");
-	
-	new cargoid,vehicleid,amount;
-	for(new i = 0; i < cache_get_row_count(); i++)
-	{
+    result = mysql_query(DbHandle, "SELECT vehicle_id,cargo_id,amount FROM vehicle_cargo WHERE is_static = 1");
+    
+    new cargoid,vehicleid,amount;
+    for(new i = 0; i < cache_get_row_count(); i++)
+    {
         vehicleid = cache_get_field_content_int(i, "vehicle_id");
         cargoid = cache_get_field_content_int(i, "cargo_id");
         amount = cache_get_field_content_int(i, "amount");
 
-	
-		// Ðitas kodas toks sudëtingai kvailas dël to nes virðuje esantis krovimas neiðsaugo niekur vehicle ID.
-		for(new j = 1; j < i; j++)
-		{
-			if(vehicleid == sVehicles[ j ][ Id ])
-			{
-				for(new k = 0; k < amount; k++)
-					AddCargoToVehicle(j, cargoid, true);
-			}
-		}
-	}
+    
+        // Ðitas kodas toks sudëtingai kvailas dël to nes virðuje esantis krovimas neiðsaugo niekur vehicle ID.
+        for(new j = 1; j < i; j++)
+        {
+            if(vehicleid == sVehicles[ j ][ Id ])
+            {
+                for(new k = 0; k < amount; k++)
+                    AddCargoToVehicle(j, cargoid, true);
+            }
+        }
+    }
     cache_delete(result);
     return 1;
 
@@ -2625,12 +2626,12 @@ stock RemoveCargoFromVehicle(vehicleid, cargoid, amount = 1)
                     cInfo[ vehicleid ][ cID ], cargoid);
                 mysql_query(DbHandle, query, false);
             }
-			else 
-			{
-				format(query,sizeof(query), "DELETE FROM vehicle_cargo WHERE vehicle_id= %d AND cargo_id = %d AND is_static = 1",
+            else 
+            {
+                format(query,sizeof(query), "DELETE FROM vehicle_cargo WHERE vehicle_id= %d AND cargo_id = %d AND is_static = 1",
                     sVehicles[ vehicleid ][ Id ], cargoid);
                 mysql_query(DbHandle, query, false);
-			}
+            }
         }
         else 
         {
@@ -2640,12 +2641,12 @@ stock RemoveCargoFromVehicle(vehicleid, cargoid, amount = 1)
                     amount, cInfo[vehicleid ][ cID ], cargoid);
                 mysql_query(DbHandle, query, false);
             }
-			else 
-			{
-				format(query,sizeof(query),"UPDATE vehicle_cargo SET amount = amount - %d WHERE vehicle_id = %d AND cargo_id = %d AND is_static = 1",
+            else 
+            {
+                format(query,sizeof(query),"UPDATE vehicle_cargo SET amount = amount - %d WHERE vehicle_id = %d AND cargo_id = %d AND is_static = 1",
                     amount, sVehicles[vehicleid ][ Id ], cargoid);
                 mysql_query(DbHandle, query, false);
-			}
+            }
         }
 
         // Su forklift kiek kitaip
@@ -2653,8 +2654,8 @@ stock RemoveCargoFromVehicle(vehicleid, cargoid, amount = 1)
         {
             if(VehicleCargo[ vehicleid ][ i ][ Amount ] == 0)
             {
-				for(new j = 0; j < 4; j++)
-					DestroyVehicleObject(vehicleid, j);
+                for(new j = 0; j < 4; j++)
+                    DestroyVehicleObject(vehicleid, j);
             }
             else 
             {
@@ -2668,19 +2669,19 @@ stock RemoveCargoFromVehicle(vehicleid, cargoid, amount = 1)
                     DestroyVehicleObject(vehicleid, j);
             }
         }
-		else 
-		{
-			switch(GetCargoType(cargoid))
-			{
-				case 1: DestroyVehicleObject(vehicleid, 0);
-				case 2,5:
-				{
+        else 
+        {
+            switch(GetCargoType(cargoid))
+            {
+                case 1: DestroyVehicleObject(vehicleid, 0);
+                case 2,5:
+                {
                     new index = GetLastUsedVehicleObjectSlot(vehicleid);
-					for(new j = index; j >= 0; j--)
-						DestroyVehicleObject(vehicleid,  j);
-				}
-			}
-		}
+                    for(new j = index; j >= 0; j--)
+                        DestroyVehicleObject(vehicleid,  j);
+                }
+            }
+        }
         return 1;
     }
     return 0;
@@ -2722,18 +2723,18 @@ stock AddCargoToVehicle(vehicleid, cargoid, bool:ignore_sql = false)
     }
 
     // Irasom krovinio egzistavima i db.
-	if(!ignore_sql)
-	{
-		new query[180];
-		if(cInfo[ vehicleid ][ cID ])
-			format(query,sizeof(query) ,"INSERT INTO vehicle_cargo (vehicle_id, cargo_id, amount,is_static) VALUES(%d,%d,%d,0)\
-				ON DUPLICATE KEY UPDATE amount = VALUES(amount)",
-				cInfo[ vehicleid ][ cID ], cargoid, amount+1);
-		else 
-			format(query,sizeof(query) ,"INSERT INTO vehicle_cargo (vehicle_id, cargo_id, amount,is_static) VALUES(%d,%d,%d,1)\
-				ON DUPLICATE KEY UPDATE amount = VALUES(amount)",
-				sVehicles[ vehicleid ][ Id ], cargoid, amount+1);
-		mysql_query(DbHandle, query, false);
+    if(!ignore_sql)
+    {
+        new query[180];
+        if(cInfo[ vehicleid ][ cID ])
+            format(query,sizeof(query) ,"INSERT INTO vehicle_cargo (vehicle_id, cargo_id, amount,is_static) VALUES(%d,%d,%d,0)\
+                ON DUPLICATE KEY UPDATE amount = VALUES(amount)",
+                cInfo[ vehicleid ][ cID ], cargoid, amount+1);
+        else 
+            format(query,sizeof(query) ,"INSERT INTO vehicle_cargo (vehicle_id, cargo_id, amount,is_static) VALUES(%d,%d,%d,1)\
+                ON DUPLICATE KEY UPDATE amount = VALUES(amount)",
+                sVehicles[ vehicleid ][ Id ], cargoid, amount+1);
+        mysql_query(DbHandle, query, false);
 
     }
 
@@ -2806,62 +2807,62 @@ stock GetTruckerCargoOffsets(model, cargo_type, number, &Float:x, &Float:y, &Flo
 {
     switch(model)
     {
-		case 428: //securicar
-		{
-			switch(cargo_type)
-			{
-				case 2: // dezes 
-				{
-					switch(number)
-					{
-						case 0: { x = 0.7293701;	y = -0.4281006;	z = -0.15219975; }
-						case 1: { x = 0.025268555;	y = -0.4281006;	z = -0.15219975; }
-						case 2: { x = -0.6697998;	y = -0.4281006;	z = -0.15219975; }
-						case 3: { x = -0.6697998;	y = -1.1330566;	z = -0.15219975; }
-						case 4: { x = 0.020263672;	y = -1.1330566;	z = -0.15219975; }
-						case 5: { x = 0.7102051;	y = -1.1330566;	z = -0.15219975; }
-						case 6: { x = -0.66955566;	y = -1.8280029;	z = -0.15219975; }
-						case 7: { x = 0.020385742;	y = -1.8280029;	z = -0.15219975; }
-						case 8: { x = 0.7104492;	y = -1.8280029; z = -0.15219975; }
-						case 9: { x = -0.66955566;	y = -2.5179443;	z = -0.15219975; }
-						case 10: { x = 0.020385742;	y = -2.5179443;	z = -0.15219975; }
-						case 11: { x = 0.7104492;	y = -2.5179443;	z = -0.15219975; }
-						case 12: { x = 0.7293701;	y = -0.4281006;	z = 0.53779984; }
-						case 13: { x = 0.03930664;	y = -0.4281006; z = 0.53779984; }
-						case 14: { x = -0.65063477;	y = -0.4281006;	z = 0.53779984; }
-						case 15: { x = 0.03930664;	y = -1.1330566;	z = 0.53779984; }
-					}
-				}
-				case 6: // Brangios dezes 
-				{
-					switch(number)
-					{
-						case 0 .. 7:
-							{ x = 0.0013427734;	y = -0.9185791;	z = -0.17819977; }
-						case 8 .. 15: 
-							{ x = 0.0013427734;	y = -2.1785889;	z = -0.17819977; }
+        case 428: //securicar
+        {
+            switch(cargo_type)
+            {
+                case 2: // dezes 
+                {
+                    switch(number)
+                    {
+                        case 0: { x = 0.7293701;    y = -0.4281006; z = -0.15219975; }
+                        case 1: { x = 0.025268555;  y = -0.4281006; z = -0.15219975; }
+                        case 2: { x = -0.6697998;   y = -0.4281006; z = -0.15219975; }
+                        case 3: { x = -0.6697998;   y = -1.1330566; z = -0.15219975; }
+                        case 4: { x = 0.020263672;  y = -1.1330566; z = -0.15219975; }
+                        case 5: { x = 0.7102051;    y = -1.1330566; z = -0.15219975; }
+                        case 6: { x = -0.66955566;  y = -1.8280029; z = -0.15219975; }
+                        case 7: { x = 0.020385742;  y = -1.8280029; z = -0.15219975; }
+                        case 8: { x = 0.7104492;    y = -1.8280029; z = -0.15219975; }
+                        case 9: { x = -0.66955566;  y = -2.5179443; z = -0.15219975; }
+                        case 10: { x = 0.020385742; y = -2.5179443; z = -0.15219975; }
+                        case 11: { x = 0.7104492;   y = -2.5179443; z = -0.15219975; }
+                        case 12: { x = 0.7293701;   y = -0.4281006; z = 0.53779984; }
+                        case 13: { x = 0.03930664;  y = -0.4281006; z = 0.53779984; }
+                        case 14: { x = -0.65063477; y = -0.4281006; z = 0.53779984; }
+                        case 15: { x = 0.03930664;  y = -1.1330566; z = 0.53779984; }
+                    }
+                }
+                case 6: // Brangios dezes 
+                {
+                    switch(number)
+                    {
+                        case 0 .. 7:
+                            { x = 0.0013427734; y = -0.9185791; z = -0.17819977; }
+                        case 8 .. 15: 
+                            { x = 0.0013427734; y = -2.1785889; z = -0.17819977; }
 
-					}
-				}
-			}
-		}
-		case 578: //DFT-30
-		{
-			switch(cargo_type)
-			{
-				case 1: // malkos
-					{x = 0.203125;	y = -4.814087;	z = 0.82102966; rotx = 0.00000; roty = 0.00000; rotz = 4.53463;}
-				case 5: // plytos
-				{
-					switch(number)
-					{
-						case 0: { x = -0.068603516;	y = 1.3687744;	z = 0.49217987; }
-						case 1: { x = -0.068603516;	y = -0.9831543;	z = 0.4921999; }
-						case 2: { x = -0.068603516;	y = -3.2302246;	z = 0.4921999; }
-					}
-				}
-			}
-		}
+                    }
+                }
+            }
+        }
+        case 578: //DFT-30
+        {
+            switch(cargo_type)
+            {
+                case 1: // malkos
+                    {x = 0.203125;  y = -4.814087;  z = 0.82102966; rotx = 0.00000; roty = 0.00000; rotz = 4.53463;}
+                case 5: // plytos
+                {
+                    switch(number)
+                    {
+                        case 0: { x = -0.068603516; y = 1.3687744;  z = 0.49217987; }
+                        case 1: { x = -0.068603516; y = -0.9831543; z = 0.4921999; }
+                        case 2: { x = -0.068603516; y = -3.2302246; z = 0.4921999; }
+                    }
+                }
+            }
+        }
         case 600: // Picador
         {
             switch(number)
@@ -3007,34 +3008,34 @@ stock GetTruckerCargoOffsets(model, cargo_type, number, &Float:x, &Float:y, &Flo
             {
                 case 2: // dezes
                 {
-					switch(number)
-					{
-						case 0: { x = 0.5916748;		y = 0.2919922;	z = 1.0380993; }
-						case 1: { x = -0.13635254;		y = 0.2919922;	z = 1.0380993; }
-						case 2: { x = -0.8084717;		y = 0.18005371;	z = 1.0380993; }
-						case 3: { x = -0.7453613;		y = -0.9719238;	z = -0.10730076; }
-						case 4: { x = -0.045288086;		y = -0.9719238;	z = -0.10730076; }
-						case 5: { x = 0.6826172;		y = -0.9719238;	z = -0.10730076; }
-						case 6: { x = 0.6826172;		y = -1.7279053;	z = -0.10730076; }
-						case 7: { x = -0.045288086;		y = -1.7279053;	z = -0.10730076; }
-						case 8: { x = -0.7453613;		y = -1.7279053;	z = -0.10730076; }
-						case 9: { x = -0.7453613;		y = -2.4278564;	z = -0.10730076; }
-						case 10: { x = -0.045288086;	y = -2.4278564;	z = -0.10730076; }
-						case 11: { x = 0.6826172;		y = -2.4278564;	z = -0.10730076; }
-						case 12: { x = 0.6826172;		y = -2.4278564;	z = 0.5647001; }
-						case 13: { x = -0.045410156;	y = -2.4278564;	z = 0.5927; }
-						case 14: { x = -0.7454834;		y = -2.4278564;	z = 0.5927; }
-						case 15: { x = -0.045288086;	y = -1.7279053;	z = 0.5927; }
-					}
-				}
+                    switch(number)
+                    {
+                        case 0: { x = 0.5916748;        y = 0.2919922;  z = 1.0380993; }
+                        case 1: { x = -0.13635254;      y = 0.2919922;  z = 1.0380993; }
+                        case 2: { x = -0.8084717;       y = 0.18005371; z = 1.0380993; }
+                        case 3: { x = -0.7453613;       y = -0.9719238; z = -0.10730076; }
+                        case 4: { x = -0.045288086;     y = -0.9719238; z = -0.10730076; }
+                        case 5: { x = 0.6826172;        y = -0.9719238; z = -0.10730076; }
+                        case 6: { x = 0.6826172;        y = -1.7279053; z = -0.10730076; }
+                        case 7: { x = -0.045288086;     y = -1.7279053; z = -0.10730076; }
+                        case 8: { x = -0.7453613;       y = -1.7279053; z = -0.10730076; }
+                        case 9: { x = -0.7453613;       y = -2.4278564; z = -0.10730076; }
+                        case 10: { x = -0.045288086;    y = -2.4278564; z = -0.10730076; }
+                        case 11: { x = 0.6826172;       y = -2.4278564; z = -0.10730076; }
+                        case 12: { x = 0.6826172;       y = -2.4278564; z = 0.5647001; }
+                        case 13: { x = -0.045410156;    y = -2.4278564; z = 0.5927; }
+                        case 14: { x = -0.7454834;      y = -2.4278564; z = 0.5927; }
+                        case 15: { x = -0.045288086;    y = -1.7279053; z = 0.5927; }
+                    }
+                }
                 case 5: // plytos
                 {
-					switch(number)
-					{
-						case 0: { x = -0.011474609;	y = -1.2894287;	z = 0.5930004; }
-						case 1: { x = -0.021728516;	y = -2.4053955;	z = 0.5930004; }
-					}	
-				}
+                    switch(number)
+                    {
+                        case 0: { x = -0.011474609; y = -1.2894287; z = 0.5930004; }
+                        case 1: { x = -0.021728516; y = -2.4053955; z = 0.5930004; }
+                    }   
+                }
             }
         
         }
@@ -3044,37 +3045,37 @@ stock GetTruckerCargoOffsets(model, cargo_type, number, &Float:x, &Float:y, &Flo
             {
                 case 2: // dezes 
                 {
-					switch(number)
-					{
-						case 0: { x = -0.7192383;	y = 1.5007324;	z = 1.3246002; }
-						case 1: { x = -0.019165039;	y = 1.5007324;	z = 1.3246002; }
-						case 2: { x = 0.65283203;	y = 1.5007324;	z = 1.3246002; }
-						case 3: { x = -0.663208;	y = 0.10070801;	z = -0.10340023; }
-						case 4: { x = 0.036743164;	y = 0.10070801;	z = -0.10340023; }
-						case 5: { x = 0.7368164;	y = 0.10070801;	z = -0.10340023; }
-						case 6: { x = -0.663208;	y = -0.59924316;	z = -0.10340023; }
-						case 7: { x = 0.036743164;	y = -0.59924316;	z = -0.10340023; }
-						case 8: { x = 0.70874023;	y = -0.59924316;	z = -0.10340023; }
-						case 9: { x = -0.663208;	y = -1.2993164;	z = -0.10340023; }
-						case 10: { x = 0.036743164;	y = -1.2993164;	z = -0.10340023; }
-						case 11: { x = 0.68078613;	y = -1.2993164;	z = -0.10340023; }
-						case 12: { x = -0.663208;	y = -1.9992676;	z = -0.10340023; }
-						case 13: { x = 0.036743164;	y = -1.9992676;	z = -0.10340023; }
-						case 14: { x = 0.68078613;	y = -1.9992676;	z = -0.10340023; }
-						case 15: { x = 0.7368164;	y = 0.10070801;	z = 0.5965996; }
-						case 16: { x = 0.036743164;	y = 0.10070801;	z = 0.5965996; }
-						case 17: { x = -0.6352539;	y = 0.10070801;	z = 0.5965996; }
-					}
-				}
+                    switch(number)
+                    {
+                        case 0: { x = -0.7192383;   y = 1.5007324;  z = 1.3246002; }
+                        case 1: { x = -0.019165039; y = 1.5007324;  z = 1.3246002; }
+                        case 2: { x = 0.65283203;   y = 1.5007324;  z = 1.3246002; }
+                        case 3: { x = -0.663208;    y = 0.10070801; z = -0.10340023; }
+                        case 4: { x = 0.036743164;  y = 0.10070801; z = -0.10340023; }
+                        case 5: { x = 0.7368164;    y = 0.10070801; z = -0.10340023; }
+                        case 6: { x = -0.663208;    y = -0.59924316;    z = -0.10340023; }
+                        case 7: { x = 0.036743164;  y = -0.59924316;    z = -0.10340023; }
+                        case 8: { x = 0.70874023;   y = -0.59924316;    z = -0.10340023; }
+                        case 9: { x = -0.663208;    y = -1.2993164; z = -0.10340023; }
+                        case 10: { x = 0.036743164; y = -1.2993164; z = -0.10340023; }
+                        case 11: { x = 0.68078613;  y = -1.2993164; z = -0.10340023; }
+                        case 12: { x = -0.663208;   y = -1.9992676; z = -0.10340023; }
+                        case 13: { x = 0.036743164; y = -1.9992676; z = -0.10340023; }
+                        case 14: { x = 0.68078613;  y = -1.9992676; z = -0.10340023; }
+                        case 15: { x = 0.7368164;   y = 0.10070801; z = 0.5965996; }
+                        case 16: { x = 0.036743164; y = 0.10070801; z = 0.5965996; }
+                        case 17: { x = -0.6352539;  y = 0.10070801; z = 0.5965996; }
+                    }
+                }
                 case 5: // plytos
                 {
-					switch(number)
-					{
-						case 0: {x = 0.06567383;	y = -0.48010254;	z = 0.6166992; }
-						case 1: {x = 0.06567383;	y = -2.2441406;	z = 0.6166992; }
-						case 2: {x = 0.06567383;	y = -1.2081299;	z = 1.5407; }
-					}
-				}
+                    switch(number)
+                    {
+                        case 0: {x = 0.06567383;    y = -0.48010254;    z = 0.6166992; }
+                        case 1: {x = 0.06567383;    y = -2.2441406; z = 0.6166992; }
+                        case 2: {x = 0.06567383;    y = -1.2081299; z = 1.5407; }
+                    }
+                }
             }
         }
         case 456: // yankee
@@ -3144,8 +3145,8 @@ stock GetTruckerCargoObject(cargo_type)
             return 2912;
         case 5: // plyots
             return 1685;
-		case 6: // Brangi deze
-			return 964;
+        case 6: // Brangi deze
+            return 964;
     }
     return 0;
 }
@@ -3153,41 +3154,41 @@ stock GetTruckerCargoObject(cargo_type)
 stock CanPlayerUseTruckerVehicle(playerid, model)
 {
     printf("CanPlayerUseTruckerVehicle(%d, %d) : IsVehicleTrucker:%d IsVehicleTrailer:%d", playerid, model, IsVehicleTrucker(model), IsVehicleTrailer(model));
-	if(!IsVehicleTrucker(model) && !IsVehicleTrailer(model))
-		return false;
-	if(pInfo[ playerid ][ pJob ] != JOB_TRUCKER)
-		return false;
+    if(!IsVehicleTrucker(model) && !IsVehicleTrailer(model))
+        return false;
+    if(pInfo[ playerid ][ pJob ] != JOB_TRUCKER)
+        return false;
 
-	new hours = pInfo[ playerid ][ pJobHours ];
-	
-	
-	if(hours >= 48)
-		return true;
-	
-	switch(model)
-	{
-		case 530:
-			return true; //forklift gali imt visi.
-		case 600, 543, 605, 422, 478, 554:
-			return true;
+    new hours = pInfo[ playerid ][ pJobHours ];
+    
+    
+    if(hours >= 48)
+        return true;
+    
+    switch(model)
+    {
+        case 530:
+            return true; //forklift gali imt visi.
+        case 600, 543, 605, 422, 478, 554:
+            return true;
 
-		case 413, 459, 482:
-			if(hours >= 12)
-				return true;
+        case 413, 459, 482:
+            if(hours >= 12)
+                return true;
 
-		case 440, 498, 499:
-			if(hours >= 24)
-				return true;
+        case 440, 498, 499:
+            if(hours >= 24)
+                return true;
 
-		case 414, 578, 428, 455:
-			if(hours >= 32)
-				return true;
+        case 414, 578, 428, 455:
+            if(hours >= 32)
+                return true;
                 
-		case 456:
-			if(hours >= 48)
-				return true;
-	}
-	return false;
+        case 456:
+            if(hours >= 48)
+                return true;
+    }
+    return false;
 }
 stock HasVehicleSpaceForCargo(vehicleid, cargoid)
 {
@@ -3198,8 +3199,8 @@ stock HasVehicleSpaceForCargo(vehicleid, cargoid)
     {
         if(!VehicleCargo[ vehicleid ][ i ][ Amount ]) 
             continue;
-		slotsUsed += GetCargoSlot(VehicleCargo[ vehicleid ][ i ][ CargoId ]) * VehicleCargo[ vehicleid ][ i ][ Amount ];
-		/*
+        slotsUsed += GetCargoSlot(VehicleCargo[ vehicleid ][ i ][ CargoId ]) * VehicleCargo[ vehicleid ][ i ][ Amount ];
+        /*
         if(VehicleCargo[ vehicleid ][ i ][ CargoId ] == cargoid)
         {
             if(VehicleCargo[ vehicleid ][ i ][ Amount ] >= GetVehicleCargoLimit(GetVehicleModel(vehicleid)) / GetCargoSlot(VehicleCargo[ vehicleid ][ i ][ CargoId ]))
@@ -3207,17 +3208,17 @@ stock HasVehicleSpaceForCargo(vehicleid, cargoid)
             else 
                 return true;
         }
-		*/
+        */
     }
-	if(GetVehicleCargoLimit(GetVehicleModel(vehicleid)) - slotsUsed >= GetCargoSlot(cargoid))
-		return true;
-	else 
-		return false;
-	/*
+    if(GetVehicleCargoLimit(GetVehicleModel(vehicleid)) - slotsUsed >= GetCargoSlot(cargoid))
+        return true;
+    else 
+        return false;
+    /*
     if(freeSlotFound)
         return true;
     return false;
-	*/
+    */
 }
 stock GetVehicleCargoLimit(model)
 {
@@ -3274,29 +3275,29 @@ stock ShowVehicleCargo(playerid, vehicleid)
 
 stock ShowTPDA( playerid )
 {
-	ShowPlayerDialog(playerid, DIALOG_TPDA_MAIN, DIALOG_STYLE_LIST, "TPDA", "{C0C0C0}Perþiûrëti{FFFFFF} Visas industrijas\n{C0C0C0}Perþiûrëti{FFFFFF} Verslus perkanèius prekes\n{C0C0C0}Perþiûrëti{FFFFFF} Laivo informacijà", "Pasirinkti","Iðeiti");
+    ShowPlayerDialog(playerid, DIALOG_TPDA_MAIN, DIALOG_STYLE_LIST, "TPDA", "{C0C0C0}Perþiûrëti{FFFFFF} Visas industrijas\n{C0C0C0}Perþiûrëti{FFFFFF} Verslus perkanèius prekes\n{C0C0C0}Perþiûrëti{FFFFFF} Laivo informacijà", "Pasirinkti","Iðeiti");
     return 1;
 }
 
 stock GetIndustrySectorName(industry_index)
 {
-	new name[24];
-	new bought = GetIndustryBoughtCommodityCount(industry_index);
-	new sold;
-	foreach(CommodityIterator, i)
+    new name[24];
+    new bought = GetIndustryBoughtCommodityCount(industry_index);
+    new sold;
+    foreach(CommodityIterator, i)
         if(Commodities[ i ][ IndustryId ] == Industries[ industry_index ][ Id ] 
             && Commodities[ i ][ SellBuyStatus ] == Selling
             && !Commodities[ i ][ IsBusinessCommodity ])
             sold++;
-	
-	// Jei pardavineja bet nieko neperka, pirmas sektorius
-	if(sold && !bought)
-		name = "Pirminë";
-	else if(sold && bought)
-		name = "Antrinë";
-	else 
-		name = "Paslauginë";
-	return name;
+    
+    // Jei pardavineja bet nieko neperka, pirmas sektorius
+    if(sold && !bought)
+        name = "Pirminë";
+    else if(sold && bought)
+        name = "Antrinë";
+    else 
+        name = "Paslauginë";
+    return name;
 }
 
 
@@ -3324,26 +3325,26 @@ stock GetIndustrySoldCommodityCount(industry_index)
 stock IsShipAcceptingCargo(cargoid)
 {
     #pragma unused cargoid
-	// Laivas superka visas prekes kaip ir verslai...
-	// Kitaip tariant, jeigu jokia industrija to neperka - laivas perka.
-	//if(IsAnyIndustryBuyingCargo(cargoid))
-	//	return false;
+    // Laivas superka visas prekes kaip ir verslai...
+    // Kitaip tariant, jeigu jokia industrija to neperka - laivas perka.
+    //if(IsAnyIndustryBuyingCargo(cargoid))
+    //  return false;
     // Nuo 2015.01.04 laivas superka VISKA.
-	return true;
+    return true;
 }
 
 stock IsAnyIndustryBuyingCargo(cargoid)
 {
     if(!cargoid)
         return false;
-	foreach(IndustryIterator, i)
-		foreach(CommodityIterator,j)
-			if(Commodities[ j ][ CargoId ] == cargoid
-			&& Commodities[ j ][ IndustryId ] == Industries [ i ][ Id ]
-			&& !Commodities[ j ][ IsBusinessCommodity ]
-			&&	Commodities[ j ][ SellBuyStatus ] == Buying)
-				return true;
-	return false;
+    foreach(IndustryIterator, i)
+        foreach(CommodityIterator,j)
+            if(Commodities[ j ][ CargoId ] == cargoid
+            && Commodities[ j ][ IndustryId ] == Industries [ i ][ Id ]
+            && !Commodities[ j ][ IsBusinessCommodity ]
+            &&  Commodities[ j ][ SellBuyStatus ] == Buying)
+                return true;
+    return false;
 }
 stock HasIndustryRoomForCargo(industry_index, cargoid)
 {
@@ -3383,17 +3384,17 @@ stock IsIndustrySellingCargo(industry_index, cargoid)
 
 stock SaveIndustryCommodities(industry_index)
 {
-	new query[140];
-	foreach(CommodityIterator, i)
+    new query[140];
+    foreach(CommodityIterator, i)
     {
-		if(Commodities[ i ][ IndustryId ] == Industries[ industry_index ][ Id ]
+        if(Commodities[ i ][ IndustryId ] == Industries[ industry_index ][ Id ]
             && !Commodities[ i ][ IsBusinessCommodity ])
         {
-			format(query,sizeof(query), "UPDATE commodities SET current_stock = %d WHERE cargo_id = %d AND industry_id = %d AND Type = 'Industry'",
-				Commodities[ i ][ CurrentStock ], Commodities[ i ][ CargoId ], Industries[ industry_index ][ Id ]); 
-			mysql_query(DbHandle, query, false);
-		}
-	}
+            format(query,sizeof(query), "UPDATE commodities SET current_stock = %d WHERE cargo_id = %d AND industry_id = %d AND Type = 'Industry'",
+                Commodities[ i ][ CurrentStock ], Commodities[ i ][ CargoId ], Industries[ industry_index ][ Id ]); 
+            mysql_query(DbHandle, query, false);
+        }
+    }
 }
 
 stock AddCargoToIndustry(industry_index, cargoid, amount = 1)
@@ -3401,7 +3402,7 @@ stock AddCargoToIndustry(industry_index, cargoid, amount = 1)
     new query[160];
     foreach(CommodityIterator, i)
     {
-		if(Commodities[ i ][ IndustryId ] == Industries[ industry_index ][ Id ]
+        if(Commodities[ i ][ IndustryId ] == Industries[ industry_index ][ Id ]
             && Commodities[ i ][ CargoId ] == cargoid
             && !Commodities[ i ][ IsBusinessCommodity ])
         {
@@ -3409,29 +3410,29 @@ stock AddCargoToIndustry(industry_index, cargoid, amount = 1)
             format(query,sizeof(query),"UPDATE commodities SET current_stock = %d WHERE industry_id = %d AND cargo_id = %d AND type = 'Industry'",
                 Commodities[ i ][ CurrentStock ], Industries[ industry_index ][ Id ] ,Commodities[ i ][ CargoId ]);
             mysql_query(DbHandle, query, false);
-			UpdateIndustryInfo(industry_index);
+            UpdateIndustryInfo(industry_index);
             return 1;
         }
-	}
+    }
     return false;
 }
 
 stock RemoveCargoFromIndustry(industry_index, cargoid, amount = 1)
 {
-	new query[160];
-	foreach(CommodityIterator, i)
+    new query[160];
+    foreach(CommodityIterator, i)
         if(Commodities[ i ][ IndustryId ] == Industries[ industry_index ][ Id ]
             && Commodities[ i ][ CargoId ] == cargoid
             && !Commodities[ i ][ IsBusinessCommodity ])
         {
-			Commodities[ i ][ CurrentStock ] -= amount;
+            Commodities[ i ][ CurrentStock ] -= amount;
             format(query,sizeof(query),"UPDATE commodities SET current_stock = %d WHERE industry_id = %d AND cargo_id = %d AND type = 'Industry'",
                 Commodities[ i ][ CurrentStock ], Industries[ industry_index ][ Id ] ,Commodities[ i ][ CargoId ]);
             mysql_query(DbHandle, query, false);
-			UpdateIndustryInfo(industry_index);
+            UpdateIndustryInfo(industry_index);
             return 1;
-		}
-	return false;
+        }
+    return false;
 }
 
 
@@ -3850,9 +3851,9 @@ public OnGameModeInit()
     SetTimer("MinTime", 60000, 1);
     SetTimer("Spidometras", 250, 1 );
     SetTimer("Drugs", 15*60000, 1);
-	SetTimer("IndustryUpdate", 60*60*1000, true);
-	SetTimer("CargoShipDeparture",CARGOSHIP_DOCKED_INTERVAL, false);
-	ShipInfo[ LastDepartureTimestamp ] = gettime();
+    SetTimer("IndustryUpdate", 60*60*1000, true);
+    SetTimer("CargoShipDeparture",CARGOSHIP_DOCKED_INTERVAL, false);
+    ShipInfo[ LastDepartureTimestamp ] = gettime();
     mysql_tquery(DbHandle, "UPDATE vehicles SET cVehID = 0 WHERE cVehID > 0");
 //=============================[ Pagr. Serverio nustatymai ]================================
     ShowPlayerMarkers(0);
@@ -3935,22 +3936,22 @@ public OnGameModeInit()
     
     CreateDynamicCP(748.0026, 257.0667, 27.0859, 2.0, -1, -1, -1, 6.0 );
     CreateDynamicCP(-279.4338, 2722.4390, 62.4920, 2.0, -1, -1, -1, 6.0 );
-	CreateDynamicCP(1803.4606,-1520.4922,5700.4302, 2.0, -1, -1, -1, 3.0 );
+    CreateDynamicCP(1803.4606,-1520.4922,5700.4302, 2.0, -1, -1, -1, 3.0 );
     
     //=============================[ Pickup'ai ]================================
     Pickups[ 1 ] = CreateDynamicPickup(1240, 2, 1810.2020,-1583.3362,5703.9175); // Gyvybiø atsistatymø pickup kalëjime
 
     //------------------------[ 3DTextLabeliai. Uþraðai, áëjimai. ]------------------------------------------
-	//CreateDynamic3DTextLabel("Los Santos License Center\nTeorijos ir praktikos egzaminai\n{FFFFFF}/license",COLOR_NEWS, 1491.0953,1306.8651,1093.2891 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
+    //CreateDynamic3DTextLabel("Los Santos License Center\nTeorijos ir praktikos egzaminai\n{FFFFFF}/license",COLOR_NEWS, 1491.0953,1306.8651,1093.2891 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Naujø automobiliø sàlonas\nParduodamø automobiliø sàraðas\nKomanda: {FFFFFF}/v buy",COLOR_NEWS, 2131.8079,-1151.2266,24.0707 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Sunkiøjø tr. priemoniø salonas\nParduodamø automobiliø sàraðas\nKomanda: {FFFFFF}/v buy",COLOR_NEWS, 2748.5361,-2451.3025,13.6599 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Motociklø ir dviraèiø parduotuvë\nParduodamø prekiø sàraðas\nKomanda: {FFFFFF}/v buy",COLOR_NEWS, 1738.9440,-1269.4951,13.5430 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Los Santos uosto salonas\nParduodamø laivø\nKomanda: {FFFFFF}/v buy",COLOR_LIGHTRED2,-444.3486,1154.1063,1.7273,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Los Santos savivaldybë\nKomanda:{FFFFFF}/duty",COLOR_NEWS, 1500.8645,-1814.7734,2410.8157 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nÁvaþiavimui /enter",COLOR_POLICE,1753.5140,-1595.8026,13.5380, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
-	//CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nIðvaþiavimui naudokite /exit",COLOR_POLICE,I5I^, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
+    //CreateDynamic3DTextLabel("Los Santos Prison Yard\nTIK DARBUOTOJAMS\nIðvaþiavimui naudokite /exit",COLOR_POLICE,I5I^, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
     //CreateDynamic3DTextLabel("Los Santos Fire Departament\nTr. priemoniø garaþas\nÁvaþiavimui /enter",COLOR_LIGHTRED,1284.9084,-1346.3730,13.6000, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
-	//CreateDynamic3DTextLabel("Los Santos Fire Departament\nTr. priemoniø garaþas\nIðvaþiavimui naudokite /exit",COLOR_LIGHTRED,-1763.6812,984.6740,22.0003, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);	
+    //CreateDynamic3DTextLabel("Los Santos Fire Departament\nTr. priemoniø garaþas\nIðvaþiavimui naudokite /exit",COLOR_LIGHTRED,-1763.6812,984.6740,22.0003, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);    
     //CreateDynamic3DTextLabel("áia galite kovos stiliu\n raðykite {FFBB00}/learnfight",COLOR_WHITE,754.9053,-40.0628,1000.5859,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, false, -1, -1, -1, 15.0);
     //CreateDynamic3DTextLabel("Privatus, uþdaras sandëlys\n Tik privatiems klientams\nKomanda:{FFFFFF}/buyseeds",COLOR_NEWS,-2172.5056,679.8398,55.1615,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
     //CreateDynamic3DTextLabel("Privatus, uþdaras sandëlys\n Jokiø paðaliniø\nKomanda: {FFFFFF}/buymats",COLOR_NEWS,-2074.3081,-2246.5073,31.6890,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
@@ -4204,7 +4205,7 @@ public OnPlayerConnect(playerid)
 
     OnLookupComplete(playerid);
     //MySQL_Check_Account( playerid );
-    CheckBan(playerid);	
+    CheckBan(playerid); 
     printf("ltrp.pwn stuff done");
 //=============================[ Iconos þemëlapyje rodomos visiems ]================================
     SetPlayerMapIcon( playerid, 70, fInfo[ 2 ][ fSpawn ][ 0 ], fInfo[ 2 ][ fSpawn ][ 1 ] ,fInfo[ 2 ][ fSpawn ][ 2 ], 22, 0, MAPICON_LOCAL ); //Ligoninë
@@ -4218,7 +4219,7 @@ public OnPlayerConnect(playerid)
    // SetPlayerMapIcon( playerid, 80, -368.4724,1510.7081,76.3117, 55, 0, MAPICON_LOCAL ); //CarShop BIKE
     SetPlayerMapIcon( playerid, 81, 1491.0953,1306.8651,1093.2891, 36, 0, MAPICON_LOCAL ); //DMV
     SetPlayerMapIcon( playerid, 82, 1368.7064,-1279.9117,13.5469, 18, 0, MAPICON_LOCAL ); //GunShop
-	
+    
     for(new car = 0; car < 21; car++)
         pInfo[ playerid ][ pCar ][ car ] = 0;
 
@@ -4372,7 +4373,7 @@ stock NullPlayerInfo( playerid )
     InfoTextTimer[ playerid ] = -1;
 
     VehicleLoadTimer[ playerid ] = -1;
-	VehicleLoadTime[ playerid ] = 0;
+    VehicleLoadTime[ playerid ] = 0;
 
     IsFillingFuel[ playerid ] = false;
 
@@ -4676,9 +4677,9 @@ public OnPlayerDeath(playerid, killerid, reason)
     }
     else
     {
-    	//SetSpawnInfo(playerid, NO_TEAM, GetPlayerSkin(playerid), )
-    	Mires[playerid] = 1;
-   	}
+        //SetSpawnInfo(playerid, NO_TEAM, GetPlayerSkin(playerid), )
+        Mires[playerid] = 1;
+    }
 
     if(gPlayerUsingLoopingAnim[playerid] == true)
     {
@@ -4905,7 +4906,7 @@ CMD:help(playerid)
     SendClientMessage( playerid, COLOR_FADE2, "  ROLE-PLAY VEIKSMAI: /me /do /try");
     SendClientMessage( playerid, COLOR_FADE1, "  IC IR OOC KALBËJIMO KANALAI: IC - /f /r /s /low /g /ame /w /cw /ds. OOC - /b (/o)oc /pm.");
     SendClientMessage( playerid, COLOR_FADE2, "  VEIKËJO VALDYMAS: /levelup /fpv /stats /inv /invweapon /transfer /pay /anims /learnfight /stop /die /(lic)ences");
-    SendClientMessage( playerid, COLOR_FADE1, "  DARBAS IR FRAKCIJA: /leavefaction /takejob /leavejob");	
+    SendClientMessage( playerid, COLOR_FADE1, "  DARBAS IR FRAKCIJA: /leavefaction /takejob /leavejob");    
     SendClientMessage( playerid, COLOR_FADE2, "  ADMINISTRACIJA IR PAGALBA: /admins /moderators /(re)port /askq");
     SendClientMessage( playerid, COLOR_FADE1, "  TURTO PIRKIMAS: /buy /buygun /buyhouse /buybiz");
     SendClientMessage( playerid, COLOR_FADE2, "  KITOS KOMANDOS: /bail /id /make /bank /note /knock /maxspeed /charity /lock /accept /fines /vehiclefines /setbelt");
@@ -4919,24 +4920,24 @@ CMD:help(playerid)
     if ( pInfo[ playerid ][ pJob ] == JOB_GUN )
       SendClientMessage( playerid, COLOR_LIGHTRED2, "  GINKLØ GAMINTOJO KOMANDOS: /weaponlist /make");
     if ( pInfo[ playerid ][ pJob ] == JOB_TRUCKER )
-	{ 
+    { 
       SendClientMessage( playerid, COLOR_LIGHTRED2, "  KROVINIØ PERVEÞIMO VAIRUOTOJO KOMANDOS: /tpda /cargo /killcheckpoint"),
-      SendClientMessage( playerid, COLOR_LIGHTRED2, "  /tpda - kroviniø tvarkaraðtis | /cargo - kroviniø valdymas | /killcheckpoint - esame CP panaikinimas.");	
-	}
+      SendClientMessage( playerid, COLOR_LIGHTRED2, "  /tpda - kroviniø tvarkaraðtis | /cargo - kroviniø valdymas | /killcheckpoint - esame CP panaikinimas."); 
+    }
     if ( pInfo[ playerid ][ pJob ] == JOB_JACKER )
-		SendClientMessage( playerid, COLOR_LIGHTRED2, "  TR. PRIEMONËS VOGIMO KOMANDOS: /sellcar /info /spots");
-	if ( PlayerFaction( playerid ) == 1 )
-		SendClientMessage( playerid, COLOR_POLICE, "  LOS SANTOS POLICIJOS DEPARTAMENTAS: /policehelp");
+        SendClientMessage( playerid, COLOR_LIGHTRED2, "  TR. PRIEMONËS VOGIMO KOMANDOS: /sellcar /info /spots");
+    if ( PlayerFaction( playerid ) == 1 )
+        SendClientMessage( playerid, COLOR_POLICE, "  LOS SANTOS POLICIJOS DEPARTAMENTAS: /policehelp");
     if ( PlayerFaction( playerid ) == 2 ) 
-	{
+    {
         SendClientMessage( playerid, COLOR_LIGHTRED2, "|________________________________Mediko komandos________________________________|"),
-		SendClientMessage( playerid, COLOR_WHITE, "  /rb /rrb /drag /fdgear /duty /heal /takefmoney /checfkbudget /flist /tlc");     
-	}
+        SendClientMessage( playerid, COLOR_WHITE, "  /rb /rrb /drag /fdgear /duty /heal /takefmoney /checfkbudget /flist /tlc");     
+    }
     if ( PlayerFaction( playerid ) == 5 ) 
-	{
+    {
         SendClientMessage( playerid, COLOR_GREEN2, "|________________________Savivaldybës darbuotojo komandos________________________|"),
-		SendClientMessage( playerid, COLOR_WHITE, "  /duty /takemoney /takefmoney /checfkbudget /checkbudget /flist");     
-	}
+        SendClientMessage( playerid, COLOR_WHITE, "  /duty /takemoney /takefmoney /checfkbudget /checkbudget /flist");     
+    }
     if ( pInfo[ playerid ][ pLead ] > 1 )
         SendClientMessage( playerid, COLOR_WHITE, "  FRAKCIJOS VALDYMAS: /invite /uninvite /setrank /flist /nof /togf" );
     if ( pInfo[ playerid ][ pAdmin ] > 0 )
@@ -4944,7 +4945,7 @@ CMD:help(playerid)
     if ( pInfo[ playerid ][ pDonator ] > 0 )
         SendClientMessage( playerid, COLOR_FADE1, "  REMËJAS: /blockpm /togpm /walkstyle /talkstyle /mask");
     SendClientMessage( playerid, COLOR_FADE2, "  SISTEMØ PAGALBA/KOMANDOS: /v /radiohelp /phonehelp /phonebookhelp /bizhelp /househelp ");
-    SendClientMessage( playerid, COLOR_FADE1, "  SISTEMØ PAGALBA/KOMANDOS: /vradio /garagehelp /fishinghelp /toghelp /gunhelp");	
+    SendClientMessage( playerid, COLOR_FADE1, "  SISTEMØ PAGALBA/KOMANDOS: /vradio /garagehelp /fishinghelp /toghelp /gunhelp");    
     SendClientMessage( playerid, COLOR_GREEN2, "________________________Daugiau informacijos________________________");
     SendClientMessage( playerid, COLOR_FADE1, "  Vis informacija pateikta møsø diskusijø forume forum.ltrp.lt");
     SendClientMessage( playerid, COLOR_FADE2, "  Jei prireikë pagalbos, visados galite klausti naudodami komanda /askq");
@@ -4957,7 +4958,7 @@ CMD:gunhelp(playerid)
     SendClientMessage( playerid, COLOR_WHITE, "  /leavegun - numeta ant þemës rankoje laikomà ginklà, kuri galite paiimti su /grabgun.");
     SendClientMessage( playerid, COLOR_FADE1, "  /grabgun - paiiima ant þemës rodomà ginklà");
     SendClientMessage( playerid, COLOR_WHITE, "  /buygun - naudojama ginklø parduotuvëje");
-    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________");	
+    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________");    
     return 1;
 }
 CMD:phonebookhelp(playerid)
@@ -4966,7 +4967,7 @@ CMD:phonebookhelp(playerid)
     SendClientMessage( playerid, COLOR_WHITE, "  /phonebook - Jûsø telefonø adresø sàraðas.");
     SendClientMessage( playerid, COLOR_FADE1, "  /addcontact - pridësite kontaktà á telefonø knygà");
     SendClientMessage( playerid, COLOR_WHITE, "  /deletecontact - iðtrinsite kontaktà ið telefonø knygos");
-    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________");	
+    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________");    
     return 1;
 }
 CMD:toghelp(playerid)
@@ -4977,7 +4978,7 @@ CMD:toghelp(playerid)
     SendClientMessage( playerid, COLOR_WHITE, "  /tognews - nebematysite SAN News kanalo skelbiamø naujienø");
     SendClientMessage( playerid, COLOR_FADE1, "  /togpm - nebegalësite gauti privaèiø þinuèiø");
     SendClientMessage( playerid, COLOR_FADE1, "  KITOS KOMANDOS: /togf /togq /togadmin");
-    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________");	
+    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________");    
     return 1;
 }
 CMD:policehelp(playerid)
@@ -4992,8 +4993,8 @@ CMD:policehelp(playerid)
         SendClientMessage( playerid, COLOR_WHITE, "  KOMANDOS NUBAUSTI: /fine /vehiclefine /arrest /prison /arrestcar /licwarn "),
         SendClientMessage( playerid, COLOR_FADE1, "  KITOS KOMANDOS: /flist /setunit /delunit /police /delarrestcar /jobid /cutdownweed"),
         SendClientMessage( playerid, COLOR_WHITE, "  DRABUÞIAI/APRANGA: /vest /badge /rbadge /pdclothes"),
-        SendClientMessage( playerid, COLOR_POLICE, "____________________________________________________________________________");	
-    }	
+        SendClientMessage( playerid, COLOR_POLICE, "____________________________________________________________________________"); 
+    }   
     return 1;
 }
 CMD:radiohelp(playerid)
@@ -5003,53 +5004,53 @@ CMD:radiohelp(playerid)
     SendClientMessage( playerid, COLOR_WHITE, "  /rlow [TEKSTAS] - IC pokalbiø per racijà kanalas kalbant tyliai" );
     SendClientMessage( playerid, COLOR_FADE1, "  /setchannel [1-3] [RACIJOS KANALAS] - racijos kanalo nustatymas/keitimas./setslot" );
     SendClientMessage( playerid, COLOR_WHITE, "  /setslot [1-3] - nustatyti vietà kanalui." );
-    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________" );	
+    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________" );   
     return 1;
 }
 CMD:phonehelp(playerid)
 {
     SendClientMessage( playerid, COLOR_GREEN, "|__________________MOBILAUS TELEFONO NAUDOJIMAS__________________|");
-    SendClientMessage( playerid, COLOR_LIGHTRED2, "Norëdami suþinoti specialiuosius numerius paraðykite komandà /call");	
+    SendClientMessage( playerid, COLOR_LIGHTRED2, "Norëdami suþinoti specialiuosius numerius paraðykite komandà /call");    
     SendClientMessage( playerid, COLOR_FADE1, "  /call [NUMERIS] - skambinti á pasirinktà numerá." );
-    SendClientMessage( playerid, COLOR_WHITE, "  (/h)angup - padëti telefonà pokalbio metu ir nutraukti pokalbá." );	
-    SendClientMessage( playerid, COLOR_FADE1, "  (/p)ickup - atsiliepti á ateinantá skambutá." );	
+    SendClientMessage( playerid, COLOR_WHITE, "  (/h)angup - padëti telefonà pokalbio metu ir nutraukti pokalbá." );    
+    SendClientMessage( playerid, COLOR_FADE1, "  (/p)ickup - atsiliepti á ateinantá skambutá." );   
     SendClientMessage( playerid, COLOR_WHITE, "  /sms [NUMERIS] [TEKSTAS] - paraðyti trumpaja þinutæ á pasirinktà numerá." );
-    SendClientMessage( playerid, COLOR_FADE1, "  /turnphone - iðjungti/ájungti telefonà." );	
-    SendClientMessage( playerid, COLOR_WHITE, "  /speaker - Ájungti garsiakalbá telefone." );	
-    SendClientMessage( playerid, COLOR_FADE1, "  /ucall - komanda skirta taksafonams.." );	
-    SendClientMessage( playerid, COLOR_GREEN, "___________________________________________________________________" );		
+    SendClientMessage( playerid, COLOR_FADE1, "  /turnphone - iðjungti/ájungti telefonà." );    
+    SendClientMessage( playerid, COLOR_WHITE, "  /speaker - Ájungti garsiakalbá telefone." );   
+    SendClientMessage( playerid, COLOR_FADE1, "  /ucall - komanda skirta taksafonams.." );  
+    SendClientMessage( playerid, COLOR_GREEN, "___________________________________________________________________" );      
     return 1;
 }
 CMD:bizhelp(playerid)
 {
     SendClientMessage(playerid,COLOR_GREEN,"|__________________BIZNIO VALDYMO INFORMACIJA__________________|");
-	SendClientMessage(playerid,COLOR_WHITE,"  /furniture - komandoje naudojama viduje biznio, su kuria galite pirktis baldus á savo bizná");
-	SendClientMessage(playerid,COLOR_FADE1,"  /buybiz - jei esate ðalia parduodamo biznio, su ðia komandà galite já nusipirkti.");	
-	SendClientMessage(playerid,COLOR_WHITE,"  /sellbiz [VEIKËJO ID] [KAINA] - galite parduoti savo turimà verslà.");	
-	SendClientMessage(playerid,COLOR_FADE1,"  /biz - pagrindinis biznio valdymas, nustatymai ir kt. Komanda veikia prie biznio áëjimo.");
-	SendClientMessage(playerid,COLOR_WHITE,"  /cargoprice - naudojama norint pateikti uþsakymà perkant prekes..");		
-    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________" );	
+    SendClientMessage(playerid,COLOR_WHITE,"  /furniture - komandoje naudojama viduje biznio, su kuria galite pirktis baldus á savo bizná");
+    SendClientMessage(playerid,COLOR_FADE1,"  /buybiz - jei esate ðalia parduodamo biznio, su ðia komandà galite já nusipirkti.");  
+    SendClientMessage(playerid,COLOR_WHITE,"  /sellbiz [VEIKËJO ID] [KAINA] - galite parduoti savo turimà verslà.");    
+    SendClientMessage(playerid,COLOR_FADE1,"  /biz - pagrindinis biznio valdymas, nustatymai ir kt. Komanda veikia prie biznio áëjimo.");
+    SendClientMessage(playerid,COLOR_WHITE,"  /cargoprice - naudojama norint pateikti uþsakymà perkant prekes..");      
+    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________" );   
     return 1;
 }
 CMD:househelp(playerid)
 {
     SendClientMessage(playerid,COLOR_GREEN,"|__________________NAMO VALDYMO INFORMACIJA__________________|");
-	SendClientMessage(playerid,COLOR_WHITE,"  /furniture - komandoje naudojama viduje namo, su kuria galite pirktis baldus á savo bizná");
-	SendClientMessage(playerid,COLOR_FADE1,"  /buyhouse - jei esate ðalia parduodamo namo su ðia komandà galite já nusipirkti.");	
-	SendClientMessage(playerid,COLOR_WHITE,"  /sellhouse [VEIKËJO ID] [KAINA] - galite parduoti savo turimà namà.");	
-	SendClientMessage(playerid,COLOR_FADE1,"  /setrent [NUOMOS KAINÀ] - naudojama nustatant nuomos kainà savo name.");
-	SendClientMessage(playerid,COLOR_WHITE,"  /lock - nuosavo namo durø uþrakinimas, atrakinimas.");		
-	SendClientMessage(playerid,COLOR_WHITE,"  /housewithdraw [SUMA] - pinigø iðsieimas ið namo. /housedeposit [SUMA] - pinigø ásidëjimas á namo seifà.");
-	SendClientMessage(playerid,COLOR_FADE1,"  /houseinfo - namo informacija..");	
-	SendClientMessage(playerid,COLOR_WHITE,"  /hinv - namo seifo informacija.");	
-	SendClientMessage(playerid,COLOR_FADE1,"  /hradio - name esanèios audio sistemos valdymas.");
-	SendClientMessage(playerid,COLOR_WHITE,"  /tenantry - nuomininkø informacija.");
-	SendClientMessage(playerid,COLOR_WHITE,"  /evict - paðalinti nuomininkà..");
-	SendClientMessage(playerid,COLOR_FADE1,"  /evictall - paðalinti visus nuomininkus ið namo.");	
-	SendClientMessage(playerid,COLOR_WHITE,"  /eat - atsistatyti gyvybæs pavalgant.");	
-	SendClientMessage(playerid,COLOR_FADE1,"  /hu - namo patobulinimas.");
-	SendClientMessage(playerid,COLOR_WHITE,"  /clothes - persirengimas namuose, iðvaizdos pakeitimas.");		
-    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________" );	
+    SendClientMessage(playerid,COLOR_WHITE,"  /furniture - komandoje naudojama viduje namo, su kuria galite pirktis baldus á savo bizná");
+    SendClientMessage(playerid,COLOR_FADE1,"  /buyhouse - jei esate ðalia parduodamo namo su ðia komandà galite já nusipirkti.");   
+    SendClientMessage(playerid,COLOR_WHITE,"  /sellhouse [VEIKËJO ID] [KAINA] - galite parduoti savo turimà namà.");    
+    SendClientMessage(playerid,COLOR_FADE1,"  /setrent [NUOMOS KAINÀ] - naudojama nustatant nuomos kainà savo name.");
+    SendClientMessage(playerid,COLOR_WHITE,"  /lock - nuosavo namo durø uþrakinimas, atrakinimas.");        
+    SendClientMessage(playerid,COLOR_WHITE,"  /housewithdraw [SUMA] - pinigø iðsieimas ið namo. /housedeposit [SUMA] - pinigø ásidëjimas á namo seifà.");
+    SendClientMessage(playerid,COLOR_FADE1,"  /houseinfo - namo informacija..");    
+    SendClientMessage(playerid,COLOR_WHITE,"  /hinv - namo seifo informacija.");    
+    SendClientMessage(playerid,COLOR_FADE1,"  /hradio - name esanèios audio sistemos valdymas.");
+    SendClientMessage(playerid,COLOR_WHITE,"  /tenantry - nuomininkø informacija.");
+    SendClientMessage(playerid,COLOR_WHITE,"  /evict - paðalinti nuomininkà..");
+    SendClientMessage(playerid,COLOR_FADE1,"  /evictall - paðalinti visus nuomininkus ið namo.");   
+    SendClientMessage(playerid,COLOR_WHITE,"  /eat - atsistatyti gyvybæs pavalgant.");  
+    SendClientMessage(playerid,COLOR_FADE1,"  /hu - namo patobulinimas.");
+    SendClientMessage(playerid,COLOR_WHITE,"  /clothes - persirengimas namuose, iðvaizdos pakeitimas.");        
+    SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________" );   
     return 1;
 }
 
@@ -5141,8 +5142,8 @@ CMD:leavegun(playerid)
         return 0;
     LastUsed[ playerid ] = gettime();
 
-	if(Mires[ playerid ] > 0)
-		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite iðmesti ginklo bûdamas komos bûsenoje.");
+    if(Mires[ playerid ] > 0)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite iðmesti ginklo bûdamas komos bûsenoje.");
 
     if(!GetPlayerWeapon(playerid))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs nelaikote ginklo.");
@@ -5198,8 +5199,8 @@ CMD:leavegun(playerid)
 
 CMD:grabgun(playerid)
 {
-	if(Mires[ playerid ] > 0)
-		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite iðmesti ginklo bûdamas komos bûsenoje.");
+    if(Mires[ playerid ] > 0)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite iðmesti ginklo bûdamas komos bûsenoje.");
 
     for(new i = 0; i < MAX_DROPPED_WEAPONS; i++)
     {
@@ -5651,7 +5652,7 @@ CMD:pay( playerid, params[ ] )
     if ( sscanf( params, "ud", giveplayerid, items ) )
     return SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /pay [VEIKËJO ID] [PINIGØ SUMA]");
     if ( playerid == giveplayerid ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudoti komandos sau." );
-	if ( pInfo[ playerid ][ pLevel ] < 2 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðia komanda neturëdami antro lygio." );	
+    if ( pInfo[ playerid ][ pLevel ] < 2 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðia komanda neturëdami antro lygio." );   
     if ( !IsPlayerConnected( giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodyto ID nëra prisijungæs serveryje.");
     if ( !PlayerToPlayer   ( 5.0, playerid, giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, komanda galite naudoti jei þaidëjas yra ðalia Jûsø.");
     if ( items < 1 || items > 999999 ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, perduodama suma negali bøti maþesnë nei 1$ ar didesnë nei 999999$" );
@@ -5705,18 +5706,18 @@ CMD:buymats( playerid, params[ ] )
     GivePlayerMoney( playerid, - mat * 2 );
     Mats -= mat;
     format          ( string, 70, " Nusipirkai %d paketø, bûk atsargus kad policija nepagautu. ", mat );
-	SendClientMessage( playerid, COLOR_WHITE, string );
+    SendClientMessage( playerid, COLOR_WHITE, string );
     SaveAccount( playerid );
     return 1;
 }
 CMD:weaponlist( playerid, params[ ] )
 {
     #pragma unused params
-	SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /make [2][GINKLO ID]");
-	SendClientMessage( playerid ,GRAD, "GINKLAI: ID:23 (9mm su duslintuvu, 150 kulkø) | ID:24 (Desert Eagle,200 kulkø)");
-	SendClientMessage( playerid ,GRAD, "GINKLAI: ID:25 (Shotgun, 400 kulkø) | ID:28 (UZI, 350 kulkø) | ID:29 (MP5, 500kulkø)");
-	SendClientMessage( playerid ,GRAD, "GINKLAI: ID:30 (AK-47, 700 kulkø)");
-	SendClientMessage( playerid ,GRAD, "GINKLAI: ID:32 (Tec9, 400 kulkø) | ID:33 (Rifle 1300 kulkø) | ID:34 (Sniper,1500 kulkø)");
+    SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /make [2][GINKLO ID]");
+    SendClientMessage( playerid ,GRAD, "GINKLAI: ID:23 (9mm su duslintuvu, 150 kulkø) | ID:24 (Desert Eagle,200 kulkø)");
+    SendClientMessage( playerid ,GRAD, "GINKLAI: ID:25 (Shotgun, 400 kulkø) | ID:28 (UZI, 350 kulkø) | ID:29 (MP5, 500kulkø)");
+    SendClientMessage( playerid ,GRAD, "GINKLAI: ID:30 (AK-47, 700 kulkø)");
+    SendClientMessage( playerid ,GRAD, "GINKLAI: ID:32 (Tec9, 400 kulkø) | ID:33 (Rifle 1300 kulkø) | ID:34 (Sniper,1500 kulkø)");
     return 1;
 }
 CMD:fdgear( playerid, params[ ] )
@@ -6321,7 +6322,7 @@ CMD:f( playerid, params[ ] )
     if( PlayerFaction( playerid ) == 1 )
     {
         if ( GetPVarInt( playerid, "PDTYPE" ) == 1 ) pdtype = "(SWAT: Marksman)";
-		if ( GetPVarInt( playerid, "PDTYPE" ) == 2 ) pdtype = "(SWAT: Elite)";
+        if ( GetPVarInt( playerid, "PDTYPE" ) == 2 ) pdtype = "(SWAT: Elite)";
         else if ( GetPVarInt( playerid, "PDTYPE" ) == 3 ) pdtype = "(SWAT: Enforcer)";
     }
     format         ( string, 256, "((%s (%s%s): %s ))" ,GetPlayerRangName( playerid ), GetName( playerid ), pdtype, string );
@@ -6438,8 +6439,8 @@ CMD:b( playerid, params[ ] )
 {
     new string[ 256 ];
     if ( sscanf( params, "s[256]", string ) ) 
-		return SendClientMessage( playerid , COLOR_LIGHTRED, "OOC kanalo naudojimas: /b [TEKSTAS]" ); 
-	//SendClientMessage( playerid , COLOR_LIGHTRED, "Nenaudokite ðio kanalo be reikalo, kadangi tai gali priðaukti nuobaudà." );
+        return SendClientMessage( playerid , COLOR_LIGHTRED, "OOC kanalo naudojimas: /b [TEKSTAS]" ); 
+    //SendClientMessage( playerid , COLOR_LIGHTRED, "Nenaudokite ðio kanalo be reikalo, kadangi tai gali priðaukti nuobaudà." );
     if ( Mute[playerid] == true ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jums yra uþdrausta kalbëtis (/mute), norëdami paðalinti draudimà susisiekite su Administratoriumi.");
 
     if(AdminDuty[playerid] == true)
@@ -6451,8 +6452,8 @@ CMD:b( playerid, params[ ] )
     //else if ( pInfo[ playerid ][ pAdmin] >= 0 )
     else if(AdminDuty[playerid] == false)
     {
-		format      ( string, 256, "(([ID: %d] %s: %s ))", playerid, GetName( playerid ), string );
-		ProxDetector( 10.0, playerid, string, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5 );
+        format      ( string, 256, "(([ID: %d] %s: %s ))", playerid, GetName( playerid ), string );
+        ProxDetector( 10.0, playerid, string, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5 );
     }
     return 1;
 }
@@ -6468,47 +6469,47 @@ CMD:g( playerid, params[ ] )
 }
 CMD:setswat( playerid, params[ ] )
 {
-	new giveplayerid,
-		type;
-	if ( sscanf( params, "ud", giveplayerid, type ) )
-		return SendClientMessage( playerid ,COLOR_LIGHTRED, "KOMANDOS NAUDOJIMAS: /setswat [VEIKËJO ID][1-3]"), SendClientMessage( playerid ,COLOR_LIGHTRED, "BÛRIAI: 1 - Marksman | 2 - Elite | 3 - Enforcer");
-	if( UsePDCMD(playerid) != 1)
-		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente.");
+    new giveplayerid,
+        type;
+    if ( sscanf( params, "ud", giveplayerid, type ) )
+        return SendClientMessage( playerid ,COLOR_LIGHTRED, "KOMANDOS NAUDOJIMAS: /setswat [VEIKËJO ID][1-3]"), SendClientMessage( playerid ,COLOR_LIGHTRED, "BÛRIAI: 1 - Marksman | 2 - Elite | 3 - Enforcer");
+    if( UsePDCMD(playerid) != 1)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente.");
     if ( pInfo[playerid][pRank] < 10 )
-		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðià komandà gali naudoti tik aukðto rango pareigûnai.");
-	if ( !PlayerToPlayer( 10.0, playerid, giveplayerid ) )
-		return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjas nëra ðalia Jûsø.");
- 	if( !PDJOBPlace(playerid)) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, norëdami atlikti ðá veiksmà, privalote bûti policijos departamente");
-	{
-		if ( type == 1 )
-		{
-			SetPlayerSkin   ( giveplayerid, 285 );
-			SetPlayerArmour(playerid, 150.0);
-			GivePlayerJobWeapon(giveplayerid, 34, 20 );
-			GivePlayerJobWeapon(giveplayerid, 29, 200 );			
-			SetPVarInt      (giveplayerid, "PDTYPE", 1 );
-			return 1;
-		}
-		else if ( type == 2 )
-		{
-			SetPlayerSkin   ( giveplayerid, 285 );		
-			SetPlayerArmour(playerid, 170.0);		
-			GivePlayerJobWeapon( giveplayerid, 31, 200 );
-			GivePlayerJobWeapon( giveplayerid, 24, 150 );
-			SetPVarInt      ( giveplayerid, "PDTYPE", 2 );
-			return 1;
-		}
-		else if ( type == 3 )
-		{
-			SetPlayerSkin   ( giveplayerid, 285 );		
-			SetPlayerArmour(playerid, 200.0);			
-			GivePlayerJobWeapon( giveplayerid, 25, 40 );
-			GivePlayerJobWeapon( giveplayerid, 29, 200 );
-			SetPVarInt      ( giveplayerid, "PDTYPE", 3 );
-			return 1;
-		}		
-	}
-	return 1;
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðià komandà gali naudoti tik aukðto rango pareigûnai.");
+    if ( !PlayerToPlayer( 10.0, playerid, giveplayerid ) )
+        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjas nëra ðalia Jûsø.");
+    if( !PDJOBPlace(playerid)) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, norëdami atlikti ðá veiksmà, privalote bûti policijos departamente");
+    {
+        if ( type == 1 )
+        {
+            SetPlayerSkin   ( giveplayerid, 285 );
+            SetPlayerArmour(playerid, 150.0);
+            GivePlayerJobWeapon(giveplayerid, 34, 20 );
+            GivePlayerJobWeapon(giveplayerid, 29, 200 );            
+            SetPVarInt      (giveplayerid, "PDTYPE", 1 );
+            return 1;
+        }
+        else if ( type == 2 )
+        {
+            SetPlayerSkin   ( giveplayerid, 285 );      
+            SetPlayerArmour(playerid, 170.0);       
+            GivePlayerJobWeapon( giveplayerid, 31, 200 );
+            GivePlayerJobWeapon( giveplayerid, 24, 150 );
+            SetPVarInt      ( giveplayerid, "PDTYPE", 2 );
+            return 1;
+        }
+        else if ( type == 3 )
+        {
+            SetPlayerSkin   ( giveplayerid, 285 );      
+            SetPlayerArmour(playerid, 200.0);           
+            GivePlayerJobWeapon( giveplayerid, 25, 40 );
+            GivePlayerJobWeapon( giveplayerid, 29, 200 );
+            SetPVarInt      ( giveplayerid, "PDTYPE", 3 );
+            return 1;
+        }       
+    }
+    return 1;
 }
 CMD:setfd( playerid, params[ ] )
 {
@@ -6769,7 +6770,7 @@ CMD:report( playerid, params[] )
     SendAdminMessage(COLOR_YELLOW, string);
     SendAdminMessage(COLOR_YELLOW, "** KOMANDOS: /are [VEIKËJO ID] patvirtint/priimti praneðimà |  /dre [VEIKËJO ID] [KODËL ATMETËT PRANEÐIMÀ] - atmesti"); 
 
-	SendChatMessage(playerid, COLOR_GREEN, "Sveikiname, Jûsø praneðimas buvo sëkmingai iðsiøstas visiems budintiems Administratoriams. Administratorius susisieks su Jumis dël tolimesniø veiksmø..");
+    SendChatMessage(playerid, COLOR_GREEN, "Sveikiname, Jûsø praneðimas buvo sëkmingai iðsiøstas visiems budintiems Administratoriams. Administratorius susisieks su Jumis dël tolimesniø veiksmø..");
 
     SetPVarInt( playerid, "REPORTED", 1 );
     SetTimerEx( "REPORT_T", 60000, false, "d", playerid );
@@ -6937,14 +6938,14 @@ CMD:towup( playerid, params[ ] )
 
 CMD:fdclothes( playerid, params[ ] )
 {
-	#pragma unused params
-	if ( PlayerFaction( playerid ) != 2 )
-	    return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami ugniagesiø departamente.");
+    #pragma unused params
+    if ( PlayerFaction( playerid ) != 2 )
+        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami ugniagesiø departamente.");
 
-	if(!Data_IsPlayerInRangeOfCoords(playerid, 70.0, "job_firefighter_clothes"))
-		return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite persirengti nebûdamas persirengimo kabinoje/kambaryje.");
+    if(!Data_IsPlayerInRangeOfCoords(playerid, 70.0, "job_firefighter_clothes"))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite persirengti nebûdamas persirengimo kabinoje/kambaryje.");
 
-	ShowModelSelectionMenu ( playerid, skinlist, "Select Skin" ) ;
+    ShowModelSelectionMenu ( playerid, skinlist, "Select Skin" ) ;
     return 1;
 }
 CMD:pdclothes( playerid, params[ ] )
@@ -7226,7 +7227,7 @@ CMD:takelesson( playerid, params[ ] )
     new vehid = GetPlayerVehicleID( playerid );
     if ( !isLicCar( vehid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: norëdami pradëti turite sëdëti mokymo automobilyje ");
     new model = GetVehicleModel( vehid );
-	if(!IsItemInPlayerInventory(playerid, ITEM_TEORIJA))
+    if(!IsItemInPlayerInventory(playerid, ITEM_TEORIJA))
         return SendClientMessage( playerid, COLOR_LIGHTRED2, "** Norëdami pradëti egzaminà privalote turëti iðlaikytos teorijos paþymà." );
  
     if ( GetPVarInt( playerid, "LIC_TYME" ) > 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs jau mokotës vaziuoti. " );
@@ -7235,8 +7236,8 @@ CMD:takelesson( playerid, params[ ] )
         case 487:
         {
             if ( pInfo[ playerid ][ pLicHeli ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite laikytis licenzijos jei jau jà esate iðsilaikæs.");
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Piloting License Center "),		
-			SendClientMessage( playerid, COLOR_WHITE," ** Skraidymo egzaminas prasideda, dabar skriskite á nustatytas vietas. Skriskite atsargiai ir atsakingai. ");
+            SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Piloting License Center "),     
+            SendClientMessage( playerid, COLOR_WHITE," ** Skraidymo egzaminas prasideda, dabar skriskite á nustatytas vietas. Skriskite atsargiai ir atsakingai. ");
             SetPVarInt       ( playerid, "LIC_CP",   1 );
             SetPVarInt       ( playerid, "LIC_TYPE", 3 );
             SetPVarInt       ( playerid, "LIC_TIME", 6000 );
@@ -7247,8 +7248,8 @@ CMD:takelesson( playerid, params[ ] )
         case 426:
         {
             if ( pInfo[ playerid ][ pLicCar ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs jau turite iðsilaikàs ðiá  licenzijá . ");
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),		
-			SendClientMessage( playerid, COLOR_WHITE," ** Dabar vaþiuokite á þemëlapyje nurodytas vietas nevirðydami greièio ir nepaþeisdami tr. priemonës. ");
+            SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),       
+            SendClientMessage( playerid, COLOR_WHITE," ** Dabar vaþiuokite á þemëlapyje nurodytas vietas nevirðydami greièio ir nepaþeisdami tr. priemonës. ");
             SetPVarInt       ( playerid, "LIC_CP",   1 );
             SetPVarInt       ( playerid, "LIC_TYPE", 1 );
             SetPVarInt       ( playerid, "LIC_TIME", 6000 );
@@ -7259,8 +7260,8 @@ CMD:takelesson( playerid, params[ ] )
         case 586:
         {
             if ( pInfo[ playerid ][ pLicMoto ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs jau turite iðsilaikàs ðiá  licenzijá . ");
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),		
-			SendClientMessage( playerid, COLOR_WHITE," ** Dabar vaþiuokite á þemëlapyje nurodytas vietas nevirðydami greièio ir nepaþeisdami tr. priemonës. ");
+            SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),       
+            SendClientMessage( playerid, COLOR_WHITE," ** Dabar vaþiuokite á þemëlapyje nurodytas vietas nevirðydami greièio ir nepaþeisdami tr. priemonës. ");
             SetPVarInt       ( playerid, "LIC_CP",   1 );
             SetPVarInt       ( playerid, "LIC_TYPE", 2 );
             SetPVarInt       ( playerid, "LIC_TIME", 6000 );
@@ -7271,8 +7272,8 @@ CMD:takelesson( playerid, params[ ] )
         case 473:
         {
             if ( pInfo[ playerid ][ pLicBoat ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs jau turite iðsilaikàs ðiá  licenzijá . ");
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos License Center "),		
-			SendClientMessage( playerid, COLOR_WHITE," ** Dabar plaukite á navigacijoje paþymëtas vietas. ");
+            SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos License Center "),      
+            SendClientMessage( playerid, COLOR_WHITE," ** Dabar plaukite á navigacijoje paþymëtas vietas. ");
             SetPVarInt       ( playerid, "LIC_CP",   1 );
             SetPVarInt       ( playerid, "LIC_TYPE", 4 );
             SetPVarInt       ( playerid, "LIC_TIME", 6000 );
@@ -7565,7 +7566,7 @@ CMD:fopen( playerid, params[ ] )
                 MoveObject (vartai[ 6 ][ 0 ], -10.00610, 2053.78491, 2129.00000, 0.97, 0, 0, 180);
                 vartai[ 6 ][ 1 ] = 0;
             }
-        }		
+        }       
     }
     return 1;
 }
@@ -7663,8 +7664,8 @@ CMD:buygun( playerid, params[ ] )
     \n5. Kastuvas \t75$\
     \n6. Bilijardo lazda \t344$\
     \n7. Paprasta lazda rankai \t43$\
-	\n8. Daþø balionëlis (80) \t110$\
-	\n9. Japoniðkas kalavijas - katana \t720$","Pirkti","Atðaukti");
+    \n8. Daþø balionëlis (80) \t110$\
+    \n9. Japoniðkas kalavijas - katana \t720$","Pirkti","Atðaukti");
     return 1;
 }
 CMD:try( playerid, params[ ] )
@@ -7742,7 +7743,7 @@ CMD:startmission(playerid,params[])
 
     if(isnull(params))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /startmission [RAJONO PAVADINIMAS]"),
-		SendClientMessage(playerid, COLOR_LIGHTRED, "RAJONAI: Rodeo Market Mulholand Jefferson Idlewood Colinas Beach East");
+        SendClientMessage(playerid, COLOR_LIGHTRED, "RAJONAI: Rodeo Market Mulholand Jefferson Idlewood Colinas Beach East");
 
     new missionId = TRASH_MISSION_NONE;
     if(!strcmp(params,"Rodeo",true))
@@ -7754,11 +7755,11 @@ CMD:startmission(playerid,params[])
     else if(!strcmp(params,"Jefferson", true))
         missionId = TRASH_MISSION_JEFFERSON;
     else if(!strcmp(params,"Idlewood", true))
-        missionId = TRASH_MISSION_IDLEWOOD;		
+        missionId = TRASH_MISSION_IDLEWOOD;     
 
     if(missionId == TRASH_MISSION_NONE)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /startmission [RAJONO PAVADINIMAS]"),
-		SendClientMessage(playerid, COLOR_LIGHTRED, "RAJONAI: Rodeo Market Mulholand Jefferson Idlewood");
+        SendClientMessage(playerid, COLOR_LIGHTRED, "RAJONAI: Rodeo Market Mulholand Jefferson Idlewood");
 
     TrashMission[ playerid ] = missionId;
     CurrentTrashCp[ playerid ] = 1;
@@ -7767,10 +7768,10 @@ CMD:startmission(playerid,params[])
     StartingEngine[playerid] = true;
     //SetPlayerCheckPointEx(playerid, CHECKPOINT_TRASH, TrashCp[ missionId ][ 0 ][ PosX ], TrashCp[ missionId ][ 0 ][ PosY ], TrashCp[ missionId ][ 0 ][ PosZ ], 5.0);
     ShowPlayerTrashMissionCP(playerid, TrashMission[ playerid ], 1);
-	SendClientMessage(playerid, COLOR_NEWS, "Ðiûðkleveþio misija sëkmingai pradëta."),	
+    SendClientMessage(playerid, COLOR_NEWS, "Ðiûðkleveþio misija sëkmingai pradëta."),  
     SendClientMessage(playerid, COLOR_LIGHTRED2, "MISIJA: Vaþiuokite surinkti ðiûkðliø á pasirinktà rajonà, kuris nustatytas Jûsø þemëlapyje."),
- 	SendClientMessage(playerid, COLOR_NEWS, "KOMANDOS: /takegarbage - paiimti ðiûðkðlëms. /throwgarbage - iðmesti ðiûkðlëms á sunkeþimá.");	   
-	cmd_ame(playerid, "pasuka automobilio raktelá ir bando uþvesti variklá.");
+    SendClientMessage(playerid, COLOR_NEWS, "KOMANDOS: /takegarbage - paiimti ðiûðkðlëms. /throwgarbage - iðmesti ðiûkðlëms á sunkeþimá.");    
+    cmd_ame(playerid, "pasuka automobilio raktelá ir bando uþvesti variklá.");
     return 1;
 }
 
@@ -8041,7 +8042,7 @@ CMD:cargo(playerid, params[])
         SendClientMessage(playerid, COLOR_LIGHTRED, "__________________________Kroviniø valdymas ir komandos__________________________");
         SendClientMessage(playerid,COLOR_LIGHTRED2, "  TEISINGAS KOMANDOS NAUDOJIMAS: /cargo [KOMANDA], pavyzdþiui: /cargo list");
         SendClientMessage(playerid,GRAD,"  PAGRINDINËS KOMANDOS: list, place, fork, unfork, putdown, pickup, buy, sell");
-        SendClientMessage(playerid,GRAD,"  KITOS KOMANDOS: /trailer - priekabø valdymas");		
+        SendClientMessage(playerid,GRAD,"  KITOS KOMANDOS: /trailer - priekabø valdymas");      
         return 1;
     }
     // Sàraðas turimo krovinio
@@ -8402,12 +8403,12 @@ stock GetIndustryCount()
 }
 stock GetIndustryCargoIndex(index,cargoid)
 {
-	foreach(CommodityIterator, i)
-		if(Commodities[ i ][ IndustryId ] == Industries[ index ][ Id ]
-		&& Commodities[ i ][ CargoId] == cargoid
-		&& !Commodities[ i ][ IsBusinessCommodity ])
-			return i;
-	return -1;
+    foreach(CommodityIterator, i)
+        if(Commodities[ i ][ IndustryId ] == Industries[ index ][ Id ]
+        && Commodities[ i ][ CargoId] == cargoid
+        && !Commodities[ i ][ IsBusinessCommodity ])
+            return i;
+    return -1;
 }
 
 CMD:trailer(playerid, params[])
@@ -9503,7 +9504,7 @@ CMD:gov( playerid, params[ ] )
     if ( sscanf( params, "s[256]", string ) )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /gov [TEKSTAS] " );
     SendChatMessageToAll( COLOR_LIGHTRED2, "|___________ LOS SANTOS___________ |"),
-    SendChatMessageToAll( COLOR_LIGHTRED2, "|_________ MIESTO VALDÞIA__________|");	
+    SendChatMessageToAll( COLOR_LIGHTRED2, "|_________ MIESTO VALDÞIA__________|"); 
     format( string, 256, "|PRANEÐIMAS| %s ", string );
     SendChatMessageToAll( COLOR_WHITE, string );
     format( string, 256, "|PRANEÐËJAS| %s ", GetName(playerid) );
@@ -9765,7 +9766,7 @@ CMD:modhelp( playerid, params[ ] )
     {
         SendClientMessage( playerid, COLOR_MODERATOR, "|____________________MODERATORIAUS SKYRIUS____________________|" );
         SendClientMessage( playerid, COLOR_FADE1, " /togq /mc /dcpq /acpq /mduty /mkick " );
-        SendClientMessage( playerid, COLOR_MODERATOR, "|________________________________________________________________|" );		
+        SendClientMessage( playerid, COLOR_MODERATOR, "|________________________________________________________________|" );       
         return 1;
     }
     return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðia komanda nebûdami moderatoriumi/Administratoriumi" );
@@ -10209,8 +10210,8 @@ public OnPlayerCommandPerformed(playerid, cmdtext[ ], success)
 
     if ( !success )
     {
-    	SendClientMessage( playerid, COLOR_LIGHTRED, "Neþinoma komanda: Jûsø paraðyta komanda neegzistuoja. Pabandykite dar kartà arba naudokitës /askq komanda. " );
-    	return 0;
+        SendClientMessage( playerid, COLOR_LIGHTRED, "Neþinoma komanda: Jûsø paraðyta komanda neegzistuoja. Pabandykite dar kartà arba naudokitës /askq komanda. " );
+        return 0;
     }
 
     if ( AfkCheck[ playerid ] != 0 )
@@ -10342,11 +10343,11 @@ CMD:v( playerid, params[ ] )
     {
         SendClientMessage(playerid, COLOR_GREEN, "|______________________Tr. Priemoniu komandos ir naudojimas__________________________|");
         SendClientMessage(playerid,COLOR_LIGHTRED2, "  KOMANDOS NAUDOJIMAS: /v [KOMANDA], pavyzdþiui: /v list");
-        SendClientMessage(playerid,COLOR_WHITE,"  PAGRINDINËS KOMANDOS: list, get, park, buypark, lock, find, documents ");		
-        SendClientMessage(playerid,COLOR_FADE1,"  TR. PRIEMONËS SKOLINIMAS: dubkey takedubkey removedubs getdub ");		
-        SendClientMessage(playerid,COLOR_WHITE,"  TOBULINIMAS/TVARKYMAS: register buy alarm buylock buyinsurance buymod");		
-        SendClientMessage(playerid,COLOR_FADE1,"  VALDYMAS: /trunk /trunko /bonnet /windows /setbelt /maxspeed /vradio ");				
-        SendClientMessage(playerid,COLOR_WHITE,"  KITA: destroy scrap payticket faction buy ");			
+        SendClientMessage(playerid,COLOR_WHITE,"  PAGRINDINËS KOMANDOS: list, get, park, buypark, lock, find, documents ");     
+        SendClientMessage(playerid,COLOR_FADE1,"  TR. PRIEMONËS SKOLINIMAS: dubkey takedubkey removedubs getdub ");     
+        SendClientMessage(playerid,COLOR_WHITE,"  TOBULINIMAS/TVARKYMAS: register buy alarm buylock buyinsurance buymod");      
+        SendClientMessage(playerid,COLOR_FADE1,"  VALDYMAS: /trunk /trunko /bonnet /windows /setbelt /maxspeed /vradio ");              
+        SendClientMessage(playerid,COLOR_WHITE,"  KITA: destroy scrap payticket faction buy ");         
         SendClientMessage(playerid, COLOR_GREEN, "|__________________________________________________________________________________|");
         return 1;
     }
@@ -11164,7 +11165,7 @@ CMD:v( playerid, params[ ] )
             GivePlayerMoney(playerid,-2100);
             cInfo[idcar][cAlarm] = 3;
             SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 3 lygio signalizacija buvo sëkmingai ádiegta á Jûsø tr. priemonæ.");
-		    SaveCar(idcar);
+            SaveCar(idcar);
             return 1;
         }
         else if(giveplayerid == 4)
@@ -11284,15 +11285,15 @@ stock LoadVehicleCargo(sqlid, vehicleid, bool:isStatic = false)
     for(new i = 0; i < MAX_TRUCKER_CARGO_OBJECTS; i++)
         cInfo[ vehicleid ][ objectai ][ i ] = -1;
     format(query,sizeof(query),"SELECT cargo_id, amount FROM vehicle_cargo WHERE vehicle_id = %d AND is_static = %d",
-		sqlid, isStatic);
+        sqlid, isStatic);
     result = mysql_query(DbHandle, query);
     for(new i = 0; i < cache_get_row_count(); i++)
     {
         cargoid = cache_get_field_content_int(i, "cargo_id");
         amount = cache_get_field_content_int(i, "amount");
-		for(new j = 0; j < amount; j++)
-			AddCargoToVehicle(vehicleid, cargoid,true);
-	}
+        for(new j = 0; j < amount; j++)
+            AddCargoToVehicle(vehicleid, cargoid,true);
+    }
     cache_delete(result);
 }
 
@@ -11801,9 +11802,9 @@ CMD:stop( playerid, params[ ] )
         if(IsValidVehicle(GetTrailerPullingVehicle(vehicleid)))
             IsVehicleLoaded[ GetTrailerPullingVehicle(vehicleid) ] = false;
         KillTimer(VehicleLoadTimer[ playerid ]);
-		PlayerTextDrawHide(playerid, InfoText[playerid]);
+        PlayerTextDrawHide(playerid, InfoText[playerid]);
         VehicleLoadTimer[ playerid ] = -1;
-		VehicleLoadTime[ playerid ] = 0;
+        VehicleLoadTime[ playerid ] = 0;
         return 1;
     }
     if ( LaikoTipas[ playerid ] == 0 ) return 1;
@@ -12195,8 +12196,8 @@ CMD:flag( playerid, params[ ] )
 }
 CMD:cell( playerid, params[ ] )
 {
-	if(Freezed[ playerid ])
-		return 1;
+    if(Freezed[ playerid ])
+        return 1;
     if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 1;
     ClearAnimations(playerid);
     SetPlayerSpecialAction(playerid,SPECIAL_ACTION_USECELLPHONE);
@@ -12205,9 +12206,9 @@ CMD:cell( playerid, params[ ] )
 }
 CMD:handsup(playerid)
 {
-	if(Freezed[ playerid ])
-		return 1;
-		
+    if(Freezed[ playerid ])
+        return 1;
+        
     if(GetPlayerState( playerid ) == PLAYER_STATE_ONFOOT )
         SetPlayerSpecialAction(playerid, SPECIAL_ACTION_HANDSUP);
     else
@@ -14856,7 +14857,7 @@ CMD:fon( playerid, params[ ] )
     {
         new id;
         if ( sscanf( params, "d", id ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /fon [FRAKCIJOS ID] "),
-		SendClientMessage( playerid, COLOR_LIGHTRED, "FRAKCIJOS ID: 1 - policijos departamentas, 2 - medicinos departamentas");
+        SendClientMessage( playerid, COLOR_LIGHTRED, "FRAKCIJOS ID: 1 - policijos departamentas, 2 - medicinos departamentas");
         if ( id < 1 || id > sizeof fInfo ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: netinkamas frakcijos ID " );
 
         format( string, 126, "Frakcijoje: %s, ðiuo metu yra prisijungusiu þmoniø: %d ",fInfo[ id ][ fName ], IsOnlineFactionMembers( id ) );
@@ -15826,6 +15827,7 @@ CMD:givemoney(playerid,params[])
     }
     return 1;
 }
+/*
 CMD:giveitem(playerid,params[])
 {
     if(pInfo[ playerid ][ pAdmin ] < 4)
@@ -15881,6 +15883,7 @@ CMD:giveitem(playerid,params[])
     }
     return 1;
 }
+*/
 CMD:giveweapon(playerid,params[])
 {
     if ( pInfo[ playerid ][ pAdmin ] >= 4 )
@@ -16136,7 +16139,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
         if ( isLicCar( veh ) )
         {
             SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),
-            SendClientMessage( playerid, COLOR_LIGHTRED2,"** KAINORAÐTIS: Automobilio - 1200$ | Motociklo - 900$ | Laivybos - 300$ |Skraidymo - 5600$"),				
+            SendClientMessage( playerid, COLOR_LIGHTRED2,"** KAINORAÐTIS: Automobilio - 1200$ | Motociklo - 900$ | Laivybos - 300$ |Skraidymo - 5600$"),                
             SendClientMessage( playerid, COLOR_WHITE," ** Norëdami pradëti egzaminà licencijai ágyti raðykite komandà: /takelesson ");
             return 1;
         }
@@ -16304,11 +16307,11 @@ GetVehicleCargoCount(vehicleid,cargoid = -1)
     for(new i = 0; i < sizeof VehicleCargo[]; i++)
     {
         if(VehicleCargo[ vehicleid ][ i ][ Amount ])
-			if(cargoid == -1)
-				count += VehicleCargo[ vehicleid ][ i ][ Amount ];
-			else 
-				if(VehicleCargo[ vehicleid ][ i ][ CargoId ] ==cargoid)
-					return VehicleCargo[ vehicleid ][ i ][ Amount ];
+            if(cargoid == -1)
+                count += VehicleCargo[ vehicleid ][ i ][ Amount ];
+            else 
+                if(VehicleCargo[ vehicleid ][ i ][ CargoId ] ==cargoid)
+                    return VehicleCargo[ vehicleid ][ i ][ Amount ];
     }
     return count;
 }
@@ -16328,14 +16331,14 @@ public OnPlayerEnterCheckpoint(playerid)
             PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
             return 1;
         }
-		
-		case CHECKPOINT_SHIP:
-		{
-			DisablePlayerCheckpoint(playerid);
+        
+        case CHECKPOINT_SHIP:
+        {
+            DisablePlayerCheckpoint(playerid);
             Checkpoint[playerid] = CHECKPOINT_NONE;
             PlayerPlaySound(playerid, 1057, 2774.0313,-2417.8794,13.6462);
             return 1;
-		}
+        }
   
         case CHECKPOINT_TRASH_DROPOFF:
         {
@@ -16390,8 +16393,8 @@ public OnPlayerEnterCheckpoint(playerid)
                             }
                             pInfo[ playerid ][ pLicCar ] = 1;
                             GivePlayerItem(playerid, ITEM_TEORIJA, -1);
-							SendClientMessage(playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),		
-							SendClientMessage(playerid, COLOR_WHITE," ** Jûs sëkmingai iðsilaikëte vairavimo testà ir ágijote licencija vairuoti automobilá. ");
+                            SendClientMessage(playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),        
+                            SendClientMessage(playerid, COLOR_WHITE," ** Jûs sëkmingai iðsilaikëte vairavimo testà ir ágijote licencija vairuoti automobilá. ");
                             GivePlayerMoney( playerid, -1200 ); //Teisiø kainà.
                             PlayerPlaySound( playerid, 1057, 0.0, 0.0, 0.0);
                             SetPVarInt     ( playerid, "LIC_TIME", 0 );
@@ -16439,8 +16442,8 @@ public OnPlayerEnterCheckpoint(playerid)
                             }
                             SetVehicleToRespawn( veh );
                             pInfo[ playerid ][ pLicMoto ] = 1;
-							SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),		
-							SendClientMessage( playerid, COLOR_WHITE," ** Jûs sëkmingai iðsilaikëte motociklo vairavimo testà ir ágijote licencija vairuoti motocikla. ");
+                            SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),       
+                            SendClientMessage( playerid, COLOR_WHITE," ** Jûs sëkmingai iðsilaikëte motociklo vairavimo testà ir ágijote licencija vairuoti motocikla. ");
                             GivePlayerMoney( playerid, -900 );//Motociklo teisiø kainà
                             PlayerPlaySound( playerid, 1057, 0.0, 0.0, 0.0);
                             SetPVarInt     ( playerid, "LIC_TIME", 0 );
@@ -16486,8 +16489,8 @@ public OnPlayerEnterCheckpoint(playerid)
                             }
                             SetVehicleToRespawn( veh );
                             pInfo[ playerid ][ pLicBoat ] = 1;
-							SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos License Center "),		
-							SendClientMessage( playerid, COLOR_WHITE," ** Sëkmingai iðsilaikëte laivybos egzaminà ir ágijote licencija plaukti/valdyti bet koká laivà. ");
+                            SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos License Center "),      
+                            SendClientMessage( playerid, COLOR_WHITE," ** Sëkmingai iðsilaikëte laivybos egzaminà ir ágijote licencija plaukti/valdyti bet koká laivà. ");
                             GivePlayerMoney( playerid, -300 );
                             PlayerPlaySound( playerid, 1057, 0.0, 0.0, 0.0);
                             SetPVarInt     ( playerid, "LIC_TIME", 0 );
@@ -16561,8 +16564,8 @@ public OnPlayerEnterRaceCheckpoint(playerid)
                             }
                             SetVehicleToRespawn( veh );
                             pInfo[ playerid ][ pLicHeli ] = 1;
-							SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Piloting License Center "),		
-							SendClientMessage( playerid, COLOR_WHITE," ** Jûs sëkmingai iðsilaikëte vairavimo testà ir ágijote licencija vairuoti. ");
+                            SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Piloting License Center "),     
+                            SendClientMessage( playerid, COLOR_WHITE," ** Jûs sëkmingai iðsilaikëte vairavimo testà ir ágijote licencija vairuoti. ");
                             GivePlayerMoney            ( playerid, -5600 );
                             PlayerPlaySound            ( playerid, 1057, 0.0, 0.0, 0.0);
                             SetPVarInt                 ( playerid, "LIC_TIME", 0 );
@@ -17108,12 +17111,12 @@ stock IsMeleeWeapon(weaponid)
 stock IsDriveByWeapon(weaponid)
 {
     // Ginklai su kuriais leidþiamas drive-by
-	switch(weaponid)
-	{
-		case 25, 26, 27, 28, 29, 30, 31, 32: return true;
-		default: return false;
-	}
-	return false;
+    switch(weaponid)
+    {
+        case 25, 26, 27, 28, 29, 30, 31, 32: return true;
+        default: return false;
+    }
+    return false;
 }
 
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
@@ -17670,7 +17673,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     SendClientMessage(playerid,COLOR_WHITE," ** Sëkmingai nusipirkote katanà, kuri Jums kainavo 720$");
                     PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
                     return 1;
-                }				
+                }               
             }
         }
     }
@@ -17965,7 +17968,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     ShowPlayerDialog( playerid, 45, DIALOG_STYLE_LIST,"Serverio automobiliai","- Kurti naujà \n\
                                                                                                - Priskirti automobilá frakcijai \n\
                                                                                                - Priskirti automobilá darbui \n\
-																							   - Pakeisti atsiradimo vietà \n\
+                                                                                               - Pakeisti atsiradimo vietà \n\
                                                                                                - (Faction) Keisti reikalaujama rangà \n\
                                                                                                - (Faction) Keisti  automobilio spalvà \n\
                                                                                                - Paðalinti tr. priemonæ \n\
@@ -18395,13 +18398,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         ShowPlayerDialog( playerid, 48, DIALOG_STYLE_INPUT,"Automobilio darbas","áraðykite barbo ID kad automobilis priklausytu jam.","Patvirtinti","Atðaukti" );
                     return 1;
                 }
-				case 3:
-				{
+                case 3:
+                {
                     new car = GetPlayerVehicleID( playerid );
-				    if( IsPlayerInAnyVehicle( playerid ) && cInfo[ car ][ cOwner ] == 0 )
-						ShowPlayerDialog( playerid, 80, DIALOG_STYLE_MSGBOX,"Automobilio spawn","Jeigu jau pastatëte automobilá ten kur reikia, tai patvirtinkite tai.","Patvirtinti","Atðaukti" );
-					return 1;
-				}				
+                    if( IsPlayerInAnyVehicle( playerid ) && cInfo[ car ][ cOwner ] == 0 )
+                        ShowPlayerDialog( playerid, 80, DIALOG_STYLE_MSGBOX,"Automobilio spawn","Jeigu jau pastatëte automobilá ten kur reikia, tai patvirtinkite tai.","Patvirtinti","Atðaukti" );
+                    return 1;
+                }               
                 case 4:
                 {
                     new car = GetPlayerVehicleID( playerid );
@@ -18749,31 +18752,31 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SaveSEnter( id );
         }
     }
-	*/
+    */
     else if ( dialogid == 80 )
-	{
-	    if ( response == 1 )
-	    {
-			new car = GetPlayerVehicleID(playerid);
+    {
+        if ( response == 1 )
+        {
+            new car = GetPlayerVehicleID(playerid);
 
-			GetVehiclePos(car, sVehicles[ car ][ SpawnX  ],
-								sVehicles[ car ][ SpawnY  ],
-								sVehicles[ car ][ SpawnZ  ]);
-			GetVehicleZAngle( car, sVehicles[ car ][ SpawnA  ] );
-			DestroyVehicle(car);
-			CreateVehicle(sVehicles[ car ][ Model ],
-							sVehicles[ car ][ SpawnX ],
-							sVehicles[ car ][ SpawnY ],
-							sVehicles[ car ][ SpawnZ ],
-							sVehicles[ car ][ SpawnA ],
-							sVehicles[ car ][ Color1 ],
-							sVehicles[ car ][ Color2 ], -1);
+            GetVehiclePos(car, sVehicles[ car ][ SpawnX  ],
+                                sVehicles[ car ][ SpawnY  ],
+                                sVehicles[ car ][ SpawnZ  ]);
+            GetVehicleZAngle( car, sVehicles[ car ][ SpawnA  ] );
+            DestroyVehicle(car);
+            CreateVehicle(sVehicles[ car ][ Model ],
+                            sVehicles[ car ][ SpawnX ],
+                            sVehicles[ car ][ SpawnY ],
+                            sVehicles[ car ][ SpawnZ ],
+                            sVehicles[ car ][ SpawnA ],
+                            sVehicles[ car ][ Color1 ],
+                            sVehicles[ car ][ Color2 ], -1);
             format(string, 24, "{000000}TLP - %d", car + 1000);
-		    SetVehicleNumberPlate(car, string);
-			SaveSVehicle(car);
-			return 1;
-		}
-	}
+            SetVehicleNumberPlate(car, string);
+            SaveSVehicle(car);
+            return 1;
+        }
+    }
     /*
     else if ( dialogid == DIALOG_SENTER_INPUT_ID )
     {
@@ -20451,7 +20454,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     cmd_wepstore( playerid, "" );
                 }
             }
-			case 1:
+            case 1:
             {
                 if( pInfo[ playerid ][ pRank ] >= 2 )
                 {
@@ -20461,7 +20464,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     cmd_wepstore( playerid, "" );
                 }
             }
-			case 2:
+            case 2:
             {
                 if( pInfo[ playerid ][ pRank ] >= 2 )
                 {
@@ -20470,8 +20473,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     GivePlayerJobWeapon( playerid, 3, 1 );
                     cmd_wepstore( playerid, "" );
                 }
-            }	
-			case 3:
+            }   
+            case 3:
             {
                 if( pInfo[ playerid ][ pRank ] >= 2 )
                 {
@@ -20480,7 +20483,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     GivePlayerJobWeapon( playerid, 41, 150 );
                     cmd_wepstore( playerid, "" );
                 }
-            }					
+            }                   
         }
     }
     else if ( dialogid == 114 )
@@ -20563,27 +20566,27 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                 }
     }
-	if(dialogid == DIALOG_TPDA_MAIN)
-	{
-		if(!response) 
-			return 1;
-			
-		new str[ 2048 ];	
-		switch(listitem)
-		{
-			case 0:
-			{
-				foreach(IndustryIterator, i)
-					format(str, sizeof(str), "%s{FFFFFF}%s{C0C0C0}(%s, %s)\n", 
+    if(dialogid == DIALOG_TPDA_MAIN)
+    {
+        if(!response) 
+            return 1;
+            
+        new str[ 2048 ];    
+        switch(listitem)
+        {
+            case 0:
+            {
+                foreach(IndustryIterator, i)
+                    format(str, sizeof(str), "%s{FFFFFF}%s{C0C0C0}(%s, %s)\n", 
                         str, 
                         Industries[ i ][ Name ], 
                         GetIndustrySectorName(i),
                         (Industries[ i ][ IsBuyingCargo ]) ? ("Atidaryta") : ("Uþdaryta"));
-				ShowPlayerDialog(playerid,DIALOG_TPDA_INDUSTRY, DIALOG_STYLE_LIST,"TPDA",str,"Tæsti","Atgal");
-			}
-			case 1:
-			{
-				new count = 0, index;
+                ShowPlayerDialog(playerid,DIALOG_TPDA_INDUSTRY, DIALOG_STYLE_LIST,"TPDA",str,"Tæsti","Atgal");
+            }
+            case 1:
+            {
+                new count = 0, index;
                 foreach(CommodityIterator, i)
                 {
                     if(!Commodities[ i ][ IsBusinessCommodity ])
@@ -20599,15 +20602,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                 }
 
-				if(!count)
-					ShowPlayerDialog(playerid, 9999, DIALOG_STYLE_MSGBOX, "TPDA", "Ðiuo metu nëra verlslø perkanèiø prekes!", "Gerai", "");
-				else 
-					ShowPlayerDialog(playerid, DIALOG_TPDA_BUSINESS, DIALOG_STYLE_LIST, "TPDA", str, "Tæsti", "Atgal");
-			}
-			case 2:
-			{
-				if(ShipInfo[ Status ] == Docked)
-				{
+                if(!count)
+                    ShowPlayerDialog(playerid, 9999, DIALOG_STYLE_MSGBOX, "TPDA", "Ðiuo metu nëra verlslø perkanèiø prekes!", "Gerai", "");
+                else 
+                    ShowPlayerDialog(playerid, DIALOG_TPDA_BUSINESS, DIALOG_STYLE_LIST, "TPDA", str, "Tæsti", "Atgal");
+            }
+            case 2:
+            {
+                if(ShipInfo[ Status ] == Docked)
+                {
                     new secs;
                     // Jei dar nebuvo iðplaukæs..
                     if(!ShipInfo[ LastArrivalTimestamp ])
@@ -20620,7 +20623,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     strcat(str, "Laivas plaukia atgal á uostà....");
                 }
-				else
+                else
                 {
                     new secs =  (CARGOSHIP_MOVING_INTERVAL / 1000) - (gettime() - ShipInfo[ LastDepartureTimestamp ]);
                     // Ðitas kodas taps neámanomas kai timeriai bus tikslûs.
@@ -20651,24 +20654,24 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         TruckerCargo[ i ][ Name ], price);
                     
                 }
-				ShowPlayerDialog(playerid, DIALOG_SHIP_INFO, DIALOG_STYLE_MSGBOX, "Laivo informacija", str, "Naviguoti", "Iðeiti");
-			}
-		}
-		return 1;
-	}
-	if( dialogid == DIALOG_SHIP_INFO)
-	{
-		if(!response)
-			return 1;
-		
-		SetPlayerCheckPointEx(playerid, CHECKPOINT_SHIP, SHIP_POS_X, SHIP_POS_Y, SHIP_POS_Z, 5.0);
-		return 1;
-	}
+                ShowPlayerDialog(playerid, DIALOG_SHIP_INFO, DIALOG_STYLE_MSGBOX, "Laivo informacija", str, "Naviguoti", "Iðeiti");
+            }
+        }
+        return 1;
+    }
+    if( dialogid == DIALOG_SHIP_INFO)
+    {
+        if(!response)
+            return 1;
+        
+        SetPlayerCheckPointEx(playerid, CHECKPOINT_SHIP, SHIP_POS_X, SHIP_POS_Y, SHIP_POS_Z, 5.0);
+        return 1;
+    }
     if (dialogid == DIALOG_TPDA_INDUSTRY)
     {
         if(!response)
             return 1;
-			
+            
         new str[2048];
 
         format(str, sizeof(str), "{FFFFFF}Sveiki atvyke á {00FF66}%s!\n", Industries[ listitem ][ Name ]);
@@ -20763,9 +20766,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     {
         if(!response)
             return OnDialogResponse(playerid, DIALOG_TPDA_MAIN, 1, 0, "Perþiûrëti visas industrijas");
-			
-		if ( Checkpoint[ playerid ] != CHECKPOINT_NONE ) 
-			return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: KLAIDA!" );
+            
+        if ( Checkpoint[ playerid ] != CHECKPOINT_NONE ) 
+            return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: KLAIDA!" );
 
         if(GetPVarInt(playerid, "Business") == -1)
         {
@@ -20805,11 +20808,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         // Jei þaidëjas forklifte, parkaunam ant jo.
         if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 530)
         {
-			if(!IsCargoCompatibleWithVehicle(cargoid, GetVehicleModel(GetPlayerVehicleID(playerid))))
-				return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðio krovinio negalite pasiimti.");
-			if(!HasVehicleSpaceForCargo(GetPlayerVehicleID(playerid), cargoid))
-				return 1;
-				
+            if(!IsCargoCompatibleWithVehicle(cargoid, GetVehicleModel(GetPlayerVehicleID(playerid))))
+                return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðio krovinio negalite pasiimti.");
+            if(!HasVehicleSpaceForCargo(GetPlayerVehicleID(playerid), cargoid))
+                return 1;
+                
             RemoveCargoFromVehicle(vehicleid, cargoid);
             AddCargoToVehicle(GetPlayerVehicleID(playerid), cargoid);
             return 1;
@@ -20893,8 +20896,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(IsTrailerAttachedToVehicle(vehicleid))
                 vehicleid = GetVehicleTrailer(vehicleid);
 
-			if(!CanPlayerUseTruckerVehicle(playerid,GetVehicleModel(vehicleid)))
-				return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs neturite pakankamai kroviniø perveþimo darbuotojo patirties, kad galëtumëte dirbti su ðia tr. priemone.");
+            if(!CanPlayerUseTruckerVehicle(playerid,GetVehicleModel(vehicleid)))
+                return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs neturite pakankamai kroviniø perveþimo darbuotojo patirties, kad galëtumëte dirbti su ðia tr. priemone.");
             if(cInfo[ vehicleid ][ cLock ])
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo, kadangi sunkveþimis uþrakintas");
             if(IsVehicleLoaded[ vehicleid ])
@@ -20906,10 +20909,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             IsVehicleLoaded[ vehicleid ] = true;   
             VehicleLoadTimer[ playerid ] = SetTimerEx("OnPlayerLoadCommodity",1000,true, "iii",playerid, commodityIndex, vehicleid);
-			VehicleLoadTime[ playerid ] = 60;
+            VehicleLoadTime[ playerid ] = 60;
             SetPVarInt(playerid, "vehicleid", vehicleid);
-			PlayerTextDrawShow     ( playerid, InfoText[ playerid ] );
-			PlayerTextDrawSetString( playerid, InfoText[ playerid ], "Krovinys bus pakrautas uz 60 sekundziu");
+            PlayerTextDrawShow     ( playerid, InfoText[ playerid ] );
+            PlayerTextDrawSetString( playerid, InfoText[ playerid ], "Krovinys bus pakrautas uz 60 sekundziu");
 
             new pullingVeh = GetTrailerPullingVehicle(vehicleid);
             if(IsValidVehicle(pullingVeh))
@@ -20924,7 +20927,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
             SendClientMessage(playerid, COLOR_NEWS, "Dëmesio, Jûsø pasirinktas krovinys/prekë bus pakrauta á Jûsø tr. priemonæ per 60 sekundþiø. Praðome palaukti.");
         }
-		RemoveCargoFromIndustry(index, Commodities[ commodityIndex ][ CargoId ]);
+        RemoveCargoFromIndustry(index, Commodities[ commodityIndex ][ CargoId ]);
         UpdateIndustryInfo(index);
         format(string,sizeof(string),"Sëkmingai nusipirkotæ prekæ/kroviná pavadinimu: %s, uþ kurià sumokëjote %d$", 
             GetCargoName(Commodities[ commodityIndex ][ CargoId ]), Commodities[ commodityIndex ][ Price ]);
@@ -20932,69 +20935,69 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         GivePlayerMoney(playerid, -Commodities[ commodityIndex ][ Price ]);
         return 1;
     }
-	else if(dialogid == DIALOG_COMMODITY_SELL)
-	{
-		if(!response) return 1;
-		
-		new bool:sellToBusines = false,
-			bool:sellToIndustry = false,
-			bool:sellToShip = false,
-			tmp[32],
-			cargoid,
-			boughtamount,
-			index = GetPVarInt(playerid, "IndustryIndex"),
-			price,
-			vehicleid = GetPVarInt(playerid, "vehicleid");
-			
-		// Iðsiaiðkinam kam parduodam.
-		if(GetPVarInt(playerid,"CommoditySellTo") == 1)
-			sellToBusines = true;
-		else if(GetPVarInt(playerid, "CommoditySellTo") == 2)
-			sellToIndustry = true;
-		else 
-			sellToShip = true;
-			
-		// Susirandam cargo ID prekës pasirinktos.
-		strmid(tmp, inputtext,0, strfind(inputtext,"\t"));
-		cargoid = strval(tmp);
+    else if(dialogid == DIALOG_COMMODITY_SELL)
+    {
+        if(!response) return 1;
+        
+        new bool:sellToBusines = false,
+            bool:sellToIndustry = false,
+            bool:sellToShip = false,
+            tmp[32],
+            cargoid,
+            boughtamount,
+            index = GetPVarInt(playerid, "IndustryIndex"),
+            price,
+            vehicleid = GetPVarInt(playerid, "vehicleid");
+            
+        // Iðsiaiðkinam kam parduodam.
+        if(GetPVarInt(playerid,"CommoditySellTo") == 1)
+            sellToBusines = true;
+        else if(GetPVarInt(playerid, "CommoditySellTo") == 2)
+            sellToIndustry = true;
+        else 
+            sellToShip = true;
+            
+        // Susirandam cargo ID prekës pasirinktos.
+        strmid(tmp, inputtext,0, strfind(inputtext,"\t"));
+        cargoid = strval(tmp);
 
         // Ar niekas kitas neiðëmë krovinio.
         if(!IsCargoInVehicle(vehicleid, cargoid))
             return SendClientMessage(playerid, GRAD, "Klaida, ðio krovinio nebëra.");
-		
-		// O dabar jau pradedam pardavima...
-		
-		// Susiþinom KIEK gali nupirkti industrija/verslas
-		if(sellToIndustry)
-		{	
+        
+        // O dabar jau pradedam pardavima...
+        
+        // Susiþinom KIEK gali nupirkti industrija/verslas
+        if(sellToIndustry)
+        {   
             if(!Industries[ index ][ IsBuyingCargo ])
                 return SendClientMessage(playerid, GRAD, "Klaida, dël produktø pertekliaus ði industrija nedirba.");
             if(!HasIndustryRoomForCargo(index, cargoid))
                     return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, industrija ðiai prekei nebeturi vietos.");
-			boughtamount = GetCargoLimit(cargoid) - GetIndustryCargoStock(index,cargoid); // Kiek GALI pirk industrija
+            boughtamount = GetCargoLimit(cargoid) - GetIndustryCargoStock(index,cargoid); // Kiek GALI pirk industrija
 
-			if(boughtamount > GetVehicleCargoCount(vehicleid, cargoid))
-				boughtamount = GetVehicleCargoCount(vehicleid,cargoid);
-		
-			
-			if(!boughtamount)
-				return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo, kadangi industrijos sandëlys pilnas.");
-			
+            if(boughtamount > GetVehicleCargoCount(vehicleid, cargoid))
+                boughtamount = GetVehicleCargoCount(vehicleid,cargoid);
+        
+            
+            if(!boughtamount)
+                return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo, kadangi industrijos sandëlys pilnas.");
+            
             price = Commodities[ GetIndustryCargoIndex(index, cargoid) ][ Price ] * boughtamount;
             if(!price)
                 return SendClientMessage(playerid, GRAD, "Klaida, Jûsø tr. priemonëje nëra prekiø, kurias superka pasirinktas fabrikas.");
-			
-			// duodam viska industrijai
-			AddCargoToIndustry(index, cargoid, boughtamount);
-			
-			// Iðimam viskà ið transporto priemoëns.
-			RemoveCargoFromVehicle(vehicleid, cargoid, boughtamount);
-		}
-		else if(sellToBusines)
-		{
+            
+            // duodam viska industrijai
+            AddCargoToIndustry(index, cargoid, boughtamount);
+            
+            // Iðimam viskà ið transporto priemoëns.
+            RemoveCargoFromVehicle(vehicleid, cargoid, boughtamount);
+        }
+        else if(sellToBusines)
+        {
             new commodityIndex = GetBusinessCargoIndex(index, cargoid);
             // Kiek truksta iki limito.
-			boughtamount = MAX_BUSINESS_PRODUCTS / 50 - Commodities[ commodityIndex ][ CurrentStock ];
+            boughtamount = MAX_BUSINESS_PRODUCTS / 50 - Commodities[ commodityIndex ][ CurrentStock ];
 
             if(boughtamount <= 0)
             {
@@ -21003,8 +21006,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
 
             // Jei furistas nepapildys iki galo verslo sumazinam kiek gali parduot.
-			if(boughtamount > GetVehicleCargoCount(vehicleid, cargoid))
-				boughtamount = GetVehicleCargoCount(vehicleid,cargoid);
+            if(boughtamount > GetVehicleCargoCount(vehicleid, cargoid))
+                boughtamount = GetVehicleCargoCount(vehicleid,cargoid);
 
             // Debug code
             if(boughtamount < 0)
@@ -21016,10 +21019,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 return SendClientMessage(playerid, 0xFF0000FF, "KLAIDA. Praneðkite apie tai administracijai.");
             }
             // end of debug code
-			
-			// Jei verlslas perka daugiau negu gali ápirkti
-			if(boughtamount * Commodities[ commodityIndex ][ Price ] > bInfo[ index ][ bBank ])
-				boughtamount = bInfo[ index ][ bBank ] / Commodities[ commodityIndex ][ Price ];
+            
+            // Jei verlslas perka daugiau negu gali ápirkti
+            if(boughtamount * Commodities[ commodityIndex ][ Price ] > bInfo[ index ][ bBank ])
+                boughtamount = bInfo[ index ][ bBank ] / Commodities[ commodityIndex ][ Price ];
 
             // Debug code
             if(boughtamount < 0)
@@ -21032,15 +21035,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
             // end of debug code
 
-			price = Commodities[ commodityIndex ][ Price ] * boughtamount;
+            price = Commodities[ commodityIndex ][ Price ] * boughtamount;
             if(!price)
                 return SendClientMessage(playerid, GRAD, "Klaida, Jûsø tr. priemonëje nëra prekiø, kurias superka pasirinktas verslas.");
             printf("Boughtamount:%d price:%d stock:%d",boughtamount, price, GetBusinessCargoStock(index));
-			AddCargoToBusiness(index, cargoid, boughtamount);
-			bInfo[ index ][ bBank ] -= price;
-			
-			// Iðimam viskà ið transporto priemoëns.
-			RemoveCargoFromVehicle(vehicleid, cargoid, boughtamount);
+            AddCargoToBusiness(index, cargoid, boughtamount);
+            bInfo[ index ][ bBank ] -= price;
+            
+            // Iðimam viskà ið transporto priemoëns.
+            RemoveCargoFromVehicle(vehicleid, cargoid, boughtamount);
 
             if(bInfo[ index ][ bBank ] < Commodities[ commodityIndex ][ Price ])
             {
@@ -21053,29 +21056,29 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         break;
                     }
             }
-		}
-		
-		if(sellToShip)
-		{
-			if(ShipInfo[ Status ] != Docked)
-				return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu krovininis laivas yra iðplaukæs. Naudodami komanda /tpda galite pamatyti kada jis atplauks.");
-			// Laivas didelis, supirks VISAS kurias turi.
-			boughtamount = GetVehicleCargoCount(vehicleid,cargoid);
-			
-			price = GetShipCargoPrice(cargoid) * boughtamount;
+        }
+        
+        if(sellToShip)
+        {
+            if(ShipInfo[ Status ] != Docked)
+                return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu krovininis laivas yra iðplaukæs. Naudodami komanda /tpda galite pamatyti kada jis atplauks.");
+            // Laivas didelis, supirks VISAS kurias turi.
+            boughtamount = GetVehicleCargoCount(vehicleid,cargoid);
+            
+            price = GetShipCargoPrice(cargoid) * boughtamount;
             if(!price)
                 return SendClientMessage(playerid, GRAD, "Klaida, Jûsø tr. priemonëje nëra prekiø, kurias superka laivas.");
-			ShipInfo[ CurrentStock ] = boughtamount * GetCargoSlot(cargoid);
-			
-			// Iðimam viskà ið transporto priemoëns.
-			RemoveCargoFromVehicle(vehicleid, cargoid, boughtamount);
-		}
-		
-		format(string,sizeof(string), "[FABRIKAS] Sëkmingai pardavëte visas savo pakrautas prekes/krovinius, ið kuriø uþdirbote %d$.",price);
-		GivePlayerMoney(playerid, price);
-		SendClientMessage(playerid, COLOR_LIGHTRED2, string);
-		return 1;
-	}
+            ShipInfo[ CurrentStock ] = boughtamount * GetCargoSlot(cargoid);
+            
+            // Iðimam viskà ið transporto priemoëns.
+            RemoveCargoFromVehicle(vehicleid, cargoid, boughtamount);
+        }
+        
+        format(string,sizeof(string), "[FABRIKAS] Sëkmingai pardavëte visas savo pakrautas prekes/krovinius, ið kuriø uþdirbote %d$.",price);
+        GivePlayerMoney(playerid, price);
+        SendClientMessage(playerid, COLOR_LIGHTRED2, string);
+        return 1;
+    }
     else if ( dialogid == 166 )
     {
         if( !response )
@@ -21620,7 +21623,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             SetPVarString ( playerid, "nick", inputtext );
             ShowPlayerDialog( playerid, 133, DIALOG_STYLE_INPUT,"Átariamûjø pridëjimas",
             "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-				{FFFFFF}Áraðykite prieþasti dël ko átraukti átariamajá", "Pridëti", "Uþdaryti" );
+                {FFFFFF}Áraðykite prieþasti dël ko átraukti átariamajá", "Pridëti", "Uþdaryti" );
         }
     }
     else if( dialogid == 133 )
@@ -21713,7 +21716,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         SetPVarString ( playerid, "CarNumber", inputtext );
         ShowPlayerDialog( playerid, 135, DIALOG_STYLE_INPUT,"Pridëti ieðkoma maðiná  (2)",
         "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-		{FFFFFF}Áraðykite prieþastá kodël tr. priemonë paieðkoma", "Pridëti", "Atðaukti " );
+        {FFFFFF}Áraðykite prieþastá kodël tr. priemonë paieðkoma", "Pridëti", "Atðaukti " );
     }
     else if( dialogid == 135 )
     {
@@ -21776,12 +21779,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             case 0:
                 ShowPlayerDialog( playerid, 129, DIALOG_STYLE_INPUT,"Paieðka pagal vardà ir pavardæ",
                 "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-				{FFFFFF}Áveskite ieðkomo asmens vardà ir pavardæ\n\
+                {FFFFFF}Áveskite ieðkomo asmens vardà ir pavardæ\n\
                  Pavyzdys: Vardas_Pavarde", "Ieðkoti","Atðaukti" );
             case 1:
                 ShowPlayerDialog( playerid, 130, DIALOG_STYLE_INPUT,"Tr. Priemonës paieðka",
                 "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-				{FFFFFF}Áveskite ieðkomos tr. priemonës valstybinius numerius", "Paieðka", "Uþdaryti" );
+                {FFFFFF}Áveskite ieðkomos tr. priemonës valstybinius numerius", "Paieðka", "Uþdaryti" );
             case 2: // Ieðkomø þaidëjø sá raðas
             {
                 new
@@ -21835,14 +21838,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 ShowPlayerDialog( playerid, 132, DIALOG_STYLE_INPUT,"Átraukti asmená á paieðkomu sàraða",
                 "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-				{FFFFFF}Áveskite paieðkomo asmens vardà ir pavardæ\n\
+                {FFFFFF}Áveskite paieðkomo asmens vardà ir pavardæ\n\
                 Pavyzdys: Vardas_Pavarde", "Ávesti", "Uþdaryti" );
             }
             case 5: // Pridëti maðiná  á ieðkomøjø sá raðá 
             {
                 ShowPlayerDialog( playerid, 134, DIALOG_STYLE_INPUT,"Átraukti tr. priemonæ á paieðkas",
                 "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-				{FFFFFF}Áveskite tr. priemonës valstybinius numerius\n\
+                {FFFFFF}Áveskite tr. priemonës valstybinius numerius\n\
                 kurie bus átrauka á paieðkomø sàraðà \"Testi\" ", "Ávesti", "Atðaukti" );
             }
             case 6: // Ieðkomøjø maðinø sá raðas
@@ -22234,13 +22237,13 @@ stock MySQL_Check_Account( playerid )
     mysql_format(DbHandle, string, sizeof(string), "SELECT `Name` FROM `players` WHERE `Name` = '%e' LIMIT 1", plname);
     new Cache:result = mysql_query(DbHandle,  string );
     if(cache_get_row_count( ) > 0 )
-		{
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"Sveiki, Jûs sëkmingai prisijungëte prie Lithuanian role-play serverio."),
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"Serveris ðiuo metu tikrina Jûsø vartotojo duomenis, praðome palaukti...");
-		}
+        {
+            SendClientMessage( playerid, COLOR_LIGHTRED2,"Sveiki, Jûs sëkmingai prisijungëte prie Lithuanian role-play serverio."),
+            SendClientMessage( playerid, COLOR_LIGHTRED2,"Serveris ðiuo metu tikrina Jûsø vartotojo duomenis, praðome palaukti...");
+        }
     else
     {
-        SendClientMessage( playerid, COLOR_LIGHTRED,"Klaida, vartotojas su kuriuo jungiatës á mûsø serverá neegzistuoja mûsø duomenø bazëje, patikrinkite ar jis tikrai sukurtas ltrp.lt." );			
+        SendClientMessage( playerid, COLOR_LIGHTRED,"Klaida, vartotojas su kuriuo jungiatës á mûsø serverá neegzistuoja mûsø duomenø bazëje, patikrinkite ar jis tikrai sukurtas ltrp.lt." );           
         SetTimerEx("KicknPlayer", 100, false, "d", playerid );
         ret = false;
     }
@@ -22395,7 +22398,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         pInfo[ playerid ][ pAmfaAddict ] = cache_get_field_content_int(0, "AmfaAddict");
         pInfo[ playerid ][ pMetaAmfaineAddict ] = cache_get_field_content_int(0, "MetamfaAddict");
         pInfo[ playerid ][ pCocaineAddict ] = cache_get_field_content_int(0, "CocaineAddict");
-       	pInfo[ playerid ][ pSpawn ] = E_PLAYER_SPAWN_LOCATIONS: cache_get_field_content_int(0, "spawn_type");
+        pInfo[ playerid ][ pSpawn ] = E_PLAYER_SPAWN_LOCATIONS: cache_get_field_content_int(0, "spawn_type");
         pInfo[ playerid ][ pBSpawn ] = cache_get_field_content_int(0, "spawn_ui");
         cache_get_field_content(0, "Card", pInfo[ playerid ][ pCard ], DbHandle, 256); // s[256]
         cache_get_field_content(0, "ForumName", pInfo[ playerid ][ pForumName ], DbHandle, 256); // s[256]
@@ -22906,11 +22909,11 @@ FUNKCIJA:CargoShipDeparture()
     #if defined DEBUG
         print("[debug] CargoShipDeparture()");
     #endif
-	// Timeris paleistas viena karta. Paleidzia kita timeri: laivo isplaukimas.
-	// Po to kai laivas isplaukia, vel paleidziamas sitas timeris. 
-	SetTimer("CargoShipReturn", CARGOSHIP_MOVING_INTERVAL, false);
-	ShipInfo[ Status ] = Moving;
-	ShipInfo[ LastDepartureTimestamp ] = gettime();
+    // Timeris paleistas viena karta. Paleidzia kita timeri: laivo isplaukimas.
+    // Po to kai laivas isplaukia, vel paleidziamas sitas timeris. 
+    SetTimer("CargoShipReturn", CARGOSHIP_MOVING_INTERVAL, false);
+    ShipInfo[ Status ] = Moving;
+    ShipInfo[ LastDepartureTimestamp ] = gettime();
 
     MoveCargoShipToPoint(2822.5435, -3951.1589, 29.2656);
     return 1;
@@ -22921,10 +22924,10 @@ FUNKCIJA:CargoShipReturn()
     #if defined DEBUG
         print("[debug] CargoShipReturn()");
     #endif
-	// Timeris pradeda laivo objektø graþinimà á uostà
+    // Timeris pradeda laivo objektø graþinimà á uostà
     // Kai objektai baigs judëti, laivas vël priims krovinius.
-	SetTimer("CargoShipDeparture", CARGOSHIP_DOCKED_INTERVAL, false);
-	
+    SetTimer("CargoShipDeparture", CARGOSHIP_DOCKED_INTERVAL, false);
+    
     ShipInfo[ Status ] = Arriving;
 
     MoveCargoShipToPoint(.ToSpawn = true);
@@ -22994,7 +22997,7 @@ stock IsPlayerInRangeOfPlayer(playerid, playerid2, Float:distance)
     return IsPlayerInRangeOfPoint(playerid, distance, x, y, z);
 }
 stock IsPlayerInRangeOfCargoShip(playerid, Float:distance)
-	return IsPlayerInRangeOfPoint(playerid, distance, SHIP_POS_X, SHIP_POS_Y, SHIP_POS_Z);
+    return IsPlayerInRangeOfPoint(playerid, distance, SHIP_POS_X, SHIP_POS_Y, SHIP_POS_Z);
 
 stock GetShipCargoPrice(cargoid)
 {
@@ -23040,30 +23043,30 @@ stock GetShipCargoPrice(cargoid)
 
 FUNKCIJA:IndustryUpdate()
 {
-	new ticks = GetTickCount();
-	new soldCommodityIndex = -1, // Indeksas prekes kuria industrija parduoda. I JA taps visi jos turimi resursai.
+    new ticks = GetTickCount();
+    new soldCommodityIndex = -1, // Indeksas prekes kuria industrija parduoda. I JA taps visi jos turimi resursai.
         soldCommodityProduction, // Kiek pagaminama prekiø ið ðio resurso.
-		//madeamount, // Kiek pagamino ta prake nauju prekiu.
-		limit;
+        //madeamount, // Kiek pagamino ta prake nauju prekiu.
+        limit;
         //consumption; // Kiekis kuri sunaudos pagaminti antrini daikta
-	foreach(IndustryIterator, i)
-	{
-		// Jei ji nieko neperka. Kitaip tariant jeigu pirmas sektorius
-		if(!GetIndustryBoughtCommodityCount(i))
-		{
+    foreach(IndustryIterator, i)
+    {
+        // Jei ji nieko neperka. Kitaip tariant jeigu pirmas sektorius
+        if(!GetIndustryBoughtCommodityCount(i))
+        {
             printf("Industry name:%s| doesnt buy anything", Industries[i][Name]);
-			foreach(CommodityIterator, j)
-				if(Commodities[ j ][ IndustryId ] == Industries[ i ][ Id ]
-					&& !Commodities[ j ][ IsBusinessCommodity ]
-					&& Commodities[ j ][ SellBuyStatus ] == Selling)
-				{
-					limit = GetCargoLimit(Commodities[ j ][ CargoId ]);
-					Commodities[ j ][CurrentStock ] += GetCargoProduction(Commodities[ j ][ CargoId ]);
+            foreach(CommodityIterator, j)
+                if(Commodities[ j ][ IndustryId ] == Industries[ i ][ Id ]
+                    && !Commodities[ j ][ IsBusinessCommodity ]
+                    && Commodities[ j ][ SellBuyStatus ] == Selling)
+                {
+                    limit = GetCargoLimit(Commodities[ j ][ CargoId ]);
+                    Commodities[ j ][CurrentStock ] += GetCargoProduction(Commodities[ j ][ CargoId ]);
 
-					if(Commodities[ j ][ CurrentStock ] > limit)
-						Commodities[ j ][ CurrentStock ] = limit;
-				}
-		}
+                    if(Commodities[ j ][ CurrentStock ] > limit)
+                        Commodities[ j ][ CurrentStock ] = limit;
+                }
+        }
         // Jei nieko neparduoda, tiesiog suvalgo resursus.
         if(!GetIndustrySoldCommodityCount(i))
         {
@@ -23163,16 +23166,16 @@ FUNKCIJA:IndustryUpdate()
             }
         }
         /*
-		else 
-		{
+        else 
+        {
             // Pereinam per visas prekes.
             // Susirandom TOS industrijos PARDUODAMAS prekes. Jas gaminsim.
-			foreach(CommodityIterator, j)
-			if(Commodities[ j ][ IndustryId ] == Industries[ i ][ Id ]
-			&& !Commodities[ j ][ IsBusinessCommodity ]
-			&& Commodities[ j ][ SellBuyStatus ] == Selling)
-			{
-				soldCommodityIndex = j;
+            foreach(CommodityIterator, j)
+            if(Commodities[ j ][ IndustryId ] == Industries[ i ][ Id ]
+            && !Commodities[ j ][ IsBusinessCommodity ]
+            && Commodities[ j ][ SellBuyStatus ] == Selling)
+            {
+                soldCommodityIndex = j;
                 soldCommodityProduction = GetCargoProduction(Commodities[ j ][ CargoId ]);
                 limit = GetCargoLimit(Commodities[ j ][ CargoId ]);
 
@@ -23204,14 +23207,14 @@ FUNKCIJA:IndustryUpdate()
                     if(Commodities[ soldCommodityIndex ] [ CurrentStock ] >= limit)
                         break;
                 }
-			}
-		}
+            }
+        }
         */
-		
-		UpdateIndustryInfo(i);// O sita funkcija dar ir trecia loop'a turi :/
-		SaveIndustryCommodities(i); // Jei ilgai uztrunka, galima sita eilute uzkomentuot. i think
-	}
-	printf("IndustryUpdate() uztruko %d MS", GetTickCount() - ticks);
+        
+        UpdateIndustryInfo(i);// O sita funkcija dar ir trecia loop'a turi :/
+        SaveIndustryCommodities(i); // Jei ilgai uztrunka, galima sita eilute uzkomentuot. i think
+    }
+    printf("IndustryUpdate() uztruko %d MS", GetTickCount() - ticks);
 }
 
 
@@ -23457,7 +23460,7 @@ stock PayDay( playerid )
 
             if( pInfo[ playerid ][ pJob ] > JOB_NONE )
             {
-				pInfo[ playerid ][ pJobHours ]++;
+                pInfo[ playerid ][ pJobHours ]++;
                 pInfo[ playerid ][ pPayCheck ] += pJobs[ pInfo[ playerid ][ pJob ] ][ PayCheck ];
                 pInfo[ playerid ][ pPayCheck ] += pInfo[ playerid ][ pJobLevel ] * 20;
                 if( pInfo[ playerid ][ pPayCheck ] >= pJobs[ pInfo[ playerid ][ pJob ] ][ MaxPayday ] )
@@ -24082,13 +24085,13 @@ stock SendChatMessage(playerid,color,text[])
         }
 
           
-		
-		strmid(string, text, 0, 81 + colorCount * 8);
-		SendClientMessage(playerid, color, string);
-		
-		strdel(string, 0, strlen(string));
-		strmid(string, text, 81 + colorCount * 8, strlen(text));
-		SendClientMessage(playerid, color, string);
+        
+        strmid(string, text, 0, 81 + colorCount * 8);
+        SendClientMessage(playerid, color, string);
+        
+        strdel(string, 0, strlen(string));
+        strmid(string, text, 81 + colorCount * 8, strlen(text));
+        SendClientMessage(playerid, color, string);
         return 1;
     }
     else return
@@ -24341,42 +24344,42 @@ stock ProxDetector2( Float:radi, playerid, string[], col1, col2, col3, col4, col
 stock isAtFishPlace( playerid )
 {
     if ( PlayerToPoint( 10.0, playerid, 838.3501,-2066.7195,12.8672 )   ||
-		PlayerToPoint( 10.0, playerid, 852.8965,-2004.0170,13.6268 )   ||
-		PlayerToPoint( 10.0, playerid, 820.8741,-1978.4301,12.8672 )   ||
-		PlayerToPoint( 20.0, playerid, 360.9109,-2087.1472,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 366.8915,-2087.8433,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 371.6957,-2087.9500,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 377.0125,-2088.0688,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 382.4442,-2088.1890,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 387.8258,-2088.3081,7.8359)   ||
-		PlayerToPoint( 20.0, playerid, 393.0408,-2088.4241,7.8359)   ||
-		PlayerToPoint( 20.0, playerid, 396.7432,-2088.3235,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 400.9409,-2088.4832,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 409.2190,-2047.9943,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 398.3943,-2033.1278,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 398.7134,-2022.7917,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 398.6473,-2013.0237,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 379.5823,-1991.6434,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 379.5994,-1983.2726,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 379.2360,-1975.4845,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 379.6255,-1964.2043,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 379.5504,-1957.1350,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 379.6788,-1949.0586,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 379.7071,-1940.9346,7.8359 )   ||
-		PlayerToPoint( 20.0, playerid, 379.7292,-1934.0704,7.8359 )   ||
-		PlayerToPoint( 10.0, playerid, 2941.6365,-2052.0046,3.5480 )   ||
-		PlayerToPoint( 10.0, playerid, 2937.7944,-2051.4407,3.5480 )   ||
-		PlayerToPoint( 10.0, playerid, 2925.5537,-2051.4146,3.5480 )   ||
-		PlayerToPoint( 10.0, playerid, 2909.3167,-2070.1389,1.4211 )   ||
-		PlayerToPoint( 10.0, playerid, 2908.5703,-2075.4700,1.3767 )   ||
-		PlayerToPoint( 10.0, playerid, 2910.2266,-2083.6211,1.3899 )   ||
-		PlayerToPoint( 10.0, playerid, 2910.3711,-2094.7788,1.7545 )   ||
-		PlayerToPoint( 10.0, playerid, 2908.8552,-2106.5283,2.2764 )   ||
-		PlayerToPoint( 10.0, playerid, 2903.4199,-2125.1414,2.8222 )   ||
-		PlayerToPoint( 10.0, playerid, 2910.5989,-2040.3712,1.4755 )   ||
-		PlayerToPoint( 10.0, playerid, 2910.7673,-2029.8617,1.4876 )   ||
-		PlayerToPoint( 10.0, playerid, 2911.0625,-2011.3090,1.4985 )   ||
-		PlayerToPoint( 10.0, playerid, 2912.0918,-2000.0720,1.3222 )   
+        PlayerToPoint( 10.0, playerid, 852.8965,-2004.0170,13.6268 )   ||
+        PlayerToPoint( 10.0, playerid, 820.8741,-1978.4301,12.8672 )   ||
+        PlayerToPoint( 20.0, playerid, 360.9109,-2087.1472,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 366.8915,-2087.8433,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 371.6957,-2087.9500,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 377.0125,-2088.0688,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 382.4442,-2088.1890,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 387.8258,-2088.3081,7.8359)   ||
+        PlayerToPoint( 20.0, playerid, 393.0408,-2088.4241,7.8359)   ||
+        PlayerToPoint( 20.0, playerid, 396.7432,-2088.3235,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 400.9409,-2088.4832,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 409.2190,-2047.9943,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 398.3943,-2033.1278,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 398.7134,-2022.7917,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 398.6473,-2013.0237,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 379.5823,-1991.6434,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 379.5994,-1983.2726,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 379.2360,-1975.4845,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 379.6255,-1964.2043,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 379.5504,-1957.1350,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 379.6788,-1949.0586,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 379.7071,-1940.9346,7.8359 )   ||
+        PlayerToPoint( 20.0, playerid, 379.7292,-1934.0704,7.8359 )   ||
+        PlayerToPoint( 10.0, playerid, 2941.6365,-2052.0046,3.5480 )   ||
+        PlayerToPoint( 10.0, playerid, 2937.7944,-2051.4407,3.5480 )   ||
+        PlayerToPoint( 10.0, playerid, 2925.5537,-2051.4146,3.5480 )   ||
+        PlayerToPoint( 10.0, playerid, 2909.3167,-2070.1389,1.4211 )   ||
+        PlayerToPoint( 10.0, playerid, 2908.5703,-2075.4700,1.3767 )   ||
+        PlayerToPoint( 10.0, playerid, 2910.2266,-2083.6211,1.3899 )   ||
+        PlayerToPoint( 10.0, playerid, 2910.3711,-2094.7788,1.7545 )   ||
+        PlayerToPoint( 10.0, playerid, 2908.8552,-2106.5283,2.2764 )   ||
+        PlayerToPoint( 10.0, playerid, 2903.4199,-2125.1414,2.8222 )   ||
+        PlayerToPoint( 10.0, playerid, 2910.5989,-2040.3712,1.4755 )   ||
+        PlayerToPoint( 10.0, playerid, 2910.7673,-2029.8617,1.4876 )   ||
+        PlayerToPoint( 10.0, playerid, 2911.0625,-2011.3090,1.4985 )   ||
+        PlayerToPoint( 10.0, playerid, 2912.0918,-2000.0720,1.3222 )   
         ) 
         return 1;
     return 0;
@@ -24822,17 +24825,17 @@ ImpossibleLog(const string[])
 forward OnPlayerLoadCommodity(playerid, commodity_index, vehicleid);
 public OnPlayerLoadCommodity(playerid, commodity_index, vehicleid)
 {
-	new string[64];
-	VehicleLoadTime[ playerid ]--;
-	format(string,sizeof(string),"Krovinys bus pakrautas uz %d sekundziu.", VehicleLoadTime[ playerid ] );
-	PlayerTextDrawSetString(playerid, InfoText[ playerid ] , string);
-	if(VehicleLoadTime[ playerid ] <= 0)
-	{
-		AddCargoToVehicle(vehicleid, Commodities[ commodity_index ][ CargoId ]);
+    new string[64];
+    VehicleLoadTime[ playerid ]--;
+    format(string,sizeof(string),"Krovinys bus pakrautas uz %d sekundziu.", VehicleLoadTime[ playerid ] );
+    PlayerTextDrawSetString(playerid, InfoText[ playerid ] , string);
+    if(VehicleLoadTime[ playerid ] <= 0)
+    {
+        AddCargoToVehicle(vehicleid, Commodities[ commodity_index ][ CargoId ]);
 
-		// Jei tai buvo priekaba, leidziam kurti vilkika.
-		if(IsValidVehicle(GetTrailerPullingVehicle(vehicleid)))
-			IsVehicleLoaded[ GetTrailerPullingVehicle(vehicleid) ] = false;
+        // Jei tai buvo priekaba, leidziam kurti vilkika.
+        if(IsValidVehicle(GetTrailerPullingVehicle(vehicleid)))
+            IsVehicleLoaded[ GetTrailerPullingVehicle(vehicleid) ] = false;
 
         if(VehicleLoadTime[ playerid ] != 0)
         {
@@ -24840,13 +24843,13 @@ public OnPlayerLoadCommodity(playerid, commodity_index, vehicleid)
             ImpossibleLog(string);
         }
 
-		IsVehicleLoaded[ vehicleid ] = false;
-		SendClientMessage(playerid, COLOR_NEWS, "Jûsø krovinys pakrautas!");
-		KillTimer(VehicleLoadTimer[ playerid ]);
-		VehicleLoadTimer[ playerid ] = -1;
-		PlayerTextDrawHide(playerid, InfoText[ playerid ]);
-		DeletePVar(playerid, "vehicleid");
-	}
+        IsVehicleLoaded[ vehicleid ] = false;
+        SendClientMessage(playerid, COLOR_NEWS, "Jûsø krovinys pakrautas!");
+        KillTimer(VehicleLoadTimer[ playerid ]);
+        VehicleLoadTimer[ playerid ] = -1;
+        PlayerTextDrawHide(playerid, InfoText[ playerid ]);
+        DeletePVar(playerid, "vehicleid");
+    }
     return 1;
 }
 stock divmod( const number, const divider, &div, &mod )
@@ -25515,24 +25518,24 @@ stock SendOrginMessage(playerid,text[])
         case 13: tempstr = "Vokiðkai";
         case 15: tempstr = "Prancûziðkai";
         case 16: tempstr = "Turkiðkai";
-		case 17: tempstr = "Slovakiðkai"; 
-		case 18: tempstr = "Graikiðkai";
-		case 19: tempstr = "Baltarusiðkai";
-		case 20: tempstr = "Ukrainietiðkai";
-		case 21: tempstr = "Lietuviðkai";
-		case 22: tempstr = "Latviðkai";
-		case 23: tempstr = "Estiðkai";
-		case 24: tempstr = "Lenkiðkai";
-		case 25: tempstr = "Èekiðkai";
-		case 26: tempstr = "Bulgariðkai";
-		case 27: tempstr = "Arabiðkai";
-		case 28: tempstr = "Suomiðkaii";
-		case 29: tempstr = "Portugaliðkai";
-		case 30: tempstr = "Kroatiðkai";
-		case 31: tempstr = "Belgiðkai";
-		case 32: tempstr = "Meksikietiðkai";
-		case 33: tempstr = "Domininkietiðkai";
-		case 34: tempstr = "Indiiðkai";		
+        case 17: tempstr = "Slovakiðkai"; 
+        case 18: tempstr = "Graikiðkai";
+        case 19: tempstr = "Baltarusiðkai";
+        case 20: tempstr = "Ukrainietiðkai";
+        case 21: tempstr = "Lietuviðkai";
+        case 22: tempstr = "Latviðkai";
+        case 23: tempstr = "Estiðkai";
+        case 24: tempstr = "Lenkiðkai";
+        case 25: tempstr = "Èekiðkai";
+        case 26: tempstr = "Bulgariðkai";
+        case 27: tempstr = "Arabiðkai";
+        case 28: tempstr = "Suomiðkaii";
+        case 29: tempstr = "Portugaliðkai";
+        case 30: tempstr = "Kroatiðkai";
+        case 31: tempstr = "Belgiðkai";
+        case 32: tempstr = "Meksikietiðkai";
+        case 33: tempstr = "Domininkietiðkai";
+        case 34: tempstr = "Indiiðkai";     
     }
     new virt = GetPlayerVirtualWorld( playerid );
     new intt = GetPlayerInterior( playerid );
@@ -25773,40 +25776,40 @@ stock ShowStats( giveplayerid, playerid )
             hunger = "Labai alkanas";
 
 
-		format           ( string, sizeof(string), "|__________________________________%s__________________________________|", 
-		GetName(playerid));  
-		SendClientMessage( giveplayerid, COLOR_GREEN, string );
-		format           ( string, sizeof(string), "|VEIKËJAS| Lygis:[%d] Praþaista valandø:[%d] Patirties taðkai:[%d/%d] Amþius:[%d] Lytis:[%s] Tautybë:[%s]" ,
-		pInfo[playerid][pLevel],pInfo[playerid][pOnTime],pInfo[playerid][pExp],nextexp,pInfo[playerid][pAge],pInfo[playerid][pSex],pInfo[playerid][pOrigin]);
-		SendClientMessage( giveplayerid, COLOR_FADE1, string);
-		format           ( string, sizeof(string), "|VEIKËJAS| Telefonas:[%d] Mirèiø skaièius:[%d] Liga:[%s] Alkis:[%s]" ,
-		pInfo[playerid][pPhone],pInfo[playerid][pDeaths],Ligos[pInfo[playerid][pLiga]], hunger);
-		SendClientMessage( giveplayerid, COLOR_FADE2, string);		
-		format           ( string, sizeof(string), "|VEIKËJAS| Remëjo lygis:[%d] Áspëjimai:[%d] Atsiradimas:[%s] Gyvybës:[%d] Jëga:[%d]" ,
-		pInfo[playerid][pDonator],pInfo[playerid][pWarn],spawnplace,100+ pInfo[ playerid ][ pHealthLevel ] * 3, pInfo[ playerid ][ pStrengthLevel ]);	
-		SendClientMessage( giveplayerid, COLOR_FADE1, string);		
-		format           ( string, sizeof(string), "|FINANSAI| Grynieji pinigai:[%d$] Banko sàskaitoje:[%d$] Padëtas indëlis:[%d$] Palûkanø procentas: 0.5% " ,
-		PlayerMoney[ playerid ],pInfo[playerid][pBank],pInfo[ playerid ][ pSavings ]);
-		SendClientMessage( giveplayerid, COLOR_FADE2, string);		
-		format           ( string, sizeof(string), "|DARBAS| Dirba:[%s] Kontraktas:[%d] Rangas darbe:[%s] Patirties taðkai darbe:[%d]" ,
-		GetJobName(pInfo[playerid][pJob]),pInfo[playerid][pJobContr], rankstr,(( pInfo[ playerid ][ pJobLevel ] +1 ) * 100));	
-		SendClientMessage( giveplayerid, COLOR_FADE1, string);		
-		format           ( string, sizeof(string), "|FRAKCIJA| Frakcijos pavadinimas:[%s (ID%d)] Rangas frakcijoje: [Nr.%d, %s]" ,
-		fInfo[ PlayerFaction( playerid ) ][ fName ],pInfo[ playerid ][ pMember ], pInfo[ playerid ][ pRank ], GetPlayerRangName( playerid ));
-		SendClientMessage( giveplayerid, COLOR_FADE2, string);
+        format           ( string, sizeof(string), "|__________________________________%s__________________________________|", 
+        GetName(playerid));  
+        SendClientMessage( giveplayerid, COLOR_GREEN, string );
+        format           ( string, sizeof(string), "|VEIKËJAS| Lygis:[%d] Praþaista valandø:[%d] Patirties taðkai:[%d/%d] Amþius:[%d] Lytis:[%s] Tautybë:[%s]" ,
+        pInfo[playerid][pLevel],pInfo[playerid][pOnTime],pInfo[playerid][pExp],nextexp,pInfo[playerid][pAge],pInfo[playerid][pSex],pInfo[playerid][pOrigin]);
+        SendClientMessage( giveplayerid, COLOR_FADE1, string);
+        format           ( string, sizeof(string), "|VEIKËJAS| Telefonas:[%d] Mirèiø skaièius:[%d] Liga:[%s] Alkis:[%s]" ,
+        pInfo[playerid][pPhone],pInfo[playerid][pDeaths],Ligos[pInfo[playerid][pLiga]], hunger);
+        SendClientMessage( giveplayerid, COLOR_FADE2, string);      
+        format           ( string, sizeof(string), "|VEIKËJAS| Remëjo lygis:[%d] Áspëjimai:[%d] Atsiradimas:[%s] Gyvybës:[%d] Jëga:[%d]" ,
+        pInfo[playerid][pDonator],pInfo[playerid][pWarn],spawnplace,100+ pInfo[ playerid ][ pHealthLevel ] * 3, pInfo[ playerid ][ pStrengthLevel ]);   
+        SendClientMessage( giveplayerid, COLOR_FADE1, string);      
+        format           ( string, sizeof(string), "|FINANSAI| Grynieji pinigai:[%d$] Banko sàskaitoje:[%d$] Padëtas indëlis:[%d$] Palûkanø procentas: 0.5% " ,
+        PlayerMoney[ playerid ],pInfo[playerid][pBank],pInfo[ playerid ][ pSavings ]);
+        SendClientMessage( giveplayerid, COLOR_FADE2, string);      
+        format           ( string, sizeof(string), "|DARBAS| Dirba:[%s] Kontraktas:[%d] Rangas darbe:[%s] Patirties taðkai darbe:[%d]" ,
+        GetJobName(pInfo[playerid][pJob]),pInfo[playerid][pJobContr], rankstr,(( pInfo[ playerid ][ pJobLevel ] +1 ) * 100));   
+        SendClientMessage( giveplayerid, COLOR_FADE1, string);      
+        format           ( string, sizeof(string), "|FRAKCIJA| Frakcijos pavadinimas:[%s (ID%d)] Rangas frakcijoje: [Nr.%d, %s]" ,
+        fInfo[ PlayerFaction( playerid ) ][ fName ],pInfo[ playerid ][ pMember ], pInfo[ playerid ][ pRank ], GetPlayerRangName( playerid ));
+        SendClientMessage( giveplayerid, COLOR_FADE2, string);
         format           ( string, sizeof(string), "|PRIKLAUSOMYBË| Heroinas:[%d] Amfetaminas:[%d] Kokainas:[%d] Metamfetaminas[%d] Ekstazi:[%d]",
-		pInfo[ playerid ][ pHeroineAddict ], pInfo[ playerid ][ pAmfaAddict ], pInfo[ playerid ][ pCocaineAddict ], pInfo[ playerid ][ pMetaAmfaineAddict ], pInfo[ playerid ][ pExtazyAddict ] );
+        pInfo[ playerid ][ pHeroineAddict ], pInfo[ playerid ][ pAmfaAddict ], pInfo[ playerid ][ pCocaineAddict ], pInfo[ playerid ][ pMetaAmfaineAddict ], pInfo[ playerid ][ pExtazyAddict ] );
         SendClientMessage( giveplayerid, COLOR_FADE1, string );
         format           ( string, sizeof(string), "|PRIKLAUSOMYBË| PCP:[%d] Krekas:[%d] Opiumas:[%d]",
-		pInfo[ playerid ][ pPCPAddict ], pInfo[ playerid ][ pCrackAddict ], pInfo[ playerid ][ pOpiumAddict ] );
-        SendClientMessage( giveplayerid, COLOR_FADE2, string );		
-		format           ( string, sizeof(string), "|ADMINISTRACIJA| Int:[%d], VirtW[%d], Administratoriaus lygis:[%d]", 
-		GetPlayerInterior(playerid),GetPlayerVirtualWorld(playerid),pInfo[playerid][pAdmin]);
-		if( pInfo[giveplayerid][pAdmin] > 0 )		
-		SendClientMessage( giveplayerid, COLOR_WHITE, string);
-		format           ( string, sizeof(string), "--------------------------------------------%s--------------------------------------------|", 
-		GetName(playerid));  
-		SendClientMessage( giveplayerid, COLOR_GREEN, string );
+        pInfo[ playerid ][ pPCPAddict ], pInfo[ playerid ][ pCrackAddict ], pInfo[ playerid ][ pOpiumAddict ] );
+        SendClientMessage( giveplayerid, COLOR_FADE2, string );     
+        format           ( string, sizeof(string), "|ADMINISTRACIJA| Int:[%d], VirtW[%d], Administratoriaus lygis:[%d]", 
+        GetPlayerInterior(playerid),GetPlayerVirtualWorld(playerid),pInfo[playerid][pAdmin]);
+        if( pInfo[giveplayerid][pAdmin] > 0 )       
+        SendClientMessage( giveplayerid, COLOR_WHITE, string);
+        format           ( string, sizeof(string), "--------------------------------------------%s--------------------------------------------|", 
+        GetName(playerid));  
+        SendClientMessage( giveplayerid, COLOR_GREEN, string );
         return 1;
 }
 
@@ -25879,16 +25882,16 @@ stock NearPhone( playerid )
          PlayerToPoint( 5.0, playerid, 281.7772,1003.5189,2119.1150 ) ||
          PlayerToPoint( 5.0, playerid, 281.7768,1006.3833,2119.1150 ) ||
          PlayerToPoint( 5.0, playerid, 44.4012,1219.5900,19.0292 ) ||
-		 PlayerToPoint( 5.0, playerid, 2069.4824,-1767.1677,13.5625) ||
-		 PlayerToPoint( 5.0, playerid, 2069.4824,-1767.1677,13.5625) ||
-	  	 PlayerToPoint( 5.0, playerid, 1809.4171,-1598.1709,13.5469) ||
-		 PlayerToPoint( 5.0, playerid, 1807.5339,-1599.3356,13.5469) ||
-	 	 PlayerToPoint( 5.0, playerid, 1805.8998,-1600.7174,13.5469) ||
-	   	 PlayerToPoint( 5.0, playerid, 1711.2419,-1605.1455,13.5469) ||
-		 PlayerToPoint( 5.0, playerid, 1542.4297,-1684.7871,13.5545) ||
-		 PlayerToPoint( 5.0, playerid, 1522.2264,-1830.7876,13.5469) ||
-		 PlayerToPoint( 5.0, playerid, 2166.6946,-1155.4084,24.8679) ||
-		 PlayerToPoint( 5.0, playerid, 1771.3378,-1543.3586,9.4434 ) ||		
+         PlayerToPoint( 5.0, playerid, 2069.4824,-1767.1677,13.5625) ||
+         PlayerToPoint( 5.0, playerid, 2069.4824,-1767.1677,13.5625) ||
+         PlayerToPoint( 5.0, playerid, 1809.4171,-1598.1709,13.5469) ||
+         PlayerToPoint( 5.0, playerid, 1807.5339,-1599.3356,13.5469) ||
+         PlayerToPoint( 5.0, playerid, 1805.8998,-1600.7174,13.5469) ||
+         PlayerToPoint( 5.0, playerid, 1711.2419,-1605.1455,13.5469) ||
+         PlayerToPoint( 5.0, playerid, 1542.4297,-1684.7871,13.5545) ||
+         PlayerToPoint( 5.0, playerid, 1522.2264,-1830.7876,13.5469) ||
+         PlayerToPoint( 5.0, playerid, 2166.6946,-1155.4084,24.8679) ||
+         PlayerToPoint( 5.0, playerid, 1771.3378,-1543.3586,9.4434 ) ||     
          IsPlayerInRangeOfPoint(playerid, 5.0, 378.5848,-1717.8740,23.2230) ||
          PlayerToPoint( 5.0, playerid, -22.9650,1075.2723,19.7422 ) )
          return 1;
@@ -25899,9 +25902,9 @@ stock NearBankomat( playerid )
     if ( PlayerToPoint( 5.0, playerid, -796.7485400,1501.4931600,21.5664000 ) ||
          PlayerToPoint( 5.0, playerid, -638.9351800,1444.8444800,12.6069600 ) ||
          PlayerToPoint( 5.0, playerid, -181.5487,1027.2559,19.7344 ) ||
-		 PlayerToPoint( 5.0, playerid, 2068.71, -1769.29, 13.20 ) ||
+         PlayerToPoint( 5.0, playerid, 2068.71, -1769.29, 13.20 ) ||
          PlayerToPoint( 5.0, playerid, 2139.42, -1163.94, 23.62 ) ||
-         PlayerToPoint( 5.0, playerid, 2405.95, -1548.69, 23.81 ) ||		 
+         PlayerToPoint( 5.0, playerid, 2405.95, -1548.69, 23.81 ) ||         
          PlayerToPoint( 5.0, playerid, -96.5025,1189.8512,19.7422 ) )
          return 1;
     else return 0;
@@ -26006,44 +26009,44 @@ stock setLicenseCp( playerid )
         {
             switch( GetPVarInt( playerid, "LIC_CP" ) )
             {
-				case 1: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2433.3464,-1475.4110,23.5458,5.0);
-				case 2: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2474.5378,-1447.1062,24.6292,5.0);
-				case 3: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2551.2375,-1446.5909,32.9943,5.0);
-				case 4: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2623.5039,-1446.4851,30.9974,5.0);
-				case 5: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2644.4197,-1420.3839,29.9973,5.0);
-				case 6: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2675.4060,-1443.1221,30.0867,5.0);
-				case 7: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2706.2893,-1509.9299,30.0624,5.0);
-				case 8: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2765.7788,-1491.7843,28.2176,5.0);
-				case 9: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2857.5083,-1490.9799,10.4573,5.0);
-				case 10: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2878.6841,-1421.1472,10.5704,5.0);
-				case 11: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2821.7412,-1385.2881,17.8054,5.0);
-				case 12: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2799.2200,-1298.7750,39.4824,5.0);
-				case 13: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2747.9302,-1255.6283,59.1255,5.0);
-				case 14: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2611.9409,-1253.9144,47.9993,5.0);
-				case 15: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2464.1138,-1254.3789,24.4127,5.0);
-				case 16: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2397.5059,-1254.5380,23.5399,5.0);
-				case 17: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2369.0769,-1284.1478,23.5522,5.0);
-				case 18: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2316.9075,-1298.2368,23.7711,5.0);
-				case 19: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2301.8547,-1364.8926,23.5720,5.0);
-				case 20: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2244.6155,-1380.9020,23.5498,5.0);
-				case 21: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2211.2725,-1426.3003,23.5350,5.0);
-				case 22: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2210.4849,-1475.2710,23.5340,5.0);
-				case 23: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2210.2141,-1523.9452,23.5441,5.0);
-				case 24: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2199.3867,-1623.4713,15.6714,5.0);
-				case 25: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2174.0693,-1633.8223,14.3178,5.0);
-				case 26: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2122.5835,-1616.0321,13.1031,5.0);
-				case 27: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2080.0620,-1654.7314,13.1068,5.0);
-				case 28: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2079.6543,-1706.7753,13.1066,5.0);
-				case 29: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2079.6130,-1735.2004,13.1029,5.0);
-				case 30: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2096.4258,-1754.0223,13.1176,5.0);
-				case 31: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2126.2566,-1754.7616,13.1226,5.0);
-				case 32: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2168.0786,-1754.4491,13.0959,5.0);
-				case 33: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2254.0505,-1733.6403,13.0988,5.0);
-				case 34: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2333.9773,-1734.3068,13.0989,5.0);
-				case 35: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2405.4519,-1734.4344,13.1003,5.0);
-				case 36: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2433.1086,-1642.9390,26.9986,5.0);
-				case 37: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2433.3088,-1603.4298,25.7429,5.0);
-				case 38: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2433.5308,-1559.5063,23.5441,5.0);
+                case 1: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2433.3464,-1475.4110,23.5458,5.0);
+                case 2: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2474.5378,-1447.1062,24.6292,5.0);
+                case 3: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2551.2375,-1446.5909,32.9943,5.0);
+                case 4: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2623.5039,-1446.4851,30.9974,5.0);
+                case 5: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2644.4197,-1420.3839,29.9973,5.0);
+                case 6: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2675.4060,-1443.1221,30.0867,5.0);
+                case 7: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2706.2893,-1509.9299,30.0624,5.0);
+                case 8: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2765.7788,-1491.7843,28.2176,5.0);
+                case 9: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2857.5083,-1490.9799,10.4573,5.0);
+                case 10: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2878.6841,-1421.1472,10.5704,5.0);
+                case 11: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2821.7412,-1385.2881,17.8054,5.0);
+                case 12: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2799.2200,-1298.7750,39.4824,5.0);
+                case 13: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2747.9302,-1255.6283,59.1255,5.0);
+                case 14: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2611.9409,-1253.9144,47.9993,5.0);
+                case 15: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2464.1138,-1254.3789,24.4127,5.0);
+                case 16: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2397.5059,-1254.5380,23.5399,5.0);
+                case 17: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2369.0769,-1284.1478,23.5522,5.0);
+                case 18: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2316.9075,-1298.2368,23.7711,5.0);
+                case 19: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2301.8547,-1364.8926,23.5720,5.0);
+                case 20: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2244.6155,-1380.9020,23.5498,5.0);
+                case 21: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2211.2725,-1426.3003,23.5350,5.0);
+                case 22: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2210.4849,-1475.2710,23.5340,5.0);
+                case 23: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2210.2141,-1523.9452,23.5441,5.0);
+                case 24: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2199.3867,-1623.4713,15.6714,5.0);
+                case 25: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2174.0693,-1633.8223,14.3178,5.0);
+                case 26: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2122.5835,-1616.0321,13.1031,5.0);
+                case 27: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2080.0620,-1654.7314,13.1068,5.0);
+                case 28: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2079.6543,-1706.7753,13.1066,5.0);
+                case 29: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2079.6130,-1735.2004,13.1029,5.0);
+                case 30: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2096.4258,-1754.0223,13.1176,5.0);
+                case 31: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2126.2566,-1754.7616,13.1226,5.0);
+                case 32: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2168.0786,-1754.4491,13.0959,5.0);
+                case 33: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2254.0505,-1733.6403,13.0988,5.0);
+                case 34: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2333.9773,-1734.3068,13.0989,5.0);
+                case 35: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2405.4519,-1734.4344,13.1003,5.0);
+                case 36: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2433.1086,-1642.9390,26.9986,5.0);
+                case 37: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2433.3088,-1603.4298,25.7429,5.0);
+                case 38: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 2433.5308,-1559.5063,23.5441,5.0);
             }
         }
 
@@ -26052,20 +26055,20 @@ stock setLicenseCp( playerid )
         {
             switch( GetPVarInt( playerid, "LIC_CP" ) )
             {
-				 case 1: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1918.3333,-2257.5476,19.3346,1916.1844,-2306.5242,78.6446,10.0 );
-				 case 2: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1916.1844,-2306.5242,78.6446,1701.5432,-2387.9390,113.0942, 10.0 );
-				 case 3: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1701.5432,-2387.9390,113.0942,1447.6058,-2242.4688,144.6308, 10.0 );
-				 case 4: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1447.6058,-2242.4688,144.6308,1210.0662,-2004.8344,152.9503, 10.0 );
-				 case 5: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1210.0662,-2004.8344,152.9503,925.8694,-1798.6184,136.2259, 10.0 );
-				 case 6: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,925.8694,-1798.6184,136.2259,535.4799,-1650.8319,122.6211, 10.0 );
-				 case 7: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,535.4799,-1650.8319,122.6211,20.3207,-1320.7156,146.6390, 10.0 );
-				 case 8: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,20.3207,-1320.7156,146.6390,-209.3477,-1445.8248,147.5437, 10.0 );
-				 case 9: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,-209.3477,-1445.8248,147.5437,75.2898,-2016.5239,123.6778, 10.0 );
-				 case 10: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,75.2898,-2016.5239,123.6778,370.7771,-2128.4263,143.4955, 10.0 );
-				 case 11: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,370.7771,-2128.4263,143.4955,943.4516,-2188.8318,165.2468, 10.0 );
-				 case 12: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,943.4516,-2188.8318,165.2468,1463.1583,-2273.5215,140.7639, 10.0 );
-				 case 13: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1463.1583,-2273.5215,140.7639,1930.7386,-2248.5745,14.9643, 10.0 );
-				 case 14: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1930.7386,-2248.5745,14.9643,1930.7386,-2248.5745,14.9643, 10.0 );
+                 case 1: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1918.3333,-2257.5476,19.3346,1916.1844,-2306.5242,78.6446,10.0 );
+                 case 2: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1916.1844,-2306.5242,78.6446,1701.5432,-2387.9390,113.0942, 10.0 );
+                 case 3: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1701.5432,-2387.9390,113.0942,1447.6058,-2242.4688,144.6308, 10.0 );
+                 case 4: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1447.6058,-2242.4688,144.6308,1210.0662,-2004.8344,152.9503, 10.0 );
+                 case 5: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1210.0662,-2004.8344,152.9503,925.8694,-1798.6184,136.2259, 10.0 );
+                 case 6: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,925.8694,-1798.6184,136.2259,535.4799,-1650.8319,122.6211, 10.0 );
+                 case 7: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,535.4799,-1650.8319,122.6211,20.3207,-1320.7156,146.6390, 10.0 );
+                 case 8: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,20.3207,-1320.7156,146.6390,-209.3477,-1445.8248,147.5437, 10.0 );
+                 case 9: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,-209.3477,-1445.8248,147.5437,75.2898,-2016.5239,123.6778, 10.0 );
+                 case 10: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,75.2898,-2016.5239,123.6778,370.7771,-2128.4263,143.4955, 10.0 );
+                 case 11: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,370.7771,-2128.4263,143.4955,943.4516,-2188.8318,165.2468, 10.0 );
+                 case 12: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,943.4516,-2188.8318,165.2468,1463.1583,-2273.5215,140.7639, 10.0 );
+                 case 13: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1463.1583,-2273.5215,140.7639,1930.7386,-2248.5745,14.9643, 10.0 );
+                 case 14: SetPlayerRaceCheckPointEx( playerid, CHECKPOINT_LIC, 3,1930.7386,-2248.5745,14.9643,1930.7386,-2248.5745,14.9643, 10.0 );
             }
         }
 
@@ -26074,19 +26077,19 @@ stock setLicenseCp( playerid )
         {
             switch( GetPVarInt( playerid, "LIC_CP" ) )
             {
-				case 1: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 722.9761,-1601.5739,-0.0674,5.0); //
-				case 2: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 723.0297,-1878.1135,-0.2829,5.0); //
-				case 3: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 605.8445,-2010.0400,-0.4840,5.0); //
-				case 4: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 327.2888,-2103.7786,-0.1991,5.0); //
-				case 5: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 73.2563,-1763.0634,0.0182,5.0); //
-				case 6: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 75.2143,-1400.7008,-0.1708,5.0); //
-				case 7: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 32.8657,-1430.4677,-0.2938,5.0); //
-				case 8: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 7.8134,-1695.4635,-0.5832,5.0); //
-				case 9: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 103.3241,-1971.6035,-0.5250,5.0); //
-				case 10: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 302.8342,-1927.3613,-0.2275,5.0); //
-				case 11: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 375.8572,-2117.1875,-0.0151,5.0); //
-				case 12: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 678.6392,-2024.4448,-0.3480,5.0); //
-				case 13: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 718.8523,-1628.1936,-0.1787,5.0); //
+                case 1: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 722.9761,-1601.5739,-0.0674,5.0); //
+                case 2: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 723.0297,-1878.1135,-0.2829,5.0); //
+                case 3: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 605.8445,-2010.0400,-0.4840,5.0); //
+                case 4: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 327.2888,-2103.7786,-0.1991,5.0); //
+                case 5: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 73.2563,-1763.0634,0.0182,5.0); //
+                case 6: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 75.2143,-1400.7008,-0.1708,5.0); //
+                case 7: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 32.8657,-1430.4677,-0.2938,5.0); //
+                case 8: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 7.8134,-1695.4635,-0.5832,5.0); //
+                case 9: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 103.3241,-1971.6035,-0.5250,5.0); //
+                case 10: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 302.8342,-1927.3613,-0.2275,5.0); //
+                case 11: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 375.8572,-2117.1875,-0.0151,5.0); //
+                case 12: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 678.6392,-2024.4448,-0.3480,5.0); //
+                case 13: SetPlayerCheckPointEx( playerid, CHECKPOINT_LIC, 718.8523,-1628.1936,-0.1787,5.0); //
             }
         }
     }
@@ -26118,10 +26121,10 @@ stock PlayerFaction( playerid )
 forward GetFactionIndex(factionid);
 public GetFactionIndex(factionid)
 {
-	for(new i = 0; i < sizeof fInfo; i++)
-		if(fInfo[i][fID] && fInfo[i][fID] == factionid)
-			return i;
-	return -1;
+    for(new i = 0; i < sizeof fInfo; i++)
+        if(fInfo[i][fID] && fInfo[i][fID] == factionid)
+            return i;
+    return -1;
 }
 
 stock savePlayerNotes( playerid, slot )
@@ -26186,7 +26189,7 @@ stock LoadGarbage()
             GarbageInfo[ index ][ gMission ] = TRASH_MISSION_DILIMORE;
         else if(!strcmp(misssionLocation, "Mulholand", true))
             GarbageInfo[ index ][ gMission ] = TRASH_MISSION_POLOMINO_CREEK;
-		else if(!strcmp(misssionLocation, "Jefferson", true))
+        else if(!strcmp(misssionLocation, "Jefferson", true))
             GarbageInfo[ index ][ gMission ] = TRASH_MISSION_JEFFERSON;
         else if(!strcmp(misssionLocation, "Idlewood", true))
             GarbageInfo[ index ][ gMission ] = TRASH_MISSION_IDLEWOOD;
@@ -26235,27 +26238,27 @@ stock UpdateIndustryInfo(index)
 {
     if(IsValidDynamic3DTextLabel(Industries[ index ][ Label ]))
         DestroyDynamic3DTextLabel(Industries [ index ][ Label ]);
-	
-	if(!IsValidDynamicPickup(Industries [ index ][ Pickup ]))
-		Industries[ index ][ Pickup ] = CreateDynamicPickup(1318, 1, Industries[ index ][ PosX ], Industries[ index ][ PosY ], Industries [ index ][ PosZ ]);
-	
+    
+    if(!IsValidDynamicPickup(Industries [ index ][ Pickup ]))
+        Industries[ index ][ Pickup ] = CreateDynamicPickup(1318, 1, Industries[ index ][ PosX ], Industries[ index ][ PosY ], Industries [ index ][ PosZ ]);
+    
     new string[512];
     format(string,sizeof(string),"{CC0000}%s\n\n", Industries[ index ][ Name ]);
     foreach(CommodityIterator, i)
     {
         if(Commodities[ i ][ IndustryId ] == Industries [ index ][ Id ]
             && !Commodities[ i ][ IsBusinessCommodity ])
-		{
-			new E_COMMODITY_SELL_BUY_STATUS:isBuying  = Commodities[ i ][ SellBuyStatus ];
+        {
+            new E_COMMODITY_SELL_BUY_STATUS:isBuying  = Commodities[ i ][ SellBuyStatus ];
             format(string, sizeof(string),"%s\n\n{00CC00}[%s]{FFFFFF}%s\nKaina %d / vieneta\nSandelyje yra: %d / %d\n",
                 string, 
-				(isBuying == Buying) ? ("Perka") : ("Parduoda"),
+                (isBuying == Buying) ? ("Perka") : ("Parduoda"),
                 GetCargoName(Commodities [ i ][ CargoId ]), 
-				Commodities[ i ][ Price ],
-				Commodities[ i ][ CurrentStock ],
-				GetCargoLimit(Commodities [ i ][ CargoId ] ));
-		}
-	}
+                Commodities[ i ][ Price ],
+                Commodities[ i ][ CurrentStock ],
+                GetCargoLimit(Commodities [ i ][ CargoId ] ));
+        }
+    }
     Industries[ index ][ Label ] = CreateDynamic3DTextLabel(string, COLOR_WHITE, Industries[ index ][ PosX ], Industries[ index ][ PosY ], Industries[ index ][ PosZ ], 40.0);
     return 1;
 }
@@ -26314,7 +26317,7 @@ stock LoadCommodities()
         Itter_Add(CommodityIterator, commodityCount);
         commodityCount++;
     }
-	cache_delete(result);
+    cache_delete(result);
     printf("Serveryje yra %d parduodamu/perkamu prekiu.",commodityCount);
 }
 stock LoadVehicleShops()
@@ -26746,9 +26749,11 @@ stock IsNumeric(const string[])
 
 stock IsPlayerLoggedIn(playerid)
 {
-	new bool:ishe;
-	CallShoebillFunction("isPlayerLoggedIn", playerid, ishe);
-	return ishe;
+    new bool:ishe;
+    CallShoebillFunction("isPlayerLoggedIn", playerid, ishe);
+    if(!ishe)
+        printf("ltrp.pwn isPlayerLoggedIn returned0. for player%d: %d",playerid, ishe);
+    return ishe;
 }
 
 forward OnPlayerDataLoad(playerid);
@@ -26757,41 +26762,33 @@ forward OnPlayerSpawnSetUp(playerid);
 
 public OnPlayerDataLoad(playerid)
 {
-	printf("ltrp.pwn : OnPlayerDataLoad called. Params:%d", playerid);
+    printf("ltrp.pwn : OnPlayerDataLoad called. Params:%d", playerid);
 }
 
 public OnShoebillPlayerLogin(playerid, failedloginattemps)
 {
-	printf("ltrp.pwn : OnShoebillPlayerLogin called. Params:%d %d", playerid, failedloginattemps);
+    printf("ltrp.pwn : OnShoebillPlayerLogin called. Params:%d %d", playerid, failedloginattemps);
 }
 
 public OnPlayerSpawnSetUp(playerid)
 {
-	printf("ltrp.pwn : OnPlayerSpawnSetUp called. Params:%d", playerid);
+    printf("ltrp.pwn : OnPlayerSpawnSetUp called. Params:%d", playerid);
 }
 
-forward AFunction(thing[], &Float:x, &Float:y, &Float:z);
-public AFunction(thing[], &Float:x, &Float:y, &Float:z)
-{
-	x = 1242.0;
-	y = 2334.5;
-	z = 75.32;
-	printf("ltrp.pwn : AFunction returning %f %f %f", x ,y ,z);
-}
 
 forward AFunction2(&Float:x, &Float:y, &Float:z);
 public AFunction2(&Float:x, &Float:y, &Float:z)
 {
-	x = 1242.0;
-	y = 2334.5;
-	z = 75.32;
-	printf("ltrp.pwn : AFunction2 returning %f %f %f", x ,y ,z);
+    x = 1242.0;
+    y = 2334.5;
+    z = 75.32;
+    printf("ltrp.pwn : AFunction2 returning %f %f %f", x ,y ,z);
 }
 
 forward Data_GetCoordinatesArray(key[]);
 stock Data_GetCoordinatesArray(key[])
 {
-	new Float:data[3];
-	Data_GetCoordinates(key, data[ 0 ], data[ 1 ], data[ 2]);
-	return data;
+    new Float:data[3];
+    Data_GetCoordinates(key, data[ 0 ], data[ 1 ], data[ 2]);
+    return data;
 }

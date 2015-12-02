@@ -4,6 +4,7 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.AdminLog;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.data.Color;
+import lt.ltrp.item.Item;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -11,8 +12,12 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Vehicle;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Bebras
@@ -30,6 +35,7 @@ public class AdminCommands {
         adminLevels.put("gotoloc", 1);
 
         adminLevels.put("makefactionmanager", 4);
+        adminLevels.put("giveitem", 6);
 
         teleportLocations.put("pc", new Location(2292.1936f, 26.7535f, 25.9974f, 0, 0));
         teleportLocations.put("ls", new Location(1540.1237f, -1675.2844f, 13.5500f, 0, 0));
@@ -44,8 +50,10 @@ public class AdminCommands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        System.out.println("AdminCommandst :: beforeCheck. Player: "+  p.getName() + " cmd: " +cmd + " params:" + params + " required admin level:" +
-                adminLevels.get(cmd) + " player admin levle:" + player.getAdminLevel());
+        if(player != null) {
+            System.out.println("AdminCommandst :: beforeCheck. Player: "+  p.getName() + " cmd: " +cmd + " params:" + params + " required admin level:" +
+                    adminLevels.get(cmd) + " player admin levle:" + player.getAdminLevel());
+        } else System.out.println("that cant even happen");
         if(!adminLevels.containsKey(cmd))
             return false;
         if(player.getAdminLevel() < adminLevels.get(cmd)) {
@@ -150,6 +158,29 @@ public class AdminCommands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Suteikia nurodytà daiktà nurodytam þaidëjui")
+    public boolean giveitem(LtrpPlayer p, LtrpPlayer p2, String itemClass, String args) {
+        if(p2 == null) {
+            p.sendMessage(Color.LIGHTRED, "Tokio þaidëjo nëra.");
+        } else {
+            List<String> matches = new ArrayList<>();
+            Matcher m = Pattern.compile("([^\"][^-]*|\".+?\")\\s*").matcher(args); // strings with spaces can be made like this: "my string"
+            while (m.find())
+                matches.add(m.group(1).replace("\"", ""));
+            Item item = null;
+            try {
+                item = Item.get(itemClass, matches.toArray(new String[0]));
+            } catch (Exception e) {
+                p.sendMessage(Color.SIENNA, e.getMessage());
+                return false;
+            }
+            p.getInventory().add(item);
+            p.sendMessage(Color.SIENNA, "It worked, wow");
+            return true;
 
+        }
+        return false;
+    }
 
 }

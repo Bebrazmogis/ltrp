@@ -12,12 +12,15 @@ import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.shoebill.common.command.PlayerCommandManager.UsageMessageSupplier;
 import net.gtaun.util.event.HandlerPriority;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -77,7 +80,9 @@ public class PlayerCommandManager {
     }
 
     private static Object parseParam(Class<?> type, String param) {
+        System.out.println("PlayerCommandManager :: parseParam. PAram type:" + type.getName() + " param value:" + param);
         if(TYPE_PARSER.containsKey(type)) {
+            System.out.println("PARSER for this parameter exists. After parse:" + TYPE_PARSER.get(type).apply(param));
             return TYPE_PARSER.get(type).apply(param);
         }
         else return null;
@@ -85,7 +90,8 @@ public class PlayerCommandManager {
 
     private static Object[] parseParams(Class<?>[] types, String[] paramVals) {
         Object[] params = new Object[types.length];
-        for (int i = 0; i < types.length; i++) params[i] = parseParam(types[i], paramVals[i]);
+        for (int i = 0; i < types.length; i++)
+            params[i] = parseParam(types[i], paramVals[i]);
         return params;
     }
 
@@ -96,19 +102,28 @@ public class PlayerCommandManager {
         beforeCheckers = new HashMap<>();
 
         eventManager.registerHandler(PlayerCommandEvent.class, priority, e -> {
-            if(processCommand(e.getPlayer(), e.getCommand().substring(1)))
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            if(processCommand(player, e.getCommand().substring(1)))
                 e.setProcessed();
         });
     }
 
 
-    public boolean processCommand(Player player, String cmdText) {
+    public boolean processCommand(LtrpPlayer player, String cmdText) {
         int index;
         String cmdName = (index = cmdText.indexOf(" ")) == -1 ? cmdText : cmdText.substring(0, index);
         if(index != -1)
             cmdText = cmdText.substring(index+1);
+        else
+            cmdText = "";
 
-        String[] data = cmdText.split(" ");
+        List<String> matches = new ArrayList<>();
+        Matcher matcher = Pattern.compile("(\\S+?)\\S*").matcher(cmdText);
+        while(matcher.find())
+            matches.add(matcher.group());
+
+        String[] data = matches.toArray(new String[0]);
+
 
         // If the command isn't registered here
         if(!commands.containsKey(cmdName))
@@ -122,11 +137,15 @@ public class PlayerCommandManager {
             if(data.length != commandData.getParamTypes().length) {
                 player.sendMessage(Color.NEWS,
                         usageMessageSupplier != null ?
-                                usageMessageSupplier.get(player, cmdName, "/", data, commandData.getHelpMessage()) :
-                                DEFAULT_USAGE_MESSAGE_SUPPLIER.get(player, cmdName, "/", data, commandData.getHelpMessage()));
+                                usageMessageSupplier.get(player, cmdName, "/", commandData.getParamNames(), commandData.getHelpMessage()) :
+                                DEFAULT_USAGE_MESSAGE_SUPPLIER.get(player, cmdName, "/", commandData.getParamNames(), commandData.getHelpMessage()));
                 return true;
             } else {
                 Object[] params = parseParams(commandData.getParamTypes(), data);
+                params = ArrayUtils.add(params, 0, player);
+
+                System.out.println("Parsing params for command " + cmdName + "Param count:" + params.length + " param type count:"+ commandData.getParamTypes().length);
+                System.out.println("Calling handler. Command name:" + commandData.getName());
                 if(commandData.getHandler().handle(player, params))
                     return true;
             }
@@ -167,30 +186,35 @@ public class PlayerCommandManager {
     public void registerCommands(Object... objects) {
         for(Object object : objects) {
 
-            CommandData data = new CommandData();
             Method[] methods = object.getClass().getMethods();
             for(Method m : methods) {
+                CommandData data = new CommandData();
                 Command commandAnnotation = m.getAnnotation(Command.class);
                 BeforeCheck beforeCheckAnnotation = m.getAnnotation(BeforeCheck.class);
                 if(commandAnnotation != null) {
                     data.setName(commandAnnotation.name().isEmpty() ? m.getName() : commandAnnotation.name());
                     data.setCaseSensitive(commandAnnotation.caseSensitive());
                     CommandHelp commandHelpAnnotation = m.getAnnotation(CommandHelp.class);
-                    data.setHelpMessage(commandHelpAnnotation.value());
+                    if(commandHelpAnnotation != null)
+                        data.setHelpMessage(commandHelpAnnotation.value());
 
-                    Class<?>[] types = new Class<?>[m.getParameterCount()];
-                    String[] names = new String[m.getParameterCount()];
+                    Parameter[] params = m.getParameters();
 
-                    int count = 0;
-                    for(Parameter param : m.getParameters()) {
-                        CommandParam paramAnnotation = param.getAnnotation(CommandParam.class);
-                        names[count] = paramAnnotation == null ? param.getName() : paramAnnotation.value();
-                        types[count] = param.getType();
-                        count++;
+                    if(params[0].getType() != Player.class && params[0].getType() != LtrpPlayer.class)
+                        return;
+                    Class<?>[] types = new Class<?>[m.getParameterCount()-1];
+                    String[] names = new String[m.getParameterCount()-1];
+
+                    for(int i = 1; i < params.length; i++) {
+                        CommandParam paramAnnotation = params[i].getAnnotation(CommandParam.class);
+                        names[i-1] = paramAnnotation == null ? params[i].getName() : paramAnnotation.value();
+                        types[i-1] = params[i].getType();
+                        System.out.println("Parsing methods " + m.getName() + " params. Param "  + i + " is type:" + params[i].getType().getName() + " its name:" + params[i].getName());
                     }
-                    data.setHandler((player, params) -> {
+                    data.setHandler((player, parameters) -> {
                         try {
-                            return (boolean)m.invoke(object, player, params);
+                            System.out.println("param count:" + parameters.length);
+                            return (boolean)m.invoke(object, parameters);
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();
                         } catch (InvocationTargetException e) {

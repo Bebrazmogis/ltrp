@@ -4,3 +4,21 @@ pSpawn ir pBspawn pInfo elementai turi bûti paðalinti. Yra alaternatyva: Spawn.p
 
 Spawn.p:
 	Nepadarytas admin tvarkymas spawnu.
+
+
+
+Ideja mechanikams: 
+	Suskirstyti tvarkyma i dvi dalis:
+		Kebulas
+			Kebulas skirstomas i dar smulkesnes dalis kaip ratai, durys, lempos(tai kas matosi)
+		Variklis
+	Papildyti darba garsais
+	Leisti vaikscioti aplink masina
+
+
+Laikrastis.	
+	Perkamas daiktas. TUri pirkimo data. Rodo skelbimus iki tam tikros datos
+	Skelbimai kaip /ad.
+
+
+	_General.p MoveDynamicObject(objectid, x, y, z, 15, rx, ry, rz);

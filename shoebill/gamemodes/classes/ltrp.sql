@@ -138,3 +138,50 @@ CREATE TABLE `ltrp-java`.logs_admin
   date DATETIME NOT NULL,
   action VARCHAR(255) NOT NULL
 ) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+
+CREATE TABLE IF NOT EXISTS player_items
+(
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  player_id INT NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  class_name VARCHAR(100) NOT NULL,
+  type INT NOT NULL,
+  doses_left INT NULL,
+  weapon_model TINYINT NULL,
+  ammo SMALLINT NULL,
+  model_id INT NULL,
+  bone TINYINT UNSIGNED NULL,
+  anim_lib VARCHAR(30) NULL,
+  anim_name VARCHAR(60) NULL,
+  dmg_increase FLOAT NULL,
+  phonenumber INT NULL UNIQUE,
+  durability INT NULL,
+  max_durability INT NULL,
+  items INT NULL,
+  size INT NULL
+) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+
+CREATE TABLE IF NOT EXISTS phone_sms (
+  id INT AUTO_INCREMENT NOT NULL,
+  sender_number INT NOT NULL,
+  recipient_number INT NOT NULL,
+  `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `text` VARCHAR(128) NOT NULL,
+  `read` BOOLEAN NOT NULL DEFAULT '0',
+  PRIMARY KEY(id),
+  INDEX(sender_number),
+  INDEX(recipient_number)
+) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS phone_contacts (
+  id INT AUTO_INCREMENT NOT NULL,
+  number int(11) NOT NULL,
+  contact_number int(11) NOT NULL,
+  name varchar(24) NOT NULL,
+  entry_date int(11) NOT NULL,
+  PRIMARY KEY (id),
+  INDEX(number),
+  INDEX(contact_number)
+) ENGINE=InnoDB DEFAULT CHARSET=cp1257;

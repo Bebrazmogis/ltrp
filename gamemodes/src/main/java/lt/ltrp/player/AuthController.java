@@ -31,6 +31,8 @@ public class AuthController {
         Logger.getLogger(AuthController.class.getSimpleName()).log(Level.INFO, "AuthController :: constructor player password set");
 
         // Check if player is banned
+        // i guess i didnt do that yet :O
+
 
         if(player.getUserId() != LtrpPlayer.INVALID_USER_ID) {
             InputDialog.create(player, manager, true)
@@ -60,6 +62,9 @@ public class AuthController {
                     })
                     .build()
                     .show();
+        } else {
+            player.sendErrorMessage("Jûs neesate uþsreigstravæs. Tai padaryti galite tinklalapyje www.ltrp.lt");
+            player.kick();
         }
 
     }

@@ -91,6 +91,7 @@ hook OnPlayerDisconnect(playerid, reason)
 		for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
 			PlayerItems[ playerid ][ i ] = EmptyPlayerItems;
 	}
+	return 1;
 }
 
 public OnPlayerItemLoad(playerid)
@@ -192,6 +193,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                	SelectPlayerItem(playerid, PlayerUsedItemIndex[ playerid ]);
 	                }
 	            }
+	            /*
 	            case 1:
 	            {
 	                new
@@ -269,6 +271,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     return 1;
 	            }
+	            */
+	            /*
 	            case 2:
 	            {
 	                new car = GetNearestVehicle(playerid, 10.0);
@@ -335,6 +339,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                }
 	                return SendClientMessage(playerid , COLOR_LIGHTRED, "Klaida, ðios tr. priemonës bagaþinë pilna.");
 	            }
+	            */
+	            /*
 	            case 3:
 	            {
 	                new index = GetPlayerHouseIndex(playerid);
@@ -383,6 +389,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                SetHouseItem(index, slot, itemid, amount, contentamount, durability);
 	                return 1;
 	            }
+	            */
+	            /*
 	            case 4:
 	            {
 	                new index = GetPlayerGarageIndex(playerid);
@@ -433,14 +441,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                return 1;
 
 	            }
+	            */
 	            case 5: ShowPlayerInventoryDialog(playerid);
+	            /*
 	            case 6:
 	            {
 	                format(string, sizeof(string), "* %s ant þemës iðmetà %s.", GetPlayerNameEx(playerid), itemname);
 	                ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 	                RemovePlayerItemAtIndex(playerid, PlayerUsedItemIndex[ playerid ]);
 	                return 1;
-	            }
+	            }*/
 	        }
 	        return 1;
 		}
@@ -625,7 +635,7 @@ public OnPlayerUseMask(playerid, itemid)
     }
     return 1;
 }
-
+/*
 Item:OnPlayerStartSmoking(playerid, itemid, invindex)
 {
     if(!IsItemInPlayerInventory(playerid, ITEM_ZIB) && !IsItemInPlayerInventory(playerid, ITEM_MATCHES)) 
@@ -749,6 +759,7 @@ Item:OnPlayerStartSmoking(playerid, itemid, invindex)
 	return 1;
 }
 
+*/
 Item:OnPlayerUsePhoneCredit(playerid, itemid)
 {
 	SendClientMessage(playerid, COLOR_NEWS, "Norëdami pasipildyti telefono sàskaità, telefono meniu pasirinkite \"Papildyti sàskaità\"");
@@ -915,7 +926,7 @@ Item:OnPlayerUseDice(playerid, itemid)
     ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
     return 1;
 }
-
+/*
 Item:OnPlayerUseWeedSeeds(playerid, itemid)
 {
     //if(pInfo[ playerid ][ pJob ] != JOB_DRUGS) 
@@ -938,13 +949,14 @@ Item:OnPlayerUseWeedSeeds(playerid, itemid)
     SendClientMessage(playerid, COLOR_WHITE, "Jums sëkmingai pavyko pasëti þolës sëklas, dabar beliekà laukti kol augalas pilnai uþaugs.");
     return 1;
 }
+*/
 
 Item:OnPlayerUseDrugIngredient(playerid)
 {
 	SendClientMessage(playerid, GRAD, "Pasigaminimui naudojama komanda /make ");
 	return 1;
 }
-
+/*
 Item:OnPlayerUseMetaAmphetamine(playerid, itemid)
 {
 	GivePlayerItem(playerid, itemid, -1);
@@ -973,9 +985,9 @@ Item:OnPlayerUseMetaAmphetamine(playerid, itemid)
 	SetPVarInt(playerid, "DrugHP", 10);
 	SetPVarInt(playerid, "DrugHPLimit", 50);
     return 1;
-}
+}*/
 
-
+/*
 Item:OnPlayerUseAmphetamine(playerid, itemid)
 {
 	new string[80];
@@ -1010,7 +1022,7 @@ Item:OnPlayerUseAmphetamine(playerid, itemid)
     SetPVarInt(playerid, "DrugHPLimit", 50);
     return 1;
 }
-
+*/
 Item:OnPlayerUseCocaine(playerid, itemid)
 {
 	new string[90];
@@ -1293,7 +1305,7 @@ Item:OnPlayerUseFishingRod(playerid, itemid)
     }
     return 1;
 }
-
+/*
 
 Item:OnPlayerUseBeer(playerid, itemid)
 {
@@ -1320,7 +1332,7 @@ Item:OnPlayerUseVine(playerid, itemid)
 	GivePlayerItem(playerid, itemid, -1);
 	return 1;
 }
-
+*/
 
 Item:OnPlayerUseMolotov(playerid, itemid)
 {
@@ -1482,9 +1494,10 @@ Item:OnPlayerUseWeapon(playerid, weaponid, invindex)
 			                                                                                
 			                                                                                
 */
-
+/*
 stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0, durability = 0, invindex = 0)
 {
+	CallShoebillFunction("givePlayerItem", playerid, itemid, amount);
 	new query[160], freeindex = -1;
 
 	for(new i = invindex; i < MAX_PLAYER_ITEMS; i++)
@@ -1516,6 +1529,7 @@ stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0, durability
 					PlayerItems[ playerid ][ i ][ Id ]);
 			}
 			mysql_pquery(DbHandle, query);
+
 			return 1;
 		}
 	}
@@ -1542,7 +1556,7 @@ stock GivePlayerItem(playerid, itemid, amount = 1, contentamount = 0, durability
 	cache_delete(result);
 	return 1;
 }
-
+*/
 stock SetPlayerItem(playerid, invindex, itemid, amount, contentamount = 0, durability = 0)
 {
 	new newamount, oldamount = GetPlayerItemAmountAtIndex(playerid, invindex);
@@ -1724,6 +1738,8 @@ stock RemovePlayerDrugItems(playerid)
 	return 1;
 }
 
+// Re-implemented in java
+/*
 stock IsPlayerInventoryFull(playerid)
 {
 	if(GetPlayerItemCount(playerid) == MAX_PLAYER_ITEMS)
@@ -1731,6 +1747,7 @@ stock IsPlayerInventoryFull(playerid)
 	else
 		return false;
 }
+*/
 
 
 stock IsPlayerInventoryEmpty(playerid)
@@ -1876,7 +1893,7 @@ CMD:inv(playerid, params[])
     return 1;
 }
 
-
+/*
 CMD:invweapon(playerid)
 {
     new currgun = GetPlayerWeapon(playerid),
@@ -1894,30 +1911,6 @@ CMD:invweapon(playerid)
 
     if(IsPlayerWeaponJobWeapon(playerid, currgun))
     	return SendClientMessage(playerid, COLOR_LIGHTRED, "Ðis ginklas yra registruotas frakcijai.");
-    /*
-    if(PlayerFaction(playerid) == 1)
-    {
-        if(currgun == 3 || currgun == 17 || currgun == 31 || currgun == 24 || currgun == 23 ||
-            currgun == 27 || currgun == 34 || currgun == 22 || currgun == 25 || currgun == 29 || currgun == 41 )
-                return
-                        SendClientMessage(playerid, COLOR_LIGHTRED, "Ðis ginklas yra registruotas frakcijai.");
-    }
-
-    if(PlayerFaction(playerid) == 2)
-    {
-        if(currgun == 9 || currgun == 42 || currgun == 41)
-                return
-                        SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio, su ðiuo ginklu negalite atlikti ðio veiksmo, kadangi jis yra tarnybinis");
-    }
-
-
-    if(PlayerFaction(playerid) == 5)
-    {
-        if(currgun == 3 || currgun == 23 || currgun == 41)
-                return
-                        SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio, su ðiuo ginklu negalite atlikti ðio veiksmo, kadangi jis yra tarnybinis");
-    }
-	*/
     if(currgun > 0 && ammo > 0)
     {
     	if(IsPlayerInventoryFull(playerid))
@@ -1932,3 +1925,4 @@ CMD:invweapon(playerid)
     }
     return 1;
 }
+*/
