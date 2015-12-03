@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2616509874">
+  <component name="DataSourceManagerImpl" format="xml" hash="2186093767">
     <data-source source="LOCAL" name="MySQL - ltrp-java@localhost" uuid="1d26f9c5-9d22-4590-945e-ad1ded31c2ca">
       <driver-ref>mysql</driver-ref>
       <auto-commit>false</auto-commit>

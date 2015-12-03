@@ -11,8 +11,8 @@ import net.gtaun.shoebill.object.Timer;
  */
 public class EctazyItem extends DrugItem {
 
-    public EctazyItem(String name, int id, ItemType type, int dosesLeft) {
-        super(name, id, type, dosesLeft);
+    public EctazyItem(String name, int id , int dosesLeft) {
+        super(name, id, ItemType.Extazy, dosesLeft);
     }
 
     @Override

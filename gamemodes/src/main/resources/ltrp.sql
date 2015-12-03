@@ -140,13 +140,15 @@ CREATE TABLE `ltrp-java`.logs_admin
 ) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 
-CREATE TABLE IF NOT EXISTS player_items
+CREATE TABLE IF NOT EXISTS items
 (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  player_id INT NOT NULL,
   name VARCHAR(100) NOT NULL,
   class_name VARCHAR(100) NOT NULL,
+  location_class VARCHAR(16) NOT NULL DEFAULT 'player',
+  location_id INT NOT NULL,
   type INT NOT NULL,
+  stackable TINYINT NOT NULL DEFAULT '0',
   doses_left INT NULL,
   weapon_model TINYINT NULL,
   ammo SMALLINT NULL,

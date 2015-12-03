@@ -16,7 +16,7 @@ public class DiceItem extends BasicItem {
     private boolean thrown = false;
 
     public DiceItem(int id) {
-        super("Loðimo kauliukai", id, ItemType.Dice);
+        super("Loðimo kauliukai", id, ItemType.Dice, false);
     }
 
     @ItemUsageOption(name = "Mesti")

@@ -35,6 +35,9 @@ public class LtrpPlayer implements Player {
     private Property property;
     private Inventory inventory;
     private LtrpWeaponData[] weapons;
+    private PlayerCountdown countdown;
+
+    private boolean isInComa;
 
     private boolean loggedIn, dataLoaded, isFactionManager;
 
@@ -106,6 +109,15 @@ public class LtrpPlayer implements Player {
         return userId;
     }
 
+    public PlayerCountdown getCountdown() {
+        return countdown;
+    }
+
+    public void setCountdown(PlayerCountdown countdown) {
+        this.countdown = countdown;
+    }
+
+
     public JailData getJailData() {
         return jailData;
     }
@@ -175,6 +187,15 @@ public class LtrpPlayer implements Player {
         }
         resetWeapons();
         this.weapons = newWeapons;
+    }
+
+
+    public boolean isInComa() {
+        return isInComa;
+    }
+
+    public void setInComa(boolean isInComa) {
+        this.isInComa = isInComa;
     }
 
     public Inventory getInventory() {

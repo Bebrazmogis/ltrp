@@ -450,7 +450,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ErrorLog("Players/Phone.p : OnDialogResponse : DIALOG_PLAYER_PHONE_CREDIT_LIST. Itemid is 0. inputtext: %s", inputtext);
 				else 
 				{
-					GivePlayerItem(playerid, itemid, -1);
+//					GivePlayerItem(playerid, itemid, -1);
 					// Ðita eilutë priklauso nuo to kad sàraðe bus rodomi tik skaièiai ir kad vis dar inputtext yra tik pirmasis stulpelis(0.3.7)
 					AddPlayerPhoneCredit(playerid, PlayerUsedPhone[ playerid ], strval(inputtext));
 					ShowPlayerPhoneCreditList(playerid, PlayerUsedPhone[ playerid ]);

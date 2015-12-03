@@ -493,7 +493,7 @@ enum E_DROPPED_WEAPON_DATA {
     bool:CanBePickedUp
 };
 
-new DroppedWeapons[ MAX_DROPPED_WEAPONS ][ E_DROPPED_WEAPON_DATA ];
+//new DroppedWeapons[ MAX_DROPPED_WEAPONS ][ E_DROPPED_WEAPON_DATA ];
 
 
 
@@ -5132,7 +5132,7 @@ CMD:stats( playerid, params[ ] )
     return 1;
 }
 
-
+/*
 
 CMD:leavegun(playerid)
 {
@@ -5232,7 +5232,7 @@ public OnDroppedWeaponDestroyed(index)
     DroppedWeapons[ index ][ ObjectId ] = -1;
     DroppedWeapons[ index ][ DissapearTimer ] = 0;
 }
-
+*/
 stock IsPlayerInRangeOfDynamicObject(playerid, Float:distance, objectid)
 {
     if(!IsValidDynamicObject(objectid))
@@ -5424,6 +5424,7 @@ CMD:sumtogether( playerid, params [ ] )
     return true;
 }
 */
+/*
 CMD:make( playerid, params[ ] )
 {
     new item,
@@ -5475,7 +5476,7 @@ CMD:make( playerid, params[ ] )
                     }
                     GivePlayerItem(playerid, ITEM_MATS, -150);
 
-                    GivePlayerWeapon( playerid, 23, 64 ); // Silenced
+                    GivePlayerWeaponItem( playerid, 23, 64 ); // Silenced
                 }
                 case 24:
                 {
@@ -5490,7 +5491,7 @@ CMD:make( playerid, params[ ] )
                     }
                     GivePlayerItem(playerid, ITEM_MATS, -200);
 
-                    GivePlayerWeapon( playerid, 24, 70 ); // Deagle
+                    GivePlayerWeaponItem( playerid, 24, 70 ); // Deagle
                 }
                 case 25:
                 {
@@ -5505,7 +5506,7 @@ CMD:make( playerid, params[ ] )
                     }
                     GivePlayerItem(playerid, ITEM_MATS, -400);
 
-                    GivePlayerWeapon( playerid, 25, 50 ); //  Shotgun
+                    GivePlayerWeaponItem( playerid, 25, 50 ); //  Shotgun
                 }
                 case 28:
                 {
@@ -5520,7 +5521,7 @@ CMD:make( playerid, params[ ] )
                     }
                     GivePlayerItem(playerid, ITEM_MATS, -350);
 
-                    GivePlayerWeapon( playerid, 28, 300 ); // UZI
+                    GivePlayerWeaponItem( playerid, 28, 300 ); // UZI
                 }
                 case 29:
                 {
@@ -5535,7 +5536,7 @@ CMD:make( playerid, params[ ] )
                     }
                     GivePlayerItem(playerid, ITEM_MATS, -500);
 
-                    GivePlayerWeapon( playerid, 29, 300 ); // MP5
+                    GivePlayerWeaponItem( playerid, 29, 300 ); // MP5
                 }
                 case 30:
                 {
@@ -5550,7 +5551,7 @@ CMD:make( playerid, params[ ] )
                     }
                     GivePlayerItem(playerid, ITEM_MATS, -700);
 
-                    GivePlayerWeapon( playerid, 30, 300 ); // AK-47
+                    GivePlayerWeaponItem( playerid, 30, 300 ); // AK-47
                 }
                 case 32:
                 {
@@ -5565,7 +5566,7 @@ CMD:make( playerid, params[ ] )
                     }
                     GivePlayerItem(playerid, ITEM_MATS, -400);
 
-                    GivePlayerWeapon( playerid, 32, 300 ); // Tec-9
+                    GivePlayerWeaponItem( playerid, 32, 300 ); // Tec-9
                 }
                 case 33:
                 {
@@ -5580,7 +5581,7 @@ CMD:make( playerid, params[ ] )
                     }
                     GivePlayerItem(playerid, ITEM_MATS, -700);
 
-                    GivePlayerWeapon( playerid, 33, 20 ); // Country Rifle
+                    GivePlayerWeaponItem( playerid, 33, 20 ); // Country Rifle
                 }
                 case 34:
                 {
@@ -5594,7 +5595,7 @@ CMD:make( playerid, params[ ] )
                         return 1;
                     }
                     GivePlayerItem(playerid, ITEM_MATS, -1500);
-                    GivePlayerWeapon( playerid, 34, 20 ); // Sniper
+                    GivePlayerWeaponItem( playerid, 34, 20 ); // Sniper
                 }
                 default: return
                 SendClientMessage( playerid, COLOR_GRAD, "{FF6347} Nurodytas klaidingas ginklo ID.");
@@ -5624,6 +5625,7 @@ CMD:make( playerid, params[ ] )
     }
     return 1;
 }
+*/
 CMD:buyseeds( playerid, params[ ] )
 {
     #pragma unused params

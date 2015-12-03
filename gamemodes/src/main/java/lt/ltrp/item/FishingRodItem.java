@@ -15,7 +15,7 @@ public class FishingRodItem extends ClothingItem {
     private static final int FISHING_ROD_MODEL = 18632;
 
     public FishingRodItem(String name, int id) {
-        super(name, id, ItemType.FishingRod, false, FISHING_ROD_MODEL, PlayerAttachBone.HAND_LEFT);
+        super(name, id, ItemType.FishingRod, FISHING_ROD_MODEL, PlayerAttachBone.HAND_LEFT);
     }
 
 

@@ -1,6 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.player.LtrpPlayer;
+import net.gtaun.shoebill.common.dialog.AbstractDialog;
 
 /**
  * @author Bebras

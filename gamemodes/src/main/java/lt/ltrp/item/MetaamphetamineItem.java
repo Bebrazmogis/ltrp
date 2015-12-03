@@ -12,8 +12,8 @@ import net.gtaun.shoebill.object.Timer;
 public class MetaamphetamineItem extends DrugItem {
 
 
-    public MetaamphetamineItem(String name, int id, ItemType type, int dosesLeft) {
-        super(name, id, type, dosesLeft);
+    public MetaamphetamineItem(String name, int id, int dosesLeft) {
+        super(name, id, ItemType.MetaAmphetamine, dosesLeft);
     }
 
 

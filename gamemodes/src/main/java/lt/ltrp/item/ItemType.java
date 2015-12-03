@@ -30,6 +30,14 @@ public enum ItemType {
     Drink(21),
     WeedSeed(22),
     Syringe(23),
+    Molotov(24),
+    Newspaper(25),
+    Amphetamine(26),
+    Cocaine(27),
+    Extazy(28),
+    Heroin(29),
+    MetaAmphetamine(30),
+    Pcp(31),
     ;
 
     private int id;

@@ -13,6 +13,7 @@ import java.awt.*;
 
 /**
  * Created by Justas on 2015.06.07.
+ *
  */
 public class Streamer {
 
@@ -45,6 +46,8 @@ public class Streamer {
                 eventManager.dispatchEvent(new PlayerEditDynamicObjectEvent(player, object, response, location, rotation));
             }
         }, "iiiffffff");
+
+
     }
 
     public void uninit() throws Throwable {

@@ -1,6 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.player.LtrpPlayer;
+import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.object.Destroyable;
 
 import java.lang.reflect.Constructor;
@@ -22,6 +23,7 @@ public interface Item extends Destroyable {
     public boolean isStackable();
     public int getAmount();
     public void setAmount(int amount);
+    void showOptions(LtrpPlayer player, Inventory inventory, AbstractDialog parentDialog);
 
     public static Item get(String className, Object[] params) throws Exception {
         Class<?> cls = Class.forName(className);

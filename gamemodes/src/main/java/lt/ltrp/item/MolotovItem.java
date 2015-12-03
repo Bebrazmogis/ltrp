@@ -2,6 +2,7 @@ package lt.ltrp.item;
 
 import lt.ltrp.object.Fire;
 import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.plugin.mapandreas.MapAndreas;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
@@ -15,8 +16,8 @@ import java.util.Random;
  */
 public class MolotovItem extends BasicItem {
 
-    public MolotovItem(String name, int id, ItemType type) {
-        super(name, id, type, false);
+    public MolotovItem(String name, int id) {
+        super(name, id, ItemType.Molotov, false);
     }
 
     @ItemUsageOption(name = "Mesti")
@@ -43,7 +44,7 @@ public class MolotovItem extends BasicItem {
         if(admin != null) {
             Item item = inventory.getItem(ItemType.Lighter);
             if(item != null) {
-                player.applyAnimation("lol", "wat");
+                player.applyAnimation("GRENADE", "WEAPON_throw", 4.1f, 0, 1, 1, 0, 2000, 1);
                 player.sendActionMessage("uþdega molotovo kokteilá ir meta já");
 
                 final Location explosionLoc = new Location();
@@ -58,11 +59,17 @@ public class MolotovItem extends BasicItem {
                     // Once we get the Z coordinate we run explosion creation on SAMP thread
                     Shoebill.get().runOnSampThread(() -> {
                         Fire.create(player, explosionLoc, 6, 11, 1);
+                        player.clearAnimations(1);
                     });
                 }).start();
-
+                return true;
+            } else {
+                player.sendErrorMessage("Neturite su kuo uþdegti molotov.");
             }
+        } else {
+            player.sendErrorMessage("Kad galëtumëte naudoti molotov kokteilá ðalia jûsø turi bûti administratorius.");
         }
+        return false;
     }
 }
 

@@ -1,5 +1,6 @@
 package lt.ltrp.item;
 
+import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.event.player.PlayerDrawWeaponEvent;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.data.WeaponData;
@@ -11,10 +12,10 @@ import net.gtaun.shoebill.object.Timer;
  */
 public class WeaponItem extends BasicItem {
 
-    private WeaponData weaponData;
+    private LtrpWeaponData weaponData;
     private boolean beingDrawn = false;
 
-    public WeaponItem(WeaponData weaponData, String name, int id, ItemType type) {
+    public WeaponItem(LtrpWeaponData weaponData, String name, int id, ItemType type) {
         super(name, id, type, false);
         this.weaponData = weaponData;
     }
@@ -23,8 +24,23 @@ public class WeaponItem extends BasicItem {
         return weaponData;
     }
 
-    public void setWeaponData(WeaponData weaponData) {
+    public void setWeaponData(LtrpWeaponData weaponData) {
         this.weaponData = weaponData;
+    }
+
+    @Override
+    public boolean drop(LtrpPlayer player, Inventory inventory) {
+        if(!weaponData.isJob()) {
+            if(!player.isInComa()) {
+                weaponData.setDropped(player.getLocation());
+                player.getInventory().remove(this);
+                player.sendActionMessage("iðmeta ginklà kuris atrodo kaip " + getName());
+                return true;
+            } else
+                player.sendErrorMessage("Jûs esate komos bûsenoje!");
+        } else
+            player.sendErrorMessage("Negalite iðmesti darbinio ginklo.");
+        return false;
     }
 
     @ItemUsageOption(name = "Iðsitraukti")

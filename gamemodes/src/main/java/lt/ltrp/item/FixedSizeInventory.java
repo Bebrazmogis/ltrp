@@ -49,6 +49,11 @@ public class FixedSizeInventory implements Inventory {
                 return true;
             }
         }
+        for(int i = 0; i < items.length; i++) {
+            if(items[i].isDestroyed()) {
+                remove(i);
+            }
+        }
         if(itemCount != size) {
             items[itemCount++] = item;
             return true;
@@ -59,7 +64,7 @@ public class FixedSizeInventory implements Inventory {
     @Override
     public void add(Item[] items) {
         for(Item item : items) {
-            add(item);
+            tryAdd(item);
         }
     }
 
@@ -191,6 +196,7 @@ public class FixedSizeInventory implements Inventory {
                     .onClickOk((dialog, dialogItem) -> {
                         Item item = (Item)dialogItem.getData();
                         player.sendMessage(Color.AQUA, "Pasirinkai daiktà " + item + " jo tipas:" + item.getClass().getName());
+                        item.showOptions(player, this, dialog);
                     })
                     .build()
                     .show();

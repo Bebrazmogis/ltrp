@@ -1338,7 +1338,7 @@ Item:OnPlayerUseVine(playerid, itemid)
 	return 1;
 }
 */
-
+/*
 Item:OnPlayerUseMolotov(playerid, itemid)
 {
 	new otherplaya = GetNearestPlayer(playerid, 5.0),
@@ -1400,7 +1400,7 @@ Item:OnPlayerUseMolotov(playerid, itemid)
     GivePlayerItem(playerid, itemid, -1);
     return 1;
 }
-
+*/
 Item:OnPlayerUseMP3Player(playerid, itemid)
 {
 	new string[64];
@@ -1416,6 +1416,7 @@ Item:OnPlayerUseMP3Player(playerid, itemid)
     ShowPlayerDialog(playerid, 67, DIALOG_STYLE_LIST,"MP3 Grotuvas", string, "Rinktis", "Atsaukti");
     return 1;
 }
+/*
 
 Item:OnPlayerUseHouseAudio(playerid, itemid)
 {
@@ -1433,7 +1434,7 @@ Item:OnPlayerUseHouseAudio(playerid, itemid)
     GivePlayerItem(playerid, itemid, -1);
     AddHouseUpgrade(house_index, Radio);
     return 1;
-}
+}*/
 
 
 

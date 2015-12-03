@@ -1,5 +1,7 @@
 package lt.ltrp.property;
 
+import lt.ltrp.Util.PawnFunc;
+import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.data.Location;
 
 import java.util.ArrayList;
@@ -41,5 +43,32 @@ public class House extends Property {
         super(uniqueid, name);
     }
 
+
+    public boolean isUpgradeInstalled(HouseUpgradeType upgradeType) {
+        int index = GetHouseIndex();
+        AmxCallable isUpgradInstalled = PawnFunc.getNativeMethod("IsHouseUpgradeInstalled");
+        int value = 0;
+        if(index != -1 && isUpgradInstalled != null) {
+            value = (Integer)isUpgradInstalled.call(index, upgradeType.id);
+        }
+        return value == 1;
+    }
+
+    public void addUpgrade(HouseUpgradeType upgradeType) {
+        int index = GetHouseIndex();
+        AmxCallable addUpgrade = PawnFunc.getNativeMethod("AddHouseUpgrade");
+        if(index != -1 && addUpgrade != null) {
+            addUpgrade.call(index, upgradeType.id);
+        }
+    }
+
+    // Legacy code for Pawn
+    public int GetHouseIndex() {
+        AmxCallable getIndex = PawnFunc.getNativeMethod("GetHouseIndex");
+        if(getIndex != null) {
+            return (Integer)getIndex.call(this.getUid());
+        }
+        return -1;
+    }
 
 }

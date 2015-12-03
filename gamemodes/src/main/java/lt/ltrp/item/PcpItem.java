@@ -11,8 +11,8 @@ import net.gtaun.shoebill.object.Timer;
  */
 public class PcpItem extends DrugItem {
 
-    public PcpItem(String name, int id, ItemType type, int dosesLeft) {
-        super(name, id, type, dosesLeft);
+    public PcpItem(String name, int id, int dosesLeft) {
+        super(name, id, ItemType.Pcp, dosesLeft);
     }
 
     @Override

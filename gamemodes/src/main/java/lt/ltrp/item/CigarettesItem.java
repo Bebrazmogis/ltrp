@@ -12,7 +12,7 @@ public class CigarettesItem extends DurableItem {
     private static final int MAX_CIGARETTES = 20;
 
     public CigarettesItem(String name, int id, int durabilityy) {
-        super(name, id, ItemType.Cigarettes, durabilityy, MAX_CIGARETTES);
+        super(name, id, ItemType.Cigarettes, durabilityy, MAX_CIGARETTES, false);
     }
 
 

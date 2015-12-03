@@ -1,7 +1,12 @@
 package lt.ltrp.data;
 
 import net.gtaun.shoebill.constant.WeaponModel;
+import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.data.Vector2D;
 import net.gtaun.shoebill.data.WeaponData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Bebras
@@ -9,7 +14,11 @@ import net.gtaun.shoebill.data.WeaponData;
  */
 public class LtrpWeaponData extends WeaponData {
 
+
+
     public boolean job;
+    private boolean isDropped;
+
 
     public LtrpWeaponData(WeaponModel type, int ammo, boolean job) {
         super(type, ammo);
@@ -37,4 +46,14 @@ public class LtrpWeaponData extends WeaponData {
     public void setJob(boolean job) {
         this.job = job;
     }
+
+    public boolean isDropped() {
+        return isDropped;
+    }
+
+    public void setDropped(Vector2D loc) {
+        this.isDropped = true;
+        new DroppedWeaponData(this, loc);
+    }
+
 }

@@ -15,8 +15,8 @@ public class WeedSeedItem extends BasicItem {
 
 
 
-    public WeedSeedItem(String name, int id, ItemType type) {
-        super(name, id, type, true);
+    public WeedSeedItem(String name, int id) {
+        super(name, id, ItemType.WeedSeed, true);
     }
 
 

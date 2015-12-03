@@ -5,8 +5,15 @@ import lt.ltrp.event.item.ItemLocationChangeEvent;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
+import net.gtaun.shoebill.common.dialog.AbstractDialog;
+import net.gtaun.shoebill.common.dialog.ListDialog;
+import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.VehicleRelated;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * @author Bebras
@@ -144,6 +151,39 @@ public class BasicItem implements Item {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void showOptions(LtrpPlayer player, Inventory inventory, AbstractDialog parentDialog) {
+        ListDialog listDialog = ListDialog.create(player, ItemController.getEventManager()).build();
+        listDialog.setCaption(getName() + " parinktys");
+        listDialog.setButtonOk("Pasirinkti");
+        listDialog.setButtonCancel("Atgal");
+        listDialog.setClickCancelHandler((d) -> parentDialog.show());
+        listDialog.setClickOkHandler((dialog, dialogitem) -> {
+            Method m = (Method)dialogitem.getData();
+            try {
+                if(m.getParameterCount() == 1) {
+                    m.invoke(player);
+                } else {
+                    m.invoke(player, inventory);
+                }
+            } catch(IllegalAccessException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        });
+
+        for(Method method : this.getClass().getMethods()) {
+            // If so, method is an option
+            if(method.isAnnotationPresent(ItemUsageOption.class)) {
+                ItemUsageOption itemUsageAnnotation = method.getAnnotation(ItemUsageOption.class);
+                ListDialogItem listDialogItem = new ListDialogItem();
+                listDialogItem.setData(method);
+                listDialogItem.setItemText(itemUsageAnnotation.name());
+            }
+        }
+
+
     }
 
     @Override

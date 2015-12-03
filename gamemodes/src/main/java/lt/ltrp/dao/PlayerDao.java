@@ -1,7 +1,5 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.item.Inventory;
-import lt.ltrp.item.Item;
 import lt.ltrp.player.CrashData;
 import lt.ltrp.player.JailData;
 import lt.ltrp.player.LtrpPlayer;
@@ -24,7 +22,4 @@ public interface PlayerDao {
     public boolean remove(LtrpPlayer player, CrashData data);
     public boolean remove(LtrpPlayer player, JailData jailData);
     public boolean setFactionManager(LtrpPlayer player);
-    public Item[] getItems(LtrpPlayer player);
-    public void updateItem(LtrpPlayer player, Item item);
-    public void addItem(LtrpPlayer player, Item item);
 }

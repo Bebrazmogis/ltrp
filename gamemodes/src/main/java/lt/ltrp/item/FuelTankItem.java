@@ -42,5 +42,12 @@ public class FuelTankItem extends ContainerItem {
         return false;
     }
 
+    @Override
+    public void setItemCount(int count) {
+        super.setItemCount(count);
+        if(count == 0) {
+            this.destroy();
+        }
+    }
 
 }

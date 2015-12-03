@@ -510,6 +510,29 @@
       <column name="Data" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
+    <table name="items" schema="" catalog="ltrp-java" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="class_name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="location_class" sqlType="VARCHAR" precision="16" scale="0" nullable="false" jdbcType="12" def="J3BsYXllcic="/>
+      <column name="location_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="doses_left" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="weapon_model" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="ammo" sqlType="SMALLINT" precision="5" scale="0" nullable="true" jdbcType="5"/>
+      <column name="model_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="bone" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="true" jdbcType="-6"/>
+      <column name="anim_lib" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="anim_name" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dmg_increase" sqlType="FLOAT" precision="12" scale="0" nullable="true" jdbcType="7"/>
+      <column name="phonenumber" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="durability" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="max_durability" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="items" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="size" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="phonenumber" unique="true" columns="phonenumber"/>
+    </table>
     <table name="komp" schema="" catalog="ltrp-java" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="kam" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>

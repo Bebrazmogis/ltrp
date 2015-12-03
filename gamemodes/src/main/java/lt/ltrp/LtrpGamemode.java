@@ -26,7 +26,7 @@ import java.sql.Statement;
 public class LtrpGamemode extends Gamemode {
 
     public static final String Version = "1.0";
-    public static final String BuildDate = "2015.11.12";
+    public static final String BuildDate = "2015.12.03";
     private static final DAOFactory dao = DAOFactory.getInstance();
 
     @Override
