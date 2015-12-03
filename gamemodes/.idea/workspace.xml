@@ -159,8 +159,8 @@
       <file leaf-file-name="MapAndreas.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/plugin/mapandreas/MapAndreas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37126437" vertical-offset="0" max-vertical-offset="1615">
-              <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.5275862" vertical-offset="204" max-vertical-offset="1615">
+              <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#729#730#0" expanded="true" />
@@ -1216,12 +1216,12 @@
       <workItem from="1448789505990" duration="28729000" />
       <workItem from="1448894325995" duration="11382000" />
       <workItem from="1449075416574" duration="15109000" />
-      <workItem from="1449134569988" duration="6222000" />
+      <workItem from="1449134569988" duration="6410000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155214000" />
+    <option name="totallyTimeSpent" value="155402000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1802,8 +1802,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/plugin/mapandreas/MapAndreas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37126437" vertical-offset="0" max-vertical-offset="1615">
-          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.5275862" vertical-offset="204" max-vertical-offset="1615">
+          <caret line="39" column="22" selection-start-line="39" selection-start-column="22" selection-end-line="39" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#729#730#0" expanded="true" />
