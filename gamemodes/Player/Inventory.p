@@ -1023,6 +1023,7 @@ Item:OnPlayerUseAmphetamine(playerid, itemid)
     return 1;
 }
 */
+/*
 Item:OnPlayerUseCocaine(playerid, itemid)
 {
 	new string[90];
@@ -1058,7 +1059,8 @@ Item:OnPlayerUseCocaine(playerid, itemid)
     return 1;
 }
 
-
+*/
+/*
 Item:OnPlayerUseEctazy(playerid)
 {
 	new string[100];
@@ -1090,7 +1092,8 @@ Item:OnPlayerUseEctazy(playerid)
     SetPVarInt(playerid, "DrugHPLimit", 50);
     return 1;
 }
-
+*/
+/*
 Item:OnPlayerUsePCP(playerid)
 {
 	new string[70];
@@ -1123,7 +1126,7 @@ Item:OnPlayerUsePCP(playerid)
 	SetPVarInt(playerid, "DrugHP", 10);
 	SetPVarInt(playerid, "DrugHPLimit", 50);
 	return 1;
-}
+}*/
 
 
 Item:OnPlayerUseBackpack(playerid)
@@ -1247,6 +1250,7 @@ Item:OnPlayerUseTool(playerid, itemid)
     return 1;
 }
 
+/*
 Item:OnPlayerUseHeroin(playerid, itemid)
 {
 	new string[100];
@@ -1284,6 +1288,7 @@ Item:OnPlayerUseHeroin(playerid, itemid)
     SetPVarInt(playerid, "DrugHPLimit", 65);
     return 1;
 }
+*/
 
 Item:OnPlayerUseFishingRod(playerid, itemid)
 {	

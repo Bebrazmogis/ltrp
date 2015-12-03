@@ -67,6 +67,9 @@ public class BasicItem implements Item {
     @Override
     public void setAmount(int amount) {
         this.amount = amount;
+        if(this.amount == 0) {
+            this.destroy();
+        }
     }
 
     @ItemUsageOption(name = "Iðmestii")

@@ -9,37 +9,33 @@ import net.gtaun.shoebill.object.Timer;
  * @author Bebras
  *         2015.12.03.
  */
-public class MetaamphetamineItem extends DrugItem {
+public class EctazyItem extends DrugItem {
 
-
-    public MetaamphetamineItem(String name, int id, ItemType type, int dosesLeft) {
+    public EctazyItem(String name, int id, ItemType type, int dosesLeft) {
         super(name, id, type, dosesLeft);
     }
 
-
     @Override
     public boolean use(LtrpPlayer player, Inventory inventory) {
-        player.setWeather(141);
-
-
+        player.sendActionMessage("ásideda saujoje laikomas tabletes á burnà ir jas nuryjà.");
+        player.setDrunkLevel(player.getDrunkLevel() + 5 * 4000);
         Timer.create(1300, 1, new Timer.TimerCallback() {
             @Override
             public void onTick(int i) {
 
             }
+
             @Override
             public void onStop() {
-                player.setVarInt("DrugHP", 10);
+                player.setVarInt("DrugHP", 5);
                 player.setVarInt("DrugHPLimit", 50);
 
                 AmxCallable func = PawnFunc.getNativeMethod("DrugEffects");
-                if(func != null) {
+                if (func != null) {
                     func.call(player.getId());
                 }
             }
         });
         return true;
     }
-
-
 }

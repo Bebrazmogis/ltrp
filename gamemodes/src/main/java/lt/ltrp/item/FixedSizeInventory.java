@@ -149,6 +149,16 @@ public class FixedSizeInventory implements Inventory {
     }
 
     @Override
+    public Item getItem(ItemType type) {
+        for(int i = 0; i < itemCount; i++) {
+            if(items[i].getType() == type) {
+                return items[i];
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void show(LtrpPlayer player) {
         List<ListDialogItem> dialogItems = new ArrayList<>();
         if(itemCount == 0) {

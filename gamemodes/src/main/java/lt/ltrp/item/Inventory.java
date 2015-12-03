@@ -28,5 +28,6 @@ public interface Inventory {
     public Item[] getItems();
     public Item[] getItems(ItemType type);
     public <T> T[] getItems(Class<T> t);
+    public Item getItem(ItemType type);
     public void show(LtrpPlayer player);
 }

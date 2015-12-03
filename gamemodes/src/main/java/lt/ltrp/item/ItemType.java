@@ -29,6 +29,7 @@ public enum ItemType {
     Weapon(20),
     Drink(21),
     WeedSeed(22),
+    Syringe(23),
     ;
 
     private int id;

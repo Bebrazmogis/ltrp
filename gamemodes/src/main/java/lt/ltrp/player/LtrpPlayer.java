@@ -74,6 +74,18 @@ public class LtrpPlayer implements Player {
         return closest;
     }
 
+    public static LtrpPlayer[] getClosestPlayers(LtrpPlayer player, float maxdistance) {
+        List<Player> closest =new ArrayList<>();
+        float closestDistance = maxdistance;
+        for(LtrpPlayer p : players) {
+            float distance = p.getLocation().distance(player.getLocation());
+            if(distance <= closestDistance) {
+                closest.add(p);
+            }
+        }
+        return (LtrpPlayer[])closest.toArray();
+    }
+
     public static void sendAdminMessage(String s) {
         for(LtrpPlayer p : players) {
             if(p.isAdmin() || p.getAdminLevel() > 0) {
@@ -268,6 +280,10 @@ public class LtrpPlayer implements Player {
 
     public LtrpPlayer getClosestPlayer() {
         return this.getClosestPlayer(Float.MAX_VALUE);
+    }
+
+    public LtrpPlayer[] getClosestPlayers(float maxdistance) {
+        return getClosestPlayers(this, maxdistance);
     }
 
     public void applyAnimation(Animation animation) {
@@ -853,7 +869,7 @@ public class LtrpPlayer implements Player {
 
     @Override
     public boolean isAdmin() {
-        return player.isAdmin();
+        return player.isAdmin() || getAdminLevel() > 0;
     }
 
     @Override
