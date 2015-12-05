@@ -7,14 +7,23 @@ import lt.ltrp.property.HouseUpgradeType;
 import lt.ltrp.property.Property;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * @author Bebras
  *         2015.12.03.
  */
 public class HouseAudioItem extends BasicItem {
 
-    public HouseAudioItem(String name, int id, ItemType type) {
-        super(name, id, type, false);
+    public HouseAudioItem(String name) {
+        super(name, ItemType.HouseAudio, false);
+    }
+
+    public HouseAudioItem() {
+        this("Namø audio sistema");
     }
 
 
@@ -42,5 +51,22 @@ public class HouseAudioItem extends BasicItem {
         } else
             player.sendErrorMessage("Jûs neesate namuose");
         return false;
+    }
+
+    protected static HouseAudioItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
+        String sql = "SELECT * FROM items_basic WHERE id = ?";
+        HouseAudioItem item = null;
+        try (
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, itemid);
+
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                item = new HouseAudioItem(result.getString("name"));
+                item.setItemId(itemid);
+            }
+        }
+        return item;
     }
 }

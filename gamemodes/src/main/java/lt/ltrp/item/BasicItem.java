@@ -5,78 +5,19 @@ import lt.ltrp.event.item.ItemLocationChangeEvent;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
-import net.gtaun.shoebill.common.dialog.AbstractDialog;
-import net.gtaun.shoebill.common.dialog.ListDialog;
-import net.gtaun.shoebill.common.dialog.ListDialogItem;
-import net.gtaun.shoebill.object.Destroyable;
-import net.gtaun.shoebill.object.VehicleRelated;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.sql.*;
 
 /**
  * @author Bebras
  *         2015.11.14.
  */
-public class BasicItem implements Item {
 
-    private String name;
-    private int id;
-    private boolean isDestroyed;
-    private ItemType type;
-    private boolean stackable;
-    private int amount;
+public class BasicItem extends AbstractItem {
 
-    public BasicItem(String name, int id, ItemType type, boolean stackable) {
-        this.name = name;
-        this.id = id;
-        this.type = type;
-        this.stackable = stackable;
-        this.amount = 0;
-    }
 
-    @Override
-    public int getId() {
-        return id;
-    }
 
-    @Override
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public ItemType getType() {
-        return type;
-    }
-
-    @Override
-    public boolean isStackable() {
-        return stackable;
-    }
-
-    @Override
-    public int getAmount() {
-        return amount;
-    }
-
-    @Override
-    public void setAmount(int amount) {
-        this.amount = amount;
-        if(this.amount == 0) {
-            this.destroy();
-        }
+    public BasicItem(String name, ItemType type, boolean stackable) {
+        super(name, type, stackable);
     }
 
     @ItemUsageOption(name = "Iðmestii")
@@ -154,45 +95,47 @@ public class BasicItem implements Item {
     }
 
     @Override
-    public void showOptions(LtrpPlayer player, Inventory inventory, AbstractDialog parentDialog) {
-        ListDialog listDialog = ListDialog.create(player, ItemController.getEventManager()).build();
-        listDialog.setCaption(getName() + " parinktys");
-        listDialog.setButtonOk("Pasirinkti");
-        listDialog.setButtonCancel("Atgal");
-        listDialog.setClickCancelHandler((d) -> parentDialog.show());
-        listDialog.setClickOkHandler((dialog, dialogitem) -> {
-            Method m = (Method)dialogitem.getData();
-            try {
-                if(m.getParameterCount() == 1) {
-                    m.invoke(player);
-                } else {
-                    m.invoke(player, inventory);
-                }
-            } catch(IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        });
+    protected PreparedStatement getUpdateStatement(Connection connection) throws SQLException {
+        String sql = "UPDATE items_basic SET `name` = ?, stackable = ? WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, getName());
+        stmt.setBoolean(2, isStackable());
+        stmt.setInt(3, getItemId());
+        return stmt;
+    }
 
-        for(Method method : this.getClass().getMethods()) {
-            // If so, method is an option
-            if(method.isAnnotationPresent(ItemUsageOption.class)) {
-                ItemUsageOption itemUsageAnnotation = method.getAnnotation(ItemUsageOption.class);
-                ListDialogItem listDialogItem = new ListDialogItem();
-                listDialogItem.setData(method);
-                listDialogItem.setItemText(itemUsageAnnotation.name());
+    @Override
+    protected PreparedStatement getInsertStatement(Connection connection) throws SQLException {
+        String sql = "INSERT INTO items_basic (`name`, stackable) VALUES (?, ?)";
+        PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, getName());
+        stmt.setBoolean(2, isStackable());
+        return stmt;
+    }
+
+    @Override
+    protected PreparedStatement getDeleteStatement(Connection connection) throws SQLException {
+        String sql = "DELETE FROM items_basic WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, getItemId());
+        return stmt;
+    }
+
+    protected static BasicItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
+        String sql = "SELECT * FROM items_basic WHERE id = ?";
+        BasicItem item = null;
+        try (
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                ) {
+            stmt.setInt(1, itemid);
+
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                item = new BasicItem(result.getString("name"), type, result.getBoolean("stackable"));
+                item.setItemId(itemid);
             }
         }
-
-
+        return item;
     }
 
-    @Override
-    public void destroy() {
-        isDestroyed = true;
-    }
-
-    @Override
-    public boolean isDestroyed() {
-        return isDestroyed;
-    }
 }

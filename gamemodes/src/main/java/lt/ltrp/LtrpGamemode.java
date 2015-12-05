@@ -6,6 +6,7 @@ import lt.ltrp.dao.DAOFactory;
 import lt.ltrp.item.ItemController;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerController;
+import lt.ltrp.property.PropertyManager;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.amx.AmxInstance;
@@ -33,6 +34,7 @@ public class LtrpGamemode extends Gamemode {
     protected void onEnable() throws Throwable {
         EventManager eventManager = getEventManager();
         ItemController.init();
+        PropertyManager propertyManager = PropertyManager.get();
 
         new PlayerController(eventManager);
         new PawnCallbacks(eventManager);

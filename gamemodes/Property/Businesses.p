@@ -436,6 +436,18 @@ public OnBusinessLoad()
 
         UpdateBusinessEntrance(i);
         Itter_Add(Business, i);
+        CreateProperty("business", bInfo[ i ][ bID ],
+        	bInfo[ i ][ bEnter ][ 0 ],
+        	bInfo[ i ][ bEnter ][ 0 ],
+        	bInfo[ i ][ bEnter ][ 0 ],
+        	bInfo[ i ][ bEntranceInt ],
+			bInfo[ i ][ bEntranceVirw ],
+			bInfo[ i ][ bExit ][ 0 ],
+			bInfo[ i ][ bExit ][ 1 ],
+			bInfo[ i ][ bExit ][ 2 ],
+			GetInteriorInteriorId(bInfo[ i ][ bInteriorId ]),
+			GetBusinessVirtualWorld(i)
+			);
     }
     printf("Serveryje ðiuo metu sukurtas (-i) %d verslas (-ai)", cache_get_row_count());
     return 1;

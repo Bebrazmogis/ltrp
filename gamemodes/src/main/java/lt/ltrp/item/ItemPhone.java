@@ -10,14 +10,19 @@ import net.gtaun.shoebill.common.dialog.*;
 import net.gtaun.shoebill.object.Timer;
 
 import java.lang.ref.WeakReference;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Bebras
  *         2015.11.29.
  */
 public class ItemPhone extends BasicItem {
+
+    private static final int NUMBER_MIN = 86000000;
+    private static final int NUMBER_MAX = 87000000;
 
     private static List<WeakReference<ItemPhone>> phones = new ArrayList<>();
 
@@ -39,9 +44,14 @@ public class ItemPhone extends BasicItem {
 
     private String currentSms = "";
 
-    public ItemPhone(String name, int id, int phonenumber) {
-        super(name, id, ItemType.Phone, false);
+    public ItemPhone(String name, int phonenumber) {
+        super(name, ItemType.Phone, false);
         phones.add(new WeakReference<ItemPhone>(this));
+        this.phonenumber = phonenumber;
+    }
+
+    public ItemPhone() {
+        this("Telefonas", LtrpGamemode.getDao().getItemDao().generatePhonenumber());
     }
 
     public Phonecall getPhonecall() {
@@ -402,5 +412,70 @@ public class ItemPhone extends BasicItem {
                     .show();
 
         });
+    }
+
+
+    protected static int generateNumber(Connection con) throws SQLException {
+        List<Integer> numbers = new ArrayList<>();
+        Random random = new Random();
+        String sql = "SELECT number FROM items_phone";
+        try (
+                Statement stmt = con.createStatement();
+                ) {
+            ResultSet result =  stmt.executeQuery(sql);
+            while(result.next()) {
+                numbers.add(result.getInt(1));
+            }
+        }
+        int phonenumber;
+        while(numbers.contains((phonenumber = random.nextInt(NUMBER_MAX - NUMBER_MIN) + NUMBER_MIN)))
+            continue;
+        return phonenumber;
+    }
+
+    @Override
+    protected PreparedStatement getUpdateStatement(Connection connection) throws SQLException {
+        String sql = "UPDATE items_phone SET `name` = ?, stackable = ?, number = ? WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, getName());
+        stmt.setBoolean(2, isStackable());
+        stmt.setInt(3, getPhonenumber());
+        stmt.setInt(4, getItemId());
+        return stmt;
+    }
+
+    @Override
+    protected PreparedStatement getInsertStatement(Connection connection) throws SQLException {
+        String sql = "INSERT INTO items_phone (`name`, stackable, number) VALUES (?, ?, ?)";
+        PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, getName());
+        stmt.setBoolean(2, isStackable());
+        stmt.setInt(3, getPhonenumber());
+        return stmt;
+    }
+
+    @Override
+    protected PreparedStatement getDeleteStatement(Connection connection) throws SQLException {
+        String sql = "DELETE FROM items_phone WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, getItemId());
+        return stmt;
+    }
+
+    protected static ItemPhone getById(int itemid, ItemType type, Connection connection) throws SQLException {
+        String sql = "SELECT * FROM items_phone WHERE id = ?";
+        ItemPhone item = null;
+        try (
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, itemid);
+
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                item = new ItemPhone(result.getString("name"), result.getInt("number"));
+                item.setItemId(itemid);
+            }
+        }
+        return item;
     }
 }

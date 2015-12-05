@@ -3,11 +3,15 @@ package lt.ltrp.item;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.data.Color;
+import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.data.Phonecall;
 import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.player.LtrpPlayer;
+import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
+import net.gtaun.shoebill.constant.PlayerAttachBone;
+import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.util.event.EventManager;
@@ -101,9 +105,7 @@ public class ItemController {
         });
 
         eventManager.registerHandler(AmxLoadEvent.class, e -> {
-           e.getAmxInstance().registerFunction("givePlayerItem", params -> {
-               return givePlayerItem((Integer)params[0], (Integer)params[1], (Integer)params[2]) ? 1 : 0;
-           }, Integer.class, Integer.class, Integer.class);
+           registerPawnFunctions(e.getAmxInstance());
         });
 
 
@@ -157,4 +159,75 @@ public class ItemController {
             return false;
         }
     }
+
+    private void registerPawnFunctions(AmxInstance amx) {
+        amx.registerFunction("givePlayerItem", params -> {
+            return givePlayerItem((Integer) params[0], (Integer) params[1], (Integer) params[2]) ? 1 : 0;
+        }, Integer.class, Integer.class, Integer.class);
+
+        amx.registerFunction("tryGivePlayerItemType", params -> {
+            LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
+            ItemType type = ItemType.getById((Integer)params[1]);
+            Item item = null;
+            switch(type) {
+                case Clothing:
+                    item = new ClothingItem("Drabuþis", type, (Integer)params[4], PlayerAttachBone.get((Integer)params[5]));
+                    break;
+                case MeleeWeapon:
+                    item = new MeleeWeaponItem("Árankis-Ginklas", type, (Integer)params[4], PlayerAttachBone.get((Integer)params[5]), null, 0.0f);
+                    break;
+                case Suitcase:
+                    item = new SuitcaseItem("Lagaminas", (Integer)params[4]);
+                    break;
+                case Mask:
+                    item = new MaskItem("Kaukë",(Integer)params[4]);
+                    break;
+                case Phone:
+                    int number = LtrpGamemode.getDao().getItemDao().generatePhonenumber();
+                    item = new ItemPhone(String.format("Telefonas(%d)", number), number);
+                    break;
+                case Cigarettes:
+                    item = new CigarettesItem("Cigaretës", 20);
+                    break;
+                case Fueltank:
+                    item = new FuelTankItem();
+                    break;
+                case FishingRod:
+                    item = new FishingRodItem();
+                    break;
+                case FishingBait:
+                    item = new DurableItem("Masalas", type, (Integer)params[4], (Integer)params[5], (Integer)params[6] == 1);
+                    break;
+                case FishingBag:
+                    item = new ContainerItem("Krepðys þuvims", type, (Integer)params[6] == 1, (Integer)params[4], (Integer)params[5]);
+                    break;
+                case Drink:
+                    item = new DrinkItem("Gëirimas", type, (Integer)params[4], SpecialAction.get((Integer)params[5]));
+                    break;
+                case Weapon:
+                    item = new WeaponItem(new LtrpWeaponData(WeaponModel.get((Integer)params[2]), (Integer)params[3], false));
+                    break;
+                default:
+                    item = new BasicItem("Daiktas", type, (Integer)params[5] == 1);
+                    break;
+            }
+            item.setAmount((Integer)params[3]);
+            boolean success = player.getInventory().tryAdd(item);
+            if(success)
+                LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
+
+            return success ? 1 : 0;
+        }, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class);
+
+        amx.registerFunction("isPlayerInventoryFull", params -> {
+            LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
+            boolean full = false;
+            if(player != null) {
+                full = player.getInventory().isFull();
+            }
+            return full ? 1 : 0;
+        }, Integer.class);
+
+    }
+
 }

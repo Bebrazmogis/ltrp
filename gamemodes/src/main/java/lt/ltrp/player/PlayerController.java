@@ -123,7 +123,7 @@ public class PlayerController {
                 spawnPlayer(player);
                 new Thread(() -> {
                     playerDao.loadData(player);
-                    Item[] items = playerDao.getItems(player);
+                    Item[] items = LtrpGamemode.getDao().getItemDao().getItems(LtrpPlayer.class, player.getUserId());
                     Logger.getLogger(getClass().getSimpleName()).log(Level.INFO, "PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUserId());
                     player.setInventory(new FixedSizeInventory(player.getName() + " kuprinės"));
                     player.getInventory().add(items);

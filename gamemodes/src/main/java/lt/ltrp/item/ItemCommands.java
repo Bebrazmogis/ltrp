@@ -1,6 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.LtrpGamemode;
+import lt.ltrp.data.Animation;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerCountdown;
 import net.gtaun.shoebill.common.command.Command;
@@ -24,7 +25,7 @@ public class ItemCommands {
             if(!newspaper.isStackable() || newspaper.getAmount() == 1 || fueltank.getItemCount() == 1) {
                 if(player.getCountdown() == null) {
                     player.sendActionMessage(" iðsitraukia kuro bakelá, laikraðtá ir butelá....");
-                    player.applyAnimation("", "");
+                    player.applyAnimation(new Animation("BOMBER", "BOM_Plant_2Idle", true, 5000));
                     PlayerCountdown playerCountdown = new PlayerCountdown(player, 2, true, new PlayerCountdown.PlayerCountdownCallback() {
                         @Override
                         public void onStop(LtrpPlayer player) {
@@ -32,8 +33,8 @@ public class ItemCommands {
                             fueltank.setItemCount(fueltank.getItemCount()-1);
                             player.getInventory().remove(newspaper);
 
-                            int itemid = LtrpGamemode.getDao().getPlayerDao().obtainItemId(player, "Molotov", MolotovItem.class.getCanonicalName(), ItemType.Molotov);
-                            MolotovItem item = new MolotovItem("Molotov", itemid, ItemType.Molotov);
+                            MolotovItem item = new MolotovItem();
+                            LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
                             player.getInventory().add(item);
                             player.clearAnimations(1);
                         }

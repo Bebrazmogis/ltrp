@@ -7,6 +7,7 @@ import net.gtaun.shoebill.object.Destroyable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
 import java.security.InvalidParameterException;
+import java.sql.Connection;
 
 /**
  * @author Bebras
@@ -15,8 +16,7 @@ import java.security.InvalidParameterException;
 public interface Item extends Destroyable {
 
     // Getter, setters and such
-    public int getId();
-    public void setId(int id);
+    int getGlobalId();
     public String getName();
     public void setName(String name);
     public ItemType getType();

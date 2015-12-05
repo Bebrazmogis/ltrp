@@ -7,6 +7,11 @@ import lt.ltrp.property.House;
 import lt.ltrp.property.Property;
 import net.gtaun.shoebill.amx.AmxCallable;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * @author Bebras
  *         2015.12.03.
@@ -15,8 +20,8 @@ public class WeedSeedItem extends BasicItem {
 
 
 
-    public WeedSeedItem(String name, int id) {
-        super(name, id, ItemType.WeedSeed, true);
+    public WeedSeedItem(String name) {
+        super(name, ItemType.WeedSeed, true);
     }
 
 
@@ -52,5 +57,22 @@ public class WeedSeedItem extends BasicItem {
             player.sendErrorMessage("Jûs neesate namuose.");
         }
         return false;
+    }
+
+    protected static WeedSeedItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
+        String sql = "SELECT * FROM items_basic WHERE id = ?";
+        WeedSeedItem item = null;
+        try (
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, itemid);
+
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                item = new WeedSeedItem(result.getString("name"));
+                item.setItemId(itemid);
+            }
+        }
+        return item;
     }
 }

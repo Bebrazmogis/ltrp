@@ -38,14 +38,17 @@ public enum ItemType {
     Heroin(29),
     MetaAmphetamine(30),
     Pcp(31),
+    HouseAudio(32),
     ;
 
-    private int id;
+    public int id;
 
     ItemType(int id) {
         this.id = id;
 
     }
+
+
 
     public static ItemType getById(int id) {
         for(ItemType type : ItemType.values()) {

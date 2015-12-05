@@ -5,6 +5,11 @@ import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.data.Vector3D;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * @author Bebras
  *         2015.11.29.
@@ -14,8 +19,12 @@ public class FishingRodItem extends ClothingItem {
 
     private static final int FISHING_ROD_MODEL = 18632;
 
-    public FishingRodItem(String name, int id) {
-        super(name, id, ItemType.FishingRod, FISHING_ROD_MODEL, PlayerAttachBone.HAND_LEFT);
+    public FishingRodItem(String name) {
+        super(name, ItemType.FishingRod, FISHING_ROD_MODEL, PlayerAttachBone.HAND_LEFT);
+    }
+
+    public FishingRodItem() {
+        this("Meðkerë");
     }
 
 
@@ -53,5 +62,21 @@ public class FishingRodItem extends ClothingItem {
         return false;
     }
 
+    protected static FishingRodItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
+        String sql = "SELECT * FROM items_clothing WHERE id = ?";
+        FishingRodItem item = null;
+        try (
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, itemid);
+
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                item = new FishingRodItem(result.getString("name"));
+                item.setItemId(itemid);
+            }
+        }
+        return item;
+    }
 
 }

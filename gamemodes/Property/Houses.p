@@ -203,6 +203,19 @@ public OnHouseLoad()
 
         UpdateHouseInfoText(i);
         Itter_Add(Houses,i);
+
+        CreateProperty("house", hInfo[ i ][ hID ],
+        	hInfo[ i ][ hEnter ][ 0 ],
+        	hInfo[ i ][ hEnter ][ 0 ],
+        	hInfo[ i ][ hEnter ][ 0 ],
+        	hInfo[ i ][ hEntranceInt ] ,
+			hInfo[ i ][ hEntranceVirw ],
+			hInfo[ i ][ hExit ][ 0 ],
+			hInfo[ i ][ hExit ][ 1 ],
+			hInfo[ i ][ hExit ][ 2 ],
+			GetInteriorInteriorId(hInfo[ i ][ hInteriorId ]),
+			GetHouseVirtualWorld(i)
+			);
     }
     printf("Serveryje ðiuo metu sukurtas (-i) %d namas (-ai)", cache_get_row_count());
     return 1;

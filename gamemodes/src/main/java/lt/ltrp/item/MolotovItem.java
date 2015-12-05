@@ -8,6 +8,10 @@ import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Timer;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Random;
 
 /**
@@ -16,8 +20,12 @@ import java.util.Random;
  */
 public class MolotovItem extends BasicItem {
 
-    public MolotovItem(String name, int id) {
-        super(name, id, ItemType.Molotov, false);
+    public MolotovItem(String name) {
+        super(name, ItemType.Molotov, false);
+    }
+
+    public MolotovItem() {
+        super("Degus skystis", ItemType.Molotov, false);
     }
 
     @ItemUsageOption(name = "Mesti")
@@ -71,5 +79,23 @@ public class MolotovItem extends BasicItem {
         }
         return false;
     }
+
+    protected static MolotovItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
+        String sql = "SELECT * FROM items_basic WHERE id = ?";
+        MolotovItem item = null;
+        try (
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, itemid);
+
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                item = new MolotovItem(result.getString("name"));
+                item.setItemId(itemid);
+            }
+        }
+        return item;
+    }
+
 }
 

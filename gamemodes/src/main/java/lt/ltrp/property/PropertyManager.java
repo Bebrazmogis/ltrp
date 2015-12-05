@@ -23,7 +23,7 @@ public class PropertyManager {
         instance = new PropertyManager();
     }
 
-    public PropertyManager get() {
+    public static PropertyManager get() {
         if(instance == null) {
             init();
         }
@@ -56,7 +56,7 @@ public class PropertyManager {
     // Functions for Pawn
     private void addPawnFunctions(AmxInstance amx) {
         // Usage: CreatePoperty(string type, int uid, float enx, float eny, float enz, int enint, int enVirtual, float exx, float exy, float exz, float exint, exVirtual);
-        amx.registerFunction("CreateProperty", params -> {
+        amx.registerFunction("createProperty", params -> {
             Location entrance = new Location((Float)params[2],
                     (Float)params[3],
                     (Float)params[4],

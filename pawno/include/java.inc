@@ -120,9 +120,19 @@ GivePlayerWeaponItem(playerid, itemid, amount)
 stock IsPlayerInventoryFull(playerid)
 {
 	printf("IsPlayerInventoryFull(%d) called", playerid);
-	new val = CallShoebillFunction("IsPlayerInventoryFull", playerid);
+	new val = CallShoebillFunction("isPlayerInventoryFull", playerid);
 	printf("IsPlayerInventoryFull returned %d", val);
 	return val;
 }
 
 
+
+
+// CreatePoperty(string type, int uid, float enx, float eny, float enz, int enint, int enVirtual, float exx, float exy, float exz, float exint, exVirtual);
+CreateProperty(type[], uid, Float:enx, Float:eny, Float:enz, enint, envw, Float:exx, Float:exy, Float:exz, exint, exvw)
+{
+	printf("CreateProperty(%s, %d, %f, %f, %f, %d, %d, %f, %f, %f, %d, %d) called", type, uid, enx, eny, enz, enint, envw, exx, exy, exz, exint, exvw);
+	new val = CallShoebillFunction("createProperty", type, uid, enx, eny, enz, enint, envw, exx, exy, exz, exint, exvw);
+	printf("CreateProperty returned %d", val);
+	return val;
+}

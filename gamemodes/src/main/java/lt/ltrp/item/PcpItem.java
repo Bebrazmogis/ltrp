@@ -5,14 +5,19 @@ import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.object.Timer;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * @author Bebras
  *         2015.12.03.
  */
 public class PcpItem extends DrugItem {
 
-    public PcpItem(String name, int id, int dosesLeft) {
-        super(name, id, ItemType.Pcp, dosesLeft);
+    public PcpItem(String name, int dosesLeft) {
+        super(name, ItemType.Pcp, dosesLeft);
     }
 
     @Override
@@ -39,5 +44,7 @@ public class PcpItem extends DrugItem {
         });
         return true;
     }
+
+
 }
 

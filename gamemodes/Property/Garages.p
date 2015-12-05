@@ -234,6 +234,18 @@ public OnGarageLoad()
             gInfo[ garageCount ][ gVehicleExit ][ 2 ] = cache_get_field_content_float(i, "vehicle_exit_z");
             gInfo[ garageCount ][ gVehicleExit ][ 3 ] = cache_get_field_content_float(i, "vehicle_exit_angle");
 
+            CreateProperty("garagE", gInfo[ garageCount ][ gID ],
+        	gInfo[ garageCount ][ gEntrance ][ 0 ],
+        	gInfo[ garageCount ][ gEntrance ][ 0 ],
+        	gInfo[ garageCount ][ gEntrance ][ 0 ],
+        	0,0,
+			gInfo[ garageCount ][ gExit ][ 0 ],
+			gInfo[ garageCount ][ gExit ][ 1 ],
+			gInfo[ garageCount ][ gExit ][ 2 ],
+			GetInteriorInteriorId(gInfo[ garageCount ][ gInteriorId ]),
+			GetGarageVirtualWorld(garageCount)
+			);
+
             UpdateGarageEntrance(garageCount);
             Itter_Add(Garages, garageCount);
         }  

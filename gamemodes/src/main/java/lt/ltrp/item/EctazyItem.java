@@ -5,14 +5,19 @@ import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.object.Timer;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * @author Bebras
  *         2015.12.03.
  */
 public class EctazyItem extends DrugItem {
 
-    public EctazyItem(String name, int id , int dosesLeft) {
-        super(name, id, ItemType.Extazy, dosesLeft);
+    public EctazyItem(String name, int dosesLeft) {
+        super(name, ItemType.Extazy, dosesLeft);
     }
 
     @Override
@@ -37,5 +42,22 @@ public class EctazyItem extends DrugItem {
             }
         });
         return true;
+    }
+
+    protected static EctazyItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
+        String sql = "SELECT * FROM items_consumable WHERE id = ?";
+        EctazyItem item = null;
+        try (
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, itemid);
+
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                item = new EctazyItem(result.getString("name"), result.getInt("doses"));
+                item.setItemId(itemid);
+            }
+        }
+        return item;
     }
 }
