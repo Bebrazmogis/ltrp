@@ -1,5 +1,6 @@
 package lt.ltrp.vehicle;
 
+import lt.ltrp.InventoryEntity;
 import lt.ltrp.item.Inventory;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.constant.VehicleModel;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author Bebras
  *         2015.11.13.
  */
-public class LtrpVehicle implements Vehicle {
+public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     private static List<LtrpVehicle> vehicles = new ArrayList<>();
 

@@ -10,6 +10,7 @@ F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\mapandreas\MapAndreas.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\DrugItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Util\PawnFunc.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerEnterBusinessEvent.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\GarageCommands.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\BasicItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\LtrpGamemode.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\HeroinItem.java
@@ -26,10 +27,14 @@ F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\MaskItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\LtrpWeaponData.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\GeneralCommands.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\PluginWrapper.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\WeedGrowEvent.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\PlayerCountdown.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\impl\SqlHouseDao.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\BusinessCommands.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\DurableItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ItemController.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\player\PlayerLogInEvent.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\HouseEvent.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ItemCommands.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\Animation.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerEnterGarageEvent.java
@@ -45,11 +50,13 @@ F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Util\Whirlpool.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\streamer\DynamicLabel.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\command\PlayerCommandManager.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\PhoneContact.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\PropertyCommands.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\MetaamphetamineItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\Inventory.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ConsumableItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\AdminCommands.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\object\Fire.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\HouseDao.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\EctazyItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ClothingItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Util\AdminLog.java
@@ -57,6 +64,7 @@ F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\Color.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerGarageEvent.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerPropertyEvent.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\SpawnData.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\VehicleCommands.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\streamer\DynamicSampObject.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\player\PlayerDataLoadEvent.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\player\PlayerSpawnSetUpEvent.java
@@ -67,9 +75,11 @@ F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\MolotovItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\DiceItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\PhoneDao.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\FixedSizeInventory.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\HouseWeedSapling.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\PlayerDao.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\Item.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\AmphetamineItem.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\WeedItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\DroppedWeaponData.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\Phonecall.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerEnterPropertyEvent.java
@@ -100,6 +110,7 @@ F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\FishingRodItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\WeaponItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\AbstractItem.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\CocaineItem.java
+F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\HouseCommands.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\streamer\event\player\PlayerEditDynamicObjectEvent.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerExitBusinessEvent.java
 F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ItemType.java

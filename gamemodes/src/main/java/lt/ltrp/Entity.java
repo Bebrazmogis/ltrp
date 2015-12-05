@@ -12,6 +12,10 @@ public class Entity {
         this.id = id;
     }
 
+    public Entity() {
+
+    }
+
     public int getId() {
         return id;
     }

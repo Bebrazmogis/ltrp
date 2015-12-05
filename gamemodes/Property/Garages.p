@@ -339,7 +339,7 @@ public OnGarageLoad()
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     GarageManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
-    switch(dialogid)
+    /*switch(dialogid)
     {
         case DIALOG_GARAGE_INVENTORY:
         {
@@ -387,6 +387,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    */
     return 0;
 }
 
@@ -1185,6 +1186,7 @@ CMD:sellgarage(playerid, params[])
     return 1;
 }
 
+/*
 
 CMD:ginv(playerid)
 {
@@ -1201,7 +1203,7 @@ CMD:ginv(playerid)
 
     ShowGarageInv(playerid, garageIndex);
     return 1;
-}
+}*/
 
 
 

@@ -1,13 +1,18 @@
 package lt.ltrp.property;
 
 import lt.ltrp.LtrpGamemode;
+import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.event.property.*;
+import lt.ltrp.item.FixedSizeInventory;
+import lt.ltrp.item.Inventory;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.amx.AmxInstance;
+import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.HandlerPriority;
 
 /**
  * @author Bebras
@@ -33,6 +38,12 @@ public class PropertyManager {
     public PropertyManager() {
         eventManager = LtrpGamemode.get().getEventManager().createChildNode();
 
+        PlayerCommandManager commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
+        commandManager.registerCommands(new HouseCommands());
+        commandManager.registerCommands(new BusinessCommands());
+        commandManager.registerCommands(new GarageCommands());
+        commandManager.registerCommands(new PropertyCommands());
+
         eventManager.registerHandler(AmxLoadEvent.class, e -> {
             addPawnFunctions(e.getAmxInstance());
         });
@@ -47,6 +58,15 @@ public class PropertyManager {
             LtrpPlayer p = e.getPlayer();
             Property property = e.getProperty();
             p.setProperty(null);
+        });
+
+        eventManager.registerHandler(WeedGrowEvent.class, e -> {
+            LtrpGamemode.getDao().getHouseDao().updateWeed(e.getSapling());
+
+            LtrpPlayer owner = LtrpPlayer.get(e.getSapling().getPlantedByUser());
+            if(owner != null && e.isFullyGrown()) {
+                owner.sendMessage(Color.DARKGREEN, "..Galbût þolë namie jau uþaugo?");
+            }
         });
     }
 
@@ -69,14 +89,26 @@ public class PropertyManager {
                     (Integer)params[10]);
             String type = (String)params[0];
             Property property = null;
+            Inventory inventory = null;
             if(type.equalsIgnoreCase("House")) {
-                property = House.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
+                House house = House.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
+                inventory = new FixedSizeInventory("Namo " + house.getUid() + " daiktai");
+                inventory.add(LtrpGamemode.getDao().getItemDao().getItems(House.class, house.getUid()));
+                house.setWeedSaplings(LtrpGamemode.getDao().getHouseDao().getWeed(house));
+
+                property = house;
             } else if(type.equalsIgnoreCase("garagE")) {
                 property = Garage.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
+                inventory = new FixedSizeInventory("Garaþo " + property.getUid() + " daiktai");
+                inventory.add(LtrpGamemode.getDao().getItemDao().getItems(Garage.class, property.getUid()));
             } else if(type.equalsIgnoreCase("business")) {
                 property = Business.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
+                inventory = new FixedSizeInventory("Verslo " + property.getUid() + " daiktai");
+                inventory.add(LtrpGamemode.getDao().getItemDao().getItems(Business.class, property.getUid()));
+            } else {
+                return 0;
             }
-
+            property.setInventory(inventory);
            return property.getUid();
         }, String.class, Integer.class, Float.class, Float.class, Float.class, Integer.class, Integer.class, Float.class, Float.class, Float.class, Integer.class, Integer.class);
 
@@ -161,5 +193,9 @@ public class PropertyManager {
             }
             return 1;
         }, Integer.class, Integer.class);
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
     }
 }

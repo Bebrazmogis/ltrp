@@ -53,7 +53,7 @@
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
       <PATH_ELEMENT>
-        <option name="myItemId" value="items" />
+        <option name="myItemId" value="house_weed" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
@@ -67,253 +67,70 @@
       <file leaf-file-name="ItemType.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="65" max-vertical-offset="1156">
-              <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="235" max-vertical-offset="1224">
+              <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SqlItemDao.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java">
+      <file leaf-file-name="FixedSizeInventory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.34210527" vertical-offset="0" max-vertical-offset="8041">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="3315">
+              <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ItemController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.95151514" vertical-offset="3061" max-vertical-offset="4318">
+              <caret line="236" column="4" selection-start-line="236" selection-start-column="4" selection-end-line="236" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractItem.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2026" max-vertical-offset="2737">
+              <caret line="158" column="59" selection-start-line="158" selection-start-column="41" selection-end-line="158" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HouseCommands.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseCommands.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="1292">
+              <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1449330432532" expanded="true" signature="524:582" placeholder="SELECT * FRO..items..." />
-                <marker date="1449330432532" expanded="true" signature="5131:5207" placeholder="INSERT INTO ..." />
-                <marker date="1449330432532" expanded="true" signature="6935:6994" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="8001:8087" placeholder="INSERT INTO ..." />
-                <marker date="1449330432532" expanded="true" signature="8803:8867" placeholder="SELECT * FRO..items..." />
-                <marker date="1449330432532" expanded="true" signature="10169:10224" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="10571:10642" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="11033:11109" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="11538:11629" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="12069:12148" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="12590:12716" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="13328:13411" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="13875:13950" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="14352:14424" placeholder="UPDATE items..." />
-                <marker date="1449330432532" expanded="true" signature="14809:14877" placeholder="UPDATE items..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JAVA/lt.ltrp.item" pinned="false" current-in-tab="false">
-        <entry file="uml://JAVA/lt.ltrp.item">
-          <provider selected="true" editor-type-id="UmlEditorProvider">
-            <state>
-              <ID>JAVA</ID>
-              <OriginalElement>lt.ltrp.item</OriginalElement>
-              <nodes>
-                <node x="1225.25" y="267.0">lt.ltrp.item.ItemPhone</node>
-                <node x="175.0" y="509.0">lt.ltrp.item.ItemUsageOption</node>
-                <node x="372.0" y="267.0">lt.ltrp.item.DiceItem</node>
-                <node x="1082.25" y="267.0">lt.ltrp.item.ConsumableItem</node>
-                <node x="0.0" y="588.0">lt.ltrp.item.FixedSizeInventory</node>
-                <node x="24.0" y="509.0">lt.ltrp.item.Inventory</node>
-                <node x="744.0" y="267.0">lt.ltrp.item.ClothingItem</node>
-                <node x="932.25" y="346.0">lt.ltrp.item.SuitcaseItem</node>
-                <node x="544.75" y="79.0">lt.ltrp.item.AbstractItem</node>
-                <node x="989.0" y="435.0">lt.ltrp.item.CocaineItem</node>
-                <node x="0.0" y="662.0">lt.ltrp.item.ItemType</node>
-                <node x="1153.25" y="346.0">lt.ltrp.item.DrinkItem</node>
-                <node x="244.0" y="267.0">lt.ltrp.item.ContainerItem</node>
-                <node x="508.0" y="509.0">lt.ltrp.item.ItemController</node>
-                <node x="6.0" y="267.0">lt.ltrp.item.DurableItem</node>
-                <node x="345.0" y="509.0">lt.ltrp.item.ItemCommands</node>
-                <node x="123.0" y="267.0">lt.ltrp.item.MolotovItem</node>
-                <node x="1381.0" y="435.0">lt.ltrp.item.HeroinItem</node>
-                <node x="889.4185185185183" y="267.0">lt.ltrp.item.WeaponItem</node>
-                <node x="662.0" y="509.0">lt.ltrp.item.SqlItemDao</node>
-                <node x="487.70833333333314" y="346.0">lt.ltrp.item.MeleeWeaponItem</node>
-                <node x="1108.0" y="435.0">lt.ltrp.item.PcpItem</node>
-                <node x="246.5" y="346.0">lt.ltrp.item.FuelTankItem</node>
-                <node x="602.0" y="267.0">lt.ltrp.item.HouseAudioItem</node>
-                <node x="837.0" y="435.0">lt.ltrp.item.AmphetamineItem</node>
-                <node x="1204.0" y="435.0">lt.ltrp.item.MetaamphetamineItem</node>
-                <node x="797.25" y="346.0">lt.ltrp.item.FishingRodItem</node>
-                <node x="728.0" y="435.0">lt.ltrp.item.EctazyItem</node>
-                <node x="1051.25" y="346.0">lt.ltrp.item.DrugItem</node>
-                <node x="0.0" y="346.0">lt.ltrp.item.CigarettesItem</node>
-                <node x="471.0" y="267.0">lt.ltrp.item.WeedSeedItem</node>
-                <node x="693.25" y="346.0">lt.ltrp.item.MaskItem</node>
-                <node x="566.75" y="0.0">lt.ltrp.item.Item</node>
-                <node x="553.25" y="158.0">lt.ltrp.item.BasicItem</node>
-              </nodes>
-              <notes />
-              <edges>
-                <edge source="lt.ltrp.item.PcpItem" target="lt.ltrp.item.DrugItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="1146.0" y="415.0" />
-                  <point x="1099.0833333333333" y="415.0" />
-                  <point x="6.8333333333332575" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.WeedSeedItem" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="526.5" y="247.0" />
-                  <point x="590.6" y="247.0" />
-                  <point x="-4.149999999999977" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.SuitcaseItem" target="lt.ltrp.item.ClothingItem">
-                  <point x="1.1368683772161603E-13" y="-14.5" />
-                  <point x="981.7500000000001" y="316.0" />
-                  <point x="833.25" y="316.0" />
-                  <point x="38.25" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.FuelTankItem" target="lt.ltrp.item.ContainerItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="0.0" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.FixedSizeInventory" target="lt.ltrp.item.Inventory">
-                  <point x="0.0" y="-14.5" />
-                  <point x="0.0" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.ClothingItem" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="795.0" y="237.0" />
-                  <point x="607.2" y="237.0" />
-                  <point x="12.450000000000045" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.CocaineItem" target="lt.ltrp.item.DrugItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="1038.5" y="415.0" />
-                  <point x="1085.4166666666667" y="415.0" />
-                  <point x="-6.8333333333332575" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.MetaamphetamineItem" target="lt.ltrp.item.DrugItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="1282.5" y="405.0" />
-                  <point x="1112.75" y="405.0" />
-                  <point x="20.5" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.FishingRodItem" target="lt.ltrp.item.ClothingItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="854.75" y="326.0" />
-                  <point x="807.75" y="326.0" />
-                  <point x="12.75" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.AbstractItem" target="lt.ltrp.item.Item">
-                  <point x="0.0" y="-14.5" />
-                  <point x="0.0" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.HouseAudioItem" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="663.0" y="247.0" />
-                  <point x="598.9" y="247.0" />
-                  <point x="4.149999999999977" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.CigarettesItem" target="lt.ltrp.item.DurableItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="0.0" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.DurableItem" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="54.5" y="207.0" />
-                  <point x="557.4" y="207.0" />
-                  <point x="-37.35000000000002" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.AmphetamineItem" target="lt.ltrp.item.DrugItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="903.0" y="405.0" />
-                  <point x="1071.75" y="405.0" />
-                  <point x="-20.5" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.MeleeWeaponItem" target="lt.ltrp.item.ClothingItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="553.7083333333331" y="316.0" />
-                  <point x="756.75" y="316.0" />
-                  <point x="-38.25" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.ConsumableItem" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="1143.75" y="217.0" />
-                  <point x="623.8" y="217.0" />
-                  <point x="29.049999999999955" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.WeaponItem" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="939.4185185185183" y="227.0" />
-                  <point x="615.5" y="227.0" />
-                  <point x="20.75" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.DiceItem" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="411.5" y="237.0" />
-                  <point x="582.3" y="237.0" />
-                  <point x="-12.450000000000045" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.MaskItem" target="lt.ltrp.item.ClothingItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="735.25" y="326.0" />
-                  <point x="782.25" y="326.0" />
-                  <point x="-12.75" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.EctazyItem" target="lt.ltrp.item.DrugItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="772.5" y="395.0" />
-                  <point x="1058.0833333333333" y="395.0" />
-                  <point x="-34.16666666666674" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.MolotovItem" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="173.5" y="217.0" />
-                  <point x="565.7" y="217.0" />
-                  <point x="-29.049999999999955" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.BasicItem" target="lt.ltrp.item.AbstractItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="0.0" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.ContainerItem" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="298.0" y="227.0" />
-                  <point x="574.0" y="227.0" />
-                  <point x="-20.75" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.HeroinItem" target="lt.ltrp.item.DrugItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="1427.0" y="395.0" />
-                  <point x="1126.4166666666667" y="395.0" />
-                  <point x="34.16666666666674" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.ItemPhone" target="lt.ltrp.item.BasicItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="1270.25" y="207.0" />
-                  <point x="632.1" y="207.0" />
-                  <point x="37.35000000000002" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.DrinkItem" target="lt.ltrp.item.ConsumableItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="1195.25" y="326.0" />
-                  <point x="1174.5" y="326.0" />
-                  <point x="30.75" y="14.5" />
-                </edge>
-                <edge source="lt.ltrp.item.DrugItem" target="lt.ltrp.item.ConsumableItem">
-                  <point x="0.0" y="-14.5" />
-                  <point x="1092.25" y="326.0" />
-                  <point x="1113.0" y="326.0" />
-                  <point x="-30.75" y="14.5" />
-                </edge>
-              </edges>
-              <settings layout="Hierarchic Group" zoom="0.8689216342933688" x="516.2044245741156" y="171.20442457411554" />
-              <SelectedNodes>
-                <node>lt.ltrp.item.DrugItem</node>
-              </SelectedNodes>
-              <Categories />
-              <SCOPE>All</SCOPE>
-              <VISIBILITY>private</VISIBILITY>
+      <file leaf-file-name="PropertyCommands.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyCommands.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="765">
+              <caret line="20" column="102" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="102" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ltrp.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/ltrp.sql">
+      <file leaf-file-name="ItemCommands.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2853" max-vertical-offset="5117">
-              <caret line="199" column="21" selection-start-line="199" selection-start-column="21" selection-end-line="199" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1071">
+              <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -324,32 +141,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/data/LtrpWeaponData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/data/DroppedWeaponData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemUsageOption.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/Inventory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Job.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdown.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlItemDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/Item.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/Business.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/LtrpGamemode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/ItemDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/DurableItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/CigarettesItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/MolotovItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ContainerItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FuelTankItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/DiceItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedSeedItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/HouseAudioItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ClothingItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/MeleeWeaponItem.java" />
@@ -366,15 +160,38 @@
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/PcpItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/MetaamphetamineItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/HeroinItem.java" />
-        <option value="db-console:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemPhone.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/ltrp.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java" />
         <option value="$PROJECT_DIR$/src/test/java/lt/ltrp/item/ItemControllerTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/Property.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/Unix.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/event/property/HouseEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/event/property/WeedGrowEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/House.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedSeedItem.java" />
+        <option value="db-console:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/" />
+        <option value="$PROJECT_DIR$/src/main/resources/ltrp.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/HouseDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlHouseDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseWeedSapling.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/InventoryEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/NamedEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/Entity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java" />
       </list>
     </option>
   </component>
@@ -613,142 +430,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="streamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="streamer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mapandreas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="player" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -840,6 +521,70 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="item" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gamemodes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gamemodes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="event" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="property" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gamemodes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gamemodes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="event" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1397,16 +1142,16 @@
       <workItem from="1449075416574" duration="15109000" />
       <workItem from="1449134569988" duration="24676000" />
       <workItem from="1449221375617" duration="20083000" />
-      <workItem from="1449316288885" duration="11167000" />
+      <workItem from="1449316288885" duration="25948000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="204918000" />
+    <option name="totallyTimeSpent" value="219699000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1418,7 +1163,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23496659" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23385301" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
@@ -1457,7 +1202,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1466,277 +1211,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="407" max-vertical-offset="3349">
-          <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
-          <folding>
-            <element signature="e#926#927#0" expanded="true" />
-            <element signature="e#954#955#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31738624" vertical-offset="1428" max-vertical-offset="15691">
-          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-          <folding>
-            <element signature="e#3029#3030#0" expanded="false" />
-            <element signature="e#3061#3062#0" expanded="false" />
-            <element signature="e#3120#3121#0" expanded="false" />
-            <element signature="e#3162#3163#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPhoneDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3030303" vertical-offset="0" max-vertical-offset="3281">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PhoneDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.029616725" vertical-offset="0" max-vertical-offset="574">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2424242" vertical-offset="2652" max-vertical-offset="3519">
-          <caret line="222" column="4" selection-start-line="222" selection-start-column="4" selection-end-line="222" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4738676" vertical-offset="34" max-vertical-offset="782">
-          <caret line="25" column="90" selection-start-line="25" selection-start-column="90" selection-end-line="25" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/LtrpGamemode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45454547" vertical-offset="0" max-vertical-offset="1394">
-          <caret line="36" column="64" selection-start-line="36" selection-start-column="64" selection-end-line="36" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2998833" vertical-offset="831" max-vertical-offset="2754">
-          <caret line="73" column="51" selection-start-line="73" selection-start-column="45" selection-end-line="73" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/Business.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42988506" vertical-offset="0" max-vertical-offset="870">
-          <caret line="25" column="33" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/House.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37126437" vertical-offset="0" max-vertical-offset="1241">
-          <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/Property.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09770115" vertical-offset="51" max-vertical-offset="1445">
-          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8045977" vertical-offset="1289" max-vertical-offset="2159">
-          <caret line="129" column="23" selection-start-line="129" selection-start-column="23" selection-end-line="129" selection-end-column="23" />
-          <folding>
-            <element signature="e#3935#3936#0" expanded="true" />
-            <element signature="e#3965#3966#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/ItemDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49195403" vertical-offset="456" max-vertical-offset="1479">
-          <caret line="52" column="23" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/DurableItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62310386" vertical-offset="605" max-vertical-offset="1462">
-          <caret line="73" column="53" selection-start-line="73" selection-start-column="53" selection-end-line="74" selection-end-column="19" />
-          <folding>
-            <marker date="1449325269599" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449325269599" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449325269599" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449325269599" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_durable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/CigarettesItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6347725" vertical-offset="0" max-vertical-offset="867">
-          <caret line="38" column="31" selection-start-line="38" selection-start-column="31" selection-end-line="38" selection-end-column="31" />
-          <folding>
-            <marker date="1449325269574" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_durable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/MolotovItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.13333334" vertical-offset="388" max-vertical-offset="1615">
-          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-          <folding>
-            <element signature="e#572#573#0" expanded="true" />
-            <element signature="e#624#625#0" expanded="true" />
-            <element signature="e#652#653#0" expanded="true" />
-            <element signature="e#715#716#0" expanded="true" />
-            <marker date="1449325459055" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ContainerItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8529755" vertical-offset="0" max-vertical-offset="1411">
-          <caret line="49" column="104" selection-start-line="49" selection-start-column="104" selection-end-line="49" selection-end-column="104" />
-          <folding>
-            <element signature="e#621#622#0" expanded="true" />
-            <element signature="e#653#654#0" expanded="true" />
-            <marker date="1449325900394" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449325900394" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449325900394" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449325900394" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449325900394" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_container..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/FuelTankItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8241379" vertical-offset="473" max-vertical-offset="1343">
-          <caret line="77" column="5" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
-          <folding>
-            <element signature="e#578#579#0" expanded="true" />
-            <element signature="e#642#643#0" expanded="true" />
-            <marker date="1449326172849" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_container..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/DiceItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7264368" vertical-offset="116" max-vertical-offset="1003">
-          <caret line="51" column="38" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="38" />
-          <folding>
-            <element signature="e#397#398#0" expanded="true" />
-            <element signature="e#460#461#0" expanded="true" />
-            <marker date="1449326271615" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedSeedItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.11085181" vertical-offset="401" max-vertical-offset="1258">
-          <caret line="28" column="38" selection-start-line="28" selection-start-column="38" selection-end-line="28" selection-end-column="38" />
-          <folding>
-            <element signature="e#479#480#0" expanded="true" />
-            <element signature="e#531#532#0" expanded="true" />
-            <marker date="1449326439841" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/HouseAudioItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.76551723" vertical-offset="286" max-vertical-offset="1156">
-          <caret line="66" column="39" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
-          <folding>
-            <element signature="e#504#505#0" expanded="true" />
-            <element signature="e#559#560#0" expanded="true" />
-            <element signature="e#590#591#0" expanded="true" />
-            <element signature="e#632#633#0" expanded="true" />
-            <marker date="1449326725030" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/MeleeWeaponItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6627771" vertical-offset="1659" max-vertical-offset="2516">
-          <caret line="146" column="19" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="19" />
-          <folding>
-            <element signature="e#1442#1443#0" expanded="true" />
-            <element signature="e#1479#1480#0" expanded="true" />
-            <marker date="1449327879499" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449327879499" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449327879499" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449327879499" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_clothing..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/MaskItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="133" max-vertical-offset="1003">
-          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-          <folding>
-            <element signature="e#373#374#0" expanded="true" />
-            <element signature="e#447#448#0" expanded="true" />
-            <marker date="1449327991018" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_clothing..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/FishingRodItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7264368" vertical-offset="490" max-vertical-offset="1360">
-          <caret line="74" column="67" selection-start-line="74" selection-start-column="67" selection-end-line="74" selection-end-column="67" />
-          <folding>
-            <element signature="e#624#625#0" expanded="true" />
-            <element signature="e#655#656#0" expanded="true" />
-            <marker date="1449328060698" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_clothing..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/SuitcaseItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6057471" vertical-offset="0" max-vertical-offset="870">
-          <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1449328161601" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_clothing..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ClothingItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8436782" vertical-offset="1391" max-vertical-offset="2261">
@@ -1830,19 +1304,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/DrugItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8436782" vertical-offset="14" max-vertical-offset="884">
-          <caret line="44" column="5" selection-start-line="29" selection-start-column="4" selection-end-line="44" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#339#340#0" expanded="true" />
-            <element signature="e#389#390#0" expanded="true" />
-            <marker date="1449329193451" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/CocaineItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8436782" vertical-offset="184" max-vertical-offset="1054">
@@ -1866,18 +1327,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/MetaamphetamineItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62528735" vertical-offset="0" max-vertical-offset="1105">
-          <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
-          <folding>
-            <element signature="e#454#455#0" expanded="true" />
-            <element signature="e#518#519#0" expanded="true" />
-            <marker date="1449329680341" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/HeroinItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1724138" vertical-offset="0" max-vertical-offset="1258">
@@ -1887,14 +1336,6 @@
             <element signature="e#490#491#0" expanded="true" />
             <marker date="1449329680351" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://db-console:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25" vertical-offset="0" max-vertical-offset="544">
-          <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1911,44 +1352,6 @@
             <marker date="1449329680363" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
             <marker date="1449329680363" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_phone..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="65" max-vertical-offset="1156">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.3908046" vertical-offset="663" max-vertical-offset="2737">
-          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29655173" vertical-offset="1544" max-vertical-offset="2465">
-          <caret line="108" column="53" selection-start-line="108" selection-start-column="53" selection-end-line="108" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1449329793653" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449329793653" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449329793653" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449329793653" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ltrp.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2853" max-vertical-offset="5117">
-          <caret line="199" column="21" selection-start-line="199" selection-start-column="21" selection-end-line="199" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2158,14 +1561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7631579" vertical-offset="0" max-vertical-offset="1071">
-          <caret line="35" column="62" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdown.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1432" max-vertical-offset="2244">
@@ -2182,36 +1577,427 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9514416" vertical-offset="2467" max-vertical-offset="3740">
-          <caret line="201" column="62" selection-start-line="201" selection-start-column="62" selection-end-line="201" selection-end-column="62" />
+        <state vertical-scroll-proportion="0.21052632" vertical-offset="2329" max-vertical-offset="2975">
+          <caret line="162" column="38" selection-start-line="162" selection-start-column="28" selection-end-line="162" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/GarageCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15477997" vertical-offset="0" max-vertical-offset="659">
+          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/BusinessCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15477997" vertical-offset="0" max-vertical-offset="659">
+          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/Property.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.831563" vertical-offset="0" max-vertical-offset="1513">
+          <caret line="105" column="54" selection-start-line="105" selection-start-column="54" selection-end-line="105" selection-end-column="54" />
+          <folding>
+            <element signature="e#2376#2377#0" expanded="false" />
+            <element signature="e#2437#2438#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32928678" vertical-offset="735" max-vertical-offset="2516">
+          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1449332534609" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
+            <marker date="1449332534609" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1449332534609" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1449332534609" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/event/property/HouseEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43854326" vertical-offset="0" max-vertical-offset="659">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#247#248#0" expanded="false" />
+            <element signature="e#277#278#0" expanded="false" />
+            <element signature="e#336#337#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/event/property/WeedGrowEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.59332323" vertical-offset="0" max-vertical-offset="659">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#495#496#0" expanded="false" />
+            <element signature="e#525#526#0" expanded="false" />
+            <element signature="e#562#563#0" expanded="false" />
+            <element signature="e#595#596#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/DrugItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41274658" vertical-offset="0" max-vertical-offset="884">
+          <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#339#340#0" expanded="true" />
+            <element signature="e#389#390#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/MetaamphetamineItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7678301" vertical-offset="412" max-vertical-offset="1071">
+          <caret line="64" column="5" selection-start-line="49" selection-start-column="4" selection-end-line="64" selection-end-column="5" />
+          <folding>
+            <marker date="1449329680341" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedSeedItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5255023" vertical-offset="17" max-vertical-offset="1037">
+          <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
+          <folding>
+            <marker date="1449346475051" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..house_weed">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://db-console:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.375" vertical-offset="0" max-vertical-offset="544">
+          <caret line="12" column="30" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/ltrp.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35517243" vertical-offset="4587" max-vertical-offset="5457">
+          <caret line="288" column="21" selection-start-line="288" selection-start-column="21" selection-end-line="288" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/HouseDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5471264" vertical-offset="0" max-vertical-offset="870">
+          <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3519">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding>
+            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT id FR..players..." />
+            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT `pass..players..." />
+            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT admin..players..." />
+            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT skin,..players..." />
+            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_jailtime..." />
+            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_crashes..." />
+            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="3315">
+          <caret line="69" column="11" selection-start-line="69" selection-start-column="11" selection-end-line="69" selection-end-column="11" />
+          <folding>
+            <element signature="e#738#739#0" expanded="false" />
+            <element signature="e#786#787#0" expanded="false" />
+            <element signature="e#8933#8934#0" expanded="false" />
+            <element signature="e#8968#8969#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlHouseDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3453909" vertical-offset="741" max-vertical-offset="1802">
+          <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1449348383650" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..house_weed..." />
+            <marker date="1449348383650" expanded="true" signature="-1:-1" placeholder="UPDATE house..." />
+            <marker date="1449348383650" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseWeedSapling.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.96091956" vertical-offset="524" max-vertical-offset="3434">
+          <caret line="80" column="5" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#2220#2221#0" expanded="false" />
+            <element signature="e#2298#2299#0" expanded="false" />
+            <element signature="e#2330#2331#0" expanded="false" />
+            <element signature="e#2379#2380#0" expanded="false" />
+            <element signature="e#2408#2409#0" expanded="false" />
+            <element signature="e#2436#2437#0" expanded="false" />
+            <element signature="e#2467#2468#0" expanded="false" />
+            <element signature="e#2495#2496#0" expanded="false" />
+            <element signature="e#2532#2533#0" expanded="false" />
+            <element signature="e#2562#2563#0" expanded="false" />
+            <element signature="e#2588#2589#0" expanded="false" />
+            <element signature="e#2613#2614#0" expanded="false" />
+            <element signature="e#2646#2647#0" expanded="false" />
+            <element signature="e#2674#2675#0" expanded="false" />
+            <element signature="e#2724#2725#0" expanded="false" />
+            <element signature="e#2764#2765#0" expanded="false" />
+            <element signature="e#2822#2823#0" expanded="false" />
+            <element signature="e#2874#2875#0" expanded="false" />
+            <element signature="e#2934#2935#0" expanded="false" />
+            <element signature="e#2988#2989#0" expanded="false" />
+            <element signature="e#3027#3028#0" expanded="false" />
+            <element signature="e#3083#3084#0" expanded="false" />
+            <element signature="e#3122#3123#0" expanded="false" />
+            <element signature="e#3156#3157#0" expanded="false" />
+            <element signature="e#3195#3196#0" expanded="false" />
+            <element signature="e#3233#3234#0" expanded="false" />
+            <element signature="e#3292#3293#0" expanded="false" />
+            <element signature="e#3346#3347#0" expanded="false" />
+            <element signature="e#3383#3384#0" expanded="false" />
+            <element signature="e#3414#3415#0" expanded="false" />
+            <element signature="e#3454#3455#0" expanded="false" />
+            <element signature="e#3491#3492#0" expanded="false" />
+            <element signature="e#3532#3533#0" expanded="false" />
+            <element signature="e#3570#3571#0" expanded="false" />
+            <element signature="e#3599#3600#0" expanded="false" />
+            <element signature="e#3637#3638#0" expanded="false" />
+            <element signature="e#3674#3675#0" expanded="false" />
+            <element signature="e#3710#3711#0" expanded="false" />
+            <element signature="e#3765#3766#0" expanded="false" />
+            <element signature="e#3815#3816#0" expanded="false" />
+            <element signature="e#4214#4215#0" expanded="false" />
+            <element signature="e#4252#4253#0" expanded="false" />
+            <element signature="e#4288#4289#0" expanded="false" />
+            <element signature="e#4327#4328#0" expanded="false" />
+            <element signature="e#4364#4365#0" expanded="false" />
+            <element signature="e#4416#4417#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/House.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6091954" vertical-offset="490" max-vertical-offset="1360">
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5275862" vertical-offset="0" max-vertical-offset="870">
+          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#283#284#0" expanded="true" />
+            <element signature="e#336#337#0" expanded="true" />
+            <marker date="1449345781290" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/NamedEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31264368" vertical-offset="0" max-vertical-offset="870">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29310346" vertical-offset="0" max-vertical-offset="870">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+          <folding>
+            <element signature="e#137#138#0" expanded="false" />
+            <element signature="e#165#166#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/InventoryEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35172415" vertical-offset="0" max-vertical-offset="870">
+          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3757293" vertical-offset="5373" max-vertical-offset="15657">
+          <caret line="466" column="28" selection-start-line="466" selection-start-column="28" selection-end-line="466" selection-end-column="28" />
+          <folding>
+            <element signature="e#11355#11356#0" expanded="true" />
+            <element signature="e#11410#11411#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.508046" vertical-offset="357" max-vertical-offset="4267">
+          <caret line="64" column="28" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="235" max-vertical-offset="1224">
+          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1836">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2312">
+          <caret line="32" column="75" selection-start-line="32" selection-start-column="75" selection-end-line="32" selection-end-column="75" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34210527" vertical-offset="0" max-vertical-offset="8041">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1672" max-vertical-offset="8092">
+          <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1449330432532" expanded="true" signature="524:582" placeholder="SELECT * FRO..items..." />
-            <marker date="1449330432532" expanded="true" signature="5131:5207" placeholder="INSERT INTO ..." />
-            <marker date="1449330432532" expanded="true" signature="6935:6994" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="8001:8087" placeholder="INSERT INTO ..." />
-            <marker date="1449330432532" expanded="true" signature="8803:8867" placeholder="SELECT * FRO..items..." />
-            <marker date="1449330432532" expanded="true" signature="10169:10224" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="10571:10642" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="11033:11109" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="11538:11629" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="12069:12148" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="12590:12716" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="13328:13411" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="13875:13950" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="14352:14424" placeholder="UPDATE items..." />
-            <marker date="1449330432532" expanded="true" signature="14809:14877" placeholder="UPDATE items..." />
+            <marker date="1449356670338" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items..." />
+            <marker date="1449356670338" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1449356670338" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="3315">
+          <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5924242" vertical-offset="85" max-vertical-offset="816">
+          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="765">
+          <caret line="20" column="102" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="102" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1071">
+          <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="1292">
+          <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2026" max-vertical-offset="2737">
+          <caret line="158" column="59" selection-start-line="158" selection-start-column="41" selection-end-line="158" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..items">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.95151514" vertical-offset="3061" max-vertical-offset="4318">
+          <caret line="236" column="4" selection-start-line="236" selection-start-column="4" selection-end-line="236" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>

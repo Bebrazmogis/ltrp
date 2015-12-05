@@ -12,3 +12,4 @@ scriptfiles/mysql_errlog.txt
 scriptfiles/This_Should_Never_Exist.txt
 npcmodes/*.pwn
 *.log
+shoebill/gamemodes/classes/**

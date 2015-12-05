@@ -50,7 +50,7 @@ public class FixedSizeInventory implements Inventory {
             }
         }
         for(int i = 0; i < items.length; i++) {
-            if(items[i].isDestroyed()) {
+            if(items[i] != null && items[i].isDestroyed()) {
                 remove(i);
             }
         }

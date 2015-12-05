@@ -15,6 +15,10 @@ public class InventoryEntity extends NamedEntity {
         this.inventory = inventory;
     }
 
+    public InventoryEntity() {
+
+    }
+
     public Inventory getInventory() {
         return inventory;
     }

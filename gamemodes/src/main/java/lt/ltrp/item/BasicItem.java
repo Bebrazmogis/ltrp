@@ -33,6 +33,9 @@ public class BasicItem extends AbstractItem {
 
     @ItemUsageOption(name = "Paimti")
     public boolean take(LtrpPlayer player, Inventory inventory) {
+        if(player.getInventory() == inventory) {
+            return false;
+        }
         if(player.getInventory().isFull()) {
             player.sendMessage(Color.LIGHTRED, "Jûsø inventorius pilnas, todël negalite paimti ðio daikto.");
         } else {

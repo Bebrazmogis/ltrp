@@ -115,7 +115,22 @@ GivePlayerWeaponItem(playerid, itemid, amount)
 	return val;
 }
 
+GiveplayerDrugItem(playerid, itemtype, itemid, amount)
+{
+	printf("GiveplayerDrugItem(%d, %d, %d, %d) called", playerid, itemtype, itemid,amount);
+	new val = CallShoebillFunction("tryGivePlayerItemType", playerid, itemtype, itemid, amount);
+	printf("GiveplayerDrugItem returned %d", val);
+	return val;
+}
 
+
+RemovePlayerItem(playerid, itemtype, itemid, amount)
+{
+	printf("RemovePlayerItem(%d, %d, %d, %d) called", playerid, itemtype, itemid,amount);
+	new val = CallShoebillFunction("removePlayerItem", playerid, itemtype, itemid, amount);
+	printf("RemovePlayerItem returned %d", val);
+	return val;
+}
 
 stock IsPlayerInventoryFull(playerid)
 {
@@ -124,6 +139,7 @@ stock IsPlayerInventoryFull(playerid)
 	printf("IsPlayerInventoryFull returned %d", val);
 	return val;
 }
+
 
 
 

@@ -1,6 +1,7 @@
 package lt.ltrp.dao;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import lt.ltrp.dao.impl.SqlHouseDao;
 import lt.ltrp.dao.impl.SqlPhoneDaoImpl;
 import lt.ltrp.dao.impl.SqlPlayerDaoImpl;
 import lt.ltrp.item.SqlItemDao;
@@ -9,6 +10,7 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * @author Bebras
@@ -25,6 +27,11 @@ public abstract class DAOFactory {
 
     public static DAOFactory getInstance() {
         DAOFactory instance = null;
+
+        Properties p = new Properties(System.getProperties());
+        p.put("com.mchange.v2.log.MLog", "com.mchange.v2.log.FallbackMLog");
+        p.put("com.mchange.v2.log.FallbackMLog.DEFAULT_CUTOFF_LEVEL", "INFO"); // Off or any other level
+        System.setProperties(p);
 
         ComboPooledDataSource cpds = new ComboPooledDataSource();
         try {
@@ -55,6 +62,7 @@ public abstract class DAOFactory {
     public abstract PlayerDao getPlayerDao();
     public abstract PhoneDao getPhoneDao();
     public abstract ItemDao getItemDao();
+    public abstract HouseDao getHouseDao();
 }
 
 class JdbcDAO extends DAOFactory {
@@ -63,6 +71,7 @@ class JdbcDAO extends DAOFactory {
     private PlayerDao playerDao;
     private PhoneDao phoneDao;
     private ItemDao itemDao;
+    private HouseDao houseDao;
 
     public JdbcDAO(ComboPooledDataSource ds) throws IOException, SQLException {
         this.ds = ds;
@@ -106,6 +115,7 @@ class JdbcDAO extends DAOFactory {
         this.playerDao = new SqlPlayerDaoImpl(ds);
         this.phoneDao = new SqlPhoneDaoImpl(ds);
         this.itemDao = new SqlItemDao(ds);
+        this.houseDao = new SqlHouseDao(ds);
         System.out.println("JDBCDAO initialized");
     }
 
@@ -128,6 +138,11 @@ class JdbcDAO extends DAOFactory {
     @Override
     public ItemDao getItemDao() {
         return itemDao;
+    }
+
+    @Override
+    public HouseDao getHouseDao() {
+        return houseDao;
     }
 }
 

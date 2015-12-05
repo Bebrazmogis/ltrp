@@ -30,14 +30,15 @@ public class House extends Property {
     }
 
     public static House get(int id) {
-        for(House h : houseList) {
-            if(h.getUid() == id) {
+        for (House h : houseList) {
+            if (h.getUid() == id) {
                 return h;
             }
         }
         return null;
     }
 
+    private List<HouseWeedSapling> weedSaplings;
 
     public House(int uniqueid, String name) {
         super(uniqueid, name);
@@ -62,6 +63,16 @@ public class House extends Property {
         }
     }
 
+
+    public List<HouseWeedSapling> getWeedSaplings() {
+        return weedSaplings;
+    }
+
+    public void setWeedSaplings(List<HouseWeedSapling> weedSaplings) {
+        this.weedSaplings = weedSaplings;
+    }
+
+
     // Legacy code for Pawn
     public int GetHouseIndex() {
         AmxCallable getIndex = PawnFunc.getNativeMethod("GetHouseIndex");
@@ -70,5 +81,7 @@ public class House extends Property {
         }
         return -1;
     }
+
+
 
 }

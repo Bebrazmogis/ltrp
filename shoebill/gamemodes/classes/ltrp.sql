@@ -294,3 +294,23 @@ CREATE TABLE IF NOT EXISTS items_phone
   number INT NOT NULL DEFAULT '86000000',
   PRIMARY KEY (id)
 ) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+
+CREATE TABLE house_weed
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  house_id INT NOT NULL,
+  x REAL NOT NULL,
+  y REAL NOT NULL,
+  z REAL NOT NULL,
+  plant_timestamp INT NOT NULL,
+  planted_by INT NOT NULL,
+  growth_timestamp INT DEFAULT 0 NOT NULL,
+  growth_stage TINYINT UNSIGNED DEFAULT 0 NOT NULL,
+  harvested_by INT NULL,
+  yield TINYINT UNSIGNED NULL,
+  PRIMARY KEY(id),
+  INDEX(planted_by),
+  INDEX(harvested_by)
+
+);

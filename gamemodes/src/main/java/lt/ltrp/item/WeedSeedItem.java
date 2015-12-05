@@ -1,11 +1,14 @@
 package lt.ltrp.item;
 
+import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.property.House;
+import lt.ltrp.property.HouseWeedSapling;
 import lt.ltrp.property.Property;
 import net.gtaun.shoebill.amx.AmxCallable;
+import net.gtaun.shoebill.data.Location;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,24 +35,13 @@ public class WeedSeedItem extends BasicItem {
         if(property instanceof House) {
             House house = (House)property;
             if(house.getOwnerUserId() == player.getUserId()) {
-                AmxCallable func = PawnFunc.getNativeMethod("GetHouseFreeWeedSlotCount");
-                AmxCallable indexFunc = PawnFunc.getNativeMethod("GetHouseIndex");
-                if(func != null && indexFunc != null) {
-                    int index = (Integer)indexFunc.call(house.getUid());
-                    if(index != -1) {
-                        int freeSlotCount = (Integer)func.call(index);
-                        if(freeSlotCount > 0) {
-                            func = PawnFunc.getNativeMethod("AddHouseWeedSapling");
-                            if(func != null) {
-                                func.call(player.getId(), index);
-                                player.sendMessage(Color.NEWS, "Jums sëkmingai pavyko pasëti þolës sëklas, dabar beliekà laukti kol augalas pilnai uþaugs.");
-                            }
-                        } else {
-                            player.sendErrorMessage("Jûsø name nebëra vietos narkotikams auginti.");
-                        }
-                    }
-                }
-
+                Location location = player.getLocation();
+                location.setZ(location.getZ()-1.1f);
+                HouseWeedSapling sapling = new HouseWeedSapling(location, house, player.getUserId());
+                sapling.startGrowth();
+                house.getWeedSaplings().add(sapling);
+                LtrpGamemode.getDao().getHouseDao().insertWeed(sapling);
+                player.sendMessage(Color.NEWS, "Jums sëkmingai pavyko pasëti þolës sëklas, dabar beliekà laukti kol augalas pilnai uþaugs.");
             } else {
                 player.sendErrorMessage("Tai ne jûsø namas!");
             }

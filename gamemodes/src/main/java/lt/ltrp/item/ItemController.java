@@ -101,8 +101,10 @@ public class ItemController {
                 player.playSound(1057);
                 player.removeWeapon(player.getArmedWeaponData());
             }
-            return true;
+            return false;
         });
+
+        commandManager.registerCommands(new ItemCommands());
 
         eventManager.registerHandler(AmxLoadEvent.class, e -> {
            registerPawnFunctions(e.getAmxInstance());
@@ -207,6 +209,24 @@ public class ItemController {
                 case Weapon:
                     item = new WeaponItem(new LtrpWeaponData(WeaponModel.get((Integer)params[2]), (Integer)params[3], false));
                     break;
+                case Amphetamine:
+                    item = new AmphetamineItem("Amfetaminas", 1);
+                    break;
+                case Cocaine:
+                    item = new CocaineItem("Kokainas", 1);
+                    break;
+                case Extazy:
+                    item = new EctazyItem("Ekstazi", 1);
+                    break;
+                case Heroin:
+                    item = new HeroinItem("Heroinas", 1);
+                    break;
+                case MetaAmphetamine:
+                    item = new MetaamphetamineItem("Metamfetaminas", 1);
+                    break;
+                case Pcp:
+                    item = new PcpItem("PCP", 1);
+                    break;
                 default:
                     item = new BasicItem("Daiktas", type, (Integer)params[5] == 1);
                     break;
@@ -218,6 +238,20 @@ public class ItemController {
 
             return success ? 1 : 0;
         }, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class, Integer.class);
+
+        amx.registerFunction("removePlayerItem", params -> {
+            LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
+            if(player != null) {
+                ItemType type = ItemType.getById((Integer)params[1]);
+                Item[] items = player.getInventory().getItems(type);
+                int count = (Integer)params[3];
+                for(int i = count > items.length ? items.length : count; i >= 0 && i < items.length; i--) {
+                    player.getInventory().remove(items[i]);
+                }
+                return 1;
+            }
+            return 0;
+        }, Integer.class, Integer.class, Integer.class, Integer.class);
 
         amx.registerFunction("isPlayerInventoryFull", params -> {
             LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);

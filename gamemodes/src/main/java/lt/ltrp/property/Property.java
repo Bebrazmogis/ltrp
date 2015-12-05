@@ -102,6 +102,10 @@ public abstract class Property implements Destroyable {
         }
     }
 
+    public boolean isOwner(LtrpPlayer player) {
+        return player.getUserId() == getOwnerUserId();
+    }
+
 
     @Override
     public void destroy() {

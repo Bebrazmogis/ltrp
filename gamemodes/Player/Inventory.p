@@ -454,6 +454,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	        }
 	        return 1;
 		}
+		/*
 		case DIALOG_PLAYER_INVENTORY_AMOUNT:
 		{
 			if(!response)
@@ -487,6 +488,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             PlayerUsedItemIndex[ playerid ] = -1;
             return 1;
 		}
+		*/
 	}
 	return 0;
 }
@@ -1720,8 +1722,10 @@ stock GetPlayerItemContentAmount(playerid, itemid)
 		return PlayerItems[ playerid ][ index ][ ContentAmount ];
 }
 
+
 stock ClearWeaponsFromPlayerInventory(playerid)
 {
+	/*
 	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
 	{
 		if(PlayerItems[ playerid ][ i ][ Id ] && IsItemWeapon(PlayerItems[ playerid ][ i ][ ItemId ]))
@@ -1729,9 +1733,12 @@ stock ClearWeaponsFromPlayerInventory(playerid)
 			GivePlayerItem(playerid, PlayerItems[ playerid ][ i ][ ItemId ], -PlayerItems[ playerid ][ i ][ Amount ]);
 		}
 	}
+	*/
+	RemovePlayerItem(playerid, 20, -1, 10000);
 	return 1;
 }
 
+/*
 stock RemovePlayerDrugItems(playerid)
 {
 	for(new i = 0; i < MAX_PLAYER_ITEMS; i++)
@@ -1743,6 +1750,7 @@ stock RemovePlayerDrugItems(playerid)
 	}
 	return 1;
 }
+*/
 
 // Re-implemented in java
 /*

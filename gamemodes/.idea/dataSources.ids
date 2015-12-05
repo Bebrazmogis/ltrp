@@ -443,18 +443,18 @@
     <table name="house_weed" schema="" catalog="ltrp-java" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="house_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="x" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
-      <column name="y" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
-      <column name="z" sqlType="FLOAT" precision="12" scale="0" nullable="false" jdbcType="7"/>
+      <column name="x" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="y" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
+      <column name="z" sqlType="DOUBLE" precision="22" scale="0" nullable="false" jdbcType="8"/>
       <column name="plant_timestamp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="planted_by" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="growth_timestamp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="growth_level" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="growth_stage" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
       <column name="harvested_by" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="yield" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="yield" sqlType="TINYINT UNSIGNED" precision="3" scale="0" nullable="true" jdbcType="-6"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="harvested_by" unique="false" columns="harvested_by"/>
-      <index name="house_id" unique="false" columns="house_id"/>
+      <index name="planted_by" unique="false" columns="planted_by"/>
     </table>
     <table name="houses" schema="" catalog="ltrp-java" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>

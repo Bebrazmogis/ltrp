@@ -587,6 +587,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             format(string, sizeof(string), "* %s pakeièia audio sistemos daþná á kità." ,GetPlayerNameEx(playerid));
             ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
         }
+        /*
         case DIALOG_HOUSE_ITEM_LIST:
         {
 
@@ -627,6 +628,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
             return 1;
         }
+        */
     }
     return 0;
 }
@@ -1578,6 +1580,7 @@ CMD:houseinfo(playerid)
     return 1;
 }
 
+/*
 CMD:hinv(playerid, params[])
 {
     if(Mires[ playerid ] > 0 )   
@@ -1592,7 +1595,7 @@ CMD:hinv(playerid, params[])
 
     ShowHouseInv(playerid, house_index);
     return 1;
-}
+}*/
 
 CMD:hradio(playerid)
 {
@@ -1915,7 +1918,7 @@ CMD:sellhouse(playerid, params[])
     return 1;
 }
 
-
+/*
 CMD:cutweed(playerid)
 {
     //if(pInfo[ playerid ][ pJob ] != JOB_DRUGS) 
@@ -1952,7 +1955,8 @@ CMD:cutweed(playerid)
     GivePlayerItem(playerid, ITEM_WEED, yield);
     return 1;
 }
-
+*/
+/*
 CMD:cutdownweed(playerid)
 {
     if(!UsePDCMD(playerid)) 
@@ -1974,7 +1978,7 @@ CMD:cutdownweed(playerid)
     return 1;
 
 }
-
+*/
 /*
                     
 

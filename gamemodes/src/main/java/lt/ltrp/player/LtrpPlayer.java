@@ -5,6 +5,7 @@ import lt.ltrp.data.*;
 import lt.ltrp.data.Animation;
 import lt.ltrp.item.Inventory;
 import lt.ltrp.property.Property;
+import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.*;
@@ -462,8 +463,8 @@ public class LtrpPlayer implements Player {
     }
 
     @Override
-    public Vehicle getVehicle() {
-        return player.getVehicle();
+    public LtrpVehicle getVehicle() {
+        return (LtrpVehicle)player.getVehicle();
     }
 
     @Override

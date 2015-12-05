@@ -2536,6 +2536,7 @@ stock IsItemInTrunk( vehicle, item )
     }
     return MAX_TRUNK_SLOTS;
 }
+/*
 stock TakeFromTrunk( playerid, veh, slot )
 {
     if ( !PlayerToCar( 5.0, playerid, veh ) ) return 1;
@@ -2585,6 +2586,7 @@ stock TakeFromTrunk( playerid, veh, slot )
     SaveCar( veh );
     return 1;
 }
+*/
 FUNKCIJA:CreateAllTrash( )
 {
     for( new i = 0; i < 12; i++ )
@@ -5626,6 +5628,7 @@ CMD:make( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:buyseeds( playerid, params[ ] )
 {
     #pragma unused params
@@ -5643,6 +5646,8 @@ CMD:buyseeds( playerid, params[ ] )
     SendClientMessage( playerid, COLOR_WHITE, " Sëkmingai nusipirkote 10 þolës augalo sëklø, kurios kainavo 200$.");
     return 1;
 }
+*/
+
 CMD:pay( playerid, params[ ] )
 {
     new giveplayerid,
@@ -5704,7 +5709,8 @@ CMD:buymats( playerid, params[ ] )
     if(IsPlayerInventoryFull(playerid))
         return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Perspëjimas: jûsø inventoriuje nepakanka vietos, atsilaisvinkite ir bandykite dar kart.");
 
-    GivePlayerItem(playerid, ITEM_MATS, mat);
+    GivePlayerBasicItem(playerid, ITEM_MATS, mat, 36, 1);
+  //  GivePlayerItem(playerid, ITEM_MATS, mat);
     GivePlayerMoney( playerid, - mat * 2 );
     Mats -= mat;
     format          ( string, 70, " Nusipirkai %d paketø, bûk atsargus kad policija nepagautu. ", mat );
@@ -6258,6 +6264,7 @@ CMD:windows( playerid, params[ ] )
     }
     return 1;
 }
+/*
 CMD:trunk( playerid, params[ ] )
 {
     #pragma unused params
@@ -6285,6 +6292,7 @@ CMD:trunk( playerid, params[ ] )
     ShowTrunk( playerid, car );
     return 1;
 }
+*/
 CMD:nof( playerid, params[ ] )
 {
     #pragma unused params
@@ -6415,7 +6423,13 @@ CMD:take( playerid, params[ ] )
         }
         case 3:
         {
-            RemovePlayerDrugItems(playerid);
+//            RemovePlayerDrugItems(playerid);
+            RemovePlayerItem(playerid, 26, -1, 10000);
+            RemovePlayerItem(playerid, 27, -1, 10000);
+            RemovePlayerItem(playerid, 28, -1, 10000);
+            RemovePlayerItem(playerid, 29, -1, 10000);
+            RemovePlayerItem(playerid, 30, -1, 10000);
+            RemovePlayerItem(playerid, 31, -1, 10000);
             format      ( string, 70, "* %s atima visas turimas/laikomas %s narkotines medþiagas." ,GetPlayerNameEx( playerid ), GetPlayerNameEx( giveplayerid ) );
             ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
             SaveAccount( giveplayerid );
@@ -8010,7 +8024,8 @@ CMD:giverec( playerid, params[ ] )
     {
         if(IsPlayerInventoryFull(playerid))
             return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Nepakanka vietos jo inventoriuje" );
-        GivePlayerItem(giveplayerid, ITEM_MEDLIC, 1); 
+        //GivePlayerItem(giveplayerid, ITEM_MEDLIC, 1); 
+        GivePlayerBasicItem(playerid, ITEM_MEDLIC, 1, 35, 0);
         format      (string, 126, "* %s iðraðo vaistø receptá  ir paduoda %s ", GetPlayerNameEx( playerid ), GetPlayerNameEx( giveplayerid ) );
         ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
         return 1;
@@ -16394,7 +16409,8 @@ public OnPlayerEnterCheckpoint(playerid)
                                 return 1;
                             }
                             pInfo[ playerid ][ pLicCar ] = 1;
-                            GivePlayerItem(playerid, ITEM_TEORIJA, -1);
+                           // GivePlayerItem(playerid, ITEM_TEORIJA, -1);
+                            RemovePlayerItem(playerid, 34, ITEM_TEORIJA, 1);
                             SendClientMessage(playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),        
                             SendClientMessage(playerid, COLOR_WHITE," ** Jûs sëkmingai iðsilaikëte vairavimo testà ir ágijote licencija vairuoti automobilá. ");
                             GivePlayerMoney( playerid, -1200 ); //Teisiø kainà.
@@ -16436,7 +16452,8 @@ public OnPlayerEnterCheckpoint(playerid)
                                 format( string, 256, "{FFFFFF}Jûs padarëte ðiais klaidas:\n%s\nTodël egzaminas skubiai nutraukiamas.", string );
                                 ShowPlayerDialog( playerid, 9999, DIALOG_STYLE_MSGBOX , "Vairavimo testas neiðlaikytas", string, "Iðjungti", "");
                                 SetVehicleToRespawn( veh );
-                                GivePlayerItem(playerid, ITEM_TEORIJA, -1);
+//                                GivePlayerItem(playerid, ITEM_TEORIJA, -1);
+                                RemovePlayerItem(playerid, 34, ITEM_TEORIJA, 1);
                                 Checkpoint[ playerid ] = CHECKPOINT_NONE;
                                 SetPVarInt             ( playerid, "LIC_TIME", 0 );
                                 DisablePlayerCheckpoint( playerid );
@@ -16482,7 +16499,8 @@ public OnPlayerEnterCheckpoint(playerid)
                                 format( string, 256, "{FFFFFF}Jûs padarëte ðiais klaidas:\n%s\nTodël egzaminas skubiai nutraukiamas.", string );
                                 ShowPlayerDialog( playerid, 9999, DIALOG_STYLE_MSGBOX , "Laivybos egzaminas nutrauktas", string, "Iðjungti", "");
                                 SetVehicleToRespawn( veh );
-                                GivePlayerItem(playerid, ITEM_TEORIJA, -1);
+ //                               GivePlayerItem(playerid, ITEM_TEORIJA, -1);
+                                RemovePlayerItem(playerid, 34, ITEM_TEORIJA, 1);
 
                                 Checkpoint[ playerid ] = CHECKPOINT_NONE;
                                 SetPVarInt             ( playerid, "LIC_TIME", 0 );
@@ -16557,7 +16575,9 @@ public OnPlayerEnterRaceCheckpoint(playerid)
                                 format( string, 256, "{FFFFFF}Jûs padarëte ðiais klaidas:\n%s\nTodël neiðlaikëte skraidymo testo. ", string );
                                 ShowPlayerDialog( playerid, 9999, DIALOG_STYLE_MSGBOX , "Skraidymo testas neiðlaikytas", string, "Iðjungti", "");
                                 SetVehicleToRespawn( veh );
-                                GivePlayerItem(playerid, ITEM_TEORIJA, -1);
+
+//                                GivePlayerItem(playerid, ITEM_TEORIJA, -1);
+                                RemovePlayerItem(playerid, 34, ITEM_TEORIJA, 1);
 
                                 Checkpoint[ playerid ] = CHECKPOINT_NONE;
                                 SetPVarInt             ( playerid, "LIC_TIME", 0 );
@@ -17221,7 +17241,7 @@ public OnPlayerUpdate(playerid)
         format( str, sizeof(str), "Neleistinai gautas ginklas (%s)", wepname);
         TogglePlayerControllable(playerid, 0);
         ResetPlayerWeapons( playerid );
-        ClearWeaponsFromPlayerInventory(playerid);
+//        ClearWeaponsFromPlayerInventory(playerid);
         BanPlayer( "AC", playerid, str );
         return 1;
     }
@@ -17925,7 +17945,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         if( response )
         {
             if( listitem == MAX_TRUNK_SLOTS ) return 1;
-            TakeFromTrunk( playerid, vehicle, listitem );
+            SendClientMessage(playerid, 0xFF0000FF, "#6412");
+//            TakeFromTrunk( playerid, vehicle, listitem );
         }
     }
     else if ( dialogid == 16 )
@@ -18931,7 +18952,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             if(IsPlayerInventoryFull(playerid))
                                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø inventorius pilnas.");
 
-                            GivePlayerItem(playerid, ITEM_METAMFA, 50);
+//                            GivePlayerItem(playerid, ITEM_METAMFA, 50);
+                            GiveplayerDrugItem(playerid, 30, ITEM_METAMFA, 50);
                             GivePlayerMoney(playerid, -1000);
                             DrugMake[ w ][ dMade ] = false;
                             DrugMake[ w ][ dLaikas ] = 0;
@@ -18968,7 +18990,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             if(IsPlayerInventoryFull(playerid))
                                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø inventorius pilnas.");
 
-                            GivePlayerItem(playerid, ITEM_AMFA, 100);
+//                            GivePlayerItem(playerid, ITEM_AMFA, 100);
+                            GiveplayerDrugItem(playerid, 26, ITEM_AMFA, 100);
                             GivePlayerMoney(playerid, -1500);
                             DrugMake[ w ][ dMade ] = false;
                             DrugMake[ w ][ dLaikas ] = 0;
@@ -19005,7 +19028,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             if(IsPlayerInventoryFull(playerid))
                                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø inventorius pilnas.");
 
-                            GivePlayerItem(playerid, ITEM_COCAINE, 25);
+//                            GivePlayerItem(playerid, ITEM_COCAINE, 25);
+                            GiveplayerDrugItem(playerid, 27, ITEM_COCAINE, 25);
                             GivePlayerMoney(playerid, -1000);
                             DrugMake[ w ][ dMade ] = false;
                             DrugMake[ w ][ dLaikas ] = 0;
@@ -19042,7 +19066,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             if(IsPlayerInventoryFull(playerid))
                                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø inventorius pilnas.");
 
-                            GivePlayerItem(playerid, ITEM_HERAS, 50);
+//                            GivePlayerItem(playerid, ITEM_HERAS, 50);
+                            GiveplayerDrugItem(playerid, 29, 50);
                             GivePlayerMoney(playerid, -1500);
                             DrugMake[ w ][ dMade ] = false;
                             DrugMake[ w ][ dLaikas ] = 0;
@@ -19078,7 +19103,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             if(IsPlayerInventoryFull(playerid))
                                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø inventorius pilnas.");
 
-                            GivePlayerItem(playerid, ITEM_EXTAZY, 30 );
+    //                            GivePlayerItem(playerid, ITEM_EXTAZY, 30 );
+                            GiveplayerDrugItem(playerid, 28, ITEM_EXTAZY, 30);
                             GivePlayerMoney(playerid, -1200);
                             DrugMake[ w ][ dMade ] = false;
                             DrugMake[ w ][ dLaikas ] = 0;
@@ -19114,7 +19140,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             if(IsPlayerInventoryFull(playerid))
                                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø inventorius pilnas.");
 
-                            GivePlayerItem(playerid, ITEM_PCP, 50);
+//                            GivePlayerItem(playerid, ITEM_PCP, 50);
+                            GiveplayerDrugItem(playerid, 31, ITEM_PCP, 50);
                             GivePlayerMoney(playerid, -1300);
                             DrugMake[ w ][ dMade ] = false;
                             DrugMake[ w ][ dLaikas ] = 0;
@@ -19136,6 +19163,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         }
                     }
                 }
+                /*
                 case 6:
                 {
                     for(new w = 0; w < sizeof DrugMake; w++)
@@ -19152,6 +19180,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 
                             GivePlayerItem(playerid, ITEM_CRACK, 100);
+
                             GivePlayerMoney(playerid, -1000);
                             DrugMake[ w ][ dMade ] = false;
                             DrugMake[ w ][ dLaikas ] = 0;
@@ -19173,6 +19202,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         }
                     }
                 }
+                */
+                /*
                 case 7:
                 {
                     for(new w = 0; w < sizeof DrugMake; w++)
@@ -19187,7 +19218,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                             if(IsPlayerInventoryFull(playerid))
                                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûsø inventorius pilnas.");
 
-                            GivePlayerItem(playerid, ITEM_OPIUM, 30);
+                            //GivePlayerItem(playerid, ITEM_OPIUM, 30);
+                            // 
                             GivePlayerMoney(playerid, -1200);
                             DrugMake[ w ][ dMade ] = false;
                             DrugMake[ w ][ dLaikas ] = 0;
@@ -19209,6 +19241,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         }
                     }
                 }
+                */
             }
         }
         tmpinteger[ playerid ] = -1;
@@ -20330,7 +20363,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(IsPlayerInventoryFull(playerid))
                         return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Perspëjimas: Jûsø inventorius pilnas, taigi testas nutraukiamas.");
 
-                    GivePlayerItem(playerid, ITEM_TEORIJA, 1);
+                    GivePlayerBasicItem(playerid, ITEM_TEORIJA, 1, 34, 0);
+                    //GivePlayerItem(playerid, ITEM_TEORIJA, 1);
 
                 }
                 else if ( answered <= MAX_LIC_Q - 1)
@@ -23540,11 +23574,11 @@ stock PayDay( playerid )
 
             if ( pInfo[ playerid ][ pJobContr  ] > 0 )
                 pInfo[ playerid ][ pJobContr  ] --;
-
+/*
             if(IsItemInPlayerInventory(playerid, ITEM_VAISTAI))
             {
                 GivePlayerItem(playerid, ITEM_VAISTAI, -1);
-            }
+            }*/
             if ( pInfo[ playerid ][ pLiga ] == 0 )
                 Susirgti( playerid );
         }

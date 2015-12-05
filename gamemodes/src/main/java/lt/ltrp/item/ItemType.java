@@ -39,6 +39,10 @@ public enum ItemType {
     MetaAmphetamine(30),
     Pcp(31),
     HouseAudio(32),
+    Weed(33),
+    DmvTheory(34),
+    Prescription(35),
+    Materials(36),
     ;
 
     public int id;
