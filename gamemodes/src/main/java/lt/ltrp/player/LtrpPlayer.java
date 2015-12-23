@@ -1,11 +1,16 @@
 package lt.ltrp.player;
 
+import javafx.util.Pair;
 import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.data.*;
 import lt.ltrp.data.Animation;
 import lt.ltrp.item.Inventory;
+import lt.ltrp.job.Job;
+import lt.ltrp.job.Rank;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.vehicle.PlayerVehicle;
+import lt.ltrp.vehicle.PlayerVehiclePermission;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.*;
@@ -13,9 +18,10 @@ import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.exception.AlreadyExistException;
 import net.gtaun.shoebill.exception.IllegalLengthException;
 import net.gtaun.shoebill.object.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Bebras
@@ -25,7 +31,8 @@ public class LtrpPlayer implements Player {
 
     public static final int INVALID_USER_ID = 0;
 
-    protected static List<LtrpPlayer> players = new ArrayList<>();
+    private static List<LtrpPlayer> players = new ArrayList<>();
+    private static final Logger logger = LoggerFactory.getLogger(LtrpPlayer.class);
 
     private Player player;
 
@@ -36,7 +43,20 @@ public class LtrpPlayer implements Player {
     private Property property;
     private Inventory inventory;
     private LtrpWeaponData[] weapons;
+    private LtrpVehicle lastUsedVehicle;
     private PlayerCountdown countdown;
+    private Job job;
+    private Rank jobRank;
+    private PlayerInfoBox infoBox;
+    private PlayerLicenses licenses;
+    private boolean seatbelt, masked;
+    private int jobExperience;
+    /**
+     * Not necessarily all existing player vehicles, just the ones that are currently loaded( or not spawned)
+     * Basically lazy loading is used, if the vehicle was loaded once it will be stored
+     */
+    private Map<PlayerVehicle, List<PlayerVehiclePermission>> loadedVehicles;
+    private Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> vehicleMetadata;
 
     private boolean isInComa;
 
@@ -44,6 +64,24 @@ public class LtrpPlayer implements Player {
 
     public static List<LtrpPlayer> get() {
         return players;
+    }
+
+    public static LtrpPlayer get(String name) {
+        for(LtrpPlayer p : players) {
+            if(p.getName().equals(name))
+                return p;
+        }
+        return null;
+    }
+
+    public static LtrpPlayer getByPartName(String part) {
+        SortedMap<Integer, LtrpPlayer> unmatchedChars = new TreeMap<>();
+        for(LtrpPlayer p : players) {
+            if (p.getName().contains(part)) {
+                unmatchedChars.put(p.getName().length() - part.length(), p);
+            }
+        }
+        return unmatchedChars.values().stream().findFirst().get();
     }
 
     public static LtrpPlayer get(int id) {
@@ -54,15 +92,33 @@ public class LtrpPlayer implements Player {
         return null;
     }
 
+    public static LtrpPlayer getByUserId(int uid) {
+        for(LtrpPlayer p : players) {
+            if(p.getUserId() == uid)
+                return p;
+        }
+        return null;
+    }
+
     public static LtrpPlayer get(Player player) {
+        logger.debug("get called");
         if(player.isNpc())
             return null;
 
         for(LtrpPlayer p : players) {
-            if(p.player == player)
+            //logger.debug("Comparint player " + p.getId() + " to " + player.getId() + " First hash code:" + p.hashCode() +
+            //        " second code:" + player.hashCode() + " First class:" + p.getClass().getName()
+            //        + " second class:" + player.getClass().getName() + " p name:" + p.getName() + " player name: "+ player.getName());
+            if(p.equals(player)) {
                 return p;
+            }
         }
         return null;
+    }
+
+    public static void remove(Player p) {
+        logger.debug("remove. Removing player " + p.getId() + " from global list");
+        players.remove(p);
     }
 
     public static LtrpPlayer getClosest(LtrpPlayer player, float maxdistance) {
@@ -98,12 +154,19 @@ public class LtrpPlayer implements Player {
         }
     }
 
+    public static void sendGlobalMessage(String s) {
+        for(LtrpPlayer p : players) {
+            p.sendMessage(Color.GREENYELLOW, s);
+        }
+    }
+
     public LtrpPlayer(Player player, int userid) {
         this.player = player;
         this.userId = userid;
         this.weapons = new LtrpWeaponData[13];
+        this.infoBox = new PlayerInfoBox(this);
         players.add(this);
-
+        logger.debug("Creating instance of LtrpPlayer. Player object id " +player.getId());
     }
 
     public int getUserId() {
@@ -118,6 +181,41 @@ public class LtrpPlayer implements Player {
         this.countdown = countdown;
     }
 
+    public String getCharName() {
+        if(isMasked()) {
+            return getMaskName();
+        } else {
+            return getName().replace("_", " ");
+        }
+    }
+
+    public void addJobExperience(int amount) {
+        setJobExperience(getJobExperience() + amount);
+    }
+
+    public int getJobExperience() {
+        return jobExperience;
+    }
+
+    public void setJobExperience(int jobExperience) {
+        this.jobExperience = jobExperience;
+    }
+
+    public boolean isSeatbelt() {
+        return seatbelt;
+    }
+
+    public String getMaskName() {
+        return "((Kaukëtasis " + (getId() + 400) + "))";
+    }
+
+    public boolean isMasked() {
+        return masked;
+    }
+
+    public void setMasked(boolean masked) {
+        this.masked = masked;
+    }
 
     public JailData getJailData() {
         return jailData;
@@ -150,7 +248,71 @@ public class LtrpPlayer implements Player {
 
 
     public void jail(JailData.JailType type, int time, LtrpPlayer jailer) {
-        this.jail(new JailData(type, time, jailer.getName()));
+        this.jail(new JailData(0, this, type, time, jailer.getName()));
+    }
+
+    public Map<PlayerVehicle, List<PlayerVehiclePermission>> getLoadedVehicles() {
+        return loadedVehicles;
+    }
+
+    public void setLoadedVehicles(Map<PlayerVehicle, List<PlayerVehiclePermission>> loadedVehicles) {
+        this.loadedVehicles = loadedVehicles;
+    }
+
+    public Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehicleMetadata() {
+        return vehicleMetadata;
+    }
+
+    public void setVehicleMetadata(Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> vehicleMetadata) {
+        this.vehicleMetadata = vehicleMetadata;
+    }
+
+    public LtrpVehicle getLastUsedVehicle() {
+        return lastUsedVehicle;
+    }
+
+    public void setLastUsedVehicle(LtrpVehicle lastUsedVehicle) {
+        this.lastUsedVehicle = lastUsedVehicle;
+    }
+
+    public PlayerInfoBox getInfoBox() {
+        return infoBox;
+    }
+
+    public PlayerLicenses getLicenses() {
+        return licenses;
+    }
+
+    public void setLicenses(PlayerLicenses licenses) {
+        this.licenses = licenses;
+    }
+
+    public void setInfoBox(PlayerInfoBox infoBox) {
+        this.infoBox = infoBox;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    public Rank getJobRank() {
+        return jobRank;
+    }
+
+    public void setJobRank(Rank jobRank) {
+        this.jobRank = jobRank;
+    }
+
+    public boolean getSeatbelt() {
+        return seatbelt;
+    }
+
+    public void setSeatbelt(boolean seatbelt) {
+        this.seatbelt = seatbelt;
     }
 
     // Internal weapon management
@@ -321,6 +483,23 @@ public class LtrpPlayer implements Player {
 
     // Overrides
 
+    // Object overrides
+    @Override
+    public boolean equals(Object o) {
+        logger.debug("equals");
+        if(o instanceof Player) {
+            logger.debug("o is instanceof Player");
+            if(o instanceof LtrpPlayer) {
+                logger.debug("o is instance of LtrpPlayer. this id: " + this.getUserId() + " other id:" + ((LtrpPlayer) o).getUserId());
+                return this.getUserId() == ((LtrpPlayer) o).getUserId();
+            } else
+                return this.player == o;
+        }
+        return false;
+    }
+
+    // Player overrides
+
     @Override
     public boolean isOnline() {
         return player.isOnline();
@@ -464,7 +643,16 @@ public class LtrpPlayer implements Player {
 
     @Override
     public LtrpVehicle getVehicle() {
-        return (LtrpVehicle)player.getVehicle();
+        Vehicle vehicle = player.getVehicle();
+        if(vehicle != null) {
+            if(vehicle instanceof LtrpVehicle) {
+                return (LtrpVehicle) vehicle;
+            } else {
+                logger.error("An instance of Vehicle found. IG ID:" + vehicle.getId() + " Location:" + vehicle.getLocation());
+                return LtrpVehicle.getByVehicle(vehicle);
+            }
+        }
+        return null;
     }
 
     @Override
@@ -646,6 +834,10 @@ public class LtrpPlayer implements Player {
 
     @Override
     public void setVehicle(Vehicle vehicle, int i) {
+        player.setVehicle(vehicle, i);
+    }
+
+    public void setVehicle(LtrpVehicle vehicle, int i) {
         player.setVehicle(vehicle, i);
     }
 

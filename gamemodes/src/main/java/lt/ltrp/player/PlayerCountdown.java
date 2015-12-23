@@ -68,12 +68,18 @@ public class PlayerCountdown implements Destroyable{
             @Override
             public void onTick(int i) {
                 timeleft--;
+                if(player.getInfoBox() != null) {
+                    player.getInfoBox().setCountDown(timeleft);
+                }
                 if(callback != null) {
                     callback.onTick(player, timeleft);
                 }
             }
             @Override
             public void onStop() {
+                if(player.getInfoBox() != null) {
+                    player.getInfoBox().setCountDown(null);
+                }
                 stop();
             }
         });

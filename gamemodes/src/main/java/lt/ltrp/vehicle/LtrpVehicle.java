@@ -1,15 +1,20 @@
 package lt.ltrp.vehicle;
 
 import lt.ltrp.InventoryEntity;
+import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Inventory;
+import lt.ltrp.job.Taxi;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.constant.VehicleModel;
-import net.gtaun.shoebill.constant.VehicleModelInfoType;
 import net.gtaun.shoebill.data.*;
 import net.gtaun.shoebill.object.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Bebras
@@ -18,9 +23,27 @@ import java.util.List;
 public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     private static List<LtrpVehicle> vehicles = new ArrayList<>();
+    protected static final Logger logger = LoggerFactory.getLogger(LtrpVehicle.class);
 
     public static LtrpVehicle getById(int id) {
-        return (LtrpVehicle)Vehicle.get(id);
+        logger.debug("getById(" + id + ")");
+        Optional<LtrpVehicle> optional = vehicles.stream().filter(v -> v.getId() == id).findFirst();
+        if(optional.isPresent()) {
+            return optional.get();
+        } else
+            return null;
+    }
+
+    public static LtrpVehicle getByVehicle(Vehicle vehicle) {
+        if(vehicle == null) {
+            return null;
+        }
+        for(LtrpVehicle v : vehicles) {
+            if(v.getVehicleObject().equals(vehicle)) {
+                return v;
+            }
+        }
+        return null;
     }
 
     public static List<LtrpVehicle> get() {
@@ -29,7 +52,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     public static LtrpVehicle getByUniqueId(int uniqueid) {
         for(LtrpVehicle v : vehicles) {
-            if(v.getUid() == uniqueid)
+            if(v.getId() == uniqueid)
                 return v;
         }
         return null;
@@ -41,10 +64,13 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
 
     public static LtrpVehicle getClosest(Location loc, float distance) {
+        logger.debug("getClosest " + distance +  " called vehicles size: "+ vehicles.size());
         LtrpVehicle vehicle = null;
         for(LtrpVehicle v : vehicles) {
             float dis = loc.distance(v.getLocation());
+            logger.debug("Vehicle " + v.getId() + " distance to point: "+  dis + " max distance : " + distance);
             if(dis < distance) {
+                logger.debug(dis + " is less than " + distance);
                 vehicle = v;
                 distance = dis;
             }
@@ -56,15 +82,44 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
         return getClosest(loc, Float.MAX_VALUE);
     }
 
-    private int uid;
     private FuelTank fuelTank;
     private boolean locked;
     private Vehicle vehicleObject;
-    private Inventory inventory;
+    private String license;
+    private float mileage;
+    private LtrpPlayer driver;
+    private Taxi taxi;
+
+    public LtrpVehicle(int id, Vehicle vehicle) {
+        super(id, vehicle.getModelName(), new FixedSizeInventory(""));
+        this.vehicleObject = vehicle;
+        setLocked(this.locked);
+        vehicles.add(this);
+    }
+
+    public LtrpVehicle(int id, Vehicle vehicle, FuelTank fueltank) {
+        this(id, vehicle);
+        setFuelTank(fueltank);
+    }
+
+    protected LtrpVehicle(int id, int modelid, AngledLocation location, int color1, int color2) {
+        this(id, Vehicle.create(modelid, location, color1, color2, -1, false));
+    }
+
+    protected LtrpVehicle(int modelid, AngledLocation location, int color1, int color2) {
+        this(0, modelid, location, color1, color2);
+    }
+
+    protected Vehicle getVehicleObject() {
+        return vehicleObject;
+    }
+
+    protected void setVehicleObject(Vehicle vehicle) {
+        this.vehicleObject = vehicle;
+    }
 
     protected LtrpVehicle() {
-
-        setLocked(this.locked);
+        this(0, 0, null, 0, 0);
     }
 
     public FuelTank getFuelTank() {
@@ -73,6 +128,14 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     public void setFuelTank(FuelTank fuelTank) {
         this.fuelTank = fuelTank;
+    }
+
+    public Taxi getTaxi() {
+        return taxi;
+    }
+
+    public void setTaxi(Taxi taxi) {
+        this.taxi = taxi;
     }
 
     public boolean isLocked() {
@@ -84,17 +147,27 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
         this.getState().setDoors(locked ? VehicleParam.PARAM_ON : VehicleParam.PARAM_OFF);
     }
 
-    public int getUid() {
-        return uid;
+    public float getMileage() {
+        return mileage;
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    public void setMileage(float mileage) {
+        this.mileage = mileage;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    public int getSpeed() {
+        //floatround( floatsqroot( x*x + y*y + z*z ) * 170 );
+        return Math.round(getVelocity().speed3d() * 170f);
     }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
 
     public void sendActionMessage(String s, float distance) {
         for(LtrpPlayer p : LtrpPlayer.get()) {
@@ -118,6 +191,23 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     public void sendActionMessage(String s) {
         this.sendActionMessage(s, 3.0f);
+    }
+
+    public boolean isUsed() {
+        for(LtrpPlayer player : LtrpPlayer.get()) {
+            if(player.getVehicle().equals(this)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public LtrpPlayer getDriver() {
+        return driver;
+    }
+
+    public void setDriver(LtrpPlayer player) {
+        this.driver = player;
     }
 
     // Overrides from net.gtaun.shoebill.object.Vehicle interface

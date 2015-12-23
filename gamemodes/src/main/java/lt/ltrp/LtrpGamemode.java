@@ -3,38 +3,65 @@ package lt.ltrp;
 
 import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.dao.DAOFactory;
+import lt.ltrp.dmv.DmvManager;
+import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.item.ItemController;
+import lt.ltrp.job.JobManager;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerController;
 import lt.ltrp.property.PropertyManager;
+import lt.ltrp.vehicle.VehicleManager;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
+import net.gtaun.shoebill.event.player.PlayerClickMapEvent;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
 import net.gtaun.shoebill.event.server.GameModeInitEvent;
 import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.object.Server;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.resource.Gamemode;
 import net.gtaun.util.event.EventManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class LtrpGamemode extends Gamemode {
 
     public static final String Version = "1.0";
     public static final String BuildDate = "2015.12.03";
-    private static final DAOFactory dao = DAOFactory.getInstance();
+    private static DAOFactory dao;
+    private static final Logger logger = LoggerFactory.getLogger(LtrpGamemode.class);
+    private Timer paydayTimer;
 
     @Override
     protected void onEnable() throws Throwable {
+
+        getEventManager().registerHandler(PlayerClickMapEvent.class, e -> {
+           LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            if(player != null && player.getAdminLevel() > 0) {
+                player.setLocation(e.getPosition());
+            }
+        });
+
+        schedulePaydayTimer();
+        logger.debug("DATA DIR: " + Shoebill.get().getResourceManager().getGamemode().getDataDir().getAbsolutePath());
         EventManager eventManager = getEventManager();
         ItemController.init();
+        JobManager jobManager = JobManager.getInstance();
+        VehicleManager vehicleManager = VehicleManager.get();
         PropertyManager propertyManager = PropertyManager.get();
+        DmvManager dmvManager = DmvManager.getInstance();
 
         new PlayerController(eventManager);
         new PawnCallbacks(eventManager);
@@ -45,48 +72,23 @@ public class LtrpGamemode extends Gamemode {
             createDynamicObject = instance.getPublic("CreateDynamicObject");
             if(createDynamicObject != null) {
                 //found CreateDynamicObject native, call it like this:
-                createDynamicObject.call(18421, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f); //normal pawn arguments. Make sure you put a f after a Float value, like this: 13.0f or 0f
+                createDynamicObject.call(18421, 0.0f, 0.0f, 10.0f, 0.0f, 0.0f, 0.0f); //normal pawn arguments. Make sure you put a f after a Float value, like this: 13.0f or 0f
                 break;
             }
         }
         System.out.println("Okay");
+    }
 
-        Connection con = dao.getConnection();
-        Statement stmt = con.createStatement();
-        ResultSet result = stmt.executeQuery("SHOW TABLES");
-        stmt.close();
-        con.close();
-        //for(float f : values) {
-        //    System.out.println(f);
-       // }
-        //getPos.call("default_spawn", x, y, z);
-
-
-        eventManager.registerHandler(GameModeInitEvent.class, e-> {
-            System.out.println("\n\n\n\n\n\n\n\n");
-            float x = 0.0f, y = 0.0f, z = 0.0f;
-            ReferenceFloat refX = new ReferenceFloat(x);
-            ReferenceFloat refY = new ReferenceFloat(y);
-            ReferenceFloat refZ = new ReferenceFloat(z);
-            AmxCallable func = PawnFunc.getNativeMethod("AFunction");
-            if(func != null) {
-                func.call("string", refX, refY, refZ);
-            }
-            else System.out.println("AFunction is null");
-            System.out.println("Result from AFunction:. " + refX.getValue() + " " + refY.getValue() + " " + refZ.getValue());
-
-            float x2 = 0.0f, y2 = 0.0f, z2 = 0.0f;
-            ReferenceFloat refX2 = new ReferenceFloat(x2);
-            ReferenceFloat refY2 = new ReferenceFloat(y2);
-            ReferenceFloat refZ2 = new ReferenceFloat(z2);
-            AmxCallable func2 = PawnFunc.getNativeMethod("AFunction2");
-            if(func2 != null) {
-                func2.call(refX2, refY2, refZ2);
-            }
-            else System.out.println("AFunction2 is null");
-            System.out.println("Result from AFunction2:. " + refX2.getValue() + " " + refY2.getValue() + " " + refZ2.getValue());
+    private void schedulePaydayTimer() {
+        LocalDateTime now = LocalDateTime.now();
+        int seconds = (60 - now.getMinute()) * 60;
+        seconds += 60 - now.getSecond();
+        logger.info("Scheduling payday timer in " + seconds + " seconds");
+        paydayTimer = Timer.create(seconds * 1000, ticks -> {
+            logger.info("Sending PayDay event. Current hour is " + LocalDateTime.now().getHour() + ". ");
+            getEventManager().dispatchEvent(new PaydayEvent(LocalDateTime.now().getHour()));
+            schedulePaydayTimer();
         });
-
     }
 
     @Override
@@ -95,6 +97,9 @@ public class LtrpGamemode extends Gamemode {
     }
 
     public static DAOFactory getDao() {
+        if(dao == null) {
+            dao = DAOFactory.getInstance();
+        }
         return dao;
     }
 }

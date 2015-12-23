@@ -17,8 +17,8 @@ public class FuelTankItem extends ContainerItem {
 
     private static final int DEFAULT_SIZE = 30;
 
-    public FuelTankItem(String name, int durability, int maxdurability) {
-        super(name, ItemType.Fueltank, false, durability, maxdurability);
+    public FuelTankItem(String name, int items, int size) {
+        super(name, ItemType.Fueltank, false, items, size);
     }
 
     public FuelTankItem() {
@@ -70,7 +70,7 @@ public class FuelTankItem extends ContainerItem {
 
             ResultSet result = stmt.executeQuery();
             if(result.next()) {
-                item = new FuelTankItem(result.getString("name"), result.getInt("durability"), result.getInt("max_durability"));
+                item = new FuelTankItem(result.getString("name"), result.getInt("items"), result.getInt("size"));
                 item.setItemId(itemid);
             }
         }

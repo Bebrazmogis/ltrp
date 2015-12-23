@@ -1,11 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="27019ab5-c8bb-4bd1-a72f-1db1212c058d" name="Default" comment="" />
+    <list default="true" id="27019ab5-c8bb-4bd1-a72f-1db1212c058d" name="Default" comment="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti.">
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\libraries\Maven__net_gtaun_shoebill_api_1_1_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\libraries\Maven__net_gtaun_shoebill_common_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\libraries\Maven__org_gnu_gnu_crypto_2_0_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\libraries\Maven__org_slf4j_slf4j_api_1_7_7.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\uiDesigner.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/AdminCommands.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/AdminCommands.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Attachments.p" afterPath="$PROJECT_DIR$/Player/Attachments.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Auth.p" afterPath="$PROJECT_DIR$/Player/Auth.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Bank.p" afterPath="$PROJECT_DIR$/Bank.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/BasicItem.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/BasicItem.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gambling/Blackjack.p" afterPath="$PROJECT_DIR$/Gambling/Blackjack.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BugReporting.p" afterPath="$PROJECT_DIR$/BugReporting.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Businesses.p" afterPath="$PROJECT_DIR$/Property/Businesses.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/data/Color.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/data/Color.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Coordinates.p" afterPath="$PROJECT_DIR$/Coordinates.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/DAOFactory.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/DAOFactory.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Death.p" afterPath="$PROJECT_DIR$/Player/Death.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/DrinkItem.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/DrinkItem.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/data/DroppedWeaponData.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/data/DroppedWeaponData.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Entrances.p" afterPath="$PROJECT_DIR$/Entrances.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FishingSystem.p" afterPath="$PROJECT_DIR$/FishingSystem.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/vehicle/FuelTank.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/vehicle/FuelTank.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Furniture.p" afterPath="$PROJECT_DIR$/Property/Furniture.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Garages.p" afterPath="$PROJECT_DIR$/Property/Garages.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Graffiti.p" afterPath="$PROJECT_DIR$/Graffiti.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Houses.p" afterPath="$PROJECT_DIR$/Property/Houses.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IndustryManagementGUI.p" afterPath="$PROJECT_DIR$/IndustryManagementGUI.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Interiors.p" afterPath="$PROJECT_DIR$/Property/Interiors.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Inventory.p" afterPath="$PROJECT_DIR$/Player/Inventory.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemController$1.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemController$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemController.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemPhone.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemPhone.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemType.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Items.p" afterPath="$PROJECT_DIR$/Items.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/JailData$JailType.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/JailData$JailType.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/JailData.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/JailData.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/JdbcDAO.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/JdbcDAO.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Job_TaxiDriver.p" afterPath="$PROJECT_DIR$/Job_TaxiDriver.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/LtrpGamemode-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/LtrpGamemode-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/LtrpPlayer$1.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/LtrpPlayer$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/LtrpPlayer.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/LtrpPlayer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/vehicle/LtrpVehicle.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/vehicle/LtrpVehicle.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/MolotovItem.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/MolotovItem.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Phone.p" afterPath="$PROJECT_DIR$/Player/Phone.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Phones.p" afterPath="$PROJECT_DIR$/Phones.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/command/PlayerCommandManager.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/command/PlayerCommandManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown$1.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown$PlayerCountdownCallback.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown$PlayerCountdownCallback.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/PlayerDao.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/PlayerDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vehicles/PlayerVehicles.p" afterPath="$PROJECT_DIR$/Vehicles/PlayerVehicles.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../plugins/Shoebill.dll" afterPath="$PROJECT_DIR$/../plugins/Shoebill.dll" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Spawn.p" afterPath="$PROJECT_DIR$/Player/Spawn.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/SpawnController.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/SpawnController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/plugin/streamer/Streamer.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/plugin/streamer/Streamer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/WeaponItem.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/WeaponItem.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Weapons.p" afterPath="$PROJECT_DIR$/Player/Weapons.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/_General.p" afterPath="$PROJECT_DIR$/Property/_General.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bare.amx" afterPath="$PROJECT_DIR$/bare.amx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inv_test.inc" afterPath="$PROJECT_DIR$/inv_test.inc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tabula/liftas.pwn" afterPath="$PROJECT_DIR$/Tabula/liftas.pwn" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ltrp.amx" afterPath="$PROJECT_DIR$/ltrp.amx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ltrp.pwn" afterPath="$PROJECT_DIR$/ltrp.pwn" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Config/mysql.p" afterPath="$PROJECT_DIR$/Config/mysql.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/shoebill-api-1.2-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/shoebill-api-1.2-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/shoebill-runtime-1.2-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/shoebill-runtime-1.2-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/data/Color.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/data/Color.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/FuelTank.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/FuelTank.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FuelTankItem.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FuelTankItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/JailData.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/JailData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Job.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Job.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/LtrpGamemode.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/LtrpGamemode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/PawnFunc.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/PawnFunc.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/command/PlayerCommandManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/command/PlayerCommandManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerController.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdown.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdown.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerDao.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tabula/TAC.pwn" afterPath="$PROJECT_DIR$/Tabula/TAC.pwn" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/_remote.repositories" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/_remote.repositories" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/_remote.repositories" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/_remote.repositories" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gamemodes.iml" afterPath="$PROJECT_DIR$/.idea/gamemodes.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../pawno/include/java.inc" afterPath="$PROJECT_DIR$/../pawno/include/java.inc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/ltrp.sql" afterPath="$PROJECT_DIR$/src/main/resources/ltrp.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/ltrp.sql" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/ltrp.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml.sha1" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../notes.txt" afterPath="$PROJECT_DIR$/../notes.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-utilities/1.0-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-utilities/1.0-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/util-event/1.0-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/util-event/1.0-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="gamemodes.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/shoebill/gamemodes/" />
+    <ignored path=".idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,6 +138,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="Commander">
+    <leftPanel />
+    <rightPanel />
+    <splitter proportion="0.5" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -53,8 +182,14 @@
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
       </PATH_ELEMENT>
       <PATH_ELEMENT>
-        <option name="myItemId" value="house_weed" />
+        <option name="myItemId" value="dmv_question" />
         <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
       </PATH_ELEMENT>
     </PATH>
   </component>
@@ -64,139 +199,97 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ItemType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java">
+      <file leaf-file-name="DmvManager.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="235" max-vertical-offset="1224">
-              <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FixedSizeInventory.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="3315">
-              <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ItemController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.95151514" vertical-offset="3061" max-vertical-offset="4318">
-              <caret line="236" column="4" selection-start-line="236" selection-start-column="4" selection-end-line="236" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractItem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2026" max-vertical-offset="2737">
-              <caret line="158" column="59" selection-start-line="158" selection-start-column="41" selection-end-line="158" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HouseCommands.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseCommands.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="1292">
-              <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.9773519" vertical-offset="0" max-vertical-offset="765">
+              <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#534#535#0" expanded="true" />
+                <element signature="e#565#566#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PropertyCommands.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyCommands.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="765">
-              <caret line="20" column="102" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="102" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ItemCommands.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1071">
-              <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
-              <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ContainerItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FuelTankItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/DiceItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/HouseAudioItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ClothingItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/MeleeWeaponItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/MaskItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FishingRodItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/SuitcaseItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeaponItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ConsumableItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/DrinkItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/DrugItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/EctazyItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/AmphetamineItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/CocaineItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/PcpItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/MetaamphetamineItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/HeroinItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemPhone.java" />
-        <option value="$PROJECT_DIR$/src/test/java/lt/ltrp/item/ItemControllerTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/Property.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/Unix.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/event/property/HouseEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/event/property/WeedGrowEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedItem.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/House.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedSeedItem.java" />
-        <option value="db-console:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/" />
-        <option value="$PROJECT_DIR$/src/main/resources/ltrp.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/HouseDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlHouseDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseWeedSapling.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/InventoryEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/NamedEntity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/Entity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/SpeedometerTickEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/Factorail.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/Factorial.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/TestEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/TestEventImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleEngineStartEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleAlarm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleLock.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleCommands.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyCommands.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseCommands.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PersonalAlarm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PoliceAlertAlarm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/SimpleAlarm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PlayerVehicle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PlayerVehiclePermission.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/VehicleDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlVehicleDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/event/PaydayEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/vehiclethief/VehicleThiefCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PlayerVehicleCommands.java" />
+        <option value="dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..dmv" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/vehiclethief/VehicleThiefManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Faction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/ContractJob.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/LtrpGamemode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java" />
+        <option value="$PROJECT_DIR$/../../Shoebill/DynamicParamCountTest/src/main/java/lt/maze/MyGamemode.java" />
+        <option value="$PROJECT_DIR$/../../Shoebill/DynamicParamCountTest/pom.xml" />
+        <option value="F:/wamp/www/AJAX-XSS-Test/form.html" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/GeneralCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/command/PlayerCommandManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DmvDao.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/ltrp.sql" />
+        <option value="db-console:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FuelTankItem.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlDmvDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/VehicleEngineStartEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/Dmv.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvAircraft.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvBoat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerInfoBox.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCar.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCommands.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java" />
       </list>
     </option>
   </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ltrp" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
@@ -204,7 +297,7 @@
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -229,13 +322,16 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="gamemodes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -261,8 +357,22 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
+              <option name="myItemId" value="gamemodes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gamemodes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -284,7 +394,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -370,7 +480,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Util" />
+              <option name="myItemId" value="dmv" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -384,23 +494,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="property" />
+              <option name="myItemId" value=".idea" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -414,341 +508,18 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value=".idea" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="object" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="job" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="event" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="property" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="event" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DAOFactory.java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ltrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="command" />
+              <option name="myItemId" value="libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -759,12 +530,12 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../shoebill/libraries/jacksum.jar!/" />
-    <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="options.lastSelected" value="preferences.editor" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="File.Encoding" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="OverrideImplement.combined" value="true" />
@@ -776,6 +547,12 @@
     <property name="last.edited.regexp" value="hello t" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="Console.TableResult.DefaultCopyAction" value="Comma-separated Values (CSV)" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -1112,7 +889,13 @@
           </MavenRunnerParameters>
         </option>
       </MavenSettings>
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
@@ -1121,6 +904,11 @@
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SliceManager">
+    <option name="analysisUIOptions">
+      <AnalysisUIOptions />
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -1142,44 +930,64 @@
       <workItem from="1449075416574" duration="15109000" />
       <workItem from="1449134569988" duration="24676000" />
       <workItem from="1449221375617" duration="20083000" />
-      <workItem from="1449316288885" duration="25948000" />
+      <workItem from="1449316288885" duration="26313000" />
+      <workItem from="1449396100468" duration="27035000" />
+      <workItem from="1449504991667" duration="10846000" />
+      <workItem from="1449653952425" duration="6525000" />
+      <workItem from="1449747964736" duration="14299000" />
+      <workItem from="1449855401692" duration="2360000" />
+      <workItem from="1449925654226" duration="27040000" />
+      <workItem from="1449966312681" duration="5383000" />
+      <workItem from="1449999452162" duration="12630000" />
+      <workItem from="1450110573671" duration="11820000" />
+      <workItem from="1450213206367" duration="4861000" />
+      <workItem from="1450259174021" duration="4575000" />
+      <workItem from="1450345376089" duration="12830000" />
+      <workItem from="1450375552809" duration="6353000" />
+      <workItem from="1450436171796" duration="27237000" />
+      <workItem from="1450523784924" duration="20851000" />
+      <workItem from="1450612528729" duration="32152000" />
+      <workItem from="1450695990787" duration="11592000" />
+      <workItem from="1450714460959" duration="1810000" />
+      <workItem from="1450804442894" duration="8946000" />
+      <workItem from="1450888872984" duration="14178000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="219699000" />
+    <option name="totallyTimeSpent" value="483387000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23830736" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23385301" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23830736" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33407572" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20042644" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20149253" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18763326" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18710022" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997773" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1199,10 +1007,12 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti." />
+    <option name="LAST_COMMIT_MESSAGE" value="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <option name="time" value="20" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1211,793 +1021,203 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ClothingItem.java">
+    <entry file="dbDummy://db-console:/64bc9fdc/b5383f12-35c3-4cd1-aa49-8297abc59f99/">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8436782" vertical-offset="1391" max-vertical-offset="2261">
-          <caret line="142" column="5" selection-start-line="127" selection-start-column="3" selection-end-line="142" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeaponItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7619603" vertical-offset="1353" max-vertical-offset="2210">
-          <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
-          <folding>
-            <element signature="e#673#674#0" expanded="true" />
-            <element signature="e#738#739#0" expanded="true" />
-            <marker date="1449328593518" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449328593518" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449328593518" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449328593518" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_weapon..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..items_consumable">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="655">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..dmv_question_answer">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/DrinkItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5505747" vertical-offset="1238" max-vertical-offset="2108">
-          <caret line="111" column="30" selection-start-line="111" selection-start-column="30" selection-end-line="111" selection-end-column="30" />
-          <folding>
-            <element signature="e#2300#2301#0" expanded="true" />
-            <element signature="e#2336#2337#0" expanded="true" />
-            <marker date="1449329119573" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449329119573" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449329119573" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449329119573" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449329119573" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_drink..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ConsumableItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17931035" vertical-offset="252" max-vertical-offset="1122">
-          <caret line="28" column="65" selection-start-line="28" selection-start-column="65" selection-end-line="28" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1449328965196" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449328965196" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449328965196" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449328965196" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449328965196" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449328965196" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449328965196" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/EctazyItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8597701" vertical-offset="0" max-vertical-offset="1037">
-          <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
-          <folding>
-            <element signature="e#435#436#0" expanded="true" />
-            <element signature="e#490#491#0" expanded="true" />
-            <marker date="1449329680275" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/AmphetamineItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8436782" vertical-offset="167" max-vertical-offset="1037">
-          <caret line="61" column="5" selection-start-line="45" selection-start-column="0" selection-end-line="61" selection-end-column="5" />
-          <folding>
-            <element signature="e#445#446#0" expanded="true" />
-            <element signature="e#505#506#0" expanded="true" />
-            <marker date="1449329680265" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/CocaineItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8436782" vertical-offset="184" max-vertical-offset="1054">
-          <caret line="62" column="5" selection-start-line="47" selection-start-column="1" selection-end-line="62" selection-end-column="5" />
-          <folding>
-            <element signature="e#437#438#0" expanded="true" />
-            <element signature="e#493#494#0" expanded="true" />
-            <marker date="1449329680321" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/PcpItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.762069" vertical-offset="0" max-vertical-offset="870">
-          <caret line="47" column="3" selection-start-line="47" selection-start-column="3" selection-end-line="47" selection-end-column="3" />
-          <folding>
-            <element signature="e#429#430#0" expanded="true" />
-            <element signature="e#481#482#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/HeroinItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1724138" vertical-offset="0" max-vertical-offset="1258">
-          <caret line="68" column="37" selection-start-line="68" selection-start-column="37" selection-end-line="68" selection-end-column="37" />
-          <folding>
-            <element signature="e#435#436#0" expanded="true" />
-            <element signature="e#490#491#0" expanded="true" />
-            <marker date="1449329680351" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemPhone.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0396733" vertical-offset="6708" max-vertical-offset="7820">
-          <caret line="474" column="85" selection-start-line="474" selection-start-column="85" selection-end-line="474" selection-end-column="85" />
-          <folding>
-            <element signature="e#1382#1383#0" expanded="true" />
-            <element signature="e#1473#1474#0" expanded="true" />
-            <marker date="1449329680363" expanded="true" signature="-1:-1" placeholder="SELECT numbe..items_phone..." />
-            <marker date="1449329680363" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449329680363" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449329680363" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449329680363" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_phone..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="uml://JAVA/lt.ltrp.item">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>JAVA</ID>
-          <OriginalElement>lt.ltrp.item</OriginalElement>
-          <nodes>
-            <node x="1225.25" y="267.0">lt.ltrp.item.ItemPhone</node>
-            <node x="175.0" y="509.0">lt.ltrp.item.ItemUsageOption</node>
-            <node x="372.0" y="267.0">lt.ltrp.item.DiceItem</node>
-            <node x="1082.25" y="267.0">lt.ltrp.item.ConsumableItem</node>
-            <node x="0.0" y="588.0">lt.ltrp.item.FixedSizeInventory</node>
-            <node x="24.0" y="509.0">lt.ltrp.item.Inventory</node>
-            <node x="744.0" y="267.0">lt.ltrp.item.ClothingItem</node>
-            <node x="932.25" y="346.0">lt.ltrp.item.SuitcaseItem</node>
-            <node x="544.75" y="79.0">lt.ltrp.item.AbstractItem</node>
-            <node x="989.0" y="435.0">lt.ltrp.item.CocaineItem</node>
-            <node x="0.0" y="662.0">lt.ltrp.item.ItemType</node>
-            <node x="1153.25" y="346.0">lt.ltrp.item.DrinkItem</node>
-            <node x="244.0" y="267.0">lt.ltrp.item.ContainerItem</node>
-            <node x="508.0" y="509.0">lt.ltrp.item.ItemController</node>
-            <node x="6.0" y="267.0">lt.ltrp.item.DurableItem</node>
-            <node x="345.0" y="509.0">lt.ltrp.item.ItemCommands</node>
-            <node x="123.0" y="267.0">lt.ltrp.item.MolotovItem</node>
-            <node x="1381.0" y="435.0">lt.ltrp.item.HeroinItem</node>
-            <node x="889.4185185185183" y="267.0">lt.ltrp.item.WeaponItem</node>
-            <node x="662.0" y="509.0">lt.ltrp.item.SqlItemDao</node>
-            <node x="487.70833333333314" y="346.0">lt.ltrp.item.MeleeWeaponItem</node>
-            <node x="1108.0" y="435.0">lt.ltrp.item.PcpItem</node>
-            <node x="246.5" y="346.0">lt.ltrp.item.FuelTankItem</node>
-            <node x="602.0" y="267.0">lt.ltrp.item.HouseAudioItem</node>
-            <node x="837.0" y="435.0">lt.ltrp.item.AmphetamineItem</node>
-            <node x="1204.0" y="435.0">lt.ltrp.item.MetaamphetamineItem</node>
-            <node x="797.25" y="346.0">lt.ltrp.item.FishingRodItem</node>
-            <node x="728.0" y="435.0">lt.ltrp.item.EctazyItem</node>
-            <node x="1051.25" y="346.0">lt.ltrp.item.DrugItem</node>
-            <node x="0.0" y="346.0">lt.ltrp.item.CigarettesItem</node>
-            <node x="471.0" y="267.0">lt.ltrp.item.WeedSeedItem</node>
-            <node x="693.25" y="346.0">lt.ltrp.item.MaskItem</node>
-            <node x="566.75" y="0.0">lt.ltrp.item.Item</node>
-            <node x="553.25" y="158.0">lt.ltrp.item.BasicItem</node>
-          </nodes>
-          <notes />
-          <edges>
-            <edge source="lt.ltrp.item.PcpItem" target="lt.ltrp.item.DrugItem">
-              <point x="0.0" y="-14.5" />
-              <point x="1146.0" y="415.0" />
-              <point x="1099.0833333333333" y="415.0" />
-              <point x="6.8333333333332575" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.WeedSeedItem" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="526.5" y="247.0" />
-              <point x="590.6" y="247.0" />
-              <point x="-4.149999999999977" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.SuitcaseItem" target="lt.ltrp.item.ClothingItem">
-              <point x="1.1368683772161603E-13" y="-14.5" />
-              <point x="981.7500000000001" y="316.0" />
-              <point x="833.25" y="316.0" />
-              <point x="38.25" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.FuelTankItem" target="lt.ltrp.item.ContainerItem">
-              <point x="0.0" y="-14.5" />
-              <point x="0.0" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.FixedSizeInventory" target="lt.ltrp.item.Inventory">
-              <point x="0.0" y="-14.5" />
-              <point x="0.0" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.ClothingItem" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="795.0" y="237.0" />
-              <point x="607.2" y="237.0" />
-              <point x="12.450000000000045" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.CocaineItem" target="lt.ltrp.item.DrugItem">
-              <point x="0.0" y="-14.5" />
-              <point x="1038.5" y="415.0" />
-              <point x="1085.4166666666667" y="415.0" />
-              <point x="-6.8333333333332575" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.MetaamphetamineItem" target="lt.ltrp.item.DrugItem">
-              <point x="0.0" y="-14.5" />
-              <point x="1282.5" y="405.0" />
-              <point x="1112.75" y="405.0" />
-              <point x="20.5" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.FishingRodItem" target="lt.ltrp.item.ClothingItem">
-              <point x="0.0" y="-14.5" />
-              <point x="854.75" y="326.0" />
-              <point x="807.75" y="326.0" />
-              <point x="12.75" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.AbstractItem" target="lt.ltrp.item.Item">
-              <point x="0.0" y="-14.5" />
-              <point x="0.0" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.HouseAudioItem" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="663.0" y="247.0" />
-              <point x="598.9" y="247.0" />
-              <point x="4.149999999999977" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.CigarettesItem" target="lt.ltrp.item.DurableItem">
-              <point x="0.0" y="-14.5" />
-              <point x="0.0" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.DurableItem" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="54.5" y="207.0" />
-              <point x="557.4" y="207.0" />
-              <point x="-37.35000000000002" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.AmphetamineItem" target="lt.ltrp.item.DrugItem">
-              <point x="0.0" y="-14.5" />
-              <point x="903.0" y="405.0" />
-              <point x="1071.75" y="405.0" />
-              <point x="-20.5" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.MeleeWeaponItem" target="lt.ltrp.item.ClothingItem">
-              <point x="0.0" y="-14.5" />
-              <point x="553.7083333333331" y="316.0" />
-              <point x="756.75" y="316.0" />
-              <point x="-38.25" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.ConsumableItem" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="1143.75" y="217.0" />
-              <point x="623.8" y="217.0" />
-              <point x="29.049999999999955" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.WeaponItem" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="939.4185185185183" y="227.0" />
-              <point x="615.5" y="227.0" />
-              <point x="20.75" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.DiceItem" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="411.5" y="237.0" />
-              <point x="582.3" y="237.0" />
-              <point x="-12.450000000000045" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.MaskItem" target="lt.ltrp.item.ClothingItem">
-              <point x="0.0" y="-14.5" />
-              <point x="735.25" y="326.0" />
-              <point x="782.25" y="326.0" />
-              <point x="-12.75" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.EctazyItem" target="lt.ltrp.item.DrugItem">
-              <point x="0.0" y="-14.5" />
-              <point x="772.5" y="395.0" />
-              <point x="1058.0833333333333" y="395.0" />
-              <point x="-34.16666666666674" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.MolotovItem" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="173.5" y="217.0" />
-              <point x="565.7" y="217.0" />
-              <point x="-29.049999999999955" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.BasicItem" target="lt.ltrp.item.AbstractItem">
-              <point x="0.0" y="-14.5" />
-              <point x="0.0" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.ContainerItem" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="298.0" y="227.0" />
-              <point x="574.0" y="227.0" />
-              <point x="-20.75" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.HeroinItem" target="lt.ltrp.item.DrugItem">
-              <point x="0.0" y="-14.5" />
-              <point x="1427.0" y="395.0" />
-              <point x="1126.4166666666667" y="395.0" />
-              <point x="34.16666666666674" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.ItemPhone" target="lt.ltrp.item.BasicItem">
-              <point x="0.0" y="-14.5" />
-              <point x="1270.25" y="207.0" />
-              <point x="632.1" y="207.0" />
-              <point x="37.35000000000002" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.DrinkItem" target="lt.ltrp.item.ConsumableItem">
-              <point x="0.0" y="-14.5" />
-              <point x="1195.25" y="326.0" />
-              <point x="1174.5" y="326.0" />
-              <point x="30.75" y="14.5" />
-            </edge>
-            <edge source="lt.ltrp.item.DrugItem" target="lt.ltrp.item.ConsumableItem">
-              <point x="0.0" y="-14.5" />
-              <point x="1092.25" y="326.0" />
-              <point x="1113.0" y="326.0" />
-              <point x="-30.75" y="14.5" />
-            </edge>
-          </edges>
-          <settings layout="Hierarchic Group" zoom="0.8689216342933688" x="516.2044245741156" y="171.20442457411554" />
-          <SelectedNodes>
-            <node>lt.ltrp.item.DrugItem</node>
-          </SelectedNodes>
-          <Categories />
-          <SCOPE>All</SCOPE>
-          <VISIBILITY>private</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdown.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1432" max-vertical-offset="2244">
-          <caret line="138" column="56" selection-start-line="138" selection-start-column="56" selection-end-line="138" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55263156" vertical-offset="1326" max-vertical-offset="2941">
-          <caret line="125" column="117" selection-start-line="125" selection-start-column="117" selection-end-line="125" selection-end-column="117" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21052632" vertical-offset="2329" max-vertical-offset="2975">
-          <caret line="162" column="38" selection-start-line="162" selection-start-column="28" selection-end-line="162" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/GarageCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15477997" vertical-offset="0" max-vertical-offset="659">
-          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/BusinessCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15477997" vertical-offset="0" max-vertical-offset="659">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/Property.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.831563" vertical-offset="0" max-vertical-offset="1513">
-          <caret line="105" column="54" selection-start-line="105" selection-start-column="54" selection-end-line="105" selection-end-column="54" />
-          <folding>
-            <element signature="e#2376#2377#0" expanded="false" />
-            <element signature="e#2437#2438#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32928678" vertical-offset="735" max-vertical-offset="2516">
-          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1449332534609" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-            <marker date="1449332534609" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449332534609" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449332534609" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/event/property/HouseEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43854326" vertical-offset="0" max-vertical-offset="659">
-          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#247#248#0" expanded="false" />
-            <element signature="e#277#278#0" expanded="false" />
-            <element signature="e#336#337#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/event/property/WeedGrowEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59332323" vertical-offset="0" max-vertical-offset="659">
-          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#495#496#0" expanded="false" />
-            <element signature="e#525#526#0" expanded="false" />
-            <element signature="e#562#563#0" expanded="false" />
-            <element signature="e#595#596#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/DrugItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41274658" vertical-offset="0" max-vertical-offset="884">
-          <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#339#340#0" expanded="true" />
-            <element signature="e#389#390#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/MetaamphetamineItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7678301" vertical-offset="412" max-vertical-offset="1071">
-          <caret line="64" column="5" selection-start-line="49" selection-start-column="4" selection-end-line="64" selection-end-column="5" />
-          <folding>
-            <marker date="1449329680341" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedSeedItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5255023" vertical-offset="17" max-vertical-offset="1037">
-          <caret line="36" column="62" selection-start-line="36" selection-start-column="62" selection-end-line="36" selection-end-column="62" />
-          <folding>
-            <marker date="1449346475051" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_basic..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..house_weed">
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/b5383f12-35c3-4cd1-aa49-8297abc59f99/c1t1_l0ss4nt0s..coordinates">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/b5383f12-35c3-4cd1-aa49-8297abc59f99/c1t1_l0ss4nt0s..factions">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..dmv_checkpoint">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/b5383f12-35c3-4cd1-aa49-8297abc59f99/c1t1_l0ss4nt0s..scars">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..dmv">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="272">
+          <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..dmv_vehicle">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..players">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Shoebill/DynamicParamCountTest/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="738" max-vertical-offset="1394">
+          <caret line="56" column="38" selection-start-line="56" selection-start-column="38" selection-end-line="56" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Shoebill/DynamicParamCountTest/src/main/java/lt/maze/MyGamemode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="143" max-vertical-offset="1088">
+          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://F:/wamp/www/AJAX-XSS-Test/form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21587302" vertical-offset="0" max-vertical-offset="630">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..coordinates">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://db-console:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.375" vertical-offset="0" max-vertical-offset="544">
-          <caret line="12" column="30" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.14166667" vertical-offset="0" max-vertical-offset="840">
+          <caret line="7" column="57" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ltrp.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35517243" vertical-offset="4587" max-vertical-offset="5457">
-          <caret line="288" column="21" selection-start-line="288" selection-start-column="21" selection-end-line="288" selection-end-column="21" />
+    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..dmv_question">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/HouseDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/LtrpGamemode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5471264" vertical-offset="0" max-vertical-offset="870">
-          <caret line="28" column="27" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3519">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding>
-            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT id FR..players..." />
-            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT `pass..players..." />
-            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT admin..players..." />
-            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT skin,..players..." />
-            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_jailtime..." />
-            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_crashes..." />
-            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1449173752566" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="3315">
-          <caret line="69" column="11" selection-start-line="69" selection-start-column="11" selection-end-line="69" selection-end-column="11" />
-          <folding>
-            <element signature="e#738#739#0" expanded="false" />
-            <element signature="e#786#787#0" expanded="false" />
-            <element signature="e#8933#8934#0" expanded="false" />
-            <element signature="e#8968#8969#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlHouseDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3453909" vertical-offset="741" max-vertical-offset="1802">
-          <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1449348383650" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..house_weed..." />
-            <marker date="1449348383650" expanded="true" signature="-1:-1" placeholder="UPDATE house..." />
-            <marker date="1449348383650" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseWeedSapling.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.96091956" vertical-offset="524" max-vertical-offset="3434">
-          <caret line="80" column="5" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2220#2221#0" expanded="false" />
-            <element signature="e#2298#2299#0" expanded="false" />
-            <element signature="e#2330#2331#0" expanded="false" />
-            <element signature="e#2379#2380#0" expanded="false" />
-            <element signature="e#2408#2409#0" expanded="false" />
-            <element signature="e#2436#2437#0" expanded="false" />
-            <element signature="e#2467#2468#0" expanded="false" />
-            <element signature="e#2495#2496#0" expanded="false" />
-            <element signature="e#2532#2533#0" expanded="false" />
-            <element signature="e#2562#2563#0" expanded="false" />
-            <element signature="e#2588#2589#0" expanded="false" />
-            <element signature="e#2613#2614#0" expanded="false" />
-            <element signature="e#2646#2647#0" expanded="false" />
-            <element signature="e#2674#2675#0" expanded="false" />
-            <element signature="e#2724#2725#0" expanded="false" />
-            <element signature="e#2764#2765#0" expanded="false" />
-            <element signature="e#2822#2823#0" expanded="false" />
-            <element signature="e#2874#2875#0" expanded="false" />
-            <element signature="e#2934#2935#0" expanded="false" />
-            <element signature="e#2988#2989#0" expanded="false" />
-            <element signature="e#3027#3028#0" expanded="false" />
-            <element signature="e#3083#3084#0" expanded="false" />
-            <element signature="e#3122#3123#0" expanded="false" />
-            <element signature="e#3156#3157#0" expanded="false" />
-            <element signature="e#3195#3196#0" expanded="false" />
-            <element signature="e#3233#3234#0" expanded="false" />
-            <element signature="e#3292#3293#0" expanded="false" />
-            <element signature="e#3346#3347#0" expanded="false" />
-            <element signature="e#3383#3384#0" expanded="false" />
-            <element signature="e#3414#3415#0" expanded="false" />
-            <element signature="e#3454#3455#0" expanded="false" />
-            <element signature="e#3491#3492#0" expanded="false" />
-            <element signature="e#3532#3533#0" expanded="false" />
-            <element signature="e#3570#3571#0" expanded="false" />
-            <element signature="e#3599#3600#0" expanded="false" />
-            <element signature="e#3637#3638#0" expanded="false" />
-            <element signature="e#3674#3675#0" expanded="false" />
-            <element signature="e#3710#3711#0" expanded="false" />
-            <element signature="e#3765#3766#0" expanded="false" />
-            <element signature="e#3815#3816#0" expanded="false" />
-            <element signature="e#4214#4215#0" expanded="false" />
-            <element signature="e#4252#4253#0" expanded="false" />
-            <element signature="e#4288#4289#0" expanded="false" />
-            <element signature="e#4327#4328#0" expanded="false" />
-            <element signature="e#4364#4365#0" expanded="false" />
-            <element signature="e#4416#4417#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/House.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6091954" vertical-offset="490" max-vertical-offset="1360">
-          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.29082426" vertical-offset="0" max-vertical-offset="1870">
+          <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/WeedItem.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5275862" vertical-offset="0" max-vertical-offset="870">
-          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#283#284#0" expanded="true" />
-            <element signature="e#336#337#0" expanded="true" />
-            <marker date="1449345781290" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items_consumable..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/NamedEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31264368" vertical-offset="0" max-vertical-offset="870">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29310346" vertical-offset="0" max-vertical-offset="870">
-          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
-          <folding>
-            <element signature="e#137#138#0" expanded="false" />
-            <element signature="e#165#166#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/InventoryEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35172415" vertical-offset="0" max-vertical-offset="870">
-          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3757293" vertical-offset="5373" max-vertical-offset="15657">
-          <caret line="466" column="28" selection-start-line="466" selection-start-column="28" selection-end-line="466" selection-end-column="28" />
-          <folding>
-            <element signature="e#11355#11356#0" expanded="true" />
-            <element signature="e#11410#11411#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.508046" vertical-offset="357" max-vertical-offset="4267">
-          <caret line="64" column="28" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="235" max-vertical-offset="1224">
-          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.20731707" vertical-offset="0" max-vertical-offset="867">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1836">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        <state vertical-scroll-proportion="1.6478659" vertical-offset="670" max-vertical-offset="2193">
+          <caret line="103" column="59" selection-start-line="103" selection-start-column="59" selection-end-line="103" selection-end-column="59" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java">
+    <entry file="file://$PROJECT_DIR$/.idea/dataSources.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2312">
-          <caret line="32" column="75" selection-start-line="32" selection-start-column="75" selection-end-line="32" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1672" max-vertical-offset="8092">
-          <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1449356670338" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..items..." />
-            <marker date="1449356670338" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1449356670338" expanded="true" signature="-1:-1" placeholder="UPDATE items..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="3315">
-          <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5924242" vertical-offset="85" max-vertical-offset="816">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/PropertyCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="765">
-          <caret line="20" column="102" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="102" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1071">
-          <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/property/HouseCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="1292">
-          <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2026" max-vertical-offset="2737">
-          <caret line="158" column="59" selection-start-line="158" selection-start-column="41" selection-end-line="158" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/64bc9fdc/1d26f9c5-9d22-4590-945e-ad1ded31c2ca/ltrp-java..items">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.95151514" vertical-offset="3061" max-vertical-offset="4318">
-          <caret line="236" column="4" selection-start-line="236" selection-start-column="4" selection-end-line="236" selection-end-column="4" />
-          <folding />
+        <state vertical-scroll-proportion="0.9773519" vertical-offset="0" max-vertical-offset="765">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+          <folding>
+            <element signature="e#534#535#0" expanded="true" />
+            <element signature="e#565#566#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2066,7 +1286,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>jacksum</last-edited>
+          <last-edited>Maven: net.gtaun:shoebill-api:1.1-SNAPSHOT</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

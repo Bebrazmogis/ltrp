@@ -628,7 +628,7 @@ stock LoadMap(file[]) // by Mick88
 #define DestroyVehicle     Tabu_DestroyVehicle
 
 
-
+/*
 stock TabCanPlayerEnterFactionVehicle(playerid, vehicleid)
 {
 	// Jei ji darbinë.
@@ -641,7 +641,7 @@ stock TabCanPlayerEnterFactionVehicle(playerid, vehicleid)
 	}
 
 	return true;
-}
+}*/
 
 stock ACTestLog(const string[])
 {

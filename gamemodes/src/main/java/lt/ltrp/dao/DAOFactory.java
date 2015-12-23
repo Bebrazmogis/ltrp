@@ -1,10 +1,9 @@
 package lt.ltrp.dao;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import lt.ltrp.dao.impl.SqlHouseDao;
-import lt.ltrp.dao.impl.SqlPhoneDaoImpl;
-import lt.ltrp.dao.impl.SqlPlayerDaoImpl;
+import lt.ltrp.dao.impl.*;
 import lt.ltrp.item.SqlItemDao;
+import net.gtaun.shoebill.Shoebill;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
@@ -24,13 +23,15 @@ public abstract class DAOFactory {
     private static final String password = "";
     private static final String database = "ltrp-java";
     private static final String url = "jdbc:mysql://localhost:3306/" + database;
+    //private static final String url = "jdbc:jdbcdslog:jdbc:mysql://localhost:3306/" + database + ";targetDriver=" + driver;
+    //jdbc:jdbcdslog:<original URL>;targetDriver=<original JDBC driver full class name>
 
     public static DAOFactory getInstance() {
         DAOFactory instance = null;
 
         Properties p = new Properties(System.getProperties());
-        p.put("com.mchange.v2.log.MLog", "com.mchange.v2.log.FallbackMLog");
-        p.put("com.mchange.v2.log.FallbackMLog.DEFAULT_CUTOFF_LEVEL", "INFO"); // Off or any other level
+        //p.put("com.mchange.v2.log.MLog", "com.mchange.v2.log.slf4j.Slf4jMLog");
+        //p.put("com.mchange.v2.log.FallbackMLog.DEFAULT_CUTOFF_LEVEL", "ALL"); // Off or any other level
         System.setProperties(p);
 
         ComboPooledDataSource cpds = new ComboPooledDataSource();
@@ -63,6 +64,9 @@ public abstract class DAOFactory {
     public abstract PhoneDao getPhoneDao();
     public abstract ItemDao getItemDao();
     public abstract HouseDao getHouseDao();
+    public abstract JobDao getJobDao();
+    public abstract DmvDao getDmvDao();
+    public abstract VehicleDao getVehicleDao();
 }
 
 class JdbcDAO extends DAOFactory {
@@ -72,6 +76,9 @@ class JdbcDAO extends DAOFactory {
     private PhoneDao phoneDao;
     private ItemDao itemDao;
     private HouseDao houseDao;
+    private JobDao jobDao;
+    private DmvDao dmvDao;
+    private VehicleDao vehicleDao;
 
     public JdbcDAO(ComboPooledDataSource ds) throws IOException, SQLException {
         this.ds = ds;
@@ -116,6 +123,9 @@ class JdbcDAO extends DAOFactory {
         this.phoneDao = new SqlPhoneDaoImpl(ds);
         this.itemDao = new SqlItemDao(ds);
         this.houseDao = new SqlHouseDao(ds);
+        this.jobDao = new FileJobDaoImpl(Shoebill.get().getResourceManager().getGamemode().getDataDir());
+        this.dmvDao = new SqlDmvDaoImpl(ds);
+        this.vehicleDao = new SqlVehicleDaoImpl(ds);
         System.out.println("JDBCDAO initialized");
     }
 
@@ -144,5 +154,21 @@ class JdbcDAO extends DAOFactory {
     public HouseDao getHouseDao() {
         return houseDao;
     }
+
+    @Override
+    public JobDao getJobDao() {
+        return jobDao;
+    }
+
+    @Override
+    public DmvDao getDmvDao() {
+        return dmvDao;
+    }
+
+    @Override
+    public VehicleDao getVehicleDao() {
+        return vehicleDao;
+    }
+
 }
 

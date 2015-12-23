@@ -22,3 +22,75 @@ Laikrastis.
 
 
 	_General.p MoveDynamicObject(objectid, x, y, z, 15, rx, ry, rz);
+
+
+	format( mini, 126, "{33AA11}%s\n{FFFFFF}Darbo kontraktas: {FFBB00}%d {FFFFFF}atlyginimai\n{FFBB00}/takejob", pJobs[ i ][ Name ], pJobs[ i ][ Contr ] );
+        CreateDynamic3DTextLabel( mini, COLOR_WHITE, pJobs[ i ][ Job_x ], pJobs[ i ][ Job_y ], pJobs[ i ][ Job_z ], 15, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
+
+        new const pJobs[ MAX_JOBS ][ jobs ] = { // Darbø (ásidarbinimo) koordinatës, alga, kontraktas, maksimali alga
+    { 99999.0, 99999.0, 8888.0, 50, 0, 2400,         "Bedarbis" },
+    { 1657.9742,-1817.6954,13.6508, 600, 6, 900,         "Mechanikas" },
+    { 99999.0, 99999.0, 8888.0, 0, 5, 750,        "Gatviø valytojas" },
+//    { 758.1678, -77.3299, 1000.6499, 150, 5, 500,     "Kovos menø treneris" },
+    { 2195.7881,-1973.2227,13.5589, 400, 5, 2200,         "Ðiûkðlininkas" },
+    { 99999.0, 99999.0, 8888.0, 350, 5, 150,  "Gatviø ðlavëjas." },
+    { 99999.0, 99999.0, 8888.0, 0, 5, 150,  "Mechanikas." },
+    { 2281.1189,-2365.0647,13.5469, 400, 5, 900,  "Kroviniø perveþimø vairuotojas" },
+    { 99999.0, 99999.0, 8888.0, 400, 10, 2200,      "Automobiliu vagis (nelegalus)" }
+
+    enum jobs
+{
+    Float:Job_x,
+    Float:Job_y,
+    Float:Job_z,
+    PayCheck,
+    Contr,
+    MaxPayday,
+    Name[42]
+}
+
+
+if(cInfo[veh][cLockType] == 0) StartTimer(playerid,60,6);
+                    else StartTimer(playerid,120*cInfo[veh][cLockType],6);
+
+                    format(string,126,"** %s ið árankiø dëþutës iðsitraukia reples, atsuktuvà ir bando ardyti spinelæ, kad uþvestu automobilá.",GetPlayerNameEx(playerid));
+                    ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                    CJLog( pInfo[ playerid ][ pMySQLID ], cInfo[veh][cID], "Bando uþvesti tr. priemonæ vogdamas" );
+                    if(cInfo[veh][cAlarm] == 1 || cInfo[veh][cAlarm] == 2)
+                    {
+                        format(string,126,"** Pypsi tr. priemonës signalizacija (( %s ))",cInfo[veh][cName]);
+                        ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                        VehicleAlarm(veh, 1);
+                        return 1;
+                    }
+                    else if(cInfo[veh][cAlarm] == 3)
+                    {
+                        new zone[30];
+                        GetPlayer2DZone(playerid, zone, 30);
+                        format(string,126,"** Pypsi tr. priemonës signalizacija (( %s ))",cInfo[veh][cName]);
+                        ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                        SendTeamMessage(1, COLOR_LIGHTRED, "|________________Ávykio praneðimas________________|");
+                        SendTeamMessage(1, COLOR_WHITE, "|Dispeèerinë: Automobilio signalizacija praneða apie ásilauþimá .");
+                        format(string, 126, "|Vieta: Automobilio GPS imtuvas praneða, kad automobilis yra rajone %s",zone);
+                        SendTeamMessage(1, COLOR_WHITE, string);
+                        VehicleAlarm(veh, 1);
+                        return 1;
+                    }
+                    else if(cInfo[veh][cAlarm] == 4)
+                    {
+                        new zone[30],
+                            CarOwner = GetCarOwner(veh);
+                        GetPlayer2DZone(playerid, zone, 30);
+                        format(string,126,"** Pypsi tr. priemonës signalizacija (( %s ))",cInfo[veh][cName]);
+                        ProxDetector(20.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+                        SendTeamMessage(1, COLOR_LIGHTRED, "|________________Ávykio praneðimas________________|");
+                        SendTeamMessage(1, COLOR_WHITE, "|Dispeèerinë: Automobilio signalizacija praneða apie ásilauþimá .");
+                        format(string, 126, "|Vieta: Automobilio GPS imtuvas praneða, kad automobilis yra rajone %s",zone);
+                        SendTeamMessage(1, COLOR_WHITE, string);
+                        if(!IsPlayerConnected(CarOwner)) return 1;
+                        SendClientMessage(CarOwner, COLOR_WHITE, "SMS: á Jûsø automobilá bando kaþkas ásilauþti, siuntëjas: Jûsu Automobilis");
+                        SetVehicleParamsForPlayer(veh,CarOwner,1,cInfo[veh][cLock]);
+                        PlayerPlaySound(CarOwner, 1052, 0.0, 0.0, 0.0);
+                        VehicleAlarm(veh, 1);
+                        return 1;
+                    }

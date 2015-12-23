@@ -5,9 +5,13 @@ import lt.ltrp.Util.AdminLog;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.data.Color;
 import lt.ltrp.item.Item;
+import lt.ltrp.job.ContractJob;
+import lt.ltrp.job.Faction;
+import lt.ltrp.vehicle.JobVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Vehicle;
@@ -33,9 +37,14 @@ public class AdminCommands {
         adminLevels.put("getoldcar", 1);
         adminLevels.put("rc", 1);
         adminLevels.put("gotoloc", 1);
+        adminLevels.put("rjc", 1);
+        adminLevels.put("rfc", 2);
+        adminLevels.put("gotopos", 2);
 
         adminLevels.put("makefactionmanager", 4);
+
         adminLevels.put("giveitem", 6);
+        adminLevels.put("fly", 6);
 
         teleportLocations.put("pc", new Location(2292.1936f, 26.7535f, 25.9974f, 0, 0));
         teleportLocations.put("ls", new Location(1540.1237f, -1675.2844f, 13.5500f, 0, 0));
@@ -48,8 +57,8 @@ public class AdminCommands {
 
 
     @BeforeCheck
-    public boolean beforeCheck(Player p, String cmd, String params) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+    public boolean beforeCheck(LtrpPlayer p, String cmd, String params) {
+        LtrpPlayer player = p;
         if(player != null) {
             System.out.println("AdminCommandst :: beforeCheck. Player: "+  p.getName() + " cmd: " +cmd + " params:" + params + " required admin level:" +
                     adminLevels.get(cmd) + " player admin levle:" + player.getAdminLevel());
@@ -129,6 +138,19 @@ public class AdminCommands {
     }
 
     @Command
+    @CommandHelp("Nukelia jus á pasirinktas koordinates")
+    public boolean gotopos(LtrpPlayer player, Float x, Float y, Float z) {
+        if(x == null || y == null || z == null) {
+            player.sendMessage("Ne. ne taip");
+            return false;
+        }
+        if(x != 0f && y != 0f && z != 0f) {
+            player.setLocation(x, y, z);
+        }
+        return false;
+    }
+
+    @Command
     @CommandHelp("Atstato transporto priemonæ á atsiradimo vietà")
     public boolean rc(Player player, @CommandParam("Transporto priemonës ID")Vehicle veh) {
         LtrpPlayer p = LtrpPlayer.get(player);
@@ -183,4 +205,57 @@ public class AdminCommands {
         return false;
     }
 
+
+    @Command
+    @CommandHelp("Atstato visas nenaudojamas kontraktinio darbo transporto priemones á atsiradimo vietà")
+    public boolean rjc(LtrpPlayer player, ContractJob job) {
+        if(job != null) {
+            int count = 0;
+            for(JobVehicle jobVehicle : job.getVehicles().values()) {
+                if(!jobVehicle.isUsed()) {
+                    jobVehicle.respawn();
+                    count++;
+                }
+            }
+            player.sendMessage("Atstatytos " + count + " darbo " + job.getName() + " transporto priemonës.");
+            LtrpPlayer.sendGlobalMessage("Administratorius atstatë visas nenaudojamas darbo " + job.getName() + "transporto priemones.");
+            return true;
+        } else
+            player.sendErrorMessage("Darbo su tokiu ID nëra.");
+        return false;
+    }
+
+
+    @Command
+    @CommandHelp("Atstato visas nenaudojamas frakcinio darbo transporto priemones á atsiradimo vietà")
+    public boolean rfc(LtrpPlayer player, Faction faction) {
+        if(faction != null) {
+            int count = 0;
+            for(JobVehicle jobVehicle : faction.getVehicles().values()) {
+                if(!jobVehicle.isUsed()) {
+                    jobVehicle.respawn();
+                    count++;
+                }
+            }
+            player.sendMessage("Atstatytos " + count + " darbo " + faction.getName() + " transporto priemonës.");
+            LtrpPlayer.sendGlobalMessage("Administratorius atstatë visas nenaudojamas darbo " + faction.getName() + "transporto priemones.");
+            return true;
+        } else
+            player.sendErrorMessage("Frakcijos su tokiu ID nëra.");
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Dont")
+    public boolean fly(LtrpPlayer player) {
+        if(player.getSpecialAction() == SpecialAction.NONE) {
+            player.setSpecialAction(SpecialAction.USE_JETPACK);
+        } else
+            player.setSpecialAction(SpecialAction.NONE);
+        return true;
+    }
+
+
+
 }
+

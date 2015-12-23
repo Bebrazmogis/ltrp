@@ -1,12 +1,19 @@
 package lt.ltrp.vehicle;
 
+import net.gtaun.shoebill.constant.VehicleModel;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Bebras
  *         2015.11.29.
  */
 public class FuelTank {
 
+
     private float size, fuel;
+
 
     public FuelTank(float size, float fuel) {
         this.size = size;

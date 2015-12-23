@@ -1,6 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.dao.ItemDao;
+import org.slf4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -15,6 +16,7 @@ import java.util.List;
 public class SqlItemDao implements ItemDao {
 
     private DataSource dataSource;
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(SqlItemDao.class);
 
     public SqlItemDao(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -23,6 +25,7 @@ public class SqlItemDao implements ItemDao {
 
     @Override
     public Item[] getItems(Class locationType, int locationid) {
+        logger.debug("getItems called locationType=" + locationType + " locationid=" + locationid);
         List<Item> items = new ArrayList<>();
         String sql = "SELECT * FROM items WHERE location = ? AND location_id = ?";
         try (
@@ -36,7 +39,7 @@ public class SqlItemDao implements ItemDao {
                 int itemid = result.getInt("item_id");
                 ItemType type = ItemType.getById(result.getInt("type"));
                 String typeClass = result.getString("type_class");
-                Item item = null;
+                AbstractItem item = null;
                 switch(typeClass) {
                     case "lt.ltrp.item.DurableItem":
                         item = DurableItem.getById(itemid, type, con);
@@ -50,7 +53,7 @@ public class SqlItemDao implements ItemDao {
                     case "lt.ltrp.item.ContainerItem":
                         item = ContainerItem.getById(itemid, type, con);
                         break;
-                    case "lt.ltrp.item.FelTankItem":
+                    case "lt.ltrp.item.FuelTankItem":
                         item = FuelTankItem.getById(itemid, type, con);
                         break;
                     case "lt.ltrp.item.DiceItem":
@@ -110,8 +113,20 @@ public class SqlItemDao implements ItemDao {
                     case "lt.ltrp.item.WeedItem":
                         item = WeedItem.getById(itemid, type, con);
                         break;
+                    case "lt.ltrp.item.RadioItem":
+                        item = RadioItem.getById(itemid, type, con);
+                        break;
+                    case "lt.ltrp.item.BasicItem":
+                        item = BasicItem.getById(itemid, type, con);
+                        break;
+
                 }
-                items.add(item);
+                if(item != null) {
+                    items.add(item);
+                    item.setGlobalId(result.getInt("id"));
+                }
+                else
+                    logger.error("Item " + result.getInt("id") + " implementation not found. Type class:" + typeClass + " type id: "+ type.id);
             }
 
         } catch(SQLException e) {
@@ -122,19 +137,23 @@ public class SqlItemDao implements ItemDao {
 
     @Override
     public void insert(Item item, Class location, int locationid) {
+        logger.debug("insert called. Item id=" + item.getGlobalId() + " location=" + location + " locationid=" + locationid);
         AbstractItem abstractItem = (AbstractItem)item;
-        String sql = "INSERT INTO items (type, location, location_id, item_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO items (type, type_class, location, location_id, item_id) VALUES (?, ?, ?, ?, ?)";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement globalStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ) {
             int itemid = abstractItem.insert(con);
-                abstractItem.setItemId(itemid);
+            abstractItem.setItemId(itemid);
+
             globalStatement.setInt(1, abstractItem.getType().id);
-            globalStatement.setString(2, location.getName());
-            globalStatement.setInt(3, locationid);
-            globalStatement.setInt(4, abstractItem.getItemId());
-            ResultSet result = globalStatement.executeQuery();
+            globalStatement.setString(2, item.getClass().getName());
+            globalStatement.setString(3, location.getName());
+            globalStatement.setInt(4, locationid);
+            globalStatement.setInt(5, abstractItem.getItemId());
+            globalStatement.executeUpdate();
+            ResultSet result = globalStatement.getGeneratedKeys();
             if(result.next()) {
                 abstractItem.setGlobalId(result.getInt(1));
             }
@@ -146,6 +165,7 @@ public class SqlItemDao implements ItemDao {
 
     @Override
     public void delete(Item item) {
+        logger.debug("delete called item id=" + item.getGlobalId());
         AbstractItem abstractItem = (AbstractItem)item;
         try (
                 Connection connection = dataSource.getConnection();
@@ -158,6 +178,7 @@ public class SqlItemDao implements ItemDao {
 
     @Override
     public void update(Item item) {
+        logger.debug("update called item id=" + item.getGlobalId());
         AbstractItem abstractItem = (AbstractItem)item;
         try (
                 Connection connection = dataSource.getConnection();
@@ -174,6 +195,7 @@ public class SqlItemDao implements ItemDao {
 
     @Override
     public void update(Item item, Class location, int locationid) {
+        logger.debug("update called item id=" + item.getGlobalId() + " location=" + location + " locationid=" + locationid);
         new Thread(() -> {
             String sql = "UPDATE items SET location = ?, location_id = ? WHERE id = ?";
             try (
@@ -193,6 +215,7 @@ public class SqlItemDao implements ItemDao {
 
     @Override
     public int generatePhonenumber() {
+        logger.debug("generatePhonenumber called");
         try (
                 Connection con = dataSource.getConnection();
                 ) {

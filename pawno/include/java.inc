@@ -42,7 +42,7 @@ GivePlayerMaskItem(playerid, itemid, modelid, slot)
 GivePlayerPhoneItem(playerid, itemid)
 {
 	printf("GivePlayerPhoneItem(%d) called", playerid);
-	new val = CallShoebillFunction("tryGivePlayerItemType", playerid, 15, itemid, 1);
+	new val = CallShoebillFunction("tryGivePlayerItemType", playerid, 15, itemid, 1, -1, -1);
 	printf("GivePlayerPhoneItem returned %d", val);
 	return val;
 }
@@ -140,7 +140,21 @@ stock IsPlayerInventoryFull(playerid)
 	return val;
 }
 
+stock UpdatePlayerInfoText(playerid)
+{
+	printf("UpdatePlayerInfoText(%d) called", playerid);
+	new val = CallShoebillFunction("updatePlayerInfoText", playerid);
+	printf("UpdatePlayerInfoText returned %d", val);
+	return val;
+}
 
+stock IsDmvVehicle(vehicleid)
+{
+	printf("IsDmvVehicle(%d) called", vehicleid);
+	new val = CallShoebillFunction("isDmvVehicle", vehicleid);
+	printf("IsDmvVehicle returned %d", val);
+	return val;
+}
 
 
 
@@ -151,4 +165,22 @@ CreateProperty(type[], uid, Float:enx, Float:eny, Float:enz, enint, envw, Float:
 	new val = CallShoebillFunction("createProperty", type, uid, enx, eny, enz, enint, envw, exx, exy, exz, exint, exvw);
 	printf("CreateProperty returned %d", val);
 	return val;
+}
+
+
+// CreateJobVehicle(vehuid, jobid, modelid, x, y, z, angle, color1, color2, min_rank_nr, plate[])
+CreateJobVehicle(vehuid, jobid, modelid, Float:x, Float:y, Float:z, Float:angle, color1, color2, minrank, licenseplate[])
+{
+	printf("CreateJobVehicle(%d, %d, %d, %f, %f, %f, %f, %d, %d, %d, %s)", vehuid, jobid, modelid, x, y, z, angle, color1, color2, minrank, licenseplate);
+	new val = CallShoebillFunction("createJobVehicle", vehuid, jobid, modelid, x, y, z, angle, color1, color2, minrank, licenseplate);
+	printf("CreateJobVehicle returned %d", val);
+	return val;
+}
+
+
+
+
+stock ShowVehicleBuyMenu(playerid)
+{
+	
 }

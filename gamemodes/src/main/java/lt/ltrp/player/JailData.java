@@ -6,14 +6,18 @@ package lt.ltrp.player;
  */
 public class JailData {
 
+    private int id;
+    private LtrpPlayer player;
     private JailType type;
     private int time;
     private String jailer;
 
-    public JailData(JailType type, int time, String jailer) {
+    public JailData(int id, LtrpPlayer player, JailType type, int time, String jailer) {
         this.type = type;
         this.time = time;
         this.jailer = jailer;
+        this.id = id;
+        this.player = player;
     }
 
     public JailType getType() {
@@ -38,6 +42,22 @@ public class JailData {
 
     public void setJailer(String jailer) {
         this.jailer = jailer;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LtrpPlayer getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(LtrpPlayer player) {
+        this.player = player;
     }
 
     public enum JailType {

@@ -19,8 +19,8 @@
         <processorPath useClasspath="true" />
       </profile>
       <profile default="false" name="Annotation profile for gamemodes" enabled="true">
-        <sourceOutputDir name="..\shoebill\gamemodes\generated-sources\annotations" />
-        <sourceTestOutputDir name="..\shoebill\gamemodes\generated-test-sources\test-annotations" />
+        <sourceOutputDir name="shoebill\gamemodes\generated-sources\annotations" />
+        <sourceTestOutputDir name="shoebill\gamemodes\generated-test-sources\test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="gamemodes" />

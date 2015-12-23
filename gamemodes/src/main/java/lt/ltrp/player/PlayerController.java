@@ -6,14 +6,24 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.dao.PlayerDao;
+import lt.ltrp.dmv.Dmv;
+import lt.ltrp.dmv.DmvManager;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Item;
+import lt.ltrp.job.ContractJob;
+import lt.ltrp.job.Faction;
+import lt.ltrp.job.Job;
+import lt.ltrp.job.JobManager;
+import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.CommandEntry;
 import net.gtaun.shoebill.common.command.CustomCommandHandler;
+import net.gtaun.shoebill.common.dialog.ListDialogItem;
+import net.gtaun.shoebill.common.dialog.PageListDialog;
+import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.amx.AmxUnloadEvent;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
@@ -25,15 +35,17 @@ import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class PlayerController {
 
     private EventManagerNode managerNode;
     private PlayerDao playerDao;
+    private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
 
     private Map<LtrpPlayer, Boolean> spawnsSetUp = new HashMap<>();
 
@@ -46,16 +58,7 @@ public class PlayerController {
         managerNode = manager.createChildNode();
 
         PlayerCommandManager playerCommandManager = new PlayerCommandManager(HandlerPriority.NORMAL, managerNode);
-       /* playerCommandManager.setUsageMessageSupplier((p, cmd, prefix, params, help) -> {
-            System.out.println("Amount of command entries:" + playerCommandManager.getCommandEntries().size());
-            List<CommandEntry> entries = playerCommandManager.getCommandEntries();
-            for(CommandEntry entry : entries) {
-                System.out.println("PATH:"+entry.getPath());
-                System.out.println("Class:"+entry.getClass());
-            }
-            return "hello";
-        });
-        */
+
         playerCommandManager.replaceTypeParser(LtrpPlayer.class, s -> {
             int id = Player.INVALID_ID;
             try {
@@ -74,23 +77,67 @@ public class PlayerController {
             }
             return Vehicle.get(id);
         });
+        playerCommandManager.replaceTypeParser(ContractJob.class, s -> {
+            int id = ContractJob.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return JobManager.getContractJob(id);
+        });
+
+        playerCommandManager.replaceTypeParser(Faction.class, s -> {
+            int id = Faction.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return JobManager.getFaction(id);
+        });
+
+
         playerCommandManager.registerCommands(new AdminCommands());
         playerCommandManager.registerCommands(new GeneralCommands());
         playerCommandManager.registerCommand("test", new Class[]{LtrpPlayer.class}, new String[]{"player"}, (e, something) -> {
             System.out.println("its test alright");
+            List<ListDialogItem> items = new ArrayList<ListDialogItem>();
+            for(Field f : e.getClass().getFields()) {
+                ListDialogItem item = new ListDialogItem();
+                item.setItemText(String.format("%s\t%s", f.getName(), f.toGenericString()));
+                items.add(item);
+            }
+            PageListDialog.create(e, LtrpGamemode.get().getEventManager())
+                    .caption("Okay")
+                    .items(items)
+                    .build().show();
             return true;
         });
+        playerCommandManager.registerCommand("test2", new Class[]{}, new String[]{}, (p,l) -> {
+            System.out.println("its test2 alright");
+
+            p.sendMessage("Job:" + p.getJob());
+            p.sendMessage(" Admin level;"  + p.getAdminLevel());
+            return true;
+        });
+
+
+
+
+
+
         //playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
 
 
 
         managerNode.registerHandler(PlayerCommandEvent.class, e -> {
-            System.out.println("PlayerController :: constructor. PlayerCommandEvent received. Command:" + e.getCommand());
+            logger.info("PlayerController :: constructor. PlayerCommandEvent received. Command:" + e.getCommand());
         });
 
 
         managerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.HIGHEST, e -> {
-            Logger.getLogger(PlayerController.class.getName()).log(Level.INFO, "PlayerConnectEvent received");
+            logger.info("PlayerConnectEvent received: " + e.getPlayer().getName());
             if(e.getPlayer().isNpc()) {
                 return;
             }
@@ -103,7 +150,7 @@ public class PlayerController {
 
 
         managerNode.registerHandler(PlayerSpawnSetUpEvent.class, e -> {
-            Logger.getLogger(getClass().getSimpleName()).log(Level.INFO, "PlayerSpawnSetupEvent received");
+            logger.info("PlayerSpawnSetupEvent received");
             LtrpPlayer player = e.getPlayer();
             if(player.isLoggedIn()) {
                 spawnPlayer(player);
@@ -114,21 +161,14 @@ public class PlayerController {
         });
 
         managerNode.registerHandler(PlayerLogInEvent.class, e -> {
-            Logger.getLogger(getClass().getSimpleName()).log(Level.INFO, "PlayerLogInEvent received");
+            logger.info("PlayerLogInEvent received");
             LtrpPlayer player = e.getPlayer();
             player.setLoggedIn(true);
             player.sendMessage("{FFFFFF}Sveikiname sugrįžus, Jūs prisijungėte su veikėju " + player.getName() + ". Sėkmės serveryje!");
             // If the users' spawn is already set up
             if(spawnsSetUp.containsKey(player) && spawnsSetUp.get(player)) {
                 spawnPlayer(player);
-                new Thread(() -> {
-                    playerDao.loadData(player);
-                    Item[] items = LtrpGamemode.getDao().getItemDao().getItems(LtrpPlayer.class, player.getUserId());
-                    Logger.getLogger(getClass().getSimpleName()).log(Level.INFO, "PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUserId());
-                    player.setInventory(new FixedSizeInventory(player.getName() + " kuprinės"));
-                    player.getInventory().add(items);
-                    managerNode.dispatchEvent(new PlayerDataLoadEvent(player));
-                }).start();
+                loadDataThreaded(player);
             }
             // Legacy code for Pawn loading.
             AmxCallable onPlayerLoginPawn = PawnFunc.getNativeMethod("OnPlayerLoginEx");
@@ -138,19 +178,18 @@ public class PlayerController {
         });
 
         manager.registerHandler(PlayerDisconnectEvent.class, e -> {
-            Logger.getLogger(getClass().getSimpleName()).log(Level.INFO, "PlayerDisconnectEvent received");
+            logger.info("PlayerDisconnectEvent received");
             Player p = e.getPlayer();
             if(spawnsSetUp.containsKey(p)) {
                 spawnsSetUp.remove(p);
             }
-            LtrpPlayer.players.remove(p);
+            LtrpPlayer.remove(p);
         });
 
         manager.registerHandler(PlayerSpawnEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             if(player != null) {
                 player.setCameraBehind();
-
             }
         });
 
@@ -165,21 +204,61 @@ public class PlayerController {
 
 
     private void addPawnFunctions() {
-        Logger.getLogger(PlayerController.class.getSimpleName()).log(Level.INFO, "PlayerController :: addPawnFunctions. Called.");
+        logger.info("PlayerController :: addPawnFunctions. Called.");
         managerNode.registerHandler(AmxLoadEvent.class, e-> {
                     e.getAmxInstance().registerFunction("isPlayerLoggedIn", objects -> {
                                 objects[1] = isPlayerLoggedIn((Integer) objects[0]) ? 1 : 0;
                         return 1;
                     }, Integer.class, Integer.class);
-            Logger.getLogger(PlayerController.class.getSimpleName()).log(Level.INFO, "PlayerController :: addPawnFunctions :: lambda. Function registered");
+
+            e.getAmxInstance().registerFunction("updatePlayerInfoText", params -> {
+                LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
+                if(player != null && player.getInfoBox() != null) {
+                    player.getInfoBox().update();
+                }
+                return player == null ? 0 : 1;
+            }, Integer.class);
+
+            e.getAmxInstance().registerFunction("isDmvVehicle", params -> {
+                LtrpVehicle vehicle = LtrpVehicle.getById((Integer)params[0]);
+                if(vehicle != null) {
+                    for(Dmv dmv :  DmvManager.getInstance().getDmvs()) {
+                        if(dmv.getVehicles().contains(vehicle)) {
+                            return 1;
+                        }
+                    }
+                }
+                return 0;
+            }, Integer.class);
+           logger.info("PlayerController :: addPawnFunctions :: lambda. Function registered");
         });
-        Logger.getLogger(PlayerController.class.getSimpleName()).log(Level.INFO, "PlayerController :: addPawnFunctions.Pawn functions added");
+        logger.info("PlayerController :: addPawnFunctions.Pawn functions added");
+
+
 
         managerNode.registerHandler(AmxUnloadEvent.class, e-> {
             e.getAmxInstance().unregisterFunction("isPlayerLoggedIn");
+            e.getAmxInstance().unregisterFunction("updatePlayerInfoText");
+            e.getAmxInstance().unregisterFunction("isDmvVehicle");
+
         });
     }
 
+    private void loadDataThreaded(LtrpPlayer player) {
+        new Thread(() -> {
+            playerDao.loadData(player);
+            Item[] items = LtrpGamemode.getDao().getItemDao().getItems(LtrpPlayer.class, player.getUserId());
+            logger.info("PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUserId());
+            player.setInventory(new FixedSizeInventory(player.getName() + " kuprinės"));
+            player.getInventory().add(items);
+
+            player.setVehicleMetadata(playerDao.getVehiclePermissions(player));
+
+            PlayerLicenses licenses = LtrpGamemode.getDao().getPlayerDao().get(player);
+            player.setLicenses(licenses);
+            managerNode.dispatchEvent(new PlayerDataLoadEvent(player));
+        }).start();
+    }
 
 
 

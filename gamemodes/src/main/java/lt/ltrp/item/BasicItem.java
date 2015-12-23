@@ -20,7 +20,7 @@ public class BasicItem extends AbstractItem {
         super(name, type, stackable);
     }
 
-    @ItemUsageOption(name = "Iðmestii")
+    @ItemUsageOption(name = "Iðmesti")
     public boolean drop(LtrpPlayer player, Inventory inventory) {
         if(player.getInventory().equals(inventory)) {
             player.getInventory().remove(this);
@@ -49,7 +49,7 @@ public class BasicItem extends AbstractItem {
     @ItemUsageOption(name = "Padëti")
     public boolean place(LtrpPlayer player) {
         if(player.getInventory().contains(this)) {
-            LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 2.0f);
+            LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
             Inventory inventory = null;
 
             // Pirmiausia ieðkom nekilnojamam turte, nes kai kuriose jo ruðyse gali bûti viduje transporto priemonë.

@@ -1,10 +1,12 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.player.CrashData;
-import lt.ltrp.player.JailData;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.SpawnData;
+import javafx.util.Pair;
+import lt.ltrp.player.*;
+import lt.ltrp.vehicle.PlayerVehiclePermission;
 import net.gtaun.shoebill.object.Player;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Bebras
@@ -22,4 +24,12 @@ public interface PlayerDao {
     public boolean remove(LtrpPlayer player, CrashData data);
     public boolean remove(LtrpPlayer player, JailData jailData);
     public boolean setFactionManager(LtrpPlayer player);
+    void insert(JailData data);
+    void insertCrime(String suspect, String crime, String reporterName);
+    Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player);
+
+    void updateLicenses(PlayerLicenses licenses);
+    void updateLicense(PlayerLicense license);
+    void insertLicense(PlayerLicense license);
+    PlayerLicenses get(LtrpPlayer player);
 }

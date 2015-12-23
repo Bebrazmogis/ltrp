@@ -13,6 +13,8 @@ import net.gtaun.util.event.EventManager;
 import net.gtaun.shoebill.common.command.PlayerCommandManager.UsageMessageSupplier;
 import net.gtaun.util.event.HandlerPriority;
 import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,10 +32,13 @@ import java.util.regex.Pattern;
 public class PlayerCommandManager {
 
     private static final Map<Class<?>, Function<String, Object>> TYPE_PARSER = new HashMap<>();
+    private static final Logger logger = LoggerFactory.getLogger(PlayerCommandManager.class);
+
 
     private HandlerPriority priority;
     private EventManager eventManager;
     private UsageMessageSupplier usageMessageSupplier;
+    private Map<String, String> commandUsageMessages = new HashMap<>();
 
 
     private Map<String, Collection<CommandData>> commands;
@@ -80,9 +85,9 @@ public class PlayerCommandManager {
     }
 
     private static Object parseParam(Class<?> type, String param) {
-        System.out.println("PlayerCommandManager :: parseParam. PAram type:" + type.getName() + " param value:" + param);
+        logger.debug("PlayerCommandManager :: parseParam. PAram type:" + type.getName() + " param value:" + param);
         if(TYPE_PARSER.containsKey(type)) {
-            System.out.println("PARSER for this parameter exists. After parse:" + TYPE_PARSER.get(type).apply(param));
+            logger.debug("PARSER for this parameter exists. After parse:" + TYPE_PARSER.get(type).apply(param));
             return TYPE_PARSER.get(type).apply(param);
         }
         else return null;
@@ -103,6 +108,7 @@ public class PlayerCommandManager {
 
         eventManager.registerHandler(PlayerCommandEvent.class, priority, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            logger.debug("Command " + e.getCommand() + " received");
             if(processCommand(player, e.getCommand().substring(1)))
                 e.setProcessed();
         });
@@ -110,6 +116,7 @@ public class PlayerCommandManager {
 
 
     public boolean processCommand(LtrpPlayer player, String cmdText) {
+        logger.debug("Processing command " + cmdText);
         int index;
         String cmdName = (index = cmdText.indexOf(" ")) == -1 ? cmdText : cmdText.substring(0, index);
         if(index != -1)
@@ -126,26 +133,33 @@ public class PlayerCommandManager {
 
 
         // If the command isn't registered here
-        if(!commands.containsKey(cmdName))
+        if(!commands.containsKey(cmdName)) {
+            logger.debug("command not registered " + cmdName);
             return false;
+        }
 
         for(CommandData commandData : commands.get(cmdName)) {
             if(beforeCheckers.containsKey(commandData.getOrigin())) {
-                if(!beforeCheckers.get(commandData.getOrigin()).handle(player, cmdName, cmdText))
+                if(!beforeCheckers.get(commandData.getOrigin()).handle(player, cmdName, cmdText)) {
+                    logger.debug("command checker for " + cmdName + " failed.");
                     return false;
+                }
             }
             if(data.length != commandData.getParamTypes().length) {
-                player.sendMessage(Color.NEWS,
-                        usageMessageSupplier != null ?
-                                usageMessageSupplier.get(player, cmdName, "/", commandData.getParamNames(), commandData.getHelpMessage()) :
-                                DEFAULT_USAGE_MESSAGE_SUPPLIER.get(player, cmdName, "/", commandData.getParamNames(), commandData.getHelpMessage()));
+                if(commandUsageMessages.containsKey(cmdName)) {
+                    player.sendMessage(Color.NEWS, commandUsageMessages.get(cmdName));
+                } else {
+                    player.sendMessage(Color.NEWS, usageMessageSupplier != null ?
+                            usageMessageSupplier.get(player, cmdName, "/", commandData.getParamNames(), commandData.getHelpMessage()) :
+                            DEFAULT_USAGE_MESSAGE_SUPPLIER.get(player, cmdName, "/", commandData.getParamNames(), commandData.getHelpMessage()));
+                }
                 return true;
             } else {
                 Object[] params = parseParams(commandData.getParamTypes(), data);
                 params = ArrayUtils.add(params, 0, player);
 
-                System.out.println("Parsing params for command " + cmdName + "Param count:" + params.length + " param type count:"+ commandData.getParamTypes().length);
-                System.out.println("Calling handler. Command name:" + commandData.getName());
+                logger.info("Parsing params for command " + cmdName + "Param count:" + params.length + " param type count:" + commandData.getParamTypes().length);
+                logger.info("Calling handler. Command name:" + commandData.getName());
                 if(commandData.getHandler().handle(player, params))
                     return true;
             }
@@ -159,16 +173,12 @@ public class PlayerCommandManager {
     }
 
     public void registerCommand(String command, Class<?>[] paramTypes, String[] paramNames, CommandHandler handler, boolean caseSensitivity, String helpMsg) {
-        Collection<CommandData> data = commands.get(command);
-        if(data == null) {
-            data = new ArrayList<>();
-            commands.put(command, data);
-        }
-        data.add(new CommandData(paramTypes, paramNames, command, handler, caseSensitivity, helpMsg));
+        registerCommand(new CommandData(paramTypes, paramNames, command, handler, caseSensitivity, helpMsg));
 
     }
 
     public void registerCommand(CommandData commandData) {
+        logger.info("Registered command " + commandData.getName());
         Collection<CommandData> data = commands.get(commandData.getName());
         if(data == null) {
             data = new ArrayList<>();
@@ -181,6 +191,9 @@ public class PlayerCommandManager {
         this.usageMessageSupplier = usageMessageSupplier;
     }
 
+    public void setUsageMessage(String command, String message) {
+        commandUsageMessages.put(command, message);
+    }
 
 
     public void registerCommands(Object... objects) {
@@ -209,11 +222,11 @@ public class PlayerCommandManager {
                         CommandParam paramAnnotation = params[i].getAnnotation(CommandParam.class);
                         names[i-1] = paramAnnotation == null ? params[i].getName() : paramAnnotation.value();
                         types[i-1] = params[i].getType();
-                        System.out.println("Parsing methods " + m.getName() + " params. Param "  + i + " is type:" + params[i].getType().getName() + " its name:" + params[i].getName());
+                        logger.debug("Parsing methods " + m.getName() + " params. Param "  + i + " is type:" + params[i].getType().getName() + " its name:" + params[i].getName());
                     }
                     data.setHandler((player, parameters) -> {
                         try {
-                            System.out.println("param count:" + parameters.length);
+                            logger.debug("param count:" + parameters.length);
                             return (boolean)m.invoke(object, parameters);
                         } catch (IllegalAccessException e) {
                             e.printStackTrace();

@@ -1,9 +1,13 @@
 package lt.ltrp.item;
 
+
+import lt.ltrp.data.Color;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,6 +18,8 @@ import java.sql.*;
  *         2015.12.04.
  */
 public abstract class AbstractItem implements Item {
+
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private String name;
     /**
@@ -41,18 +47,21 @@ public abstract class AbstractItem implements Item {
 
     @Override
     public void showOptions(LtrpPlayer player, Inventory inventory, AbstractDialog parentDialog) {
+        logger.debug("showOptions called. player uid=" + player.getUserId() + " inventory name=" + inventory.getName());
         ListDialog listDialog = ListDialog.create(player, ItemController.getEventManager()).build();
         listDialog.setCaption(getName() + " parinktys");
         listDialog.setButtonOk("Pasirinkti");
         listDialog.setButtonCancel("Atgal");
         listDialog.setClickCancelHandler((d) -> parentDialog.show());
         listDialog.setClickOkHandler((dialog, dialogitem) -> {
+            logger.debug("showOptions dialog item selected. item="+ dialogitem.getItemText());
             Method m = (Method)dialogitem.getData();
+            logger.debug("showOptions selected item method=" + m.getName());
             try {
                 if(m.getParameterCount() == 1) {
-                    m.invoke(player);
+                    m.invoke(this, player);
                 } else {
-                    m.invoke(player, inventory);
+                    m.invoke(this, player, inventory);
                 }
             } catch(IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -62,14 +71,21 @@ public abstract class AbstractItem implements Item {
         for(Method method : this.getClass().getMethods()) {
             // If so, method is an option
             if(method.isAnnotationPresent(ItemUsageOption.class)) {
+                logger.debug("showOptions adding method " + method.getName());
                 ItemUsageOption itemUsageAnnotation = method.getAnnotation(ItemUsageOption.class);
                 ListDialogItem listDialogItem = new ListDialogItem();
                 listDialogItem.setData(method);
                 listDialogItem.setItemText(itemUsageAnnotation.name());
+                listDialog.addItem(listDialogItem);
             }
         }
+        listDialog.show();
+    }
 
-
+    @ItemUsageOption(name = "test")
+    public boolean lol(LtrpPlayer player) {
+        player.sendMessage(Color.CORAL, "Test option. This is " + getName() + " type:" + getType().name() + " Class:" + getClass().getName());
+        return true;
     }
 
 
@@ -158,7 +174,9 @@ public abstract class AbstractItem implements Item {
         try (
                 PreparedStatement stmt = getInsertStatement(con);
                 ) {
-            ResultSet result = stmt.executeQuery();
+            System.out.println("QUERY:"+ stmt.toString());
+            stmt.executeUpdate();
+            ResultSet result = stmt.getGeneratedKeys();
             if(result.next()) {
                 return result.getInt(1);
             } else

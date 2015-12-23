@@ -4,7 +4,8 @@ import lt.ltrp.data.Color;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import java.util.List;
  *         2015.11.14.
  */
 public class FixedSizeInventory implements Inventory {
+
+    private static final Logger logger = LoggerFactory.getLogger(FixedSizeInventory.class);
 
     private static final int DEFAULT_SIZE = 10;
 
@@ -30,6 +33,9 @@ public class FixedSizeInventory implements Inventory {
 
     public FixedSizeInventory(String name) {
         this.name = name;
+        if(this.name == null || this.name == "") {
+            this.name = " ";
+        }
         this.items = new Item[DEFAULT_SIZE];
         this.size = DEFAULT_SIZE;
         this.itemCount = 0;
@@ -43,6 +49,7 @@ public class FixedSizeInventory implements Inventory {
 
     @Override
     public boolean tryAdd(Item item) {
+        logger.debug("FixedSizeInventory :: tryAdd. ItemCount:" + itemCount);
         for(int i = 0; i < itemCount; i++) {
             if(items[i].isStackable() && items[i].getType() == item.getType()) {
                 items[i].setAmount(items[i].getAmount() + item.getAmount());
@@ -165,15 +172,16 @@ public class FixedSizeInventory implements Inventory {
 
     @Override
     public void show(LtrpPlayer player) {
+        logger.debug("showing for " + player.getUserId() + " item count:" + itemCount);
         List<ListDialogItem> dialogItems = new ArrayList<>();
         if(itemCount == 0) {
-            ListDialog.create(player, ItemController.getEventManager())
+            ListDialog dialog = ListDialog.create(player, ItemController.getEventManager())
                     .caption(getName())
                     .item("{FF0000}Daiktø nëra")
                     .buttonOk("Gerai")
                     .buttonCancel("Iðeiti")
-                    .build()
-                    .show();
+                    .build();
+            dialog.show();
         } else {
             for(int i = 0; i < itemCount; i++) {
                 if(items[i].isDestroyed()) {

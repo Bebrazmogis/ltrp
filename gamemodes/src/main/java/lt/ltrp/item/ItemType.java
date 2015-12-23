@@ -43,6 +43,7 @@ public enum ItemType {
     DmvTheory(34),
     Prescription(35),
     Materials(36),
+    Toolbox(37),
     ;
 
     public int id;

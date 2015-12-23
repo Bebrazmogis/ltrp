@@ -18,6 +18,8 @@ import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 import org.apache.commons.lang3.NotImplementedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Bebras
@@ -26,6 +28,8 @@ import org.apache.commons.lang3.NotImplementedException;
 public class ItemController {
 
     private static EventManagerNode eventManager;
+    private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
+
 
 
     protected static EventManager getEventManager() {
@@ -41,69 +45,10 @@ public class ItemController {
 
     protected ItemController() {
         PlayerCommandManager commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
-        commandManager.registerCommand("pickup", new Class[]{LtrpPlayer.class}, new String[]{"Þaidëjas"}, (player, args) -> {
-            ItemPhone[] phones = player.getInventory().getItems(ItemPhone.class);
-            //ItemPhone[] phones = (ItemPhone[])player.getInventory().getItems(ItemType.Phone);
-            int calledPhones = 0;
-            for(ItemPhone phone : phones)
-                if(phone.getPhonecall() != null)
-                    calledPhones++;
-
-            // A player can be NOT called at all, called on one phone OR called on multiple phones
-            if(calledPhones == 0) {
-                player.sendErrorMessage("Jums niekas neskambina");
-            } else if(calledPhones == 1) {
-                ItemPhone phone = null;
-                for(ItemPhone p : phones) {
-                    if(p.getPhonecall() != null) {
-                        phone = p;
-                        break;
-                    }
-                }
-                answerPhone(player, phone);
-            } else {
-                ListDialog dialog = ListDialog.create(player, eventManager).build();
-                dialog.setCaption("Skambuèiai");
-                for(ItemPhone phone : phones) {
-                    if(phone.getPhonecall() == null) {
-                        continue;
-                    }
-                    ListDialogItem item = new ListDialogItem();
-                    item.setItemText(Integer.toString(phone.getPhonecall().getCallerPhone().getPhonenumber()));
-                    item.setData(phone);
-                    dialog.addItem(item);
-                }
-                dialog.setButtonOk("Atsiliepti");
-                dialog.setButtonCancel("Uþdaryti");
-                dialog.setClickOkHandler((d, item) -> {
-                    ItemPhone phone = (ItemPhone)item.getData();
-                    answerPhone(player, phone);
-                });
-
-            }
-            return true;
-        });
         commandManager.registerCommand("hangup", new Class[]{LtrpPlayer.class}, new String[]{"þaidëjas"}, (player, args) -> {
             throw new NotImplementedException("Hangup komanda dar nepadaryta");
             //return true;
         });
-        commandManager.registerCommand("invweapon", new Class[]{LtrpPlayer.class}, new String[]{"Þaidëjas"}, (player, args) -> {
-            if(player.getVehicle() != null) {
-                player.sendErrorMessage("Negalite ásidëti ginklo á inventoriø kol esate transporto priemonëje");
-            } else if(player.getArmedWeaponData().getModel() == WeaponModel.NONE) {
-                player.sendErrorMessage("Jûs neesate iðsitraukæs jokio ginklo.");
-            } else if(player.getArmedWeaponData().isJob()) {
-                player.sendErrorMessage("Negalite á inventoriø ásidëti darbinio ginklo.");
-            } else if(player.getInventory().isFull()) {
-                player.sendErrorMessage("Jûsø inventorius pilnas");
-            } else {
-                player.sendMessage(Color.NEWS, "Ginklas sëkmingai ádëtas á inventoriø.");
-                player.playSound(1057);
-                player.removeWeapon(player.getArmedWeaponData());
-            }
-            return false;
-        });
-
         commandManager.registerCommands(new ItemCommands());
 
         eventManager.registerHandler(AmxLoadEvent.class, e -> {
@@ -113,19 +58,6 @@ public class ItemController {
 
     }
 
-    private void answerPhone(LtrpPlayer player, ItemPhone phone) {
-        if(phone.getPhonecall() == null) {
-            return;
-        }
-        phone.getPhonecall().setState(Phonecall.PhonecallState.Talking);
-        String contactName = phone.getPhonecall().getCallerPhone().getPhonebook().getContactName(phone.getPhonenumber());
-        if(contactName == null) {
-            contactName = ""+phone.getPhonenumber();
-        }
-        phone.getPhonecall().getCaller().sendMessage(contactName + " atsiliepë..");
-        phone.getPhonecall().getCaller().sendMessage(Color.YELLOW, "Naudokite t kad galbëtumëte telefonu");
-        player.sendMessage(Color.YELLOW, "Naudokite t kad galbëtumëte telefonu");
-    }
 
 
     // Legacy code. Conversion between Pawn item id and Item instance
@@ -163,13 +95,16 @@ public class ItemController {
     }
 
     private void registerPawnFunctions(AmxInstance amx) {
+        logger.debug("registerPawnFunctions called " + amx.toString());
         amx.registerFunction("givePlayerItem", params -> {
             return givePlayerItem((Integer) params[0], (Integer) params[1], (Integer) params[2]) ? 1 : 0;
         }, Integer.class, Integer.class, Integer.class);
 
         amx.registerFunction("tryGivePlayerItemType", params -> {
+            logger.debug("tryGivePlayerItemType called");
             LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
             ItemType type = ItemType.getById((Integer)params[1]);
+            logger.debug("tryGivePlayerItemType player uid=" + player.getUserId() + " type="+ type.name());
             Item item = null;
             switch(type) {
                 case Clothing:
