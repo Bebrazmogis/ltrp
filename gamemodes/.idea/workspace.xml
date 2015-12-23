@@ -2,126 +2,65 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27019ab5-c8bb-4bd1-a72f-1db1212c058d" name="Default" comment="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti.">
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\libraries\Maven__net_gtaun_shoebill_api_1_1_SNAPSHOT.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\libraries\Maven__net_gtaun_shoebill_common_1_0_SNAPSHOT.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\libraries\Maven__org_gnu_gnu_crypto_2_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\libraries\Maven__org_slf4j_slf4j_api_1_7_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\uiDesigner.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/AdminCommands.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/AdminCommands.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Attachments.p" afterPath="$PROJECT_DIR$/Player/Attachments.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Auth.p" afterPath="$PROJECT_DIR$/Player/Auth.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Bank.p" afterPath="$PROJECT_DIR$/Bank.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/BasicItem.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/BasicItem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gambling/Blackjack.p" afterPath="$PROJECT_DIR$/Gambling/Blackjack.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BugReporting.p" afterPath="$PROJECT_DIR$/BugReporting.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Businesses.p" afterPath="$PROJECT_DIR$/Property/Businesses.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/data/Color.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/data/Color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Coordinates.p" afterPath="$PROJECT_DIR$/Coordinates.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/DAOFactory.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/DAOFactory.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Death.p" afterPath="$PROJECT_DIR$/Player/Death.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/DrinkItem.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/DrinkItem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/data/DroppedWeaponData.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/data/DroppedWeaponData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Entrances.p" afterPath="$PROJECT_DIR$/Entrances.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FishingSystem.p" afterPath="$PROJECT_DIR$/FishingSystem.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/vehicle/FuelTank.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/vehicle/FuelTank.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Furniture.p" afterPath="$PROJECT_DIR$/Property/Furniture.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Garages.p" afterPath="$PROJECT_DIR$/Property/Garages.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Graffiti.p" afterPath="$PROJECT_DIR$/Graffiti.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Houses.p" afterPath="$PROJECT_DIR$/Property/Houses.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IndustryManagementGUI.p" afterPath="$PROJECT_DIR$/IndustryManagementGUI.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/Interiors.p" afterPath="$PROJECT_DIR$/Property/Interiors.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Inventory.p" afterPath="$PROJECT_DIR$/Player/Inventory.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemController$1.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemController$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemController.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemPhone.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemPhone.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemType.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/ItemType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Items.p" afterPath="$PROJECT_DIR$/Items.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/JailData$JailType.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/JailData$JailType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/JailData.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/JailData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/JdbcDAO.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/JdbcDAO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Job_TaxiDriver.p" afterPath="$PROJECT_DIR$/Job_TaxiDriver.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/LtrpGamemode-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/LtrpGamemode-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/LtrpPlayer$1.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/LtrpPlayer$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/LtrpPlayer.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/LtrpPlayer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/vehicle/LtrpVehicle.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/vehicle/LtrpVehicle.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/MolotovItem.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/MolotovItem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Phone.p" afterPath="$PROJECT_DIR$/Player/Phone.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Phones.p" afterPath="$PROJECT_DIR$/Phones.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/command/PlayerCommandManager.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/command/PlayerCommandManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown$1.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown$PlayerCountdownCallback.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown$PlayerCountdownCallback.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/PlayerCountdown.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/PlayerDao.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/dao/PlayerDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Vehicles/PlayerVehicles.p" afterPath="$PROJECT_DIR$/Vehicles/PlayerVehicles.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../plugins/Shoebill.dll" afterPath="$PROJECT_DIR$/../plugins/Shoebill.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Spawn.p" afterPath="$PROJECT_DIR$/Player/Spawn.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/SpawnController.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/player/SpawnController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/plugin/streamer/Streamer.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/plugin/streamer/Streamer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/WeaponItem.class" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/lt/ltrp/item/WeaponItem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Player/Weapons.p" afterPath="$PROJECT_DIR$/Player/Weapons.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Property/_General.p" afterPath="$PROJECT_DIR$/Property/_General.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bare.amx" afterPath="$PROJECT_DIR$/bare.amx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inv_test.inc" afterPath="$PROJECT_DIR$/inv_test.inc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tabula/liftas.pwn" afterPath="$PROJECT_DIR$/Tabula/liftas.pwn" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ltrp.amx" afterPath="$PROJECT_DIR$/ltrp.amx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ltrp.pwn" afterPath="$PROJECT_DIR$/ltrp.pwn" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Config/mysql.p" afterPath="$PROJECT_DIR$/Config/mysql.p" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/shoebill-api-1.2-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/shoebill-api-1.2-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/shoebill-runtime-1.2-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/shoebill-runtime-1.2-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/AbstractItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/BasicItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/data/Color.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/data/Color.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DAOFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/FuelTank.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/FuelTank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FuelTankItem.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FuelTankItem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/ItemType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/JailData.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/JailData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Job.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Job.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/LtrpGamemode.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/LtrpGamemode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/PawnFunc.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/PawnFunc.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/command/PlayerCommandManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/command/PlayerCommandManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerController.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdown.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdown.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerDao.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/SqlItemDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tabula/TAC.pwn" afterPath="$PROJECT_DIR$/Tabula/TAC.pwn" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/_remote.repositories" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/_remote.repositories" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/_remote.repositories" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/_remote.repositories" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gamemodes.iml" afterPath="$PROJECT_DIR$/.idea/gamemodes.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../pawno/include/java.inc" afterPath="$PROJECT_DIR$/../pawno/include/java.inc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/ltrp.sql" afterPath="$PROJECT_DIR$/src/main/resources/ltrp.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/classes/ltrp.sql" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/classes/ltrp.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml.sha1" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml.sha1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../notes.txt" afterPath="$PROJECT_DIR$/../notes.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/gamemodes/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../shoebill/gamemodes/maven-archiver/pom.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-utilities/1.0-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/shoebill-utilities/1.0-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/util-event/1.0-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../shoebill/repository/net/gtaun/util-event/1.0-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/command/Commands.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/ContractJob.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/ContractJobRank.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialogmenu/DialogMenu.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/Dmv.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvAircraft.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvBoat.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCar.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCheckpoint.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCommands.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DmvDao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvQuestion.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Faction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/FactionRank.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/Factorial.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/FileJobDaoImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/JobDao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/JobManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/JobVehicle.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialogmenu/admin/JobVehicleMenu.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/constant/LicenseType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LicenseWarning.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/constant/LtrpVehicleModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/data/NamedLocation.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/event/PaydayEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PersonalAlarm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialogmenu/PlayerDialogMenu.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerInfoBox.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerLicense.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerLicenses.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PlayerVehicle.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PlayerVehicleCommands.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PlayerVehiclePermission.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PoliceAlertAlarm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/PoliceCommands.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialogmenu/PoliceDatabaseMenu.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/RadioItem.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Rank.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/SimpleAlarm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/SpeedometerTd.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/SpeedometerTickEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlDmvDaoImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlVehicleDaoImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Taxi.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/TestEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/TestEventImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashMission.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashMissions.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashmanCommands.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashmanManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleAlarm.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/VehicleDao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/VehicleEngineStartEvent.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleLock.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/vehiclethief/VehicleThiefCommands.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/vehiclethief/VehicleThiefJob.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/vehiclethief/VehicleThiefManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="gamemodes.iws" />
@@ -199,15 +138,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DmvManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DmvManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9773519" vertical-offset="0" max-vertical-offset="765">
-              <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+              <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
               <folding>
                 <element signature="e#534#535#0" expanded="true" />
                 <element signature="e#565#566#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DmvCheckpoint.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCheckpoint.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.1184669" vertical-offset="0" max-vertical-offset="612">
+              <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -481,38 +430,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="dmv" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value=".idea" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gamemodes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value=".idea" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -950,12 +867,19 @@
       <workItem from="1450695990787" duration="11592000" />
       <workItem from="1450714460959" duration="1810000" />
       <workItem from="1450804442894" duration="8946000" />
-      <workItem from="1450888872984" duration="14178000" />
+      <workItem from="1450888872984" duration="14346000" />
     </task>
+    <task id="LOCAL-00001" summary="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti.">
+      <created>1450906587160</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1450906587160</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="483387000" />
+    <option name="totallyTimeSpent" value="483555000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1194,14 +1118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.6478659" vertical-offset="670" max-vertical-offset="2193">
-          <caret line="103" column="59" selection-start-line="103" selection-start-column="59" selection-end-line="103" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/dataSources.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
@@ -1212,12 +1128,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9773519" vertical-offset="0" max-vertical-offset="765">
-          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+          <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
           <folding>
             <element signature="e#534#535#0" expanded="true" />
             <element signature="e#565#566#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1530" max-vertical-offset="2193">
+          <caret line="90" column="29" selection-start-line="90" selection-start-column="28" selection-end-line="90" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCheckpoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1184669" vertical-offset="0" max-vertical-offset="612">
+          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
