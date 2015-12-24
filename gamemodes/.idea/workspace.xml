@@ -1,66 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="27019ab5-c8bb-4bd1-a72f-1db1212c058d" name="Default" comment="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/command/Commands.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/ContractJob.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/ContractJobRank.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialogmenu/DialogMenu.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/Dmv.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvAircraft.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvBoat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCar.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCheckpoint.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCommands.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DmvDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvQuestion.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Faction.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/FactionRank.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/Factorial.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/FileJobDaoImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/JobDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/JobManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/JobVehicle.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialogmenu/admin/JobVehicleMenu.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/constant/LicenseType.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LicenseWarning.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/constant/LtrpVehicleModel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/data/NamedLocation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/event/PaydayEvent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PersonalAlarm.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialogmenu/PlayerDialogMenu.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerInfoBox.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerLicense.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerLicenses.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PlayerVehicle.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PlayerVehicleCommands.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PlayerVehiclePermission.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/PoliceAlertAlarm.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/PoliceCommands.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialogmenu/PoliceDatabaseMenu.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/item/RadioItem.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Rank.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/SimpleAlarm.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/SpeedometerTd.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/SpeedometerTickEvent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlDmvDaoImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlVehicleDaoImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Taxi.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/TestEvent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/TestEventImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashMission.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashMissions.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashmanCommands.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashmanManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleAlarm.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/VehicleDao.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/VehicleEngineStartEvent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleLock.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/vehiclethief/VehicleThiefCommands.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/vehiclethief/VehicleThiefJob.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/job/vehiclethief/VehicleThiefManager.java" />
+    <list default="true" id="27019ab5-c8bb-4bd1-a72f-1db1212c058d" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/CheckpointDmv.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/Dmv.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/Dmv.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gamemodes.iml" afterPath="$PROJECT_DIR$/.idea/gamemodes.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="gamemodes.iws" />
@@ -142,7 +87,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
-              <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding>
                 <element signature="e#534#535#0" expanded="true" />
                 <element signature="e#565#566#0" expanded="true" />
@@ -151,11 +96,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DmvCheckpoint.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCheckpoint.java">
+      <file leaf-file-name="Dmv.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/Dmv.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.1184669" vertical-offset="0" max-vertical-offset="612">
-              <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.49237806" vertical-offset="0" max-vertical-offset="656">
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DmvTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -169,8 +124,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/SpeedometerTickEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/Factorail.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/Factorial.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/TestEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/TestEventImpl.java" />
@@ -211,7 +164,6 @@
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FuelTankItem.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlDmvDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/event/VehicleEngineStartEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/Dmv.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvAircraft.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvBoat.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleManager.java" />
@@ -220,6 +172,9 @@
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCommands.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/CheckpointDmv.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/Dmv.java" />
       </list>
     </option>
   </component>
@@ -867,7 +822,7 @@
       <workItem from="1450695990787" duration="11592000" />
       <workItem from="1450714460959" duration="1810000" />
       <workItem from="1450804442894" duration="8946000" />
-      <workItem from="1450888872984" duration="14346000" />
+      <workItem from="1450888872984" duration="18054000" />
     </task>
     <task id="LOCAL-00001" summary="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti.">
       <created>1450906587160</created>
@@ -875,24 +830,30 @@
       <option name="project" value="LOCAL" />
       <updated>1450906587160</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti.">
+      <created>1450906719976</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1450906719976</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="483555000" />
+    <option name="totallyTimeSpent" value="487263000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23830736" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23830736" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1126,17 +1087,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
-          <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
-          <folding>
-            <element signature="e#534#535#0" expanded="true" />
-            <element signature="e#565#566#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1530" max-vertical-offset="2193">
@@ -1147,8 +1097,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvCheckpoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1184669" vertical-offset="0" max-vertical-offset="612">
-          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.1367816" vertical-offset="0" max-vertical-offset="870">
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/CheckpointDmv.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42988506" vertical-offset="0" max-vertical-offset="870">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#271#272#0" expanded="true" />
+            <element signature="e#323#324#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#534#535#0" expanded="true" />
+            <element signature="e#565#566#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/DmvTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dmv/Dmv.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49237806" vertical-offset="0" max-vertical-offset="656">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>

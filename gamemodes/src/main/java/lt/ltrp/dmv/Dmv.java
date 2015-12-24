@@ -18,20 +18,19 @@ public interface Dmv {
     int getId();
     void setId(int id);
 
-    void startTest(LtrpPlayer player);
-
-    int getStagePrice(int stage);
-    void setStagePrice(int stage, int price);
-
     String getName();
 
+    void startTest(LtrpPlayer player, DmvTest test);
+
+
+    /*
     void addCheckpoint(DmvCheckpoint checkpoint);
 
     List<LtrpVehicle> getVehicles();
     void setVehicles(List<LtrpVehicle> vehicles);
 
     boolean isUserInTest(LtrpPlayer player);
-
+*/
 
 
 }

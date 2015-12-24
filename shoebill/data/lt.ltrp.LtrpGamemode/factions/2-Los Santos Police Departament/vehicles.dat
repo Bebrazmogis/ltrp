@@ -1,0 +1,274 @@
+[veh]
+id = 2243
+model = 599
+x = 1013.158569
+y = 3976.254882
+z = 40.260040
+angle = 359.589599
+color1 = 48
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2242
+model = 599
+x = 1009.140747
+y = 3976.316650
+z = 40.259933
+angle = 359.589294
+color1 = 48
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2156
+model = 427
+x = 1005.086059
+y = 3977.611816
+z = 39.817550
+angle = 2.506121
+color1 = 19
+color2 = 19
+minrank = 4
+
+[veh]
+id = 2168
+model = 497
+x = -274.833740
+y = 978.183532
+z = 25.853542
+angle = 269.169311
+color1 = 19
+color2 = 1
+minrank = 3
+
+[veh]
+id = 2221
+model = 426
+x = 984.102905
+y = 4007.226318
+z = 39.493907
+angle = 280.605682
+color1 = 0
+color2 = 0
+minrank = 0
+
+[veh]
+id = 1857
+model = 490
+x = 952.370971
+y = 1718.594848
+z = 8.648437
+angle = 271.803283
+color1 = 0
+color2 = 0
+minrank = 0
+
+[veh]
+id = 2144
+model = 596
+x = 1041.781982
+y = 3986.913818
+z = 39.818164
+angle = 88.621063
+color1 = 19
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2219
+model = 426
+x = 983.836364
+y = 4015.449951
+z = 39.875404
+angle = 283.723815
+color1 = 1
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2147
+model = 596
+x = 1041.759399
+y = 3995.244140
+z = 39.816303
+angle = 87.944976
+color1 = 19
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2222
+model = 426
+x = 983.905212
+y = 4010.960937
+z = 39.493404
+angle = 283.724060
+color1 = 1
+color2 = 1
+minrank = 0
+
+[veh]
+id = 1665
+model = 430
+x = -442.118103
+y = 1150.481933
+z = -0.496998
+angle = 86.812141
+color1 = 0
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2245
+model = 598
+x = 1017.301208
+y = 3975.790283
+z = 40.070312
+angle = 359.526458
+color1 = 48
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2151
+model = 598
+x = 1022.301574
+y = 3975.423095
+z = 39.818588
+angle = 359.112640
+color1 = 19
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2149
+model = 598
+x = 1030.208984
+y = 3975.333007
+z = 39.816490
+angle = 359.112640
+color1 = 19
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2150
+model = 598
+x = 1026.144775
+y = 3975.395507
+z = 39.815780
+angle = 359.112640
+color1 = 19
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2225
+model = 490
+x = 983.801513
+y = 4028.588623
+z = 39.472885
+angle = 282.821380
+color1 = 0
+color2 = 0
+minrank = 0
+
+[veh]
+id = 2140
+model = 597
+x = 1041.530273
+y = 4003.378906
+z = 39.815711
+angle = 88.621063
+color1 = 1
+color2 = 11
+minrank = 0
+
+[veh]
+id = 2133
+model = 415
+x = 1023.638366
+y = 4019.618652
+z = 39.817615
+angle = 270.293670
+color1 = 19
+color2 = 0
+minrank = 4
+
+[veh]
+id = 2195
+model = 489
+x = 1042.345336
+y = 4009.131835
+z = 39.800998
+angle = 0.884278
+color1 = 19
+color2 = 19
+minrank = 9
+
+[veh]
+id = 2099
+model = 496
+x = -1616.598754
+y = 732.182250
+z = -5.242187
+angle = 358.304199
+color1 = 211
+color2 = 211
+minrank = 4
+
+[veh]
+id = 2134
+model = 541
+x = 1023.754455
+y = 4015.612060
+z = 39.819931
+angle = 270.340454
+color1 = 19
+color2 = 1
+minrank = 4
+
+[veh]
+id = 2248
+model = 560
+x = 1023.291137
+y = 4012.118408
+z = 40.072620
+angle = 269.470764
+color1 = 48
+color2 = 1
+minrank = 0
+
+[veh]
+id = 2100
+model = 562
+x = -1572.907470
+y = 738.596496
+z = -5.242187
+angle = 87.313766
+color1 = 228
+color2 = 228
+minrank = 4
+
+[veh]
+id = 2167
+model = 497
+x = -247.334472
+y = 978.305725
+z = 25.853542
+angle = 268.912780
+color1 = 0
+color2 = 0
+minrank = 2
+
+[veh]
+id = 2097
+model = 491
+x = -1612.244262
+y = 731.717224
+z = -5.242187
+angle = 359.873321
+color1 = 244
+color2 = 244
+minrank = 0
