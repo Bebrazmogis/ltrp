@@ -20,6 +20,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static lt.ltrp.dmv.DmvQuestion.*;
@@ -38,83 +39,43 @@ public class SqlDmvDaoImpl implements DmvDao {
         this.dataSource = ds;
     }
 
-    @Override
-    public List<Dmv> getDmvs() {
-        List<Dmv> dmvs = new ArrayList<>();
+
+
+
+    private Dmv getDmv(int id) {
+        String sql = "SELECT * FROM dmv WHERE id = ?";
         try (
                 Connection con = dataSource.getConnection();
-                Statement stmt = con.createStatement()
+                PreparedStatement stmt = con.prepareStatement(sql);
                 ) {
-            ResultSet result = stmt.executeQuery("SELECT * FROM dmv");
-            while(result.next()) {
-                String type = result.getString("type");
-                Location location = new Location(result.getFloat("x"), result.getFloat("y"), result.getFloat("z"), result.getInt("interior"), result.getInt("virtual_world"));
-                Dmv dmv;
-                switch(type) {
-                    case "DmvCar":
-                        DmvCar car = new DmvCar(result.getString("name"));
-                        car.setId(result.getInt("id"));
-                        for(DmvQuestion question : getQuestions(car, con)) {
-                            car.addQuestion(question);
-                        }
-                        dmv = car;
-                        break;
-                    case "DmvAircraft":
-                        dmv = new DmvAircraft();
-                        break;
-                    case "DmvBoat":
-                        dmv = new DmvBoat();
-                        break;
-                    default:
-                        continue;
-                }
-                dmv.setLocation(location);
-                dmv.setId(result.getInt("id"));
-                for(DmvCheckpoint cp : getCheckpoints(dmv, con)) {
-                    dmv.addCheckpoint(cp);
-                }
+            stmt.setInt(1, id);
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                Dmv dmv = new DmvImpl(id, result.getString("name"),
+                        new Location(result.getFloat("x"), result.getFloat("y"), result.getFloat("z"), result.getInt("interior"),
+                                result.getInt("virtual_world")));
                 dmv.setVehicles(getVehicles(dmv));
-                dmvs.add(dmv);
+                return dmv;
             }
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return dmvs;
+        return null;
     }
 
     @Override
-    public void update(Dmv dmv) {
-        String sql = "UPDATE dmv SET `name` = ?, type = ?, x = ?, y = ?, z = ?, interior = ?, virtual_world = ? WHERE id = ?";
-        try (
-                Connection con = dataSource.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)
-                ) {
-            stmt.setString(1, dmv.getName());
-            stmt.setString(2, dmv.getClass().getTypeName());
-            stmt.setFloat(3, dmv.getLocation().getX());
-            stmt.setFloat(4, dmv.getLocation().getY());
-            stmt.setFloat(5, dmv.getLocation().getZ());
-            stmt.setInt(6, dmv.getLocation().getInteriorId());
-            stmt.setInt(7, dmv.getLocation().getWorldId());
-            stmt.setInt(8, dmv.getId());
-            stmt.execute();
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
+    public void getQuestionDmv(QuestionDmv dmv) {
+
     }
 
     @Override
-    public void delete(Dmv dmv) {
-        String sql = "DELETE FROM dmv WHERE id = ? LIMIT 1";
-        try (
-                Connection con = dataSource.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)
-                ) {
-            stmt.setInt(1, dmv.getId());
-            stmt.execute();
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
+    public void getCheckpointDmv(CheckpointDmv dmv) {
+
+    }
+
+    @Override
+    public void getQuestionCheckpointDmv(QuestionCheckpointDmv dmv) {
+
     }
 
     @Override
@@ -236,6 +197,8 @@ public class SqlDmvDaoImpl implements DmvDao {
         }
     }
 
+
+
     @Override
     public List<DmvCheckpoint> getCheckpoints(Dmv dmv) {
         try (
@@ -256,63 +219,27 @@ public class SqlDmvDaoImpl implements DmvDao {
             stmt.setInt(1, dmv.getId());
             List<DmvCheckpoint> checkpoints = new ArrayList<>();
             ResultSet result = stmt.executeQuery();
-            List<Integer> ids = new ArrayList<>();
-            List<RaceCheckpointType> types = new ArrayList<>();
-            List<Radius> radiuses = new ArrayList<>();
             while(result.next()) {
-                String type = result.getString("type");
-                Checkpoint cp;
-                // we can simply load and add simple checkpoints
-                if(type.equals("simple")) {
-                    DmvCheckpoint checkpoint = new DmvCheckpoint();
-                    checkpoint.setId(result.getInt("id"));
-                    cp = Checkpoint.create(new Radius(result.getFloat("x"), result.getFloat("y"), result.getFloat("z"), result.getFloat("radius")), null, null);
-                    checkpoint.setCheckpoint(cp);
-                    dmv.addCheckpoint(checkpoint);
-                // As for Race checkpoints, we need to get all their data first because they rely on each other
-                } else {
-                    ids.add(result.getInt("id"));
-                    types.add(RaceCheckpointType.valueOf(result.getString("type")));
-                    radiuses.add(new Radius(result.getFloat("x"), result.getFloat("y"), result.getFloat("z"), result.getFloat("radius")));
-                }
+                DmvCheckpoint dmvCheckpoint = new DmvCheckpoint(result.getInt("id"), new Radius(result.getFloat("x"), result.getFloat("y"), result.getFloat("z"), result.getFloat("radius")));
+                checkpoints.add(dmvCheckpoint);
             }
 
-           if(ids.size() > 0) {
-               // now that all the data is read we can set up race checkpoints
-               RaceCheckpoint cp = null;
-               for(int i = ids.size() - 1; i >= 0; i--) {
-                   if(cp == null) {
-                       cp = RaceCheckpoint.create(radiuses.get(i), types.get(i), () -> null, null, null);
-                   } else {
-                       cp = RaceCheckpoint.create(radiuses.get(i), types.get(i), cp, null, null);
-                       DmvCheckpoint dmvCheckpoint = new DmvCheckpoint(ids.get(i), cp);
-                       dmv.addCheckpoint(dmvCheckpoint);
-                   }
-               }
-           }
             return checkpoints;
         }
     }
 
     @Override
     public void insert(Dmv dmv, DmvCheckpoint checkpoint) {
-        String sql = "INSERT INTO dmv_checkpoint (dmv_id, type, x, y, z, radius) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO dmv_checkpoint (dmv_id, x, y, z, radius) VALUES (?, ?, ?, ?, ?)";
         try (
                 Connection connection = dataSource.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ) {
-            String type;
-            if ((checkpoint.getCheckpoint() instanceof RaceCheckpoint)) {
-                type = ((RaceCheckpoint) checkpoint.getCheckpoint()).getType().name();
-            } else {
-                type = "simple";
-            }
             stmt.setInt(1, dmv.getId());
-            stmt.setString(2, type);
-            stmt.setFloat(3, checkpoint.getCheckpoint().getLocation().getX());
-            stmt.setFloat(4, checkpoint.getCheckpoint().getLocation().getY());
-            stmt.setFloat(5, checkpoint.getCheckpoint().getLocation().getZ());
-            stmt.setFloat(3, checkpoint.getCheckpoint().getLocation().getRadius());
+            stmt.setFloat(2, checkpoint.getRadius().getX());
+            stmt.setFloat(3, checkpoint.getRadius().getY());
+            stmt.setFloat(4, checkpoint.getRadius().getZ());
+            stmt.setFloat(5, checkpoint.getRadius().getRadius());
             stmt.execute();
             ResultSet keys = stmt.getGeneratedKeys();
             if(keys.next()) {
@@ -325,23 +252,16 @@ public class SqlDmvDaoImpl implements DmvDao {
 
     @Override
     public void update(DmvCheckpoint checkpoint) {
-        String sql = "UPDATE dmv_checkpoint SET type = ?, x = ?, y = ?, z = ?, radius = ? WHERE id = ?";
+        String sql = "UPDATE dmv_checkpoint SET x = ?, y = ?, z = ?, radius = ? WHERE id = ?";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ) {
-            String type;
-            if ((checkpoint.getCheckpoint() instanceof RaceCheckpoint)) {
-                type = ((RaceCheckpoint) checkpoint.getCheckpoint()).getType().name();
-            } else {
-                type = "simple";
-            }
-            stmt.setString(1, type);
-            stmt.setFloat(2, checkpoint.getCheckpoint().getLocation().getX());
-            stmt.setFloat(3, checkpoint.getCheckpoint().getLocation().getY());
-            stmt.setFloat(4, checkpoint.getCheckpoint().getLocation().getZ());
-            stmt.setFloat(5, checkpoint.getCheckpoint().getLocation().getRadius());
-            stmt.setInt(6, checkpoint.getId());
+            stmt.setFloat(1, checkpoint.getRadius().getX());
+            stmt.setFloat(2, checkpoint.getRadius().getY());
+            stmt.setFloat(3, checkpoint.getRadius().getZ());
+            stmt.setFloat(4, checkpoint.getRadius().getRadius());
+            stmt.setInt(5, checkpoint.getId());
             stmt.execute();
         } catch(SQLException e) {
             e.printStackTrace();
@@ -398,7 +318,7 @@ public class SqlDmvDaoImpl implements DmvDao {
 
     @Override
     public void update(LtrpVehicle vehicle) {
-        String sql = "UPDATE dmv_vehicle SET modelid = ?, x = ?, y = ?, z = ?, angle = ?, color1 = ?, color2 = ? WHERRE id  ?";
+        String sql = "UPDATE dmv_vehicle SET modelid = ?, x = ?, y = ?, z = ?, angle = ?, color1 = ?, color2 = ? WHERE id = ?";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
