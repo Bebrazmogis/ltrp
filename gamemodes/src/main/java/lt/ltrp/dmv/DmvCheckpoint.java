@@ -1,6 +1,6 @@
 package lt.ltrp.dmv;
 
-import net.gtaun.shoebill.object.Checkpoint;
+import net.gtaun.shoebill.data.Radius;
 
 /**
  * @author Bebras
@@ -9,15 +9,11 @@ import net.gtaun.shoebill.object.Checkpoint;
 public class DmvCheckpoint {
 
     private int id;
-    private Checkpoint checkpoint;
+    private Radius radius;
 
-    public DmvCheckpoint(int id, Checkpoint checkpoint) {
+    public DmvCheckpoint(int id, Radius radius) {
         this.id = id;
-        this.checkpoint = checkpoint;
-    }
-
-    public DmvCheckpoint() {
-
+        this.radius = radius;
     }
 
     public int getId() {
@@ -28,11 +24,11 @@ public class DmvCheckpoint {
         this.id = id;
     }
 
-    public Checkpoint getCheckpoint() {
-        return checkpoint;
+    public Radius getRadius() {
+        return radius;
     }
 
-    public void setCheckpoint(Checkpoint checkpoint) {
-        this.checkpoint = checkpoint;
+    public void setRadius(Radius radius) {
+        this.radius = radius;
     }
 }

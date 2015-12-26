@@ -1,9 +1,13 @@
 package lt.ltrp.dmv;
 
-/**
- * @author Bebras
- *         2015.12.24.
- */
+
+import lt.ltrp.player.LtrpPlayer;
+
 public interface DmvTest {
 
+	LtrpPlayer getPlayer();
+	boolean isFinished();
+	boolean isPassed();
+	void stop();
+	
 }

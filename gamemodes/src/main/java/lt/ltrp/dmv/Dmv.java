@@ -19,8 +19,10 @@ public interface Dmv {
     void setId(int id);
 
     String getName();
+    void setName(String name);
 
-    void startTest(LtrpPlayer player, DmvTest test);
+    List<LtrpVehicle> getVehicles();
+    void setVehicles(List<LtrpVehicle> vehicles);
 
 
     /*

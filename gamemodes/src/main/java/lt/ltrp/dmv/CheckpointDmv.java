@@ -1,26 +1,23 @@
 package lt.ltrp.dmv;
 
-import lt.ltrp.player.LtrpPlayer;
 
-import java.util.ArrayList;
+import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.vehicle.LtrpVehicle;
+import net.gtaun.util.event.Event;
+import net.gtaun.util.event.EventManager;
+
 import java.util.List;
 
 /**
  * @author Bebras
  *         2015.12.23.
  */
-public abstract class CheckpointDmv {
+public interface CheckpointDmv extends Dmv{
 
-    private List<DmvCheckpoint> checkpoints;
+    List<DmvCheckpoint> getCheckpoints();
+    void setCheckpoints(List<DmvCheckpoint> checkpoints);
 
-
-    public CheckpointDmv() {
-        this.checkpoints = new ArrayList<>();
-    }
-
-
-    public void startCheckpointCourse(LtrpPlayer player) {
-
-    }
+    AbstractCheckpointTest startCheckpointTest(LtrpPlayer player, LtrpVehicle vehicle, EventManager eventManager);
+    int getCheckpointTestPrice();
 
 }
