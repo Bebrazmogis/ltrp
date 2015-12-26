@@ -15,7 +15,7 @@ resolveDependencies: true
 allowArtifactOverrideIgnoreGroupId: true
 
 # See: http://en.wikipedia.org/wiki/Windows_code_pages#List
-serverCodepage: 1252
+serverCodepage: 1257
 
 # Custom maven path
 #customRepositoryPath: ''
