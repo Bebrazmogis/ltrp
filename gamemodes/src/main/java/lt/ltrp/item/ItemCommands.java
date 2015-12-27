@@ -181,7 +181,9 @@ public class ItemCommands {
             if(player.getInventory().isFull()) {
                 player.sendErrorMessage("Jûsø inventorius pilnas.");
             } else {
-                player.getInventory().add(new WeaponItem(weaponData));
+                WeaponItem item = new WeaponItem(weaponData);
+                LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
+                player.getInventory().add(item);
                 weaponData.destroy();
                 player.sendMessage(Color.WHITE, " Ginklas sëkmingai ádëtas á inventoriø. ");
                 player.playSound(1057);
