@@ -25,6 +25,10 @@ public class DroppedWeaponData extends LtrpWeaponData implements Destroyable{
 
     private static final int DISAPPEAR_INTERVAL = 10*60*1000;
 
+    public static List<DroppedWeaponData> getDroppedWeapons() {
+        return droppedWeapons;
+    }
+
     private Date dropDate;
     private Location location;
     private DynamicSampObject object;
