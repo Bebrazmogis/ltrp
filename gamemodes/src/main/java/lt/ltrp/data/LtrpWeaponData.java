@@ -39,6 +39,11 @@ public class LtrpWeaponData extends WeaponData {
         this.job = job;
     }
 
+    @Override
+    public LtrpWeaponData clone() {
+        return new LtrpWeaponData(this.getModel(), this.getAmmo(), this.isJob());
+    }
+
     public boolean isJob() {
         return job;
     }
