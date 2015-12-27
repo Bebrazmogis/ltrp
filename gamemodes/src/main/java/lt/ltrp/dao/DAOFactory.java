@@ -1,6 +1,7 @@
 package lt.ltrp.dao;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import lt.ltrp.LtrpGamemode;
 import lt.ltrp.dao.impl.*;
 import lt.ltrp.item.SqlItemDao;
 import net.gtaun.shoebill.Shoebill;
@@ -124,7 +125,7 @@ class JdbcDAO extends DAOFactory {
         this.itemDao = new SqlItemDao(ds);
         this.houseDao = new SqlHouseDao(ds);
         this.jobDao = new FileJobDaoImpl(Shoebill.get().getResourceManager().getGamemode().getDataDir());
-        this.dmvDao = new SqlDmvDaoImpl(ds);
+        this.dmvDao = new FileDmvDaoImpl(LtrpGamemode.get().getDataDir());
         this.vehicleDao = new SqlVehicleDaoImpl(ds);
         System.out.println("JDBCDAO initialized");
     }
