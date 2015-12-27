@@ -63,6 +63,10 @@ public class FlyingTest extends AbstractCheckpointTest {
         }
     }
 
+    public float getMinZ() {
+        return minZ;
+    }
+
     @Override
     protected void dispatchEvent() {
         getEventManager().dispatchEvent(new PlayerFlyingTestEnd(getPlayer(), getDmv(), this));

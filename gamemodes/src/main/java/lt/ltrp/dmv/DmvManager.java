@@ -4,8 +4,12 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.constant.LicenseType;
 import lt.ltrp.dao.DmvDao;
+import lt.ltrp.dmv.dialog.BoatingTestEndMsgDialog;
 import lt.ltrp.dmv.dialog.DrivingTestEndMsgDialog;
+import lt.ltrp.dmv.dialog.FlyingTestEndMsgDialog;
+import lt.ltrp.dmv.event.PlayerBoatingTestEnd;
 import lt.ltrp.dmv.event.PlayerDrivingTestEndEvent;
+import lt.ltrp.dmv.event.PlayerFlyingTestEnd;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerLicense;
 import lt.ltrp.vehicle.LtrpVehicle;
@@ -70,7 +74,7 @@ public class DmvManager {
 
         eventManager.registerHandler(PlayerDrivingTestEndEvent.class, e -> {
             LtrpPlayer player = e.getPlayer();
-            DrivingTestEndMsgDialog.create(player, eventManager, e.getTest());
+            DrivingTestEndMsgDialog.create(player, eventManager, e.getTest()).show();
 
             if(e.getTest().isPassed()) {
                 if(player.getLicenses().contains(LicenseType.Car) || player.getLicenses().contains(LicenseType.Motorcycle)) {
@@ -98,6 +102,38 @@ public class DmvManager {
                     LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
                 }
             }
+        });
+
+        eventManager.registerHandler(PlayerBoatingTestEnd.class, e -> {
+            LtrpPlayer player = e.getPlayer();
+
+            if (e.getTest().isPassed()) {
+                PlayerLicense license = new PlayerLicense();
+                license.setPlayer(player);
+                license.setStage(1);
+                license.setDateAquired(new Date());
+                license.setType(LicenseType.Ship);
+                player.getLicenses().add(license);
+                LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
+            }
+
+            BoatingTestEndMsgDialog.create(player, eventManager, e.getTest());
+        });
+
+        eventManager.registerHandler(PlayerFlyingTestEnd.class, e -> {
+            LtrpPlayer player = e.getPlayer();
+
+            if(e.getTest().isPassed()) {
+                PlayerLicense license = new PlayerLicense();
+                license.setPlayer(player);
+                license.setStage(1);
+                license.setDateAquired(new Date());
+                license.setType(LicenseType.Aircraft);
+                player.getLicenses().add(license);
+                LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
+            }
+
+            FlyingTestEndMsgDialog.create(player, eventManager, e.getTest());
         });
 
         eventManager.registerHandler(PlayerStateChangeEvent.class, e -> {
