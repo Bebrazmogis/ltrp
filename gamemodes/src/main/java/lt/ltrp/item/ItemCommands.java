@@ -1,9 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.data.Animation;
-import lt.ltrp.data.Color;
-import lt.ltrp.data.Phonecall;
+import lt.ltrp.data.*;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerCountdown;
 import net.gtaun.shoebill.common.command.Command;
@@ -12,6 +10,8 @@ import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.object.Timer;
+
+import java.util.Optional;
 
 /**
  * @author Bebras
@@ -150,4 +150,44 @@ public class ItemCommands {
         return false;
     }
 
+
+    @Command
+    @CommandHelp("Iðmeta jûsø laikomà ginklà")
+    public boolean leaveGun(LtrpPlayer player) {
+        LtrpWeaponData weaponData = player.getArmedWeaponData();
+        if(weaponData != null) {
+            if(!weaponData.isJob()) {
+                if(!player.isInComa()) {
+                    weaponData.setDropped(player.getLocation());
+                    player.sendActionMessage("iðmeta ginklà kuris atrodo kaip " + weaponData.getModel().getName());
+                    return true;
+                } else
+                    player.sendErrorMessage("Jûs esate komos bûsenoje!");
+            } else
+                player.sendErrorMessage("Negalite iðmesti darbinio ginklo.");
+        } else
+            player.sendErrorMessage("Jûs nelaikote ginklo!");
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Paima iðmesta ginklà")
+    public boolean grabGun(LtrpPlayer player) {
+        Optional<DroppedWeaponData> weaponDataOptional = DroppedWeaponData.getDroppedWeapons().stream().filter(wep -> wep.getLocation().distance(player.getLocation()) < 5.0).findFirst();
+        if(!weaponDataOptional.isPresent()) {
+            player.sendErrorMessage("Prie jûsø nesimëto ginklø.");
+        } else {
+            DroppedWeaponData weaponData = weaponDataOptional.get();
+            if(player.getInventory().isFull()) {
+                player.sendErrorMessage("Jûsø inventorius pilnas.");
+            } else {
+                player.getInventory().add(new WeaponItem(weaponData));
+                weaponData.destroy();
+                player.sendMessage(Color.WHITE, " Ginklas sëkmingai ádëtas á inventoriø. ");
+                player.playSound(1057);
+                return true;
+            }
+        }
+        return false;
+    }
 }
