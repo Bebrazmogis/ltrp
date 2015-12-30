@@ -26,6 +26,7 @@ public interface PlayerDao {
     public boolean setFactionManager(LtrpPlayer player);
     void insert(JailData data);
     void insertCrime(String suspect, String crime, String reporterName);
+    List<PlayerCrime> getCrimes(LtrpPlayer player);
     Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player);
 
     void updateLicenses(PlayerLicenses licenses);

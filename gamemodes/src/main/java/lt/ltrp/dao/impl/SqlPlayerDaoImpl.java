@@ -258,6 +258,31 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     }
 
     @Override
+    public List<PlayerCrime> getCrimes(LtrpPlayer player) {
+        List<PlayerCrime> crimes = new ArrayList<>();
+        String sql = "SELECT * FROM player_crimes WHERE name = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ) {
+            stmt.setString(1, player.getName());
+            ResultSet result = stmt.executeQuery();
+            while(result.next()) {
+                crimes.add(new PlayerCrime(
+                        result.getInt("id"),
+                        result.getString("name"),
+                        result.getString("reporter"),
+                        result.getString("crime"),
+                        result.getDate("date")
+                ));
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return crimes;
+    }
+
+    @Override
     public Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player) {
         Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> permissions = new HashMap<>();
         String sql = "SELECT vehicle_id, permission FROM player_vehicle_permissions WHERE player_id = ?";
