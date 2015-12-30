@@ -3,7 +3,9 @@ package lt.ltrp.property;
 import lt.ltrp.event.property.WeedGrowEvent;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Timer;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.time.Instant;
 import java.util.Random;
@@ -15,7 +17,7 @@ import java.util.Random;
  *
  *
  */
-public class HouseWeedSapling {
+public class HouseWeedSapling implements Destroyable{
 
     private static final int PLANT_POT_MODEL = 12;
     private static final int MIN_YIELD = 12;
@@ -29,6 +31,7 @@ public class HouseWeedSapling {
     private GrowthStage stage;
     private int plantedByUser, harvestedByUser;
     private int yield;
+    private boolean destroyed;
 
 
     private DynamicSampObject weedObject, plantPotObject;
@@ -160,6 +163,26 @@ public class HouseWeedSapling {
 
     public void setPlantedByUser(int plantedByUser) {
         this.plantedByUser = plantedByUser;
+    }
+
+    @Override
+    public void destroy() {
+        destroyed = true;
+        if(growthTimer != null) {
+            growthTimer.stop();
+        }
+        if(weedObject != null) {
+            weedObject.destroy();
+        }
+        if(plantPotObject != null) {
+            plantPotObject.destroy();
+        }
+        house.getWeedSaplings().remove(this);
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return destroyed;
     }
 
     private enum GrowthStage {
