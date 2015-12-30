@@ -177,9 +177,9 @@ public class PlayerController {
             }
         });
 
-        manager.registerHandler(PlayerDisconnectEvent.class, e -> {
+        manager.registerHandler(PlayerDisconnectEvent.class, HandlerPriority.BOTTOM, e -> {
             logger.info("PlayerDisconnectEvent received");
-            Player p = e.getPlayer();
+            LtrpPlayer p = LtrpPlayer.get(e.getPlayer());
             if(spawnsSetUp.containsKey(p)) {
                 spawnsSetUp.remove(p);
             }
