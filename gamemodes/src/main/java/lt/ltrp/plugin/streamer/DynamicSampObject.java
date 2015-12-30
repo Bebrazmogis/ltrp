@@ -1,6 +1,7 @@
 package lt.ltrp.plugin.streamer;
 
 import lt.ltrp.Util.PawnFunc;
+import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.constant.ObjectMaterialSize;
@@ -273,6 +274,14 @@ public class DynamicSampObject {
         }
     }
 
+    // EditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid);
+    public void edit(LtrpPlayer player) {
+        AmxCallable editDynamicObject = PawnFunc.getNativeMethod("EditDynamicObject");
+        if(editDynamicObject != null) {
+            editDynamicObject.call(player.getId(), this.getId());
+        }
+    }
+
     public static DynamicSampObject findById(int id) {
         for(DynamicSampObject object : objects) {
             if(object.getId() == id) {
@@ -281,4 +290,6 @@ public class DynamicSampObject {
         }
         return null;
     }
+
+
 }
