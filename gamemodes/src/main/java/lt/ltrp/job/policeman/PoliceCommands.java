@@ -63,10 +63,15 @@ public class PoliceCommands extends Commands{
 
     private OfficerJob job;
     private EventManager eventManager;
+    private Map<JobVehicle, DynamicLabel> unitLabels = new HashMap<>();
+    private Map<JobVehicle, DynamicSampObject> policeSirens = new HashMap<>();
 
-    public PoliceCommands(OfficerJob job, EventManager eventManager) {
+
+    public PoliceCommands(OfficerJob job, EventManager eventManager, Map<JobVehicle, DynamicLabel> unitLabels, Map<JobVehicle, DynamicSampObject> sirends) {
         this.job = job;
         this.eventManager = eventManager;
+        this.unitLabels = unitLabels;
+        this.policeSirens = sirends;
     }
 
     @BeforeCheck
@@ -185,14 +190,14 @@ public class PoliceCommands extends Commands{
         JobVehicle jobVehicle = JobVehicle.getById(player.getVehicle().getId());
         if(jobVehicle != null || jobVehicle.getJob().getId() != JOB_ID) {
             if(!text.isEmpty()) {
-                DynamicLabel label = JobManager.getInstance().unitLabels.get(jobVehicle);
+                DynamicLabel label = unitLabels.get(jobVehicle);
                 if(label != null) {
                     label.update(text);
                 } else {
                     Vector3D offsets = VehicleModel.getModelInfo(jobVehicle.getModelId(), VehicleModelInfoType.SIZE);
                     Location location = new Location(0.0f, (-0.0f * offsets.getY()), 0.0f);
                     label = DynamicLabel.create(text, Color.WHITE, location, 15.0f, true, null, jobVehicle);
-                    JobManager.getInstance().unitLabels.put(jobVehicle, label);
+                    unitLabels.put(jobVehicle, label);
                 }
                 return true;
             } else
@@ -206,10 +211,10 @@ public class PoliceCommands extends Commands{
     @CommandHelp("Panaikina automobilio tekstà nustatytà su /setunit")
     public boolean delunit(LtrpPlayer player) {
         JobVehicle jobVehicle = JobVehicle.getById(player.getVehicle().getId());
-        if(jobVehicle != null || jobVehicle.getJob().getId() != JOB_ID) {
-            DynamicLabel label = JobManager.getInstance().unitLabels.get(jobVehicle);
+        if(jobVehicle != null && jobVehicle.getJob().equals(job)) {
+            DynamicLabel label = unitLabels.get(jobVehicle);
             if(label != null) {
-                JobManager.getInstance().unitLabels.remove(jobVehicle);
+                unitLabels.remove(jobVehicle);
                 player.sendMessage("Tekstas " + label.getText() + " panaikintas.");
                 label.destroy();
             } else
@@ -248,15 +253,15 @@ public class PoliceCommands extends Commands{
                 if((player.getVehicleSeat() == 1 && jobVehicle.getWindows().getPassenger() == 0)
                         || player.getVehicleSeat() == 0 && jobVehicle.getWindows().getDriver() == 0) {
                     DynamicSampObject siren;
-                    if(!JobManager.getInstance().policeSirens.containsKey(jobVehicle)) {
+                    if(!policeSirens.containsKey(jobVehicle)) {
                         siren = DynamicSampObject.create(18646, new Location(), 0.0f, 0.0f, 0.0f);
                         siren.attach(jobVehicle, 0.0f, 0.0f, LtrpVehicleModel.getSirenZOffset(jobVehicle.getModelId()), 0.0f, 0.0f, 0.0f);
-                        JobManager.getInstance().policeSirens.put(jobVehicle, siren);
+                        policeSirens.put(jobVehicle, siren);
                         player.sendActionMessage("iðkiða rankà su ðvyturëliø per langà ir uþdeda já ant automobilio stogo.");
                     } else {
-                        siren = JobManager.getInstance().policeSirens.get(jobVehicle);
+                        siren = policeSirens.get(jobVehicle);
                         siren.destroy();
-                        JobManager.getInstance().policeSirens.remove(jobVehicle);
+                        policeSirens.remove(jobVehicle);
                         player.sendActionMessage("iðkiða rankà pro langà ir nuiima policijos perspëjamàjá ðvyturëlá nuo stogo.");
                     }
                 } else
