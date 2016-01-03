@@ -12,13 +12,23 @@ public class PlayerCrime {
     private String playerName, reporterName;
     private String crime;
     private Date date;
+    private int fine;
 
-    public PlayerCrime(int id, String playerName, String reporterName, String crime, Date date) {
+    public PlayerCrime(String playerName, String reporterName, String crime, int fine) {
+        this.playerName = playerName;
+        this.reporterName = reporterName;
+        this.crime = crime;
+        this.fine = fine;
+        this.date = new Date();
+    }
+
+    public PlayerCrime(int id, String playerName, String reporterName, String crime, Date date, int fine) {
         this.id = id;
         this.playerName = playerName;
         this.reporterName = reporterName;
         this.crime = crime;
         this.date = date;
+        this.fine = fine;
     }
 
     public int getId() {
