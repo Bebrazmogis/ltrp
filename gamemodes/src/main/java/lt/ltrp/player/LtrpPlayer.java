@@ -339,6 +339,19 @@ public class LtrpPlayer implements Player {
         }
     }
 
+    public LtrpWeaponData[] getWeapons() {
+        return weapons;
+    }
+
+    public boolean ownsWeapon(WeaponModel model) {
+        for(int i = 0; i < weapons.length; i++) {
+            if(weapons[i] != null && weapons[i].getModel().equals(model)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // public method for removing weapons
     public void removeWeapon(LtrpWeaponData weaponData) {
         LtrpWeaponData[] newWeapons = new LtrpWeaponData[13];
