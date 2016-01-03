@@ -4,6 +4,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
+import net.gtaun.shoebill.constant.WeaponModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class FixedSizeInventory implements Inventory {
 
     public FixedSizeInventory(String name) {
         this.name = name;
-        if(this.name == null || this.name == "") {
+        if(this.name == null || this.name.equals("")) {
             this.name = " ";
         }
         this.items = new Item[DEFAULT_SIZE];
@@ -108,7 +109,7 @@ public class FixedSizeInventory implements Inventory {
     @Override
     public boolean contains(Item item) {
         for(int i = 0; i < itemCount; i++)
-            if(item == items[i])
+            if(item.equals(items[i]))
                 return true;
         return false;
     }
@@ -118,6 +119,16 @@ public class FixedSizeInventory implements Inventory {
         for(int i = 0; i < itemCount; i++)
             if(type == items[i].getType())
                 return true;
+        return false;
+    }
+
+    @Override
+    public boolean containsWeapon(WeaponModel model) {
+        for(int i = 0; i < itemCount; i++) {
+            if(items[i].getType().equals(ItemType.Weapon) && ((WeaponItem)items[i]).getWeaponData().getModel().equals(model)) {
+                return true;
+            }
+        }
         return false;
     }
 

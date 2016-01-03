@@ -2,6 +2,7 @@ package lt.ltrp.item;
 
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
+import net.gtaun.shoebill.constant.WeaponModel;
 
 /**
  * @author Bebras
@@ -24,6 +25,7 @@ public interface Inventory {
     public void clear();
     public boolean contains(Item item);
     public boolean containsType(ItemType type);
+    public boolean containsWeapon(WeaponModel model);
     public boolean isFull();
     public int getItemCount();
     public Item[] getItems();
