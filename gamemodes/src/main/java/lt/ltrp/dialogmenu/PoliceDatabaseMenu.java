@@ -4,6 +4,7 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.JailData;
 import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.PlayerCrime;
 import net.gtaun.shoebill.common.dialog.*;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
@@ -162,7 +163,7 @@ public class PoliceDatabaseMenu extends PlayerDialogMenu {
                                                         player.getJob().sendMessage(Color.POLICE, String.format("[LSPD] Asmuo %s gavo áskaita nuo pareigûno: %s, áskaita: %s", suspectName, player.getName(), suspectReason));
                                                         suspect.sendMessage(Color.POLICE, String.format("[LSPD] Policininkas %s áraðë jums áskaità , esate kaltinamas %s, tai yra %d jûsø áskaita.", player.getName(), suspectReason, suspect.getWantedLevel()));
                                                     }
-                                                    LtrpGamemode.getDao().getPlayerDao().insertCrime(suspectName, suspectReason, player.getName());
+                                                    LtrpGamemode.getDao().getPlayerDao().insertCrime(new PlayerCrime(suspectName, suspectReason, player.getName(), 0));
                                                     updateWantedLevel(suspectName);
                                                     item.getCurrentDialog().show();
                                                 } else {
