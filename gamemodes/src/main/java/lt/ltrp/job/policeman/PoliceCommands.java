@@ -1,13 +1,20 @@
-package lt.ltrp.job;
+package lt.ltrp.job.policeman;
 
+import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.command.Commands;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
+import lt.ltrp.dialog.CrimeListDialog;
 import lt.ltrp.dialogmenu.PoliceDatabaseMenu;
+import lt.ltrp.job.JobManager;
+import lt.ltrp.job.policeman.OfficerJob;
 import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.PlayerCrime;
 import lt.ltrp.plugin.streamer.DynamicLabel;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
+import lt.ltrp.property.House;
+import lt.ltrp.property.HouseWeedSapling;
 import lt.ltrp.vehicle.JobVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -16,11 +23,13 @@ import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.constant.VehicleModelInfoType;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
+import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -35,6 +44,9 @@ public class PoliceCommands extends Commands{
     static {
         commandToRankNumber = new HashMap<>();
 
+        commandToRankNumber.put("policehelp", 1);
+        commandToRankNumber.put("cutdownweed", 1);
+        commandToRankNumber.put("checkalco", 1);
         commandToRankNumber.put("setunit", 1);
         commandToRankNumber.put("delunit", 1);
         commandToRankNumber.put("megaphone", 1);
@@ -49,9 +61,17 @@ public class PoliceCommands extends Commands{
 
     }
 
+    private OfficerJob job;
+    private EventManager eventManager;
+
+    public PoliceCommands(OfficerJob job, EventManager eventManager) {
+        this.job = job;
+        this.eventManager = eventManager;
+    }
+
     @BeforeCheck
     public boolean beforeCheck(LtrpPlayer player, String cmd, String params) {
-        if(player.getJob().getId() == JOB_ID) {
+        if(player.getJob().equals(job)) {
             if(commandToRankNumber.containsKey(cmd)) {
                 if(player.getJobRank().getNumber() >= commandToRankNumber.get(cmd)) {
                     if(jobVehicleCommands.contains(cmd)) {
@@ -68,6 +88,93 @@ public class PoliceCommands extends Commands{
                 }
             }
         }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Pareigûnhø komandø sàraðas")
+    public boolean policeHelp(LtrpPlayer player) {
+        player.sendMessage(Color.POLICE, "|__________________" + job.getName().toUpperCase() + "__________________|");
+        player.sendMessage(Color.WHITE, "  PATIKRINIMO KOMANDOS: /frisk /checkalco /fines /vehiclefines /checkspeed /mdc /take");
+        player.sendMessage(Color.LIGHTGREY, "  BUDËJIMO PRADÞIOS KOMANDOS: /duty /wepstore");
+        player.sendMessage(Color.WHITE, "  SUËMIMO KOMANDOS: /tazer /cuff /drag");
+        player.sendMessage(Color.LIGHTGREY, "  GAUDYNIØ/SITUACIJØ KOMANDOS: /bk /rb  /rrb /m /tlc /ram");
+        player.sendMessage(Color.WHITE, "  KOMANDOS NUBAUSTI: /fine /vehiclefine /arrest /prison /arrestcar /licwarn ");
+        player.sendMessage(Color.LIGHTGREY, "  KITOS KOMANDOS: /flist /setunit /delunit /police /delarrestcar /jobid /cutdownweed");
+        player.sendMessage(Color.WHITE, "  DRABUÞIAI/APRANGA: /vest /badge /rbadge /pdclothes");
+        player.sendMessage(Color.POLICE, "____________________________________________________________________________");
+        return true;
+    }
+
+
+    @Command
+    @CommandHelp("Sunaikina name esanèià marihuana")
+    public boolean cutDownWeed(LtrpPlayer player) {
+        if(player.getProperty() == null || !(player.getProperty() instanceof House)) {
+            player.sendErrorMessage("J8s ne name!");
+        } else {
+            House house = (House)player.getProperty();
+            List<HouseWeedSapling> closestWeed = house.getWeedSaplings().stream().filter(weed -> weed.getLocation().distance(player.getLocation()) < 10.0f).collect(Collectors.toList());
+            if(house.getWeedSaplings().size() == 0 || closestWeed.size() == 0) {
+                player.sendActionMessage("apsidairo po namus...");
+                player.sendErrorMessage("Ðiame name neauga marihuana!");
+            } else  {
+                closestWeed.forEach(w -> {
+                    w.destroy();
+                    LtrpGamemode.getDao().getHouseDao().updateWeed(w);
+                });
+                player.sendActionMessage("Pareigûnas " + player.getCharName() + " sunaikina " + closestWeed.size() + " marihuanos augalus.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Patikrina þaidëjo girtumà")
+    public boolean checkalco(LtrpPlayer p, LtrpPlayer p2) {
+        if(p2 == null) {
+            p.sendErrorMessage("Naudojimas /p [ÞaidëjoID/Dalis vardo]");
+        } else if(p.getLocation().distance(p2.getLocation()) > 10.0f) {
+            p.sendErrorMessage("Ðià komandà galima naudoti tik kai þaidëjas prie jûsø. " + p2.getCharName() + " yra per toli");
+        } else {
+            float drunkness = p2.getDrunkLevel() / 1000;
+            p.sendActionMessage("prideda alkotesterá prie  " + p2.getCharName() + " lûpø, kuris pripuèia " + drunkness + " promilæ (-iø).");
+            return true;
+        }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Parodo þaidëjo turimas baudas")
+    public boolean fines(LtrpPlayer p, LtrpPlayer p2) {
+        if(p2 == null) {
+            p.sendErrorMessage("Naudojimas /p [ÞaidëjoID/Dalis vardo]");
+        } else if(p.getLocation().distance(p2.getLocation()) > 10.0f) {
+            p.sendErrorMessage("Ðià komandà galima naudoti tik kai þaidëjas prie jûsø. " + p2.getCharName() + " yra per toli");
+        } else {
+            List<PlayerCrime> crimes = LtrpGamemode.getDao().getPlayerDao().getCrimes(p2);
+            if(crimes.size() == 0) {
+                p.sendErrorMessage(p2.getCharName() + " nëra nieko padaræs.");
+            } else {
+                new CrimeListDialog(p, eventManager, crimes).show();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Parodo automobilio baudas")
+    public boolean vehiclefines(LtrpPlayer player) {
+
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Nustato transporto priemonës greitá")
+    public boolean checkspeed(LtrpPlayer player) {
+
         return false;
     }
 
