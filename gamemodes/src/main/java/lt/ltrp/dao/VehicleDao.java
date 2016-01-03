@@ -4,6 +4,7 @@ import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.JobVehicle;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.PlayerVehicle;
+import lt.ltrp.vehicle.VehicleCrime;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface VehicleDao {
     String generateLicensePlate();
 
 
-    void insertCrime(String licensePlate, String crime, String reportedBy);
+    void insertCrime(VehicleCrime crime);
 
 
 }

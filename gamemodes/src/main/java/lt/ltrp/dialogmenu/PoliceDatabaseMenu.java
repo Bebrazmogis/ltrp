@@ -5,6 +5,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.player.JailData;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerCrime;
+import lt.ltrp.vehicle.VehicleCrime;
 import net.gtaun.shoebill.common.dialog.*;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
@@ -201,6 +202,7 @@ public class PoliceDatabaseMenu extends PlayerDialogMenu {
                                                     player.getJob().sendMessage(Color.POLICE, String.format("[LSPD] Tr. priemonë, kurios valstybiniai numeriai %s buvo átrauka pareigûno %s á áskaita.", suspectPlate, player.getName()));
                                                     player.getJob().sendMessage(Color.POLICE, "[LSPD] Nurodyta áskaitos prieþastis: " +  suspectReason);
                                                     item.getCurrentDialog().show();
+                                                    LtrpGamemode.getDao().getVehicleDao().insertCrime(new VehicleCrime(suspectPlate, player.getCharName(), suspectReason, 0));
                                                 } else {
                                                     player.sendErrorMessage("Netinkama prieþastis");
                                                     suspectDialog2.show();

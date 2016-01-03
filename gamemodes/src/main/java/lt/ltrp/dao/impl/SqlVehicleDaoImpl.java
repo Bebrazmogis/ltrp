@@ -126,16 +126,22 @@ public class SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void insertCrime(String licensePlate, String crime, String reportedBy) {
-        String sql = "INSERT INTO player_vehicle_crimes (license_plate, crime, reporter, `date`) VALUES (?, ?, ?, ?)";
+    public void insertCrime(VehicleCrime crime) {
+        String sql = "INSERT INTO player_vehicle_crimes (license_plate, crime, reporter, `date`, fine) VALUES (?, ?, ?, ?, ?)";
         try (
                 Connection con = dataSource.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql);
+                PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ) {
-            stmt.setString(1, licensePlate);
-            stmt.setString(2, crime);
-            stmt.setString(3, reportedBy);
-            stmt.setDate(4, new Date(new java.util.Date().getTime()));
+            stmt.setString(1, crime.getLicensePlate());
+            stmt.setString(2, crime.getCrime());
+            stmt.setString(3, crime.getReporter());
+            stmt.setDate(4, new Date(crime.getDate().getTime()));
+            stmt.setInt(5, crime.getFine());
+            stmt.execute();
+            ResultSet keys = stmt.getGeneratedKeys();
+            if(keys.next()) {
+                crime.setId(keys.getInt(1));
+            }
         } catch(SQLException e) {
             e.printStackTrace();
         }
