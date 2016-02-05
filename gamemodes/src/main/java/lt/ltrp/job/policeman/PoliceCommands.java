@@ -24,14 +24,13 @@ import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.constant.VehicleModelInfoType;
 import net.gtaun.shoebill.data.Area3D;
 import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.data.Vector3D;
+import net.gtaun.shoebill.object.Checkpoint;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -59,6 +58,9 @@ public class PoliceCommands extends Commands{
         commandToRankNumber.put("mdc", 1);
         commandToRankNumber.put("cuff", 1);
         commandToRankNumber.put("drag", 1);
+        commandToRankNumber.put("bk", 1);
+        commandToRankNumber.put("backup", 1);
+        commandToRankNumber.put("abk", 1);
 
         commandToRankNumber.put("wepstore", 2);
 
@@ -78,10 +80,12 @@ public class PoliceCommands extends Commands{
     private Map<JobVehicle, DynamicLabel> unitLabels = new HashMap<>();
     private Map<JobVehicle, DynamicSampObject> policeSirens = new HashMap<>();
     private Map<LtrpPlayer, DragTimer> dragTimers;
+    private Map<LtrpPlayer, List<LtrpPlayer>> backupRequests;
 
 
     public PoliceCommands(OfficerJob job, EventManager eventManager, Map<JobVehicle, DynamicLabel> unitLabels, Map<JobVehicle, DynamicSampObject> sirends, Map<LtrpPlayer,DragTimer> dragtimers) {
         this.job = job;
+        this.backupRequests = new HashMap<>();
         this.eventManager = eventManager;
         this.unitLabels = unitLabels;
         this.policeSirens = sirends;
@@ -358,11 +362,46 @@ public class PoliceCommands extends Commands{
             player.sendActionMessage(player.getJobRank().getName() + " " + player.getCharName() + "nustotojo tempti/traukti" + target.getCharName());
             target.sendInfoText("~w~Tempiamas");
             target.toggleControllable(false);
+            return true;
         } else {
             dragTimers.put(player, DragTimer.create(player, target));
             player.sendActionMessage(player.getJobRank().getName() + " " + player.getCharName() + " pradëjo tempti/traukti " + target.getCharName());
             target.sendInfoText("~w~Nebe tempiamas");
             target.toggleControllable(true);
+            return true;
+        }
+        return false;
+    }
+
+
+    @Command
+    @CommandHelp("Leidþia iðsikviesti pagalbà")
+    public boolean backup(LtrpPlayer player) {
+        if(backupRequests.keySet().contains(player)) {
+            for(LtrpPlayer backup : backupRequests.get(player)) {
+                backup.getCheckpoint().disable(player);
+            }
+            player.getJob().sendMessage(Color.LIGHTRED, "|DIÈPEÈERINË PRANEÐA| DëMESIO, pareigûnas " + player.getCharName() + " atðaukë pastiprinimo praðymà.");
+            backupRequests.remove(player);
+        } else {
+            backupRequests.put(player, new ArrayList<>());
+            player.getJob().sendMessage(Color.LIGHTRED, "|DIÈPEÈERINË PRANEÐA| DËMESIO VISIEMS PADALINIAMS, pareigûnas " + player.getCharName() + " praðo skubaus pastiprinimo, vietos kordinatës nustatytos Jûsø GPS..");
+            player.getJob().sendMessage(Color.LIGHTRED, "|DIÈPEÈERINË PRANEÐA| Jeigu galite atvykti á pastiprinimà raðykite praneðkite dipeèerinei. ((/abk " + player.getId() + "))");
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia reaguoti á pastiprinimo praðymà")
+    public boolean abk(LtrpPlayer player, int id) {
+        Optional<LtrpPlayer> target = backupRequests.keySet().stream().filter(p -> p.getId() == id).findFirst();
+        if(!target.isPresent()) {
+            player.sendErrorMessage("|DIÈPEÈERINË PRANEÐA| Pastiprinimo numeris neatpaþintas, praðymas neegzistuoja.");
+        } else {
+            LtrpPlayer t = target.get();
+            t.setCheckpoint(Checkpoint.create(new Radius(t.getLocation(), 5.0f), null, null));
+            backupRequests.get(t).add(player);
+            return true;
         }
         return false;
     }
