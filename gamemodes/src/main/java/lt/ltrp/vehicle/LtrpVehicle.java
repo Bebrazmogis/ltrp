@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -351,6 +352,27 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
     public void putPlayer(LtrpPlayer player, int i) {
         putPlayer(player, i);
     }
+
+    public void putPlayer(LtrpPlayer player) {
+        List<LtrpPlayer> passengers = LtrpPlayer.get().stream().filter(p -> p.isInVehicle(this)).collect(Collectors.toList());
+        int seatCount = VehicleModel.getSeats(getModelId());
+        if(passengers.size() < seatCount) {
+            for(int i = 0; i < seatCount; i++) {
+                boolean used = false;
+                for(LtrpPlayer p : passengers) {
+                    if(p.getVehicleSeat() == i) {
+                        used = true;
+                        break;
+                    }
+                }
+                if(!used) {
+                    putPlayer(player, i);
+                    break;
+                }
+            }
+        }
+    }
+
     @Override
     public void putPlayer(Player player, int i) {
         vehicleObject.putPlayer(player, i);
