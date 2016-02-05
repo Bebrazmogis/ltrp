@@ -25,6 +25,7 @@ import net.gtaun.shoebill.constant.VehicleModelInfoType;
 import net.gtaun.shoebill.data.Area3D;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
+import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
@@ -56,7 +57,8 @@ public class PoliceCommands extends Commands{
         commandToRankNumber.put("m", 1);
         commandToRankNumber.put("police" ,1);
         commandToRankNumber.put("mdc", 1);
-
+        commandToRankNumber.put("cuff", 1);
+        commandToRankNumber.put("drag", 1);
 
         commandToRankNumber.put("wepstore", 2);
 
@@ -75,13 +77,15 @@ public class PoliceCommands extends Commands{
     private EventManager eventManager;
     private Map<JobVehicle, DynamicLabel> unitLabels = new HashMap<>();
     private Map<JobVehicle, DynamicSampObject> policeSirens = new HashMap<>();
+    private Map<LtrpPlayer, DragTimer> dragTimers;
 
 
-    public PoliceCommands(OfficerJob job, EventManager eventManager, Map<JobVehicle, DynamicLabel> unitLabels, Map<JobVehicle, DynamicSampObject> sirends) {
+    public PoliceCommands(OfficerJob job, EventManager eventManager, Map<JobVehicle, DynamicLabel> unitLabels, Map<JobVehicle, DynamicSampObject> sirends, Map<LtrpPlayer,DragTimer> dragtimers) {
         this.job = job;
         this.eventManager = eventManager;
         this.unitLabels = unitLabels;
         this.policeSirens = sirends;
+        this.dragTimers = dragtimers;
     }
 
     @BeforeCheck
@@ -312,6 +316,54 @@ public class PoliceCommands extends Commands{
             return true;
         } else
             player.sendErrorMessage("Ðià komandà galima naudoti tik darbovietëje.");
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Leidþia surakinti/atrakinti þaidëjà antrankiais")
+    public boolean cuff(LtrpPlayer player, LtrpPlayer target) {
+        if(target == null) {
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        } else if(player.getDistanceToPlayer(target) > 10f) {
+            player.sendErrorMessage(target.getCharName() + " yra per toli");
+        } else if(player.getState() != target.getState()) {
+            player.sendErrorMessage("Jûs turite stovëti ðalia " + target.getCharName() + " kad galëtumëte já surakinti.");
+        } else {
+            if(target.isCuffed()) {
+                player.sendActionMessage("nuima uþdëtus antrankius " + target.getCharName() + " ir susideda juos á savo dëklà.");
+                target.sendInfoText("~w~Rankos atrakintos");
+                player.setCuffed(false);
+            } else {
+                player.sendActionMessage("suima " + target.getCharName() + " abi rankas uþ nugaros ir uþdeda antrankius ant rankø.");
+                target.sendInfoText("~w~Rankos surakintos");
+                player.setCuffed(true);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Leidþia pradëti/baigti tempti surakintà þaidëjà")
+    public boolean drag(LtrpPlayer player, LtrpPlayer target) {
+        if(target == null) {
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        } else if(player.getDistanceToPlayer(target) > 10f) {
+            player.sendErrorMessage(target.getCharName() + " yra per toli");
+        } else if(player.isInAnyVehicle()) {
+            player.sendErrorMessage("Bûdamas transporto priemonëje negalite nieko tempti.");
+        } else if(target.isInComa()) {
+            player.sendErrorMessage(target.getCharName() + " yra komos bûsenoje, já tempti bûtø per daug pavojinga.");
+        } else if(dragTimers.containsKey(player)) {
+            player.sendActionMessage(player.getJobRank().getName() + " " + player.getCharName() + "nustotojo tempti/traukti" + target.getCharName());
+            target.sendInfoText("~w~Tempiamas");
+            target.toggleControllable(false);
+        } else {
+            dragTimers.put(player, DragTimer.create(player, target));
+            player.sendActionMessage(player.getJobRank().getName() + " " + player.getCharName() + " pradëjo tempti/traukti " + target.getCharName());
+            target.sendInfoText("~w~Nebe tempiamas");
+            target.toggleControllable(true);
+        }
         return false;
     }
 }
