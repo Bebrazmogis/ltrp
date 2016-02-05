@@ -6,6 +6,7 @@ import lt.ltrp.command.Commands;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
 import lt.ltrp.dialog.CrimeListDialog;
+import lt.ltrp.dialog.PoliceWeaponryDialog;
 import lt.ltrp.dialogmenu.PoliceDatabaseMenu;
 import lt.ltrp.job.JobManager;
 import lt.ltrp.job.policeman.OfficerJob;
@@ -21,6 +22,7 @@ import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.constant.VehicleModelInfoType;
+import net.gtaun.shoebill.data.Area3D;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.util.event.EventManager;
@@ -39,6 +41,7 @@ public class PoliceCommands extends Commands{
 
     private static final Map<String, Integer> commandToRankNumber;
     private static final List<String> jobVehicleCommands;
+    private static final List<String> jobAreaCommands;
     private static final int JOB_ID = 2;
 
     static {
@@ -54,10 +57,17 @@ public class PoliceCommands extends Commands{
         commandToRankNumber.put("police" ,1);
         commandToRankNumber.put("mdc", 1);
 
+
+        commandToRankNumber.put("wepstore", 2);
+
         jobVehicleCommands = new ArrayList<>();
         jobVehicleCommands.add("setunit");
         jobVehicleCommands.add("delunit");
         jobVehicleCommands.add("police");
+
+        jobAreaCommands = new ArrayList<>();
+        jobAreaCommands.add("wepstore");
+
 
     }
 
@@ -85,6 +95,14 @@ public class PoliceCommands extends Commands{
                             return true;
                         else
                             player.sendErrorMessage("Ðià komandà galite naudot tik bûdami darbo tranporto priemonëje");
+                    } else if(jobAreaCommands.contains(cmd)) {
+                        Location playerLocation = player.getLocation();
+                        for(Area3D area : job.getWorkAreas()) {
+                            if(area.isInRange(playerLocation)) {
+                                return true;
+                            }
+                        }
+                        player.sendErrorMessage("Ðià komandà galite naudot tik bûdami darbo bûstinëje.");
                     } else {
                         return true;
                     }
@@ -285,4 +303,15 @@ public class PoliceCommands extends Commands{
         return false;
     }
 
+
+    @Command
+    @CommandHelp("Leidþia pasiimti/padëti darbinius ginklus")
+    public boolean wepStore(LtrpPlayer player) {
+        if(player.getJob().isAtWork(player)) {
+            PoliceWeaponryDialog.create(player, eventManager, job);
+            return true;
+        } else
+            player.sendErrorMessage("Ðià komandà galima naudoti tik darbovietëje.");
+        return false;
+    }
 }
