@@ -4168,9 +4168,9 @@ public OnPlayerConnect(playerid)
     }
 
 
-    OnLookupComplete(playerid);
-    MySQL_Check_Account( playerid );
-    CheckBan(playerid);	
+    //OnLookupComplete(playerid);
+    //MySQL_Check_Account( playerid );
+    //CheckBan(playerid);	
 //=============================[ Iconos þemëlapyje rodomos visiems ]================================
     SetPlayerMapIcon( playerid, 70, fInfo[ 2 ][ fSpawn ][ 0 ], fInfo[ 2 ][ fSpawn ][ 1 ] ,fInfo[ 2 ][ fSpawn ][ 2 ], 22, 0, MAPICON_LOCAL ); //Ligoninë
     SetPlayerMapIcon( playerid, 71, 2861.1670,-1405.5068,11.7382, 52, 0, MAPICON_LOCAL ); //Bankas
@@ -4246,7 +4246,7 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 5158, 2837.7734, -2334.4766, 11.9922, 0.25);
     
     SetPlayerColor(playerid,TEAM_HIT_COLOR);
-    ShowPlayerLoginDialog(playerid);
+    //ShowPlayerLoginDialog(playerid);
     return 1;
 }
 
