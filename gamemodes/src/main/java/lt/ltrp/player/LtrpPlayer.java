@@ -49,7 +49,7 @@ public class LtrpPlayer implements Player {
     private Rank jobRank;
     private PlayerInfoBox infoBox;
     private PlayerLicenses licenses;
-    private boolean seatbelt, masked;
+    private boolean seatbelt, masked, cuffed;
     private int jobExperience;
     /**
      * Not necessarily all existing player vehicles, just the ones that are currently loaded( or not spawned)
@@ -291,6 +291,15 @@ public class LtrpPlayer implements Player {
         this.infoBox = infoBox;
     }
 
+    public void sendInfoText(String s) {
+        AmxCallable ShowInfoText = PawnFunc.getNativeMethod("ShowInfoText");
+        if(ShowInfoText != null) {
+            ShowInfoText.call(this.getId(), s, 2500);
+        } else {
+            player.sendMessage(Color.PALEGOLDENROD, "[INFOTEXT]" + s);
+        }
+    }
+
     public Job getJob() {
         return job;
     }
@@ -365,6 +374,20 @@ public class LtrpPlayer implements Player {
         this.weapons = newWeapons;
     }
 
+    public boolean isCuffed() {
+        return cuffed;
+    }
+
+    public void setCuffed(boolean cuffed) {
+        this.cuffed = cuffed;
+        if(cuffed) {
+            this.setSpecialAction(SpecialAction.CUFFED);
+            getAttach().getSlot(0).set(PlayerAttachBone.HAND_RIGHT, 19418, new Vector3D(-0.011f, 0.028f, -0.022f), new Vector3D(-15.600012f, -33.699977f, -81.700035f), new Vector3D(0.891999f, 1.0f, 1.168f), 0, 0);
+        } else {
+            this.setSpecialAction(SpecialAction.NONE);
+            getAttach().getSlot(0).remove();
+        }
+    }
 
     public boolean isInComa() {
         return isInComa;
