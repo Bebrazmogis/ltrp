@@ -34,7 +34,7 @@ public class FileDmvDaoImpl implements DmvDao {
         if(!dataDir.isDirectory()) {
             throw new IllegalArgumentException(dataDir.getName() + " must be a directory");
         } else {
-            dataDirectory = dataDir;
+            dataDirectory = new File(dataDir, "dmvs");
         }
     }
 
@@ -364,18 +364,18 @@ public class FileDmvDaoImpl implements DmvDao {
      * @return dmv id or {@link lt.ltrp.dao.DmvDao#INVALID_ID} if folder name is in invalid format
      */
     private int idFromFilename(File file) {
-        if(file.isDirectory()) {
+        if(!file.isDirectory()) {
             return DmvDao.INVALID_ID;
         }
         int index;
-        if((index = file.getName().indexOf("-")) == -1) {
-            return DmvDao.INVALID_ID;
-        } else {
-            try {
+        try {
+            if((index = file.getName().indexOf("-")) == -1) {
+                return Integer.parseInt(file.getName());
+            } else {
                 return Integer.parseInt(file.getName().substring(0, index).trim());
-            } catch(NumberFormatException e) {
-                return DmvDao.INVALID_ID;
             }
+        } catch(NumberFormatException e) {
+            return DmvDao.INVALID_ID;
         }
     }
 
