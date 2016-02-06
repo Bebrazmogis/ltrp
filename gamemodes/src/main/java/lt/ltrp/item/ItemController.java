@@ -163,10 +163,11 @@ public class ItemController {
                     item = new PcpItem("PCP", 1);
                     break;
                 default:
-                    item = new BasicItem("Daiktas", type, (Integer)params[5] == 1);
+                    item = new BasicItem("Daiktas", type, (Integer)params[4] == 1);
                     break;
             }
-            item.setAmount((Integer)params[3]);
+            if(type != ItemType.Weapon && type != ItemType.Phone && type != ItemType.Cigarettes)
+                item.setAmount((Integer)params[3]);
             boolean success = player.getInventory().tryAdd(item);
             if(success)
                 LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
@@ -195,6 +196,16 @@ public class ItemController {
                 full = player.getInventory().isFull();
             }
             return full ? 1 : 0;
+        }, Integer.class);
+
+        amx.registerFunction("removePlayerDrugItems", params -> {
+            LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
+            if(player != null) {
+                for(Item item : player.getInventory().getItems(DrugItem.class)) {
+                    player.getInventory().remove(item);
+                }
+            }
+            return player == null ? 1 : 0;
         }, Integer.class);
 
     }
