@@ -1,0 +1,1903 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="27019ab5-c8bb-4bd1-a72f-1db1212c058d" name="Default" comment="PlayerCrime nuo šiol bus tiek buados bilietai tiek įskaitos. Esmė ta">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/LTRP.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\dataSources.ids" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\gamemode.yml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\Entity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\InventoryEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\NamedEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\SpeedometerTd.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\Util\AdminLog.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\Util\PawnFunc.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\Util\Sql.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\command\CommandData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\command\CommandHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\command\Commands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\command\PlayerCommandManager.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\constant\LicenseType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\DAOFactory.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\DmvDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\HouseDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\ItemDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\JdbcDAO.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\JobDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\PhoneDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\PlayerDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\VehicleDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dao\impl\SqlPhoneDaoImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\data\Animation.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\data\Color.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\data\DroppedWeaponData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\data\LtrpWeaponData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\data\NamedLocation.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\data\PhoneContact.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\data\PhoneSms.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\data\Phonebook.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dmv\Dmv.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dmv\DmvCheckpoint.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dmv\DmvCommands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dmv\DmvQuestion$DmvAnswer.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\dmv\DmvQuestion.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\PaydayEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\item\ItemLocationChangeEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\player\PlayerDrawWeaponEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\player\PlayerSpawnSetUpEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\property\HouseEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerBusinessEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerEnterBusinessEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerEnterGarageEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerEnterHouseEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerGarageEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerHouseEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerPropertyEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\event\property\WeedGrowEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\AbstractItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\AmphetamineItem$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\AmphetamineItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\BasicItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\ClothingItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\CocaineItem$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\CocaineItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\ConsumableItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\ContainerItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\DrinkItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\DrugItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\FishingRodItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\HeroinItem$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\HeroinItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\Inventory.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\Item.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\ItemController$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\ItemController.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\ItemType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\ItemUsageOption.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\MolotovItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\PcpItem$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\PcpItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\RadioItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\SqlItemDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\SuitcaseItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\item\WeaponItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\ContractJob.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\ContractJobRank.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\Faction.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\FactionRank.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\Job.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\Rank.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\Taxi.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\trashman\TrashMission.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\trashman\TrashMissions.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\trashman\TrashmanCommands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\trashman\TrashmanManager$PlayerTrashMission.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\trashman\TrashmanManager.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\vehiclethief\VehicleThiefCommands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\job\vehiclethief\VehicleThiefJob.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\AdminCommands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\CrashData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\GeneralCommands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\JailData$JailType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\JailData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\LicenseWarning.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\LtrpPlayer$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\LtrpPlayer.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\PlayerCountdown$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\PlayerCountdown$PlayerCountdownCallback.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\PlayerCountdown.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\PlayerInfoBox.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\PlayerLicense.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\PlayerLicenses.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\SpawnController$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\SpawnController.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\SpawnData$SpawnType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\player\SpawnData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\plugin\PluginWrapper.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\plugin\mapandreas\MapAndreas.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\plugin\mapandreas\MapAndreasMode.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\plugin\streamer\DynamicLabel.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\plugin\streamer\DynamicSampObject.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\plugin\streamer\PlayerEditDynamicObjectResponse.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\plugin\streamer\Streamer.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\property\Business.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\property\Garage.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\property\GarageCommands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\property\House.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\property\HouseUpgradeType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\property\HouseWeedSapling$GrowthStage.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\property\HouseWeedSapling.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\property\Property.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\FuelTank.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\JobVehicle.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\LtrpVehicle.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\PersonalAlarm.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\PlayerVehicle.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\PlayerVehiclePermission.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\PoliceAlertAlarm.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\SimpleAlarm.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\VehicleAlarm.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\VehicleCommands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\VehicleLock.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\event\SpeedometerTickEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\lt\ltrp\vehicle\event\TestEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\ltrp.sql" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\net\gtaun\shoebill\constant\VehicleModel$VehicleModelData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\net\gtaun\shoebill\constant\VehicleModel$VehicleType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\classes\net\gtaun\shoebill\constant\VehicleModel.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\shoebill\gamemodes\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Entity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\InitException.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Initializable.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\InventoryEntity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\LtrpGamemode.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\ModelPreview.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\NamedEntity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\PawnCallbacks.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\SpeedometerTd.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Util\AdminLog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Util\Factorial.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Util\PawnFunc.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Util\Sql.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\Util\Whirlpool.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\command\CommandData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\command\CommandHandler.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\command\CommandParam.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\command\Commands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\command\PlayerCommandManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\constant\LicenseType.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\constant\LtrpVehicleModel.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\DAOFactory.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\DmvDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\HouseDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\ItemDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\JobDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\PhoneDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\PlayerDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\VehicleDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\impl\FileDmvDaoImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\impl\FileJobDaoImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\impl\SqlDmvDaoImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\impl\SqlHouseDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\impl\SqlPhoneDaoImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\impl\SqlPlayerDaoImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dao\impl\SqlVehicleDaoImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\Animation.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\Color.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\DroppedWeaponData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\LtrpWeaponData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\NamedLocation.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\PhoneContact.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\PhoneSms.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\Phonebook.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\data\Phonecall.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dialog\CrimeDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dialog\CrimeListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dialog\PoliceWeaponryDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dialog\RoadblockDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dialog\RoadblockListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dialogmenu\DialogMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dialogmenu\PlayerDialogMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dialogmenu\PoliceDatabaseMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dialogmenu\admin\JobVehicleMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\AbstractCheckpointTest.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\AicraftDmv.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\BoatDmv.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\BoatingTest.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\CarDmv.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\CheckpointDmv.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\CheckpointDmvImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\Dmv.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\DmvCheckpoint.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\DmvImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\DmvManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\DmvQuestion.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\DmvTest.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\DrivingTest.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\FlyingTest.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\QuestionCheckpointDmv.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\QuestionCheckpointDmvImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\QuestionDmv.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\QuestionDmvImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\QuestionTest.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\dialog\BoatingTestEndMsgDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\dialog\DrivingTestEndMsgDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\dialog\FlyingTestEndMsgDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\event\PlayerBoatingTestEnd.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\event\PlayerDmvTestEndEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\event\PlayerDrivingTestEndEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\event\PlayerFlyingTestEnd.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\dmv\event\PlayerQuestionTestEndEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\PaydayEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\item\ItemLocationChangeEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\modelpreview\ModelPreviewCancelEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\modelpreview\ModelPreviewEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\modelpreview\ModelPreviewSelectModelEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\player\PlayerDataLoadEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\player\PlayerDrawWeaponEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\player\PlayerLogInEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\player\PlayerSpawnSetUpEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\HouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerBusinessEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerEnterBusinessEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerEnterGarageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerEnterHouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerEnterPropertyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerExitBusinessEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerExitGarageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerExitHouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerExitPropertyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerGarageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerHouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\PlayerPropertyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\event\property\WeedGrowEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\AbstractItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\AmphetamineItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\BasicItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\CigarettesItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ClothingItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\CocaineItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ConsumableItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ContainerItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\DiceItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\DrinkItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\DrugItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\DurableItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\EctazyItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\FishingRodItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\FixedSizeInventory.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\FuelTankItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\HeroinItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\HouseAudioItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\Inventory.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\Item.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ItemCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ItemController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ItemPhone.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ItemType.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\ItemUsageOption.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\MaskItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\MeleeWeaponItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\MetaamphetamineItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\MolotovItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\PcpItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\RadioItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\SqlItemDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\SuitcaseItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\WeaponItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\WeedItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\item\WeedSeedItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\ContractJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\ContractJobRank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\Faction.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\FactionRank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\Job.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\JobManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\Rank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\RoadblockCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\Taxi.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\drugdealer\DrugDealerCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\policeman\DragTimer.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\policeman\OfficerCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\policeman\OfficerJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\policeman\PoliceCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\policeman\PolicemanManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\policeman\Roadblock.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\trashman\TrashMission.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\trashman\TrashMissions.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\trashman\TrashmanCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\trashman\TrashmanManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\vehiclethief\VehicleThiefCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\vehiclethief\VehicleThiefJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\job\vehiclethief\VehicleThiefManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\object\Fire.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\AdminCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\AuthController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\CrashData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\GeneralCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\JailData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\LicenseWarning.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\LtrpPlayer.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\PlayerController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\PlayerCountdown.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\PlayerCrime.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\PlayerInfoBox.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\PlayerLicense.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\PlayerLicenses.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\SpawnController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\player\SpawnData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\PluginWrapper.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\mapandreas\MapAndreas.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\mapandreas\MapAndreasMode.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\streamer\DynamicLabel.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\streamer\DynamicSampObject.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\streamer\PlayerEditDynamicObjectResponse.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\streamer\Streamer.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\plugin\streamer\event\player\PlayerEditDynamicObjectEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\Business.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\BusinessCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\Garage.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\GarageCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\House.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\HouseCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\HouseUpgradeType.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\HouseWeedSapling.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\Property.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\PropertyCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\property\PropertyManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\FuelTank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\JobVehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\LtrpVehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\PersonalAlarm.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\PlayerVehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\PlayerVehicleCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\PlayerVehiclePermission.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\PoliceAlertAlarm.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\SimpleAlarm.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\VehicleAlarm.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\VehicleCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\VehicleCrime.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\VehicleLock.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\VehicleManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\event\SpeedometerTickEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\event\TestEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\event\TestEventImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\lt\ltrp\vehicle\event\VehicleEngineStartEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\java\net\gtaun\shoebill\constant\VehicleModel.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\resources\gamemode.yml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\gamemodes\src\main\resources\ltrp.sql" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\LtrpGamemode-1.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\gamemode.yml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\Entity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\InventoryEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\NamedEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\Util\Sql.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\command\CommandData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\command\CommandHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\command\PlayerCommandManager.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\dao\DAOFactory.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\dao\JdbcDAO.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\dao\PhoneDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\dao\PlayerDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\dao\impl\SqlPhoneDaoImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\data\Animation.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\data\Color.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\data\DroppedWeaponData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\data\LtrpWeaponData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\data\PhoneContact.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\data\PhoneSms.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\data\Phonebook.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\data\Phonecall$PhonecallState.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\data\Phonecall.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\item\ItemLocationChangeEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\player\PlayerDrawWeaponEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\player\PlayerSpawnSetUpEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerBusinessEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerEnterBusinessEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerEnterGarageEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerEnterHouseEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerGarageEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerHouseEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\event\property\PlayerPropertyEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\AmphetamineItem$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\AmphetamineItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\BasicItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\ClothingItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\ConsumableItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\ContainerItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\DrinkItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\DrugItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\HeroinItem$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\HeroinItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\Inventory.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\Item.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\ItemController$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\ItemController.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\ItemPhone$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\ItemPhone.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\ItemType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\ItemUsageOption.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\MolotovItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\PcpItem$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\PcpItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\item\WeaponItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\AdminCommands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\CrashData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\GeneralCommands.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\JailData$JailType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\JailData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\LtrpPlayer$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\LtrpPlayer.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\PlayerCountdown$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\PlayerCountdown$PlayerCountdownCallback.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\PlayerCountdown.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\SpawnController$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\SpawnController.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\SpawnData$SpawnType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\player\SpawnData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\plugin\PluginWrapper.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\plugin\mapandreas\MapAndreas.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\plugin\mapandreas\MapAndreasMode.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\plugin\streamer\DynamicLabel.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\plugin\streamer\DynamicSampObject.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\plugin\streamer\Streamer.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\property\Business.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\property\Garage.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\property\House.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\property\HouseUpgradeType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\property\Property.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\vehicle\FuelTank.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\lt\ltrp\vehicle\LtrpVehicle.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\classes\ltrp.sql" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\maven-archiver\pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/Shoebill.dll" afterPath="$PROJECT_DIR$/plugins/Shoebill.dll" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/shoebill-api-1.2-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/shoebill-api-1.2-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/shoebill-common-1.2-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/shoebill-common-1.2-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/bootstrap/shoebill-launcher-1.2-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/shoebill/bootstrap/shoebill-launcher-1.2-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/shoebill-runtime-1.2-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/shoebill-runtime-1.2-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Player/Attachments.p" afterPath="$PROJECT_DIR$/gamemodes/Player/Attachments.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Player/Auth.p" afterPath="$PROJECT_DIR$/gamemodes/Player/Auth.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Gambling/Blackjack.p" afterPath="$PROJECT_DIR$/gamemodes/Gambling/Blackjack.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Property/Businesses.p" afterPath="$PROJECT_DIR$/gamemodes/Property/Businesses.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Player/Death.p" afterPath="$PROJECT_DIR$/gamemodes/Player/Death.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Property/Furniture.p" afterPath="$PROJECT_DIR$/gamemodes/Property/Furniture.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Property/Garages.p" afterPath="$PROJECT_DIR$/gamemodes/Property/Garages.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Property/Houses.p" afterPath="$PROJECT_DIR$/gamemodes/Property/Houses.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Property/Interiors.p" afterPath="$PROJECT_DIR$/gamemodes/Property/Interiors.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Player/Inventory.p" afterPath="$PROJECT_DIR$/gamemodes/Player/Inventory.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Player/Phone.p" afterPath="$PROJECT_DIR$/gamemodes/Player/Phone.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Vehicles/PlayerVehicles.p" afterPath="$PROJECT_DIR$/gamemodes/Vehicles/PlayerVehicles.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pawno/include/Sheobill.inc" afterPath="$PROJECT_DIR$/pawno/include/Sheobill.inc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Player/Spawn.p" afterPath="$PROJECT_DIR$/gamemodes/Player/Spawn.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Player/Weapons.p" afterPath="$PROJECT_DIR$/gamemodes/Player/Weapons.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Property/_General.p" afterPath="$PROJECT_DIR$/gamemodes/Property/_General.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/_remote.repositories" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/_remote.repositories" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/_remote.repositories" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/_remote.repositories" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/_remote.repositories" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/_remote.repositories" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/_remote.repositories" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/_remote.repositories" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Tabula/liftas.pwn" afterPath="$PROJECT_DIR$/gamemodes/Tabula/liftas.pwn" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/ltrp.amx" afterPath="$PROJECT_DIR$/gamemodes/ltrp.amx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/ltrp.pwn" afterPath="$PROJECT_DIR$/gamemodes/ltrp.pwn" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/maven-metadata-gtaun-public-repo.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml.sha1" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml.sha1" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml.sha1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/maven-metadata-gtaun-repo-snapshots.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/Config/mysql.p" afterPath="$PROJECT_DIR$/gamemodes/Config/mysql.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gamemodes/pom.xml" afterPath="$PROJECT_DIR$/gamemodes/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-launcher/1.2-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-runtime/1.2-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-utilities/1.0-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-utilities/1.0-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/util-event/1.0-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/util-event/1.0-SNAPSHOT/resolver-status.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/shoebill-common-1.2-SNAPSHOT.pom" afterPath="$PROJECT_DIR$/shoebill/repository/net/gtaun/shoebill-common/1.2-SNAPSHOT/shoebill-common-1.2-SNAPSHOT.pom" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/update-shoebill.sh" afterPath="$PROJECT_DIR$/update-shoebill.sh" />
+    </list>
+    <ignored path="gamemodes.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/shoebill/gamemodes/" />
+    <ignored path=".idea/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="Commander">
+    <leftPanel />
+    <rightPanel />
+    <splitter proportion="0.5" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="F:\AAAA\LTRP\gamemodes" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DatabaseView">
+    <option name="FLATTEN" value="false" />
+    <option name="GROUP_BY_TYPE" value="true" />
+    <option name="SORT_CHILDREN" value="false" />
+    <option name="SHOW_TABLE_CONSTRAINTS" value="true" />
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - ltrp-java@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="ltrp-java" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="MySQL - ltrp-java@localhost" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="ltrp-java" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="player_crimes" />
+        <option name="myItemType" value="com.intellij.database.view.DbNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" />
+        <option name="myItemType" value="com.intellij.database.view.DbRootNodeDescriptor" />
+      </PATH_ELEMENT>
+    </PATH>
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="gamemodes" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/gamemodes/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5246479" vertical-offset="1334" max-vertical-offset="2227">
+              <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/event/modelpreview/ModelPreviewSelectModelEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/event/modelpreview/ModelPreviewCancelEvent.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/event/modelpreview/ModelPreviewSelectModelHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/modelpreview/RoadblockModelPreview.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/Util/LocationUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/Roadblock.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/RoadblockManagementDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/RoadblockDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/plugin/streamer/DynamicSampObject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/medic/MedicManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/RoadblockCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/RoadblockListDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/CrimeDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/CrimeListDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCrime.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/VehicleCrime.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dialogmenu/PoliceDatabaseMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/VehicleDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlVehicleDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/ltrp.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/OfficerCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/PoliceCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/JobManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/OfficerJob.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/Inventory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/item/FixedSizeInventory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/PoliceWeaponryDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehicle/LtrpVehicle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/DragTimer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/PolicemanManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/PoliceCommands.java" />
+        <option value="$PROJECT_DIR$/ltrp.pwn" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/JobDao.java" />
+        <option value="$PROJECT_DIR$/Bank.p" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" />
+        <option value="$PROJECT_DIR$/gamemodes/Player/Attachments.p" />
+        <option value="$PROJECT_DIR$/gamemodes/Player/Phone.p" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/property/PropertyManager.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/item/ItemController.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/player/LtrpPlayer.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/job/policeman/PoliceCommands.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/job/policeman/OfficerJob.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/dao/JobDao.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/dao/impl/FileJobDaoImpl.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/job/policeman/PolicemanManager.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/InitException.java" />
+        <option value="$PROJECT_DIR$/gamemodes/src/main/java/lt/ltrp/LtrpGamemode.java" />
+        <option value="$PROJECT_DIR$/update-shoebill.sh" />
+      </list>
+    </option>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="Ltrp" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <OptionsSetting value="true" id="Undo Check Out" />
+    <OptionsSetting value="true" id="Get Latest Version" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LTRP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vehicle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.18620038" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
+    <property name="dynamic.classpath" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="FullScreen" value="false" />
+    <property name="last.edited.regexp" value="hello t" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="Console.TableResult.DefaultCopyAction" value="Comma-separated Values (CSV)" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="277" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="306" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="316" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="947" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="310" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="310" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="316" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="910" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\AAAA\LTRP\gamemodes\src\main\java" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="lt.ltrp.item" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Maven.Build">
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <module name="" />
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="depsClasspath" value="false" />
+      <setting name="passParentEnv" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <setting name="launchBrowser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="com.intellij.database.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
+      <option name="VM_PARAMETERS" value="" />
+      <option name="USER_CFG_CLASS" />
+      <option name="CONTEXT_PROVIDER" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Build" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings">
+          <MavenGeneralSettings>
+            <option name="alwaysUpdateSnapshots" value="false" />
+            <option name="checksumPolicy" value="NOT_SET" />
+            <option name="failureBehavior" value="NOT_SET" />
+            <option name="localRepository" value="" />
+            <option name="mavenHome" value="F:\apache-maven-3.3.3" />
+            <option name="nonRecursive" value="false" />
+            <option name="outputLevel" value="INFO" />
+            <option name="pluginUpdatePolicy" value="DEFAULT" />
+            <option name="printErrorStackTraces" value="false" />
+            <option name="threads" />
+            <option name="usePluginRegistry" value="false" />
+            <option name="userSettingsFile" value="" />
+            <option name="workOffline" value="false" />
+          </MavenGeneralSettings>
+        </option>
+        <option name="myRunnerSettings">
+          <MavenRunnerSettings>
+            <option name="environmentProperties">
+              <map />
+            </option>
+            <option name="jreName" value="#USE_PROJECT_JDK" />
+            <option name="mavenProperties">
+              <map />
+            </option>
+            <option name="passParentEnv" value="true" />
+            <option name="runMavenInBackground" value="true" />
+            <option name="skipTests" value="false" />
+            <option name="vmOptions" value="-Dmaven.multiModuleProjectDirectory=F:/apache-maven-3.3.3/bin" />
+          </MavenRunnerSettings>
+        </option>
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="-Dmaven.multiModuleProjectDirectory=F:/apache-maven-3.3.3/bin" />
+              </list>
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Maven.Build" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SliceManager">
+    <option name="analysisUIOptions">
+      <AnalysisUIOptions />
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="27019ab5-c8bb-4bd1-a72f-1db1212c058d" name="Default" comment="" />
+      <created>1447323321806</created>
+      <option name="number" value="Default" />
+      <updated>1447323321806</updated>
+      <workItem from="1447323322726" duration="23209000" />
+      <workItem from="1447417990352" duration="6589000" />
+      <workItem from="1447425197801" duration="16625000" />
+      <workItem from="1447443565033" duration="2067000" />
+      <workItem from="1447445746209" duration="9280000" />
+      <workItem from="1447488966129" duration="29314000" />
+      <workItem from="1448741979250" duration="6688000" />
+      <workItem from="1448789505990" duration="28729000" />
+      <workItem from="1448894325995" duration="11382000" />
+      <workItem from="1449075416574" duration="15109000" />
+      <workItem from="1449134569988" duration="24676000" />
+      <workItem from="1449221375617" duration="20083000" />
+      <workItem from="1449316288885" duration="26313000" />
+      <workItem from="1449396100468" duration="27035000" />
+      <workItem from="1449504991667" duration="10846000" />
+      <workItem from="1449653952425" duration="6525000" />
+      <workItem from="1449747964736" duration="14299000" />
+      <workItem from="1449855401692" duration="2360000" />
+      <workItem from="1449925654226" duration="27040000" />
+      <workItem from="1449966312681" duration="5383000" />
+      <workItem from="1449999452162" duration="12630000" />
+      <workItem from="1450110573671" duration="11820000" />
+      <workItem from="1450213206367" duration="4861000" />
+      <workItem from="1450259174021" duration="4575000" />
+      <workItem from="1450345376089" duration="12830000" />
+      <workItem from="1450375552809" duration="6353000" />
+      <workItem from="1450436171796" duration="27237000" />
+      <workItem from="1450523784924" duration="20851000" />
+      <workItem from="1450612528729" duration="32152000" />
+      <workItem from="1450695990787" duration="11592000" />
+      <workItem from="1450714460959" duration="1810000" />
+      <workItem from="1450804442894" duration="8946000" />
+      <workItem from="1450888872984" duration="18054000" />
+      <workItem from="1451060364997" duration="11252000" />
+      <workItem from="1451123036932" duration="26372000" />
+      <workItem from="1451217401219" duration="3425000" />
+      <workItem from="1451480624906" duration="9491000" />
+      <workItem from="1451843504273" duration="5920000" />
+      <workItem from="1454661137181" duration="1452000" />
+      <workItem from="1454694129934" duration="11072000" />
+      <workItem from="1454766486028" duration="615000" />
+      <workItem from="1454767215611" duration="215000" />
+      <workItem from="1454767453059" duration="10425000" />
+      <workItem from="1454780806674" duration="161000" />
+    </task>
+    <task id="LOCAL-00001" summary="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti.">
+      <created>1450906587160</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1450906587160</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Pavadinkim tai &quot;Initial commit&quot; ir mano pažadu sau dažniau commitinti.">
+      <created>1450906719976</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1450906719976</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Parašytas DMV modulis.">
+      <created>1451174304900</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1451174304900</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Pataisytaa DmvDao. Visi &quot;krovimai&quot; dabar reikalaus jau sukurto DMV instance. Taip pat pradėtas naudoti saugojimas failuose, Sql implementacija NĖRA naudojama.">
+      <created>1451174370403</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1451174370403</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Pakeista SqlDmvImpl -&gt; FileDmvImpl&#10;">
+      <created>1451174419735</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1451174419735</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Pridėti licenzijų išlaikymo GUI, jū sukūrimas ir išsaugojimas.">
+      <created>1451174986093</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1451174986093</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Ginklai dabar gali būti klonuojami(internal use)">
+      <created>1451175858352</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1451175858352</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Getter for dropped weapon list">
+      <created>1451175931010</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1451175931010</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Komandos /leavegun ir /grabgun">
+      <created>1451175952435</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1451175952435</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fix: paimto ginklo įrašymas į DB.">
+      <created>1451178429854</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1451178429854</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Sukurtos komandos /buyseeds narkotikų prekeiviams(kol kas darbas neegzistuoaj in Java) ir /cutdowweed pareigūnams pašalinti žolę iš namo.">
+      <created>1451178570732</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1451178570732</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Atsijungimo handlerio priority nustatytas žemiausiu kad pašalinti LtrpPlayer instance iš sąrašo tik tada kai visi kiti handleriai su juo baigė.">
+      <created>1451481978405</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1451481978405</updated>
+    </task>
+    <task id="LOCAL-00013" summary="HouseWeedSapling implementina Destroyable(sunaikinimą)">
+      <created>1451482050877</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1451482050877</updated>
+    </task>
+    <task id="LOCAL-00014" summary="ModelPreview - modelių peržiūros interface ir even'tai.">
+      <created>1451482081836</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1451482081836</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Interface pridedanti metodus init, un init ir is inited. Skirta visoms manage klasėms ir t.t. Šiai dienai esami manageriai NEperrašyti naudoti ją.">
+      <created>1451482142891</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1451482142891</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Pridėta EDIT funkcija">
+      <created>1451487083196</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1451487083196</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Sukurtos komandos užtvarams kurti, trinti, redaguoti ir valdyti. (valdymas prieinamas TIK administratoriams, visos kitos komandos PD,MD ir admin)">
+      <created>1451487265976</created>
+      <option name="number" value="00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1451487265976</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Sukurta užtvaro klasė. Ateičiai reikėtų pridėti sekimą KAS sukūrė.">
+      <created>1451487330252</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1451487330252</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Užtvarų tvarkymo lentelės. Sąrašas, galimybė pašalinti vieną arba visus.">
+      <created>1451487480632</created>
+      <option name="number" value="00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1451487480632</updated>
+    </task>
+    <task id="LOCAL-00020" summary="getCrimes ir jo implementacija SQL.">
+      <created>1451488325341</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1451488325341</updated>
+    </task>
+    <task id="LOCAL-00021" summary="PlayerCrime bean skirta žaidėjo nusikaltimui.">
+      <created>1451488353986</created>
+      <option name="number" value="00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1451488353986</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Nusikaltimų (sąrašo ir vieno) lentelės.">
+      <created>1451489289884</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1451489289884</updated>
+    </task>
+    <task id="LOCAL-00023" summary="PlayerCrime nuo šiol bus tiek buados bilietai tiek įskaitos. Esmė ta kad kaupiama informacija apie piliečius visur. Pareigūnai matys viską. Skritumas tas kad įskaitos baudos suma 0. Jei suma daugiau už 0 tai bauda.">
+      <created>1451844231934</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1451844231934</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Pataisymas atitinkana naują PlayerCrime thing.">
+      <created>1451844305608</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1451844305608</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Vehicle Crimes. Saugojimas, bean.">
+      <created>1451847433513</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1451847433513</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Sujungti Police cmds ir Officer cmds&#10;">
+      <created>1451848025231</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1451848025231</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Sutvarkytos senos PD komandos po merge.">
+      <created>1451848237734</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1451848237734</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Inventoriuje containsWeapon(model) metodas.">
+      <created>1451849283578</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1451849283578</updated>
+    </task>
+    <task id="LOCAL-00029" summary="getWeapons ir ownsWeapons? metodai.">
+      <created>1451849481572</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1451849481572</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Kelios PD komandos, galimybė PD darbui turėti kelias darbovietes(koordinačių rinkinius). Wepstore GUI.">
+      <created>1454662142251</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1454662142251</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Funkcija perkelt žaidėją į tr. priemonę nenurodant vietos.&#10;">
+      <created>1454710330525</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1454710330525</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Komandos /drag, /cuff &#10;&#10;Tempimo handlinimas kuriam nors žaidėjui mirus ar atsijungus.&#10;">
+      <created>1454710763579</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1454710763579</updated>
+    </task>
+    <task id="LOCAL-00033" summary="PD komandos /backup ir /abk">
+      <created>1454712578551</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1454712578551</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Rasti SENI prarasti failai&#10;">
+      <created>1454713656032</created>
+      <option name="number" value="00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1454713656032</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Dar pora komandų, komandų manageris">
+      <created>1454778871003</created>
+      <option name="number" value="00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1454778871003</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Pridėtas Police manageris&#10;">
+      <created>1454778895697</created>
+      <option name="number" value="00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1454778895697</updated>
+    </task>
+    <task id="LOCAL-00037" summary="SendInfoText funkcija&#10;">
+      <created>1454778922961</created>
+      <option name="number" value="00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1454778922961</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Funkcija narkotikų pašalinimui, keli pakeitimai su Java daiktų davimu iš Pawn.">
+      <created>1454778958201</created>
+      <option name="number" value="00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1454778958201</updated>
+    </task>
+    <task id="LOCAL-00039" summary="insertCrime naudos PlayerCrime objektą. PlayerCrime objektas dabar turi ir baudą.">
+      <created>1454779171634</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1454779171634</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Pareigūno darbo krovimas.">
+      <created>1454779922801</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1454779922801</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Pataisymas funkcijos pavadinimo">
+      <created>1454780184145</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1454780184145</updated>
+    </task>
+    <task id="LOCAL-00042" summary="InitException(Unchecked) skirtas įvairių manager klasių problemoms pranešti ir jo pirmas panaudojimas Police manageryje iškilus bėdoms krovime.">
+      <created>1454780248453</created>
+      <option name="number" value="00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1454780248453</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="567663000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3363029" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20149253" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18710022" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3997773" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33407572" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <MESSAGE value="Sukurta užtvaro klasė. Ateičiai reikėtų pridėti sekimą KAS sukūrė." />
+    <MESSAGE value="Užtvarų tvarkymo lentelės. Sąrašas, galimybė pašalinti vieną arba visus." />
+    <MESSAGE value="getCrimes ir jo implementacija SQL." />
+    <MESSAGE value="PlayerCrime bean skirta žaidėjo nusikaltimui." />
+    <MESSAGE value="Nusikaltimų (sąrašo ir vieno) lentelės." />
+    <MESSAGE value="PlayerCrime nuo šiol bus tiek buados bilietai tiek įskaitos. Esmė ta kad kaupiama informacija apie piliečius visur. Pareigūnai matys viską. Skritumas tas kad įskaitos baudos suma 0. Jei suma daugiau už 0 tai bauda." />
+    <MESSAGE value="Pataisymas atitinkana naują PlayerCrime thing." />
+    <MESSAGE value="Vehicle Crimes. Saugojimas, bean." />
+    <MESSAGE value="Sujungti Police cmds ir Officer cmds&#10;" />
+    <MESSAGE value="Sutvarkytos senos PD komandos po merge." />
+    <MESSAGE value="Inventoriuje containsWeapon(model) metodas." />
+    <MESSAGE value="getWeapons ir ownsWeapons? metodai." />
+    <MESSAGE value="Kelios PD komandos, galimybė PD darbui turėti kelias darbovietes(koordinačių rinkinius). Wepstore GUI." />
+    <MESSAGE value="Funkcija perkelt žaidėją į tr. priemonę nenurodant vietos.&#10;" />
+    <MESSAGE value="Komandos /drag, /cuff &#10;&#10;Tempimo handlinimas kuriam nors žaidėjui mirus ar atsijungus.&#10;" />
+    <MESSAGE value="PD komandos /backup ir /abk" />
+    <MESSAGE value="Rasti SENI prarasti failai&#10;" />
+    <MESSAGE value="Dar pora komandų, komandų manageris" />
+    <MESSAGE value="Pridėtas Police manageris&#10;" />
+    <MESSAGE value="SendInfoText funkcija&#10;" />
+    <MESSAGE value="Funkcija narkotikų pašalinimui, keli pakeitimai su Java daiktų davimu iš Pawn." />
+    <MESSAGE value="insertCrime naudos PlayerCrime objektą. PlayerCrime objektas dabar turi ir baudą." />
+    <MESSAGE value="Pareigūno darbo krovimas." />
+    <MESSAGE value="Pataisymas funkcijos pavadinimo" />
+    <MESSAGE value="InitException(Unchecked) skirtas įvairių manager klasių problemoms pranešti ir jo pirmas panaudojimas Police manageryje iškilus bėdoms krovime." />
+    <option name="LAST_COMMIT_MESSAGE" value="InitException(Unchecked) skirtas įvairių manager klasių problemoms pranešti ir jo pirmas panaudojimas Police manageryje iškilus bėdoms krovime." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="23" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/gamemodes/Config/mysql.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.55737704" vertical-offset="102" max-vertical-offset="1054">
+          <caret line="24" column="6" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Gambling/Blackjack.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Player/Attachments.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Player/Functions.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Player/Inventory.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3715415" vertical-offset="25431" max-vertical-offset="33099">
+          <caret line="1507" column="16" selection-start-line="1507" selection-start-column="8" selection-end-line="1507" selection-end-column="16" />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Player/Phone.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.7126865" vertical-offset="918" max-vertical-offset="32453">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Player/Spawn.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Player/Weapons.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6001">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Property/Businesses.amx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Property/Businesses.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Property/_General.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Property/Garages.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/ltrp.pwn">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.563745" vertical-offset="267365" max-vertical-offset="462111">
+          <caret line="15744" column="39" selection-start-line="15744" selection-start-column="39" selection-end-line="15744" selection-end-column="39" />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Tabula/liftas.pwn">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Tabula/TAC.pwn">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="11339">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Tabula/Zonos.pwn">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8245">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Vehicles/Phone.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Vehicles/vPhone.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0327553" vertical-offset="0" max-vertical-offset="1377">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/Vehicles/PlayerVehicles.p">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/update-shoebill.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09289618" vertical-offset="0" max-vertical-offset="549">
+          <caret line="3" column="51" selection-start-line="3" selection-start-column="51" selection-end-line="3" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/InitException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="568">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gamemodes/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5246479" vertical-offset="1334" max-vertical-offset="2227">
+          <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>gamemodes</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.18620038" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>jacksum</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

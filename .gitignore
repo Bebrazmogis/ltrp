@@ -13,3 +13,7 @@ scriptfiles/This_Should_Never_Exist.txt
 npcmodes/*.pwn
 *.log
 shoebill/gamemodes/classes/**
+shoebill/gamemodes/generated-sources/**
+shoebill/gamemodes/maven-archiver/**
+shoebill/gamemodes/maven-status/**
+gamemodes/.idea/**
