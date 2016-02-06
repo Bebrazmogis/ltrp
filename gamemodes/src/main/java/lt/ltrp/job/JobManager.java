@@ -3,6 +3,7 @@ package lt.ltrp.job;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.data.Color;
+import lt.ltrp.job.policeman.PolicemanManager;
 import lt.ltrp.job.trashman.TrashmanManager;
 import lt.ltrp.job.vehiclethief.VehicleThiefJob;
 import lt.ltrp.job.vehiclethief.VehicleThiefManager;
@@ -84,8 +85,6 @@ public class JobManager {
 
     private EventManager eventManager = LtrpGamemode.get().getEventManager().createChildNode();
 
-    protected Map<JobVehicle, DynamicLabel> unitLabels = new HashMap<>();
-    protected Map<JobVehicle, DynamicSampObject> policeSirens = new HashMap<>();
 
     private JobManager() {
         factions = LtrpGamemode.getDao().getJobDao().getFactions();
@@ -94,6 +93,7 @@ public class JobManager {
 
         TrashmanManager manager = TrashmanManager.getInstance();
         VehicleThiefManager vehicleThiefManager = VehicleThiefManager.getInstance();
+        PolicemanManager policemanManager = PolicemanManager.getInstance();
 
         eventManager.registerHandler(GameModeExitEvent.class, e -> {
 
@@ -111,23 +111,6 @@ public class JobManager {
         });
 
 
-
-
-
-        eventManager.registerHandler(VehicleDeathEvent.class, e -> {
-            LtrpVehicle vehicle = LtrpVehicle.getById(e.getVehicle().getId());
-            JobVehicle jobVehicle = JobVehicle.getById(e.getVehicle().getId());
-            if(jobVehicle != null) {
-                if(unitLabels.containsKey(jobVehicle)) {
-                    unitLabels.get(jobVehicle).destroy();
-                    unitLabels.remove(jobVehicle);
-                }
-                if(policeSirens.containsKey(jobVehicle)) {
-                    policeSirens.get(jobVehicle).destroy();
-                    policeSirens.remove(jobVehicle);
-                }
-            }
-        });
 
 
         logger.info("Job manager initialized");
