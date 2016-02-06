@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -325,12 +326,16 @@ public class FileJobDaoImpl implements JobDao {
         AngledLocation location = new AngledLocation();
 
         while((line = bf.readLine()) != null) {
+            Matcher matcher = sectionTagPattern.matcher(line);
             String section = null;
-            if(sectionTagPattern.matcher(line).find()) {
-                Rank rank = job.getRank(rankid);
-                JobVehicle jobVehicle = JobVehicle.create(job, model, location, color1, color2, rank);
-                jobVehicle.setId(id);
-                jobVehicles.put(rank, jobVehicle);
+            if(matcher.find()) {
+                section = matcher.group();
+                if(model > 0) {
+                    Rank rank = job.getRank(rankid);
+                    JobVehicle jobVehicle = JobVehicle.create(job, model, location, color1, color2, rank);
+                    jobVehicle.setId(id);
+                    jobVehicles.put(rank, jobVehicle);
+                }
             }
             if(line.contains("=")) {
                 String key = line.substring(0, line.indexOf("=")).trim().toLowerCase();
