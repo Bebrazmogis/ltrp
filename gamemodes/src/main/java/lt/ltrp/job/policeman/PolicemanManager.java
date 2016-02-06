@@ -1,6 +1,7 @@
 package lt.ltrp.job.policeman;
 
 import lt.ltrp.LtrpGamemode;
+import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.job.policeman.modelpreview.RoadblockModelPreview;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.plugin.streamer.DynamicLabel;
@@ -13,6 +14,7 @@ import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;
+import net.gtaun.util.event.HandlerPriority;
 
 import java.util.*;
 
@@ -39,6 +41,7 @@ public class PolicemanManager  {
     protected Map<JobVehicle, DynamicSampObject> policeSirens = new HashMap<>();
     protected Map<LtrpPlayer, DragTimer> dragTimers;
     private List<HandlerEntry> eventHandlers;
+    private PlayerCommandManager commandManager;
 
 
     public PolicemanManager() {
@@ -50,6 +53,9 @@ public class PolicemanManager  {
         this.roadblockPreview = RoadblockModelPreview.get();
 
         this.job = LtrpGamemode.getDao().getJobDao().getPoliceFaction(JOB_ID);
+
+        commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
+        commandManager.registerCommands(new PoliceCommands(job, eventManager, unitLabels, policeSirens, dragTimers));
 
         eventHandlers.add(eventManager.registerHandler(VehicleDeathEvent.class, e -> {
             JobVehicle jobVehicle = JobVehicle.getById(e.getVehicle().getId());
