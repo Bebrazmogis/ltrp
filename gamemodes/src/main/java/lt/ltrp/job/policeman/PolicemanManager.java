@@ -1,5 +1,6 @@
 package lt.ltrp.job.policeman;
 
+import lt.ltrp.InitException;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.job.policeman.modelpreview.RoadblockModelPreview;
@@ -16,6 +17,7 @@ import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;
 import net.gtaun.util.event.HandlerPriority;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -52,7 +54,11 @@ public class PolicemanManager  {
         this.eventHandlers = new ArrayList<>();
         this.roadblockPreview = RoadblockModelPreview.get();
 
-        this.job = LtrpGamemode.getDao().getJobDao().getPoliceFaction(JOB_ID);
+        try {
+            this.job = LtrpGamemode.getDao().getJobDao().getPoliceFaction(JOB_ID);
+        } catch (IOException e) {
+           throw new InitException("Policeman manager initialization failed", e);
+        }
 
         commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
         commandManager.registerCommands(new PoliceCommands(job, eventManager, unitLabels, policeSirens, dragTimers));
