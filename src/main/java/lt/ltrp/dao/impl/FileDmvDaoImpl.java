@@ -19,7 +19,6 @@ import java.util.Properties;
 
 public class FileDmvDaoImpl implements DmvDao {
 
-    private static final FilenameFilter dmvDirectoryFilter = (file, name) -> name.contains("-");
     private static final FileFilter dmvDataFileFilter = file -> file.getName().endsWith(".dat");
     private static final Logger logger = LoggerFactory.getLogger(FileDmvDaoImpl.class);
 
@@ -183,6 +182,7 @@ public class FileDmvDaoImpl implements DmvDao {
 
     /**
      * Parses a list of DMV questions. Questions and answers must be in key-value format separated by "=". To mark an answer the correct one, add "true" anywhere to the key, if it is not present, answer will be marked as false one.
+     * Question keys must be named "question", answer key names are chosen freely and are ignored but it still must be in key-value format
      * @param file file to read from
      * @return returns a {@link java.util.List} of {@link lt.ltrp.dmv.DmvQuestion}
      * @throws IOException
@@ -364,9 +364,6 @@ public class FileDmvDaoImpl implements DmvDao {
      * @return dmv id or {@link lt.ltrp.dao.DmvDao#INVALID_ID} if folder name is in invalid format
      */
     private int idFromFilename(File file) {
-        if(!file.isDirectory()) {
-            return DmvDao.INVALID_ID;
-        }
         int index;
         try {
             if((index = file.getName().indexOf("-")) == -1) {
@@ -385,7 +382,7 @@ public class FileDmvDaoImpl implements DmvDao {
      * @return DMV's data directory
      */
     private File getDmvDirecotry(Dmv dmv) {
-        File[] folders = dataDirectory.listFiles(dmvDirectoryFilter);
+        File[] folders = dataDirectory.listFiles();
         if (folders != null) {
             for (File dmvFolder : folders) {
                 int id = idFromFilename(dmvFolder);
