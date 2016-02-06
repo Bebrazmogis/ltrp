@@ -104,11 +104,8 @@ public class PoliceCommands extends Commands{
                         else
                             player.sendErrorMessage("Ðià komandà galite naudot tik bûdami darbo tranporto priemonëje");
                     } else if(jobAreaCommands.contains(cmd)) {
-                        Location playerLocation = player.getLocation();
-                        for(Area3D area : job.getWorkAreas()) {
-                            if(area.isInRange(playerLocation)) {
-                                return true;
-                            }
+                        if(job.isAtWork(player)) {
+                            return true;
                         }
                         player.sendErrorMessage("Ðià komandà galite naudot tik bûdami darbo bûstinëje.");
                     } else {
