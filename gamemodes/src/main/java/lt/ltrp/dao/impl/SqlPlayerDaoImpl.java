@@ -241,16 +241,16 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     }
 
     @Override
-    public void insertCrime(String suspect, String crime, String reporterName) {
+    public void insertCrime(PlayerCrime crime) {
         String sql = "INSERT INTO player_crimes (`name`, crime, reporter, `date`) VALUES(?, ?, ?, ?)";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
-            stmt.setString(1, suspect);
-            stmt.setString(2, crime);
-            stmt.setString(3, reporterName);
-            stmt.setDate(4, new Date(Instant.now().getEpochSecond()));
+            stmt.setString(1, crime.getPlayerName());
+            stmt.setString(2, crime.getCrime());
+            stmt.setString(3, crime.getReporterName());
+            stmt.setDate(4, new Date(crime.getDate().getTime()));
             stmt.execute();
         } catch(SQLException e) {
             e.printStackTrace();
@@ -273,7 +273,8 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                         result.getString("name"),
                         result.getString("reporter"),
                         result.getString("crime"),
-                        result.getDate("date")
+                        result.getDate("date"),
+                        result.getInt("fine")
                 ));
             }
         } catch(SQLException e) {
