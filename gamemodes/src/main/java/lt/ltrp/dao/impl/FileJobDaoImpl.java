@@ -4,6 +4,7 @@ import com.mchange.io.impl.EndsWithFilenameFilter;
 import lt.ltrp.dao.JobDao;
 import lt.ltrp.data.NamedLocation;
 import lt.ltrp.job.*;
+import lt.ltrp.job.policeman.OfficerJob;
 import lt.ltrp.job.trashman.TrashMission;
 import lt.ltrp.job.trashman.TrashMissions;
 import lt.ltrp.job.vehiclethief.VehicleThiefJob;
@@ -568,6 +569,30 @@ public class FileJobDaoImpl implements JobDao {
             }
         }
         return trashMissions;
+    }
+
+    @Override
+    public OfficerJob getPoliceFaction(int jobid) throws IOException {
+        OfficerJob officerJob = new OfficerJob(jobid);
+        File[] factionDirectories = factionDirectory.listFiles();
+        if(factionDirectories != null && factionDirectories.length > 0) {
+            for(File factionDir : factionDirectories) {
+                int id = toId(factionDir);
+                if(id == jobid) {
+                    File[] dataFiles = factionDir.listFiles();
+                    for(File dataFile : dataFiles) {
+                        if(dataFile.getName().equalsIgnoreCase("main.dat")) {
+                            parseFactionData(officerJob, dataFile);
+                        } else if(dataFile.getName().equalsIgnoreCase("vehicles.dat")) {
+                            parseFactionVehicles(officerJob, dataFile);
+                        } else if(dataFile.getName().equalsIgnoreCase("ranks.dat")) {
+                            parseFactionRanks(officerJob, dataFile);
+                        }
+                    }
+                }
+            }
+        }
+        return officerJob;
     }
 
     private TrashMission parseTrashMission(File file) throws IOException {

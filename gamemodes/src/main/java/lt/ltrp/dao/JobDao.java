@@ -4,9 +4,11 @@ import lt.ltrp.data.Color;
 import lt.ltrp.job.ContractJob;
 import lt.ltrp.job.Faction;
 import lt.ltrp.job.Job;
+import lt.ltrp.job.policeman.OfficerJob;
 import lt.ltrp.job.trashman.TrashMissions;
 import lt.ltrp.job.vehiclethief.VehicleThiefJob;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -72,4 +74,11 @@ public interface JobDao {
      */
     TrashMissions getTrashMissions();
 
+    /**
+     * Reads the policeman job data
+     * @param jobid hardcoded job id which indicates where should the data be loaded from
+     * @return an instance of {@link lt.ltrp.job.policeman.OfficerJob}  in any case
+     *  @throws IOException if an error occurs while reading the data
+     */
+    OfficerJob getPoliceFaction(int jobid) throws IOException;
 }
