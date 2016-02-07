@@ -80,7 +80,10 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     @Override
     public boolean loadData(LtrpPlayer player) {
         boolean loaded = false;
-        String sql = "SELECT secret_question, secret_answer, admin_level, level, job, money, connected_time, box_style, age, respect, bank_money, deaths, hunger FROM players WHERE id = ? LIMIT 1";
+        String sql = "SELECT " +
+                "secret_question, secret_answer, admin_level, level, job_id, money, connected_time, box_style, age, respect, bank_money, deaths, hunger " +
+                ", player_job_levels.level AS job_level, player_job_levels.hours AS job_hours, player_job_levels.xp AS job_xp LEFT JOIN player_job_levels ON players.id = player_job_levels.player_id AND players.job_id = player_job_levels.job_id" +
+                "FROM players WHERE id = ? LIMIT 1";
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
@@ -91,7 +94,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setAdminLevel(result.getInt("admin_level"));
                 player.setLevel(result.getInt("level"));
                 player.setMoney(result.getInt("money"));
-                player.setJob(Job.get(result.getInt("job")));
+                player.setJob(Job.get(result.getInt("job_id")));
                 player.setSecretQuestion(result.getString("secret_question"));
                 player.setSecretAnswer(result.getString("secret_answer"));
                 player.setConnectedTime(result.getInt("connected_time"));
@@ -101,6 +104,13 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setBankMoney(result.getInt("bank_money"));
                 player.setDeaths(result.getInt("deaths"));
                 player.setHunger(result.getInt("hunger"));
+
+                int jobLevel = result.getInt("job_level");
+                if(!result.wasNull()) {
+                    player.setJobLevel(jobLevel);
+                    player.setJobHours(result.getInt("job_hours"));
+                    player.setJobExperience(result.getInt("job_xp"));
+                }
                 loaded = true;
             }
         } catch(SQLException e) {
