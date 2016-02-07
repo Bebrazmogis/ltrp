@@ -192,4 +192,19 @@ public class ItemCommands {
         }
         return false;
     }
+
+    @Command
+    @CommandHelp("Nustato racijos daþná")
+    public boolean setFrequency(LtrpPlayer player, float frequency) {
+        if(!player.getInventory().containsType(ItemType.Radio)) {
+            player.sendErrorMessage("Jûs neturite racijos!");
+        } else {
+            RadioItem item = (RadioItem)player.getInventory().getItem(ItemType.Radio);
+            item.setFrequency(frequency);
+            player.getInfoBox().setRadio(item);
+            player.sendActionMessage("Iðsitraukia racijà ir pakeièia daþná..");
+            return true;
+        }
+        return false;
+    }
 }

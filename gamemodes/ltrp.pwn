@@ -4303,7 +4303,6 @@ public OnPlayerText(playerid, text[])
     if(Mires[playerid] > 0)
     {
         SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jûs esate komos/kritinëje bûsenoje.");
-        UpdatePlayerInfoText( playerid );
         return false;
     }
     if(Mute[playerid] == true)
@@ -6513,32 +6512,12 @@ CMD:rlow( playerid, params[ ] )
 }
 CMD:setchannel( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pRChannel ] == 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis radijo komandomis savo inventoriuje neturëdami radijo.." );
-    new giveplayerid,
-        slot;
-    if ( sscanf( params, "dd", slot, giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /setchanel [KANALO VIETA NUO 1-3] [KANALO NUMERIS]");
-    if ( Mires[ playerid ] > 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje." );
-    if ( giveplayerid == 911 && PlayerFaction( playerid ) != 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, ðis kanalo numeris naudojamas frakcijose, tad negalite naudoti ðio kanalo Jûs." );
-    if ( giveplayerid == 912 && PlayerFaction( playerid ) != 2 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, ðis kanalo numeris naudojamas frakcijose, tad negalite naudoti ðio kanalo Jûs." );
-    if ( giveplayerid < 100 || giveplayerid > 100000 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, pasirinkti racijos kanalà galite nuo 100 iki 100000." );
-    SendClientMessage( playerid, COLOR_LIGHTRED2, "Sëkmingai nustatytas racijos kanalas, dabar galite per já kalbëti naudodami /r." );
-    pInfo[ playerid ][ pRChannel ] = giveplayerid;
-    pInfo[ playerid ][ pRSlot ] = slot;
-    SaveAccount( playerid );
-    UpdatePlayerInfoText( playerid );
+    SendClientMessage(playerid, COLOR_RED, "Klaida. Naudokite /setfrequency [Daþnis]");
     return 1;
 }
 CMD:setslot( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pRChannel ] == 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis radijo komandomis savo inventoriuje neturëdami radijo.." );
-    if ( pInfo[ playerid ][ pRChannel ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nustatykite racijos kanalà su komanda /setchannel, kad galëtumëte naudotis ðiuo veiksmu.." );
-    new giveplayerid;
-    if ( sscanf( params, "d", giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /setslot [1-3]");
-    if ( giveplayerid < 1 || giveplayerid > 3 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Dëmesio, radijo kanalø vietos ribojamos nuo 1 iki 3." );
-    if ( Mires[ playerid ] > 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje." );
-    SendClientMessage( playerid, COLOR_LIGHTRED2, "Sëkmingai buvo nustatytas pasirinktas radijo kanalas." );
-    pInfo[ playerid ][ pRSlot ] = giveplayerid;
-    UpdatePlayerInfoText( playerid );
+    SendClientMessage(playerid, COLOR_RED, "Klaida. Naudokite /setfrequency [Daþnis]");
     return 1;
 }
 CMD:o( playerid, params[ ] )
