@@ -6,10 +6,20 @@ package lt.ltrp.constant;
  */
 public enum LicenseType {
 
-    Car,
-    Aircraft,
-    Ship,
-    Motorcycle,
-    Gun,
+    Car("Autobilio"),
+    Aircraft("Oro transporto"),
+    Ship("Jûrininkystës"),
+    Motorcycle("Motociklo"),
+    Gun("Ginklo"),
     ;
+
+    private String name;
+
+    LicenseType(String s) {
+        this.name = s;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
