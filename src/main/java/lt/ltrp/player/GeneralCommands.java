@@ -1,5 +1,7 @@
 package lt.ltrp.player;
 
+import lt.ltrp.command.CommandParam;
+import lt.ltrp.data.Color;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -33,6 +35,23 @@ public class GeneralCommands {
         Logger.getLogger(getClass().getSimpleName()).log(Level.INFO, "GeneralCommands :: inv called");
         p.sendMessage(p.getInventory().getName());
         p.getInventory().show(p);
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Parodo jûsø turimas licenzijas pasirinktam þaidëjui")
+    public boolean licenses(LtrpPlayer player, @CommandParam("Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        if(target == null) {
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        } else if(player.getDistanceToPlayer(target) > 5f) {
+            player.sendErrorMessage(target.getCharName() + " yra per toli!");
+        } else {
+            target.sendMessage(Color.GREEN, String.format("|________%s licencijos________|", player.getCharName()));
+            for(PlayerLicense license : player.getLicenses().get()) {
+                player.sendMessage(Color.WHITE, String.format("Licenzijos tipas:%s Iðlaikymo data: %s Áspëjimø skaièius: %d",
+                        license.getType(), license.getDateAquired(), license.getWarnings().length));
+            }
+        }
         return false;
     }
 }
