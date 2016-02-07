@@ -38,7 +38,7 @@ public class LtrpPlayer implements Player {
 
     private int userId, adminLevel, level;
 
-    private String password;
+    private String password, secretAnswer, secretQuestion;
     private JailData jailData;
     private Property property;
     private Inventory inventory;
@@ -50,7 +50,8 @@ public class LtrpPlayer implements Player {
     private PlayerInfoBox infoBox;
     private PlayerLicenses licenses;
     private boolean seatbelt, masked, cuffed;
-    private int jobExperience;
+    private int jobExperience, connectedTime, boxStyle, age, respect, bankMoney, deaths, hunger;
+    private SpawnData spawnData;
     /**
      * Not necessarily all existing player vehicles, just the ones that are currently loaded( or not spawned)
      * Basically lazy loading is used, if the vehicle was loaded once it will be stored
@@ -387,6 +388,82 @@ public class LtrpPlayer implements Player {
             this.setSpecialAction(SpecialAction.NONE);
             getAttach().getSlot(0).remove();
         }
+    }
+
+    public SpawnData getSpawnData() {
+        return spawnData;
+    }
+
+    public void setSpawnData(SpawnData spawnData) {
+        this.spawnData = spawnData;
+    }
+
+    public String getSecretAnswer() {
+        return secretAnswer;
+    }
+
+    public void setSecretAnswer(String secretAnswer) {
+        this.secretAnswer = secretAnswer;
+    }
+
+    public String getSecretQuestion() {
+        return secretQuestion;
+    }
+
+    public void setSecretQuestion(String secretQuestion) {
+        this.secretQuestion = secretQuestion;
+    }
+
+    public void setConnectedTime(int connectedTime) {
+        this.connectedTime = connectedTime;
+    }
+
+    public int getBoxStyle() {
+        return boxStyle;
+    }
+
+    public void setBoxStyle(int boxStyle) {
+        this.boxStyle = boxStyle;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getRespect() {
+        return respect;
+    }
+
+    public void setRespect(int respect) {
+        this.respect = respect;
+    }
+
+    public int getDeaths() {
+        return deaths;
+    }
+
+    public void setDeaths(int deaths) {
+        this.deaths = deaths;
+    }
+
+    public int getHunger() {
+        return hunger;
+    }
+
+    public void setHunger(int hunger) {
+        this.hunger = hunger;
+    }
+
+    public int getBankMoney() {
+        return bankMoney;
+    }
+
+    public void setBankMoney(int bankMoney) {
+        this.bankMoney = bankMoney;
     }
 
     public boolean isInComa() {
