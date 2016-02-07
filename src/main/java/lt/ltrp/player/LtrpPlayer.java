@@ -50,7 +50,7 @@ public class LtrpPlayer implements Player {
     private PlayerInfoBox infoBox;
     private PlayerLicenses licenses;
     private boolean seatbelt, masked, cuffed;
-    private int jobExperience, connectedTime, boxStyle, age, respect, bankMoney, deaths, hunger;
+    private int jobExperience, jobLevel, jobHours, connectedTime, boxStyle, age, respect, bankMoney, deaths, hunger;
     private SpawnData spawnData;
     /**
      * Not necessarily all existing player vehicles, just the ones that are currently loaded( or not spawned)
@@ -200,6 +200,22 @@ public class LtrpPlayer implements Player {
 
     public void setJobExperience(int jobExperience) {
         this.jobExperience = jobExperience;
+    }
+
+    public int getJobHours() {
+        return jobHours;
+    }
+
+    public void setJobHours(int jobHours) {
+        this.jobHours = jobHours;
+    }
+
+    public int getJobLevel() {
+        return jobLevel;
+    }
+
+    public void setJobLevel(int jobLevel) {
+        this.jobLevel = jobLevel;
     }
 
     public boolean isSeatbelt() {
