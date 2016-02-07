@@ -440,6 +440,7 @@ public class LtrpPlayer implements Player {
 
     public void setBoxStyle(int boxStyle) {
         this.boxStyle = boxStyle;
+        setFightStyle(FightStyle.get(boxStyle));
     }
 
     public int getAge() {
