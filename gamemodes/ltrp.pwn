@@ -623,12 +623,7 @@ enum E_PLAYER_SPAWN_LOCATIONS
 
 enum players
 {
-    pPassword,
-    pMoney,
-    pBank,
     pExp,
-    pAdmin,
-    pSkin,
     pMask,
     pWarn,
     pJailTime,
@@ -655,16 +650,8 @@ enum players
     pLiga,
     pJob,
     pJobContr,
-    pLicMoto,
-    pLicCar,
-    pLicHeli,
-    pLicBoat,
-    pLicWeapon,
     pPayCheck,
     pPayDayHad,
-    pBoxStyle,
-    pDeaths,
-    pOnTime,
     pGun[MAX_SAVED_WEAPONS],
     pAmmo[MAX_SAVED_WEAPONS],
     pOrigin[MAX_PLAYER_NAME],
@@ -3641,7 +3628,7 @@ stock SaveAccount(playerid)
     mysql_real_escape_string(pInfo[playerid][pCard], string2);
     mysql_real_escape_string(pInfo[playerid][pForumName], string3);
 
-    format(string, sizeof(string), "UPDATE players SET Money = '%d', Level = '%d', AdminLevel = '%d', Respect = '%d', Bank = '%d'", pInfo[ playerid ][ pMoney ], pInfo[ playerid ][ pLevel ], pInfo[ playerid ][ pAdmin ], pInfo[ playerid ][ pExp ], pInfo[ playerid ][ pBank ] );
+    format(string, sizeof(string), "UPDATE players SET Money = '%d', Level = '%d', AdminLevel = '%d', Respect = '%d', Bank = '%d'", pInfo[ playerid ][ pMoney ], pInfo[ playerid ][ pLevel ], pInfo[ playerid ][ pAdmin ], pInfo[ playerid ][ pExp ], GetPlayerBankMoney(playerid) );
     format(string, sizeof(string), "%s, Skinas = '%d', Warnings = '%d', JailTime = '%d', Jailed = '%d', pDubKey = '%d'", string, pInfo[ playerid ][ pSkin ], pInfo[ playerid ][ pWarn ], pInfo[ playerid ][ pJailTime ], pInfo[ playerid ][ pJail ], pInfo[ playerid ][ pDubKey ] );
     format(string, sizeof(string), "%s, DriverWarn = '%d', Tester = '%d', pFines = '%d', pPFines = '%d'", string, pInfo[ playerid ][ pDriverWarn ], pInfo[ playerid ][ pTester ], pInfo[ playerid ][ pFines ], pInfo[ playerid ][ pPaydFines ] );
     format(string, sizeof(string), "%s, House = '%d', PhoneNr = '%d', Leader = '%d', Member = '%d', Rank = '%d'", string, pInfo[ playerid ][ pHouseKey ], pInfo[ playerid ][ pPhone ], pInfo[ playerid ][ pLead ], pInfo[ playerid ][ pMember ], pInfo[ playerid ][ pRank ] );
@@ -4077,8 +4064,8 @@ public OnPlayerRequestClass(playerid, classid)
         return 1;
     }
     
-    if( PlayerOn[ playerid ] )
-        SpawnPlayerEx( playerid );
+    //if( PlayerOn[ playerid ] )
+    //    SpawnPlayerEx( playerid );
     return false;
 }
 
@@ -4103,11 +4090,6 @@ stock GetPlayerTotalPaycheck(playerid)
 stock SetPlayerTotalPaycheck(playerid, value)
     return pInfo[ playerid ][ pTotalPaycheck ] = value;
 
-stock GetPlayerBankMoney(playerid)
-    return pInfo[ playerid ][ pBank ];
-
-stock SetPlayerBankMoney(playerid, value)
-    return pInfo[ playerid ][ pBank ] = value;
 
 //stock GetPlayerPhoneNumber(playerid)
 //    return pInfo[ playerid ][ pPhone ];
@@ -4257,8 +4239,8 @@ public OnPlayerConnect(playerid)
 stock NullPlayerInfo( playerid )
 {
 //    pInfo[ playerid ][ pLevel    ] = 1;
-    pInfo[ playerid ][ pMoney    ] = 0;
-    pInfo[ playerid ][ pBank     ] = 0;
+    //pInfo[ playerid ][ pMoney    ] = 0;
+    //pInfo[ playerid ][ pBank     ] = 0;
     pInfo[ playerid ][ pExp      ] = 0;
     PlayerOn[ playerid ] = false;
     pInfo[ playerid ][ pAdmin    ] = 0;
@@ -7143,7 +7125,7 @@ CMD:transfer( playerid, params[ ] )
     if ( playerid == giveplayerid ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: ginklø/pinigø sau duoti negalite." );
     if ( !IsPlayerConnected( giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
     if ( items < 0 || items > 999999 ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: perduodama suma negali bûti maþesnë nei 0 ir didesnë negu 999999 " );
-    if ( pInfo[playerid][pBank] < items ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: neturite tiek pinigø. ");
+    if ( GetPlayerBankMoney(playerid) < items ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: neturite tiek pinigø. ");
 
     GetPlayerIp( playerid, IP, 16 );
     GetPlayerIp( giveplayerid, IP2, 16 );
@@ -7165,8 +7147,8 @@ CMD:transfer( playerid, params[ ] )
     PayLog           ( pInfo[ playerid ][ pMySQLID ], 15, pInfo[ giveplayerid ][ pMySQLID ], items );
     PayLog           ( pInfo[ giveplayerid ][ pMySQLID ], 14, pInfo[ playerid ][ pMySQLID ], items );
 
-    pInfo[playerid][pBank] -= items;
-    pInfo[giveplayerid][pBank] += items;
+    SetPlayerBankMoney(playerid, GetPlayerBankMoney(playerid) - items);
+    SetPlayerBankMoney(giveplayerid, GetPlayerBankMoney(giveplayerid) + items);
 
     SaveAccount      ( playerid );
     SaveAccount      ( giveplayerid );
@@ -7178,7 +7160,7 @@ CMD:bank( playerid, params[ ] )
     if ( NearBankomat( playerid ) && !IsPlayerInAnyVehicle( playerid ) )
     {
         new string[ 64 ];
-        format( string, sizeof(string), "Jûsø banko sàskaitoje %d$\n Kiek norësite iðsiimti?",pInfo[playerid][pBank]);
+        format( string, sizeof(string), "Jûsø banko sàskaitoje %d$\n Kiek norësite iðsiimti?",GetPlayerBankMoney(playerid));
         ShowPlayerDialog( playerid, 2, DIALOG_STYLE_INPUT, "Bankomatas", string, "Nuimti", "Atðaukti" );
         return 1;
     }
@@ -9343,10 +9325,10 @@ CMD:bail( playerid, params[ ] )
     if( rows )
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti iðpirkos turëdami nesumokëtø baudø.");
 
-    if ( pInfo[playerid][pBank] < GetPVarInt(playerid, "Bail") )
+    if ( GetPlayerBankMoney(playerid) < GetPVarInt(playerid, "Bail") )
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûsø banko sàskaitoje nëra pakankamai pinigø iðpirkai..");
 
-    pInfo[playerid][pBank] -= GetPVarInt(playerid, "Bail");
+    SetPlayerBankMoney(playerid, GetPlayerBankMoney(playerid) - GetPVarInt(playerid, "Bail"));
     pInfo[playerid][pJailTime] = GetPVarInt(playerid, "BailTime");
     SaveAccount( playerid );
     ShowPlayerInfoText( playerid );
@@ -9394,8 +9376,8 @@ CMD:prison( playerid, params[ ] )
         GivePlayerMoney( giveplayerid, -bill );
     else
     {
-        if ( pInfo[giveplayerid][pBank] > bill )
-            pInfo[giveplayerid][pBank] -= bill;
+        if ( GetPlayerBankMoney(giveplayerid) > bill )
+            SetPlayerBankMoney(giveplayerid, GetPlayerBankMoney(giveplayerid) - bill);
     }
     pInfo[giveplayerid][pJailTime] = time*60;
     pInfo[giveplayerid][pJail] = 2;
@@ -9440,8 +9422,8 @@ CMD:arrest( playerid, params[ ] )
         GivePlayerMoney( giveplayerid, -bill );
     else
     {
-        if ( pInfo[giveplayerid][pBank] > bill )
-            pInfo[giveplayerid][pBank] -= bill;
+        if ( GetPlayerBankMoney(giveplayerid) > bill )
+            SetPlayerBankMoney(giveplayerid, GetPlayerBankMoney(giveplayerid) - bill);
     }
     pInfo[giveplayerid][pJailTime] = time*60;
     pInfo[giveplayerid][pJail] = 3;
@@ -17764,14 +17746,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         else if( response == 0 )
         {
-            if( pInfo[ playerid ][ pBank ] < GetPVarInt( playerid, "MOKESTIS" ) )
+            if( GetPlayerBankMoney(playerid) < GetPVarInt( playerid, "MOKESTIS" ) )
             {
                 SendClientMessage( playerid, COLOR_FADE2, "{FF6347}Perspëjimas: Neturite pakankamai pinigø, kad sumoketumëte uþ degalus." );
                 cInfo[ veh ][ cFuel ] = GetPVarInt( playerid, "FILLED" );
                 DeletePVar( playerid, "MOKESTIS" );
                 return 1;
             }
-            pInfo[ playerid ][ pBank ] -= GetPVarInt( playerid, "MOKESTIS" );
+            SetPlayerBankMoney(playerid, GetPlayerBankMoney(playerid) - GetPVarInt( playerid, "MOKESTIS" ));
             ShowInfoText( playerid, "~w~Benzino bakas uzpildytas", 1000 );
             SaveCar( veh );
             DeletePVar( playerid, "MOKESTIS" );
@@ -18018,7 +18000,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                     Jûsø banko sá skaita: $%d\n\
                                     \n========================================\n\
                                     Kokiu bûdu apmokësite baudá ?",
-            GetName( Offer[ playerid ][ 3 ]),GetPVarInt( playerid, "MOKESTIS" ), PlayerMoney[ playerid ], pInfo[ playerid ][ pBank ]);
+            GetName( Offer[ playerid ][ 3 ]),GetPVarInt( playerid, "MOKESTIS" ), PlayerMoney[ playerid ], GetPlayerBankMoney(playerid));
             ShowPlayerDialog(playerid,98,DIALOG_STYLE_MSGBOX,"BAUDOS APMOKËJIMAS",pay,"Grynais","Banku");
             return 1;
         }
@@ -19577,6 +19559,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    /*
     else if ( dialogid == 62 )
     {
         if ( response == 1 )
@@ -19639,7 +19622,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 
             }
         }
-    }
+    }*/
     else if(dialogid == DIALOG_VEHICLE_SHOPS_LIST)
     {
         if(!response)
@@ -20287,7 +20270,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                                     \t- Telefono nr.: \t\t%d\n\
                                                   - Frakcijos ir darbo informacija",
                                                     PlayerMoney[ playerid ],
-                                                    pInfo[ playerid ][ pBank    ],
+                                                    GetPlayerBankMoney(playerid),
                                                     pInfo[ playerid ][ pSavings ],
                                                     pInfo[ playerid ][ pAge     ],
                                                     pInfo[ playerid ][ pSex     ],
@@ -20363,7 +20346,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                                     \t- Telefono nr.: \t\t%d\n\
                                                    -Frakcijos ir darbo informacija",
                                                     PlayerMoney[ playerid ],
-                                                    pInfo[ playerid ][ pBank    ],
+                                                    GetPlayerBankMoney(playerid),
                                                     pInfo[ playerid ][ pSavings ],
                                                     pInfo[ playerid ][ pAge     ],
                                                     pInfo[ playerid ][ pSex     ],
@@ -20403,7 +20386,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 case 0:
                 {
-                    new nextexp = ( pGetPlayerLevel(playerid) + 1 ) * 4;
+                    new nextexp = ( GetPlayerLevel(playerid) + 1 ) * 4;
                     format( string, 349, "{FFFFFF}-Veikëjo OOC informacija\n\
                                             \t- Lygis: \t\t\t%d\n\
                                             \t- Patirtis: \t\t%d/%d\n\
@@ -20439,7 +20422,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                                     \t- Telefono nr.: \t\t%d\n\
                                                    -Frakcijos ir darbo informacija",
                                                     PlayerMoney[ playerid ],
-                                                    pInfo[ playerid ][ pBank    ],
+                                                    GetPlayerBankMoney(playerid),
                                                     pInfo[ playerid ][ pSavings ],
                                                     pInfo[ playerid ][ pAge     ],
                                                     pInfo[ playerid ][ pSex     ],
@@ -20585,14 +20568,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         else if(response == 0)
         {
-            if(pInfo[playerid][pBank] < GetPVarInt( playerid, "MOKESTIS" ))
+            if(GetPlayerBankMoney(playerid) < GetPVarInt( playerid, "MOKESTIS" ))
             {
                 SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Perspëjimas: Neturite pakankamai pinigø, kad sumoketumëte baudá .");
                 DeletePVar( playerid, "MOKESTIS" );
                 SendClientMessage(Offer[playerid][3], COLOR_FADE2, "{FF6347}Perspëjimas: þaidëjas neturi pakankamai pinigu, kad sumokëtu baudá .");
                 return 1;
             }
-            pInfo[playerid][pBank] -= GetPVarInt( playerid, "MOKESTIS" );
+            SetPlayerBankMoney(GetPlayerBankMoney(playerid) - GetPVarInt( playerid, "MOKESTIS" ));
             SendClientMessage(playerid,COLOR_WHITE,"Bauda sumokëta");
             SendClientMessage(Offer[playerid][3],COLOR_WHITE,"Jis sumokëjo baudá .");
             pInfo[ playerid ][ pPaydFines ] += pInfo[ playerid ][ pFines ];
@@ -22536,7 +22519,7 @@ stock ShowPlayerAnswerSetDialog(playerid, question[], errostr[] = "")
     ShowPlayerDialog(playerid, DIALOG_SECRET_ANSWER_SET, DIALOG_STYLE_PASSWORD, "Saugos atsakymas", string, "Tæsti", "Iðeiti");
     return 1;
 }
-
+/*
 public OnPlayerLoginEx(playerid, sqlid)
 {
     #if defined DEBUG
@@ -22561,7 +22544,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         pInfo[ playerid ][ pLiga ] = cache_get_field_content_int(0, "Liga");
         pInfo[ playerid ][ pExp ] = cache_get_field_content_int(0, "Respect");
         pInfo[ playerid ][ pMoney ] = cache_get_field_content_int(0, "Money");
-        pInfo[ playerid ][ pBank ] = cache_get_field_content_int(0, "Bank");
+        GetPlayerBankMoney(playerid) = cache_get_field_content_int(0, "Bank");
         pInfo[ playerid ][ pDeaths ] = cache_get_field_content_int(0, "Deaths");
         pInfo[ playerid ][ pWantedLevel ] = cache_get_field_content_int(0, "WantedLevel");
         pInfo[ playerid ][ pJob ] = cache_get_field_content_int(0, "Job");
@@ -22671,19 +22654,10 @@ public OnPlayerLoginEx(playerid, sqlid)
     else 
         cache_delete(result);
 
-    /*new contactCount = 0;
-    format(string, sizeof(string), "SELECT phone_number, name FROM player_phone_contacts WHERE player_id = %d ORDER BY entry_date ASC", pInfo[ playerid ][ pMySQLID ]);
-    result = mysql_query(DbHandle, string);
-    for(new i = 0; i < cache_get_row_count(); i++)
-    {
-        PlayerPhoneBook[ playerid ][ contactCount ][ PhoneNumber ] = cache_get_field_content_int(i, "phone_number");
-        cache_get_field_content(i, "name", PlayerPhoneBook[ playerid ][ contactCount ][ Name ], DbHandle, 24);
-        contactCount++;
-    }
-    cache_delete(result);
-    */
+
     return 1;
 }
+*/
 
 /*
 stock LoadPlayerKomp(playerid)
@@ -23815,7 +23789,7 @@ stock PayDay( playerid )
 {
         if ( PlayerOn[ playerid ] == false ) return 1;
 
-        new Bank = pInfo[ playerid ][ pBank ],
+        new Bank = GetPlayerBankMoney(playerid),
             //fullPaycheck = pInfo[ playerid ][ pTotalPaycheck ],
             //leftPaycheck = pInfo[ playerid ][ pTotalPaycheck ],
             housekey,
@@ -23932,7 +23906,7 @@ stock PayDay( playerid )
                 format           ( string, sizeof(string), "| Frakcijos nustatyti mokesèiai: %d$ |",ForFact);
                 SendClientMessage( playerid, COLOR_FADE1, string );
             }
-            format(string, sizeof(string), "| Buvæs banko balansas: %d$ |",pInfo[playerid][pBank]); SendClientMessage(playerid, COLOR_WHITE, string);
+            format(string, sizeof(string), "| Buvæs banko balansas: %d$ |",GetPlayerBankMoney(playerid)); SendClientMessage(playerid, COLOR_WHITE, string);
             pInfo[playerid][pPayCheck] -= ( ForGov + ForFact );
             format(string, sizeof(string), "| Palûkanos: %d$ |",palukana); SendClientMessage(playerid, COLOR_FADE1, string);
             SendClientMessage(playerid, COLOR_FADE1, "| Palûkanø procentas: 0.5% |");
@@ -23969,7 +23943,7 @@ stock PayDay( playerid )
             }
             GameTextForPlayer(playerid, "~y~Mokesciai~n~~g~Alga", 5000, 1);
 
-            pInfo[ playerid ][ pBank      ] = Bank;
+            SetPlayerBankMoney(playerid, Bank);
             pInfo[ playerid ][ pOnTime    ] ++;
             pInfo[ playerid ][ pExp ] ++;
 
@@ -23998,7 +23972,7 @@ stock PayDay( playerid )
 }
 /*stock ForcePayDay( playerid )
 {
-        new Bank = pInfo[ playerid ][ pBank ],
+        new Bank = GetPlayerBankMoney(playerid),
             housekey,
             payforhouses,
             payforbiz,
@@ -24091,7 +24065,7 @@ stock PayDay( playerid )
                 format           ( string, 126, " Mokeðèiai frakcijai: $%d",ForFact);
                 SendClientMessage( playerid, COLOR_FADE1, string );
             }
-            format(string, 126, " Balansas: $%d",pInfo[playerid][pBank]); SendClientMessage(playerid, COLOR_FADE1, string);
+            format(string, 126, " Balansas: $%d",GetPlayerBankMoney(playerid)); SendClientMessage(playerid, COLOR_FADE1, string);
             pInfo[playerid][pPayCheck] = pInfo[playerid][pPayCheck] - ForGov - ForFact;
             format(string, 126, " Gautos palûkanos: $%d",palukana); SendClientMessage(playerid, COLOR_FADE1, string);
             SendClientMessage(playerid, COLOR_FADE1, " Palûkanø procentas: 0.5 % ");
@@ -26235,7 +26209,7 @@ stock ShowStats( giveplayerid, playerid )
 		pInfo[playerid][pDonator],pInfo[playerid][pWarn],spawnplace,100+ pInfo[ playerid ][ pHealthLevel ] * 3, pInfo[ playerid ][ pStrengthLevel ]);	
 		SendClientMessage( giveplayerid, COLOR_FADE1, string);		
 		format           ( string, sizeof(string), "|FINANSAI| Grynieji pinigai:[%d$] Banko sàskaitoje:[%d$] Padëtas indëlis:[%d$] Palûkanø procentas: 0.5% " ,
-		PlayerMoney[ playerid ],pInfo[playerid][pBank],pInfo[ playerid ][ pSavings ]);
+		PlayerMoney[ playerid ],GetPlayerBankMoney(playerid),pInfo[ playerid ][ pSavings ]);
 		SendClientMessage( giveplayerid, COLOR_FADE2, string);		
 		format           ( string, sizeof(string), "|DARBAS| Dirba:[%s] Kontraktas:[%d] Rangas darbe:[%s] Patirties taðkai darbe:[%d]" ,
 		GetJobName(pInfo[playerid][pJob]),pInfo[playerid][pJobContr], rankstr,(( pInfo[ playerid ][ pJobLevel ] +1 ) * 100));	

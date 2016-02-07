@@ -591,7 +591,7 @@ public OnPlayerUseMask(playerid, itemid)
 {
 	new bool:found, string[90];
 
-    if(pInfo[ playerid ][ pLevel ] <= 2)
+    if(GetPlayerLevel(playerid) <= 2)
     	return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, veido kaukæ galite uþsidëti tik pasiekæ 3 lygá.");
 
     foreach(Player, x)

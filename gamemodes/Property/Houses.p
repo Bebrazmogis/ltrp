@@ -1719,7 +1719,7 @@ CMD:eat(playerid)
     if(!hInfo[ house_index ][ hUpgrades ][ Refrigerator ])
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûsø name nëra irengta buitinë technika.");
 
-    if(pInfo[ playerid ][ pLevel ] < 2)
+    if(GetPlayerLevel(playerid) < 2)
             return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûsø Lygis per maþas, minimalus 2 Lygis.");
 
     if(GetPVarInt(playerid, "EATING" ) > 1 )
@@ -1781,7 +1781,7 @@ CMD:buyhouse(playerid, params[])
     new house_index = GetPlayerHouseIndex(playerid, true),
         string[70];
 
-    if(pInfo[ playerid ][ pLevel ] < 3)
+    if(GetPlayerLevel(playerid) < 3)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nusipirkti namà galësite tik pasiekæs 3 lygá.");
 
     if(house_index == -1)

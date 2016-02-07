@@ -43,7 +43,7 @@ hook OnPlayerStateChange(playerid, newstate, oldstate)
 		{
 			if(HasVehicleDriver(vehicleid))
 			{
-				if(GetPlayerMoney(playerid) < TaxiVehiclePrice[ vehicleid ] && pInfo[ playerid ][ pBank ] < TaxiVehiclePrice[ playerid ])
+				if(GetPlayerMoney(playerid) < TaxiVehiclePrice[ vehicleid ] && GetPlayerBankMoney(playerid) < TaxiVehiclePrice[ playerid ])
 				{
 					RemovePlayerFromVehicle(playerid);
 					return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs net");
@@ -134,21 +134,21 @@ public OnPlayerLeaveTaxi(playerid, vehicleid)
 			string[ 100 ];
 		if(price <= GetPlayerMoney(playerid))
 			GivePlayerMoney(playerid, -price);
-		else if(price <= pInfo[ playerid ][ pBank ])
-			pInfo[ playerid ][ pBank ] -= price;
+		else if(price <= GetPlayerBankMoney(playerid))
+			SetPlayerBankMoney(playerid, GetPlayerBankMoney(playerid) - price);
 		// Uþtenka pinigø sudëjus bankà ir grynuosius
-		else if(price <= GetPlayerMoney(playerid)+pInfo[ playerid ][ pBank ])
+		else if(price <= GetPlayerMoney(playerid)+ GetPlayerBankMoney(playerid))
 		{
 			price -= GetPlayerMoney(playerid);
 			GivePlayerMoney(playerid, -GetPlayerMoney(playerid));
-			pInfo[ playerid ][ pBank ] -= price;
+			SetPlayerBankMoney(playerid, GetPlayerBankMoney(playerid) - price);
 		}
 		// O jei neuþtenka, paimsim viskà kà turi.
 		else
 		{
-			price = GetPlayerMoney(playerid) + pInfo[ playerid ][ pBank ];
+			price = GetPlayerMoney(playerid) + GetPlayerBankMoney(playerid);
 			GivePlayerMoney(playerid, -GetPlayerMoney(playerid));
-			pInfo[ playerid ][ pBank ] = 0;
+			SetPlayerBankMoney(playerid, 0);
 		}
 
 		GivePlayerMoney(PlayerTaxiDriver[ playerid ], price);
@@ -191,7 +191,7 @@ stock UpdateTaxiInformation(playerid)
 	if(TaxiVehiclePrice[ GetPlayerTaxi(playerid) ] == -1)
 		return 1;
 
-	if(GetPlayerTaxiTripPrice(playerid) > pInfo[ playerid ][ pBank ] + GetPlayerMoney(playerid) && !GetPVarInt(playerid, "Driver_Warned"))
+	if(GetPlayerTaxiTripPrice(playerid) > GetPlayerBankMoney(playerid) + GetPlayerMoney(playerid) && !GetPVarInt(playerid, "Driver_Warned"))
 	{
 		SendClientMessage(PlayerTaxiDriver[ playerid ], COLOR_NEWS, "Jûsø keleiviui baigësi pinigai!");
 		SetPVarInt(playerid, "Driver_Warned", true);

@@ -386,3 +386,76 @@ SaveAccount(playerid)
 	#endif
 	return returned;
 }
+
+AddJobExp(playerid, xp)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling addJobExp(%d, %d)",playerid, xp);
+	#endif
+	new returned = CallShoebillFunction("addJobExp", playerid, xp);
+	#if defined SHOEBILL_DEBUG
+		printf("addJobExp returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}
+
+GetPlayerBankMoney(playerid)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling GetPlayerBankMoney(%d)",playerid);
+	#endif
+	new returned = CallShoebillFunction("getPlayerBankMoney", playerid);
+	#if defined SHOEBILL_DEBUG
+		printf("GetPlayerBankMoney returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}
+
+SetPlayerBankMoney(playerid, moeny)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling setPlayerBankMoney(%d, %d)",playerid, moeny);
+	#endif
+	new returned = CallShoebillFunction("setPlayerBankMoney", playerid, moeny);
+	#if defined SHOEBILL_DEBUG
+		printf("setPlayerBankMoney returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}
+
+
+
+GetPlayerDeaths(playerid)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling getPlayerDeaths(%d)",playerid);
+	#endif
+	new returned = CallShoebillFunction("getPlayerDeaths", playerid);
+	#if defined SHOEBILL_DEBUG
+		printf("getPlayerDeaths returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}
+
+SetPlayerDeaths(playerid, deaths)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling setPlayerDeaths(%d, %d)",playerid, deaths);
+	#endif
+	new returned = CallShoebillFunction("setPlayerDeaths", playerid, deaths);
+	#if defined SHOEBILL_DEBUG
+		printf("setPlayerDeaths returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}
+

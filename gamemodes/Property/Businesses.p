@@ -2479,7 +2479,7 @@ CMD:buybiz(playerid)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, turite stovëti prie verslo áëjimo.");
 
 
-    if(pInfo[ playerid ][ pLevel ] < 4)
+    if(GetPlayerLevel(playerid) < 4)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nusipirkti bizná/verslà galësite tik pasiekæs 4 lygá.");
 
     if(IsBusinessOwned(bizIndex))
