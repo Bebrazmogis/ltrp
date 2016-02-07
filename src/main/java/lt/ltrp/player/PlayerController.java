@@ -230,6 +230,7 @@ public class PlayerController {
                 }
                 return 0;
             }, Integer.class);
+            new GettersSetters(e.getAmxInstance());
            logger.info("PlayerController :: addPawnFunctions :: lambda. Function registered");
         });
         logger.info("PlayerController :: addPawnFunctions.Pawn functions added");
