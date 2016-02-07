@@ -80,7 +80,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     @Override
     public boolean loadData(LtrpPlayer player) {
         boolean loaded = false;
-        String sql = "SELECT admin_level, level, job, money FROM players WHERE id = ? LIMIT 1";
+        String sql = "SELECT secret_question, secret_answer, admin_level, level, job, money, connected_time, box_style, age, respect, bank_money, deaths, hunger FROM players WHERE id = ? LIMIT 1";
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
@@ -92,6 +92,15 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setLevel(result.getInt("level"));
                 player.setMoney(result.getInt("money"));
                 player.setJob(Job.get(result.getInt("job")));
+                player.setSecretQuestion(result.getString("secret_question"));
+                player.setSecretAnswer(result.getString("secret_answer"));
+                player.setConnectedTime(result.getInt("connected_time"));
+                player.setBoxStyle(result.getInt("box_style"));
+                player.setAge(result.getInt("age"));
+                player.setRespect(result.getInt("respect"));
+                player.setBankMoney(result.getInt("bank_money"));
+                player.setDeaths(result.getInt("deaths"));
+                player.setHunger(result.getInt("hunger"));
                 loaded = true;
             }
         } catch(SQLException e) {
