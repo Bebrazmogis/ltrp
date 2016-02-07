@@ -344,3 +344,45 @@ RemovePlayerDrugItems(playerid)
 	#endif
 	return returned;
 }
+
+GetPlayerLevel(playerid)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling GetPlayerLevel(%d)",playerid);
+	#endif
+	new returned = CallShoebillFunction("getPlayerLevel", playerid);
+	#if defined SHOEBILL_DEBUG
+		printf("getPlayerLevel returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}
+
+SetPlayerLevel(playerid, level)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling setPlayerLevel(%d, %d)",playerid, level);
+	#endif
+	new returned = CallShoebillFunction("setPlayerLevel", playerid,level);
+	#if defined SHOEBILL_DEBUG
+		printf("setPlayerLevel returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}
+
+SaveAccount(playerid)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling SaveAccount(%d, %d)",playerid);
+	#endif
+	new returned = CallShoebillFunction("saveAccount", playerid);
+	#if defined SHOEBILL_DEBUG
+		printf("SaveAccount returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}

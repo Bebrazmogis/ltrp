@@ -624,7 +624,6 @@ enum E_PLAYER_SPAWN_LOCATIONS
 enum players
 {
     pPassword,
-    pLevel,
     pMoney,
     pBank,
     pExp,
@@ -1867,7 +1866,7 @@ stock SyncFuel( vehicleid )
     }
     return true;
 }
-
+/*
 stock LoadFuelInfo()
 {
     new Cache:result = mysql_query(DbHandle, "SELECT * FROM `duomenys` ORDER BY Modelis ASC");
@@ -1894,6 +1893,7 @@ stock LoadFuelInfo()
     cache_delete(result);
     return 1;
 }
+*/
 /*
 stock LoadSEnter()
 {
@@ -1938,6 +1938,7 @@ stock UpdateSEnterInfo( i )
     return 1;
 }*/
 
+/*
 LoadStaticVehicles()
 {
     new string[256];
@@ -2004,7 +2005,7 @@ LoadStaticVehicles()
     return 1;
 
 }
-
+*/
 
 GetIndustryCargoStock(index, cargoid)
 {
@@ -2016,7 +2017,7 @@ GetIndustryCargoStock(index, cargoid)
             return Commodities[ i ][ CurrentStock ];
     return 0;
 }
-
+/*
 
 stock LoadFactions()
 {
@@ -2076,6 +2077,7 @@ stock LoadPayDay( i, payday[])
     fInfo[ i ][ fPayDay ][ 13 ]);
     return 1;
 }
+*/
 stock UnLoadFactions()
 {
     foreach(Faction,i)
@@ -2107,6 +2109,7 @@ stock UnLoadFactions()
     Itter_Clear(Faction);
     return 1;
 }
+
 stock LoadMisc()
 {
     new Cache:result;
@@ -2126,7 +2129,7 @@ stock LoadMisc()
 {
     new qLine[60];
 
-    MySQLCheckConnection();
+    MySQLCheckConnection();f
     mysql_query(DbHandle, "SELECT `car`,`house`,`biz` FROM `mokesciai`");
 
     mysql_store_result();
@@ -3625,7 +3628,7 @@ FUNKCIJA:Explosion( Float:x, Float:y, Float:z, object, id, bool:destroy, virw, i
     return 1;
 }
 
-
+/*
 stock SaveAccount(playerid)
 {
     new string[2048],
@@ -3660,6 +3663,7 @@ stock SaveAccount(playerid)
     printf("Vartotojas buvo sëkmingai iðsaugotas duomenø bazëje (uþklausa truko: %d)",strlen(string));
     return 1;
 }
+*/
 main()
 {
     ServerStartTimestamp = gettime();
@@ -3724,10 +3728,10 @@ stock UpdateJacker( spot, vehs1 )
 
 stock LoadServer( )
 {
-    LoadFactions();
+    //LoadFactions();
     LoadMisc();
 //  LoadTax();
-    LoadFuelInfo();
+    //LoadFuelInfo();
    // LoadSEnter();
     //LoadSellCars();
     LoadGarbage();
@@ -3817,8 +3821,8 @@ public OnGameModeInit()
     // Timeriø nustatymai
     SetTimer("Sekunde", 1000, 1);
     SetTimer("MinTime", 60000, 1);
-    SetTimer("Spidometras", 250, 1 );
-    SetTimer("Drugs", 15*60000, 1);
+    //SetTimer("Spidometras", 250, 1 );
+    //SetTimer("Drugs", 15*60000, 1);
 	SetTimer("IndustryUpdate", 60*60*1000, true);
 	SetTimer("CargoShipDeparture",CARGOSHIP_DOCKED_INTERVAL, false);
 	ShipInfo[ LastDepartureTimestamp ] = gettime();
@@ -3876,7 +3880,7 @@ public OnGameModeInit()
     GetVehicleParamsEx(NPCPlane, engine, lights, alarm, doors, bonnet, boot, objective);
     SetVehicleParamsEx(NPCPlane, VEHICLE_PARAMS_ON, VEHICLE_PARAMS_ON, alarm, VEHICLE_PARAMS_ON, bonnet, boot, objective);
 */
-    LoadStaticVehicles();
+    //LoadStaticVehicles();
     /*
     for(new i = 1; i < MAX_VEHICLES; i++)
         if(sVehicles[ i ][ Model ] == 538)
@@ -4252,7 +4256,7 @@ public OnPlayerConnect(playerid)
 
 stock NullPlayerInfo( playerid )
 {
-    pInfo[ playerid ][ pLevel    ] = 1;
+//    pInfo[ playerid ][ pLevel    ] = 1;
     pInfo[ playerid ][ pMoney    ] = 0;
     pInfo[ playerid ][ pBank     ] = 0;
     pInfo[ playerid ][ pExp      ] = 0;
@@ -4592,15 +4596,15 @@ public OnPlayerSpawn(playerid)
             ShowPlayerNameTagForPlayer(i, playerid, pInfo[playerid][pMask]);
         }
     }
-    if( pInfo[ playerid ][ pLevel ] == 0 )
+    if( GetPlayerLevel(playerid) == 0 )
     {
-        pInfo[ playerid ][ pLevel ] = 1;
+        SetPlayerLevel(playerid, 1);
         SetPlayerScore( playerid, 1 );
         SetPlayerTeam( playerid, playerid );
         return 1;
     }
     SetPlayerTeam( playerid, playerid );
-    SetPlayerScore( playerid, pInfo[ playerid ][ pLevel ] );
+    SetPlayerScore( playerid, GetPlayerLevel(playerid));
     //SetTimerEx("GiveWeapons", 2000, 0, "d", playerid );
     return 1;
 }
@@ -5606,7 +5610,7 @@ CMD:pay( playerid, params[ ] )
     if ( sscanf( params, "ud", giveplayerid, items ) )
     return SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /pay [VEIKËJO ID] [PINIGØ SUMA]");
     if ( playerid == giveplayerid ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudoti komandos sau." );
-	if ( pInfo[ playerid ][ pLevel ] < 2 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðia komanda neturëdami antro lygio." );	
+	if ( GetPlayerLevel(playerid) < 2 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðia komanda neturëdami antro lygio." );	
     if ( !IsPlayerConnected( giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodyto ID nëra prisijungæs serveryje.");
     if ( !PlayerToPlayer   ( 5.0, playerid, giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, komanda galite naudoti jei þaidëjas yra ðalia Jûsø.");
     if ( items < 1 || items > 999999 ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, perduodama suma negali bøti maþesnë nei 1$ ar didesnë nei 999999$" );
@@ -7135,7 +7139,7 @@ CMD:transfer( playerid, params[ ] )
     }
     if ( pInfo[ playerid ][ pSavings ] > 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Banku naudotis negalite, kol esate pasidëje terminuotá  indëlá. " );
     if ( !PlayerToPoint( 20.0, playerid, 295.6938,1012.7919,2119.1150 ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate banke" );
-    if ( pInfo[ playerid ][ pLevel ] < 2 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûsø Lygis per maþas, minimalus 2 Lygis. " );
+    if ( GetPlayerLevel(playerid) < 2 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûsø Lygis per maþas, minimalus 2 Lygis. " );
     if ( playerid == giveplayerid ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: ginklø/pinigø sau duoti negalite." );
     if ( !IsPlayerConnected( giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
     if ( items < 0 || items > 999999 ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: perduodama suma negali bûti maþesnë nei 0 ir didesnë negu 999999 " );
@@ -10380,7 +10384,7 @@ CMD:lock(playerid)
 }
 
 
-
+/*
 CMD:v( playerid, params[ ] )
 {
     new idx, select[128], string[ 2048 ], giveplayerid, Float:Kords[ 3 ];
@@ -11325,6 +11329,7 @@ CMD:v( playerid, params[ ] )
     }
     return 1;
 }
+*/
 stock LoadVehicleCargo(sqlid, vehicleid, bool:isStatic = false)
 {
     new query[100],cargoid, amount, Cache:result;
@@ -14654,6 +14659,7 @@ CMD:setstatcar(playerid, params[])
     }
     return 1;
 }
+/*
 CMD:setstat(playerid, params[])
 {
     if( pInfo[ playerid ][ pAdmin ] >= 4 )
@@ -14723,6 +14729,7 @@ CMD:setstat(playerid, params[])
     }
     return 1;
 }
+*/
 CMD:auninvite(playerid, params[])
 {
     if(pInfo[ playerid ][ pAdmin ] >= 4)
@@ -17640,7 +17647,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     printf("[debug] OnDialogResponse(%s, %d, %d, %d, %s)", GetName(playerid), dialogid, response, listitem, inputtext);
     new string[4096];
 
-    if( dialogid == 0 )
+   /* if( dialogid == 0 )
     {
         if( response )
         {
@@ -17736,7 +17743,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         OnPlayerLoginEx(playerid, sqlid);
         return 1;
     }
-    else if(dialogid == 5)
+    */
+    if(dialogid == 5)
     {
         new veh = GetPlayerVehicleID( playerid );
         if( response == 1 )
@@ -20243,7 +20251,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 case 0:
                 {
-                    new nextexp = ( pInfo[ playerid ][ pLevel ] + 1 ) * 4;
+                    new nextexp = ( GetPlayerLevel(playerid) + 1 ) * 4;
                     format( string, 349, "{FFFFFF}-Veikëjo OOC informacija\n\
                                             \t- Lygis: \t\t\t%d\n\
                                             \t- Patirtis: \t\t%d/%d\n\
@@ -20254,7 +20262,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                             \t- Darbo patirtis: \t%d/%d\n\
                                           -Veikëjo IC informacija\n\
                                           -Frakcijos ir darbo informacija",
-                                          pInfo[ playerid ][ pLevel  ],
+                                          GetPlayerLevel(playerid),
                                           pInfo[ playerid ][ pExp    ], nextexp,
                                           pInfo[ playerid ][ pOnTime ],
                                           pInfo[ playerid ][ pWarn   ],
@@ -20319,7 +20327,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 case 0:
                 {
-                    new nextexp = ( pInfo[ playerid ][ pLevel ] + 1 ) * 4;
+                    new nextexp = ( GetPlayerLevel(playerid) + 1 ) * 4;
                     format( string, 349, "{FFFFFF}-Veikëjo OOC informacija\n\
                                             \t- Lygis: \t\t\t%d\n\
                                             \t- Patirtis: \t\t%d/%d\n\
@@ -20330,7 +20338,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                             \t- Darbo patirtis: \t%d/%d\n\
                                           -Veikëjo IC informacija\n\
                                           -Frakcijos ir darbo informacija",
-                                          pInfo[ playerid ][ pLevel  ],
+                                          GetPlayerLevel(playerid),
                                           pInfo[ playerid ][ pExp    ], nextexp,
                                           pInfo[ playerid ][ pOnTime ],
                                           pInfo[ playerid ][ pWarn   ],
@@ -20395,7 +20403,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 case 0:
                 {
-                    new nextexp = ( pInfo[ playerid ][ pLevel ] + 1 ) * 4;
+                    new nextexp = ( pGetPlayerLevel(playerid) + 1 ) * 4;
                     format( string, 349, "{FFFFFF}-Veikëjo OOC informacija\n\
                                             \t- Lygis: \t\t\t%d\n\
                                             \t- Patirtis: \t\t%d/%d\n\
@@ -20406,7 +20414,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                             \t- Darbo patirtis: \t%d/%d\n\
                                           -Veikëjo IC informacija\n\
                                           -Frakcijos ir darbo informacija",
-                                          pInfo[ playerid ][ pLevel  ],
+                                          GetPlayerLevel(playerid),
                                           pInfo[ playerid ][ pExp    ], nextexp,
                                           pInfo[ playerid ][ pOnTime ],
                                           pInfo[ playerid ][ pWarn   ],
@@ -22625,7 +22633,7 @@ public OnPlayerLoginEx(playerid, sqlid)
         
         ResetPlayerMoney( playerid );
         GivePlayerMoney( playerid, pInfo[ playerid ][ pMoney       ] );
-        SetPlayerScore( playerid, pInfo[ playerid ][ pLevel       ] );
+        SetPlayerScore( playerid, GetPlayerLevel(playerid));
         SetPlayerFightingStyle( playerid, pInfo[ playerid ][ pBoxStyle    ] );
         GetPlayerIp(playerid, pInfo[ playerid ][ pConnectionIP ], 18);
 
@@ -22677,7 +22685,7 @@ public OnPlayerLoginEx(playerid, sqlid)
     return 1;
 }
 
-
+/*
 stock LoadPlayerKomp(playerid)
 {
     new string[ 256 ];
@@ -22760,7 +22768,8 @@ stock LoadPlayerKomp(playerid)
     cache_delete(result);
     return 1;
 }
-
+*/
+/*
 // SUTVARKOM SPAWN
 stock SpawnPlayerEx( playerid )
 {
@@ -22999,7 +23008,8 @@ stock SpawnPlayerEx( playerid )
     }
     return SpawnPlayer( playerid );
 }
-
+*/
+/*
 stock returnFuelText( vehicle, model )
 {
     new string[ 26 ],
@@ -23048,6 +23058,7 @@ stock AddJobExp( playerid, exp )
     }
     return 1;
 }
+*/
 
 stock GetVehicleSpeed2( vehid )
 {
@@ -23962,11 +23973,11 @@ stock PayDay( playerid )
             pInfo[ playerid ][ pOnTime    ] ++;
             pInfo[ playerid ][ pExp ] ++;
 
-            if ( ( pInfo[ playerid ][ pLevel ] + 1 ) * 4 <= pInfo[ playerid ][ pExp ] )
+            if ( ( GetPlayerLevel(playerid) + 1 ) * 4 <= pInfo[ playerid ][ pExp ] )
             {
-                pInfo[ playerid ][ pLevel ] ++;
+                SetPlayerLevel(playerid, GetPlayerLevel(playerid) + 1);
                 pInfo[ playerid ][ pExp   ] = 0;
-                SetPlayerScore ( playerid, pInfo[ playerid ][ pLevel ] );
+                SetPlayerScore ( playerid, GetPlayerLevel(playerid));
                 ShowInfoText   ( playerid, "~w~ Sveikiname, kàtik veikëjo lygis pakilo (/levelup).", 4000);
                 PlayerPlaySound( playerid, 1057, 0.0, 0.0, 0.0 );
                 pInfo[ playerid ][ pPoints ]++;
@@ -26170,7 +26181,7 @@ stock ShowStats( giveplayerid, playerid )
 {
         new string[ 180 ],
             spawnplace[ 256 ],
-            nextexp = ( pInfo[ playerid ][ pLevel ] + 1 ) * 4,
+            nextexp = ( GetPlayerLevel(playerid) + 1 ) * 4,
             rankstr[32], 
             hunger[16];
         
@@ -26215,7 +26226,7 @@ stock ShowStats( giveplayerid, playerid )
 		GetName(playerid));  
 		SendClientMessage( giveplayerid, COLOR_GREEN, string );
 		format           ( string, sizeof(string), "|VEIKËJAS| Lygis:[%d] Praþaista valandø:[%d] Patirties taðkai:[%d/%d] Amþius:[%d] Lytis:[%s] Tautybë:[%s]" ,
-		pInfo[playerid][pLevel],pInfo[playerid][pOnTime],pInfo[playerid][pExp],nextexp,pInfo[playerid][pAge],pInfo[playerid][pSex],pInfo[playerid][pOrigin]);
+		GetPlayerLevel(playerid),pInfo[playerid][pOnTime],pInfo[playerid][pExp],nextexp,pInfo[playerid][pAge],pInfo[playerid][pSex],pInfo[playerid][pOrigin]);
 		SendClientMessage( giveplayerid, COLOR_FADE1, string);
 		format           ( string, sizeof(string), "|VEIKËJAS| Telefonas:[%d] Mirèiø skaièius:[%d] Liga:[%s] Alkis:[%s]" ,
 		pInfo[playerid][pPhone],pInfo[playerid][pDeaths],Ligos[pInfo[playerid][pLiga]], hunger);
