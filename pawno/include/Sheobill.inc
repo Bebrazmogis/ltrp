@@ -430,7 +430,6 @@ SetPlayerBankMoney(playerid, moeny)
 }
 
 
-
 GetPlayerDeaths(playerid)
 {
 	#if defined SHOEBILL_DEBUG
@@ -444,6 +443,47 @@ GetPlayerDeaths(playerid)
 	#endif
 	return returned;
 }
+
+
+GetPlayerAdminLevel(playerid)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling getPlayerAdminLevel(%d)",playerid);
+	#endif
+	new returned = CallShoebillFunction("getPlayerAdminLevel", playerid);
+	#if defined SHOEBILL_DEBUG
+		printf("getPlayerAdminLevel returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}
+/*
+GetPlayerConnectedTime(playerid)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling getPlayerConnectedTime(%d)",playerid);
+	#endif
+	new returned = CallShoebillFunction("getPlayerConnectedTime", playerid);
+	#if defined SHOEBILL_DEBUG
+		printf("getPlayerConnectedTime returned %d" returned);
+	#endif
+	return returned;
+}*/
+
+Shoebill_SetPlayerSkin(playerid, skinid)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling setPlayerSkin(%d, %d)",playerid, skinid);
+	#endif
+	CallShoebillFunction("setPlayerSkin", playerid, skinid);
+}
+#if defined _ALS_SetPlayerSkin
+	#undef SetPlayerSkin
+#else 
+	#define _ALS_SetPlayerSkin
+#endif
+#define SetPlayerSkin Shoebill_SetPlayerSkin
 
 SetPlayerDeaths(playerid, deaths)
 {
@@ -459,3 +499,17 @@ SetPlayerDeaths(playerid, deaths)
 	return returned;
 }
 
+
+GetPlayerConnectedTime(playerid)
+{
+	#if defined SHOEBILL_DEBUG
+	printf("Calling getPlayerConnectedTime(%d)",playerid);
+	#endif
+	new returned = CallShoebillFunction("getPlayerConnectedTime", playerid);
+	#if defined SHOEBILL_DEBUG
+		printf("getPlayerConnectedTime returned %d" returned);
+	#else 
+		#pragma unused returned
+	#endif
+	return returned;
+}

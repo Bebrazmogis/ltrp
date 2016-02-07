@@ -1024,99 +1024,6 @@ new
     bool:Gates[sizeof(CloseGate)] = { false, ... },
     Gates2[sizeof(CloseGate)];
 
-/*new const
-Float:Unload[][3] = {
-    {763.0444,-1354.7875,13.5225},
-    {1452.2545,972.6581,10.1163},
-    {1461.8737,971.7272,10.0385},
-    {1469.4023,1039.0527,10.2755},
-    {1702.2316,1039.3301,10.8203},
-    {1695.8961,919.8828,10.8108},
-    {581.2244,1219.8376,11.7113},
-    {265.2401,1411.7606,10.4873},
-    {2800.0212,1265.1563,10.7500},
-    {2817.8079,895.5203,10.0992},
-    {2826.9871,897.7761,10.2876},
-    {2855.1299,896.0623,10.1444},
-    {1695.0026,-1524.2784,13.5469},
-    {763.0444,-1354.7875,13.5225},
-    {549.3511,-1287.3452,17.2482},
-    {1065.2261,-910.7521,43.1026},
-    {990.0439,-920.2379,42.1797},
-    {2683.9336,-1102.4092,69.3428},
-    {2770.3711,-2455.3840,13.6432},
-    {2485.9033,-2388.6299,13.6250},
-    {2187.4497,-2262.9661,13.4604},
-    {2104.3865,-1775.8875,13.3915},
-    {2805.2759,2413.5999,10.8203},
-    {2259.0920,2768.8601,10.8203},
-    {2313.1384,2737.7256,10.8203},
-    {2398.8318,2757.5769,10.8203},
-    {1092.2321,1889.9042,10.8203}
-};
-
-enum LoadEnum
-{
-    Float:Load_x,
-    Float:Load_y,
-    Float:Load_z,
-    lName[54],
-    Place[54]
-}
-new Load[27][LoadEnum] = { // Truckeriø pasikrovimo koordinatës
-    {-158.9481,-288.7355,3.9053, "áaldytas maistas ir kt. produktai", "Blueberry Warehouses"},
-    {-529.8994,-192.3401,78.4063, "Medienos dirbiniai", "Blueberry Sawmill"},
-    {249.4086,-155.8652,1.5703, "áaltieji ginklai ir ju priedai", "Blueberry Gunshop"},
-    {221.5633,23.9464,2.5781, "Popierius", "Blueberry Paper Storage"},
-    {668.6018,-545.7848,16.3359, "Greito maisto prekës, gërimai", "Dillimore Gas Station"},
-    {1071.3800,-341.3764,73.9922, "Traðos", "Dillimore Little Farms"},
-    {1218.2552,297.2307,19.5547, "Medikamentai ir medicininës priemonës", "Montgomery Medical Department"},
-    {1408.9059,459.4633,20.2200, "Greito maisto prekës, gërimai", "Montgomery Gas Station"},
-    {-66.8451,22.5687,3.1172, "Traðos ir ûkines prekës", "Blueberry Farm's"},
-    {55.9868,-190.3508,1.5800, "Sweeper's dalys, valymo árenginiai", "Blueberry Cleaners Office"},
-    {1056.5160,2254.3376,10.6021, "Ginklø dalys", "San Fiero, Garcia"},
-    {2508.4973,-2117.4688,13.3285, "Ginklø dalys", "Los Santos, Willowfield"},
-    {-2109.3601,-2.0539,35.0987, "Ginklø dalys", "Las Venturas, Whitewood estate"},
-    {2113.2981,-1777.9357,13.3905, "Maisto produktai ir kt. produktai", "Idlewood pizza stack co."},
-    {2496.8994,-1752.6255,13.4600, "Kanceliarinës prekës", "Ganton"},
-    {2644.2771,-2024.0822,13.5469, "Automobiliø dalys", "Playa Del Seville"},
-    {1510.6405,-1846.2003,13.5469, "Maisto produktai, patiekalai ir kt. produktai", "Little Tokyo, Los Santos"},
-    {380.5904,-1844.1962,7.8359, "Masalas ir þvejybos inventoriaus prekës", "Verona Bridge"},
-    {2273.6147,-1037.6519,50.8055, "Statybinës medþiagos", "Las Colinas"},
-    {2407.9502,-1406.2452,24.1220, "Metalo atliekos ir kiti metalo dirbiniai", "East Los Santos"},
-    {2486.2080,-2485.8904,13.6505, "þuvies produktai ir þvejybos inventorius", "Ocean Docks garage 1."},
-    {2716.6934,-2492.3401,13.6515, "þuvies produktai ir þvejybos inventorius", "Ocean Docks garage 2."},
-    {2732.0796,-2509.5330,13.6641, "þuvies produktai ir þvejybos inventorius", "Ocean Docks garage 3."},
-    {2783.2754,-2455.8110,13.6348, "þuvies produktai ir þvejybos inventorius", "Ocean Docks garage 13."},
-    {2511.9910,-2397.8843,13.6250, "þuvies produktai ir þvejybos inventorius", "Ocean Docks garage 25."},
-    {2349.8130,-2300.7473,13.5469, "þuvies produktai ir þvejybos inventorius", "Ocean Docks garage 7."},
-    {2280.2583,-2213.8574,13.5469, "þuvies produktai ir þvejybos inventorius", "Ocean Docks garage 9."}
-};*/
-/*
-enum senters
-{
-    sID,
-    Float:sEnter_x,
-    Float:sEnter_y,
-    Float:sEnter_z,
-    Float:sExit_x,
-    Float:sExit_Y,
-    Float:sExit_z,
-    Int,
-    Int2,
-    Wirt,
-    Wirt2,
-    Name[126],
-    Pickup,
-    PickupModel
-}
-
-#define MAX_SENTERS 100
-
-new sEnter[ MAX_SENTERS ][ senters ];
-
-new Iterator:sEnters<MAX_SENTERS>;
-*/
 enum jobs
 {
     Float:Job_x,
@@ -1255,33 +1162,7 @@ stock GetVehiclePrice( model )
     }
     if(count && sum)
         return sum / count;
-    /*
-    new
-        i = 0;
-    while ( i < sizeof( SellCars ) )
-    {
-        if ( SellCars[ i ][ 0 ] == model )
-            return SellCars[ i ][ 1 ];
-
-        i ++;
-    }
-    i = 0;
-    while ( i < sizeof( SportCars ) )
-    {
-        if ( SportCars[ i ][ 0 ] == model )
-            return SportCars[ i ][ 1 ];
-
-        i ++;
-    }
-    i = 0;
-    while ( i < sizeof( SellBikes ) )
-    {
-        if ( SellBikes[ i ][ 0 ] == model )
-            return SellBikes[ i ][ 1 ];
-
-        i ++;
-    }
-    */
+   
     if( model == 473 )
         return 5000;
     if( model == 453 )
@@ -1555,7 +1436,7 @@ stock GetAdminRank( playerid )
     new
         admrank[ 32 ];
 
-    switch ( pInfo[ playerid ][ pAdmin ] )
+    switch ( GetPlayerAdminLevel(playerid) )
     {
         case 1,2: admrank = "Administratorius";
         case 3: admrank = "Vyr. Administratorius";
@@ -1853,146 +1734,6 @@ stock SyncFuel( vehicleid )
     }
     return true;
 }
-/*
-stock LoadFuelInfo()
-{
-    new Cache:result = mysql_query(DbHandle, "SELECT * FROM `duomenys` ORDER BY Modelis ASC");
-    new i = 0,
-        modelis;
-
-    for(i = 0; i < cache_get_row_count(); i++)
-    {
-        if(i >= sizeof vSlotai)
-        {
-            printf("Lentelej 'duomenys' yra daugiau eiluciu(%d) nei gali buti(%d)", cache_get_row_count(), sizeof vSlotai);
-            break;
-        }
-
-        modelis = cache_get_field_content_int(i, "Modelis");
-        if(modelis >= 400)
-        {
-            vBakas[ modelis - 400 ] = cache_get_field_content_int(i, "Bakas");
-            vValgo[ modelis - 400 ] = cache_get_field_content_int(i, "Valgo");
-            vSlotai[ modelis - 400 ] = cache_get_field_content_int(i, "Slotai");
-        }
-        //sscanf(string,"p<|>ddddd", modelis, vBakas[ i ], vValgo[ i ], vSlotai[ i ], vSlotai2[ i ] );
-    }
-    cache_delete(result);
-    return 1;
-}
-*/
-/*
-stock LoadSEnter()
-{
-    new Cache:result = mysql_query(DbHandle, "SELECT * FROM `senters`");
-    
-
-    for(new i = 0; i < cache_get_row_count(); i++)
-    {
-        sEnter[ i ][ sID      ] = cache_get_field_content_int(i, "sID");
-        sEnter[ i ][ sEnter_x ] = cache_get_field_content_float(i, "sEnter_x");
-        sEnter[ i ][ sEnter_y ] = cache_get_field_content_float(i, "sEnter_y");
-        sEnter[ i ][ sEnter_z ] = cache_get_field_content_float(i, "sEnter_z");
-        sEnter[ i ][ sExit_x  ] = cache_get_field_content_float(i, "sExit_x");
-        sEnter[ i ][ sExit_Y  ] = cache_get_field_content_float(i, "sExit_y");
-        sEnter[ i ][ sExit_z  ] = cache_get_field_content_float(i, "sExit_z");
-        sEnter[ i ][ Int      ] = cache_get_field_content_int(i, "Interior");
-        sEnter[ i ][ Int2     ] = cache_get_field_content_int(i, "Interior2");
-        sEnter[ i ][ Wirt     ] = cache_get_field_content_int(i, "Wirt");
-        cache_get_field_content(i, "Name", sEnter[ i ][ Name ], DbHandle, 126);
-        sEnter[ i ][ Wirt2    ] = cache_get_field_content_int(i, "Wirt2");
-        sEnter[ i ][ PickupModel ] = cache_get_field_content_int(i, "PickupModel");
-        UpdateSEnterInfo( i );
-        Itter_Add(sEnters,i);
-    }
-    cache_delete(result);
-    return 1;
-}
-stock UpdateSEnterInfo( i )
-{
-    if ( IsValidDynamicPickup( sEnter[ i ][ Pickup ] ) )
-        DestroyDynamicPickup( sEnter[ i ][ Pickup ] );
-
-    if(!sEnter[ i ][ PickupModel ] )
-        sEnter[ i ][ PickupModel ] = DEFAULT_SENTER_PICKUP_MODEL;
-
-    sEnter[ i ][ Pickup ] = CreateDynamicPickup( sEnter[ i ][ PickupModel ], 1, 
-        sEnter[ i ][ sEnter_x ], 
-        sEnter[ i ][ sEnter_y ], 
-        sEnter[ i ][ sEnter_z ],
-        sEnter[ i ][ Wirt ],
-        sEnter[ i ][ Int2 ]);
-    return 1;
-}*/
-
-/*
-LoadStaticVehicles()
-{
-    new string[256];
-    new Cache:result = mysql_query(DbHandle, "SELECT * FROM `scars` ORDER BY `sFaction` ASC");
-
-    for(new i = 0; i < cache_get_row_count(); i++)
-    {
-        new vehData[ E_STATIC_VEHICLE_DATA ]; 
-        vehData[ Id         ] = cache_get_field_content_int(i, "sID");
-        vehData[ Model       ] = cache_get_field_content_int(i, "sModel");
-        vehData[ SpawnX       ] = cache_get_field_content_float(i, "sCar_x");
-        vehData[ SpawnY       ] = cache_get_field_content_float(i, "sCar_y");
-        vehData[ SpawnZ       ] = cache_get_field_content_float(i, "sCar_z");
-        vehData[ SpawnA      ] = cache_get_field_content_float(i, "sCar_a");
-        vehData[ Color1      ] = cache_get_field_content_int(i, "sColor1");
-        vehData[ Color2      ] = cache_get_field_content_int(i, "sColor2");
-        vehData[ Faction     ] = cache_get_field_content_int(i, "sFaction");
-        vehData[ Rang        ] = cache_get_field_content_int(i, "sRang");
-        vehData[ Job         ] = cache_get_field_content_int(i, "sJob");
-
-        new id = AddStaticVehicleEx( vehData[ Model       ],
-                       vehData[ SpawnX       ],
-                       vehData[ SpawnY       ],
-                       vehData[ SpawnZ       ],
-                       vehData[ SpawnA       ],
-                       vehData[ Color1      ],
-                       vehData[ Color2      ],
-                       -1);
-        sVehicles[ id ] = vehData;
-
-        format( string, 24, "{000000}%s%s%s%d", 
-            random(26) + 65,
-            random(26) + 65,
-            random(26) + 65,
-            id);
-        SetVehicleNumberPlate(id, string );
-        for(new j = 0; j < MAX_TRUCKER_CARGO_OBJECTS; j++)
-            cInfo[ id ][ objectai ][ j ] = -1;
-    }
-    printf("Serveryje yra %d transporto priemones.", cache_get_row_count());
-    cache_delete(result);
-
-	result = mysql_query(DbHandle, "SELECT vehicle_id,cargo_id,amount FROM vehicle_cargo WHERE is_static = 1");
-	
-	new cargoid,vehicleid,amount;
-	for(new i = 0; i < cache_get_row_count(); i++)
-	{
-        vehicleid = cache_get_field_content_int(i, "vehicle_id");
-        cargoid = cache_get_field_content_int(i, "cargo_id");
-        amount = cache_get_field_content_int(i, "amount");
-
-	
-		// Ðitas kodas toks sudëtingai kvailas dël to nes virðuje esantis krovimas neiðsaugo niekur vehicle ID.
-		for(new j = 1; j < i; j++)
-		{
-			if(vehicleid == sVehicles[ j ][ Id ])
-			{
-				for(new k = 0; k < amount; k++)
-					AddCargoToVehicle(j, cargoid, true);
-			}
-		}
-	}
-    cache_delete(result);
-    return 1;
-
-}
-*/
 
 GetIndustryCargoStock(index, cargoid)
 {
@@ -2004,67 +1745,7 @@ GetIndustryCargoStock(index, cargoid)
             return Commodities[ i ][ CurrentStock ];
     return 0;
 }
-/*
 
-stock LoadFactions()
-{
-    new Cache:result, payday[ 126 ];
-
-
-    result = mysql_query(DbHandle, "SELECT * FROM `factions` ORDER BY id ASC");
-
-    for(new i = 0; i < cache_get_row_count(); i++)
-    {
-        fInfo[ i ][ fID ] = cache_get_field_content_int(i, "id");
-        cache_get_field_content(i, "fName", fInfo[ i ][ fName   ], DbHandle, 126);
-        cache_get_field_content(i, "fLeader", fInfo[ i ][ fLeader ], DbHandle, 24);
-        fInfo[ i ][ fSpawn  ][0] = cache_get_field_content_float(i, "fSpawn1");
-        fInfo[ i ][ fSpawn  ][1] = cache_get_field_content_float(i, "fSpawn2");
-        fInfo[ i ][ fSpawn  ][2] = cache_get_field_content_float(i, "fSpawn3");
-        fInfo[ i ][ fSpawn  ][3] = cache_get_field_content_float(i, "fSpawn3");
-        cache_get_field_content(i, "fRank1", fInfo[ i ][ fRank1  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank2", fInfo[ i ][ fRank2  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank3", fInfo[ i ][ fRank3  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank4", fInfo[ i ][ fRank4  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank5", fInfo[ i ][ fRank5  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank6", fInfo[ i ][ fRank6  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank7", fInfo[ i ][ fRank7  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank8", fInfo[ i ][ fRank8  ], DbHandle, 54);
-        fInfo[ i ][ fInt    ] = cache_get_field_content_int(i, "fInt");
-        fInfo[ i ][ fBank   ] = cache_get_field_content_int(i, "fBank");
-        fInfo[ i ][ fMatsPriv ] = cache_get_field_content_int(i, "fMatsPriv");
-        cache_get_field_content(i, "fPayDay", payday);
-        cache_get_field_content(i, "fRank9", fInfo[ i ][ fRank9  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank10", fInfo[ i ][ fRank10  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank11", fInfo[ i ][ fRank11  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank12", fInfo[ i ][ fRank12  ], DbHandle, 54);
-        cache_get_field_content(i, "fRank13", fInfo[ i ][ fRank13  ], DbHandle, 54);
-        LoadPayDay( i, payday );
-        Itter_Add(Faction,i);
-    }
-    printf("Serveryje ðiuo metu yra sukurta (-os): %d frakcija (-os)", cache_get_row_count());
-    cache_delete(result);
-    return 1;
-}
-stock LoadPayDay( i, payday[])
-{
-    sscanf( payday, "p</>ddddddddddddd",
-    fInfo[ i ][ fPayDay ][ 1 ],
-    fInfo[ i ][ fPayDay ][ 2 ],
-    fInfo[ i ][ fPayDay ][ 3 ],
-    fInfo[ i ][ fPayDay ][ 4 ],
-    fInfo[ i ][ fPayDay ][ 5 ],
-    fInfo[ i ][ fPayDay ][ 6 ],
-    fInfo[ i ][ fPayDay ][ 7 ],
-    fInfo[ i ][ fPayDay ][ 8 ],
-    fInfo[ i ][ fPayDay ][ 9 ],
-    fInfo[ i ][ fPayDay ][ 10 ],
-    fInfo[ i ][ fPayDay ][ 11 ],
-    fInfo[ i ][ fPayDay ][ 12 ],
-    fInfo[ i ][ fPayDay ][ 13 ]);
-    return 1;
-}
-*/
 stock UnLoadFactions()
 {
     foreach(Faction,i)
@@ -2112,21 +1793,7 @@ stock LoadMisc()
     cache_delete(result);
     return 1;
 }
-/*stock LoadTax() // Ikraunam mokescius
-{
-    new qLine[60];
 
-    MySQLCheckConnection();f
-    mysql_query(DbHandle, "SELECT `car`,`house`,`biz` FROM `mokesciai`");
-
-    mysql_store_result();
-    mysql_fetch_row(qLine);
-
-    sscanf(qLine,"p<|>dd", housetax, biztax);
-    printf("Mokesciai uz nama %d, uz masina %d, uz versla %d", house, biz);
-    mysql_free_result();
-    return 1;
-}*/
 stock SaveMisc()
 {
     new string[80];
@@ -2375,31 +2042,7 @@ stock SaveSVehicle(vehid)
         return 1;
     return 0;
 }
-/*
-stock SaveSEnter( id )
-{
-    new string[ 512 ],
-        name[ 128 ];
-    mysql_real_escape_string(sEnter[ id ][ Name ],name);
-    format( string, sizeof(string), "UPDATE `senters` SET `sEnter_x`='%f',`sEnter_y`='%f',`sEnter_z`='%f',`sExit_x`='%f',`sExit_y`='%f',`sExit_z`='%f',`Interior`=%d,`Interior2`=%d,`Wirt`=%d,`Name`='%s',Wirt2=%d, PickupModel = %d WHERE `sID`=%d",
-    sEnter[ id ][ sEnter_x ],
-    sEnter[ id ][ sEnter_y ],
-    sEnter[ id ][ sEnter_z ],
-    sEnter[ id ][ sExit_x  ],
-    sEnter[ id ][ sExit_Y  ],
-    sEnter[ id ][ sExit_z  ],
-    sEnter[ id ][ Int      ],
-    sEnter[ id ][ Int2     ],
-    sEnter[ id ][ Wirt     ],
-    name,
-    sEnter[ id ][ Wirt2    ],
-    sEnter[ id ][ PickupModel ],
-    sEnter[ id ][ sID      ]);
 
-    if(mysql_pquery(DbHandle,  string))
-        return 1;
-    return 0;
-}*/
 stock SaveVehicleEx( masina, mode[], count)// Only for Interator
 {
     if ( cInfo[ masina ][ cOwner ] == 0 ) return 0;
@@ -2409,36 +2052,6 @@ stock SaveVehicleEx( masina, mode[], count)// Only for Interator
     return 1;
 }
 
-
-/*
-stock ShowFines( giveplayerid, playerid )
-{
-    new
-        string[ 1024 ],
-        rows,
-        etc[ 3 ][ 128 ],
-        kaina,
-        Cache:result;
-        
-    format( string, 256, "SELECT `id`,`crime`,`price` FROM `tickets` WHERE `name` = '%s' AND `paid` = 0 LIMIT 7", GetPlayerNameEx(playerid) );
-    result = mysql_query(DbHandle,  string );
-    rows = cache_get_row_count();
-
-    format( string, 256, "" );
-
-    for(new i = 0; i < cache_get_row_count(); i++)
-    {
-        rows = cache_get_field_content_int(i, "id");
-        cache_get_field_content(i, "crime", etc[ 0 ]);
-        kaina = cache_get_field_content_int(i, "price");
-        format( string, sizeof( string ),"%sFine #%d [$%d] uþ '%s'\n", string, rows, kaina, etc[ 0 ] );
-    }
-    cache_delete(result);
-    tmpinteger[ giveplayerid ] = playerid;
-    ShowPlayerDialog(giveplayerid,166,DIALOG_STYLE_LIST,"Fine list",string,"Detaliau","Atgal");
-    return 1;
-}
-*/
 stock ShowVehicleFines( giveplayerid, playerid )
 {
     new
@@ -2494,57 +2107,7 @@ stock IsItemInTrunk( vehicle, item )
     }
     return MAX_TRUNK_SLOTS;
 }
-/*
-stock TakeFromTrunk( playerid, veh, slot )
-{
-    if ( !PlayerToCar( 5.0, playerid, veh ) ) return 1;
-    if ( cInfo[ veh ][ cTrunkWeapon ][ slot ] == 0) return 1;
 
-    new string[ 100 ],
-        tmpid = cInfo[ veh ][ cTrunkWeapon ][ slot ];
-    if ( tmpid < 50 && !IsPlayerHaveManyGuns( playerid, tmpid ) )
-    {
-        if ( tmpid > 21 )
-        {
-            if ( pInfo[ playerid ][ pLevel ] < 2 )
-            return SendClientMessage( playerid, COLOR_RED, "Klaida, Jûs privalote bøti pasiekæs 2 lygá, kad naudotumëtës ðia galimybæ." );
-        }
-
-        if( sVehicles[ veh ][ Faction ] != 2 && sVehicles[ veh ][ Faction ] != 3 )
-        {
-            GivePlayerWeapon( playerid, tmpid, cInfo[ veh ][ cTrunkAmmo ][ slot ] );
-            cInfo[ veh ][ cTrunkWeapon ][ slot ] = 0;
-            cInfo[ veh ][ cTrunkAmmo   ][ slot ] = 0;
-            GunLog       ( pInfo[ playerid ][ pMySQLID ], 4, cInfo[ veh ][ cOwner ], GetItemName(tmpid), cInfo[ veh ][ cTrunkAmmo ][ slot ] );
-        }
-        else 
-        {
-            GivePlayerJobWeapon(playerid, tmpid, cInfo[ veh ][ cTrunkAmmo ][ slot ]);
-        }
-    }
-    else if ( tmpid > 50 )
-    {
-        if( IsItemDrug( tmpid ) )
-            NarkLog       ( pInfo[ playerid ][ pMySQLID ], 4, cInfo[ veh ][ cOwner ], GetItemName(tmpid), cInfo[ veh ][ cTrunkAmmo ][ slot ] );
-        if ( tmpid == ITEM_MAGNETOLA )
-            VehicleRadio[ veh ] = 99;
-
-        if(IsPlayerInventoryFull(playerid))
-            return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Klaida, bet Jûsø inventoriuje nepakanka laisvos vietos ðiam daiktui..");
-
-        GivePlayerItem(playerid, tmpid, cInfo[ veh ][ cTrunkAmmo   ][ slot ], cInfo[ veh ][ cTrunkItemContent ][ slot ], cInfo[ veh ][ cTrunkItemDurability ][ slot ]);
-            
-        cInfo[ veh ][ cTrunkWeapon ][ slot ] = 0;
-        cInfo[ veh ][ cTrunkAmmo   ][ slot ] = 0;
-        cInfo[ veh ][ cTrunkItemContent   ][ slot ] = 0;
-        cInfo[ veh ][ cTrunkItemDurability   ][ slot ] = 0;
-    }
-    format(string, sizeof(string), "* %s ið tr. priemonës bagaþinës iðtraukia daiktà atrodantá kaip %s " ,GetPlayerNameEx( playerid ), GetItemName(tmpid));
-    ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-    SaveCar( veh );
-    return 1;
-}
-*/
 FUNKCIJA:CreateAllTrash( )
 {
     for( new i = 0; i < 12; i++ )
@@ -4007,7 +3570,7 @@ AntiDeAMX() {
 
 public OnPlayerAirbreak(playerid)
 {
-    if( pInfo[ playerid ][ pAdmin ] >= 5 )
+    if( GetPlayerAdminLevel(playerid) >= 5 )
         return true;
 
     if ( IsPlayerInAnyVehicle( playerid ) )
@@ -4072,8 +3635,6 @@ public OnPlayerRequestClass(playerid, classid)
 stock GetPlayerSqlId(playerid)
     return pInfo[ playerid ][ pMySQLID ];
 
-stock GetPlayerAdminLevel(playerid)
-    return pInfo[ playerid ][ pAdmin ];
 
 stock GetPlayerHouseKey(playerid)
     return pInfo[ playerid ][ pHouseKey ];
@@ -4243,10 +3804,10 @@ stock NullPlayerInfo( playerid )
     //pInfo[ playerid ][ pBank     ] = 0;
     pInfo[ playerid ][ pExp      ] = 0;
     PlayerOn[ playerid ] = false;
-    pInfo[ playerid ][ pAdmin    ] = 0;
+  //  pInfo[ playerid ][ pAdmin    ] = 0;
     PlayerMoney     [ playerid ] = 0;
 
-    pInfo[ playerid ][ pSkin     ] = 216;
+//    pInfo[ playerid ][ pSkin     ] = 216;
     pInfo[ playerid ][ pMask     ] = 1;
     pInfo[ playerid ][ pJailTime ] = 0;
     pInfo[ playerid ][ pWarn     ] = 0;
@@ -4399,7 +3960,7 @@ public OnPlayerDisconnect(playerid, reason)
     }
 
     if(Mires[playerid] > 0 )
-        pInfo[ playerid ][ pDeaths ] ++;
+        SetPlayerDeaths(playerid, GetPlayerDeaths(playerid) + 1);
 
     if( Mires[ playerid ] == 0 && !IsPlayerInAnyVehicle( playerid ) )
     {
@@ -4644,7 +4205,7 @@ public OnPlayerDeath(playerid, killerid, reason)
     if ( killerid == INVALID_PLAYER_ID ) return 1;
     foreach(Player,i)
     {
-        if ( pInfo[ i ][ pAdmin ] >= 1 )
+        if ( GetPlayerAdminLevel(i) >= 1 )
         {
             if ( GetPVarInt( i, "AP_KILLS" ) == 0 )
             {
@@ -4887,7 +4448,7 @@ CMD:help(playerid)
 	}
     if ( pInfo[ playerid ][ pLead ] > 1 )
         SendClientMessage( playerid, COLOR_WHITE, "  FRAKCIJOS VALDYMAS: /invite /uninvite /setrank /flist /nof /togf" );
-    if ( pInfo[ playerid ][ pAdmin ] > 0 )
+    if ( GetPlayerAdminLevel(playerid) > 0 )
     SendClientMessage( playerid, COLOR_WHITE, "  ADMINISTRATORIUS: Pokalbiai - /a, darbas - /aduty, komandos - /ahelp /togadmin");
     if ( pInfo[ playerid ][ pDonator ] > 0 )
         SendClientMessage( playerid, COLOR_FADE1, "  REMËJAS: /blockpm /togpm /walkstyle /talkstyle /mask");
@@ -5031,7 +4592,7 @@ CMD:delunit( playerid, params[ ] )
 }
 CMD:forumname( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 || pInfo[ playerid ][ pTester ] >= 1 )
+    if (GetPlayerAdminLevel(playerid) >= 1 || pInfo[ playerid ][ pTester ] >= 1 )
     {
         new string[ 256 ];
 
@@ -5977,7 +5538,7 @@ CMD:takemoney( playerid, params[ ] )
     if(!IsPlayerConnected(giveplayerid))  return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
     if(mony < 0 || mony > 50000) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nuimdami pinigus turite nurodyti sumà, kuri bøti didesnë nei 1$, bei maþesnë uþ 50,000$.");
     if(!PlayerToPlayer(2.0,playerid,giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðalia Jûsø nëra reikiamo Administratoriaus.");
-    if(pInfo[giveplayerid][pAdmin] < 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðalia stovinèio Administratoriaus lygis yra per maþas ðiai komandai.");
+    if(GetPlayerAdminLevel(giveplayerid) < 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðalia stovinèio Administratoriaus lygis yra per maþas ðiai komandai.");
     if(mony > Biudzetas) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, frakcijos biudþete nëra nurodytos sumos.");
     GivePlayerMoney(playerid,mony);
     Biudzetas -= mony;
@@ -5998,7 +5559,7 @@ CMD:takefmoney( playerid, params[ ] )
     if(!IsPlayerConnected(giveplayerid))  return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
     if(mony < 0 || mony > 50000) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nuimdami pinigus turite nurodyti sumà, kuri bøti didesnë nei 1$, bei maþesnë uþ 50,000$.");
     if(!PlayerToPlayer(2.0,playerid,giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðalia Jûsø nëra reikiamo Administratoriaus..");
-    if(pInfo[giveplayerid][pAdmin] < 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðalia stovinèio Administratoriaus lygis yra per maþas ðiai komandai.");
+    if(GetPlayerAdminLevel(giveplayerid) < 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðalia stovinèio Administratoriaus lygis yra per maþas ðiai komandai.");
     if(mony > fInfo[PlayerFaction( playerid )][fBank]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, frakcijos biudþete nëra nurodytos sumos");
     GivePlayerMoney(playerid,mony);
     fInfo[PlayerFaction( playerid )][fBank] -= mony;
@@ -6307,65 +5868,6 @@ CMD:frisk( playerid, params[ ] )
     format           ( string, 140, "Veikëjas %s gavo praðymà leisti bøti apieðkomas Jûsø, palaukite kol veikëjas atsakys. ", GetPlayerNameEx( giveplayerid ) );
     SendClientMessage( playerid, COLOR_WHITE, string );
     SetPVarInt       ( giveplayerid, "APIESKA", playerid );
-    return 1;
-}
-CMD:take( playerid, params[ ] )
-{
-    if ( UsePDCMD( playerid ) == 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente." );
-    new string[ 140 ],
-        giveplayerid,
-        item;
-    if ( sscanf( params, "ud", giveplayerid, item) )
-    {
-        SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /take [VEIKËJO ID][DAIKTAS, KURI PAIIMSITE]");
-        SendClientMessage( playerid ,GRAD, "Pavyzdys: 1 - ginklà | 2 - licenzijà | 3 - narkotikus");
-        return 1;
-    }
-    if ( !IsPlayerConnected( giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-    if ( !PlayerToPlayer   ( 5.0, playerid, giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite naudoti ðio veiksmo su veikëju, kuris nëra ðalia Jûsø.");
-    switch ( item )
-    {
-        case 1:
-        {
-            ResetPlayerWeapons( giveplayerid );
-            ClearWeaponsFromPlayerInventory(giveplayerid);
-            format      ( string, 70, "* %s paiima visus turimus/neðiojamus %s ginklus/árankius." ,GetPlayerNameEx( playerid ), GetPlayerNameEx( giveplayerid ) );
-            ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-            SaveAccount( giveplayerid );
-            return 1;
-        }
-        case 2:
-        {
-            new lic;
-            if ( sscanf( params, "udd", giveplayerid, item, lic) )
-            {
-                SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /take [VEIKËJO ID][DAIKTAS, KURI PAIIMSITE][LICENZIJOS ID]");
-                SendClientMessage( playerid ,GRAD, "Pavyzdþiai: 1 - vairavimo |2 - motociklo |3 - jøreivystës |4 - pilotavimo |5 - ðaunamøjø ginklø");
-                return 1;
-            }
-            switch ( lic )
-            {
-                case 1: pInfo[ giveplayerid ][ pLicCar     ] = 0;
-                case 2: pInfo[ giveplayerid ][ pLicMoto    ] = 0;
-                case 3: pInfo[ giveplayerid ][ pLicBoat    ] = 0;
-                case 4: pInfo[ giveplayerid ][ pLicHeli    ] = 0;
-                case 5: pInfo[ giveplayerid ][ pLicWeapon  ] = 0;
-            }
-            SaveAccount( giveplayerid );
-            pInfo[ giveplayerid ][ pDriverWarn ] = 0;
-            format      ( string, 70, "* %s atima turimà %s licenzijà." ,GetPlayerNameEx( playerid ), GetPlayerNameEx( giveplayerid ) );
-            ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-            return 1;
-        }
-        case 3:
-        {
-            RemovePlayerDrugItems(playerid);
-            format      ( string, 70, "* %s atima visas turimas/laikomas %s narkotines medþiagas." ,GetPlayerNameEx( playerid ), GetPlayerNameEx( giveplayerid ) );
-            ProxDetector( 20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-            SaveAccount( giveplayerid );
-            return 1;
-        }
-    }
     return 1;
 }
 
@@ -6810,11 +6312,11 @@ CMD:pm( playerid, params[ ] )
     if(!IsPlayerConnected( giveplayerid ) )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje." );
 
-    if(TogChat[ giveplayerid ][ 2 ] == false && pInfo[ playerid ][ pAdmin ] == 0 )
+    if(TogChat[ giveplayerid ][ 2 ] == false && GetPlayerAdminLevel(playerid) == 0 )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: negalite raðyti þaidëjui, nes jis blokuoja /pm þinutes. " );
 
 
-    if(PlayersBlocked[ giveplayerid ][ playerid ] && pInfo[ playerid ][ pAdmin ] == 0 )
+    if(PlayersBlocked[ giveplayerid ][ playerid ] && GetPlayerAdminLevel(playerid) == 0 )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: negalite raðyti þaidëjui, nes jis blokuoja /pm þinutes." );
 
     format         (string2, 256, "(( Gauta PÞ nuo %s[ID:%d]: %s ))", GetName(playerid), playerid, string);
@@ -7051,7 +6553,7 @@ CMD:o( playerid, params[ ] )
 }
 CMD:ao( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1)
+    if ( GetPlayerAdminLevel(playerid) >= 1)
     {
         new string[ 256 ];
 
@@ -7064,7 +6566,7 @@ CMD:ao( playerid, params[ ] )
 }
 CMD:ado( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1)
+    if ( GetPlayerAdminLevel(playerid) >= 1)
     {
         new string[ 256 ];
 
@@ -7077,12 +6579,12 @@ CMD:ado( playerid, params[ ] )
 }
 CMD:a( playerid, params[ ] )
 {
-    if(pInfo[playerid][pAdmin] > 0 )
+    if(GetPlayerAdminLevel(playerid) > 0 )
     {
         new string[ 256 ];
 
         if ( sscanf( params, "s[256]", string ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /a [tekstas]");
-        format          ( string, 256, "[Adm. level: %d] %s[ID:%d]: %s", pInfo[ playerid ][ pAdmin ], GetName( playerid ), playerid, string );
+        format          ( string, 256, "[Adm. level: %d] %s[ID:%d]: %s", GetPlayerAdminLevel(playerid), GetName( playerid ), playerid, string );
         SendAdminMessage( COLOR_ADM, string );
         return 1;
     }
@@ -7094,12 +6596,12 @@ CMD:admins( playerid, params[ ] )
     SendClientMessage(playerid, COLOR_TEAL, "---------------------------PRISIJUNGÆ ADMINISTRATORIAI----------------------------------");
 
     foreach(Player, x) {
-        if(pInfo[ x ][ pAdmin ] >= 1 && !GetPVarInt( x, "hideadmin" ) && AdminDuty[ x ]) {
-            format(szMessage, sizeof(szMessage), "%s [AdmLVL: %d] %s [%s] budintis statusas (/re).",  GetAdminRank( x ), pInfo[ x ][ pAdmin ], GetName(x), pInfo[ x ][ pForumName ]);
+        if(GetPlayerAdminLevel(x) >= 1 && !GetPVarInt( x, "hideadmin" ) && AdminDuty[ x ]) {
+            format(szMessage, sizeof(szMessage), "%s [AdmLVL: %d] %s [%s] budintis statusas (/re).",  GetAdminRank( x ), GetPlayerAdminLevel(x), GetName(x), pInfo[ x ][ pForumName ]);
             SendClientMessage(playerid, COLOR_GREEN, szMessage);
         }
-        if(pInfo[ x ][ pAdmin ] >= 1 && !GetPVarInt( x, "hideadmin" ) && !AdminDuty[ x ]) {
-            format(szMessage, sizeof(szMessage), "%s [AdmLVL: %d] %s [%s] nebudintis statusas.",  GetAdminRank( x ), pInfo[ x ][ pAdmin ], GetName(x), pInfo[ x ][ pForumName ]);
+        if(GetPlayerAdminLevel(x) >= 1 && !GetPVarInt( x, "hideadmin" ) && !AdminDuty[ x ]) {
+            format(szMessage, sizeof(szMessage), "%s [AdmLVL: %d] %s [%s] nebudintis statusas.",  GetAdminRank( x ),GetPlayerAdminLevel(x), GetName(x), pInfo[ x ][ pForumName ]);
             SendClientMessage(playerid, COLOR_GREY, szMessage);
         }
     }
@@ -7167,71 +6669,6 @@ CMD:bank( playerid, params[ ] )
     return 1;
 }
 
-CMD:takelesson( playerid, params[ ] )
-{
-    #pragma unused params
-    if ( !IsPlayerInAnyVehicle( playerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: norëdami pradëti turite sëdëti mokymo automobilyje ");
-    new vehid = GetPlayerVehicleID( playerid );
-    if ( !isLicCar( vehid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: norëdami pradëti turite sëdëti mokymo automobilyje ");
-    new model = GetVehicleModel( vehid );
-	if(!IsItemInPlayerInventory(playerid, ITEM_TEORIJA))
-        return SendClientMessage( playerid, COLOR_LIGHTRED2, "** Norëdami pradëti egzaminà privalote turëti iðlaikytos teorijos paþymà." );
- 
-    if ( GetPVarInt( playerid, "LIC_TYME" ) > 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs jau mokotës vaziuoti. " );
-    switch( model )
-    {
-        case 487:
-        {
-            if ( pInfo[ playerid ][ pLicHeli ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite laikytis licenzijos jei jau jà esate iðsilaikæs.");
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Piloting License Center "),		
-			SendClientMessage( playerid, COLOR_WHITE," ** Skraidymo egzaminas prasideda, dabar skriskite á nustatytas vietas. Skriskite atsargiai ir atsakingai. ");
-            SetPVarInt       ( playerid, "LIC_CP",   1 );
-            SetPVarInt       ( playerid, "LIC_TYPE", 3 );
-            SetPVarInt       ( playerid, "LIC_TIME", 6000 );
-            SetPVarInt       ( playerid, "LIC_MISTAKE", 0 );
-            setLicenseCp     ( playerid );
-            VehicleEngine( vehid, 1 );
-        }
-        case 426:
-        {
-            if ( pInfo[ playerid ][ pLicCar ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs jau turite iðsilaikàs ðiá  licenzijá . ");
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),		
-			SendClientMessage( playerid, COLOR_WHITE," ** Dabar vaþiuokite á þemëlapyje nurodytas vietas nevirðydami greièio ir nepaþeisdami tr. priemonës. ");
-            SetPVarInt       ( playerid, "LIC_CP",   1 );
-            SetPVarInt       ( playerid, "LIC_TYPE", 1 );
-            SetPVarInt       ( playerid, "LIC_TIME", 6000 );
-            SetPVarInt       ( playerid, "LIC_MISTAKE", 0 );
-            setLicenseCp     ( playerid );
-            VehicleEngine( vehid, 1 );
-        }
-        case 586:
-        {
-            if ( pInfo[ playerid ][ pLicMoto ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs jau turite iðsilaikàs ðiá  licenzijá . ");
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),		
-			SendClientMessage( playerid, COLOR_WHITE," ** Dabar vaþiuokite á þemëlapyje nurodytas vietas nevirðydami greièio ir nepaþeisdami tr. priemonës. ");
-            SetPVarInt       ( playerid, "LIC_CP",   1 );
-            SetPVarInt       ( playerid, "LIC_TYPE", 2 );
-            SetPVarInt       ( playerid, "LIC_TIME", 6000 );
-            SetPVarInt       ( playerid, "LIC_MISTAKE", 0 );
-            setLicenseCp     ( playerid );
-            VehicleEngine( vehid, 1 );
-        }
-        case 473:
-        {
-            if ( pInfo[ playerid ][ pLicBoat ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs jau turite iðsilaikàs ðiá  licenzijá . ");
-			SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos License Center "),		
-			SendClientMessage( playerid, COLOR_WHITE," ** Dabar plaukite á navigacijoje paþymëtas vietas. ");
-            SetPVarInt       ( playerid, "LIC_CP",   1 );
-            SetPVarInt       ( playerid, "LIC_TYPE", 4 );
-            SetPVarInt       ( playerid, "LIC_TIME", 6000 );
-            SetPVarInt       ( playerid, "LIC_MISTAKE", 0 );
-            setLicenseCp     ( playerid );
-            VehicleEngine( vehid, 1 );
-        }
-        default: return 1;
-    }
-    return 1;
-}
 CMD:tlc( playerid, params[ ] )
 {
     #pragma unused params
@@ -8314,7 +7751,7 @@ CMD:cargo(playerid, params[])
         DeletePVar(playerid, "CargoId");
         return 1;
     }
-    if(pInfo[ playerid ][ pAdmin ] >= 4 && !strcmp(params,"boxinfo", true))
+    if(GetPlayerAdminLevel(playerid) >= 4 && !strcmp(params,"boxinfo", true))
     {
         new Float:dist, Float:x,Float:y,Float:z, string[1024];
         for(new i = 0; i < MAX_BOXES; i++)
@@ -9128,7 +8565,7 @@ FUNKCIJA:PD_BELL( playerid )
 
 CMD:blockpm( playerid, params[ ] )
 {
-    if(pInfo[ playerid ][ pDonator ] < 2  && !pInfo[ playerid ][ pAdmin ])
+    if(pInfo[ playerid ][ pDonator ] < 2  && !GetPlayerAdminLevel(playerid))
         return 0;
 
     new string[ 126 ],
@@ -9385,7 +8822,6 @@ CMD:prison( playerid, params[ ] )
     Data_SetPlayerLocation(giveplayerid, "ic_prison");
     ResetPlayerWeapons(giveplayerid);
     SetPlayerSkin   ( giveplayerid, 8 );
-    pInfo[ giveplayerid ][ pSkin ] = 8;
     SaveAccount( giveplayerid );
     ShowPlayerInfoText( giveplayerid );
     return 1;
@@ -9471,7 +8907,7 @@ stock SendTesterMessage( color, text[ ] )
 {
     foreach(Player,i)
     {
-        if ( pInfo[ i ][ pTester ] >= 1 || ( pInfo[i][pAdmin] >= 1 && TogChat[i][3] == true ) )
+        if ( pInfo[ i ][ pTester ] >= 1 || (GetPlayerAdminLevel(i) >= 1 && TogChat[i][3] == true ) )
         {
             if ( GetPVarInt( i, "TESTER_TOG" ) == 0 )
                 SendClientMessage( i, color, text );
@@ -9534,7 +8970,7 @@ CMD:acpq( playerid, params[ ] )
         giveplayerid;
     if ( sscanf( params, "r", giveplayerid ) )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /acpq [VEIKËJO ID] " );
-    if ( pInfo[ playerid ][ pTester ] >= 1 || pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
     {
         if ( GetPVarInt( giveplayerid, "ASK_Q" ) == 1 )
         {
@@ -9558,7 +8994,7 @@ CMD:dcpq( playerid, params[ ] )
         giveplayerid;
     if ( sscanf( params, "r", giveplayerid ) )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /dcpq [ veikëjo vardas, id ] " );
-    if ( pInfo[ playerid ][ pTester ] >= 1 || pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
     {
         if ( GetPVarInt( giveplayerid, "ASK_Q" ) == 1 )
         {
@@ -9656,7 +9092,7 @@ FUNKCIJA:ASK_Q_T( playerid )
 
 CMD:makemoderator( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if ( GetPlayerAdminLevel(playerid) >= 4 )
     {
         new string[ 100 ],
             giveplayerid,
@@ -9682,7 +9118,7 @@ CMD:mc( playerid, params[ ] )
     if ( sscanf( params, "s[256]", string ) )
         return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /tc [ tekstas ] " );
 
-    if ( pInfo[ playerid ][ pTester ] >= 1 || pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
     {
         format( string, 256, "[Mod] %s: %s ", GetName( playerid ), string );
         foreach(Player,i)
@@ -9697,7 +9133,7 @@ CMD:mc( playerid, params[ ] )
 CMD:togq( playerid, params[ ] )
 {
     #pragma unused params
-    if ( pInfo[ playerid ][ pTester ] >= 1 || pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
     {
         if ( GetPVarInt( playerid, "TESTER_TOG" ) == 1 )
         {
@@ -9717,7 +9153,7 @@ CMD:togq( playerid, params[ ] )
 CMD:modhelp( playerid, params[ ] )
 {
     #pragma unused params
-    if ( pInfo[ playerid ][ pTester ] >= 1 || pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
     {
         SendClientMessage( playerid, COLOR_MODERATOR, "|____________________MODERATORIAUS SKYRIUS____________________|" );
         SendClientMessage( playerid, COLOR_FADE1, " /togq /mc /dcpq /acpq /mduty /mkick " );
@@ -9745,7 +9181,7 @@ CMD:togooc( playerid, params[] )
 }
 CMD:togpm(playerid)
 {
-    if ( pInfo[ playerid ][ pDonator ] >= 2 || pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( pInfo[ playerid ][ pDonator ] >= 2 || GetPlayerAdminLevel(playerid) >= 1 )
     {
         if(TogChat[playerid][2] == true)
         {
@@ -9808,103 +9244,7 @@ CMD:buysex( playerid, params[ ] )
             ,"Pirkti","Iðjungti");
     return 1;
 }
-/*
-CMD:ucall( playerid, params[ ] )
-{
-    if ( !NearPhone( playerid ) )
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs ne prie taksafono.");
-    if ( Mires[ playerid ] > 0 )
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje.");
-    if ( Mute[ playerid ] == true )
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jums yra uþdrausta kalbëtis (/mute), norëdami paðalinti draudimà susisiekite su Administratoriumi.");
-    if ( MobilePhone[playerid] != INVALID_PLAYER_ID )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Pirma padëkite ragelá /h " );
 
-    new phonenumb,
-        string[ 128 ],
-        sendername[ 24 ];
-
-    GetPlayerName( playerid, sendername, MAX_PLAYER_NAME );
-    if ( sscanf( params, "d", phonenumb ) )
-    {
-        SendClientMessage( playerid, GRAD,        "KOMANDOS NAUDOJIMAS: /ucall [telefono numeris]");
-        SendClientMessage( playerid, COLOR_GREEN, "_________________Los Santos paslaugos_________________");
-        SendClientMessage( playerid, COLOR_WHITE, "911 - Pagalbos linija");
-        SendClientMessage( playerid, COLOR_WHITE, "816 - Mechanikai, 817 - Taksi, 999 - San News");
-        SendClientMessage( playerid, COLOR_GREEN, "____________________________________________");
-        return 1;
-    }
-    if ( phonenumb == pInfo[ playerid ][ pPhone ] )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs negalite skambinti sau!" );
-    if ( phonenumb == 911 )
-    {
-        SendClientMessage( playerid, GRAD, "INFORMACIJA: Naudokite T, kad kalbëtumëte á taksofoná . (/h)angup kad padëtumëte rageli.");
-        SendClientMessage( playerid, COLOR_FADE1, "PAGALBOS LINIJA: Su kuo jus sujungti? Policija, medikais? Ar su abu?");
-        MobilePhone[playerid] = 911;
-        TogglePlayerControllable(playerid, false);
-        return 1;
-    }
-    if(phonenumb == 816)
-    {
-        SendClientMessage(playerid, GRAD, "INFORMACIJA: Naudokite T, kad kalbëtumëte á taksofoná . (/h)angup kad padëtumëte ragelá.");
-        SendClientMessage(playerid, COLOR_FADE1, "Moteriðkas balsas: Laba diena. Mechanikø dirbtuvës klauso. Pasakykite vietà  kur jums reikia mechaniko.");
-        MobilePhone[playerid] = 816;
-        TogglePlayerControllable(playerid, false);
-        return 1;
-    }
-    if(phonenumb == 817)
-    {
-        SendClientMessage(playerid, GRAD, "INFORMACIJA: Naudokite T, kad kalbëtumëte i taksofoná . (/h)angup kad padëtumëte rageli.");
-        SendClientMessage(playerid, COLOR_FADE1, "Moteriðkas balsas: Laba diena, taksi dispeøterë klauso, pasakykite vieta kur jums reikia taksi.");
-        MobilePhone[playerid] = 817;
-        TogglePlayerControllable(playerid, false);
-        return 1;
-    }
-    if(phonenumb == 999)
-    {
-        MobilePhone[playerid] = 999;
-        TogglePlayerControllable(playerid, false);
-        return 1;
-    }
-    foreach(Player,i)
-    {
-        if(phonenumb == pInfo[i][pPhone] && phonenumb > 0 && MobilePhone[i] == INVALID_PLAYER_ID)
-        {
-            foreach(Player,p2p)
-            {
-                if ( MobilePhone[ p2p ] == i )
-                    return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Telefono numeris uþimtas. " );
-            }
-            if ( GetPVarInt( i, "PHONE_STATUS" ) == 1 )
-                return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Telefonas yra iðjungtas. " );
-
-            if ( pInfo[i][pJail] > 0 )
-                return SendClientMessage( playerid, COLOR_GREY, "   Telefono ryðys blokuojamas." );
-
-            SetPVarInt( playerid, "CallOwner", true );
-            MobilePhone[playerid] = i;
-
-            SendClientMessage     ( i, COLOR_LIGHTRED2, "Dëmesio, Jûsø kiðenëje skamba mobilusis telefonas. Pakelkite: (/p)ickup.");
-            GetPlayerName         ( i, sendername, MAX_PLAYER_NAME);
-
-            TogglePlayerControllable(playerid, false);
-            format           ( string, 126, "* %s skamba ir vibruoja kisenëje telefonas.", sendername);
-            SendClientMessage( playerid, COLOR_WHITE, "Naudokite T, kad kalbetumete i taksofoná . (/h)angup kad padetumete rageli");
-            ProxDetector     ( 20.0, i, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-
-            new Float:x, Float:y, Float:z;
-            GetPlayerPos( i, x, y, z );
-
-            PlayerPlaySound( playerid, 3600, 0,0,0 );
-            PlaySoundForPlayersInRange( 20600, 10.5, x,y,z );
-            RingTone[i] = 10;
-            return 1;
-        }
-    }
-    return SendClientMessage( playerid, COLOR_LIGHTRED2, "Klaida, numeris á kurá skambinate ðiuo metu uþimtas." );
-}
-
-*/
 
 CMD:payfines( playerid, params[ ] )
 {
@@ -10365,953 +9705,6 @@ CMD:lock(playerid)
     return 1;
 }
 
-
-/*
-CMD:v( playerid, params[ ] )
-{
-    new idx, select[128], string[ 2048 ], giveplayerid, Float:Kords[ 3 ];
-    select = strtok(params, idx);
-    if(!strlen(select))
-    {
-        SendClientMessage(playerid, COLOR_GREEN, "|______________________Tr. Priemoniu komandos ir naudojimas__________________________|");
-        SendClientMessage(playerid,COLOR_LIGHTRED2, "  KOMANDOS NAUDOJIMAS: /v [KOMANDA], pavyzdþiui: /v list");
-        SendClientMessage(playerid,COLOR_WHITE,"  PAGRINDINËS KOMANDOS: list, get, park, buypark, lock, find, documents ");		
-        SendClientMessage(playerid,COLOR_FADE1,"  TR. PRIEMONËS SKOLINIMAS: dubkey takedubkey removedubs getdub ");		
-        SendClientMessage(playerid,COLOR_WHITE,"  TOBULINIMAS/TVARKYMAS: register buy alarm buylock buyinsurance buymod");		
-        SendClientMessage(playerid,COLOR_FADE1,"  VALDYMAS: /trunk /trunko /bonnet /windows /setbelt /maxspeed /vradio ");				
-        SendClientMessage(playerid,COLOR_WHITE,"  KITA: destroy scrap payticket faction buy ");			
-        SendClientMessage(playerid, COLOR_GREEN, "|__________________________________________________________________________________|");
-        return 1;
-    }
-    if(!strcmp("destroy",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami sunaikinti tr. priemonæ privalote sedëti joje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ðis automobilis nepriklauso Jums, tad negalite atlikti ðio veiksmo");
-        new Query[140];
-
-        foreach(Player,i)
-        {
-            if ( pInfo[ i ][ pDubKey ] == cInfo[ idcar ][ cID ] )
-                pInfo[ i ][ pDubKey ] = 0;
-        }
-        format( Query, 126, "UPDATE players SET pDubKey = 0 WHERE pDubKey = %d", cInfo[ idcar ][ cID ] );
-        mysql_query(DbHandle,  Query, false);
-
-        cInfo[idcar][cVehID] = 0;
-        DestroyVehicle(idcar);
-        if ( pInfo[ playerid ][ pCarGet ] > 0 )
-            pInfo[ playerid ][ pCarGet ] --;
-
-        format(Query,sizeof(Query),"DELETE FROM `vehicles` WHERE `ID` = '%i'", cInfo[ idcar ][ cID ]);
-        mysql_query(DbHandle,  Query, false);
-        nullVehicle( idcar );
-        LoadPlayerVehicles( playerid );
-
-        PayLog( pInfo[ playerid ][ pMySQLID ],16, -2, GetVehicleModel( idcar ) );
-        SendClientMessage( playerid, COLOR_LIGHTRED, "Dëmesio, Jûsø pasirinkta tr. priemonë buvo sunaikinta negràþinamai." );
-        return 1;
-    }
-    if(!strcmp("scrap",select,true))
-    {
-        new idcar = INVALID_VEHICLE_ID;
-
-        if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-            idcar = GetPlayerVehicleID(playerid);
-        else
-            idcar = GetNearestVehicle(playerid, 5.0);
-
-        if(idcar == INVALID_VEHICLE_ID ) 
-            return SendClientMessage(playerid, COLOR_LIGHTRED,"Dëmesio, norëdami sunaikinti tr. priemonæ privalote sedëti joje.");
-        
-        if(cInfo[ idcar ][ cOwner ] != pInfo[ playerid ][ pMySQLID ]) 
-            return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ðis automobilis nepriklauso Jums, tad negalite atlikti ðio veiksmo");
-        
-        new Kaina1 = GetVehiclePrice(GetVehicleModel(idcar)),
-            Float:Kaina2 = Kaina1 / 2,
-            Float:Kaina3 = 0;
-
-        if(cInfo[idcar][cDuzimai] < 1)
-            Kaina3 = Kaina2;
-        else
-            Kaina3 = Kaina2 / cInfo[idcar][cDuzimai];
-
-        if(Kaina3 < 1) return 1;
-
-        SetPVarInt(playerid, "Scrap.Price", floatround(Kaina3));
-        SetPVarInt(playerid, "Scrap.VehicleID", idcar);
-        format(string, sizeof(string),"Ar tikrai norite negráþtamai sunaikinti ðià transporto priemonæ?\nUþ tai gausite ${FFFFFF}%d",
-            floatround(Kaina3));
-        ShowPlayerDialog(playerid, DIALOG_VEHICLE_SCRAP_CONFIRM, DIALOG_STYLE_MSGBOX, "{AA0000}Dëmesio.", string, "Sunaikinti", "Iðeiti");
-        return 1;
-    }
-    if(!strcmp("removedubs",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ðis automobilis nepriklauso Jums, tad negalite atlikti ðio veiksmo");
-        new affected;
-        foreach(Player,i)
-        {
-            if ( pInfo[ i ][ pDubKey ] == cInfo[ idcar ][ cID ] )
-            {
-                affected ++;
-                pInfo[ i ][ pDubKey ] = 0;
-            }
-        }
-        format( string, 126, "UPDATE players SET pDubKey = 0 WHERE pDubKey = %d", cInfo[ idcar ][ cID ] );
-        mysql_query(DbHandle,  string, false);
-        format( string, 126, "Dublikuotu raktu paðalinimas pavyko. Ið viso buvo panaikinti %d dublikuoti raktai.", cache_affected_rows( ) + affected );
-        SendClientMessage( playerid, COLOR_LIGHTRED2, string );
-        return 1;
-    }
-    if(!strcmp("takedubkey",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ðis automobilis nepriklauso Jums, tad negalite atlikti ðio veiksmo");
-        select = strtok( params, idx );
-        if( !strlen( select ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v takedubkey [VEIKËJO ID]");
-        giveplayerid  = strval( select );
-        if( !IsPlayerConnected( giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-        if( !PlayerToPlayer( 10, playerid, giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudoti ðio veiksmo su veikëju, kuris nëra ðalia Jûsø.");
-        if ( pInfo[ giveplayerid ][ pDubKey ] == cInfo[ idcar ][ cID ] )
-        {
-            pInfo[ giveplayerid ][ pDubKey ] = 0;
-            format( string, 80, "Dëmesio, tr. priemonës savininkas %s pasiimë ið Jûsø savo tr priemonës raktelius.", GetName(playerid) );
-            SendClientMessage( giveplayerid, COLOR_NEWS, string );
-            format( string, 80, "Sveikiname, Jûs sëkmingai pasiimëte savo tr. priemonës raktelius ið veikëjo %s ", GetName( giveplayerid ) );
-            SendClientMessage( playerid, COLOR_NEWS, string );
-            return 1;
-        }
-        return 1;
-    }
-    else if(!strcmp("dubkey",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ðis automobilis nepriklauso Jums, tad negalite atlikti ðio veiksmo");
-        select = strtok( params, idx );
-        if( !strlen( select ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v dubkey [VEIKËJO ID]");
-        giveplayerid  = strval( select );
-        if( !IsPlayerConnected( giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-        if( !PlayerToPlayer( 10, playerid, giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudoti ðio veiksmo su veikëju, kuris nëra ðalia Jûsø.");
-        pInfo[ giveplayerid ][ pDubKey ] = cInfo[ idcar ][ cID ];
-        format( string, 80, "Dëmesio, tr. priemonës savininkas %s suteikë savo tr. priemonës raktelius, nuo ðiol galësite naudotis ðia tr. priemone", GetName(playerid) );
-        SendClientMessage( giveplayerid, COLOR_NEWS, string );
-        format( string, 80, "Sveikiname, Jûs sëkmingai suteikëte galimybæ naudotis savo tr. priemonæ veikëjui %s ", GetName( giveplayerid ) );
-        SendClientMessage( playerid, COLOR_NEWS, string );
-        return 1;
-    }
-    else if(!strcmp("list",select,true))
-    {
-
-        format     ( string, 180, "SELECT cName,cDuzimai,cFuel,cNumbers,cAlarm,cLockType,cInsurance,cVehID FROM `vehicles` WHERE `cOwner` = %d", pInfo[playerid][pMySQLID] );
-        new Cache:result = mysql_query(DbHandle,  string );
-        new slot = 1;
-        SendClientMessage( playerid, COLOR_GREEN, "|______________________JUMS PRIKLAUSANTIS TRANSPORTAS_____________________|" );
-        if ( cache_get_row_count( ) )
-        {
-            for(new i = 0; i < cache_get_row_count(); i++)
-            {
-                new vName[ 24 ],
-                    Duzimai,
-                    Fuel,
-                    Numbers[ 24 ],
-                    Alarm,
-                    LockType,
-                    Insurance,
-                    spawned;
-
-                cache_get_field_content(i, "cName", vName);
-                Duzimai = cache_get_field_content_int(i, "cDuzimai");
-                Fuel = cache_get_field_content_int(i, "cFuel");
-                cache_get_field_content(i, "cNumbers", Numbers);
-                Alarm = cache_get_field_content_int(i, "cAlarm");
-                LockType = cache_get_field_content_int(i, "cLockType");
-                Insurance = cache_get_field_content_int(i, "cInsurance");
-                spawned = cache_get_field_content_int(i, "cVehID");
-
-
-
-                if ( spawned == 0 ) string = "Ne"; else string = "Taip";
-                format( string, 256, "%d. Modelis[%s] Paþeidimai[%d] Degalø bake[%dl.] Numeriai[%s] Signalizacija[lvl:%d] Uþraktas[lvl:%d] Draudimas[%d] Iðkviesta[%s]",
-                            slot,
-                            vName,
-                            Duzimai,
-                            Fuel,
-                            Numbers,
-                            Alarm,
-                            LockType,
-                            Insurance,
-                            string);
-
-                SendClientMessage( playerid, COLOR_WHITE, string );
-                slot ++;
-            }
-        }
-        cache_delete(result);
-
-        format     ( string, 140, "SELECT cName,cDuzimai,cFuel,cNumbers,cAlarm,cLockType,cInsurance,cVehID FROM `vehicles` WHERE `id` = %d LIMIT 1;", pInfo[playerid][pDubKey] );
-        result = mysql_query(DbHandle,  string );
-        SendClientMessage( playerid, COLOR_GREEN, "|______________________GALIMAS KT. TRANSPORTAS_____________________|" );
-        if ( cache_get_row_count( ) )
-        {
-            new vName[ 24 ],
-                Duzimai,
-                Fuel,
-                Numbers[ 24 ],
-                Alarm,
-                LockType,
-                Insurance,
-                spawned;
-
-            cache_get_field_content(0, "cName", vName);
-            Duzimai = cache_get_field_content_int(0, "cDuzimai");
-            Fuel = cache_get_field_content_int(0, "cFuel");
-            cache_get_field_content(0, "cNumbers", Numbers);
-            Alarm = cache_get_field_content_int(0, "cAlarm");
-            LockType = cache_get_field_content_int(0, "cLockType");
-            Insurance = cache_get_field_content_int(0, "cInsurance");
-            spawned = cache_get_field_content_int(0, "cVehID");
-
-            if ( spawned == 0 ) string = "Ne"; else string = "Taip";
-
-            format( string, 256, "Modelis[%s] Paþeidimai[%d] Degalai[%dl.] Numeriai[%s] Signalizacija[lvl:%d] Uþraktas[lvl:%d] Draudimas[%d] Iðkviesta[%s]",
-                vName,
-                Duzimai,
-                Fuel,
-                Numbers,
-                Alarm,
-                LockType,
-                Insurance,
-                string);
-            SendClientMessage( playerid, COLOR_WHITE, string );
-        }
-        cache_delete(result);
-        return 1;
-    }
-    else if(!strcmp("documents",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if( cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID] && pInfo[ playerid ][ pDubKey ] != cInfo[ idcar ][ cID ] ) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ði tr. priemonë nepriklauso Jums.");
-        select = strtok( params, idx );
-        if( !strlen( select ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v documents [þaidëjo id]");
-        giveplayerid  = strval( select );
-        if( !IsPlayerConnected( giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-        if( !PlayerToPlayer( 10, playerid, giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudoti ðio veiksmo su veikëju, kuris nëra ðalia Jûsø.");
-        format           ( string, 126, "Parodei jam(-ai) %s savo automobilio dokumentus. ", GetName(giveplayerid) );
-        SendClientMessage( playerid, COLOR_WHITE, string );
-
-        SendClientMessage( giveplayerid, COLOR_GREEN,"|___________________Tr. priemonës dokumentai______________________|");
-        format           ( string, 126, "| Tr. priemonës savininkas: %s | Tr. priemonës modelis: %s",GetVehicleOwnerName( cInfo[ idcar][ cOwner ] ), cInfo[ idcar][ cName ]);
-        SendClientMessage( giveplayerid, COLOR_WHITE, string );
-        format           ( string, 126, "| Uþrakto lygis: %d | Signalicazijos lygis: %d",cInfo[ idcar ][ cLockType ],cInfo[ idcar ][ cAlarm ]);
-        SendClientMessage( giveplayerid, COLOR_WHITE, string );
-        format           ( string, 126, "| Draudimas: %d ", cInfo[ idcar ][ cInsurance ]);
-        SendClientMessage( giveplayerid, COLOR_WHITE, string );
-        format           ( string, 126, "| Numeriai: %s ",  cInfo[ idcar ][ cNumbers ]);
-        SendClientMessage( giveplayerid, COLOR_WHITE, string );
-        format           ( string, 126, "| Paþeidimai: %d ",    cInfo[ idcar ][ cDuzimai ]);
-        SendClientMessage( giveplayerid, COLOR_WHITE, string );
-        format           ( string, 126, "| Visa rida: %.0f ",    cInfo[ idcar ][ cKM ]);
-        SendClientMessage( giveplayerid, COLOR_WHITE, string );
-        return 1;
-    }
-    else if(!strcmp("get",select,true))
-    {
-        select = strtok( params, idx );
-        new slot = strval( select );
-        if(!slot ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v get [/v list SÀRAÐO NUMERIS]" );
-        if(slot < 0 || slot > 20 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Sàraðo numeris negali bût didesnis uþ 20 ar maþesnis uþ vienetà." );
-        
-        if((pInfo[ playerid ][ pDonator ] < 1 && pInfo[ playerid ][ pCarGet ] > 1 ) || 
-            (pInfo[ playerid ][ pDonator ] == 2 && pInfo[ playerid ][ pCarGet ] > 2) || 
-            (pInfo[ playerid ][ pDonator ] == 3 && pInfo[ playerid ][ pCarGet ] > 3)) 
-            return SendClientMessage( playerid, GRAD, "Tu jau esi iðsispawninàs per daug automobiliø" );
-        
-        if(pInfo[ playerid ][ pCar ][ slot ] == 0) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas tr. priemonës sàraðo numeris neegzistuoja." );
-        if(checkArrestedCar( playerid, pInfo[ playerid ][ pCar ][ slot ] ) ) return 1;
-
-        format (string, 80, "SELECT * FROM `vehicles` WHERE `id` = %d LIMIT 1", pInfo[ playerid ][ pCar ][ slot ] );
-        new Cache:result = mysql_query(DbHandle,  string );
-        // Neturëtø NIEKADA To bût... bet logas sako kad yra buvæ :/ we must know WHY.
-        if(!cache_get_row_count())
-        {
-            SendClientMessage(playerid, COLOR_LIGHTRED,"Ávyko sistemos klaida, susisiekite su Administracija.");
-            new str[128];
-            format(str,sizeof(str),"ERROR.Klaida. Buvo imama transporto priemonë su MySQL ID %d, taèiau jos nëra. ", pInfo[ playerid ][ pCar ][ slot ]);
-            ImpossibleLog(str);
-            cache_delete(result);
-            return 1;
-        }
-
-        new ID,
-            vName[ 24 ],
-            Owner,
-            model,
-            Float:Spawn_x,
-            Float:Spawn_y,
-            Float:Spawn_z,
-            Float:Spawn_a,
-            color1,
-            color2,
-            Lock,
-            Fuel,
-            Numbers[ 24 ],
-            factio,
-            Wheels,
-            Tuning,
-            Insurance,
-            Duzimai,
-            LockType,
-            Alarm,
-            Trunk[ 512 ],
-            Ticket,
-            Hidraulik,
-            crimes,
-            VehIDD,
-            Damage[ 50 ],
-            Float:KM,
-            VW;
-
-        ID = cache_get_field_content_int(0, "id");
-        cache_get_field_content(0, "cName", vName);
-        Owner = cache_get_field_content_int(0, "cOwner");
-        model = cache_get_field_content_int(0, "cModel");
-        Spawn_x = cache_get_field_content_float(0, "cSpawn1");
-        Spawn_y = cache_get_field_content_float(0, "cSpawn2");
-        Spawn_z = cache_get_field_content_float(0, "cSpawn3");
-        Spawn_a = cache_get_field_content_float(0, "cAngle");
-        color1 = cache_get_field_content_int(0, "cColor1");
-        color2 = cache_get_field_content_int(0, "cColor2");
-        Lock = cache_get_field_content_int(0, "cLock");
-        Fuel = cache_get_field_content_int(0, "cFuel");
-        cache_get_field_content(0, "cNumbers", Numbers);
-        factio = cache_get_field_content_int(0, "cFaction");
-        Wheels = cache_get_field_content_int(0, "cWheels");
-        Tuning = cache_get_field_content_int(0, "cTuning");
-        Insurance = cache_get_field_content_int(0, "cInsurance");
-        Duzimai = cache_get_field_content_int(0, "cDuzimai");
-        LockType = cache_get_field_content_int(0, "cLockType");
-        Alarm = cache_get_field_content_int(0, "cAlarm");
-        cache_get_field_content(0, "cTrunk", Trunk);
-        Ticket = cache_get_field_content_int(0, "cTicket");
-        Hidraulik = cache_get_field_content_int(0, "cHidraulik");
-        crimes = cache_get_field_content_int(0, "cCrimes");
-        VehIDD = cache_get_field_content_int(0, "cVehID");
-        cache_get_field_content(0, "cDamage", Damage);
-        KM = cache_get_field_content_float(0, "cKM");
-        VW = cache_get_field_content_int(0, "cVW");
-
-
-        cache_delete(result);
-
-        if ( VehIDD > 0 ) 
-        {
-            return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, pasirinkta tr. priemonë jau yra iðparkuota..");
-        }
-        new masina = CreateVehicle( model, Spawn_x, Spawn_y, Spawn_z, Spawn_a, color1, color2, -1 );
-
-        new panels,doors,lights,tires,Health;
-        sscanf( Damage,"p</>ddddd",panels, doors, lights, tires, Health);
-        UpdateVehicleDamageStatus(masina, panels, doors, lights, tires);
-        SetVehicleHealth(masina, Health);
-
-        strmid( cInfo[ masina ][ cName    ], vName  , 0, 24, 24 );
-        strmid( cInfo[ masina ][ cNumbers ], Numbers, 0, 24, 24 );
-        strmid( cInfo[ masina ][ cDamage  ], Damage,  0, 40, 40 );
-
-        cInfo[ masina ][ cOwner     ] = Owner;
-        cInfo[ masina ][ cID        ] = ID;
-        cInfo[ masina ][ cModel     ] = model;
-        cInfo[ masina ][ cSpawn     ][ 0 ] = Spawn_x;
-        cInfo[ masina ][ cSpawn     ][ 1 ] = Spawn_y;
-        cInfo[ masina ][ cSpawn     ][ 2 ] = Spawn_z;
-        cInfo[ masina ][ cSpawn     ][ 3 ] = Spawn_a;
-        cInfo[ masina ][ cColor     ][ 0 ] = color1;
-        cInfo[ masina ][ cColor     ][ 1 ] = color2;
-        cInfo[ masina ][ cLock      ] = Lock;
-        cInfo[ masina ][ cFuel      ] = Fuel;
-        cInfo[ masina ][ cFaction   ] = factio;
-        cInfo[ masina ][ cWheels    ] = Wheels;
-        cInfo[ masina ][ cTuning    ] = Tuning;
-        cInfo[ masina ][ cInsurance ] = Insurance;
-        cInfo[ masina ][ cDuzimai   ] = Duzimai;
-        cInfo[ masina ][ cLockType  ] = LockType;
-        cInfo[ masina ][ cAlarm     ] = Alarm;
-        cInfo[ masina ][ cTicket    ] = Ticket;
-        cInfo[ masina ][ cHidraulik ] = Hidraulik;
-        cInfo[ masina ][ cCrimes    ] = crimes;
-        cInfo[ masina ][ cVehID     ] = masina;
-        cInfo[ masina ][ cKM        ] = KM;
-        cInfo[ masina ][ cVirtWorld ] = VW;
-        UnPackTrunk( masina, Trunk );
-
-
-        TuneCarMods( masina);
-        AddVehicleComponent( masina, cInfo[ masina ][ cWheels ] );
-        AddVehicleComponent( masina, cInfo[ masina ][ cHidraulik ] );
-        SetVehicleVirtualWorld( masina, VW );
-        LoadVehicleCargo(cInfo[ masina ][ cID ], masina);
-        LoadVehicleFish(cInfo[ masina ][ cID ], masina);
-        LoadVehiclePhones(cInfo[ masina ][ cID ], masina);
-
-        SetPlayerCheckPointEx( playerid, CHECKPOINT_CAR, cInfo[ masina ][ cSpawn ][ 0 ],
-                                           cInfo[ masina ][ cSpawn ][ 1 ],
-                                           cInfo[ masina ][ cSpawn ][ 2 ], 3.0 );
-        Engine[ masina ] = false;
-        sVehicles[ masina ][ Faction ] = 0;
-
-        format( string, 80, "{000000}%s", cInfo[ masina ][ cNumbers ] );
-        SetVehicleNumberPlate( masina, string );
-        SendClientMessage( playerid, COLOR_LIGHTRED2, "Jûsø tr. priemonë sëkmingai iðparkuota ir vieta paþymëta raudonu taðku." );
-        pInfo[ playerid ][ pCarGet ] ++;
-        SaveVehicleEx( masina, "cVehID", masina );
-        return 1;
-    }
-    else if(!strcmp("getdub",select,true))
-    {
-        if ( pInfo[ playerid ][ pDubKey ] == 0) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite gauti tr. priemonës jei neturite dublikuotu raktu." );
-        if ( checkArrestedCar( playerid, pInfo[ playerid ][ pDubKey ] ) ) return 1;
-
-        format (string, 80, "SELECT * FROM `vehicles` WHERE `id` = %d LIMIT 1", pInfo[ playerid ][ pDubKey ] );
-        new Cache:result = mysql_query(DbHandle,  string );
-
-        new ID,
-            vName[ 24 ],
-            Owner,
-            model,
-            Float:Spawn_x,
-            Float:Spawn_y,
-            Float:Spawn_z,
-            Float:Spawn_a,
-            color1,
-            color2,
-            Lock,
-            Fuel,
-            Numbers[ 24 ],
-            factio,
-            Wheels,
-            Tuning,
-            Insurance,
-            Duzimai,
-            LockType,
-            Alarm,
-            Trunk[ 512 ],
-            Ticket,
-            Hidraulik,
-            crimes,
-            VehIDD,
-            Damage[ 50 ],
-            Float:KM,
-            VW;
-
-        ID = cache_get_field_content_int(0, "id");
-        cache_get_field_content(0, "cName", vName);
-        Owner = cache_get_field_content_int(0, "cOwner");
-        model = cache_get_field_content_int(0, "cModel");
-        Spawn_x = cache_get_field_content_float(0, "cSpawn1");
-        Spawn_y = cache_get_field_content_float(0, "cSpawn2");
-        Spawn_z = cache_get_field_content_float(0, "cSpawn3");
-        Spawn_a = cache_get_field_content_float(0, "cAngle");
-        color1 = cache_get_field_content_int(0, "cColor1");
-        color2 = cache_get_field_content_int(0, "cColor2");
-        Lock = cache_get_field_content_int(0, "cLock");
-        Fuel = cache_get_field_content_int(0, "cFuel");
-        cache_get_field_content(0, "cNumbers", Numbers);
-        factio = cache_get_field_content_int(0, "cFaction");
-        Wheels = cache_get_field_content_int(0, "cWheels");
-        Tuning = cache_get_field_content_int(0, "cTuning");
-        Insurance = cache_get_field_content_int(0, "cInsurance");
-        Duzimai = cache_get_field_content_int(0, "cDuzimai");
-        LockType = cache_get_field_content_int(0, "cLockType");
-        Alarm = cache_get_field_content_int(0, "cAlarm");
-        cache_get_field_content(0, "cTrunk", Trunk);
-        Ticket = cache_get_field_content_int(0, "cTicket");
-        Hidraulik = cache_get_field_content_int(0, "cHidraulik");
-        crimes = cache_get_field_content_int(0, "cCrimes");
-        VehIDD = cache_get_field_content_int(0, "cVehID");
-        cache_get_field_content(0, "cDamage", Damage);
-        KM = cache_get_field_content_float(0, "cKM");
-        VW = cache_get_field_content_int(0, "cVW");
-        cache_delete(result);
-
-        if ( VehIDD > 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, tr. priemonë jau yra iðparkuota.");
-        new masina = CreateVehicle( model, Spawn_x, Spawn_y, Spawn_z, Spawn_a, color1, color2, -1 );
-
-        new panels,doors,lights,tires,Health;
-        sscanf( Damage,"p</>ddddd",panels, doors, lights, tires, Health);
-        UpdateVehicleDamageStatus(masina, panels, doors, lights, tires);
-        SetVehicleHealth(masina, Health);
-
-        strmid( cInfo[ masina ][ cName    ], vName  , 0, 24, 24 );
-        strmid( cInfo[ masina ][ cNumbers ], Numbers, 0, 24, 24 );
-        strmid( cInfo[ masina ][ cDamage  ], Damage,  0, 40, 40 );
-
-        cInfo[ masina ][ cOwner     ] = Owner;
-        cInfo[ masina ][ cID        ] = ID;
-        cInfo[ masina ][ cModel     ] = model;
-        cInfo[ masina ][ cSpawn     ][ 0 ] = Spawn_x;
-        cInfo[ masina ][ cSpawn     ][ 1 ] = Spawn_y;
-        cInfo[ masina ][ cSpawn     ][ 2 ] = Spawn_z;
-        cInfo[ masina ][ cSpawn     ][ 3 ] = Spawn_a;
-        cInfo[ masina ][ cColor     ][ 0 ] = color1;
-        cInfo[ masina ][ cColor     ][ 1 ] = color2;
-        cInfo[ masina ][ cLock      ] = Lock;
-        cInfo[ masina ][ cFuel      ] = Fuel;
-        cInfo[ masina ][ cFaction   ] = factio;
-        cInfo[ masina ][ cWheels    ] = Wheels;
-        cInfo[ masina ][ cTuning    ] = Tuning;
-        cInfo[ masina ][ cInsurance ] = Insurance;
-        cInfo[ masina ][ cDuzimai   ] = Duzimai;
-        cInfo[ masina ][ cLockType  ] = LockType;
-        cInfo[ masina ][ cAlarm     ] = Alarm;
-        cInfo[ masina ][ cTicket    ] = Ticket;
-        cInfo[ masina ][ cHidraulik ] = Hidraulik;
-        cInfo[ masina ][ cCrimes    ] = crimes;
-        cInfo[ masina ][ cVehID     ] = masina;
-        cInfo[ masina ][ cKM        ] = KM;
-        cInfo[ masina ][ cDub       ] = 1;
-        cInfo[ masina ][ cVirtWorld ] = VW;
-        UnPackTrunk( masina, Trunk );
-
-        TuneCarMods( masina);
-        AddVehicleComponent   ( masina, cInfo[ masina ][ cWheels ] );
-        AddVehicleComponent   ( masina, cInfo[ masina ][ cHidraulik ] );
-        SetVehicleVirtualWorld( masina, VW );
-        LoadVehicleCargo(cInfo[ masina ][ cID ], masina);
-
-        SetPlayerCheckPointEx( playerid, CHECKPOINT_CAR, cInfo[ masina ][ cSpawn ][ 0 ],
-                                           cInfo[ masina ][ cSpawn ][ 1 ],
-                                           cInfo[ masina ][ cSpawn ][ 2 ], 3.0 );
-        Engine[ masina ] = false;
-        sVehicles[ masina ][ Faction ] = 0;
-
-        if ( IsPlayerConnected( GetCarOwner( masina ) ) )
-            pInfo[ GetCarOwner( masina ) ][ pCarGet ] ++;
-
-        format( string, 80, "{000000}%s", cInfo[ masina ][ cNumbers ] );
-        SetVehicleNumberPlate( masina, string );
-        SendClientMessage( playerid, COLOR_LIGHTRED2, "Jûsø tr. priemonë sëkmingai iðparkuota ir vieta paþymëta raudonu taðku." );
-        SaveVehicleEx( masina, "cVehID", masina );
-        return 1;
-    }
-    else if(!strcmp("park",select,true))
-    {
-        new idcar = INVALID_VEHICLE_ID;
-        if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-            idcar = GetPlayerVehicleID( playerid );
-        else
-            idcar = GetNearestVehicle( playerid, 5.0 );
-        if ( idcar == INVALID_VEHICLE_ID ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, aplink Tave nëra jokios tr. priemonës");
-
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID] && pInfo[ playerid ][ pDubKey ] != cInfo[ idcar ][ cID ]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Tai ne jûsø automobilis!");
-        new Float:CarHP;
-        GetVehicleHealth( idcar, CarHP );
-        if ( CarHP < 500 )
-            return SendClientMessage( playerid, COLOR_LIGHTRED, "Dëmesio, Jûsø tr. priemonë yra pernelyg daug sudauþytà, kad galëtumëte jà uþparkuoti." );
-
-        if(!PlayerToPoint(10.0,playerid,cInfo[idcar][cSpawn][0],cInfo[idcar][cSpawn][1],cInfo[idcar][cSpawn][2]))
-            return SendChatMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs negalite èia parkuoti, nes tai nëra transporto priemonës parkavimo vieta (norëdami nusipirkti parkavimo vietà , raðykite /v buypark)");
-
-        new panels,doors,lights,tires;
-        GetVehicleDamageStatus(idcar,panels,doors,lights,tires);
-        format( cInfo[ idcar ][ cDamage ], 50, "%d/%d/%d/%d/%d/", panels, doors, lights, tires, floatround( CarHP) );
-        cInfo[ idcar ][ cVirtWorld ] = GetVehicleVirtualWorld( idcar );
-
-        cInfo[idcar][cVehID] = 0;
-        DestroyVehicle(idcar);
-        if ( pInfo[ playerid ][ pCarGet ] > 0 )
-            pInfo[ playerid ][ pCarGet ] --;
-
-        SaveCar(idcar);
-        nullVehicle( idcar );
-        SendClientMessage(playerid,COLOR_LIGHTRED2," Jûsø tr. priemonë buvo sëkmingai priparkuota. Norëdami gauti raðykite /v get.");
-        PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
-   
-        return 1;
-    }
-    else if(!strcmp("buypark",select,true))
-    {
-        new idcar = INVALID_VEHICLE_ID;
-        if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-            idcar = GetPlayerVehicleID( playerid );
-        else
-            idcar = GetNearestVehicle( playerid, 5.0 );
-        if ( idcar == INVALID_VEHICLE_ID ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, aplink Tave nëra jokios tr. priemonës");
-
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ði tr. priemonë nepriklauso Jums.");
-        if(PlayerMoney[ playerid ] < 400) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, Jums nepakanka pakankamai pinigø, kad galëtumëte nusipirkti parkavimo vietà. Kaina: 400$");
-
-        GetVehiclePos(idcar,cInfo[idcar][cSpawn][0],cInfo[idcar][cSpawn][1],cInfo[idcar][cSpawn][2]);
-        GetVehicleZAngle(idcar,cInfo[idcar][cSpawn][3]);
-        pInfo[playerid][pCarGet] --;
-        cInfo[idcar][cVehID] = 0;
-
-        new panels,doors,lights,tires, Float:Health;
-        GetVehicleDamageStatus(idcar, panels, doors, lights, tires);
-        GetVehicleHealth( idcar, Health );
-        format( cInfo[ idcar ][ cDamage ], 50, "%d/%d/%d/%d/%d/", panels, doors, lights, tires, floatround( Health) );
-        cInfo[ idcar ][ cVirtWorld ] = GetVehicleVirtualWorld( idcar );
-
-        DestroyVehicle(idcar);
-        SaveCar(idcar);
-        nullVehicle( idcar );
-        GivePlayerMoney(playerid, -400);
-        SendClientMessage(playerid,COLOR_LIGHTRED2," Nauja tr. priemonës parkavimo vieta sëkmingai nustatyta. Dabar naudodami /v get, tr. priemonæ gausite èia.");
-        PlayerPlaySound(playerid, 1057, 0.0, 0.0, 0.0);
-        Engine[idcar] = false;
-        return 1;
-    }
-    else if(!strcmp("register",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
-            return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new veh = GetPlayerVehicleID( playerid );
-        if(cInfo[veh][cOwner] != pInfo[playerid][pMySQLID])
-            return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ði tr. priemonë nepriklauso Jums.");
-
-        if(PlayerMoney[ playerid ] < 350)
-            return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, tr. priemonës registracija kainuoja 350$.");
-
-        new numers = 10 + cInfo[veh][cID],
-            leters[][2] = {
-                {"A"},
-                {"B"},
-                {"C"},
-                {"D"},
-                {"E"},
-                {"F"},
-                {"G"},
-                {"H"},
-                {"I"},
-                {"J"},
-                {"K"},
-                {"L"},
-                {"M"},
-                {"N"},
-                {"O"},
-                {"P"},
-                {"Q"},
-                {"R"},
-                {"S"},
-                {"T"},
-                {"U"},
-                {"V"},
-                {"Y"},
-                {"Z"}
-            };
-
-        format( cInfo[ veh ][ cNumbers ], 24, "%s%s%s%d",leters[ random( sizeof( leters ) ) ],
-                                                          leters[ random( sizeof( leters ) ) ],
-                                                          leters[ random( sizeof( leters ) ) ],
-                                                          numers);
-
-        format(string,256,"Sëkmingai uþregistravote tr. priemonæ Los Santos miesto automobiliø registre, Jûsø tr. priemonës numeriai: %s",cInfo[veh][cNumbers]);
-
-        SendClientMessage(playerid,COLOR_LIGHTRED2,string);
-        GivePlayerMoney(playerid,-350);
-        cInfo[ veh ][ cCrimes     ] = 0;
-
-        SaveCar( veh );
-        format( string, 24, "{000000}%s", cInfo[ veh ][ cNumbers ] );
-        SetVehicleNumberPlate(veh, string );
-        return 1;
-    }
-    else if(!strcmp("payticket",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ði tr. priemonë nepriklauso Jums.");
-        if(PlayerMoney[ playerid ] < cInfo[ idcar ][ cTicket ]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, Jums nepakanka pinigø, kad susimokëtumëte baudà.");
-        format           ( string, 64, "Sëkmingai susimokëjote baudà, kuri Jums kainavo: %d$. Kità kartà bûkite atsargesni.",cInfo[ idcar ][ cTicket ] );
-        SendClientMessage( playerid, COLOR_GREEN, string );
-        GivePlayerMoney(playerid, -cInfo[ idcar ][ cTicket ]);
-        cInfo[ idcar ][ cTicket ] = 0;
-        SaveCar( idcar );
-        return 1;
-    }
-    else if(!strcmp("find",select,true))
-    {
-        select = strtok( params, idx );
-        new slot = strval( select );
-        if ( slot == 0 )
-            return SendClientMessage( playerid, COLOR_LIGHTRED,"Teisingas komandos naudojimas:/v find [/v list SÀRAÐO NUMERIS] " );
-        if ( slot < 0 || slot > 20 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Dëmesio, nurodytas sàraðo numeris neturi bûti didesnis uþ 20 ar maþesnis uþ 1" );
-
-        foreach(Vehicles,tacke)
-        {
-            if ( cInfo[ tacke ][ cOwner ] == pInfo[ playerid ][ pMySQLID ] && pInfo[ playerid ][ pCar ][ slot ] == cInfo[ tacke ][ cID ])
-            {
-                if ( cInfo[ tacke ][ cVehID ] != 0 )
-                {
-                    if(cInfo[ tacke ][cAlarm] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðia galimybæ, kadangi Jûsø tr.priemonëje nëra ámontuoto GPS siûstuvo.");
-                    if ( VGaraze[ tacke ] == false )
-                    {
-                        GetVehiclePos( tacke, Kords[ 0 ], Kords[ 1 ],Kords[ 2 ] );
-                        SetPlayerCheckPointEx( playerid, CHECKPOINT_CAR, Kords[ 0 ], Kords[ 1 ], Kords[ 2 ], 3.0 );
-                        SendClientMessage( playerid, COLOR_LIGHTRED2, "[GPS] Pasirinkta tr. priemonë paþymëta þemëlapyje raudonu taðku." );
-                        return 1;
-                    }
-                    else
-                    {
-                        foreach(Garages,g)
-                        {
-                            if ( gInfo[ g ][ gID ] == cInfo[ tacke ][ cVirtWorld ] )
-                            {
-                                SetPlayerCheckPointEx( playerid, CHECKPOINT_CAR, gInfo[ g ][ gVehicleEnter ][ 0 ], gInfo[ g ][ gVehicleEnter ][ 1 ],gInfo[ g ][ gVehicleEnter ][ 2 ], 3.0 );
-                                SendClientMessage( playerid, COLOR_LIGHTRED2, "[GPS] Jûsø tr. priemonë yra pastatytà garaþe, kurio kordinates paþymëjome raudonu taðku" );
-                                return 1;
-                            }
-                        }
-                    }
-                    return 1;
-                }
-            }
-        }
-        return 1;
-    }
-    // buycar
-    else if(!strcmp("buy",select,true))
-    {
-        if(pInfo[ playerid ][ pCar ][ 20 ] > 0) 
-            return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, Jûs jau pasiekëte maksimalø 20 automobiliø limità.");
-
-        foreach(VehicleShopIterator, i)
-        {
-            if(!IsPlayerInRangeOfPoint(playerid, 5.0, VehicleShops[ i ][ PosX ], VehicleShops[ i ][ PosY ], VehicleShops[ i ][ PosZ ]))
-                continue;
-
-            for(new j = 0; j < MAX_VEHICLE_SHOP_VEHICLES; j++)
-                if(VehicleShops[ i ][ VehicleModels ][ j ])
-                    format(string, sizeof(string),"%s%s - $%d\n", string, aVehicleNames[ VehicleShops[ i ][ VehicleModels ][ j ] - 400 ], VehicleShops[ i ][ VehiclePrices ][ j ]);
-            CurrentPlayerVehicleShop[ playerid ] = i;
-            ShowPlayerDialog(playerid, DIALOG_VEHICLE_SHOP, DIALOG_STYLE_LIST, VehicleShops[ i ][ Name ], string, "Pirkti", "Atðaukti");
-            return 1;
-        }
-        SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate prie transporto parduotuvës.");
-    }
-
-    else if(!strcmp("lock",select,true))
-    {
-        new car = GetNearestVehicle(playerid,10.0);
-        if(car == INVALID_VEHICLE_ID || cInfo[ car ][ cOwner ] == 0) return 1;
-        if(cInfo[car][cLock] == 0 && CheckCarKeys(playerid,car) == 1)
-        {
-            LockVehicle(car, 1);
-            VehicleAlarm(car, 0);
-            ShowInfoText(playerid,"~w~AUTOMOBILIS ~r~UZRAKINTAS", 1000);
-            PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-            return 1;
-        }
-        else if(cInfo[car][cLock] == 1 && CheckCarKeys(playerid,car) == 1)
-        {
-            LockVehicle(car, 0);
-            VehicleAlarm(car, 0);
-            ShowInfoText(playerid,"~w~AUTOMOBILIS ~g~ATRAKINTAS", 1000);
-            PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
-            return 1;
-        }
-        return 1;
-    }
-    else if(!strcmp("faction",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ði tr. priemonë nepriklauso Jums.");
-        select = strtok(params, idx);
-        if(!strlen(select)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v faction [frakcijos id]");
-        giveplayerid  = strval(select);
-        if(pInfo[playerid][pMember] != giveplayerid ) return SendClientMessage(playerid,COLOR_LIGHTRED, "Klaida, Tu nperiklausai ðiai frakcijai.");
-        cInfo[idcar][cFaction] = giveplayerid;
-        format(string,256,"Jûs priskyrëte savo automobilá ðiai frakcijai: %d",giveplayerid);
-        SendClientMessage(playerid,COLOR_WHITE,string);
-        return 1;
-    }
-    else if(!strcmp("buyinsurance",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ði tr. priemonë nepriklauso Jums.");
-        new insprice = 800;
-
-        insprice += cInfo[ idcar ][ cDuzimai   ] * 300;
-        insprice += cInfo[ idcar ][ cInsurance ] * 100;
-
-        if ( PlayerMoney[ playerid ] < insprice)
-        {
-            format           ( string, 126, "Klaida, neturite pakankamai grynøjø pinigø, kadangi draudimo kaina yra %d$. Uþ kiekviena paþeidimà papildomai %d$.",insprice,insprice += cInfo[ idcar ][ cDuzimai   ] * 200),
-            SendClientMessage( playerid, COLOR_LIGHTRED, string );
-            return 1;
-        }
-        GivePlayerMoney  ( playerid, -insprice );
-        format           ( string, 126, "Draudimo pratæsimas vienieriems metams Jums kainavo %d$.", insprice);
-        SendClientMessage( playerid, COLOR_GREEN, string);
-        cInfo[ idcar ][ cInsurance ] ++;
-        SaveCar(idcar);
-        return 1;
-    }
-    else if(!strcmp("buyalarm",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ði tr. priemonë nepriklauso Jums.");
-        new nearestplaya = GetNearestPlayer(playerid,10.0);
-        if(!IsPlayerConnected(nearestplaya)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio, norëdami ádiegti atnaujinimus á tr. priemonæ turite praðyti mechaniko paslaugø.");
-        if(pInfo[nearestplaya][pJob] != JOB_MECHANIC) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio, norëdami ádiegti atnaujinimus á tr. priemonæ turite praðyti mechaniko paslaugø.");
-        select = strtok(params, idx);
-        if(!strlen(select))
-        {
-            SendClientMessage(playerid,COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v buyalarm [id]");
-            SendClientMessage(playerid,COLOR_FADE1,"Pasirinkite norima signalizacijos lygi.");
-            SendClientMessage(playerid,COLOR_FADE1,"1. Paprasta signalizacija - $400");
-            SendClientMessage(playerid,COLOR_FADE1,"2. Paprasta signalizacija su GPS ryðiu - $850");
-            SendClientMessage(playerid,COLOR_FADE1,"3. Profesonali signalizacija su GPS ir PD ryðiu - $2100");
-            SendClientMessage(playerid,COLOR_FADE1,"4. Pro. Signalizacija su GPS, policijos ir asmeniniu praneðikliu - $3000");
-            return 1;
-        }
-        giveplayerid = strval(select);
-        if(giveplayerid == 1)
-        {
-            if(PlayerMoney[ playerid ] < 400) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio Jums nepakanka grynøjø pinigø ðiam atnaujinimui. ($1500).");
-            GivePlayerMoney(playerid,-400);
-            cInfo[idcar][cAlarm] = 1;
-            SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 1 lygio signalizacija buvo sëkmingai ádiegta á Jûsø tr. priemonæ.");
-            SaveCar(idcar);
-            return 1;
-        }
-        else if(giveplayerid == 2)
-        {
-            if(PlayerMoney[ playerid ] < 850) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio Jums nepakanka grynøjø pinigø ðiam atnaujinimui. ($3000).");
-            GivePlayerMoney(playerid,-850);
-            cInfo[idcar][cAlarm] = 2;
-            SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 2 lygio signalizacija buvo sëkmingai ádiegta á Jûsø tr. priemonæ.");
-            SaveCar(idcar);
-            return 1;
-        }
-        else if(giveplayerid == 3)
-        {
-            if(PlayerMoney[ playerid ] < 2100) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio Jums nepakanka grynøjø pinigø ðiam atnaujinimui. ($6000).");
-            GivePlayerMoney(playerid,-2100);
-            cInfo[idcar][cAlarm] = 3;
-            SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 3 lygio signalizacija buvo sëkmingai ádiegta á Jûsø tr. priemonæ.");
-		    SaveCar(idcar);
-            return 1;
-        }
-        else if(giveplayerid == 4)
-        {
-            if(PlayerMoney[ playerid ] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio Jums nepakanka grynøjø pinigø ðiam atnaujinimui. ($9000).");
-            GivePlayerMoney(playerid,-3000);
-            cInfo[idcar][cAlarm] = 4;
-            SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 4 lygio signalizacija buvo sëkmingai ádiegta á Jûsø tr. priemonæ.");
-            SaveCar(idcar);
-            return 1;
-        }
-        return 1;
-    }
-    else if(!strcmp("buylock",select,true))
-    {
-        if(GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, norëdami atlikti ðá veiksmà privalote sedëti tr. priemonëje.");
-        new idcar = GetPlayerVehicleID( playerid );
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ði tr. priemonë nepriklauso Jums.");
-        new nearestplaya = GetNearestPlayer(playerid,10.0);
-        if(!IsPlayerConnected(nearestplaya)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: ðalia jûsø nëra automechaniko.");
-        if(pInfo[nearestplaya][pJob] != JOB_MECHANIC) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio, norëdami ádiegti atnaujinimus á tr. priemonæ turite praðyti mechaniko paslaugø.");
-        select = strtok(params, idx);
-        if(!strlen(select))
-        {
-            SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v buylock [id]");
-            SendClientMessage(playerid,COLOR_FADE1,"Pasirinkite norima uþrakto lygi.");
-            SendClientMessage(playerid,COLOR_FADE1,"1. Neþinomos firm. spynos uþraktas - $200");
-            SendClientMessage(playerid,COLOR_FADE1,"2. Originalus spynos uþraktas - $500");
-            SendClientMessage(playerid,COLOR_FADE1,"3. Sustiprintas spynos uþraktas - $1100");
-            SendClientMessage(playerid,COLOR_FADE1,"4. Titaninis spynos uþraktas - $1600");
-            SendClientMessage(playerid,COLOR_FADE1,"5. Titaninis spynos uþraktas su el. rakteliu - $2100");
-            return 1;
-        }
-        giveplayerid = strval(select);
-        if(giveplayerid == 1)
-        {
-            if(PlayerMoney[ playerid ] < 200) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio Jums nepakanka grynøjø pinigø ðiam atnaujinimui. ($500).");
-            GivePlayerMoney(playerid,-200);
-            cInfo[idcar][cLockType] = 1;
-            SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 1 lygio uþraktas buvo sëkmingai ádiegtas á Jûsø tr. priemonæ.");
-            return 1;
-        }
-        else if(giveplayerid == 2)
-        {
-            if(PlayerMoney[ playerid ] < 500) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio Jums nepakanka grynøjø pinigø ðiam atnaujinimui. ($1000).");
-            GivePlayerMoney(playerid,-500);
-            cInfo[idcar][cLockType] = 2;
-            SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 2 lygio uþraktas buvo sëkmingai ádiegtas á Jûsø tr. priemonæ.");
-            return 1;
-        }
-        else if(giveplayerid == 3)
-        {
-            if(PlayerMoney[ playerid ] < 1100) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio Jums nepakanka grynøjø pinigø ðiam atnaujinimui. ($1500).");
-            GivePlayerMoney(playerid,-1100);
-            cInfo[idcar][cLockType] = 3;
-            SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 3 lygio uþraktas buvo sëkmingai ádiegtas á Jûsø tr. priemonæ.");
-            return 1;
-        }
-        else if(giveplayerid == 4)
-        {
-            if(PlayerMoney[ playerid ] < 1600) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio Jums nepakanka grynøjø pinigø ðiam atnaujinimui. ($2000).");
-            GivePlayerMoney(playerid,-1600);
-            cInfo[idcar][cLockType] = 4;
-            SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 4 lygio sëkmingai imontuota á jûsø automobilá.");
-            return 1;
-        }
-        else if(giveplayerid == 5)
-        {
-            if(PlayerMoney[ playerid ] < 2100) return SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio Jums nepakanka grynøjø pinigø ðiam atnaujinimui. ($2500).");
-            GivePlayerMoney(playerid,-2100);
-            cInfo[idcar][cLockType] = 5;
-            SendClientMessage(playerid,COLOR_LIGHTRED2,"Sveikiname, 5 lygio uþraktas buvo sëkmingai ádiegtas á Jûsø tr. priemonæ.");
-            return 1;
-        }
-    }
-    else if(!strcmp("sellto",select,true))
-    {
-        new idcar = INVALID_VEHICLE_ID;
-        if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-            idcar = GetPlayerVehicleID( playerid );
-        else
-            idcar = GetNearestVehicle( playerid, 6.0 );
-        if ( idcar == INVALID_VEHICLE_ID ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, aplink Tave nëra jokios tr. priemonës");
-
-        if(cInfo[idcar][cOwner] != pInfo[playerid][pMySQLID]) return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ði tr. priemonë nepriklauso Jums.");
-        select = strtok(params, idx);
-        if(!strlen(select)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /v sellto [þaidëjo id][kaina]");
-        giveplayerid = strval(select);
-        if(!IsPlayerConnected(giveplayerid))  return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-        select = strtok(params, idx);
-        new price = strval(select);
-        if(price < 0 || price > 99999999) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Kaina negali buti maþesnë negu 0 ir didesnë negu 99999999.");
-        format(string,256,"Jûs siulote jam %s,kad jis nupirktu jûsø automobilá uþ: $%d.",GetPlayerNameEx(giveplayerid),price);
-        SendClientMessage(playerid,COLOR_WHITE,string);
-        format(string,256,"Automobilio savininkas %s siûlo jums nupirkti jo automobilá uþ: $%d, jeigu sutinkate,raðykite /accept car.",GetPlayerNameEx(playerid),price);
-        SendClientMessage(giveplayerid,COLOR_WHITE,string);
-        Offer[giveplayerid][0] = playerid;
-        OfferPrice[giveplayerid][0] = price;
-        OfferID[ giveplayerid ][ 0 ] = idcar;
-        return 1;
-    }
-    else
-    {
-        SendClientMessage(playerid, COLOR_LIGHTRED, "__________________________Tr. Priemoniu komandos ir naudojimas__________________________");
-        SendClientMessage(playerid,COLOR_LIGHTRED2, "  KOMANDOS NAUDOJIMAS: /v [komanda], pavyzdþiui: /v list");
-        SendClientMessage(playerid,GRAD,"  PAGRINDINES: list, get, park, find, buy, dubkey, takedubkey, removedubs");
-        SendClientMessage(playerid,GRAD,"  PAGRINDINES: faction, documents, getdub, payticket");
-        SendClientMessage(playerid,GRAD,"  TOBULINIMAS: register, buyalarm, buylock, buyinsurance");
-        SendClientMessage(playerid,GRAD,"  KITOS: /vradio, /trunk, /trunko, /bonnet, /windows, /setbelt, /maxspeed");
-        return 1;
-    }
-    return 1;
-}
-*/
 stock LoadVehicleCargo(sqlid, vehicleid, bool:isStatic = false)
 {
     new query[100],cargoid, amount, Cache:result;
@@ -11811,19 +10204,7 @@ CMD:takejob( playerid, params[ ] )
     }
     return 1;
 }
-CMD:learnfight( playerid, params[ ] )
-{
-    if(PlayerToPoint(25.0,playerid, 770.3773,-70.6785,1000.7243))
-    {
-            ShowPlayerDialog(playerid,10,DIALOG_STYLE_LIST,"Kovos stiliai","\
-            1. Gatvës kovos stilius $500\n\
-            2. Kung Fu kovos stilius $500\n\
-            3. Bokso kovos stilius $500\n","Iðmokti","Atðaukti");
-            return 1;
-    }
-    else SendClientMessage(playerid, COLOR_LIGHTRED, "Jûs ne sporto salëje.");
-    return 1;
-}
+
 CMD:stop( playerid, params[ ] )
 {
     if(VehicleLoadTimer[ playerid ] != -1)
@@ -11876,49 +10257,7 @@ CMD:canceloffer( playerid, params[ ] )
     }
     return 1;
 }
-CMD:lic( playerid, params[ ] )
-{
-    cmd_licenses( playerid, params );
-    return 1;
-}
-CMD:licenses( playerid, params[ ] )
-{
-    new
-        giveplayerid,
-        string[ 126 ];
-        
-    if ( sscanf( params, "u", giveplayerid ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /licenses [þaidëjo id]");
-    if(Mires[playerid] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje.");
-    if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-    if(!PlayerToPlayer(5, playerid,giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Tu nesi prie pasirinkto þaidëjo.");
-    new text[15];
 
-    format(string,126,"|________%s licencijos________|",GetName(playerid));
-    SendClientMessage(giveplayerid,COLOR_GREEN,string);
-    if(pInfo[playerid][pLicMoto] == 1) text = "Iðlaikyta"; else text = "Neiðlaikyta";
-    format(string, 126, "Motociklo licencija: %s", text);
-    SendClientMessage(giveplayerid, COLOR_FADE1, string);
-
-    if(pInfo[playerid][pLicCar] == 1) text = "Iðlaikyta"; else text = "Neiðlaikyta";
-    format(string, 126, "Automobilio licencija: %s", text);
-    SendClientMessage(giveplayerid, COLOR_FADE1, string);
-
-    format(string, 126, "* Vairavimo áspëjimai: %d ", pInfo[ playerid ][ pDriverWarn ] );
-    SendClientMessage( giveplayerid, COLOR_WHITE, string );
-
-    if(pInfo[playerid][pLicBoat] == 1) text = "Iðlaikyta"; else text = "Neiðlaikyta";
-    format(string, 126, "Laivybos licencija: %s", text);
-    SendClientMessage(giveplayerid, COLOR_FADE1, string);
-
-    if(pInfo[playerid][pLicHeli] == 1) text = "Iðlaikyta"; else text = "Neiðlaikyta";
-    format(string, 126, "Pilotavimo licencija: %s", text);
-    SendClientMessage(giveplayerid, COLOR_WHITE, string);
-
-    if(pInfo[playerid][pLicWeapon] == 1) text = "Iðlaikyta"; else text = "Neiðlaikyta";
-    format(string, 126, "Ginklo licencija: %s", text);
-    SendClientMessage(giveplayerid, COLOR_FADE1, string);
-    return 1;
-}
 CMD:die( playerid, params[ ] )
 {
     if ( Mires[ playerid ] == 0 ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs ne komos busenoje.");
@@ -13169,7 +11508,7 @@ CMD:talkstyle(playerid, params[])
 }
 CMD:cartax( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if ( GetPlayerAdminLevel(playerid) >= 4 )
     {
         #pragma unused params
         new giveplayerid,
@@ -13188,7 +11527,7 @@ CMD:cartax( playerid, params[ ] )
 }
 CMD:biztax( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if ( GetPlayerAdminLevel(playerid) >= 4 )
     {
         #pragma unused params
         new giveplayerid,
@@ -13207,7 +11546,7 @@ CMD:biztax( playerid, params[ ] )
 }
 CMD:housetax( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if (GetPlayerAdminLevel(playerid) >= 4 )
     {
         #pragma unused params
         new giveplayerid,
@@ -13226,7 +11565,7 @@ CMD:housetax( playerid, params[ ] )
 }
 CMD:pos(playerid)
 {
-    if(!IsPlayerAdmin(playerid) && !pInfo[ playerid ][ pAdmin ])
+    if(!IsPlayerAdmin(playerid) && !GetPlayerAdminLevel(playerid))
         return 0;
 
     new Float:x, Float:y, Float:z, string[64];
@@ -13238,7 +11577,7 @@ CMD:pos(playerid)
 
 CMD:goto( playerid, params [ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if (GetPlayerAdminLevel(playerid) >= 1 )
     {
         new
             giveplayerid,
@@ -13262,7 +11601,7 @@ CMD:goto( playerid, params [ ] )
 }
 CMD:gethere( playerid, params [ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new
             giveplayerid,
@@ -13289,7 +11628,7 @@ CMD:gethere( playerid, params [ ] )
 }
 CMD:adminduty( playerid, params [ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
         cmd_aduty(playerid);
     return 1;
 }
@@ -13298,7 +11637,7 @@ CMD:aduty(playerid)
     new string[ 256 ];
 
     static DutyStartTimestamp[ MAX_PLAYERS ];
-    if(pInfo[ playerid ][ pAdmin ] >= 1)
+    if(GetPlayerAdminLevel(playerid)>= 1)
     {
         if(AdminDuty[playerid] == false)
         {
@@ -13357,7 +11696,7 @@ CMD:setskin( playerid, params [ ] )
         giveplayerid,
         skinas,
         string[ 126 ];
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         if ( sscanf( params, "ud", giveplayerid, skinas ) )
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /setskin [þaidëjoID][skino id]");
@@ -13365,7 +11704,6 @@ CMD:setskin( playerid, params [ ] )
         if ( IsPlayerNPC( giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /setskin [þaidëjoID][skino id]");
         if ( skinas < 1 || skinas > 299 || skinas == 149 || skinas == 86) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: neteisingai nurodytas iðvaizdos ID.");
         SetPlayerSkin   ( giveplayerid, skinas );
-        pInfo[ giveplayerid ][ pSkin ] = skinas;
         format          ( string, 126, "AdmWarn: Administratorius (%s) pakeitë veikëjui (%s) iðvaizdà (ID %d)",GetName(playerid), GetName(giveplayerid), skinas);
         SendAdminMessage( COLOR_ADM, string);
         return 1;
@@ -13378,7 +11716,7 @@ CMD:slap( playerid, params [ ] )
         giveplayerid,
         string[ 126 ],
         Float:Kords[ 3 ];
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if (GetPlayerAdminLevel(playerid) >= 1 )
     {
         if ( sscanf( params, "u", giveplayerid ) )
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /slap [þaidëjoID]");
@@ -13401,7 +11739,7 @@ CMD:freeze( playerid, params [ ] )
     new
         giveplayerid,
         string[ 126 ];
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         if ( sscanf( params, "u", giveplayerid ) )
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /freeze [þaidëjoID]");
@@ -13427,7 +11765,7 @@ CMD:freeze( playerid, params [ ] )
 }
 CMD:noooc( playerid, params [ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         if(OOCDisabled == true)
         {
@@ -13448,7 +11786,7 @@ CMD:kickall( playerid, params [ ] )
         gMessage[ 64 ],
         string[ 216 ];
 
-    if ( pInfo[ playerid ][ pAdmin ] >= 3 )
+    if ( GetPlayerAdminLevel(playerid) >= 3 )
     {
         if ( sscanf( params, "s[64]", gMessage ) )
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /kickall [preiþastis]");
@@ -13469,7 +11807,7 @@ CMD:kick( playerid, params [ ] )
         giveplayerid,
         gMessage[ 64 ];
         
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         if ( sscanf( params, "us[64]", giveplayerid, gMessage ) )
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /kick [þaidëjo id][preiþastis]");
@@ -13523,7 +11861,7 @@ CMD:ban( playerid, params [ ] )
         giveplayerid,
         gMessage[ 64 ];
         
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         if ( sscanf( params, "us[64]", giveplayerid, gMessage ) )
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /ban [þaidëjo id][preiþastis]");
@@ -13543,7 +11881,7 @@ CMD:jail( playerid, params [ ] )
         time,
         gMessage[ 128 ];
         
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         if ( sscanf( params, "uds[128]", giveplayerid, time, gMessage ) )
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /jail [þaidëjo id][minutës][prieþastis]");
@@ -13559,7 +11897,7 @@ CMD:jail( playerid, params [ ] )
 }
 CMD:warn( playerid, params [ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new giveplayerid,
             string[ 256 ],
@@ -13590,7 +11928,7 @@ CMD:warn( playerid, params [ ] )
 }
 CMD:whipe( playerid, params [ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 5 )
+    if ( GetPlayerAdminLevel(playerid) >= 5 )
     {
         new
             reason[ 256 ],
@@ -14073,7 +12411,7 @@ CMD:whipe( playerid, params [ ] )
 
 CMD:serverguns( playerid, params [ ] )
 {
-    if( pInfo[ playerid ][ pAdmin ] >= 3 )
+    if( GetPlayerAdminLevel(playerid) >= 3 )
     {
         #pragma unused params
         new
@@ -14299,7 +12637,7 @@ CMD:serverguns( playerid, params [ ] )
 }
 CMD:checkgun( playerid, params [ ] )
 {
-    if( pInfo[ playerid ][ pAdmin ] >= 3 )
+    if( GetPlayerAdminLevel(playerid) >= 3 )
     {
         #pragma unused params
         new
@@ -14548,7 +12886,7 @@ CMD:makeleader(playerid, params[])
         fact,
         giveplayerid,
         string[ 128 ];
-    if( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if( GetPlayerAdminLevel(playerid) >= 4 )
     {
         if ( sscanf( params, "ud", giveplayerid, fact ) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /makeleader [þaidëjo id][frakcija]");
         if ( !IsPlayerConnected(giveplayerid) ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
@@ -14575,7 +12913,7 @@ CMD:makeleader(playerid, params[])
 
 CMD:makefactionmanager(playerid, params[])
 {
-    if(!IsPlayerAdmin(playerid) && pInfo[ playerid ][ pAdmin ] < 4)
+    if(!IsPlayerAdmin(playerid) && GetPlayerAdminLevel(playerid) < 4)
         return 0;
 
     new targetid, query[ 128 ];
@@ -14608,7 +12946,7 @@ CMD:makefactionmanager(playerid, params[])
 
 CMD:setstatcar(playerid, params[])
 {
-    if( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if( GetPlayerAdminLevel(playerid) >= 4 )
     {
         new id,
             id2,
@@ -14714,7 +13052,7 @@ CMD:setstat(playerid, params[])
 */
 CMD:auninvite(playerid, params[])
 {
-    if(pInfo[ playerid ][ pAdmin ] >= 4)
+    if(GetPlayerAdminLevel(playerid) >= 4)
     {
         new
             userID;
@@ -14750,7 +13088,7 @@ CMD:auninvite(playerid, params[])
 }
 CMD:forcelogout(playerid, params[])
 {
-    if( pInfo[ playerid ][ pAdmin ] >= 3 )
+    if( GetPlayerAdminLevel(playerid) >= 3 )
     {
         new
             playerLID;
@@ -14777,7 +13115,7 @@ CMD:forcelogout(playerid, params[])
 }
 CMD:togglefading(playerid)
 {
-    if(!pInfo[ playerid ][ pAdmin ])
+    if(!GetPlayerAdminLevel(playerid))
         return 0;
 
     if(PlayerFading)
@@ -14790,7 +13128,7 @@ CMD:togglefading(playerid)
 
 CMD:npcrecord(playerid, params[])
 {
-    if(pInfo[ playerid ][ pAdmin ] < 4 && !IsPlayerAdmin(playerid))
+    if(GetPlayerAdminLevel(playerid) < 4 && !IsPlayerAdmin(playerid))
         return 0;
 
     if(IsPlayerDataRecorded[ playerid ])
@@ -14824,7 +13162,7 @@ CMD:npcrecord(playerid, params[])
 
 CMD:amenu(playerid)
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if ( GetPlayerAdminLevel(playerid) >= 4 )
     {
         ShowPlayerDialog(playerid,19,DIALOG_STYLE_LIST,"Administratoriaus meniu",
                                                                 "- Namai\n\
@@ -14845,7 +13183,7 @@ CMD:amenu(playerid)
 }
 CMD:hideadmins( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 3 )
+    if ( GetPlayerAdminLevel(playerid) >= 3 )
     {
         #pragma unused params
         switch ( GetPVarInt( playerid, "hideadmin" ) )
@@ -14866,7 +13204,7 @@ CMD:hideadmins( playerid, params[ ] )
 }
 CMD:checkflist(playerid, params[])
 {
-    if( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new
             fid,
@@ -14889,7 +13227,7 @@ CMD:fon( playerid, params[ ] )
 {
     new
         string[ 126 ];
-    if( pInfo[ playerid ][ pAdmin ] >= 0)
+    if( GetPlayerAdminLevel(playerid) >= 0)
     {
         new id;
         if ( sscanf( params, "d", id ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /fon [FRAKCIJOS ID] "),
@@ -14926,7 +13264,7 @@ stock IsOnlineFactionMembers( id )
 }
 CMD:checkjail( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new giveplayerid,
             string[ 126 ];
@@ -14944,7 +13282,7 @@ CMD:checkjail( playerid, params[ ] )
 }
 CMD:masked( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         #pragma unused params
         new string[ 64 ];
@@ -14962,7 +13300,7 @@ CMD:masked( playerid, params[ ] )
 }
 CMD:are( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new giveplayerid,
             string[ 126 ],
@@ -14991,7 +13329,7 @@ CMD:are( playerid, params[ ] )
 }
 CMD:dre( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new giveplayerid,
             reason[ 126 ],
@@ -15018,7 +13356,7 @@ CMD:dre( playerid, params[ ] )
 }
 CMD:gotonowhere(playerid)
 {
-    if(!pInfo[ playerid ][ pAdmin ] && !IsPlayerAdmin(playerid))
+    if(!GetPlayerAdminLevel(playerid) && !IsPlayerAdmin(playerid))
         return 0;
 
     static LastUsed[ MAX_PLAYERS ];
@@ -15042,7 +13380,7 @@ CMD:gotonowhere(playerid)
 }
 CMD:gotohouse(playerid, params[])
 {
-    if(pInfo[ playerid ][ pAdmin ] < 4)
+    if(GetPlayerAdminLevel(playerid) < 4)
         return 0;
     
     new houseindex, Float:x, Float:y, Float:z;
@@ -15062,7 +13400,7 @@ CMD:gotohouse(playerid, params[])
 }
 CMD:gotobiz(playerid, params[])
 {
-    if(pInfo[ playerid ][ pAdmin ] < 4)
+    if(GetPlayerAdminLevel(playerid) < 4)
         return 0;
 
     new bizindex, tmp[16];
@@ -15094,7 +13432,7 @@ CMD:gotobiz(playerid, params[])
 }
 CMD:gotogarage(playerid, params[])
 {
-    if(!IsPlayerAdmin(playerid) && !pInfo[ playerid ][ pAdmin ])
+    if(!IsPlayerAdmin(playerid) && !GetPlayerAdminLevel(playerid))
         return 0;
 
     new index, string[60];
@@ -15139,7 +13477,7 @@ CMD:gotogarage(playerid, params[])
 
 CMD:serverstats(playerid)
 {
-    if(!IsPlayerAdmin(playerid) && pInfo[ playerid ][ pAdmin ] < 4)
+    if(!IsPlayerAdmin(playerid) && GetPlayerAdminLevel(playerid) < 4)
         return 0;
 
     new playerCount, botCount, string[ 2048 ];
@@ -15196,7 +13534,7 @@ CMD:serverstats(playerid)
 
 CMD:setweather( playerid, params[ ] )
 {
-    if(pInfo[playerid][pAdmin] >= 2)
+    if(GetPlayerAdminLevel(playerid) >= 2)
     {
         new tmp,
             string[ 128 ];
@@ -15209,7 +13547,7 @@ CMD:setweather( playerid, params[ ] )
 }
 CMD:dtc( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 2 )
+    if ( GetPlayerAdminLevel(playerid) >= 2 )
     {
         #pragma unused params
         new car = GetNearestVehicle( playerid, 5.0 );
@@ -15247,7 +13585,7 @@ CMD:dtc( playerid, params[ ] )
 }
 CMD:rtc( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         #pragma unused params
         new car = GetNearestVehicle( playerid, 5.0 );
@@ -15268,7 +13606,7 @@ CMD:rtc( playerid, params[ ] )
 }
 CMD:rc(playerid, params[])
 {
-    if(pInfo[ playerid ][ pAdmin ] < 1)
+    if(GetPlayerAdminLevel(playerid) < 1)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neesate administratorius.");
     
     new vehicleid;
@@ -15287,7 +13625,7 @@ CMD:rc(playerid, params[])
 }
 CMD:rjc( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new string[ 126 ],
             frakcija;
@@ -15321,7 +13659,7 @@ CMD:rjc( playerid, params[ ] )
 }
 CMD:rfc( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 2 )
+    if ( GetPlayerAdminLevel(playerid) >= 2 )
     {
         new string[ 126 ],
             frakcija;
@@ -15357,7 +13695,7 @@ CMD:rfc( playerid, params[ ] )
 
 CMD:olddriver(playerid, params[])
 {
-    if(!pInfo[ playerid ][ pAdmin ] && !IsPlayerAdmin(playerid))
+    if(!GetPlayerAdminLevel(playerid) && !IsPlayerAdmin(playerid))
         return 0;
 
 
@@ -15392,7 +13730,7 @@ CMD:gotocar( playerid, params[ ] )
         id,
         Float:Kords[ 3 ];
         
-    if(pInfo[playerid][pAdmin] >= 2)
+    if(GetPlayerAdminLevel(playerid) >= 2)
     {
         if ( sscanf( params, "d", id ) )
         {
@@ -15412,7 +13750,7 @@ CMD:mute( playerid, params[ ] )
     new
         giveplayerid,
         string[ 126 ];
-    if(pInfo[playerid][pAdmin] >= 2)
+    if(GetPlayerAdminLevel(playerid) >= 2)
     {
         if ( sscanf( params, "u", giveplayerid ) )
         {
@@ -15444,7 +13782,7 @@ CMD:setarmour( playerid, params[ ] )
         giveplayerid,
         Armor,
         string[ 126 ];
-    if(pInfo[playerid][pAdmin] >= 3)
+    if(GetPlayerAdminLevel(playerid) >= 3)
     {
         if ( sscanf( params, "ud", giveplayerid, Armor ) )
         {
@@ -15465,7 +13803,7 @@ CMD:sethp( playerid, params[ ] )
         giveplayerid,
         HP,
         string[ 126 ];
-    if(pInfo[playerid][pAdmin] >= 3)
+    if(GetPlayerAdminLevel(playerid) >= 3)
     {
         if ( sscanf( params, "ud", giveplayerid, HP ) )
         {
@@ -15483,7 +13821,7 @@ CMD:sethp( playerid, params[ ] )
 }
 CMD:rac(playerid)
 {
-    if(pInfo[playerid][pAdmin] < 2)
+    if(GetPlayerAdminLevel(playerid) < 2)
         return 0;
 
     foreach(Vehicles,veh)
@@ -15518,7 +13856,7 @@ stock IsVehicleUsed(vehicleid)
 
 CMD:apkills( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         #pragma unused params
         if ( GetPVarInt( playerid, "AP_KILLS" ) == 0 )
@@ -15538,7 +13876,7 @@ CMD:apkills( playerid, params[ ] )
 }
 CMD:check( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new giveplayerid;
         if ( sscanf( params, "u", giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /check [þaidëjo id]");
@@ -15549,7 +13887,7 @@ CMD:check( playerid, params[ ] )
 }
 CMD:lockacc( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new giveplayerid,
             string[ 256 ],
@@ -15570,7 +13908,7 @@ CMD:lockacc( playerid, params[ ] )
 }
 CMD:setint( playerid, params[ ] )
 {
-    if(pInfo[playerid][pAdmin] >= 1)
+    if(GetPlayerAdminLevel(playerid) >= 1)
     {
         new giveplayerid,
             inter,
@@ -15585,7 +13923,7 @@ CMD:setint( playerid, params[ ] )
 }
 CMD:setvw( playerid, params[ ] )
 {
-    if( pInfo[playerid][pAdmin] >= 1 )
+    if( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new giveplayerid,
             inter,
@@ -15600,14 +13938,13 @@ CMD:setvw( playerid, params[ ] )
 }
 CMD:specoff( playerid, params[ ] )
 {
-    if(!pInfo[ playerid ][ pAdmin ] && !pInfo[ playerid ][ pFactionManager ])
+    if(!GetPlayerAdminLevel(playerid) && !pInfo[ playerid ][ pFactionManager ])
         return 0;
     
     if(GetPlayerState(playerid) == PLAYER_STATE_SPECTATING)
     {
         TogglePlayerSpectating(playerid, false);
         SetCameraBehindPlayer(playerid);
-        SetPlayerSkin(playerid, pInfo[ playerid ][ pSkin ]);
         PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
         DestroyDynamic3DTextLabel(SpecCommandLabel[ playerid ]);
     }
@@ -15615,7 +13952,7 @@ CMD:specoff( playerid, params[ ] )
 }
 CMD:spec(playerid, params[])
 {
-    if(!pInfo[ playerid ][ pAdmin ] && !pInfo[ playerid ][ pFactionManager ])
+    if(!GetPlayerAdminLevel(playerid) && !pInfo[ playerid ][ pFactionManager ])
         return 0;
     
     new giveplayerid;
@@ -15625,7 +13962,7 @@ CMD:spec(playerid, params[])
     if(!IsPlayerConnected(giveplayerid)) 
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje. ");
 
-    if(pInfo[ playerid ][ pFactionManager ] && !pInfo[ playerid ][ pAdmin ] && pInfo[ giveplayerid ][ pAdmin ] && AdminDuty[ giveplayerid ])
+    if(pInfo[ playerid ][ pFactionManager ] && !GetPlayerAdminLevel(playerid) &&  GetPlayerAdminLevel(giveplayerid) && AdminDuty[ giveplayerid ])
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite stebëti administratoriaus darbe.");
 
     TogglePlayerSpectating(playerid, true);
@@ -15661,7 +13998,7 @@ CMD:spec(playerid, params[])
 }
 CMD:intvw( playerid, params[ ] )
 {
-    if(pInfo[playerid][pAdmin] >= 1)
+    if(GetPlayerAdminLevel(playerid) >= 1)
     {
         #pragma unused params
         new string[ 60 ];
@@ -15672,7 +14009,7 @@ CMD:intvw( playerid, params[ ] )
 }
 CMD:afrisk(playerid, params[])
 {
-    if(!pInfo[ playerid ][ pAdmin ])
+    if(!GetPlayerAdminLevel(playerid))
         return 0;
 
     new targetid,
@@ -15709,7 +14046,7 @@ CMD:afrisk(playerid, params[])
 }
 CMD:aheal( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new string[ 126 ],
             giveplayerid;
@@ -15735,7 +14072,7 @@ CMD:aheal( playerid, params[ ] )
 }
 CMD:aproperty( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new giveplayerid,
             string[ 126 ];
@@ -15797,12 +14134,12 @@ CMD:aproperty( playerid, params[ ] )
 }
 CMD:ahelp( playerid, params[ ] )
 {
-    if( pInfo[playerid][pAdmin] >= 1 )
+    if( GetPlayerAdminLevel(playerid) >= 1 )
     {
         #pragma unused params
 
         SendClientMessage( playerid, COLOR_LIGHTRED, "|____________________________ADMINISTRATORIAUS SKYRIUS____________________________|");
-        if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+        if ( GetPlayerAdminLevel(playerid) >= 1 )
         {
             SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 1] /kick /ban /warn /jail /noooc /adminduty /gethere /check /afrisk /fon "),
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 1] /freeze /slap /spec /specoff /setint /setvw /intvw /masked /aheal /spawn ");
@@ -15810,11 +14147,11 @@ CMD:ahelp( playerid, params[ ] )
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 1] PERSIKËLIMAS: /gotols /gotofc /gotobb /gotopc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos");
             SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc");				
         }
-        if ( pInfo[ playerid ][ pAdmin ] >= 2 )
+        if ( GetPlayerAdminLevel(playerid) >= 2 )
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 2] /dtc /gotocar /mute/rac ");
-        if ( pInfo[ playerid ][ pAdmin ] >= 3 )
+        if ( GetPlayerAdminLevel(playerid) >= 3 )
             SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 3] /sethp /setarmour /forcelogout /hideadmins /serverguns /checkgun /kickall ");
-        if ( pInfo[ playerid ][ pAdmin ] >= 4 )
+        if ( GetPlayerAdminLevel(playerid) >= 4 )
         {
             SendClientMessage( playerid, COLOR_FADE1, "[AdmLvl 4] /auninvite /givemoney /giveweapon /amenu /intmenu"),
             SendClientMessage( playerid, COLOR_WHITE, "[AdmLvl 4] /makeleader /setstat /setstatcar /gotohouse /gotobiz");			
@@ -15826,7 +14163,7 @@ CMD:ahelp( playerid, params[ ] )
 }
 CMD:getoldcar( playerid, params[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
+    if ( GetPlayerAdminLevel(playerid) >= 1 )
     {
         new car;
         if ( sscanf( params, "d", car ) )
@@ -15850,157 +14187,9 @@ CMD:getoldcar( playerid, params[ ] )
     }
     return 1;
 }
-CMD:gotopc( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-        SetPlayerPos( playerid, 2292.1936,26.7535,25.9974);
-        else SetVehiclePos( GetPlayerVehicleID( playerid ), 2292.1936,26.7535,25.9974);
-        SetPlayerInterior    ( playerid, 0);
-        SetPlayerVirtualWorld( playerid, 0);
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Palomino Creek");
-    }
-    return 1;
-}
-CMD:gotols( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-        SetPlayerPos( playerid, 1540.1237, -1675.2844, 13.5500);
-        else SetVehiclePos( GetPlayerVehicleID( playerid ), 1540.1237, -1675.2844, 13.5500);
-        SetPlayerInterior    ( playerid, 0);
-        SetPlayerVirtualWorld( playerid, 0);
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Los Santos.");
-    }
-    return 1;
-}
-CMD:gotomg( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-        SetPlayerPos( playerid, 1313.8589,314.4103,19.4098);
-        else SetVehiclePos( GetPlayerVehicleID( playerid ), 1313.8589,314.4103,19.4098);
-        SetPlayerInterior    ( playerid, 0);
-        SetPlayerVirtualWorld( playerid, 0);
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Montgomery.");
-    }
-    return 1;
-}
-CMD:gotobb( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-        SetPlayerPos( playerid, 230.9343,-146.9140,1.4297);
-        else SetVehiclePos( GetPlayerVehicleID( playerid ), 230.9343,-146.9140,1.4297);
-        SetPlayerInterior    ( playerid, 0);
-        SetPlayerVirtualWorld( playerid, 0);
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Blueberry");
-    }
-    return 1;
-}
-CMD:gotodl( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-            SetPlayerPos( playerid, 641.5609,-559.9846,16.0626 );
-        else
-            SetVehiclePos( GetPlayerVehicleID( playerid ), 641.5609,-559.9846,16.0626 );
-        SetPlayerInterior    ( playerid, 0 );
-        SetPlayerVirtualWorld( playerid, 0 );
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Dillimore");
-    }
-    return 1;
-}
-CMD:gotofc( playerid, params[ ] )
-{
-
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-            SetPlayerPos( playerid, -183.3534,1034.6022,19.7422 );
-        else
-            SetVehiclePos( GetPlayerVehicleID( playerid ), -183.3534,1034.6022,19.7422 );
-        SetPlayerInterior    ( playerid, 0 );
-        SetPlayerVirtualWorld( playerid, 0 );
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Fort Carson");
-    }
-    return true;
-}
-CMD:gotopos(playerid, params[])
-{
-    if(!IsPlayerAdmin(playerid) && !pInfo[ playerid ][ pAdmin ])
-        return 0;
-
-    new Float:x, Float:y, Float:z;
-    if(sscanf(params,"fff", x, y, z))
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas naudojimas /gotopos [X] [Y] [Z]");
-
-    SetPlayerPos(playerid, x, y, z);
-    SendClientMessage(playerid, COLOR_NEWS, "Sëkmingai persikëlëte á koordinates.");
-    return 1;
-}
-CMD:gotolb( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-            SetPlayerPos( playerid, -837.1216,1537.0032,22.5471 );
-        else
-            SetVehiclePos( GetPlayerVehicleID( playerid ), -837.1216,1537.0032,22.5471 );
-        SetPlayerInterior    ( playerid, 0 );
-        SetPlayerVirtualWorld( playerid, 0 );
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: Las Barrancas");
-    }
-    return true;
-}
-CMD:mark( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        GetPlayerPos( playerid, pInfo[ playerid ][ pCrashPos ][ 0 ],
-                                pInfo[ playerid ][ pCrashPos ][ 1 ],
-                                pInfo[ playerid ][ pCrashPos ][ 2 ]);
-        pInfo[ playerid ][ pInt ] = GetPlayerInterior( playerid );
-        pInfo[ playerid ][ pVirWorld ] = GetPlayerVirtualWorld( playerid );
-        SendClientMessage( playerid, COLOR_WHITE, "[AdmCmd] Pozicija sëkmingai iðsaugota.");
-    }
-    return 1;
-}
-CMD:gotomark( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 )
-    {
-        #pragma unused params
-        if ( !IsPlayerInAnyVehicle( playerid ) )
-        SetPlayerPos( playerid, pInfo[ playerid ][ pCrashPos ][ 0 ],
-                                pInfo[ playerid ][ pCrashPos ][ 1 ],
-                                pInfo[ playerid ][ pCrashPos ][ 2 ]);
-        else SetVehiclePos( GetPlayerVehicleID( playerid ),
-                                pInfo[ playerid ][ pCrashPos ][ 0 ],
-                                pInfo[ playerid ][ pCrashPos ][ 1 ],
-                                pInfo[ playerid ][ pCrashPos ][ 2 ]);
-        SetPlayerInterior    ( playerid, pInfo[ playerid ][ pInt ]);
-        SetPlayerVirtualWorld( playerid, pInfo[ playerid ][ pVirWorld ]);
-        SendClientMessage    ( playerid, GRAD, "[AdmCmd] Persikeletë á nurodytà vietà: /mark vieta.");
-    }
-    return 1;
-}
 CMD:givemoney(playerid,params[])
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
+    if ( GetPlayerAdminLevel(playerid) >= 4 )
     {
         new giveplayerid,
             mn,
@@ -16073,63 +14262,6 @@ CMD:giveitem(playerid,params[])
     return 1;
 }
 */
-CMD:giveweapon(playerid,params[])
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
-    {
-        new giveplayerid,
-            mn,
-            ammo,
-            string[126],
-            wepname[ 24 ];
-        if ( sscanf( params, "ddd", giveplayerid, mn, ammo ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /giveweapon [þaidëjo id][Ginklas][Ammo]");
-
-        if ( mn < 0 )      return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: blogas ginklo ID..");
-        if ( ammo < 0 )      return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: blogas kulkø skaiøius..");
-        if ( IsPlayerHaveManyGuns( giveplayerid, mn ) ) return true;
-        
-        if( mn == 19 || mn == 45 || mn == 44 || mn == 46 || mn == 39 ||
-            mn == 38 || mn == 36 || mn == 35 || mn > 46 || mn == 18)
-            return SendClientMessage( playerid, COLOR_WHITE, "Neleistinas ginklas ! ");
-
-        if ( !IsPlayerConnected( giveplayerid ) )      return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-        if ( IsPlayerInAnyVehicle( giveplayerid ) )    return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: þmogus yra tr. priemonëje." );
-
-        if( ammo > 0 )
-        {
-            GivePlayerWeapon( giveplayerid, mn, ammo );
-            GetWeaponName   ( mn, wepname, 24);
-            format          ( string, 126, "AdmWarn: Administratorius (%s) suteikë ginklà (%s) su %d kulkomis, veikëjui (%s)",GetName(playerid),wepname,ammo,GetName(giveplayerid));
-            SendAdminMessage( COLOR_ADM, string );
-            GunLog          ( pInfo[ playerid ][ pMySQLID ], 6, pInfo[ giveplayerid ][ pMySQLID ], GetItemName( mn ), ammo );
-            GunLog          ( pInfo[ giveplayerid ][ pMySQLID ], 5, pInfo[ playerid ][ pMySQLID ], GetItemName( mn ), ammo );
-        }
-        else
-        {
-            RemovePlayerWeapon( giveplayerid, mn );
-            GetWeaponName   ( mn, wepname, 24);
-            format          ( string, 126, "AdmWarn: Administratorius (%s) atëmë ginklà (%s) ið veikëjo (%s)",GetName(playerid),wepname,GetName(giveplayerid));
-            SendAdminMessage( COLOR_ADM, string );
-        }
-    }
-    return 1;
-}
-CMD:makeadmin(playerid,params[])
-{
-    if ( pInfo[ playerid ][ pAdmin ] >= 4 )
-    {
-        new giveplayerid,
-            admin,
-            string[126];
-        if ( sscanf( params, "ud", giveplayerid, admin ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /makeadmin [þaidëjo id][Lygis]");
-        if ( !IsPlayerConnected( giveplayerid ) )          return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-
-        pInfo[ giveplayerid ][ pAdmin ] = admin;
-        format          ( string, 126, "AdmWarn: Administratorius (%s) suteikë veikëjui (%s) %d lygio Administratoriaus statusà.",GetName(playerid),GetName(giveplayerid),admin);
-        SendAdminMessage( COLOR_ADM, string );
-    }
-    return 1;
-}
 
 
 stock GetVehiclePlayerCount(vehicleid)
@@ -16205,19 +14337,6 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
             SetPlayerPos( playerid, Kords[ 0 ], Kords[ 1 ], Kords[ 2 ]+1 );
         }
 
-        new model = GetVehicleModel( vehicleid );
-        if ( pInfo[ playerid ][ pLicHeli ] == 0 && IsAPlane( model ) )
-        {
-            GetPlayerPos( playerid, Kords[ 0 ], Kords[ 1 ], Kords[ 2 ] );
-            SetPlayerPos( playerid, Kords[ 0 ], Kords[ 1 ], Kords[ 2 ]+1 );
-            SendClientMessage( playerid, GRAD, "Jûs neturite teisës valdyti arba nemokate valdyti lëktuvo." );
-        }
-        if ( pInfo[ playerid ][ pLicBoat ] == 0 && IsABoat( model ) )
-        {
-            GetPlayerPos( playerid, Kords[ 0 ], Kords[ 1 ], Kords[ 2 ] );
-            SetPlayerPos( playerid, Kords[ 0 ], Kords[ 1 ], Kords[ 2 ]+1 );
-            SendClientMessage( playerid, GRAD, "Jûs neturite teisës valdyti arba nemokate valdyti laivo." );
-        }
         new ocupy = IsVehicleOcupied( vehicleid );
         if ( ocupy != INVALID_PLAYER_ID )
         {
@@ -16451,7 +14570,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 }
 public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
-    if (pInfo[ playerid ][ pAdmin ] >= 1)
+    if (GetPlayerAdminLevel(playerid) >= 1)
     {
         MapAndreas_FindZ_For2DCoord(fX, fY, fZ);
         if (IsPlayerInAnyVehicle(playerid))
@@ -17105,7 +15224,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 
         foreach(Player, x)
         {
-            if(pInfo[ x ][ pAdmin ] >= 1 && AdminDuty[ x ])
+            if(GetPlayerAdminLevel(x) >= 1 && AdminDuty[ x ])
             {
                 found = true;
                 break;
@@ -17433,7 +15552,7 @@ public OnPlayerUpdate(playerid)
 
 CMD:togacmsg(playerid, params[])
 {
-    if(!pInfo[ playerid ][ pAdmin ])
+    if(!GetPlayerAdminLevel(playerid))
         return 0;
 
     if(ShowACTestMsg[ playerid ])
@@ -17611,7 +15730,6 @@ public OnPlayerModelSelection(playerid, response, listid, modelid)
         if ( response )
         {
             SetPlayerSkin   ( playerid, modelid );
-            pInfo[ playerid ][ pSkin ] = modelid;
         }
     }
     return 1;
@@ -17628,104 +15746,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     printf("[debug] OnDialogResponse(%s, %d, %d, %d, %s)", GetName(playerid), dialogid, response, listitem, inputtext);
     new string[4096];
-
-   /* if( dialogid == 0 )
-    {
-        if( response )
-        {
-            new buffer[129];
-            WP_Hash(buffer, sizeof(buffer), inputtext);
-            MySQL_Load_Player( playerid, buffer);
-            return 1;
-        }
-        else
-            Kick( playerid );
-        return 1;
-    }
-    if(dialogid == DIALOG_SECRET_QUESTION)
-    {
-        if(!response)
-            return Kick(playerid);
-
-        new hash[ 129 ];
-        GetPVarString(playerid, "SecretQuestion", string, sizeof(string));
-
-
-        if(isnull(inputtext))
-            return ShowPlayerSecretQuestionDialog(playerid, string, "Neávedëte teksto.");
-
-        GetPVarString(playerid, "SecretAnswer", string, sizeof(string));
-        WP_Hash(hash, sizeof(hash), inputtext);
-
-        if(!strcmp(string, hash))
-        {
-            DeletePVar(playerid, "SecretAnswer");
-            DeletePVar(playerid, "SecretQuestion");
-            OnPlayerLoginEx(playerid, GetPVarInt(playerid, "TmpSqlId"));
-            DeletePVar(playerid, "TmpSqlId");
-        }
-        else 
-        {
-            static BadTries[ MAX_PLAYERS ];
-            BadTries[ playerid ]++;
-            if(BadTries[ playerid ] == 2)
-            {
-                BadTries[ playerid ] = 0;
-                Kick(playerid);
-            }
-            else 
-            {
-                GetPVarString(playerid, "SecretQuestion", string, sizeof(string));
-                ShowPlayerSecretQuestionDialog(playerid, string, "Atsakymas neteisingas.");
-            }
-        }
-        return 1;
-    }
-    if(dialogid == DIALOG_SECRET_QUESTION_SET)
-    {
-        if(!response)
-            return Kick(playerid);
-
-        if(isnull(inputtext))
-            return ShowPlayerQuestionSetDialog(playerid, "Neávedëte klausimo.");
-
-        SetPVarString(playerid, "SecretQuestion", inputtext); 
-        ShowPlayerAnswerSetDialog(playerid, inputtext);
-        return 1;
-    }
-    if(dialogid == DIALOG_SECRET_ANSWER_SET)
-    {
-        if(!response)
-            return Kick(playerid);
-
-        new 
-            query[ 512 ], 
-            sqlid,
-            answer[ 129 ];
-        GetPVarString(playerid, "SecretQuestion", string, sizeof(string));
-        sqlid = GetPVarInt(playerid, "TmpSqlId");
-
-        if(isnull(inputtext))
-            return ShowPlayerAnswerSetDialog(playerid, string, "Neávedëte atsakymo.");
-
-
-        // Áraðom á DB viskà.
-        mysql_real_escape_string(string, string);
-        // Atsakymo nereikia escapint, vistiek koduosim su Whirlpool, jame neliks jokiø nenorimø simboliø.
-        WP_Hash(answer, sizeof(answer), inputtext);
-        format(query, sizeof(query), "UPDATE players SET secret_question = '%s', secret_answer = '%s' WHERE id = %d", string, answer, sqlid);
-        mysql_pquery(DbHandle, query);
-
-
-        // Sutvarkome nebereikalingus kintamuosius
-        DeletePVar(playerid, "SecretQuestion");
-        DeletePVar(playerid, "TmpSqlId");
-
-        // Pagaliau prijungiam þaidëjà.
-        OnPlayerLoginEx(playerid, sqlid);
-        return 1;
-    }
-    */
     if(dialogid == 5)
     {
         new veh = GetPlayerVehicleID( playerid );
@@ -18050,49 +16070,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             StartTimer(playerid,180,3);
         }
     }
-    else if(dialogid == 10)
-    {
-        if(response == 1)
-        {
-            switch(listitem)
-            {
-                case 0:
-                {
-                    if(PlayerMoney[ playerid ] < 500) return SendClientMessage(playerid,GRAD, "{FF6347}Perspëjimas: Neturite pakankamai pinigø, kad iðmoktumëte kovos stiliø.");
-                    pInfo[playerid][pBoxStyle] = 7;
-                    SetPlayerFightingStyle(playerid,7);
-                    SendClientMessage(playerid,COLOR_FADE1, " Sëkmingai iðmokote saviginos gatvëje kovos stiliø uþ kurio mokymus sumokëjote 500 doleriø.");
-                    GivePlayerMoney(playerid,-500);
-                    Biudzetas += 500;
-                    SaveMisc();
-                    return 1;
-                }
-                case 1:
-                {
-                    if(PlayerMoney[ playerid ] < 500) return SendClientMessage(playerid,GRAD, "{FF6347}Perspëjimas: Neturite pakankamai pinigø, kad iðmoktumëte kovos stiliø.");
-                    pInfo[playerid][pBoxStyle] = 6;
-                    SetPlayerFightingStyle(playerid,6);
-                    SendClientMessage(playerid,COLOR_FADE1, " Sëkmingai iðmokote Kung Fu kovos stiliø uþ kurio mokymus sumokëjote 500 doleriø.");
-                    GivePlayerMoney(playerid,-500);
-                    Biudzetas += 500;
-                    SaveMisc();
-                    return 1;
-                }
-                case 2:
-                {
-                    if(PlayerMoney[ playerid ] < 500) return SendClientMessage(playerid,GRAD, "{FF6347}Perspëjimas: neturite pakankamai pinigø, kad sumokëtumët uþ pamokas.");
-                    pInfo[playerid][pBoxStyle] = 5;
-                    SetPlayerFightingStyle(playerid,5);
-                    SendClientMessage(playerid,COLOR_WHITE, " Sëkmingai iðmokote bokso kovos stiliø uþ kurio mokymus sumokëjote 500 doleriø.");
-                    GivePlayerMoney(playerid,-500);
-                    Biudzetas += 500;
-                    SaveMisc();
-                    return 1;
-                }
-            }
-        }
-        return 1;
-    }
     /*
     else if(dialogid == 13)
     {
@@ -18120,7 +16097,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             else
             {
                 SetPlayerSkin( playerid, skin );
-                pInfo[ playerid ][ pSkin ] = skin;
                 return 1;
             }
         }
@@ -18791,153 +16767,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
-    /*
-    else if ( dialogid == 53 )
-    {
-        if ( response == 1 )
-        {
-            switch ( listitem )
-            {
-                case 0:
-                {
-                    ShowPlayerDialog( playerid, 54, DIALOG_STYLE_INPUT,"Serverio iëjimo sukûrimas", "áraðykite serverio iëjimo pavadinimá :","Patvirtinti", "Atðaukti" );
-                    return 1;
-                }
-                case 1:
-                {
-                    ShowPlayerDialog( playerid, 55, DIALOG_STYLE_INPUT,"Serverio iëjimo perkelimas", "áraðykite serverio iëjimo id\nJá galite suþinoti per iëjimo meniu, budami prie to iëjimo.","Patvirtinti", "Atðaukti" );
-                    return 1;
-                }
-                case 2:
-                {
-                    ShowPlayerDialog( playerid, 56, DIALOG_STYLE_INPUT,"Serverio iðëjimo perkelimas", "áraðykite serverio iðëjimo id\nJá galite suþinoti per iëjimo meniu, budami prie to iëjimo.","Patvirtinti", "Atðaukti" );
-                    return 1;
-                }
-                case 3:
-                {
-                    ShowPlayerDialog( playerid, 57, DIALOG_STYLE_INPUT,"Serverio iëjimo pavadinimo pakeitimas", "áraðykite serverio Áëjimo pavadinimá :","Patvirtinti", "Atðaukti" );
-                    return 1;
-                }
-                case 4:
-                {
-                    foreach(sEnters,id)
-                    {
-                        if ( PlayerToPoint( 2.0, playerid, sEnter[ id ][ sEnter_x ], sEnter[ id ][ sEnter_y ], sEnter[ id ][ sEnter_z ] ) )
-                        {
-                            format( string, 126, "Serverio Áëjimo ID: %d", id );
-                            SendClientMessage( playerid, GRAD, string );
-                            break;
-                        }
-                    }
-                }
-                case 5:
-                {
-                    foreach(sEnters,id)
-                    {
-                        if ( PlayerToPoint( 2.0, playerid, sEnter[ id ][ sEnter_x ], sEnter[ id ][ sEnter_y ], sEnter[ id ][ sEnter_z ] ) )
-                        {
-                            format( string, 126, "DELETE FROM `senters` WHERE sID = %d", sEnter[ id ][ sID ]);
-                            mysql_query(DbHandle,  string, false);
-                            
-                            DestroyDynamicPickup( sEnter[ id ][ Pickup ]);
-
-                            sEnter[ id ][ sID      ] = 0;
-                            sEnter[ id ][ sEnter_x ] = 0.0;
-                            sEnter[ id ][ sEnter_y ] = 0.0;
-                            sEnter[ id ][ sEnter_z ] = 0.0;
-                            sEnter[ id ][ sExit_z  ] = 0.0;
-                            sEnter[ id ][ sExit_Y  ] = 0.0;
-                            sEnter[ id ][ sExit_z  ] = 0.0;
-                            sEnter[ id ][ Int2     ] = 0;
-                            sEnter[ id ][ Int      ] = 0;
-                            sEnter[ id ][ Wirt2    ] = 0;
-                            sEnter[ id ][ Wirt     ] = 0;
-                            strmid(sEnter[ id ][ Name ],"Nera",0,6,6);
-                            Itter_Remove(sEnters,id);
-                            SendClientMessage( playerid, COLOR_WHITE, "áëjimas sëkmingai paðalintas" );
-                            return 1;
-                            
-                        }
-                    }
-                }
-                case 6, 7:
-                {
-                    if(listitem == 6) SetPVarInt(playerid, "SEnterActionWithId", 1);
-                    else if(listitem == 7) SetPVarInt(playerid, "SEnterActionWithId", 2);
-                    ShowPlayerDialog( playerid, DIALOG_SENTER_INPUT_ID, DIALOG_STYLE_INPUT,"Serverio iëjimo pasaulio pakeitimas", "áraðykite serverio iëjimo id\nJá galite suþinoti per iëjimo meniu, budami prie to iëjimo.","Patvirtinti", "Atðaukti" );
-                    return 1;
-                }
-            }
-        }
-    }*/
-    /*
-    // Iejimo suskurimas
-    else if ( dialogid == 54 )
-    {
-        if ( response == 1 )
-        {
-            if ( !inputtext[ 0 ] ) 
-                return 1;
-
-            new id,
-                Inte = GetPlayerInterior( playerid ),
-                Wirte = GetPlayerVirtualWorld( playerid ),
-                query[256];
-
-            // Surandam nauja ID.
-            for(new i = 0; i < sizeof(sEnter); i++)
-            {
-                if(!sEnter[ i ][ sID ])
-                {
-                    id = i;
-                    break;
-                }
-            }
-
-            mysql_real_escape_string(inputtext,inputtext, DbHandle, 128);
-            GetPlayerPos( playerid, sEnter[ id ][ sEnter_x ], sEnter[ id ][ sEnter_y ], sEnter[ id ][ sEnter_z ] );
-            format( query, sizeof(query), "INSERT INTO `senters` (sEnter_x,sEnter_y,sEnter_z) VALUES ('%f','%f','%f')",
-                sEnter[ id ][ sEnter_x ], sEnter[ id ][ sEnter_y ], sEnter[ id ][ sEnter_z ] );
-            
-            new Cache:result;
-            result = mysql_query(DbHandle,  query);
-            
-            //mysql_store_result();
-
-            sEnter[ id ][ sID      ] = cache_insert_id();
-            cache_delete(result);
-            sEnter[ id ][ Int2     ] = Inte;
-            sEnter[ id ][ Int      ] = 0;
-            sEnter[ id ][ Wirt     ] = Wirte;
-            sEnter[ id ][ Wirt2    ] = 0;
-            sEnter[ id ][ PickupModel ] = DEFAULT_SENTER_PICKUP_MODEL;
-            //mysql_free_result();
-            format( sEnter[ id ][ Name ],60, "%s",inputtext );
-            UpdateSEnterInfo( id );
-            SaveSEnter( id );
-            Itter_Add(sEnters, id );
-            format( string, 126, "Serverio áëjimas buvo sëkmingai sukurtas, ðio Áëjimo ID: %d", id );
-            SendClientMessage( playerid, GRAD, string );
-            
-        }
-    }
-    else if ( dialogid == 55 )
-    {
-        if ( response == 1 )
-        {
-            if ( !inputtext[ 0 ] ) return 1;
-            new id = strval(inputtext);
-            GetPlayerPos( playerid, sEnter[ id ][ sEnter_x ],
-                                    sEnter[ id ][ sEnter_y ],
-                                    sEnter[ id ][ sEnter_z ]);
-            sEnter[ id ][ Int2      ] = GetPlayerInterior( playerid );
-            sEnter[ id ][ Wirt      ] = GetPlayerVirtualWorld( playerid );
-            UpdateSEnterInfo( id );
-            SendClientMessage(playerid, GRAD, "Iëjimas sëkmingai buvo perkeltas" );
-            SaveSEnter( id );
-        }
-    }
-	*/
     else if ( dialogid == 80 )
 	{
 	    if ( response == 1 )
@@ -18962,56 +16791,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			return 1;
 		}
 	}
-    /*
-    else if ( dialogid == DIALOG_SENTER_INPUT_ID )
-    {
-        if ( !response )
-            return 1;
-
-        if ( !inputtext[ 0 ] )
-            return 1;
-
-        SetPVarInt( playerid, "EntVirw", strval(inputtext) );
-        switch(GetPVarInt(playerid, "SEnterActionWithId"))
-        {
-            case 1:
-                ShowPlayerDialog( playerid, 143, DIALOG_STYLE_INPUT,"Serverio iëjimo pasaulio pakeitimas", "áraðykite pasaulio ID.","Patvirtinti", "Atðaukti" );
-            case 2:
-                ShowPlayerDialog(playerid, DIALOG_SENTER_CHANGE_MODEL, DIALOG_STYLE_INPUT, "Serverio Áëjimo pickup modelio keitimas", "áraðykite naujà  serverio Áëjimo pickup modelio ID", "Keisti", "Atðaukti");
-        }
-        DeletePVar(playerid, "SEnterActionWithId");
-        return 1;
-    }
-    else if( dialogid == DIALOG_SENTER_CHANGE_MODEL )
-    {
-        if(!response) 
-            return 1;
-        new newmodel;
-        if(sscanf(inputtext,"i",newmodel) || newmodel < 0 || newmodel > 19902)
-            return SendClientMessage(playerid,  GRAD, "[ Klaida ! ] Netinkamas modelio ID");
-
-        new index = GetPVarInt(playerid, "EntVirw");
-        sEnter[ index ][ PickupModel ] = newmodel;
-        UpdateSEnterInfo( index );
-        SendClientMessage(playerid, GRAD, "Modelis sëkmingai buvo pakeistas" );
-        SaveSEnter( index );
-        return 1;
-    }
-    else if ( dialogid == 143 )
-    {
-        if ( !response )
-            return 1;
-
-        if ( !inputtext[ 0 ] )
-            return 1;
-
-        new id = GetPVarInt( playerid, "EntVirw" );
-        sEnter[ id ][ Wirt2 ] = strval(inputtext);
-        UpdateSEnterInfo( id );
-        SendClientMessage(playerid, GRAD, "Pasaulis sëkmingai buvo pakeistas" );
-        SaveSEnter( id );
-    }
-    */
     else if ( dialogid == 145 )
     {
         if ( response == 1 )
@@ -19495,44 +17274,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
-    /*
-    else if ( dialogid == 56 )
-    {
-        if ( response == 1 )
-        {
-            if ( !inputtext[ 0 ] ) return 1;
-            new id = strval(inputtext);
-            GetPlayerPos( playerid, sEnter[ id ][ sExit_x ],
-                                    sEnter[ id ][ sExit_Y ],
-                                    sEnter[ id ][ sExit_z ]);
-            sEnter[ id ][ Int   ] = GetPlayerInterior( playerid );
-            sEnter[ id ][ Wirt2 ] = GetPlayerVirtualWorld( playerid );
-            UpdateSEnterInfo( id );
-            SendClientMessage(playerid, GRAD, "Iðëjimas sëkmingai buvo perkeltas" );
-            SaveSEnter( id );
-        }
-    }
-    else if ( dialogid == 57 )
-    {
-        if ( response == 1 )
-        {
-            if ( !inputtext[ 0 ] ) return 1;
-            foreach(sEnters,id)
-            {
-                if ( PlayerToPoint( 2.0, playerid, sEnter[ id ][ sEnter_x ], sEnter[ id ][ sEnter_y ], sEnter[ id ][ sEnter_z ] ) )
-                {
-                    format( sEnter[ id ][ Name ], 60, "%s",inputtext );
-
-                    format( string, 126, "Serverio Áëjimo pavadinimas buvo pakeistas á: %s", inputtext );
-                    SendClientMessage( playerid, GRAD, string );
-
-                    SaveSEnter( id );
-                    break;
-                }
-            }
-        }
-    }
-    */
 
     else if ( dialogid == 58 )
     {
@@ -19559,70 +17300,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
-    /*
-    else if ( dialogid == 62 )
-    {
-        if ( response == 1 )
-        {
-            if ( listitem == 0 )
-            {
-                if ( tmpinteger[ playerid ] < 7 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: ðios frakcijos iðtrinti negalite. " );
-                format( string, 126, "DELETE FROM `factions` WHERE `id` = %d", fInfo[ tmpinteger[ playerid ] ][ fID ] );
-                mysql_query(DbHandle,  string, false);
-                
-                new deletedcars,
-                    removedplayers;
-                for(new vehicle = 0; vehicle < MAX_VEHICLES; vehicle++)
-                {
-                    if ( sVehicles[ vehicle ][ Faction ] == fInfo[ tmpinteger[ playerid ] ][ fID ] )
-                    {
-                        sVehicles[ vehicle ][ Id          ] = 0;
-                        sVehicles[ vehicle ][ Model       ] = 0;
-                        sVehicles[ vehicle ][ SpawnX       ] = 0.0;
-                        sVehicles[ vehicle ][ SpawnY       ] = 0.0;
-                        sVehicles[ vehicle ][ SpawnZ       ] = 0.0;
-                        sVehicles[ vehicle ][ SpawnA       ] = 0.0;
-                        sVehicles[ vehicle ][ Color1      ] = 0;
-                        sVehicles[ vehicle ][ Color2      ] = 0;
-                        sVehicles[ vehicle ][ Faction     ] = 0;
-                        sVehicles[ vehicle ][ Rang        ] = 0;
-                        sVehicles[ vehicle ][ Job         ] = 0;
-
-                        DestroyVehicle( vehicle );
-                        Itter_Remove(Vehicles,vehicle);
-                        deletedcars ++;
-                    }
-                }
-
-                format( string, 126, "DELETE FROM `scars` WHERE `sFaction` = %d", fInfo[ tmpinteger[ playerid ] ][ fID ] );
-                mysql_query(DbHandle,  string, false);
-
-                format( string, 126, "Paðalinta tr. priemoniø priklausanøiø frakcijai: %d", deletedcars );
-                SendClientMessage( playerid, COLOR_LIGHTRED, string );
-                foreach(Player,playa)
-                {
-                    if ( pInfo[ playa ][ pMember ] == fInfo[ tmpinteger[ playerid ] ][ fID ])
-                    {
-                        pInfo[ playa ][ pMember ] = 0;
-                        pInfo[ playa ][ pLead   ] = 0;
-                        pInfo[ playa ][ pRank   ] = 0;
-                    }
-                }
-                format( string, 126, "UPDATE players SET Member = 0, Leader = 0, Rank = 0 WHERE Member = %d", fInfo[ tmpinteger[ playerid ] ][ fID ] );
-                mysql_query(DbHandle,  string, false);
-                removedplayers = cache_affected_rows();
-
-                format( string, 126, "Paðalinta frakcijoje buvusiø þmoniø: %d ", removedplayers );
-                SendClientMessage( playerid, COLOR_LIGHTRED, string );
-
-                UnLoadFactions();
-                LoadFactions();
-                SendClientMessage( playerid, COLOR_WHITE, "Frakcija buvo sëkmingai paðalinta." );
-                return 1;
-                
-            }
-        }
-    }*/
     else if(dialogid == DIALOG_VEHICLE_SHOPS_LIST)
     {
         if(!response)
@@ -20183,48 +17860,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
-    /*
-    else if ( dialogid == 82 )
-    {
-        if ( response == 1 )
-        {
-            foreach(Busines,i)
-            {
-                if ( PlayerToPoint( 5.0, playerid, bInfo[ i ][ bEnter ][ 0 ], bInfo[ i ][ bEnter ][ 1 ], bInfo[ i ][ bEnter ][ 2 ] ) )
-                {
-                    bInfo[ i ][ bType ] = listitem;
-                    if( bInfo[ i ][ bType ] == 1 )
-                    {
-                        for( new slot = 0; slot < MAX_SAVED_WARES; slot ++)
-                        {
-                            bInfo[ i ][ bItemID ][ slot ] = 0;
-                            bInfo[ i ][ bItemPrice ][ slot ] = 0;
-                        }
-                    }
-                    else if ( bInfo[ i ][ bType ] == 2 || bInfo[ i ][ bType ] == 3 )
-                    {
-                        format( bInfo[ i ][ bItemName1 ], 128, "Tuðèia");
-                        format( bInfo[ i ][ bItemName2 ], 128, "Tuðèia");
-                        format( bInfo[ i ][ bItemName3 ], 128, "Tuðèia");
-                        format( bInfo[ i ][ bItemName4 ], 128, "Tuðèia");
-                        format( bInfo[ i ][ bItemName5 ], 128, "Tuðèia");
-                        format( bInfo[ i ][ bItemName6 ], 128, "Tuðèia");
-                        format( bInfo[ i ][ bItemName7 ], 128, "Tuðèia");
-                        format( bInfo[ i ][ bItemName8 ], 128, "Tuðèia");
-                        format( bInfo[ i ][ bItemName9 ], 128, "Tuðèia");
-                        format( bInfo[ i ][ bItemName10 ], 128, "Tuðèia");
-                        for( new slot = 0; slot < MAX_SAVED_WARES; slot ++)
-                            bInfo[ i ][ bItemPrice ][ slot ] = 0;
-                    }
-                    SendClientMessage( playerid, COLOR_WHITE, "Biznio/verslo tipas buvo sëkmingai pakeistas." );
-                    SaveBiz(i);
-                    return 1;
-                }
-            }
-        }
-        return 1;
-    }
-    */
+  
     
     else if ( dialogid == 91 )
     {
@@ -20247,9 +17883,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                           -Frakcijos ir darbo informacija",
                                           GetPlayerLevel(playerid),
                                           pInfo[ playerid ][ pExp    ], nextexp,
-                                          pInfo[ playerid ][ pOnTime ],
+                                          GetPlayerConnectedTime(playerid),
                                           pInfo[ playerid ][ pWarn   ],
-                                          pInfo[ playerid ][ pDeaths ],
+                                          GetPlayerDeaths(playerid),
                                           pInfo[ playerid ][ pJobLevel ],
                                           pInfo[ playerid ][ pJobSkill ],
                                       ( ( pInfo[ playerid ][ pJobLevel ] +1 ) * 100) );
@@ -20323,9 +17959,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                           -Frakcijos ir darbo informacija",
                                           GetPlayerLevel(playerid),
                                           pInfo[ playerid ][ pExp    ], nextexp,
-                                          pInfo[ playerid ][ pOnTime ],
+                                          GetPlayerConnectedTime(playerid),
                                           pInfo[ playerid ][ pWarn   ],
-                                          pInfo[ playerid ][ pDeaths ],
+                                          GetPlayerDeaths(playerid),
                                           pInfo[ playerid ][ pJobLevel ],
                                           pInfo[ playerid ][ pJobSkill ],
                                       ( ( pInfo[ playerid ][ pJobLevel ] +1 ) * 100) );
@@ -20399,9 +18035,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                           -Frakcijos ir darbo informacija",
                                           GetPlayerLevel(playerid),
                                           pInfo[ playerid ][ pExp    ], nextexp,
-                                          pInfo[ playerid ][ pOnTime ],
+                                          GetPlayerConnectedTime(playerid),
                                           pInfo[ playerid ][ pWarn   ],
-                                          pInfo[ playerid ][ pDeaths ],
+                                          GetPlayerDeaths(playerid),
                                           pInfo[ playerid ][ pJobLevel ],
                                           pInfo[ playerid ][ pJobSkill ],
                                       ( ( pInfo[ playerid ][ pJobLevel ] +1 ) * 100) );
@@ -20473,79 +18109,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         return 1;
     }
-    /*
-    else if ( dialogid == 95 )
-    {
-        if ( response == 1 )
-        {
-            new text[ 504 ];
-            format( text, 504, "{FFFFFF}Klausimas: %s\n \tAtsakymai:\n\
-                                              \t {DDDDDD}1. %s\n\
-                                              \t {CCCCCC}2. %s\n\
-                                              \t {BBBBBB}3. %s\n \t áraðykite teisingo atsakymo numerá:",
-                                              LIC_QUIZ[ 0 ][ Question ],
-                                              LIC_QUIZ[ 0 ][ Answer1  ],
-                                              LIC_QUIZ[ 0 ][ Answer2  ],
-                                              LIC_QUIZ[ 0 ][ Answer3  ] );
-            ShowPlayerDialog( playerid, 96, DIALOG_STYLE_INPUT, "Vairavimo teorija", text, "Toliau", "Iðjungti");
-            SetPVarInt( playerid, "LIC_QUIZ_Q", 0 );
-            SetPVarInt( playerid, "LIC_QUIZ_A", 0 );
-            return 1;
-        }
-    }
-    else if ( dialogid == 96 )
-    {
-        if ( response == 1 )
-        {
-
-            if ( !inputtext[ 0 ] )
-                return SetPVarInt( playerid, "LIC_QUIZ_A", 0 );
-            new text[ 504 ],
-                start = GetPVarInt( playerid, "LIC_QUIZ_Q" ),
-                answered = GetPVarInt( playerid, "LIC_QUIZ_A" ),
-                answer = strval( inputtext );
-
-            if ( answer == LIC_QUIZ[ start ][ TruAnsw ] )
-                SetPVarInt( playerid, "LIC_QUIZ_A", answered + 1 );
-            if ( start == MAX_LIC_Q - 1  )
-            {
-                new mini[ 15 ];
-                if ( answered >= MAX_LIC_Q - 1)
-                {
-                    mini = "Iðlaikytas";
-
-                    if(IsPlayerInventoryFull(playerid))
-                        return SendClientMessage(playerid, COLOR_FADE2, "{FF6347}Perspëjimas: Jûsø inventorius pilnas, taigi testas nutraukiamas.");
-
-                    GivePlayerItem(playerid, ITEM_TEORIJA, 1);
-
-                }
-                else if ( answered <= MAX_LIC_Q - 1)
-                    mini = "Neiðlaikytas";
-                format( text, 504, "{FFFFFF}Vairavimo teorijos testas: \t%s\n\
-                                    {CC0000}Padaryta klaidø: {FFFFFF}\t%d\n\
-                                    {008800}Teisingai atsakyta: {FFFFFF}\t%d\n", mini, MAX_LIC_Q - answered, answered );
-                ShowPlayerDialog( playerid, 9999, DIALOG_STYLE_MSGBOX , "Vairavimo teorija", text, "Iðjungti", "");
-                return 1;
-            }
-            else
-            {
-                start ++;
-                format( text, 504, "{FFFFFF}Klausimas: %s\n \tAtsakymai:\n\
-                                              \t {DDDDDD}1. %s\n\
-                                              \t {CCCCCC}2. %s\n\
-                                              \t {BBBBBB}3. %s\n \t áraðykite teisingo atsakymo numerá:",
-                                              LIC_QUIZ[ start ][ Question ],
-                                              LIC_QUIZ[ start ][ Answer1  ],
-                                              LIC_QUIZ[ start ][ Answer2  ],
-                                              LIC_QUIZ[ start ][ Answer3  ] );
-                ShowPlayerDialog( playerid, 96, DIALOG_STYLE_INPUT, "Vairavimo teorija", text, "Toliau", "Iðjungti");
-                SetPVarInt( playerid, "LIC_QUIZ_Q", start );
-                return 1;
-            }
-        }
-    }
-    */
     else if(dialogid == 98)
     {
         if(response == 1)
@@ -20575,7 +18138,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 SendClientMessage(Offer[playerid][3], COLOR_FADE2, "{FF6347}Perspëjimas: þaidëjas neturi pakankamai pinigu, kad sumokëtu baudá .");
                 return 1;
             }
-            SetPlayerBankMoney(GetPlayerBankMoney(playerid) - GetPVarInt( playerid, "MOKESTIS" ));
+            SetPlayerBankMoney(playerid, GetPlayerBankMoney(playerid) - GetPVarInt( playerid, "MOKESTIS" ));
             SendClientMessage(playerid,COLOR_WHITE,"Bauda sumokëta");
             SendClientMessage(Offer[playerid][3],COLOR_WHITE,"Jis sumokëjo baudá .");
             pInfo[ playerid ][ pPaydFines ] += pInfo[ playerid ][ pFines ];
@@ -20627,57 +18190,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
         return 1;
     }
-    /*
-    else if ( dialogid == 102 )
-    {
-        if ( !response )
-            return 0;
-
-        switch( listitem )
-        {
-            case 0:
-            {
-                if( pInfo[ playerid ][ pRank ] >= 2 )
-                {
-                    if ( IsPlayerHaveManyGuns( playerid, 24 ) ) return true;
-                    //RemovePlayerWeapon(playerid, 24);
-                    GivePlayerJobWeapon( playerid, 24, 100 );
-                    cmd_wepstore( playerid, "" );
-                }
-            }
-			case 1:
-            {
-                if( pInfo[ playerid ][ pRank ] >= 2 )
-                {
-                    if ( IsPlayerHaveManyGuns( playerid, 43 ) ) return true;
-                    ///RemovePlayerWeapon( playerid, 43 );
-                    GivePlayerJobWeapon( playerid, 43, 20 );
-                    cmd_wepstore( playerid, "" );
-                }
-            }
-			case 2:
-            {
-                if( pInfo[ playerid ][ pRank ] >= 2 )
-                {
-                    if ( IsPlayerHaveManyGuns( playerid, 3 ) ) return true;
-                    //RemovePlayerWeapon( playerid, 3 );
-                    GivePlayerJobWeapon( playerid, 3, 1 );
-                    cmd_wepstore( playerid, "" );
-                }
-            }	
-			case 3:
-            {
-                if( pInfo[ playerid ][ pRank ] >= 2 )
-                {
-                    if ( IsPlayerHaveManyGuns( playerid, 41 ) ) return true;
-                    //RemovePlayerWeapon( playerid, 41 );
-                    GivePlayerJobWeapon( playerid, 41, 150 );
-                    cmd_wepstore( playerid, "" );
-                }
-            }					
-        }
-    }
-    */
     else if ( dialogid == 114 )
     {
                 if(!response)
@@ -21724,83 +19236,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             ShowPlayerDialog(playerid, 136, DIALOG_STYLE_LIST,"Informacija rasta", dialog, "Uþdaryti", "" );
         }
         cache_delete(result);
-        /*
-        new
-            etc[ 3 ][ 128 ],
-            tModel[ 24 ],
-            tInsurance,
-            tOwner,
-            dialog[ 2048 ],
-            rows;
-
-
-        mysql_format(DbHandle, string, 128, "SELECT `cName`,`cInsurance`,`cOwner`,`cCrimes` FROM `vehicles` WHERE `cNumbers` = '%e' LIMIT 1", inputtext);
-        new Cache:result = mysql_query(DbHandle,  string );
-        rows = cache_get_row_count();
-
-        if( rows )
-        {
-            cache_get_field_content(0, "cName", tModel);
-            tInsurance = cache_get_field_content_int(0, "cInsurance");
-            tOwner = cache_get_field_content_int(0, "cOwner");
-            rows = cache_get_field_content_int(0, "cCrimes");
-            cache_delete(result);
-
-
-            format( string, 128, "SELECT `Name` FROM `players` WHERE `id` = %d", tOwner );
-            result = mysql_query(DbHandle,  string );
-
-            cache_get_field_content(0, "Name", string);
-
-            format( dialog, sizeof(dialog), "DUOM. BAZË: Tr. Priemonës pavadinimas: %s", tModel );
-            format( dialog, sizeof(dialog), "%s\nDUOM. BAZË: Tr. Priemonës numeriai: %s", dialog, inputtext );
-            format( dialog, sizeof(dialog), "%s\nDUOM. BAZË: Tr. Priemonës draudimas: %d", dialog, tInsurance );
-            format( dialog, sizeof(dialog), "%s\nDUOM. BAZË: Tr. Priemonës savininkas: %s", dialog, string );
-            if( rows > 0 )
-                format(dialog, sizeof(dialog), "%s\nTr. Priemonë ieðkoma!", dialog);
-        
-        }
-        cache_delete(result);
-
-        mysql_real_escape_string(inputtext, string, DbHandle, 128);
-        format( string, 128, "SELECT `who`,`Time` FROM `arrestedcars` WHERE `numbers` = '%s'", string);
-        result = mysql_query(DbHandle,  string );
-        rows = cache_get_row_count();
-
-        if( rows )
-        {
-
-            format( dialog, sizeof( dialog ),"%s\nTr. priemonë buvo areðtuota!\n", dialog );
-            cache_get_field_content(0, "who", etc[0]);
-            cache_get_field_content(0, "Time", etc[1]);
-
-            format( dialog, sizeof( dialog ),"%sPareigûnas: %s\n", dialog, etc[ 0 ] );
-            format( dialog, sizeof( dialog ),"%sLaikas ir data: %s", dialog, etc[ 1 ] );
-            
-        }
-        cache_delete(result);
-        
-        mysql_real_escape_string(string, inputtext, DbHandle, 128);
-        format( string, sizeof(string), "SELECT `crime`,`reporter`,`when` FROM `carcrimes` WHERE `numbers` = '%s' ORDER BY `when` DESC LIMIT 7", string);
-        result = mysql_query(DbHandle,  string );
-        rows = cache_get_row_count();
-
-        if( rows )
-        {
-            for(new i = 0; i < cache_get_row_count(); i++)
-            {
-                cache_get_field_content(i, "crime", etc[0]);
-                cache_get_field_content(i, "reporter", etc[1]);
-                cache_get_field_content(i, "when", etc[2]);
-                format( dialog, sizeof( dialog ),"%s\n-->áskaita: %s\n", dialog, etc[ 0 ] );
-
-                format( dialog, sizeof( dialog ),"%sPolicininkas: %s\n", dialog, etc[ 1 ] );
-
-                format( dialog, sizeof( dialog ),"%sLaikas: %s", dialog, etc[ 2 ] );
-            }
-        }
-        cache_delete(result);
-        */
+      
     }
     else if( dialogid == 132 )
     {
@@ -23164,7 +20600,7 @@ FUNKCIJA:DrugsEffects( i )
     return 1;
 }
 
-
+/*
 stock UpdatePlayerInfoText(playerid ,plstate = PLAYER_STATE_ONFOOT )
 {
     new string[ 512 ], speed;
@@ -23274,6 +20710,7 @@ stock UpdatePlayerInfoText(playerid ,plstate = PLAYER_STATE_ONFOOT )
         PlayerTextDrawSetString( playerid, Greitis[ playerid ], string );
     return 1;
 }
+*/
 /*
 CMD:goaway(playerid)
 {
@@ -23313,7 +20750,7 @@ CMD:ataik(playerid)
 
 CMD:shipstatus(playerid)
 {
-    if(!pInfo[ playerid ][ pAdmin ])
+    if(!GetPlayerAdminLevel(playerid))
         return 0;
 
     new string[64];
@@ -23663,7 +21100,7 @@ FUNKCIJA:MinTime()
             format(string, sizeof(string), "UPDATE players SET pDutyT = pDutyT+1 WHERE id = %d", pInfo[ i ][ pMySQLID ]);
             mysql_pquery(DbHandle,  string );
         }
-        if( pInfo[ i ][ pAdmin ] > 0 && AdminDuty[i] == true )
+        if(GetPlayerAdminLevel(i) > 0 && AdminDuty[i] == true )
         {
             format(string, sizeof(string), "UPDATE players SET aDutyTime = aDutyTime+1 WHERE id = %d", pInfo[ i ][ pMySQLID ]);
             mysql_pquery(DbHandle,  string );
@@ -23696,10 +21133,11 @@ FUNKCIJA:MinTime()
     {
         printf("Serverio PayDay Valanda: %d Sena Valanda: %d ", Hour, OldHour);
 
-        foreach(Player,playerid)
+     /*   foreach(Player,playerid)
         {
             PayDay(playerid);
         }
+        */
         /*if ( Hour == 20 )
             Loterry( );*/
 
@@ -23784,7 +21222,7 @@ FUNKCIJA:MinTime()
     return 1;
 }*/
 
-
+/*
 stock PayDay( playerid )
 {
         if ( PlayerOn[ playerid ] == false ) return 1;
@@ -23970,6 +21408,7 @@ stock PayDay( playerid )
             return SendClientMessage(playerid, COLOR_LIGHTRED,"Apgailestaujame, bet atlyginimo uþ ðià valandà negausite, kadangi Jûs nebuvote prisijungæs pakankamai.");
         return 1;
 }
+*/
 /*stock ForcePayDay( playerid )
 {
         new Bank = GetPlayerBankMoney(playerid),
@@ -24635,14 +22074,14 @@ stock SendAdminWarningMessage(const format[], va_args<>)
     strins(str, "[AdmWarn]", 0);
 
     foreach(new i : Player)
-        if((IsPlayerAdmin(i) || pInfo[ i ][ pAdmin ]) && TogChat[ i ][ 3 ])
+        if((IsPlayerAdmin(i) || GetPlayerAdminLevel(i)) && TogChat[ i ][ 3 ])
             SendChatMessage(i, COLOR_ADM, str);
     return 1;
 }
 
 stock SendAdminMessagePlayer( playerid, color, text[ ] )
 {
-    if ( pInfo[ playerid ][ pAdmin ] >= 1 && TogChat[ playerid ][ 3 ] == true )
+    if ( GetPlayerAdminLevel(playerid) >= 1 && TogChat[ playerid ][ 3 ] == true )
     {
         if(strlen(text) > 120)
         {
@@ -24668,7 +22107,7 @@ stock SendAdminMessage(color, text[])
 {
     foreach(Player,i)
     {
-        if(pInfo[i][pAdmin] >= 1 && TogChat[i][3] == true)
+        if(GetPlayerAdminLevel(i) >= 1 && TogChat[i][3] == true)
         {
             SendAdminMessagePlayer(i, color, text);
             //SendChatMessage(i, color, string);
@@ -26200,10 +23639,10 @@ stock ShowStats( giveplayerid, playerid )
 		GetName(playerid));  
 		SendClientMessage( giveplayerid, COLOR_GREEN, string );
 		format           ( string, sizeof(string), "|VEIKËJAS| Lygis:[%d] Praþaista valandø:[%d] Patirties taðkai:[%d/%d] Amþius:[%d] Lytis:[%s] Tautybë:[%s]" ,
-		GetPlayerLevel(playerid),pInfo[playerid][pOnTime],pInfo[playerid][pExp],nextexp,pInfo[playerid][pAge],pInfo[playerid][pSex],pInfo[playerid][pOrigin]);
+		GetPlayerLevel(playerid),GetPlayerConnectedTime(playerid),pInfo[playerid][pExp],nextexp,pInfo[playerid][pAge],pInfo[playerid][pSex],pInfo[playerid][pOrigin]);
 		SendClientMessage( giveplayerid, COLOR_FADE1, string);
 		format           ( string, sizeof(string), "|VEIKËJAS| Telefonas:[%d] Mirèiø skaièius:[%d] Liga:[%s] Alkis:[%s]" ,
-		pInfo[playerid][pPhone],pInfo[playerid][pDeaths],Ligos[pInfo[playerid][pLiga]], hunger);
+		pInfo[playerid][pPhone], GetPlayerDeaths(playerid),Ligos[pInfo[playerid][pLiga]], hunger);
 		SendClientMessage( giveplayerid, COLOR_FADE2, string);		
 		format           ( string, sizeof(string), "|VEIKËJAS| Remëjo lygis:[%d] Áspëjimai:[%d] Atsiradimas:[%s] Gyvybës:[%d] Jëga:[%d]" ,
 		pInfo[playerid][pDonator],pInfo[playerid][pWarn],spawnplace,100+ pInfo[ playerid ][ pHealthLevel ] * 3, pInfo[ playerid ][ pStrengthLevel ]);	
@@ -26224,8 +23663,8 @@ stock ShowStats( giveplayerid, playerid )
 		pInfo[ playerid ][ pPCPAddict ], pInfo[ playerid ][ pCrackAddict ], pInfo[ playerid ][ pOpiumAddict ] );
         SendClientMessage( giveplayerid, COLOR_FADE2, string );		
 		format           ( string, sizeof(string), "|ADMINISTRACIJA| Int:[%d], VirtW[%d], Administratoriaus lygis:[%d]", 
-		GetPlayerInterior(playerid),GetPlayerVirtualWorld(playerid),pInfo[playerid][pAdmin]);
-		if( pInfo[giveplayerid][pAdmin] > 0 )		
+		GetPlayerInterior(playerid),GetPlayerVirtualWorld(playerid),GetPlayerAdminLevel(playerid));
+		if( GetPlayerAdminLevel(giveplayerid) > 0 )		
 		SendClientMessage( giveplayerid, COLOR_WHITE, string);
 		format           ( string, sizeof(string), "--------------------------------------------%s--------------------------------------------|", 
 		GetName(playerid));  
@@ -27075,7 +24514,7 @@ CMD:mask( playerid, params[ ] )
 
     foreach(Player, x)
     {
-        if(pInfo[ x ][ pAdmin ] >= 1 && AdminDuty[ x ])
+        if(GetPlayerAdminLevel(x) >= 1 && AdminDuty[ x ])
         {
             found = true;
             break;
