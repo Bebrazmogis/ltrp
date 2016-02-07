@@ -252,8 +252,7 @@ public class AdminCommands {
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
         } else {
-
-            target.setHealth(1000f);
+            target.setHealth(100f);
             if(target.isInAnyVehicle()) {
                 target.getVehicle().repair();
             }
