@@ -1,7 +1,9 @@
 package lt.ltrp.player;
 
+import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.data.Color;
+import lt.ltrp.player.dialog.FightStyleDialog;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -51,6 +53,17 @@ public class GeneralCommands {
                 player.sendMessage(Color.WHITE, String.format("Licenzijos tipas:%s Iðlaikymo data: %s Áspëjimø skaièius: %d",
                         license.getType(), license.getDateAquired(), license.getWarnings().length));
             }
+        }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Leidþia iðmokti naujus kovos stilius")
+    public boolean learnfight(LtrpPlayer player) {
+        if(player.getLocation().distance(LtrpGamemode.GYM_LOCATION) > 10f) {
+            player.sendErrorMessage("Jûs turite bûti sporto salëje!");
+        } else {
+            FightStyleDialog.create(player, LtrpGamemode.get().getEventManager()).show();
         }
         return false;
     }
