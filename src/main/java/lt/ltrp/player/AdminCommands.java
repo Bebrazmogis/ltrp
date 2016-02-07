@@ -40,6 +40,7 @@ public class AdminCommands {
         adminLevels.put("rjc", 1);
         adminLevels.put("rfc", 2);
         adminLevels.put("gotopos", 2);
+        adminLevels.put("aheal", 2);
 
         adminLevels.put("makefactionmanager", 4);
 
@@ -245,6 +246,29 @@ public class AdminCommands {
         return false;
     }
 
+    @Command()
+    @CommandHelp("Pagydo þaidëjà bei prikelia já ið komos")
+    public boolean aheal(LtrpPlayer player, @CommandParam("Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        if(target == null) {
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        } else {
+
+            target.setHealth(1000f);
+            if(target.isInAnyVehicle()) {
+                target.getVehicle().repair();
+            }
+            if(target.isInComa()) {
+                target.setInComa(false);
+                target.getInfoBox().setDeathTime(null);
+            }
+            target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pagydë jus.");
+            player.sendMessage(Color.GREEN, "Þaidëjas " + target.getName() + "(ID:" + target.getId() + ") pagydytas");
+            AdminLog.log(player, "Healed user " + target.getName() + " uid: " + target.getUserId());
+            return true;
+        }
+        return false;
+    }
+
     @Command
     @CommandHelp("Dont")
     public boolean fly(LtrpPlayer player) {
@@ -254,6 +278,7 @@ public class AdminCommands {
             player.setSpecialAction(SpecialAction.NONE);
         return true;
     }
+
 
 
 

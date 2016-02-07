@@ -14023,32 +14023,6 @@ CMD:afrisk(playerid, params[])
     }
     return 1;
 }
-CMD:aheal( playerid, params[ ] )
-{
-    if ( GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        new string[ 126 ],
-            giveplayerid;
-        if ( sscanf( params, "u", giveplayerid ) ) return SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /aheal [þaidëjo id]" );
-        if ( !IsPlayerConnected( giveplayerid ) )  return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-        SetPlayerHealth( giveplayerid, 100);
-        new idcar = GetPlayerVehicleID( giveplayerid );
-        RepairVehicle( idcar );
-        SetVehicleHealth ( idcar, 1000.0);
-        format          ( string, 126 ,"AdmWarn: Administratorius (%s) pagydë (/aheal) veikëjà (%s)", GetName( playerid ), GetName( giveplayerid ) );
-        SendAdminMessage( COLOR_ADM, string );
-        if(Mires[giveplayerid] > 0)
-        {
-            Mires[giveplayerid] = 0;
-            TogglePlayerControllable( giveplayerid, true);
-            ApplyAnimation          ( giveplayerid, "CRACK", "null", 0.0, 0, 0, 0, 0, 0);
-            UpdatePlayerInfoText( playerid );
-            DestroyDynamic3DTextLabel( DeathLabel[giveplayerid] );
-            return 1;
-        }
-    }
-    return 1;
-}
 CMD:aproperty( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 1 )
@@ -14453,7 +14427,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
     }
     else if(newstate == PLAYER_STATE_ONFOOT)
     {
-        UpdatePlayerInfoText(playerid);
+        //UpdatePlayerInfoText(playerid);
 
         new veh = OldCar[ playerid ];
         if(sVehicles[ veh ][ Job ] == JOB_TRASH && pInfo[ playerid ][ pJob ] == JOB_TRASH)
@@ -20507,15 +20481,6 @@ public OnVehicleDamageStatusUpdate( vehicleid, playerid )
     Check_VHP( vehicleid, 0, Damage );
     return 1;
 }
-FUNKCIJA:Spidometras( )
-{
-    foreach(Player,i)
-    {
-        if ( GetPVarInt( i, "PLAYER_STATE" ) == PLAYER_STATE_DRIVER  )
-            UpdatePlayerInfoText( i , PLAYER_STATE_DRIVER );
-    }
-    return 1;
-}
 
 FUNKCIJA:Drugs( )
 {
@@ -21638,6 +21603,7 @@ FUNKCIJA:Sekunde()
             if(Unfreeze[i] == 0 && CheckUnfreeze(i))
                 TogglePlayerControllable(i, true);
         }
+        /*
         if ( Laikas[ i ] > 0 )
         {
             if( plstate != PLAYER_STATE_DRIVER )
@@ -21646,7 +21612,7 @@ FUNKCIJA:Sekunde()
             Laikas[ i ] --;
             if ( Laikas[ i ] == 0)
                 TimeEnd( i, LaikoTipas[ i ] );
-        }
+        }*/
         if( pInfo[i][pJailTime] > 0 )
         {
             if ( pInfo[ i ][ pJail ] == 1 && IsAfk == 1 )
@@ -21663,6 +21629,7 @@ FUNKCIJA:Sekunde()
                 pInfo[ i ][ pJailTime ] --;
                 UpdatePlayerInfoText( i );
             }
+            /*
             else if ( pInfo[ i ][ pJail ] == 2 )
             {
                 new airbrk = GetPVarInt( i, "AIRBRK" );
@@ -21691,7 +21658,9 @@ FUNKCIJA:Sekunde()
                 pInfo[ i ][ pJailTime ] --;
                 UpdatePlayerInfoText( i );
             }
+            */
         }
+        /*
         if(pInfo[i][pJailTime] == 0 && pInfo[i][pJail] > 0)
         {
             Data_SetPlayerLocation(i, "jail_discharge");
@@ -21701,7 +21670,7 @@ FUNKCIJA:Sekunde()
             ShowInfoText(i, "~w~Jus esate paleidziamas is kalejimo ~g~Sekmes...", 5000);
             UpdatePlayerInfoText( i );
             SaveAccount( i );
-        }
+        }*/
         if(BoxStart > 0)
         {
             BoxStart --;
@@ -21741,11 +21710,12 @@ FUNKCIJA:Sekunde()
                 }
             }
         }
+        /*
         if(Mires[i] > 1)
         {
-            UpdatePlayerInfoText(i);
+            //UpdatePlayerInfoText(i);
             Mires[i] --;
-            TogglePlayerControllable( i, false );
+            //TogglePlayerControllable( i, false );
             
             if (GetPlayerState( i ) == PLAYER_STATE_ONFOOT)
                 ApplyAnimation(i, "CRACK", "crckdeth2", 4.0, 1, 0, 0, 0, 0);
@@ -21759,6 +21729,7 @@ FUNKCIJA:Sekunde()
                 }
             }
         }
+        */
         if(Ruko[i] > 0)
         {
             Ruko[i] --;
