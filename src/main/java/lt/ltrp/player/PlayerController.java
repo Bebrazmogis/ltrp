@@ -230,6 +230,15 @@ public class PlayerController {
                 }
                 return 0;
             }, Integer.class);
+
+            e.getAmxInstance().registerFunction("saveAccount", params -> {
+                LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
+                if(player != null ) {
+                    playerDao.update(player);
+                }
+                return 0;
+            }, Integer.class);
+
             new GettersSetters(e.getAmxInstance());
            logger.info("PlayerController :: addPawnFunctions :: lambda. Function registered");
         });
@@ -237,7 +246,7 @@ public class PlayerController {
 
 
 
-        managerNode.registerHandler(AmxUnloadEvent.class, e-> {
+        managerNode.registerHandler(AmxUnloadEvent.class, e -> {
             e.getAmxInstance().unregisterFunction("isPlayerLoggedIn");
             e.getAmxInstance().unregisterFunction("updatePlayerInfoText");
             e.getAmxInstance().unregisterFunction("isDmvVehicle");
