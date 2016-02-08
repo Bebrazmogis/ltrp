@@ -3391,33 +3391,6 @@ public OnGameModeInit()
     ResetElevatorQueue();
     Elevator_Initialize();
 //=============================[ Prijungiame serverá naudojamus NPC bot'us ]================================
-    ConnectNPC("Banko_Darbuotoja","static_bank");
-    //ConnectNPC("andromada_pilot","andromada_ls_to_lv");
-    ConnectNPC("passenger_train_driver","cargo_train_loop_slow");
-    //ConnectNPC("cargo_train_driver","cargo_train_loop_slow");
-    NPCTrain[ 0 ] = AddStaticVehicle(538,  -1943.0914, 162.7502, 26.7423, 180.0, random(255), random(255));
-    // Pirðtai kraujuoja raðant ðitas 6 eilutes...
-    sVehicles[ NPCTrain[ 0 ] ][ Id          ] = 0;
-    sVehicles[ NPCTrain[ 0 ] ][ Model       ] = 538;
-    sVehicles[ NPCTrain[ 0 ] ][ SpawnX       ] = -1943.0914;
-    sVehicles[ NPCTrain[ 0 ] ][ SpawnY       ] = 162.7502;
-    sVehicles[ NPCTrain[ 0 ] ][ SpawnZ      ] = 26.7423;
-    sVehicles[ NPCTrain[ 0 ] ][ SpawnA      ] = 180.0;
-
-    NPCTrain[ 1 ] = AddStaticVehicle(537, -1948.7266, 138.5202, 26.3345, 178.6508, random(255), random(255));
-    sVehicles[ NPCTrain[ 1 ] ][ Id          ] = 0;
-    sVehicles[ NPCTrain[ 1 ] ][ Model       ] = 537;
-    sVehicles[ NPCTrain[ 1 ] ][ SpawnX       ] = -1948.7266;
-    sVehicles[ NPCTrain[ 1 ] ][ SpawnY       ] = 138.5202;
-    sVehicles[ NPCTrain[ 1 ] ][ SpawnZ      ] = 26.3345;
-    sVehicles[ NPCTrain[ 1 ] ][ SpawnA      ] = 178.6508;
-    
-    for(new i = 0; i < sizeof(NPCTrain); i++)
-    {
-        new engine, lights, alarm, doors, bonnet, boot, objective;
-        GetVehicleParamsEx(NPCTrain[ i ], engine, lights, alarm, doors, bonnet, boot, objective);
-        SetVehicleParamsEx(NPCTrain[ i ], engine, VEHICLE_PARAMS_ON, alarm, VEHICLE_PARAMS_ON, bonnet, boot, objective);
-    }
 /*
     NPCPlane = AddStaticVehicle(592, 1960.2163, -2434.0457, 12.5013, 180.0000, -1, -1);
     sVehicles[ NPCPlane ][ Id          ] = 0;
@@ -3691,28 +3664,6 @@ public OnPlayerConnect(playerid)
     #if defined DEBUG
         printf("[debug] OnPlayerConnect(%s)", GetName(playerid));
     #endif
-    if(IsPlayerNPC(playerid))
-    {
-        new ip_addr_npc[64+1];
-        new ip_addr_server[64+1];
-        GetServerVarAsString("bind",ip_addr_server,64);
-        GetPlayerIp(playerid,ip_addr_npc,64);
-
-        if(!strlen(ip_addr_server)) {
-            ip_addr_server = "127.0.0.1";
-        }
-
-        if(strcmp(ip_addr_npc,ip_addr_server,true) != 0) {
-            // this bot is remote connecting
-            printf("NPC: Got a remote NPC connecting from %s and I'm kicking it.",ip_addr_npc);
-            Kick(playerid);
-            return 0;
-        }
-        printf("NPC: Connection from %s is allowed. NPC Name: %s",ip_addr_npc, GetName(playerid));
-        SetSpawnInfo(playerid, NO_TEAM, 0, 0.0, 0.0, 0.0, 0.0, 0,0, 0,0, 0,0);
-        SpawnPlayer(playerid);
-        return 1;
-    }
 
 
     //OnLookupComplete(playerid);
@@ -4069,23 +4020,6 @@ public OnPlayerSpawn(playerid)
     #if defined DEBUG
         printf("[debug] OnPlayerSpawn(%s)", GetName(playerid));
     #endif
-    if(IsPlayerNPC(playerid))
-    {
-        SetPlayerColor( playerid, TEAM_HIT_COLOR);
-        if(!strcmp(GetName(playerid), "passenger_train_driver"))
-            PutPlayerInVehicle(playerid, NPCTrain[0], 0);
-        if(!strcmp(GetName(playerid), "cargo_train_driver")) 
-            PutPlayerInVehicle(playerid, NPCTrain[ 1 ], 0);
-        if(!strcmp(GetName(playerid), "Banko_Darbuotoja"))
-        {
-            SetPlayerSkin(playerid, 76);
-        }
-    
-        //if(!strcmp(GetName(playerid), "andromada_pilot"))
-        //    PutPlayerInVehicle(playerid, NPCPlane, 0);
-        return 1;
-    }
-
     if(PlayerOn[ playerid ] == false)
     {
         SendClientMessage(playerid, GRAD, "Jûs nesate prisijungæs prie serverio, praðome prisijungti.");
@@ -4096,7 +4030,7 @@ public OnPlayerSpawn(playerid)
     if(FirstSpawn[ playerid ])
     {
         FirstSpawn[ playerid ] = false;
-        LoadPlayerKomp(playerid);
+       // LoadPlayerKomp(playerid);
         LoadPlayerWeapons(playerid);
     }
     else 
@@ -21613,6 +21547,7 @@ FUNKCIJA:Sekunde()
             if ( Laikas[ i ] == 0)
                 TimeEnd( i, LaikoTipas[ i ] );
         }*/
+        /*
         if( pInfo[i][pJailTime] > 0 )
         {
             if ( pInfo[ i ][ pJail ] == 1 && IsAfk == 1 )
@@ -21629,7 +21564,8 @@ FUNKCIJA:Sekunde()
                 pInfo[ i ][ pJailTime ] --;
                 UpdatePlayerInfoText( i );
             }
-            /*
+
+            
             else if ( pInfo[ i ][ pJail ] == 2 )
             {
                 new airbrk = GetPVarInt( i, "AIRBRK" );
@@ -21658,8 +21594,9 @@ FUNKCIJA:Sekunde()
                 pInfo[ i ][ pJailTime ] --;
                 UpdatePlayerInfoText( i );
             }
-            */
+            
         }
+        */
         /*
         if(pInfo[i][pJailTime] == 0 && pInfo[i][pJail] > 0)
         {
