@@ -90,7 +90,6 @@ public class ColorPicker {
         show(0);
         player.selectTextDraw(Color.YELLOW);
         eventManagerNode.registerHandler(PlayerClickTextDrawEvent.class, e -> {
-            System.out.println("PlayerCLickTextdraw event. src:" + e.getTextdraw() + " response:" + e.getResponse());
             if(e.getTextdraw() == null) {
                 hide();
                 return;
@@ -115,8 +114,6 @@ public class ColorPicker {
 
     public void show(int page) {
         currentPage = page;
-        System.out.println(String.format("show called. Page:%d ITEMS_PER_PAGE:%d TEXTDRAWS.length:%d",
-                page, ITEMS_PER_PAGE, TEXTDRAWS.length));
         for(int i = page * ITEMS_PER_PAGE; i < (page + 1) * ITEMS_PER_PAGE; i++) {
             int prevPageTdIndex = i - ITEMS_PER_PAGE,
                 nextPageTdIndex = i + ITEMS_PER_PAGE;
