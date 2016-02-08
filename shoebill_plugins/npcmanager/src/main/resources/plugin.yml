@@ -1,0 +1,7 @@
+class: lt.ltrp.NpcManager
+name: Npc Manager plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: A NPC managing plugin designed for LTRP server. Plugin includes features such as blocking remote NPCs, loading NPCs from a list
