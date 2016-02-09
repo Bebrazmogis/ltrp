@@ -60,7 +60,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
     }
 
     public static LtrpVehicle getClosest(LtrpPlayer player, float distance) {
-        return getClosest(player.getLocation());
+        return getClosest(player.getLocation(), distance);
     }
 
 
