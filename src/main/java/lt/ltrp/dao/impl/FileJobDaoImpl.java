@@ -142,7 +142,7 @@ public class FileJobDaoImpl implements JobDao {
         File[] jobDirectories = contractJobDirectory.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                return name.startsWith(String.format("%d-"), id);
+                return name.startsWith(String.format("%d-", id));
             }
         });
         if(jobDirectories.length > 0) {
