@@ -93,6 +93,11 @@ public class Faction implements Job {
     }
 
     @Override
+    public boolean equals(Object o) {
+        return o instanceof Faction && ((Faction) o).getId() == this.getId();
+    }
+
+    @Override
     public FactionRank getRank(int id) {
         for(FactionRank rank : ranks) {
             if(rank.getNumber() == id) {

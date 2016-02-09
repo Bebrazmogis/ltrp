@@ -79,6 +79,11 @@ public class ContractJob implements Job {
     }
 
     @Override
+    public boolean equals(Object o) {
+        return o instanceof ContractJob && ((ContractJob) o).getId() == this.getId();
+    }
+
+    @Override
     public void sendMessage(Color color, String message) {
         LtrpPlayer.get().stream().filter(p -> p.getJob().equals(this)).forEach(p -> p.sendMessage(color, message));
     }
