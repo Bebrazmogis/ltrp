@@ -273,7 +273,7 @@ public class FileDmvDaoImpl implements DmvDao {
      */
     private void parseProperties(Dmv dmv, Properties properties) {
         if(properties.containsKey("name")) {
-            dmv.setName(properties.getProperty("name"));
+            dmv.setName(properties.getProperty("name", dmv.toString()));
         }
         Location location = new Location();
         if(properties.containsKey("location")) {
@@ -294,7 +294,7 @@ public class FileDmvDaoImpl implements DmvDao {
             location.setInteriorId(Integer.parseInt(properties.getProperty("interior", "0")));
             location.setWorldId(Integer.parseInt(properties.getProperty("virtual_world", "0")));
         }
-
+        dmv.setLocation(location);
     }
 
 
