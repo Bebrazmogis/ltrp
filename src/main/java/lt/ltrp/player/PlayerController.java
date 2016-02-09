@@ -231,9 +231,17 @@ public class PlayerController {
                 return 0;
             }, Integer.class);
 
+            e.getAmxInstance().registerFunction("isPlayerLoggedIn", params -> {
+                LtrpPlayer player = LtrpPlayer.get((Integer) params[0]);
+                if (player != null) {
+                    return player.isLoggedIn() ? 1 : 0;
+                }
+                return 0;
+            }, Integer.class);
+
             e.getAmxInstance().registerFunction("saveAccount", params -> {
-                LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
-                if(player != null ) {
+                LtrpPlayer player = LtrpPlayer.get((Integer) params[0]);
+                if (player != null) {
                     playerDao.update(player);
                 }
                 return 0;
