@@ -44,7 +44,7 @@ public class FileDmvDaoImpl implements DmvDao {
         File[] dmvDataFiles = dmvDirectory.listFiles(dmvDataFileFilter);
         if (dmvDataFiles != null) {
             for (File dataFile : dmvDataFiles) {
-                if (dataFile.getName().equalsIgnoreCase("main")) {
+                if (dataFile.getName().toLowerCase().startsWith("main")) {
                     Properties properties = new Properties();
                     try {
                         properties.load(new FileReader(dataFile));
@@ -52,13 +52,13 @@ public class FileDmvDaoImpl implements DmvDao {
                     } catch (IOException e) {
                         logger.error("Could not load dmv " + dmv.getId() + " data. Error: " + e.getMessage());
                     }
-                } else if (dataFile.getName().equalsIgnoreCase("vehicles")) {
+                } else if (dataFile.getName().toLowerCase().startsWith("vehicles")) {
                     try {
                         dmv.setVehicles(parseDmvVehicles(dataFile));
                     } catch (IOException e) {
                         logger.error("Could not load dmv " + dmv.getId() + " vehicles. Error: " + e.getMessage());
                     }
-                } else if(dataFile.getName().equalsIgnoreCase("questions")) {
+                } else if(dataFile.getName().toLowerCase().startsWith("questions")) {
                     try {
                         dmv.setQuestions(parseDmvQuestions(dataFile));
                     } catch(IOException e) {
@@ -77,7 +77,7 @@ public class FileDmvDaoImpl implements DmvDao {
         File[] dmvDataFiles = dmvDirectory.listFiles(dmvDataFileFilter);
         if (dmvDataFiles != null) {
             for (File dataFile : dmvDataFiles) {
-                if (dataFile.getName().equalsIgnoreCase("main")) {
+                if (dataFile.getName().toLowerCase().startsWith("main")) {
                     Properties properties = new Properties();
                     try {
                         properties.load(new FileReader(dataFile));
@@ -85,13 +85,13 @@ public class FileDmvDaoImpl implements DmvDao {
                     } catch (IOException e) {
                         logger.error("Could not load dmv " + dmv.getId() + " data. Error: " + e.getMessage());
                     }
-                } else if (dataFile.getName().equalsIgnoreCase("vehicles")) {
+                } else if (dataFile.getName().toLowerCase().startsWith("vehicles")) {
                     try {
                         dmv.setVehicles(parseDmvVehicles(dataFile));
                     } catch (IOException e) {
                         logger.error("Could not load dmv " + dmv.getId() + " vehicles. Error: " + e.getMessage());
                     }
-                } else if(dataFile.getName().equalsIgnoreCase("checkpoints")) {
+                } else if(dataFile.getName().toLowerCase().startsWith("checkpoints")) {
                     try {
                         dmv.setCheckpoints(parseDmvCheckpoints(dataFile));
                     } catch(IOException e) {
@@ -109,7 +109,7 @@ public class FileDmvDaoImpl implements DmvDao {
         File[] dmvDataFiles = dmvDirectory.listFiles(dmvDataFileFilter);
         if(dmvDataFiles != null) {
             for(File dataFile : dmvDataFiles) {
-                if(dataFile.getName().equalsIgnoreCase("main")) {
+                if(dataFile.getName().toLowerCase().startsWith("main")) {
                     Properties properties = new Properties();
                     try {
                         properties.load(new FileReader(dataFile));
@@ -117,19 +117,19 @@ public class FileDmvDaoImpl implements DmvDao {
                     } catch(IOException e) {
                         logger.error("Could not load dmv " + dmv.getId() + " data. Error: " + e.getMessage());
                     }
-                } else if(dataFile.getName().equalsIgnoreCase("vehicles")) {
+                } else if(dataFile.getName().toLowerCase().startsWith("vehicles")) {
                     try {
                         dmv.setVehicles(parseDmvVehicles(dataFile));
                     } catch(IOException e) {
                         logger.error("Could not load dmv " + dmv.getId() + " vehicles. Error: " + e.getMessage());
                     }
-                } else if(dataFile.getName().equalsIgnoreCase("checkpoints")) {
+                } else if(dataFile.getName().toLowerCase().startsWith("checkpoints")) {
                     try {
                         dmv.setCheckpoints(parseDmvCheckpoints(dataFile));
                     } catch(IOException e) {
                         logger.error("Could not load dmv " + dmv.getId() + " checkpoints. Error: " + e.getMessage());
                     }
-                } else if(dataFile.getName().equalsIgnoreCase("questions")) {
+                } else if(dataFile.getName().toLowerCase().startsWith("questions")) {
                     try {
                         dmv.setQuestions(parseDmvQuestions(dataFile));
                     } catch(IOException e) {
