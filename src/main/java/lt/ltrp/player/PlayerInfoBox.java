@@ -83,7 +83,7 @@ public class PlayerInfoBox implements Destroyable{
             infoText.append(String.format("Greitis: %d km/h~n~~w~Rida: %.0f km", vehicle.getSpeed(), vehicle.getMileage()));
             if(LtrpVehicleModel.isMotorVehicle(vehicle.getModelId())) {
                 FuelTank fueltank = vehicle.getFuelTank();
-                int percent = (int)fueltank.getSize() / 100 * (int)fueltank.getFuel();
+                int percent = Math.round(fueltank.getFuel() * 100 / fueltank.getSize());
                 String color;
                 if(percent > 66)
                     color = "~w~";
@@ -94,9 +94,13 @@ public class PlayerInfoBox implements Destroyable{
 
                 int barCount = percent/5;
                 StringBuilder bars = new StringBuilder();
-                for(int i = 0; i < barCount; i++)
-                    bars.append("|");
-
+                for(int i = 0; i < 20; i++) {
+                    if(i < barCount) {
+                        bars.append("I");
+                    } else {
+                        bars.append(".");
+                    }
+                }
                 infoText.append("~n~~w~Degalai: " + color + "" + bars.toString());
 
                 if(vehicle.getTaxi() != null) {
@@ -133,11 +137,13 @@ public class PlayerInfoBox implements Destroyable{
         if(infoText.length() == 0) {
             if(isShown) {
                 textdraw.hide();
+                isShown = false;
             }
         } else {
             textdraw.setText(infoText.toString());
             if(!isShown) {
                 textdraw.show();
+                isShown = true;
             }
         }
     }
@@ -159,6 +165,8 @@ public class PlayerInfoBox implements Destroyable{
 
     @Override
     public void destroy() {
+        textdraw.hide();
+        textdraw.destroy();
         destroyed = true;
     }
 
