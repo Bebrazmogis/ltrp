@@ -38,4 +38,9 @@ public class VehicleEngineStartEvent extends VehicleEvent {
     public boolean isInterrupted() {
         return super.isInterrupted();
     }
+
+    @Override
+    public void interrupt() {
+        super.interrupt();
+    }
 }
