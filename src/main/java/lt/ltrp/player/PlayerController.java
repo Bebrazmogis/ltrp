@@ -206,11 +206,6 @@ public class PlayerController {
     private void addPawnFunctions() {
         logger.info("PlayerController :: addPawnFunctions. Called.");
         managerNode.registerHandler(AmxLoadEvent.class, e-> {
-                    e.getAmxInstance().registerFunction("isPlayerLoggedIn", objects -> {
-                                objects[1] = isPlayerLoggedIn((Integer) objects[0]) ? 1 : 0;
-                        return 1;
-                    }, Integer.class, Integer.class);
-
             e.getAmxInstance().registerFunction("updatePlayerInfoText", params -> {
                 LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
                 if(player != null && player.getInfoBox() != null) {
