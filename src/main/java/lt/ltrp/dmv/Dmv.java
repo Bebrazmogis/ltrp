@@ -1,5 +1,6 @@
 package lt.ltrp.dmv;
 
+import lt.ltrp.constant.LicenseType;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.data.Location;
@@ -23,6 +24,8 @@ public interface Dmv {
 
     List<LtrpVehicle> getVehicles();
     void setVehicles(List<LtrpVehicle> vehicles);
+
+    List<LicenseType> getLicenseType();
 
 
     /*

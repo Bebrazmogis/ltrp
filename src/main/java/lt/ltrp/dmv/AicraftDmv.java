@@ -1,8 +1,11 @@
 package lt.ltrp.dmv;
 
+import lt.ltrp.constant.LicenseType;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.util.event.EventManager;
+
+import java.util.ArrayList;
 
 /**
  * @author Bebras
@@ -10,6 +13,11 @@ import net.gtaun.util.event.EventManager;
  */
 public class AicraftDmv extends CheckpointDmvImpl {
 
+    private static final ArrayList<LicenseType> LICENSE_TYPES = new ArrayList<>(1);
+
+    static {
+        LICENSE_TYPES.add(LicenseType.Aircraft);
+    }
 
     public AicraftDmv(int id) {
         super(id, null, null, null);
@@ -27,4 +35,8 @@ public class AicraftDmv extends CheckpointDmvImpl {
         return FlyingTest.PRICE;
     }
 
+    @Override
+    public ArrayList<LicenseType> getLicenseType() {
+        return LICENSE_TYPES;
+    }
 }
