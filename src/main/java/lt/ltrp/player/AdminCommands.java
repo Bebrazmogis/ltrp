@@ -8,6 +8,7 @@ import lt.ltrp.item.Item;
 import lt.ltrp.job.ContractJob;
 import lt.ltrp.job.Faction;
 import lt.ltrp.vehicle.JobVehicle;
+import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -40,6 +41,7 @@ public class AdminCommands {
         adminLevels.put("rjc", 1);
         adminLevels.put("rfc", 2);
         adminLevels.put("gotopos", 2);
+        adminLevels.put("gotocar", 2);
         adminLevels.put("aheal", 2);
 
         adminLevels.put("makefactionmanager", 4);
@@ -59,6 +61,7 @@ public class AdminCommands {
 
     @BeforeCheck
     public boolean beforeCheck(LtrpPlayer p, String cmd, String params) {
+        cmd = cmd.toLowerCase();
         LtrpPlayer player = p;
         if(player != null) {
             System.out.println("AdminCommandst :: beforeCheck. Player: "+  p.getName() + " cmd: " +cmd + " params:" + params + " required admin level:" +
@@ -147,6 +150,19 @@ public class AdminCommands {
         }
         if(x != 0f && y != 0f && z != 0f) {
             player.setLocation(x, y, z);
+        }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Nukelia jus prie pasirinktos transporot priemonës")
+    public boolean gotoCar(LtrpPlayer player, LtrpVehicle vehicle) {
+        if(vehicle == null) {
+            player.sendErrorMessage("Tokios transporto priemonës nëra!");
+        } else {
+            player.setLocation(vehicle.getLocation());
+            player.sendMessage(Color.NEWS, "Nusikëlëte prie " + vehicle.getModelName() + "(ID:" + vehicle.getId() + ")");
+            return true;
         }
         return false;
     }
