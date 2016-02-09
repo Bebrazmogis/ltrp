@@ -17,6 +17,7 @@ public class VehicleEngineStartEvent extends VehicleEvent {
     public VehicleEngineStartEvent(LtrpVehicle vehicle, LtrpPlayer player, boolean success) {
         super(vehicle);
         this.player = player;
+        this.success = success;
     }
 
     public boolean isSuccess() {
