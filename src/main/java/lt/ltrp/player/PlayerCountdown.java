@@ -96,6 +96,9 @@ public class PlayerCountdown implements Destroyable{
         return paused;
     }
 
+    /**
+     * Continues the countdown after pausing it, if it isn't paused does nothing
+     */
     public void resume() {
         if(paused) {
             paused = false;
@@ -114,6 +117,9 @@ public class PlayerCountdown implements Destroyable{
         }
     }
 
+    /**
+     * Restarts the countdown from the initial time
+     */
     public void restart() {
         timeleft = time;
         if(paused || timer.isRunning()) {
