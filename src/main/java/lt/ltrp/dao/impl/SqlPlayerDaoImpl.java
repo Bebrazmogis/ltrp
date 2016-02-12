@@ -15,6 +15,7 @@ import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.object.Player;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -81,9 +82,9 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     public boolean loadData(LtrpPlayer player) {
         boolean loaded = false;
         String sql = "SELECT " +
-                "secret_question, secret_answer, admin_level, level, job_id, money, connected_time, box_style, age, respect, bank_money, deaths, hunger " +
-                ", player_job_levels.level AS job_level, player_job_levels.hours AS job_hours, player_job_levels.xp AS job_xp LEFT JOIN player_job_levels ON players.id = player_job_levels.player_id AND players.job_id = player_job_levels.job_id" +
-                "FROM players WHERE id = ? LIMIT 1";
+                "secret_question, secret_answer, admin_level, players.level, players.job_id, money, connected_time, box_style, age, respect, bank_money, deaths, hunger " +
+                ", player_job_levels.level AS job_level, player_job_levels.hours AS job_hours, player_job_levels.xp AS job_xp FROM players LEFT JOIN player_job_levels ON players.id = player_job_levels.player_id AND players.job_id = player_job_levels.job_id" +
+                " WHERE players.id = ? LIMIT 1";
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
@@ -117,6 +118,11 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
         return loaded;
+    }
+
+    @Override
+    public boolean update(LtrpPlayer player) {
+        throw new NotImplementedException();
     }
 
     @Override
@@ -375,8 +381,9 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 ) {
             stmt.setString(1, license.getType().name());
             stmt.setInt(2, license.getStage());
-            stmt.setDate(3, new Date(license.getDateAquired().getTime()));
+            stmt.setTimestamp(3,license.getDateAquired());
             stmt.setInt(4, license.getId());
+            stmt.execute();
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -392,7 +399,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             stmt.setInt(1, license.getPlayer().getUserId());
             stmt.setString(2, license.getType().name());
             stmt.setInt(3, license.getStage());
-            stmt.setDate(4, new Date(license.getDateAquired().getTime()));
+            stmt.setTimestamp(4,license.getDateAquired());
             stmt.execute();
             ResultSet keys = stmt.getGeneratedKeys();
             if(keys.next()) {
@@ -419,8 +426,9 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 license.setId(result.getInt("id"));
                 license.setType(LicenseType.valueOf(result.getString("type")));
                 license.setStage(result.getInt("stage"));
-                license.setDateAquired(result.getDate("date"));
+                license.setDateAquired(result.getTimestamp("date"));
                 license.setWarnings(getWarnings(license));
+                licenses.add(license);
             }
         } catch(SQLException e) {
             e.printStackTrace();

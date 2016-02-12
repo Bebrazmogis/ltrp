@@ -2,6 +2,7 @@ package lt.ltrp.player;
 
 import lt.ltrp.constant.LicenseType;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ public class PlayerLicense {
     private int id;
     private LicenseType type;
     private int stage;
-    private Date dateAquired;
+    private Timestamp dateAquired;
     private LtrpPlayer player;
     private LicenseWarning[] warnings;
 
@@ -57,11 +58,11 @@ public class PlayerLicense {
         this.stage = stage;
     }
 
-    public Date getDateAquired() {
+    public Timestamp getDateAquired() {
         return dateAquired;
     }
 
-    public void setDateAquired(Date dateAquired) {
+    public void setDateAquired(Timestamp dateAquired) {
         this.dateAquired = dateAquired;
     }
 }
