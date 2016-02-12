@@ -1,5 +1,6 @@
 package lt.ltrp.player;
 
+import lt.ltrp.data.Color;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Timer;
 
@@ -83,6 +84,7 @@ public class PlayerCountdown implements Destroyable{
                 stop();
             }
         });
+        timer.start();
     }
 
     public void pause() {
