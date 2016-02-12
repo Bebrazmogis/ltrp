@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  */
 public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
+    public static final float SPEED_MAGIC_NUMBER = 170f;
     private static List<LtrpVehicle> vehicles = new ArrayList<>();
     protected static final Logger logger = LoggerFactory.getLogger(LtrpVehicle.class);
 
@@ -158,7 +159,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     public int getSpeed() {
         //floatround( floatsqroot( x*x + y*y + z*z ) * 170 );
-        return Math.round(getVelocity().speed3d() * 170f);
+        return Math.round(getVelocity().speed3d() * SPEED_MAGIC_NUMBER);
     }
 
     public String getLicense() {
