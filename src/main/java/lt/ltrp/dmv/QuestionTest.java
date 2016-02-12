@@ -13,7 +13,6 @@ import java.util.Random;
 
 public class QuestionTest implements DmvTest {
 
-    public static final int PRICE = 100;
 
 	private LtrpPlayer player;
 	private QuestionDmv dmv;
@@ -50,9 +49,14 @@ public class QuestionTest implements DmvTest {
 		if(nextQuestion == null) {
 			stop();
 		} else {
+            String dialogMsg = nextQuestion.getQuestion() + "\n\n\n";
+            int i = 1;
+            for(DmvQuestion.DmvAnswer answer : nextQuestion.getAnswers()) {
+                dialogMsg += i++ + ". " + answer.getAnswer() + "\n\n";
+            }
 			InputDialog.create(player, eventManager)
-				.caption(dmv.getName())
-				.message("if(answered.contains) ")
+				.caption(dmv.getName() + " " + answeredQuestions.keySet().size() + "/" + dmv.getQuestions().size())
+				.message(dialogMsg)
 				.buttonOk("Tęsti")
 				.buttonCancel("Atgal")
 				.onClickCancel(dialog -> {
@@ -75,11 +79,11 @@ public class QuestionTest implements DmvTest {
 						answer = Integer.parseInt(input);
 					} catch(NumberFormatException ignored) {}
 					if(answer == -1) {
-						player.sendErrorMessage("");
+						player.sendErrorMessage("Atsakymas privalo būti skaičius.");
 						dialog.show();
 					} else {
 						if(answer < 1 ||answer > nextQuestion.getAnswers().length) {
-							player.sendErrorMessage("  ");
+							player.sendErrorMessage("Galimi atsakymo variantai yra 1 - " +  nextQuestion.getAnswers().length);
 							dialog.show();
 						} else {
 							// players are allowed to revisit already answered questions, so an implementation that replace old values must be used.
@@ -127,6 +131,14 @@ public class QuestionTest implements DmvTest {
         return passed;
     }
 
+    public int getQuestionCount() {
+        return dmv.getQuestions().size();
+    }
+
+    public int getCorrectAnswerCount() {
+        return (int)answeredQuestions.keySet().stream().filter(answeredQuestions::get).count();
+    }
+
     @Override
     public void stop() {
         if(answeredQuestions.size() == 0) {
@@ -134,7 +146,8 @@ public class QuestionTest implements DmvTest {
         } else if(answeredQuestions.size() != dmv.getQuestions().size()) {
             passed = false;
         } else {
-            passed = true;
+            int correct = getCorrectAnswerCount();
+            passed = correct == dmv.getQuestions().size();
         }
 
         eventManager.dispatchEvent(new PlayerQuestionTestEndEvent(player, dmv, this));

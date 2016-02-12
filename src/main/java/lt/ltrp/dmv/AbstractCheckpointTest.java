@@ -43,11 +43,13 @@ public abstract class AbstractCheckpointTest implements DmvTest {
 
 
     public AbstractCheckpointTest(LtrpPlayer p, LtrpVehicle vehicle, CheckpointDmv dmv, EventManager manager) {
+        System.out.println(String.format("AbstractCheckpointTest constructor"));
         this.dmv = dmv;
         this.cpCount = 0;
         this.player = p;
         this.eventManager = manager;
         this.vehicle = vehicle;
+        this.passed = true; // This is important! This is the only place where it is set to true, change this nobody will ever get a license :/
         showNextCheckpoint();
 
         vehicle.getState().setDoors(VehicleParam.PARAM_ON);
@@ -77,23 +79,25 @@ public abstract class AbstractCheckpointTest implements DmvTest {
 
     private void showNextCheckpoint() {
         DmvCheckpoint checkpoint = dmv.getCheckpoints().get(cpCount);
-        Checkpoint.create(checkpoint.getRadius(), onEnterConsumer, null);
+        System.out.println("AbstractCheckpointTest showNextCheckpoint. cpCount:" + cpCount + " Checkpoint location:" + checkpoint.getRadius());
+        Checkpoint.create(checkpoint.getRadius(), onEnterConsumer, null).set(player);
     }
 
     protected void onFinish() {
+        player.disableCheckpoint();
         finished = true;
         onPlayerDisconnectEntry.cancel();
         onVehicleDeathEntry.cancel();
         onPlayerStateChangeEntry.cancel();
         vehicle.getState().setDoors(VehicleParam.PARAM_OFF);
         vehicle.respawn();
+        player.setLocation(dmv.getLocation());
 
-
-        passed = true;
         if (cpCount < dmv.getCheckpoints().size()) {
             passed = false;
+            finished = false;
         }
-
+        dispatchEvent();
     }
 
     protected abstract void dispatchEvent();

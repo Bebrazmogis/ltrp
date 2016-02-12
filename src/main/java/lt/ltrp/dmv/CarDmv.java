@@ -14,7 +14,7 @@ import java.util.List;
  * @author Bebras
  *         2015.12.26.
  */
-public class CarDmv extends QuestionCheckpointDmvImpl {
+public class CarDmv implements Dmv, CheckpointDmv, QuestionDmv {
 
     private static final ArrayList<LicenseType> LICENSE_TYPES = new ArrayList<>(2);
 
@@ -23,12 +23,37 @@ public class CarDmv extends QuestionCheckpointDmvImpl {
         LICENSE_TYPES.add(LicenseType.Motorcycle);
     }
 
+    private List<DmvCheckpoint> checkpoints;
+    private List<LtrpVehicle> vehicles;
+    private List<DmvQuestion> questions;
+    private Location location;
+    private int id, drivingTestPrice, questionTestPrice;
+    private String name;
+
     public CarDmv(int id) {
-        super(id, null, null);
+        this.id = id;
     }
 
     public CarDmv(int id, Location location, String name) {
-        super(id, location, name);
+        this.id = id;
+        this.location = location;
+        this.name = name;
+    }
+
+    public int getQuestionTestPrice() {
+        return questionTestPrice;
+    }
+
+    public int getDrivingTestPrice() {
+        return drivingTestPrice;
+    }
+
+    public void setDrivingTestPrice(int drivingTestPrice) {
+        this.drivingTestPrice = drivingTestPrice;
+    }
+
+    public void setQuestionTestPrice(int questionTestPrice) {
+        this.questionTestPrice = questionTestPrice;
     }
 
     @Override
@@ -36,7 +61,6 @@ public class CarDmv extends QuestionCheckpointDmvImpl {
         return DrivingTest.create(player, vehicle, this, eventManager);
     }
 
-    @Override
     public int getCheckpointTestPrice() {
         return DrivingTest.PRICE;
     }
@@ -46,9 +70,60 @@ public class CarDmv extends QuestionCheckpointDmvImpl {
         return QuestionTest.create(player, this, eventManager);
     }
 
+    public List<DmvCheckpoint> getCheckpoints() {
+        return checkpoints;
+    }
+
+    public void setCheckpoints(List<DmvCheckpoint> checkpoints) {
+        this.checkpoints = checkpoints;
+    }
+
+    public List<DmvQuestion> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<DmvQuestion> questions) {
+        this.questions = questions;
+    }
+
     @Override
-    public int getQuestionTestPrice() {
-        return QuestionTest.PRICE;
+    public void setLocation(Location loc) {
+        this.location = loc;
+    }
+
+    @Override
+    public Location getLocation() {
+        return location;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public List<LtrpVehicle> getVehicles() {
+        return vehicles;
+    }
+
+    @Override
+    public void setVehicles(List<LtrpVehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     @Override
