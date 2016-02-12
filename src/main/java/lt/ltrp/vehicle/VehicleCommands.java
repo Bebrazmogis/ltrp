@@ -174,9 +174,9 @@ public class VehicleCommands extends Commands {
     public boolean seatbelt(LtrpPlayer player) {
         LtrpVehicle vehicle = player.getVehicle();
         if(vehicle != null) {
-            if(LtrpVehicleModel.HasWindows(vehicle.getModelId())) {
-                if(player.getSeatbelt()) {
-                    player.sendActionMessage("patempia saugos dirþà ir uþsisega saugos dirþus.");
+            if(player.getVehicleSeat() == 0) {
+                if(!player.getSeatbelt()) {
+                    player.sendActionMessage("patempia saugos dirþà ir juos uþsisega.");
                 } else {
                     player.sendActionMessage("atsisega saugos dirþus.");
                 }
