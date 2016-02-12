@@ -16,6 +16,7 @@ import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.data.Velocity;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.amx.AmxUnloadEvent;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
@@ -98,12 +99,17 @@ public class VehicleManager {
                 }
                 if(newState == PlayerState.DRIVER) {
                     player.getInfoBox().showSpeedometer(player.getVehicle());
-                } else if(oldState == PlayerState.PASSENGER) {
-                    player.getInfoBox().hideSpeedometer();
                 }
+
                 if(oldState == PlayerState.DRIVER) {
                     player.getLastUsedVehicle().setDriver(null);
-                    player.getInfoBox().update();
+                    player.getInfoBox().hideSpeedometer();
+                }
+                if(newState == PlayerState.ONFOOT) {
+                    if(player.isSeatbelt()) {
+                        player.sendActionMessage("iðlipdamas atsisega saugos dirþus");
+                        player.setSeatbelt(false);
+                    }
                 }
             }
         });
@@ -150,26 +156,30 @@ public class VehicleManager {
                             // Special cased of failure:
                             if(vehicle.getHealth() < 400f) {
                                 percentage = 0;
-                            } else if(vehicle.getFuelTank().getFuel() > 0) {
+                            } else if(vehicle.getFuelTank().getFuel() == 0) {
                                 percentage = 0;
                             }
 
                             int value = random.nextInt(100);
                             final boolean success = value < percentage;
-                            vehicleEngineTimers.put(vehicle, Timer.create(time, ticks -> {
+                            player.sendStateMessage("pasuka automobilio raktelá ir bando uþvesti variklá.");
+                            Timer t = Timer.create(time, 1, ticks -> {
                                 VehicleEngineStartEvent event = new VehicleEngineStartEvent(vehicle, player, success);
+                                System.out.println("insside callbackk");
                                 eventManager.dispatchEvent(event);
-                                if(!event.isInterrupted()) {
-                                    if(success) {
-                                        vehicle.sendStateMessage("variklis uþsikuria");
+                                if (!event.isInterrupted()) {
+                                    if (success) {
+                                        //vehicle.sendStateMessage("variklis uþsikuria");
                                         vehicle.getState().setEngine(VehicleParam.PARAM_ON);
                                     } else {
-                                        vehicle.sendStateMessage("variklis neuþsikuria");
+                                        //vehicle.sendStateMessage("variklis neuþsikuria");
                                     }
                                 } else
-                                    logger.debug("VehicleEngineStartEvent was interrupted.");
+                                    logger.warn("VehicleEngineStartEvent was interrupted.");
                                 vehicleEngineTimers.remove(vehicle);
-                            }));
+                            });
+                            t.start();
+                            vehicleEngineTimers.put(vehicle, t);
 
                         }
                     } else {
@@ -182,27 +192,36 @@ public class VehicleManager {
 
         eventManager.registerHandler(VehicleEngineStartEvent.class, e -> {
             LtrpVehicle vehicle = e.getVehicle();
-            vehicle.sendStateMessage("* Automobilio variklis uþsivedë.");
+            if(e.isSuccess())
+                vehicle.sendStateMessage("Automobilio variklis uþsivedë.");
+            else
+                vehicle.sendStateMessage("Automobilio variklis neuþsiveda.");
         });
 
-        timer = Timer.create(200, ticks -> {
+        timer = Timer.create(160, ticks -> {
             for(LtrpVehicle vehicle : LtrpVehicle.get()) {
                 LtrpPlayer player = vehicle.getDriver();
                 if(player != null) {
                     float speed = vehicle.getSpeed();
+                    Velocity velocity = vehicle.getVelocity();
                     eventManager.dispatchEvent(new SpeedometerTickEvent(player, vehicle, speed));
                     player.getInfoBox().update();
 
                     if(maxSpeeds.containsKey(player)) {
                         float maxSpeed = maxSpeeds.get(player);
                         if(speed > maxSpeed) {
-
+                            float cap = maxSpeeds.get(player);
+                            double change = (cap-7) / speed;
+                            velocity.setX((float)(velocity.getX() * change));
+                            velocity.setY((float)(velocity.getY() * change));
+                            vehicle.setVelocity(velocity);
                         }
                     }
 
                 }
             }
         });
+        timer.start();
 
         logger.info("Vehicle manager initialized");
     }
