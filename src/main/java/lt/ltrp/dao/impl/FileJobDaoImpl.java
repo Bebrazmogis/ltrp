@@ -232,19 +232,19 @@ public class FileJobDaoImpl implements JobDao {
                     ContractJob job = new ContractJob();
                     File[] dataFiles = jobDir.listFiles(dataFileFilter);
                     for(File dataFile : dataFiles) {
-                        if(dataFile.getName().equals("main")) {
+                        if(dataFile.getName().startsWith("main")) {
                             try {
                                 parseContractJobData(job, dataFile);
                             } catch(IOException e) {
                                 e.printStackTrace();
                             }
-                        } else if(dataFile.getName().equals("ranks")) {
+                        } else if(dataFile.getName().startsWith("ranks")) {
                             try {
                                 parseContractJobRanks(job, dataFile);
                             } catch(IOException e) {
                                 e.printStackTrace();
                             }
-                        } else if(dataFile.getName().equals("vehicles")) {
+                        } else if(dataFile.getName().startsWith("vehicles")) {
                             try {
                                 parseFactionVehicles(job, dataFile);
                             } catch(IOException e) {
@@ -332,8 +332,7 @@ public class FileJobDaoImpl implements JobDao {
                 section = matcher.group();
                 if(model > 0) {
                     Rank rank = job.getRank(rankid);
-                    JobVehicle jobVehicle = JobVehicle.create(job, model, location, color1, color2, rank);
-                    jobVehicle.setId(id);
+                    JobVehicle jobVehicle = JobVehicle.create(id, job, model, location, color1, color2, rank);
                     jobVehicles.put(rank, jobVehicle);
                 }
             }
