@@ -616,11 +616,8 @@ public class LtrpPlayer implements Player {
     // Object overrides
     @Override
     public boolean equals(Object o) {
-        logger.debug("equals");
         if(o instanceof Player) {
-            logger.debug("o is instanceof Player");
             if(o instanceof LtrpPlayer) {
-                logger.debug("o is instance of LtrpPlayer. this id: " + this.getUserId() + " other id:" + ((LtrpPlayer) o).getUserId());
                 return this.getUserId() == ((LtrpPlayer) o).getUserId();
             } else
                 return this.player == o;
