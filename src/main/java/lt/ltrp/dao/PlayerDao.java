@@ -18,6 +18,7 @@ public interface PlayerDao {
     public int getUserId(Player player);
     public String getPassword(LtrpPlayer player);
     public boolean loadData(LtrpPlayer player);
+    public boolean update(LtrpPlayer player);
     public SpawnData getSpawnData(LtrpPlayer player);
     public JailData getJailData(LtrpPlayer player);
     public CrashData getCrashData(LtrpPlayer player);
