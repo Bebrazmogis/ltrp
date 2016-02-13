@@ -27,7 +27,7 @@ public class PawnCallbacks  {
         System.out.println("PawnCallbacks :: constructor");
 
         manager.registerHandler(PlayerDataLoadEvent.class, e -> {
-            AmxCallable callback = PawnFunc.getNativeMethod("OnPlayerDataLoad");
+            AmxCallable callback = PawnFunc.getPublicMethod("OnPlayerDataLoad");
             if(callback != null) {
                 callback.call(e.getPlayer().getId());
             } else {
@@ -36,7 +36,7 @@ public class PawnCallbacks  {
         });
 
         manager.registerHandler(PlayerLogInEvent.class, e -> {
-            AmxCallable callback = PawnFunc.getNativeMethod("OnShoebillPlayerLogin");
+            AmxCallable callback = PawnFunc.getPublicMethod("OnShoebillPlayerLogin");
             if(callback != null) {
                 callback.call(e.getPlayer().getId(), e.getFailedAttempts());
             } else {
@@ -45,7 +45,7 @@ public class PawnCallbacks  {
         });
 
         manager.registerHandler(PlayerSpawnSetUpEvent.class, e -> {
-            AmxCallable callback = PawnFunc.getNativeMethod("OnPlayerSpawnSetUp");
+            AmxCallable callback = PawnFunc.getPublicMethod("OnPlayerSpawnSetUp");
             if(callback != null) {
                 callback.call(e.getPlayer().getId());
             } else {

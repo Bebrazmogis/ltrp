@@ -50,9 +50,12 @@ public class SpawnController implements Runnable {
         Logger.getLogger(SpawnController.class.getSimpleName()).log(Level.INFO, "SpawnController :: run. All data received");
 
         // The player doesn't exist
-        if(spawnData == null)
+        if(spawnData == null) {
+            // TODO Generate default spawn data
             return;
+        }
 
+        player.setSpawnData(spawnData);
 
         if(jailData != null) {
             player.jail(jailData);
@@ -68,10 +71,10 @@ public class SpawnController implements Runnable {
                 int interior, world, index;
                 switch(spawnData.getType()) {
                     case House:
-                        AmxCallable getIndex = PawnFunc.getNativeMethod("GetHouseIndex"),
-                            getPos = PawnFunc.getNativeMethod("GetHouseEntrancePos"),
-                            getInt = PawnFunc.getNativeMethod("GetHouseEntranceInteriorID"),
-                            getWorld = PawnFunc.getNativeMethod("GetHouseEntranceVirtualWorld");
+                        AmxCallable getIndex = PawnFunc.getPublicMethod("GetHouseIndex"),
+                            getPos = PawnFunc.getPublicMethod("GetHouseEntrancePos"),
+                            getInt = PawnFunc.getPublicMethod("GetHouseEntranceInteriorID"),
+                            getWorld = PawnFunc.getPublicMethod("GetHouseEntranceVirtualWorld");
                         index = (Integer)getIndex.call(spawnData.getId());
                         getPos.call(index, refX, refY, refZ);
                         interior = (Integer)getInt.call(index);
@@ -79,10 +82,10 @@ public class SpawnController implements Runnable {
                         location = new Location(refX.getValue(), refY.getValue(), refZ.getValue(), interior, world);
                         break;
                     case Business:
-                        getIndex = PawnFunc.getNativeMethod("GetBusinessIndex");
-                        getPos = PawnFunc.getNativeMethod("GetBusinessEntrancePos");
-                        getInt = PawnFunc.getNativeMethod("GetBusinessEntranceVirtualWorld");
-                        getWorld = PawnFunc.getNativeMethod("GetBusinessEntranceInteriorID");
+                        getIndex = PawnFunc.getPublicMethod("GetBusinessIndex");
+                        getPos = PawnFunc.getPublicMethod("GetBusinessEntrancePos");
+                        getInt = PawnFunc.getPublicMethod("GetBusinessEntranceVirtualWorld");
+                        getWorld = PawnFunc.getPublicMethod("GetBusinessEntranceInteriorID");
                         index = (Integer)getIndex.call(spawnData.getId());
                         getPos.call(index, refX, refY, refZ);
                         interior = (Integer)getInt.call(index);
@@ -90,10 +93,10 @@ public class SpawnController implements Runnable {
                         location = new Location(refX.getValue(), refY.getValue(), refZ.getValue(), interior, world);
                         break;
                     case Faction:
-                        getIndex = PawnFunc.getNativeMethod("GetFactionIndex");
-                        getPos = PawnFunc.getNativeMethod("GetFactionPosition");
-                        getInt = PawnFunc.getNativeMethod("GetFactionVirtualWorld");
-                        getWorld = PawnFunc.getNativeMethod("GetFactionInterior");
+                        getIndex = PawnFunc.getPublicMethod("GetFactionIndex");
+                        getPos = PawnFunc.getPublicMethod("GetFactionPosition");
+                        getInt = PawnFunc.getPublicMethod("GetFactionVirtualWorld");
+                        getWorld = PawnFunc.getPublicMethod("GetFactionInterior");
                         index = (Integer)getIndex.call(spawnData.getId());
                         getPos.call(index, refX, refY, refZ);
                         interior = (Integer)getInt.call(index);
@@ -101,10 +104,10 @@ public class SpawnController implements Runnable {
                         location = new Location(refX.getValue(), refY.getValue(), refZ.getValue(), interior, world);
                         break;
                     case Garage:
-                        getIndex = PawnFunc.getNativeMethod("GetGarageIndex");
-                        getPos = PawnFunc.getNativeMethod("GetGarageEntrancePos");
-                        getInt = PawnFunc.getNativeMethod("GetGarageEntranceVirtualWorld");
-                        getWorld = PawnFunc.getNativeMethod("GetGarageEntranceInteriorID");
+                        getIndex = PawnFunc.getPublicMethod("GetGarageIndex");
+                        getPos = PawnFunc.getPublicMethod("GetGarageEntrancePos");
+                        getInt = PawnFunc.getPublicMethod("GetGarageEntranceVirtualWorld");
+                        getWorld = PawnFunc.getPublicMethod("GetGarageEntranceInteriorID");
                         index = (Integer)getIndex.call(spawnData.getId());
                         getPos.call(index, refX, refY, refZ);
                         interior = (Integer)getInt.call(index);
@@ -112,9 +115,9 @@ public class SpawnController implements Runnable {
                         location = new Location(refX.getValue(), refY.getValue(), refZ.getValue(), interior, world);
                         break;
                     default:
-                        getPos = PawnFunc.getNativeMethod("Data_GetCoordinates");
-                        getInt = PawnFunc.getNativeMethod("Data_GetInterior");
-                        getWorld = PawnFunc.getNativeMethod("Data_GetVirtualWorld");
+                        getPos = PawnFunc.getPublicMethod("Data_GetCoordinates");
+                        getInt = PawnFunc.getPublicMethod("Data_GetInterior");
+                        getWorld = PawnFunc.getPublicMethod("Data_GetVirtualWorld");
                         int wat = (Integer)getPos.call("default_spawn", refX, refY, refZ);
                         System.out.println("Wat:" + wat);
                         interior = (Integer)getInt.call("default_spawn");

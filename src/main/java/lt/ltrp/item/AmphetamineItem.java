@@ -35,7 +35,7 @@ public class AmphetamineItem extends DrugItem {
                 player.setVarInt("DrugHP", 10);
                 player.setVarInt("DrugHPLimit", 50);
 
-                AmxCallable func = PawnFunc.getNativeMethod("DrugEffects");
+                AmxCallable func = PawnFunc.getPublicMethod("DrugEffects");
                 if (func != null) {
                     func.call(player.getId());
                 }

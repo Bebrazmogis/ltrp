@@ -47,7 +47,7 @@ public class House extends Property {
 
     public boolean isUpgradeInstalled(HouseUpgradeType upgradeType) {
         int index = GetHouseIndex();
-        AmxCallable isUpgradInstalled = PawnFunc.getNativeMethod("IsHouseUpgradeInstalled");
+        AmxCallable isUpgradInstalled = PawnFunc.getPublicMethod("IsHouseUpgradeInstalled");
         int value = 0;
         if(index != -1 && isUpgradInstalled != null) {
             value = (Integer)isUpgradInstalled.call(index, upgradeType.id);
@@ -57,7 +57,7 @@ public class House extends Property {
 
     public void addUpgrade(HouseUpgradeType upgradeType) {
         int index = GetHouseIndex();
-        AmxCallable addUpgrade = PawnFunc.getNativeMethod("AddHouseUpgrade");
+        AmxCallable addUpgrade = PawnFunc.getPublicMethod("AddHouseUpgrade");
         if(index != -1 && addUpgrade != null) {
             addUpgrade.call(index, upgradeType.id);
         }
@@ -75,7 +75,7 @@ public class House extends Property {
 
     // Legacy code for Pawn
     public int GetHouseIndex() {
-        AmxCallable getIndex = PawnFunc.getNativeMethod("GetHouseIndex");
+        AmxCallable getIndex = PawnFunc.getPublicMethod("GetHouseIndex");
         if(getIndex != null) {
             return (Integer)getIndex.call(this.getUid());
         }

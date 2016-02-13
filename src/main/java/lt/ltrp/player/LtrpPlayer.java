@@ -240,9 +240,9 @@ public class LtrpPlayer implements Player {
 
     public void jail(JailData data) {
         this.jailData = data;
-        AmxCallable getPos = PawnFunc.getNativeMethod("Data_GetCoordinates");
-        AmxCallable getWorld = PawnFunc.getNativeMethod("Data_GetVirtualWorld");
-        AmxCallable getInterior = PawnFunc.getNativeMethod("Data_GetInterior");
+        AmxCallable getPos = PawnFunc.getPublicMethod("Data_GetCoordinates");
+        AmxCallable getWorld = PawnFunc.getPublicMethod("Data_GetVirtualWorld");
+        AmxCallable getInterior = PawnFunc.getPublicMethod("Data_GetInterior");
         String key = "";
         switch(data.getType()) {
             case OutOfCharacter:
@@ -309,7 +309,7 @@ public class LtrpPlayer implements Player {
     }
 
     public void sendInfoText(String s) {
-        AmxCallable ShowInfoText = PawnFunc.getNativeMethod("ShowInfoText");
+        AmxCallable ShowInfoText = PawnFunc.getPublicMethod("ShowInfoText");
         if(ShowInfoText != null) {
             ShowInfoText.call(this.getId(), s, 2500);
         } else {

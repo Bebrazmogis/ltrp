@@ -16,10 +16,19 @@ public class PawnFunc {
     public static AmxCallable getNativeMethod(String name) {
         AmxCallable nativeMethod = null;
         for(AmxInstance instance : Shoebill.get().getAmxInstanceManager().getAmxInstances()) {
-            if((nativeMethod = instance.getPublic(name)) != null)
+            if((nativeMethod = instance.getNative(name)) != null)
                 break;
         }
         return nativeMethod;
+    }
+
+    public static AmxCallable getPublicMethod(String name) {
+        AmxCallable publicMethod = null;
+        for(AmxInstance instance : Shoebill.get().getAmxInstanceManager().getAmxInstances()) {
+            if((publicMethod = instance.getPublic(name)) != null)
+                break;
+        }
+        return publicMethod;
     }
 
 
@@ -28,7 +37,7 @@ public class PawnFunc {
         ReferenceFloat refX = new ReferenceFloat(vector.getX());
         ReferenceFloat refY = new ReferenceFloat(vector.getY());
         ReferenceFloat refZ = new ReferenceFloat(vector.getZ());
-        AmxCallable method = getNativeMethod("Data_GetCoordinates");
+        AmxCallable method = getPublicMethod("Data_GetCoordinates");
         if(method != null) {
             method.call(key, refX, refY, refZ);
             vector.set(refX.getValue(), refY.getValue(), refZ.getValue());
@@ -41,17 +50,17 @@ public class PawnFunc {
         ReferenceFloat refX = new ReferenceFloat(location.getX());
         ReferenceFloat refY = new ReferenceFloat(location.getY());
         ReferenceFloat refZ = new ReferenceFloat(location.getZ());
-        AmxCallable method = getNativeMethod("Data_GetCoordinates");
+        AmxCallable method = getPublicMethod("Data_GetCoordinates");
         if(method != null) {
             method.call(key, refX, refY, refZ);
             location.set(refX.getValue(), refY.getValue(), refZ.getValue());
         }
-        method = getNativeMethod("Data_GetInterior");
+        method = getPublicMethod("Data_GetInterior");
         if(method != null) {
             location.setInteriorId((Integer)method.call(key));
         }
 
-        method = getNativeMethod("Data_GetVirtualWorld");
+        method = getPublicMethod("Data_GetVirtualWorld");
         if(method != null) {
             location.setWorldId((Integer)method.call(key));
         }

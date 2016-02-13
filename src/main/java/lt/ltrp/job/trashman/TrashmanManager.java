@@ -75,7 +75,7 @@ public class TrashmanManager {
                         playerTrashMissions.remove(player);
                         vehicleTrashCounts.put(vehicle, 0);
                         player.sendMessage(Color.NEWS, "Baigëte misijà. Jums prie algos buvo pridëti " + TRASH_ROUTE_BONUS + "$ Norëdami pradëti dar vienà misijà: /startmission");
-                        AmxCallable addPaycheck = PawnFunc.getNativeMethod("AddPlayerPaycheck");
+                        AmxCallable addPaycheck = PawnFunc.getPublicMethod("AddPlayerPaycheck");
                         if(addPaycheck != null) {
                             addPaycheck.call(player.getId(), TRASH_ROUTE_BONUS);
                         }

@@ -154,6 +154,7 @@ public class PlayerController {
             LtrpPlayer player = e.getPlayer();
             if(player.isLoggedIn()) {
                 spawnPlayer(player);
+                loadDataThreaded(player);
             } else {
                 spawnsSetUp.put(e.getPlayer(), true);
 
@@ -171,7 +172,7 @@ public class PlayerController {
                 loadDataThreaded(player);
             }
             // Legacy code for Pawn loading.
-            AmxCallable onPlayerLoginPawn = PawnFunc.getNativeMethod("OnPlayerLoginEx");
+            AmxCallable onPlayerLoginPawn = PawnFunc.getPublicMethod("getPublicMethod");
             if(onPlayerLoginPawn != null) {
                 onPlayerLoginPawn.call(player.getId(), player.getUserId());
             }
