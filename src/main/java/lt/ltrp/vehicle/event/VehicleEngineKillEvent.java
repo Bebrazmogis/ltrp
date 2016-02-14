@@ -4,26 +4,21 @@ import lt.ltrp.Deniable;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.event.vehicle.VehicleEvent;
-import net.gtaun.util.event.Interruptable;
+import net.gtaun.shoebill.object.Vehicle;
 
 /**
  * @author Bebras
- *         2015.12.18.
+ *         2016.02.14.
  */
-public class VehicleEngineStartEvent extends VehicleEvent implements Deniable {
+public class VehicleEngineKillEvent extends VehicleEvent implements Deniable {
 
     private LtrpPlayer player;
-    private boolean success;
     private boolean denied;
 
-    public VehicleEngineStartEvent(LtrpVehicle vehicle, LtrpPlayer player, boolean success) {
+    public VehicleEngineKillEvent(LtrpVehicle vehicle, LtrpPlayer player) {
         super(vehicle);
-        this.player = player;
-        this.success = success;
-    }
-
-    public boolean isSuccess() {
-        return success;
+        this.player =player;
+        this.denied = false;
     }
 
     @Override
@@ -31,14 +26,9 @@ public class VehicleEngineStartEvent extends VehicleEvent implements Deniable {
         return (LtrpVehicle)super.getVehicle();
     }
 
-    public LtrpPlayer getPlayer() {
-        return player;
-    }
-
-
     @Override
     public void deny() {
-        denied = true;
+        this.denied = true;
     }
 
     @Override

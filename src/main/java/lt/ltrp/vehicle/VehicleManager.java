@@ -9,6 +9,7 @@ import lt.ltrp.job.Rank;
 import lt.ltrp.job.Job;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.event.SpeedometerTickEvent;
+import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.constant.PlayerKey;
@@ -162,29 +163,32 @@ public class VehicleManager {
 
                             int value = random.nextInt(100);
                             final boolean success = value < percentage;
-                            player.sendStateMessage("pasuka automobilio raktelá ir bando uþvesti variklá.");
-                            Timer t = Timer.create(time, 1, ticks -> {
-                                VehicleEngineStartEvent event = new VehicleEngineStartEvent(vehicle, player, success);
-                                System.out.println("insside callbackk");
-                                eventManager.dispatchEvent(event);
-                                if (!event.isInterrupted()) {
+                            VehicleEngineStartEvent event = new VehicleEngineStartEvent(vehicle, player, success);
+                            eventManager.dispatchEvent(event);
+                            if(!event.isDenied()) {
+                                player.sendStateMessage("pasuka automobilio raktelá ir bando uþvesti variklá.");
+                                Timer t = Timer.create(time, 1, ticks -> {
                                     if (success) {
                                         //vehicle.sendStateMessage("variklis uþsikuria");
                                         vehicle.getState().setEngine(VehicleParam.PARAM_ON);
                                     } else {
                                         //vehicle.sendStateMessage("variklis neuþsikuria");
                                     }
-                                } else
-                                    logger.warn("VehicleEngineStartEvent was interrupted.");
-                                vehicleEngineTimers.remove(vehicle);
-                            });
-                            t.start();
-                            vehicleEngineTimers.put(vehicle, t);
-
+                                    vehicleEngineTimers.remove(vehicle);
+                                });
+                                t.start();
+                                vehicleEngineTimers.put(vehicle, t);
+                            } else
+                                logger.debug("VehicleEngineStartEvent denied for vehicle " + vehicle + " by " + player);
                         }
                     } else {
-                        player.sendActionMessage("pasuka automobilio raktelá ir iðjungia variklá.");
-                        vehicle.getState().setEngine(VehicleParam.PARAM_OFF);
+                        VehicleEngineKillEvent event = new VehicleEngineKillEvent(vehicle, player);
+                        eventManager.dispatchEvent(event);
+                        if(!event.isDenied()) {
+                            player.sendActionMessage("pasuka automobilio raktelá ir iðjungia variklá.");
+                            vehicle.getState().setEngine(VehicleParam.PARAM_OFF);
+                        } else
+                            logger.debug("VehicleEngineKillEvent for " + vehicle.toString() + " denied.");
                     }
                 }
             }
