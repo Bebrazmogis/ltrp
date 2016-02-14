@@ -26,6 +26,10 @@ public class VehicleEngineKillEvent extends VehicleEvent implements Deniable {
         return (LtrpVehicle)super.getVehicle();
     }
 
+    public LtrpPlayer getPlayer() {
+        return player;
+    }
+
     @Override
     public void deny() {
         this.denied = true;
