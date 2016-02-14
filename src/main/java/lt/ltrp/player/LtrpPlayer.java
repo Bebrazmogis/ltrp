@@ -693,9 +693,10 @@ public class LtrpPlayer implements Player {
     }
 
     @Override
-    public int getUpdateCount() {
+    public long getUpdateCount() {
         return player.getUpdateCount();
     }
+
 
     @Override
     public float getHealth() {
