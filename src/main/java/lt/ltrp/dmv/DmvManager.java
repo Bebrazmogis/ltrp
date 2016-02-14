@@ -2,31 +2,23 @@ package lt.ltrp.dmv;
 
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.PlayerCommandManager;
-import lt.ltrp.constant.LicenseType;
 import lt.ltrp.dao.DmvDao;
-import lt.ltrp.dmv.dialog.BoatingTestEndMsgDialog;
-import lt.ltrp.dmv.dialog.DrivingTestEndMsgDialog;
-import lt.ltrp.dmv.dialog.FlyingTestEndMsgDialog;
-import lt.ltrp.dmv.event.PlayerBoatingTestEnd;
-import lt.ltrp.dmv.event.PlayerDrivingTestEndEvent;
-import lt.ltrp.dmv.event.PlayerFlyingTestEnd;
+import lt.ltrp.data.Color;
+import lt.ltrp.dmv.aircraft.AircraftDmvManager;
+import lt.ltrp.dmv.boat.BoatDmvManager;
+import lt.ltrp.dmv.car.CarDmv;
+import lt.ltrp.dmv.car.CarDmvManager;
 import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerLicense;
 import lt.ltrp.vehicle.LtrpVehicle;
-import net.gtaun.shoebill.constant.PlayerState;
+import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
+import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
-import net.gtaun.shoebill.event.player.PlayerRequestSpawnEvent;
-import net.gtaun.shoebill.event.player.PlayerStateChangeEvent;
-import net.gtaun.shoebill.object.Server;
-import net.gtaun.shoebill.object.World;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,134 +51,100 @@ public class DmvManager {
         eventManager = LtrpGamemode.get().getEventManager().createChildNode();
 
         DmvDao dmvDao = LtrpGamemode.getDao().getDmvDao();
+        CarDmvManager carDmvManager = new CarDmvManager(eventManager);
+        BoatDmvManager boatDmvManager = new BoatDmvManager(eventManager);
+        AircraftDmvManager aircraftDmvManager = new AircraftDmvManager(eventManager);
 
-        carDmv = new CarDmv(1);
-        dmvDao.getQuestionCheckpointDmv(carDmv);
-
-        aircraftDmv = new AicraftDmv(2);
-        dmvDao.getCheckpointDmv(aircraftDmv);
-
-        boatDmv = new BoatDmv(3);
-        dmvDao.getCheckpointDmv(boatDmv);
-
-        dmvList = new Dmv[]{carDmv, aircraftDmv, boatDmv};
+        AbstractDmvManager[] dmvManagers = new AbstractDmvManager[]{ carDmvManager, boatDmvManager, aircraftDmvManager };
 
 
-        eventManager.registerHandler(PlayerDrivingTestEndEvent.class, e -> {
-            LtrpPlayer player = e.getPlayer();
-            DrivingTestEndMsgDialog.create(player, eventManager, e.getTest()).show();
-
-            if(e.getTest().isPassed()) {
-                if(player.getLicenses().contains(LicenseType.Car) || player.getLicenses().contains(LicenseType.Motorcycle)) {
-                    PlayerLicense license = null;
-                    if(player.getLicenses().get(LicenseType.Car).getStage() == 1) {
-                        license = player.getLicenses().get(LicenseType.Car);
-                    } else {
-                        license = player.getLicenses().get(LicenseType.Motorcycle);
-                    }
-                    license.setStage(2);
-                    LtrpGamemode.getDao().getPlayerDao().updateLicense(license);
-                } else {
-                    PlayerLicense license = new PlayerLicense();
-                    license.setType(LicenseType.Car);
-                    license.setDateAquired(new Date());
-                    license.setStage(1);
-                    license.setPlayer(player);
-                    LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
-
-                    license = new PlayerLicense();
-                    license.setType(LicenseType.Motorcycle);
-                    license.setDateAquired(new Date());
-                    license.setStage(1);
-                    license.setPlayer(player);
-                    LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
+        eventManager.registerHandler(VehicleEngineStartEvent.class, e -> {
+            for(AbstractDmvManager manager : dmvManagers) {
+                // If the vehicle belongs to a DMV but there isn't a started test
+                if(manager.getDmv().getVehicles().contains(e.getVehicle()) && !manager.isInTest(e.getVehicle())) {
+                    e.deny();
                 }
             }
         });
 
-        eventManager.registerHandler(PlayerBoatingTestEnd.class, e -> {
-            LtrpPlayer player = e.getPlayer();
-
-            if (e.getTest().isPassed()) {
-                PlayerLicense license = new PlayerLicense();
-                license.setPlayer(player);
-                license.setStage(1);
-                license.setDateAquired(new Date());
-                license.setType(LicenseType.Ship);
-                player.getLicenses().add(license);
-                LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
-            }
-
-            BoatingTestEndMsgDialog.create(player, eventManager, e.getTest());
+        eventManager.registerHandler(VehicleEngineKillEvent.class, e -> {
+           for(AbstractDmvManager manager : dmvManagers) {
+               // Vehicle engine cannot be turned off during a test
+               if(manager.getDmv().getVehicles().contains(e.getVehicle()) && manager.isInTest(e.getVehicle())) {
+                   e.getPlayer().sendMessage(Color.DMV, "Testo metu negalima gesinti variklio!");
+                   e.deny();
+               }
+           }
         });
 
-        eventManager.registerHandler(PlayerFlyingTestEnd.class, e -> {
-            LtrpPlayer player = e.getPlayer();
-
-            if(e.getTest().isPassed()) {
-                PlayerLicense license = new PlayerLicense();
-                license.setPlayer(player);
-                license.setStage(1);
-                license.setDateAquired(new Date());
-                license.setType(LicenseType.Aircraft);
-                player.getLicenses().add(license);
-                LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
-            }
-
-            FlyingTestEndMsgDialog.create(player, eventManager, e.getTest());
-        });
-
-        eventManager.registerHandler(PlayerStateChangeEvent.class, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-
-            if(player != null && player.getState() == PlayerState.DRIVER && player.getVehicle() != null) {
-                LtrpVehicle vehicle = player.getVehicle();
-                for(Dmv dmv : dmvList) {
-                    if(dmv instanceof CheckpointDmv) {
-                        if(dmv.getVehicles().contains(vehicle)) {
-                            CheckpointDmv checkpointDmv = (CheckpointDmv)dmv;
-                            int price = checkpointDmv.getCheckpointTestPrice();
-                            if(player.getMoney() >= price) {
-                                // Maybe a dialog of some sort?
-                                playerTests.put(player, checkpointDmv.startCheckpointTest(player, vehicle, eventManager));
-                            } else {
-                                player.sendErrorMessage("Jums neuþtenka pinigø. Testo kaina $" + price);
-                                player.removeFromVehicle();
-                            }
-                        }
-                    }
-                }
-            }
+        commandManager = new PlayerCommandManager(HandlerPriority.BOTTOM, eventManager);
+        commandManager.registerCommand("takelesson", new Class[0], new String[0], (p, params) -> {
+            p.sendErrorMessage("Ðià komandà galite naudoti tik bûdami vairavimo mokyklos transporto priemonëje arba mokyklos patalpose.");
+            return true;
         });
 
         eventManager.registerHandler(PlayerCommandEvent.class, e -> {
             String command = e.getCommand().toLowerCase();
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            System.out.println("PlayerCommadnEvent in DmvManager. Cmd: " + command + " Player: " +player);
             if(player == null) {
                 return;
             }
-
-            if(command.startsWith("/takelesson")) {
-                for(Dmv d : DmvManager.getInstance().getDmvs()) {
-                    if(d instanceof QuestionDmv && d.getLocation().distance(player.getLocation()) < 7.0) {
-                        QuestionDmv checkpointDmv = (QuestionDmv)d;
-                        int price = checkpointDmv.getQuestionTestPrice();
-                        if(player.getMoney() >= price) {
-                            // Maybe a dialog of some sort?
-                            playerTests.put(player, checkpointDmv.startQuestionTest(player, eventManager));
-                        } else {
-                            player.sendErrorMessage("Jums neuþtenka pinigø. Testo kaina $" + price);
-                            player.removeFromVehicle();
-                        }
+            if(command.startsWith("/testdmv")) {
+            player.sendMessage(Color.DARKOLIVEGREEN, "Dmv count: " + dmvList.length);
+            for(Dmv dmv : dmvList) {
+                player.sendMessage(Color.DARKOLIVEGREEN, String.format("Id:%d Name: %s location:%s",
+                        dmv.getId(), dmv.getName(), dmv.getLocation()));
+                if(dmv.getVehicles() != null) {
+                    player.sendMessage(Color.DARKOLIVEGREEN, "Vehicle count: "+ dmv.getVehicles().size());
+                } else {
+                    player.sendMessage(Color.DARKOLIVEGREEN, "Dmv doesn't have a vehicle list.");
+                }/*
+                if(dmv instanceof CheckpointDmv) {
+                    CheckpointDmv d = (CheckpointDmv)dmv;
+                    if(d.getCheckpoints() != null) {
+                        player.sendMessage(Color.DARKOLIVEGREEN, "Dmv has " + d.getCheckpoints().size() + " checkpoints. First: " + d.getCheckpoints().get(0) + " Last:" + d.getCheckpoints().get(d.getCheckpoints().size() -1));
+                    } else {
+                        player.sendMessage(Color.DARKOLIVEGREEN, "Dmv doesn't have any checkpoints.");
+                    }
+                }*/
+                if(dmv instanceof QuestionDmv) {
+                    QuestionDmv d = (QuestionDmv)dmv;
+                    if(d.getQuestions() != null) {
+                        player.sendMessage(Color.DARKOLIVEGREEN, "Dmv has " + d.getQuestions().size() + " questions.");
+                    } else {
+                        player.sendMessage(Color.DARKOLIVEGREEN, "Dmv doesn't have any questions.");
                     }
                 }
+                player.sendMessage(Color.WHITE,"-------------------------------------------------------------------------------------------------------------------");
             }
+            }
+
         });
 
 
 
         logger.info("Dmv manager initialized with " + dmvList.length + " dmvs");
     }
+
+    private boolean isDmvVehicle(LtrpVehicle vehicle) {
+        for(Dmv dmv : dmvList) {
+            if(dmv.getVehicles().contains(vehicle)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Dmv getDmvByVehicle(LtrpVehicle vehicle) {
+        for(Dmv dmv : dmvList) {
+            if(dmv.getVehicles().contains(vehicle)) {
+                return dmv;
+            }
+        }
+        return null;
+    }
+
 
     public Dmv[] getDmvs() {
         return dmvList;
@@ -200,7 +158,7 @@ public class DmvManager {
         return aircraftDmv;
     }
 
-    public QuestionCheckpointDmv getCarDmv() {
+    public CarDmv getCarDmv() {
         return carDmv;
     }
 

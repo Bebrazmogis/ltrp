@@ -1,6 +1,7 @@
-package lt.ltrp.dmv;
+package lt.ltrp.dmv.car;
 
 import lt.ltrp.constant.LicenseType;
+import lt.ltrp.dmv.*;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.data.Location;
@@ -23,8 +24,8 @@ public class CarDmv implements Dmv, CheckpointDmv, QuestionDmv {
         LICENSE_TYPES.add(LicenseType.Motorcycle);
     }
 
-    private List<DmvCheckpoint> checkpoints;
-    private List<LtrpVehicle> vehicles;
+    private DmvCheckpoint[] checkpoints;
+    private List<DmvVehicle> vehicles;
     private List<DmvQuestion> questions;
     private Location location;
     private int id, drivingTestPrice, questionTestPrice;
@@ -70,11 +71,11 @@ public class CarDmv implements Dmv, CheckpointDmv, QuestionDmv {
         return QuestionTest.create(player, this, eventManager);
     }
 
-    public List<DmvCheckpoint> getCheckpoints() {
+    public DmvCheckpoint[] getCheckpoints() {
         return checkpoints;
     }
 
-    public void setCheckpoints(List<DmvCheckpoint> checkpoints) {
+    public void setCheckpoints(DmvCheckpoint[] checkpoints) {
         this.checkpoints = checkpoints;
     }
 
@@ -117,12 +118,12 @@ public class CarDmv implements Dmv, CheckpointDmv, QuestionDmv {
     }
 
     @Override
-    public List<LtrpVehicle> getVehicles() {
+    public List<DmvVehicle> getVehicles() {
         return vehicles;
     }
 
     @Override
-    public void setVehicles(List<LtrpVehicle> vehicles) {
+    public void setVehicles(List<DmvVehicle> vehicles) {
         this.vehicles = vehicles;
     }
 

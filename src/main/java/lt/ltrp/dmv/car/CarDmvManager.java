@@ -1,12 +1,12 @@
-package lt.ltrp.dmv;
+package lt.ltrp.dmv.car;
 
 import lt.ltrp.InitException;
 import lt.ltrp.LoadingException;
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.constant.LicenseType;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
+import lt.ltrp.dmv.*;
 import lt.ltrp.dmv.dialog.DrivingTestEndMsgDialog;
 import lt.ltrp.dmv.dialog.QuestionTestEndMsgDialog;
 import lt.ltrp.dmv.event.PlayerDrivingTestEndEvent;
@@ -16,10 +16,7 @@ import lt.ltrp.player.PlayerLicense;
 import lt.ltrp.player.PlayerLicenses;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
-import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.util.event.EventManager;
-import net.gtaun.util.event.EventManagerNode;
-import net.gtaun.util.event.HandlerPriority;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -30,15 +27,13 @@ import java.util.Map;
  * @author Bebras
  *         2016.02.10.
  */
-public class CarDmvManager implements Destroyable {
+public class CarDmvManager extends AbstractDmvManager {
 
-    private EventManagerNode eventManagerNode;
     private CarDmv dmv;
     private Map<LtrpPlayer, DmvTest> ongoingTests;
-    private PlayerCommandManager commandManager;
 
     public CarDmvManager(EventManager eventManager) {
-        this.eventManagerNode = eventManager.createChildNode();
+        super(eventManager);
         this.ongoingTests = new HashMap<>();
 
         try {
@@ -48,12 +43,12 @@ public class CarDmvManager implements Destroyable {
         }
 
 
-        eventManagerNode.registerHandler(PlayerDrivingTestEndEvent.class, e -> {
+        getEventManagerNode().registerHandler(PlayerDrivingTestEndEvent.class, e -> {
             LtrpPlayer player = e.getPlayer();
-            if(e.getTest().isPassed()) {
-                if(player.getLicenses().contains(LicenseType.Car) || player.getLicenses().contains(LicenseType.Motorcycle)) {
+            if (e.getTest().isPassed()) {
+                if (player.getLicenses().contains(LicenseType.Car) || player.getLicenses().contains(LicenseType.Motorcycle)) {
                     PlayerLicense license = null;
-                    if(player.getLicenses().get(LicenseType.Car).getStage() == 1) {
+                    if (player.getLicenses().get(LicenseType.Car).getStage() == 1) {
                         license = player.getLicenses().get(LicenseType.Car);
                     } else {
                         license = player.getLicenses().get(LicenseType.Motorcycle);
@@ -67,40 +62,40 @@ public class CarDmvManager implements Destroyable {
             ongoingTests.remove(player);
         });
 
-        eventManagerNode.registerHandler(PlayerQuestionTestEndEvent.class, e -> {
+        getEventManagerNode().registerHandler(PlayerQuestionTestEndEvent.class, e -> {
             LtrpPlayer p = e.getPlayer();
-            if(e.getDmv().equals(dmv)) {
-               if(e.getTest().isPassed()) {
+            if (e.getDmv().equals(dmv)) {
+                if (e.getTest().isPassed()) {
 
-                   PlayerLicense license = new PlayerLicense();
-                   license.setType(LicenseType.Car);
-                   license.setDateAquired(new Timestamp(new Date().getTime()));
-                   license.setStage(1);
-                   license.setPlayer(p);
-                   p.getLicenses().add(license);
-                   LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
+                    PlayerLicense license = new PlayerLicense();
+                    license.setType(LicenseType.Car);
+                    license.setDateAquired(new Timestamp(new Date().getTime()));
+                    license.setStage(1);
+                    license.setPlayer(p);
+                    p.getLicenses().add(license);
+                    LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
 
-                   license = new PlayerLicense();
-                   license.setType(LicenseType.Motorcycle);
-                   license.setDateAquired(new Timestamp(new Date().getTime()));
-                   license.setStage(1);
-                   license.setPlayer(p);
-                   p.getLicenses().add(license);
-                   LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
-                   p.sendMessage(Color.NEWS, "Dabar galite laikyti praktikos egzaminà su lengvuoju automobiliu/motociklu.");
-               }
+                    license = new PlayerLicense();
+                    license.setType(LicenseType.Motorcycle);
+                    license.setDateAquired(new Timestamp(new Date().getTime()));
+                    license.setStage(1);
+                    license.setPlayer(p);
+                    p.getLicenses().add(license);
+                    LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
+                    p.sendMessage(Color.NEWS, "Dabar galite laikyti praktikos egzaminà su lengvuoju automobiliu/motociklu.");
+                }
             }
             ongoingTests.remove(p);
-            QuestionTestEndMsgDialog.create(p, eventManagerNode, e.getTest()).show();
+            QuestionTestEndMsgDialog.create(p, getEventManagerNode(), e.getTest()).show();
         });
 
-        commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManagerNode);
-        commandManager.registerCommand("takelesson", new Class[0], new String[0], (p, params) -> {
+        getPlayerCommandManager().registerCommand("takelesson", new Class[0], new String[0], (player, params) -> {
+            LtrpPlayer p = LtrpPlayer.get(player);
             LtrpVehicle vehicle = p.getVehicle();
-            if(p.getLocation().distance(dmv.getLocation()) < 10f) {
-                if(!p.getLicenses().contains(LicenseType.Car)) {
-                    if(p.getMoney() >= dmv.getQuestionTestPrice()) {
-                        MsgboxDialog.create(p, eventManagerNode)
+            if (p.getLocation().distance(dmv.getLocation()) < 10f) {
+                if (!p.getLicenses().contains(LicenseType.Car)) {
+                    if (p.getMoney() >= dmv.getQuestionTestPrice()) {
+                        MsgboxDialog.create(p, getEventManagerNode())
                                 .caption(dmv.getName() + " : teorijos testas")
                                 .buttonOk("Pradëti")
                                 .buttonCancel("Iðeiti")
@@ -109,7 +104,8 @@ public class CarDmvManager implements Destroyable {
                                         "\nKlausimø skaièius: " + dmv.getQuestions().size())
                                 .onClickOk(d -> {
                                     // Start the theory theory test
-                                    QuestionTest test = dmv.startQuestionTest(p, eventManagerNode);
+                                    p.giveMoney(-dmv.getQuestionTestPrice());
+                                    QuestionTest test = dmv.startQuestionTest(p, getEventManagerNode());
                                     ongoingTests.put(p, test);
                                 })
                                 .build()
@@ -121,7 +117,7 @@ public class CarDmvManager implements Destroyable {
                     p.sendErrorMessage("Jûs jau esatæ iðlaikæs ðá testà, dabar galite laikyti praktikos egzaminà.");
                 }
                 return true;
-            } else if(vehicle != null && dmv.getVehicles().contains(vehicle)) {
+            } else if (vehicle != null && dmv.getVehicles().contains(vehicle)) {
                 PlayerLicenses licenses = p.getLicenses();
                 System.out.println(String.format("IsBike:%b contais Motorcycle:%b moto stage:%d contains car:%b car stage:%d",
                         LtrpVehicleModel.isBike(vehicle.getModelId()),
@@ -129,21 +125,22 @@ public class CarDmvManager implements Destroyable {
                         (licenses.contains(LicenseType.Motorcycle) ? licenses.get(LicenseType.Motorcycle).getStage() : -1),
                         licenses.contains(LicenseType.Car),
                         (licenses.contains(LicenseType.Car) ? licenses.get(LicenseType.Car).getStage() : -1)
-                        ));
+                ));
                 // To be able to take the drivin test a player must have vehicle/motorcycle license stage 1.
-                if((LtrpVehicleModel.isBike(vehicle.getModelId()) && licenses.contains(LicenseType.Motorcycle) && licenses.get(LicenseType.Motorcycle).getStage() == 1)
+                if ((LtrpVehicleModel.isBike(vehicle.getModelId()) && licenses.contains(LicenseType.Motorcycle) && licenses.get(LicenseType.Motorcycle).getStage() == 1)
                         || (licenses.contains(LicenseType.Car) && licenses.get(LicenseType.Car).getStage() == 1)) {
-                    if(p.getMoney() >= dmv.getDrivingTestPrice()) {
-                        MsgboxDialog.create(p, eventManagerNode)
+                    if (p.getMoney() >= dmv.getDrivingTestPrice()) {
+                        MsgboxDialog.create(p, getEventManagerNode())
                                 .caption("Vairavimo testas")
                                 .buttonOk("Taip")
                                 .buttonCancel("Ne")
                                 .message(dmv.getName() +
-                                    "\n\nTesto kaina: $" + dmv.getDrivingTestPrice() +
-                                    "\n\nAr norite pradëti testo laikymà?")
+                                        "\n\nTesto kaina: $" + dmv.getDrivingTestPrice() +
+                                        "\n\nAr norite pradëti testo laikymà?")
                                 .onClickOk(d -> {
                                     // Start the driving test
-                                    AbstractCheckpointTest  test = dmv.startCheckpointTest(p, vehicle, eventManagerNode);
+                                    p.giveMoney(-dmv.getCheckpointTestPrice());
+                                    AbstractCheckpointTest test = dmv.startCheckpointTest(p, vehicle, getEventManagerNode());
                                     ongoingTests.put(p, test);
                                 })
                                 .onClickCancel(d -> {
@@ -162,15 +159,30 @@ public class CarDmvManager implements Destroyable {
                 return true;
             }
             return false;
-        });
+        }, null, null);
 
 
+    }
+
+    @Override
+    public boolean isInTest(LtrpPlayer player) {
+        return ongoingTests.containsKey(player);
+    }
+
+    @Override
+    public boolean isInTest(LtrpVehicle vehicle) {
+        return ongoingTests.values().stream().filter(t -> t instanceof DrivingTest && ((DrivingTest) t).getVehicle().equals(vehicle)).findFirst().isPresent();
+    }
+
+    @Override
+    public Dmv getDmv() {
+        return dmv;
     }
 
 
     @Override
     public void destroy() {
-        eventManagerNode.cancelAll();
+        super.destroy();
         // commandManager destroy
         for(DmvTest test : ongoingTests.values()) {
             test.stop();
@@ -178,8 +190,4 @@ public class CarDmvManager implements Destroyable {
         ongoingTests.clear();
     }
 
-    @Override
-    public boolean isDestroyed() {
-        return false;
-    }
 }

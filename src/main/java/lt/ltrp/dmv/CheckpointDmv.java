@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface CheckpointDmv extends Dmv{
 
-    List<DmvCheckpoint> getCheckpoints();
-    void setCheckpoints(List<DmvCheckpoint> checkpoints);
+    DmvCheckpoint[] getCheckpoints();
+    void setCheckpoints(DmvCheckpoint[] checkpoints);
 
     AbstractCheckpointTest startCheckpointTest(LtrpPlayer player, LtrpVehicle vehicle, EventManager eventManager);
     int getCheckpointTestPrice();

@@ -22,20 +22,12 @@ public interface Dmv {
     String getName();
     void setName(String name);
 
-    List<LtrpVehicle> getVehicles();
-    void setVehicles(List<LtrpVehicle> vehicles);
+    List<DmvVehicle> getVehicles();
+    void setVehicles(List<DmvVehicle> vehicles);
 
     List<LicenseType> getLicenseType();
 
 
-    /*
-    void addCheckpoint(DmvCheckpoint checkpoint);
-
-    List<LtrpVehicle> getVehicles();
-    void setVehicles(List<LtrpVehicle> vehicles);
-
-    boolean isUserInTest(LtrpPlayer player);
-*/
 
 
 }

@@ -33,8 +33,8 @@ public abstract class AbstractCheckpointTest implements DmvTest {
     private CheckpointDmv dmv;
 
     private final Consumer<Player> onEnterConsumer = (p) -> {
-        List<DmvCheckpoint> checkpoints = dmv.getCheckpoints();
-        if (++cpCount == checkpoints.size()) {
+        DmvCheckpoint[] checkpoints = dmv.getCheckpoints();
+        if (++cpCount == checkpoints.length) {
             onFinish();
         } else {
             showNextCheckpoint();
@@ -78,9 +78,9 @@ public abstract class AbstractCheckpointTest implements DmvTest {
 
 
     private void showNextCheckpoint() {
-        DmvCheckpoint checkpoint = dmv.getCheckpoints().get(cpCount);
+        DmvCheckpoint checkpoint = dmv.getCheckpoints()[cpCount];
         System.out.println("AbstractCheckpointTest showNextCheckpoint. cpCount:" + cpCount + " Checkpoint location:" + checkpoint.getRadius());
-        Checkpoint.create(checkpoint.getRadius(), onEnterConsumer, null).set(player);
+        checkpoint.create(onEnterConsumer).set(player);
     }
 
     protected void onFinish() {
@@ -93,7 +93,7 @@ public abstract class AbstractCheckpointTest implements DmvTest {
         vehicle.respawn();
         player.setLocation(dmv.getLocation());
 
-        if (cpCount < dmv.getCheckpoints().size()) {
+        if (cpCount < dmv.getCheckpoints().length) {
             passed = false;
             finished = false;
         }
