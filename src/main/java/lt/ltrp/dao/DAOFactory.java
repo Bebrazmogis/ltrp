@@ -2,6 +2,7 @@ package lt.ltrp.dao;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import lt.ltrp.LtrpGamemode;
+import lt.ltrp.RadioStation;
 import lt.ltrp.dao.impl.*;
 import lt.ltrp.item.SqlItemDao;
 import net.gtaun.shoebill.Shoebill;
@@ -10,6 +11,7 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -68,6 +70,7 @@ public abstract class DAOFactory {
     public abstract JobDao getJobDao();
     public abstract DmvDao getDmvDao();
     public abstract VehicleDao getVehicleDao();
+    public abstract RadioStationDao getRadioStationDao();
 }
 
 class JdbcDAO extends DAOFactory {
@@ -80,6 +83,7 @@ class JdbcDAO extends DAOFactory {
     private JobDao jobDao;
     private DmvDao dmvDao;
     private VehicleDao vehicleDao;
+    private RadioStationDao radioStationDao;
 
     public JdbcDAO(ComboPooledDataSource ds) throws IOException, SQLException {
         this.ds = ds;
@@ -127,6 +131,7 @@ class JdbcDAO extends DAOFactory {
         this.jobDao = new FileJobDaoImpl(Shoebill.get().getResourceManager().getGamemode().getDataDir());
         this.dmvDao = new FileDmvDaoImpl(LtrpGamemode.get().getDataDir());
         this.vehicleDao = new SqlVehicleDaoImpl(ds);
+        this.radioStationDao = new SqlRadioStationDao(ds);
         System.out.println("JDBCDAO initialized");
     }
 
@@ -169,6 +174,11 @@ class JdbcDAO extends DAOFactory {
     @Override
     public VehicleDao getVehicleDao() {
         return vehicleDao;
+    }
+
+    @Override
+    public RadioStationDao getRadioStationDao() {
+        return radioStationDao;
     }
 
 }
