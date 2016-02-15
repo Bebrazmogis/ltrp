@@ -13,4 +13,8 @@ public class LoadingException extends Exception {
     public LoadingException(Throwable cause) {
         super(cause);
     }
+
+    public LoadingException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }
