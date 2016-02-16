@@ -11,6 +11,8 @@ import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.PlayerVehicle;
 import lt.ltrp.vehicle.PlayerVehiclePermission;
+import lt.maze.AudioHandle;
+import lt.maze.AudioPlugin;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.*;
@@ -608,6 +610,11 @@ public class LtrpPlayer implements Player {
                 animation.isFreeze() ? 1 : 0,
                 animation.getTime(),
                 animation.isForseSync() ? 1 : 0);
+    }
+
+
+    public boolean isAudioConnected() {
+        return AudioPlugin.isConnected(this);
     }
 
 
@@ -1394,6 +1401,15 @@ public class LtrpPlayer implements Player {
     @Override
     public Player getAimedTarget() {
         return player.getAimedTarget();
+    }
+
+    public AudioHandle playStream(String s) {
+        if(isAudioConnected()) {
+            return AudioHandle.play(this, s);
+        } else {
+            playAudioStream(s);
+        }
+        return null;
     }
 
     @Override
