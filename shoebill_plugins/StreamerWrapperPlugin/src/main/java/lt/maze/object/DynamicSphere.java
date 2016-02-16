@@ -1,0 +1,46 @@
+package lt.maze.object;
+
+import lt.maze.Constants;
+import lt.maze.Functions;
+import lt.maze.constant.StreamerAreaType;
+import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.data.Vector3D;
+import net.gtaun.shoebill.exception.CreationFailedException;
+import net.gtaun.shoebill.object.Player;
+
+/**
+ * @author Bebras
+ *         2016.02.16.
+ */
+public class DynamicSphere extends AbstractDynamicArea {
+
+    //CreateDynamicSphere(float x, float y, float z, float size, int worldid, int interiorid, int playerid);
+    public static DynamicSphere create(float x, float y, float z, float size, int worldid, int interiorid, Player p) {
+        int id = Functions.CreateDynamicSphere(x, y, z, size, worldid, interiorid, p == null ? -1 : p.getId());
+        if(id == Constants.INVALID_STREAMER_ID)
+            throw new CreationFailedException("DynamicSphere could not be created");
+        return new DynamicSphere(id);
+    }
+
+    public static DynamicSphere create(Vector3D pos, float size) {
+        return create(pos.x, pos.y, pos.z, size, -1, -1, null);
+    }
+
+    public static DynamicSphere create(Location location, float size, Player p) {
+        return create(location.x, location.y, location.z, size, location.worldId, location.interiorId, p);
+    }
+
+    public static DynamicSphere create(Location location, float size) {
+        return create(location, size, null);
+    }
+
+
+    private DynamicSphere(int id) {
+        super(id);
+    }
+
+    @Override
+    public StreamerAreaType getType() {
+        return StreamerAreaType.Sphere;
+    }
+}
