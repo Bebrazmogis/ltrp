@@ -4,6 +4,7 @@ import lt.maze.Constants;
 import lt.maze.Functions;
 import lt.maze.constant.StreamerAreaType;
 import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
 import net.gtaun.shoebill.object.Player;
@@ -19,7 +20,7 @@ public class DynamicSphere extends AbstractDynamicArea {
         int id = Functions.CreateDynamicSphere(x, y, z, size, worldid, interiorid, p == null ? -1 : p.getId());
         if(id == Constants.INVALID_STREAMER_ID)
             throw new CreationFailedException("DynamicSphere could not be created");
-        return new DynamicSphere(id);
+        return new DynamicSphere(id, new Radius(x, y, z, interiorid, worldid, size));
     }
 
     public static DynamicSphere create(Vector3D pos, float size) {
@@ -34,9 +35,15 @@ public class DynamicSphere extends AbstractDynamicArea {
         return create(location, size, null);
     }
 
+    private Radius radius;
 
-    private DynamicSphere(int id) {
+    private DynamicSphere(int id, Radius radius) {
         super(id);
+        this.radius = radius;
+    }
+
+    public Radius getRadius() {
+        return radius;
     }
 
     @Override
