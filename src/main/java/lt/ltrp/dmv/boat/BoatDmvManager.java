@@ -38,7 +38,7 @@ public class BoatDmvManager extends AbstractDmvManager {
             throw new InitException(getClass().getSimpleName() + " could not be initialized", e);
         }
 
-        getPlayerCommandManager().registerCommand("takelesson", new Class[0], new String[0], (player, params) -> {
+        getPlayerCommandManager().registerCommand("takelesson", new Class[0], (player, params) -> {
             LtrpPlayer p = LtrpPlayer.get(player);
             if (p != null && p.isInAnyVehicle()) {
                 LtrpVehicle vehicle = p.getVehicle();
@@ -73,7 +73,7 @@ public class BoatDmvManager extends AbstractDmvManager {
                 }
             }
             return false;
-        }, null, null);
+        }, null, null, null);
 
         getEventManagerNode().registerHandler(PlayerBoatingTestEnd.class, e -> {
             if(e.getTest().isPassed()) {

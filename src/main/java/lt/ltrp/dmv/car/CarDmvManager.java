@@ -89,7 +89,7 @@ public class CarDmvManager extends AbstractDmvManager {
             QuestionTestEndMsgDialog.create(p, getEventManagerNode(), e.getTest()).show();
         });
 
-        getPlayerCommandManager().registerCommand("takelesson", new Class[0], new String[0], (player, params) -> {
+        getPlayerCommandManager().registerCommand("takelesson", new Class[0], (player, params) -> {
             LtrpPlayer p = LtrpPlayer.get(player);
             LtrpVehicle vehicle = p.getVehicle();
             if (p.getLocation().distance(dmv.getLocation()) < 10f) {
@@ -159,7 +159,7 @@ public class CarDmvManager extends AbstractDmvManager {
                 return true;
             }
             return false;
-        }, null, null);
+        }, null, null, null);
 
 
     }
