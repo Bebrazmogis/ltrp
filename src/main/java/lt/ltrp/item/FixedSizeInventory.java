@@ -51,15 +51,20 @@ public class FixedSizeInventory implements Inventory {
     @Override
     public boolean tryAdd(Item item) {
         logger.debug("FixedSizeInventory :: tryAdd. ItemCount:" + itemCount);
-        for(int i = 0; i < itemCount; i++) {
-            if(items[i].isStackable() && items[i].getType() == item.getType()) {
-                items[i].setAmount(items[i].getAmount() + item.getAmount());
-                return true;
+        if(item.isStackable()) {
+            for(int i = 0; i < itemCount; i++) {
+                if(items[i].getType() == item.getType()) {
+                    items[i].setAmount(items[i].getAmount() + item.getAmount());
+                    System.out.println("It was stackable, adding");
+                    return true;
+                }
             }
         }
+        // Maybe we can replace a destroyed item
         for(int i = 0; i < items.length; i++) {
             if(items[i] != null && items[i].isDestroyed()) {
-                remove(i);
+                items[i] = item;
+                break;
             }
         }
         if(itemCount != size) {
@@ -186,7 +191,7 @@ public class FixedSizeInventory implements Inventory {
         logger.debug("showing for " + player.getUserId() + " item count:" + itemCount);
         List<ListDialogItem> dialogItems = new ArrayList<>();
         if(itemCount == 0) {
-            ListDialog dialog = ListDialog.create(player, ItemController.getEventManager())
+            ListDialog dialog = ListDialog.create(player, ItemController.getInstance().getEventManager())
                     .caption(getName())
                     .item("{FF0000}Daiktø nëra")
                     .buttonOk("Gerai")
@@ -207,7 +212,7 @@ public class FixedSizeInventory implements Inventory {
                 dialogItems.add(item);
             }
 
-            ListDialog.create(player, ItemController.getEventManager())
+            ListDialog.create(player, ItemController.getInstance().getEventManager())
                     .caption(getName())
                     .buttonOk("Pasirinkti")
                     .buttonCancel("Iðeiti")
