@@ -85,8 +85,10 @@ public class FixedSizeInventory implements Inventory {
     public void remove(Item item) {
         for(int i = 0; i < itemCount; i++)
             if(items[i] == item) {
-                if(i != itemCount-1)
-                    items[i] = items[itemCount-1];
+                for(int j = 0; j < itemCount-1; j++) {
+                    items[j] = items[j-1];
+                    break;
+                }
                 itemCount--;
                 break;
             }
@@ -95,7 +97,9 @@ public class FixedSizeInventory implements Inventory {
     @Override
     public void remove(int index) {
         if(index > 0 && index < itemCount) {
-            items[index] = items[itemCount-1];
+            for(int i = index; i < itemCount-1; i++) {
+                items[i] = items[i+1];
+            }
             itemCount--;
 
         }
