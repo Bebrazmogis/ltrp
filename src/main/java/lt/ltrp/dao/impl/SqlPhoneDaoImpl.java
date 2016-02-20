@@ -116,7 +116,7 @@ public class SqlPhoneDaoImpl implements PhoneDao {
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return phonebook;
+        return phonebook == null ? new Phonebook(phonenumber) : phonebook;
     }
 
     @Override
