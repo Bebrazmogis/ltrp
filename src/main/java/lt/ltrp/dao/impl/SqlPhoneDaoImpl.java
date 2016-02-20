@@ -74,7 +74,7 @@ public class SqlPhoneDaoImpl implements PhoneDao {
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return (PhoneSms[])messages.toArray();
+        return messages.toArray(new PhoneSms[0]);
     }
 
     @Override
