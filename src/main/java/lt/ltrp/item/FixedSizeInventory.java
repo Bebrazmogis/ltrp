@@ -64,7 +64,7 @@ public class FixedSizeInventory implements Inventory {
         for(int i = 0; i < items.length; i++) {
             if(items[i] != null && items[i].isDestroyed()) {
                 items[i] = item;
-                break;
+                return true;
             }
         }
         if(itemCount != size) {
@@ -83,15 +83,16 @@ public class FixedSizeInventory implements Inventory {
 
     @Override
     public void remove(Item item) {
-        for(int i = 0; i < itemCount; i++)
-            if(items[i] == item) {
+        for(int i = 0; i < itemCount; i++) {
+            if(items[i].equals(item)) {
                 for(int j = i; j < itemCount-1; j++) {
+                    System.out.println("Moving from " + (j+1) + " to " + j);
                     items[j] = items[j+1];
-                    break;
                 }
                 itemCount--;
                 break;
             }
+        }
     }
 
     @Override
@@ -140,7 +141,6 @@ public class FixedSizeInventory implements Inventory {
         }
         return false;
     }
-
     @Override
     public boolean isFull() {
         return size == itemCount;
@@ -166,7 +166,7 @@ public class FixedSizeInventory implements Inventory {
                 items.add(this.items[i]);
             }
         }
-        return (Item[]) items.toArray();
+        return items.toArray(new Item[0]);
     }
 
     @Override
