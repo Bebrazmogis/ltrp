@@ -202,7 +202,7 @@ public class PlayerController {
                 }
 
                 if(player.isInComa()) {
-                    player.applyAnimation("CRACK", "crackdeth2", 4f, 1, 0, 0, 0, 0, 0);
+                    player.applyAnimation("CRACK", "crckdeth2", 4f, 1, 0, 0, 0, 0, 0);
                     // We start the coma countdown
                     player.setCountdown(new PlayerCountdown(player, 600, true, p -> {
                         player.setHealth(0f);
