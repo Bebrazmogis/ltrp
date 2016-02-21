@@ -28,6 +28,10 @@ public class Phonebook {
         this.ownerNumber = ownerNumber;
     }
 
+    public int getOwnerNumber() {
+        return ownerNumber;
+    }
+
     public void remove(PhoneContact contact) {
         int index = getIndex(contact);
         if(index != -1) {
