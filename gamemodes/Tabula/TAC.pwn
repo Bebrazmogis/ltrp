@@ -63,6 +63,7 @@ stock Tabu_SetVehicleToRespawn( vehicleid )
     return SetVehicleToRespawn( vehicleid );
 }
 #define SetVehicleToRespawn Tabu_SetVehicleToRespawn
+/*
 stock Tabu_GiveMomey( playerid, ammount )
 {
 	PlayerMoney[ playerid ] += ammount;
@@ -75,6 +76,7 @@ stock Tabu_ResetMoney( playerid )
 }
 stock Tabu_GetPlayerMoney(playerid)
 	return PlayerMoney[ playerid ];
+	*/
 stock Tabu_SetPlayerVirtualWorld( playerid, virt )
 {
 	pInfo[ playerid ][ pVirWorld ] = virt;
@@ -234,13 +236,14 @@ stock CheckWeaponCheat(playerid, weaponid, type)
 
 		printf("Player weapon was hacked. banning.");
 		GetWeaponName(weaponid, wepname, sizeof(wepname));
-		TogglePlayerControllable(playerid, 0);
+		//TogglePlayerControllable(playerid, 0);
 
-		ResetPlayerWeapons(playerid);
-		ClearWeaponsFromPlayerInventory(playerid);
+		//ResetPlayerWeapons(playerid);
+		//ClearWeaponsFromPlayerInventory(playerid);
 
 		format(eile, sizeof(eile), "Neleistinai gautas ginklas (%s)", wepname);
-		BanPlayer("AC", playerid, eile);
+		SendClientMessage(playerid, COLOR_RED, eile);
+		//BanPlayer("AC", playerid, eile);
 		return true;
 
 		 /*
@@ -619,8 +622,8 @@ stock LoadMap(file[]) // by Mick88
 #define GivePlayerWeapon   Tabu_GivePlayerWeapon
 */
 
-#define GivePlayerMoney    Tabu_GiveMomey
-#define ResetPlayerMoney   Tabu_ResetMoney
+//#define GivePlayerMoney    Tabu_GiveMomey
+//#define ResetPlayerMoney   Tabu_ResetMoney
 //#define ResetPlayerWeapons Tabu_ResetPlayerWeapons
 #define CreateVehicle      Tabu_CreateVehicle
 #define AddStaticVehicle 	Tabu_AddStaticVehicle
