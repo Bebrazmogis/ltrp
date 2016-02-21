@@ -1,5 +1,6 @@
 package lt.ltrp.data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -11,9 +12,9 @@ public class PhoneContact {
     private int id;
     private int number;
     private String name;
-    private Date date;
+    private Timestamp date;
 
-    public PhoneContact(int id, int contactNumber, String name, Date date) {
+    public PhoneContact(int id, int contactNumber, String name, Timestamp date) {
         this.id = id;
         this.number = contactNumber;
         this.name = name;
@@ -45,11 +46,11 @@ public class PhoneContact {
         this.name = name;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 }

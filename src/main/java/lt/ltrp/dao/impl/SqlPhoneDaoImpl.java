@@ -9,7 +9,6 @@ import lt.ltrp.data.Phonebook;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -127,15 +126,15 @@ public class SqlPhoneDaoImpl implements PhoneDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ) {
-            Date date = Sql.convert(new GregorianCalendar().getTime());
+            Timestamp timestamp = new Timestamp(new java.util.Date().getTime());
             stmt.setInt(1, ownernumber);
             stmt.setInt(2, contactnumber);
             stmt.setString(3, name);
-            stmt.setDate(4, date);
+            stmt.setTimestamp(4, timestamp);
             stmt.execute();
             ResultSet keys = stmt.getGeneratedKeys();
             if(keys.next()) {
-                contact = new PhoneContact(keys.getInt(0), contactnumber, name, date);
+                contact = new PhoneContact(keys.getInt(0), contactnumber, name, timestamp);
             }
         } catch(SQLException e) {
             e.printStackTrace();
@@ -152,7 +151,7 @@ public class SqlPhoneDaoImpl implements PhoneDao {
         ) {
             stmt.setInt(1, contact.getNumber());
             stmt.setString(2, contact.getName());
-            stmt.setDate(3, Sql.convert(contact.getDate()));
+            stmt.setTimestamp(3, contact.getDate());
             stmt.setInt(4, contact.getId());
             stmt.execute();
         } catch(SQLException e) {
@@ -184,7 +183,7 @@ public class SqlPhoneDaoImpl implements PhoneDao {
             stmt.setInt(1, phonenumberfrom);
             stmt.setInt(2, phonenumberto);
             stmt.setString(3, text);
-            stmt.setDate(4, Sql.convert(new GregorianCalendar().getTime()));
+            stmt.setDate(4, new Date(new java.util.Date().getTime()));
             stmt.execute();
         } catch(SQLException e) {
             e.printStackTrace();
@@ -198,6 +197,6 @@ public class SqlPhoneDaoImpl implements PhoneDao {
     }
 
     private PhoneContact resultToPhoneContact(ResultSet set) throws SQLException {
-        return new PhoneContact(set.getInt("id"), set.getInt("contact_number"), set.getString("name"), set.getDate("entry_date"));
+        return new PhoneContact(set.getInt("id"), set.getInt("contact_number"), set.getString("name"), set.getTimestamp("entry_date"));
     }
 }
