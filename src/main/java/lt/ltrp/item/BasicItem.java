@@ -2,10 +2,12 @@ package lt.ltrp.item;
 
 import lt.ltrp.data.Color;
 import lt.ltrp.event.item.ItemLocationChangeEvent;
+import lt.ltrp.item.event.PlayerDropItemEvent;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
 import java.sql.*;
+import java.util.function.Supplier;
 
 /**
  * @author Bebras
@@ -14,24 +16,28 @@ import java.sql.*;
 
 public class BasicItem extends AbstractItem {
 
-
+    private static final String OPTION_DROP = "Iðmesti";
+    private static final String OPTION_TAKE = "Paimti";
+    private static final String OPTION_PLACE = "Padëti";
+    private static final String OPTION_GIVE_TO_PLAYER = "Perduoti kitam þaidëjui";
 
     public BasicItem(String name, ItemType type, boolean stackable) {
         super(name, type, stackable);
     }
 
-    @ItemUsageOption(name = "Iðmesti")
+    @ItemUsageOption(name = OPTION_DROP, order = 20)
     public boolean drop(LtrpPlayer player, Inventory inventory) {
         if(player.getInventory().equals(inventory)) {
             player.getInventory().remove(this);
             player.sendActionMessage("iðmeta daiktà kuris atrodo kaip " + getName());
+            ItemController.getInstance().getEventManager().dispatchEvent(new PlayerDropItemEvent(player, this));
             return true;
         } else {
             return false;
         }
     }
 
-    @ItemUsageOption(name = "Paimti")
+    @ItemUsageOption(name = OPTION_TAKE)
     public boolean take(LtrpPlayer player, Inventory inventory) {
         if(player.getInventory() == inventory) {
             return false;
@@ -46,7 +52,7 @@ public class BasicItem extends AbstractItem {
         return true;
     }
 
-    @ItemUsageOption(name = "Padëti")
+    @ItemUsageOption(name = OPTION_PLACE)
     public boolean place(LtrpPlayer player) {
         if(player.getInventory().contains(this)) {
             LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
@@ -67,7 +73,7 @@ public class BasicItem extends AbstractItem {
                     inventory.add(this);
                     player.getInventory().remove(this);
                     player.sendActionMessage("padeda daiktà kuris atrodo kaip " +  getName());
-                    ItemController.getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, player.getInventory(), inventory, player));
+                    ItemController.getInstance().getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, player.getInventory(), inventory, player));
                 } else
                     player.sendErrorMessage(inventory.getName() + " nebegali turëti daugiau daiktø.");
             }
@@ -78,7 +84,7 @@ public class BasicItem extends AbstractItem {
         return false;
     }
 
-    @ItemUsageOption(name = "Perduoti kitam þaidëjui")
+    @ItemUsageOption(name = OPTION_GIVE_TO_PLAYER, order = 5f)
     public boolean giveToPlayer(LtrpPlayer player, Inventory inventory) {
         LtrpPlayer target = player.getClosestPlayer(3.0f);
         if(target == null) {
@@ -95,6 +101,32 @@ public class BasicItem extends AbstractItem {
             return true;
         }
         return false;
+    }
+
+    @ItemUsageEnabler
+    public Supplier<Boolean> isEnabled(String itemText, LtrpPlayer player, Inventory inventory) {
+        switch(itemText) {
+            case OPTION_PLACE:
+                return () -> {
+                    Inventory inv = null;
+
+                    // Pirmiausia ieðkom nekilnojamam turte, nes kai kuriose jo ruðyse gali bûti viduje transporto priemonë.
+                    Property property = player.getProperty();
+                    if (property != null) {
+                        inv = property.getInventory();
+                    }
+                    LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
+                    if (vehicle != null) {
+                        inv = vehicle.getInventory();
+                    }
+                    return inv != null;
+                };
+            case OPTION_TAKE:
+                return () -> player.getInventory() != inventory;
+            case OPTION_GIVE_TO_PLAYER:
+                return () -> player.getClosestPlayer(3.0f) != null;
+        }
+        return null;
     }
 
     @Override
