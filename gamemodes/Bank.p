@@ -114,12 +114,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	    	new string[128];
 	        if(response)
 	        {
-	            format(string, sizeof(string)," Los Santos Bank\nJûsø banko sàskaitoje ðiuo metu yra: %d$\n Áraðykite sumà, kurià norite iðsiimti",pInfo[playerid][pBank]);
+	            format(string, sizeof(string)," Los Santos Bank\nJûsø banko sàskaitoje ðiuo metu yra: %d$\n Áraðykite sumà, kurià norite iðsiimti",GetPlayerBankMoney(playerid));
 	            ShowPlayerDialog(playerid, DIALOG_BANK_WITHDRAW, DIALOG_STYLE_INPUT, "BANKAS", string, "Iðsimti", "Atðaukti");
 	        }
 	        else
 	        {
-	            format(string, sizeof(string)," Los Santos Bank\nSu savimi ðiuo metu turite %d$\n Kokià sumà norësite áneðti á bankà?",PlayerMoney[ playerid ]);
+	            format(string, sizeof(string)," Los Santos Bank\nSu savimi ðiuo metu turite %d$\n Kokià sumà norësite áneðti á bankà?",GetPlayerMoney(playerid));
 	            ShowPlayerDialog(playerid, DIALOG_BANK_DEPOSIT, DIALOG_STYLE_INPUT, "BANKAS", string, "Áneðti", "Atðaukti");
 	        }
 	        PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
@@ -160,7 +160,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	        if(response && !isnull(inputtext))
 	        {
 	        	new money = strval(inputtext), string[ 64 ];
-	            if(PlayerMoney[ playerid ] >= money && money > 0)
+	            if(GetPlayerMoney(playerid) >= money && money > 0)
 	            {
 	                GivePlayerMoney(playerid,-money);
 	                SendClientMessage(playerid, COLOR_GREEN, "|______ LOS SANTOS BANK ______|");
