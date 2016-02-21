@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
+import java.util.function.Supplier;
 
 /**
  * @author Bebras
@@ -68,23 +69,44 @@ public abstract class AbstractItem implements Item {
             }
         });
 
+        Method enableSupplier = null;
+        for(Method m : getClass().getMethods()) {
+            if(m.isAnnotationPresent(ItemUsageEnabler.class)) {
+                enableSupplier = m;
+                break;
+            }
+        }
+
         for(Method method : this.getClass().getMethods()) {
             // If so, method is an option
             if(method.isAnnotationPresent(ItemUsageOption.class)) {
                 logger.debug("showOptions adding method " + method.getName());
                 ItemUsageOption itemUsageAnnotation = method.getAnnotation(ItemUsageOption.class);
+                // if the class contains an enable supplier, we need to check if it allows the option to be enabled(visible)
+                if(enableSupplier != null && enableSupplier.getReturnType() == Supplier.class) {
+                    try {
+                        Supplier<Boolean> supplier = (Supplier<Boolean>)enableSupplier.invoke(this, itemUsageAnnotation.name());
+                        // If it is null, we consider it enabled
+                        if(supplier != null && !supplier.get())
+                            continue;
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        logger.error("Could not call ItemUsageEnabler method " + enableSupplier.getName());
+                    }
+                }
                 ListDialogItem listDialogItem = new ListDialogItem();
                 listDialogItem.setData(method);
-                listDialogItem.setItemText(itemUsageAnnotation.name());
+                listDialogItem.setItemText(String.format("{%s}%s{%s}",
+                        new Color(itemUsageAnnotation.color()).toRgbHexString(), itemUsageAnnotation.name(), Color.DIALOG.toRgbHexString()));
                 listDialog.addItem(listDialogItem);
             }
         }
         listDialog.show();
     }
 
-    @ItemUsageOption(name = "test")
+    @ItemUsageOption(name = "Test", color = 0xFFEE00, order = 9f)
     public boolean lol(LtrpPlayer player) {
-        player.sendMessage(Color.CORAL, "Test option. This is " + getName() + " type:" + getType().name() + " Class:" + getClass().getName());
+        player.sendMessage(String.format("Test Option. Item name: %s type:%s class:%s", getName(), getType().name(), getClass().getName()));
+        player.sendMessage(String.format("Test Option. Item global id: %d item local id: %d amount:%d", getGlobalId(), getItemId(), getAmount()));
         return true;
     }
 
