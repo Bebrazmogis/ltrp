@@ -17,6 +17,7 @@ public interface Item extends Destroyable {
 
     // Getter, setters and such
     int getGlobalId();
+    int getItemId();
     public String getName();
     public void setName(String name);
     public ItemType getType();
