@@ -4,11 +4,14 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.data.*;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerCountdown;
+import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.constant.WeaponModel;
+import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Timer;
 
 import java.util.Optional;
@@ -19,17 +22,25 @@ import java.util.Optional;
  */
 public class ItemCommands {
 
+    @BeforeCheck
+    public boolean beforeCheck(Player p, String cmd, String parms) {
+        System.out.println("beforeCheck :: itemCommands");
+        return true;
+    }
+
 
     @Command
     @CommandHelp("Atidaro inventorø")
-    public boolean inv(LtrpPlayer player) {
+    public boolean inv(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         player.getInventory().show(player);
         return true;
     }
 
     @Command
     @CommandHelp("Sukuria molotov kokteilá - sprogstantá objektà")
-    public boolean makemolotov(LtrpPlayer player) {
+    public boolean makemolotov(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         Item newspaper = player.getInventory().getItem(ItemType.Newspaper);
         FuelTankItem fueltank = (FuelTankItem)player.getInventory().getItem(ItemType.Fueltank);
         if(newspaper != null && fueltank != null) {
@@ -73,7 +84,8 @@ public class ItemCommands {
 
     @Command
     @CommandHelp("Leidþia atsiliepti jei kas nors skambina")
-    public boolean pickup(LtrpPlayer player) {
+    public boolean pickup(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         ItemPhone[] phones = player.getInventory().getItems(ItemPhone.class);
         //ItemPhone[] phones = (ItemPhone[])player.getInventory().getItems(ItemType.Phone);
         int calledPhones = 0;
@@ -86,15 +98,15 @@ public class ItemCommands {
             player.sendErrorMessage("Jums niekas neskambina");
         } else if(calledPhones == 1) {
             ItemPhone phone = null;
-            for(ItemPhone p : phones) {
-                if(p.getPhonecall() != null) {
-                    phone = p;
+            for(ItemPhone ph : phones) {
+                if(ph.getPhonecall() != null) {
+                    phone = ph;
                     break;
                 }
             }
             answerPhone(player, phone);
         } else {
-            ListDialog dialog = ListDialog.create(player, ItemController.getEventManager()).build();
+            ListDialog dialog = ListDialog.create(player, ItemController.getInstance().getEventManager()).build();
             dialog.setCaption("Skambuèiai");
             for(ItemPhone phone : phones) {
                 if(phone.getPhonecall() == null) {
@@ -116,7 +128,8 @@ public class ItemCommands {
         return true;
     }
 
-    private void answerPhone(LtrpPlayer player, ItemPhone phone) {
+    private void answerPhone(Player p, ItemPhone phone) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         if(phone.getPhonecall() == null) {
             return;
         }
@@ -133,7 +146,8 @@ public class ItemCommands {
 
     @Command
     @CommandHelp("Ádeda jûsø dabartiná ginklà á iventoriø")
-    public boolean invweapon(LtrpPlayer player) {
+    public boolean invweapon(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         if(player.getVehicle() != null) {
             player.sendErrorMessage("Negalite ásidëti ginklo á inventoriø kol esate transporto priemonëje");
         } else if(player.getArmedWeaponData().getModel() == WeaponModel.NONE) {
@@ -153,7 +167,8 @@ public class ItemCommands {
 
     @Command
     @CommandHelp("Iðmeta jûsø laikomà ginklà")
-    public boolean leaveGun(LtrpPlayer player) {
+    public boolean leaveGun(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         LtrpWeaponData weaponData = player.getArmedWeaponData();
         if(weaponData != null) {
             if(!weaponData.isJob()) {
@@ -172,7 +187,8 @@ public class ItemCommands {
 
     @Command
     @CommandHelp("Paima iðmesta ginklà")
-    public boolean grabGun(LtrpPlayer player) {
+    public boolean grabGun(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         Optional<DroppedWeaponData> weaponDataOptional = DroppedWeaponData.getDroppedWeapons().stream().filter(wep -> wep.getLocation().distance(player.getLocation()) < 5.0).findFirst();
         if(!weaponDataOptional.isPresent()) {
             player.sendErrorMessage("Prie jûsø nesimëto ginklø.");
@@ -195,7 +211,8 @@ public class ItemCommands {
 
     @Command
     @CommandHelp("Nustato racijos daþná")
-    public boolean setFrequency(LtrpPlayer player, float frequency) {
+    public boolean setFrequency(Player p, @CommandParameter(name = "Daþnis")float frequency) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         if(!player.getInventory().containsType(ItemType.Radio)) {
             player.sendErrorMessage("Jûs neturite racijos!");
         } else {
@@ -203,6 +220,22 @@ public class ItemCommands {
             item.setFrequency(frequency);
             player.getInfoBox().setRadio(item);
             player.sendActionMessage("Iðsitraukia racijà ir pakeièia daþná..");
+            return true;
+        }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Leidþia kalbëti per racijà")
+    public boolean r(Player player, @CommandParameter(name = "Tekstas")String msg) {
+        LtrpPlayer p = LtrpPlayer.get(player);
+        if(msg == null) {
+            p.sendMessage(Color.LIGHTRED, "NOO");
+        } else if(!p.getInventory().containsType(ItemType.Radio)) {
+            p.sendErrorMessage("Jûs neturite racijos!");
+        } else {
+            RadioItem item = (RadioItem)p.getInventory().getItem(ItemType.Radio);
+            item.sendMessage(p, msg);
             return true;
         }
         return false;

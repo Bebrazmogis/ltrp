@@ -1,5 +1,8 @@
 package lt.ltrp.item;
 
+import lt.ltrp.data.Color;
+import lt.ltrp.player.LtrpPlayer;
+
 import java.sql.*;
 
 /**
@@ -25,6 +28,17 @@ public class RadioItem extends BasicItem {
 
     public void setFrequency(float frequency) {
         this.frequency = frequency;
+    }
+
+    public void sendMessage(LtrpPlayer player, String msg) {
+        String message = String.format("**[D:%.1f] %s: %s",
+                getFrequency(),
+                player.getCharName(),
+                msg);
+        LtrpPlayer.get().stream().
+                filter(p -> p.getInventory().containsType(ItemType.Radio) && ((RadioItem)p.getInventory().getItem(ItemType.Radio)).getFrequency() == getFrequency())
+                .forEach(p -> p.sendMessage(Color.RADIO, message));
+        player.sendActionMessage("sako:[RACIJA] " + msg);
     }
 
     @Override
