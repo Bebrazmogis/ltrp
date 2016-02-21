@@ -13,6 +13,9 @@ public class Color extends net.gtaun.shoebill.data.Color {
     public static final net.gtaun.shoebill.data.Color SMS_RECEIVED = new net.gtaun.shoebill.data.Color(0xF5, 0xDE, 0xB3);  //0xF5DEB3AA
     public static final net.gtaun.shoebill.data.Color MEGAPHONE = new net.gtaun.shoebill.data.Color(0x42, 0x61, 0xCC); //0x4261CCFF
     public static final net.gtaun.shoebill.data.Color POLICE = new net.gtaun.shoebill.data.Color(0x35, 0xA5, 0xCA); // 0x35A5CAFF
+    public static final net.gtaun.shoebill.data.Color DMV = new net.gtaun.shoebill.data.Color(0xFF, 0xFF, 0xFF);
+    public static final net.gtaun.shoebill.data.Color RADIO = new net.gtaun.shoebill.data.Color(0x8D, 0x8D, 0xFF); // 0x8D8DFF00
+    public static final net.gtaun.shoebill.data.Color DIALOG = new net.gtaun.shoebill.data.Color(0xA9, 0xC4, 0xE4); // A9C4E4
 
     public Color(int value) {
         super(value);
