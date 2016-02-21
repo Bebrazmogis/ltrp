@@ -239,6 +239,7 @@ public class PlayerController {
                     player.setSpawnInfo(new AngledLocation(180f, 600f, 10f, 0f), player.getSkin(), Player.NO_TEAM, new WeaponData(), new WeaponData(), new WeaponData());
                     // TODO pakeisti koordinates ligoninės
                     player.setInComa(false);
+                    player.setDeaths(player.getDeaths()+1);
                 }
 
                 LtrpPlayer killer = LtrpPlayer.get(e.getKiller());
