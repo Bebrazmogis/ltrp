@@ -48,7 +48,8 @@ public class FuelTankItem extends ContainerItem {
                     player.sendErrorMessage("Transporto priemonë uþrakinta");
             } else
                 player.sendErrorMessage("Negalite bûti transporto priemonëje á kurià norite ápilti kuro.");
-        }
+        } else
+            player.sendErrorMessage("Prie jûsø nëra jokios transporto priemonës.");
         return false;
     }
 
