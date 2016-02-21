@@ -160,6 +160,7 @@ public class ItemCommands {
             player.sendMessage(Color.NEWS, "Ginklas sëkmingai ádëtas á inventoriø.");
             player.playSound(1057);
             player.removeWeapon(player.getArmedWeaponData());
+            return true;
         }
         return false;
     }
@@ -237,6 +238,18 @@ public class ItemCommands {
             RadioItem item = (RadioItem)p.getInventory().getItem(ItemType.Radio);
             item.sendMessage(p, msg);
             return true;
+        }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Ridena kauliukus")
+    public boolean dice(Player pl) {
+        LtrpPlayer p = LtrpPlayer.get(pl);
+        if(!p.getInventory().containsType(ItemType.Dice)) {
+            p.sendErrorMessage("Jûs neturite þaidimo kauliukø!");
+        } else {
+            return ((DiceItem)p.getInventory().getItem(ItemType.Dice)).dice(p);
         }
         return false;
     }

@@ -31,10 +31,10 @@ public class DiceItem extends BasicItem {
         player.sendActionMessage("meta loğimo kauliukus...");
         thrown = true;
         Timer.create(600, 1, e -> {
-            player.sendStateMessage("... kauliukai iğsiridena skaièiumi " + new Random().nextInt(5)+1);
+            player.sendStateMessage("... kauliukai iğsiridena skaièiumi " + (new Random().nextInt(6)+1));
             thrown = false;
             // I could fire off an event, but who cares? :/
-        });
+        }).start();
         return true;
     }
 
