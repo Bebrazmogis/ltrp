@@ -32,7 +32,7 @@ public class SqlRadioStationDao implements RadioStationDao {
                 ResultSet result = stmt.executeQuery(sql);
                 ) {
             while(result.next()) {
-                RadioStation station = new RadioStation(result.getInt("id"), result.getString("name"), result.getString("url"));
+                RadioStation station = new RadioStation(result.getInt("id"), result.getString("url"), result.getString("name"));
                 radioStations.add(station);
             }
         } catch(SQLException e){
