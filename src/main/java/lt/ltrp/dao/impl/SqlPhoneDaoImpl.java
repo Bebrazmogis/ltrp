@@ -40,7 +40,7 @@ public class SqlPhoneDaoImpl implements PhoneDao {
             stmt.setInt(5, sms.isRead() ? 1 : 0);
             ResultSet keys = stmt.executeQuery();
             if(keys.next()) {
-                sms.setId(keys.getInt(0));
+                sms.setId(keys.getInt(1));
             }
         } catch(SQLException e) {
             e.printStackTrace();
@@ -134,7 +134,7 @@ public class SqlPhoneDaoImpl implements PhoneDao {
             stmt.execute();
             ResultSet keys = stmt.getGeneratedKeys();
             if(keys.next()) {
-                contact = new PhoneContact(keys.getInt(0), contactnumber, name, timestamp);
+                contact = new PhoneContact(keys.getInt(1), contactnumber, name, timestamp);
             }
         } catch(SQLException e) {
             e.printStackTrace();
