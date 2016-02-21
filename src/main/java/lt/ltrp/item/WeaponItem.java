@@ -1,7 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.data.LtrpWeaponData;
-import lt.ltrp.event.player.PlayerDrawWeaponEvent;
+import lt.ltrp.item.event.PlayerDrawWeaponItemEvent;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.WeaponData;
@@ -17,6 +17,7 @@ public class WeaponItem extends BasicItem {
 
     private LtrpWeaponData weaponData;
     private boolean beingDrawn = false;
+    private Timer drawTimer;
 
     public WeaponItem(String name, LtrpWeaponData weaponData) {
         super(name, ItemType.Weapon, false);
@@ -27,7 +28,7 @@ public class WeaponItem extends BasicItem {
         this(weaponData.getModel().getName(), weaponData);
     }
 
-    public WeaponData getWeaponData() {
+    public LtrpWeaponData getWeaponData() {
         return weaponData;
     }
 
@@ -58,16 +59,17 @@ public class WeaponItem extends BasicItem {
         if(player.getInventory() == inventory) {
             player.sendActionMessage("bando kaþkà iðsitraukti");
             beingDrawn = true;
-            Timer.create(1500 + player.getDrunkLevel(), 1, e -> {
+            drawTimer = Timer.create(1500 + player.getDrunkLevel()/2, 1, e -> {
                 onItemDrawn(player, weaponData, inventory);
             });
         } else {
             player.sendActionMessage("bando kaþkà iðsitraukti");
             beingDrawn = true;
-            Timer.create(2300 + player.getDrunkLevel(), 1, e -> {
+            Timer.create(2300 + player.getDrunkLevel()/2, 1, e -> {
                 onItemDrawn(player, weaponData, inventory);
             });
         }
+        drawTimer.start();
         return true;
     }
 
@@ -80,7 +82,7 @@ public class WeaponItem extends BasicItem {
         }
         beingDrawn = false;
         location.remove(this);
-        ItemController.getEventManager().dispatchEvent(new PlayerDrawWeaponEvent(player, weapondata, location));
+        ItemController.getInstance().getEventManager().dispatchEvent(new PlayerDrawWeaponItemEvent(player, location, this));
     }
 
 
@@ -102,9 +104,9 @@ public class WeaponItem extends BasicItem {
         String sql = "INSERT INTO items_weapon (`name`, stackable, weapon_id, ammo) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, getName());
-        stmt.setInt(2, getWeaponData().getModel().getId());
-        stmt.setInt(3, getWeaponData().getAmmo());
-        stmt.setBoolean(4, isStackable());
+        stmt.setBoolean(2, isStackable());
+        stmt.setInt(3, getWeaponData().getModel().getId());
+        stmt.setInt(4, getWeaponData().getAmmo());
         return stmt;
     }
 
