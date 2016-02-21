@@ -591,12 +591,13 @@ new PlayerAttachedWeapons[ MAX_PLAYERS ][ MAX_PLAYER_ATTACHED_WEAPONS ][ E_PLAYE
 
 
 // Vagiø darbo reikalaujamos maðinos.
+/*
 enum E_JACKER_BOUGHT_VEHICLE_DATA {
     VehicleModel, 
     AmountNeeded
 };
 new JackerBoughtVehicles[ 3 ][ E_JACKER_BOUGHT_VEHICLE_DATA ];
-
+*/
 
 
 
@@ -3235,7 +3236,7 @@ stock PackPoints( playerid )
     return string;
 }
 */
-
+/*
 stock UpdateJacker( spot, vehs1 )
 {
     // Taigi vehs1 reikðmës:
@@ -3273,7 +3274,7 @@ stock UpdateJacker( spot, vehs1 )
 
     return 1;
 }
-
+*/
 
 
 stock LoadServer( )
@@ -3418,9 +3419,9 @@ public OnGameModeInit()
     //=============================[ Uþraunam serverio nekilnojamá ji turtá  ir kt. kas susijà su tuo]================================
     LoadServer( );
     //=============================[ Uþkraunam transporto priemoniø vagimá  ]================================
-    UpdateJacker( 0, 0 );
+  /*  UpdateJacker( 0, 0 );
     UpdateJacker( 1, 0 );
-    UpdateJacker( 2, 2 );
+    UpdateJacker( 2, 2 );*/
     //=============================[ Serverio darbø 3D label ]================================
     for ( new i = 0; i < MAX_JOBS; i++ )
     {
@@ -4319,8 +4320,8 @@ CMD:help(playerid)
       SendClientMessage( playerid, COLOR_LIGHTRED2, "  KROVINIØ PERVEÞIMO VAIRUOTOJO KOMANDOS: /tpda /cargo /killcheckpoint"),
       SendClientMessage( playerid, COLOR_LIGHTRED2, "  /tpda - kroviniø tvarkaraðtis | /cargo - kroviniø valdymas | /killcheckpoint - esame CP panaikinimas.");	
 	}
-    if ( pInfo[ playerid ][ pJob ] == JOB_JACKER )
-		SendClientMessage( playerid, COLOR_LIGHTRED2, "  TR. PRIEMONËS VOGIMO KOMANDOS: /sellcar /info /spots");
+   // if ( pInfo[ playerid ][ pJob ] == JOB_JACKER )
+//		SendClientMessage( playerid, COLOR_LIGHTRED2, "  TR. PRIEMONËS VOGIMO KOMANDOS: /sellcar /info /spots");
 	if ( PlayerFaction( playerid ) == 1 )
 		SendClientMessage( playerid, COLOR_POLICE, "  LOS SANTOS POLICIJOS DEPARTAMENTAS: /policehelp");
     if ( PlayerFaction( playerid ) == 2 ) 
@@ -8086,6 +8087,7 @@ CMD:police( playerid, params[ ] )
 
 }
 */
+/*
 CMD:sellcar( playerid, params[ ] )
 {
     #pragma unused params
@@ -8226,6 +8228,8 @@ CMD:sellcar( playerid, params[ ] )
     }
     return 1;
 }
+*/
+/*
 CMD:info(playerid)
 {
     if(pInfo[ playerid ][ pJob ] != JOB_JACKER)
@@ -8260,6 +8264,7 @@ CMD:spots( playerid, params[ ] )
     SendClientMessage( playerid, COLOR_LIGHTRED2, string);
     return 1;
 }
+*/
 CMD:sup( playerid, params[ ] )
 {
     new giveplayerid,
@@ -15064,7 +15069,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             return 1;
         }
     }
-    if(IsKeyJustDown(KEY_FIRE,newkeys,oldkeys))
+   /* if(IsKeyJustDown(KEY_FIRE,newkeys,oldkeys))
     {
         new veh = GetPlayerVehicleID(playerid),
             string[ 126 ];
@@ -15085,7 +15090,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 break;
             }
         }
-        
         if( !isLicCar( veh ) && Engine[veh] == false && VehicleHasEngine(GetVehicleModel(veh)) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
         {
             if(cInfo[ veh ][ cOwner ] > 0 && CheckCarKeys(playerid,veh) == 0)
@@ -15144,7 +15148,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
                 else return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, neturite árankiø dëþutës, kad galëtumëte pradëti vogti. ");
             }
         }
-/*            if(StartingEngine[playerid] == true || Laikas[playerid] > 0) return 1;
+        
+           if(StartingEngine[playerid] == true || Laikas[playerid] > 0) return 1;
 
             // Vienintelis bûdas uþkurti ðiukðliaveþá yra /startmission, NEBENT misija jau pradeta.
             if(sVehicles[ veh ][ Job ] == JOB_TRASH && TrashMission[ playerid ] == TRASH_MISSION_NONE)
@@ -15175,8 +15180,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
             VehicleEngine(veh, 0 );
             return 1;
         }
-        */
+        
     }
+    */
     return 1;
     
 }
@@ -20995,9 +21001,9 @@ FUNKCIJA:MinTime()
         SaveMisc();
         SaveFactions(0);
         Mats += 50; // Mats per valanda
-        UpdateJacker( 0, random( 2 ) );
+        /*UpdateJacker( 0, random( 2 ) );
         UpdateJacker( 1, random( 2 ) );
-        UpdateJacker( 2, random( 2 ) );
+        UpdateJacker( 2, random( 2 ) );*/
 
 //        Produkcija( );
 
@@ -21450,7 +21456,7 @@ FUNKCIJA:Sekunde()
 
 
 
-        if(IsPlayerLoggedIn(i) == false)
+        if(!IsPlayerLoggedIn(i))
         {
             //SetPVarInt( i, "LOGIN_TIME", GetPVarInt( i, "LOGIN_TIME" ) +1 );
             //if ( GetPVarInt( i, "LOGIN_TIME" ) > 30 )
