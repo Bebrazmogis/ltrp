@@ -11,8 +11,8 @@ import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.PlayerVehicle;
 import lt.ltrp.vehicle.PlayerVehiclePermission;
-import lt.maze.AudioHandle;
-import lt.maze.AudioPlugin;
+import lt.maze.audio.AudioHandle;
+import lt.maze.audio.AudioPlugin;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.*;
@@ -54,6 +54,7 @@ public class LtrpPlayer implements Player {
     private boolean seatbelt, masked, cuffed;
     private int jobExperience, jobLevel, jobHours, connectedTime, boxStyle, age, respect, bankMoney, deaths, hunger;
     private SpawnData spawnData;
+    private AudioHandle audioHandle;
     /**
      * Not necessarily all existing player vehicles, just the ones that are currently loaded( or not spawned)
      * Basically lazy loading is used, if the vehicle was loaded once it will be stored
@@ -104,14 +105,11 @@ public class LtrpPlayer implements Player {
     }
 
     public static LtrpPlayer get(Player player) {
-        logger.debug("get called");
+        if(player == null)
+            return null;
         if(player.isNpc())
             return null;
-
         for(LtrpPlayer p : players) {
-            //logger.debug("Comparint player " + p.getId() + " to " + player.getId() + " First hash code:" + p.hashCode() +
-            //        " second code:" + player.hashCode() + " First class:" + p.getClass().getName()
-            //        + " second class:" + player.getClass().getName() + " p name:" + p.getName() + " player name: "+ player.getName());
             if(p.equals(player)) {
                 return p;
             }
@@ -129,7 +127,7 @@ public class LtrpPlayer implements Player {
         float closestDistance = maxdistance;
         for(LtrpPlayer p : players) {
             float distance = p.getLocation().distance(player.getLocation());
-            if(distance <= closestDistance) {
+            if(!p.equals(player) && distance <= closestDistance) {
                 closest = p;
                 closestDistance = distance;
             }
@@ -142,7 +140,7 @@ public class LtrpPlayer implements Player {
         float closestDistance = maxdistance;
         for(LtrpPlayer p : players) {
             float distance = p.getLocation().distance(player.getLocation());
-            if(distance <= closestDistance) {
+            if(!p.equals(player) && distance <= closestDistance) {
                 closest.add(p);
             }
         }
@@ -234,6 +232,7 @@ public class LtrpPlayer implements Player {
 
     public void setMasked(boolean masked) {
         this.masked = masked;
+        LtrpPlayer.get().forEach(p -> this.showNameTagForPlayer(p, masked));
     }
 
     public JailData getJailData() {
@@ -1278,6 +1277,7 @@ public class LtrpPlayer implements Player {
     }
 
     public void giveWeapon(LtrpWeaponData weaponData) {
+        logger.debug("giveWeapon LtrpWeaponData called. Model:"+ weaponData.getModel() + " ammo:" + weaponData.getAmmo());
         player.giveWeapon(weaponData);
         addWeapon(weaponData);
     }
@@ -1403,39 +1403,57 @@ public class LtrpPlayer implements Player {
         return player.getAimedTarget();
     }
 
-    public AudioHandle playStream(String s) {
-        if(isAudioConnected()) {
-            return AudioHandle.play(this, s);
-        } else {
-            playAudioStream(s);
+    public void setVolume(int volume) {
+        if(audioHandle != null && volume >= 0 && volume <= 100) {
+            audioHandle.setVolume(volume);
         }
-        return null;
     }
 
-    @Override
-    public void playAudioStream(String s) {
-        player.playAudioStream(s);
-    }
 
-    @Override
-    public void playAudioStream(String s, float v, float v1, float v2, float v3) {
-        player.playAudioStream(s, v, v1, v2, v3);
-    }
-
-    @Override
-    public void playAudioStream(String s, Vector3D vector3D, float v) {
-        player.playAudioStream(s, vector3D, v);
-    }
-
-    @Override
-    public void playAudioStream(String s, Radius radius) {
-        player.playAudioStream(s, radius);
+    public AudioHandle getCurrentAudioHandle() {
+        return audioHandle;
     }
 
     @Override
     public void stopAudioStream() {
-        player.stopAudioStream();
+        if(isAudioConnected() && getCurrentAudioHandle() != null) {
+            getCurrentAudioHandle().stop();
+        } else {
+            player.stopAudioStream();
+        }
     }
+
+    @Override
+    public void playAudioStream(String s) {
+        if(isAudioConnected()) {
+            this.audioHandle = AudioHandle.playStreamed(this, s, false, false, false);
+        } else {
+            player.playAudioStream(s);
+        }
+    }
+
+    @Override
+    public void playAudioStream(String s, float v, float v1, float v2, float v3) {
+        if(isAudioConnected()) {
+            if(audioHandle == null) {
+               audioHandle = AudioHandle.playStreamed(this, s, false, false, false);
+            }
+            audioHandle.set3DPosition(v, v1, v2, v3);
+        } else {
+            player.playAudioStream(s, v, v1, v2, v3);
+        }
+    }
+
+    @Override
+    public void playAudioStream(String s, Vector3D vector3D, float v) {
+        playAudioStream(s, vector3D.x, vector3D.y, vector3D.z, v);
+    }
+
+    @Override
+    public void playAudioStream(String s, Radius radius) {
+        playAudioStream(s, radius.x, radius.y, radius.z, radius.radius);
+    }
+
 
     @Override
     public void removeBuilding(int i, float v, float v1, float v2, float v3) {
