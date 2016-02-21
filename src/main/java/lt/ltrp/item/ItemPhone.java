@@ -3,6 +3,7 @@ package lt.ltrp.item;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.data.*;
+import lt.ltrp.dialog.phone.PhonebookListDialog;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
@@ -41,8 +42,6 @@ public class ItemPhone extends BasicItem {
     private int phonenumber;
     private Phonebook phonebook;
     private Phonecall phonecall;
-
-    private String currentSms = "";
 
     public ItemPhone(String name, int phonenumber) {
         super(name, ItemType.Phone, false);
@@ -105,175 +104,26 @@ public class ItemPhone extends BasicItem {
     public boolean showPhoenbook(LtrpPlayer player, Inventory inventory) {
         // Should load the phonebook if it isn't loaded yet
         // Aka "lazy loading"
-        ListDialog dialog = ListDialog.create(player, ItemController.getEventManager()).build();
-        dialog.setCaption("Kontaktai");
-        dialog.setButtonOk("Pasirinkti");
-        dialog.setButtonCancel("Atgal");
-
-        for(PhoneContact contact : phonebook.getContacts()) {
-            ListDialogItem item = new ListDialogItem();
-            if(contact != null) {
-                item.setItemText(contact.getName());
-                item.setData(contact);
-            } else {
-                item.setItemText("- Tuðèia - ");
-            }
-            dialog.addItem(item);
+        if(phonebook == null) {
+            phonebook = LtrpGamemode.getDao().getPhoneDao().getPhonebook(phonenumber);
         }
-
-        dialog.setClickOkHandler((contactListDialog, selectedItem) -> {
-            if(selectedItem.getData() != null) {
-                PhoneContact selectedContact = (PhoneContact)selectedItem.getData();
-                ListDialog.create(player, ItemController.getEventManager())
-                        .caption(selectedContact.getName() + " redagavimas")
-                        .buttonOk("Gerai")
-                        .buttonCancel("Atgal")
-                        .item("Skambinti", callOption -> {
-                            initiateCall(player, inventory, selectedContact.getNumber());
-                        })
-                        .item("Raðyti þinutæ", smsOption -> {
-                            currentSms = "";
-                            InputDialog.create(player, ItemController.getEventManager())
-                                    .caption("Nauja þinutë " + selectedContact.getName())
-                                    .message("Áveskite þinutës tekstà:")
-                                    .buttonOk("Tæsti")
-                                    .buttonCancel("Atgal")
-                                    .onClickCancel(AbstractDialog::showParentDialog)
-                                    .onClickOk((textDialog, msgText) -> {
-                                        if(msgText != null && !msgText.isEmpty()) {
-                                            currentSms += msgText;
-                                        }
-                                        ListDialog.create(player, ItemController.getEventManager())
-                                                .caption("Nauja þinutë." + currentSms.length() + "/500")
-                                                .buttonOk("Pasirinkti")
-                                                .buttonCancel("Atðautki")
-                                                .item("Siøsti", sendOption -> {
-                                                    if(currentSms.isEmpty()) {
-                                                        textDialog.show();
-                                                        player.sendErrorMessage("Þinutës tekstas negali bûti tuðèias");
-                                                    } else {
-                                                        if(currentSms.length() > 500) {
-                                                            currentSms = currentSms.substring(0, 501);
-                                                        }
-                                                        sendSms(player, inventory, selectedContact.getNumber(), currentSms);
-                                                    }
-                                                })
-                                                .item("Papildyti tekstà", addTextOption -> {
-                                                    textDialog.setMessage("Esamas tekstas:" + currentSms
-                                                        + "\n\nDar galite panaudoti " + (500 - currentSms.length()) + " simbolius");
-                                                    textDialog.show();
-                                                })
-                                                .build()
-                                                .show();
-
-                                    })
-                                    .build()
-                                    .show();
-                        })
-                        .item("Keisti numerá", changeNumberOption -> {
-                            InputDialog.create(player, ItemController.getEventManager())
-                                    .caption("Naujas " + selectedContact.getName() + " numeris")
-                                    .message("Áveskite kontakto " + selectedContact.getName() + " naujà numerá."
-                                        + "\nDabartinis numeris:" + selectedContact.getNumber())
-                                    .buttonOk("Iðsaugoti")
-                                    .buttonCancel("Atðaukti")
-                                    .onClickCancel(AbstractDialog::showParentDialog)
-                                    .onClickOk((changeNumberDialog, newNumber) -> {
-                                        int number;
-                                        try {
-                                            number = Integer.parseInt(newNumber);
-                                        } catch(NumberFormatException e) {
-                                            player.sendErrorMessage("Numeris turi bûti sudarytas ið skaitmenu");
-                                            changeNumberDialog.show();
-                                            return;
-                                        }
-                                        selectedContact.setNumber(number);
-                                        LtrpGamemode.getDao().getPhoneDao().update(selectedContact);
-                                        changeNumberDialog.getParentDialog().show();
-                                    })
-                                    .build()
-                                    .show();
-                        })
-                        .item("Keisti vardà", changeNameOption -> {
-                            InputDialog.create(player, ItemController.getEventManager())
-                                    .caption("Naujas " + selectedContact.getNumber() + " vardas")
-                                    .message("Áveskite kontakto " + selectedContact.getName() + " naujà vardà."
-                                            + "\nDabartinis numeris:" + selectedContact.getNumber())
-                                    .buttonOk("Iðsaugoti")
-                                    .buttonCancel("Atðaukti")
-                                    .onClickCancel(AbstractDialog::showParentDialog)
-                                    .onClickOk((changeNameDialog, newName) -> {
-                                        if(newName == null || newName.isEmpty()) {
-                                            changeNameDialog.show();
-                                            player.sendErrorMessage("Kontakto vardas negali bûti tuðèias");
-                                        } else {
-                                            selectedContact.setName(newName);
-                                            LtrpGamemode.getDao().getPhoneDao().update(selectedContact);
-                                            changeNameDialog.getParentDialog().show();
-                                        }
-                                    })
-                                    .build()
-                                    .show();
-                        })
-                        .item("{FF0000}Paðalinti", removeOption -> {
-                            MsgboxDialog.create(player, ItemController.getEventManager())
-                                    .caption("Svarbu.")
-                                    .message("Ar tikrai norite paðaliti kontaktà ið telefono atminties?"
-                                            + "\n\nKontakto numeris:" + selectedContact.getNumber()
-                                            + "\nKontakto vardas: " + selectedContact.getName()
-                                            + "\n\nIðtrynus kontaktà jo sugràþinti nebeámanoma."
-                                            + "\nAr tikrai norite tæsti?")
-                                    .buttonCancel("Ne")
-                                    .onClickCancel(AbstractDialog::showParentDialog)
-                                    .buttonOk("Taip")
-                                    .onClickOk(warningDialog -> {
-                                        LtrpGamemode.getDao().getPhoneDao().remove(selectedContact);
-                                        player.sendMessage(Color.NEWS, "Kontaktas " + selectedContact.getName() + " paðalintas");
-                                        dialog.show();
-                                    })
-                                    .build()
-                                    .show();
-                        })
-                        .build()
-                        .show();
-            } else {
-                // Prideëti naujà kontaktà
-                InputDialog.create(player, ItemController.getEventManager())
-                        .caption("Naujas kontaktas 1/2")
-                        .buttonOk("Tæsti")
-                        .buttonCancel("Atgal")
-                        .message("Áveskite kontakto telefono numerá")
-                        .onClickOk((contactNumberDialog, contactNumber) -> {
-                            final int number;
-                            try {
-                                number = Integer.parseInt(contactNumber);
-                            } catch (NumberFormatException e) {
-                                player.sendErrorMessage("Numeris turi bûti sudarytas ið skaitmenu");
-                                contactNumberDialog.show();
-                                return;
-                            }
-                            InputDialog.create(player, ItemController.getEventManager())
-                                    .caption("Naujas kontaktas 2/2")
-                                    .buttonOk("Iðsaugoti")
-                                    .buttonCancel("Atgal")
-                                    .message("Áveskite kontakto " + number + " vardà")
-                                    .onClickCancel(AbstractDialog::showParentDialog)
-                                    .onClickOk((contactNameDialog, contactName) -> {
-                                        if (contactName != null && !contactName.isEmpty()) {
-                                            PhoneContact contact = LtrpGamemode.getDao().getPhoneDao().add(this.phonenumber, number, contactName);
-                                            phonebook.addContact(contact);
-                                            player.sendMessage(Color.NEWS, contactName + " pridëtas á telefono kontaktø sàraðà");
-                                        } else {
-                                            contactNameDialog.show();
-                                        }
-                                    })
-                                    .build()
-                                    .show();
-                        })
-                        .build()
-                        .show();
-            }
+        logger.debug("Phonebook:" + phonebook);
+        PhonebookListDialog dialog = new PhonebookListDialog(player, ItemController.getInstance().getEventManager(), phonebook);
+       // ListDialog dialog = ListDialog.create(player, ItemController.getInstance().getEventManager()).build();
+        dialog.setCallContactHandler((d, c) -> {
+           initiateCall(player, inventory, c.getNumber());
         });
+
+        dialog.setSendSmsHandler((d, c, s) -> {
+           sendSms(player, inventory, c.getNumber(), s);
+        });
+
+        dialog.setDeleteHandler((d, contact) -> {
+            LtrpGamemode.getDao().getPhoneDao().remove(contact);
+            phonebook.remove(contact);
+            player.sendMessage(Color.NEWS, "Kontaktas " + contact.getName() + " paðalintas");
+        });
+        dialog.show();
         return true;
     }
 
@@ -291,7 +141,6 @@ public class ItemPhone extends BasicItem {
             // First we check if a phone with that number exists
             if(contactPhone != null) {
                 // Yay, phone exists. Let's start calling it
-
                 final Phonecall phonecall = new Phonecall(player, this, contactPhone);
                 contactPhone.setPhonecall(phonecall);
                 this.setPhonecall(phonecall);
@@ -327,7 +176,7 @@ public class ItemPhone extends BasicItem {
                             player.sendMessage("Niekas neatsakë... Skambutis baigtas");
                         }
                     }
-                });
+                }).start();
             }
         }
 
@@ -380,38 +229,50 @@ public class ItemPhone extends BasicItem {
     }
 
     private void showSmsManagement(LtrpPlayer player, PhoneSms[] messages, Inventory inventory) {
-        PageListDialog dialog = PageListDialog.create(player, ItemController.getEventManager()).build();
-        for(PhoneSms msg : messages) {
-            ListDialogItem dialogItem = new ListDialogItem();
-            dialogItem.setData(msg);
-            String messageShortText = msg.getText().length() > 30 ? msg.getText().substring(0, 30) + "..." : msg.getText();
-            dialogItem.setItemText(msg.getDate().toString() + " " + messageShortText);
-
-            dialog.addItem(dialogItem);
-        }
-
-        String caption = this.phonenumber == messages[0].getSenderNumber() ? "Iðsiøstos þinutës" : "Gautos þinutës";
-        dialog.setCaption(caption);
-        dialog.setItemsPerPage(20);
-        dialog.setButtonOk("Perþiûrëti");
-        dialog.setButtonCancel("Atgal");
-        dialog.setNextPageItemText("Sekantis puslapis");
-        dialog.setPrevPageItemText("Praeitas puslapis");
-        dialog.setClickOkHandler((smsDialog, selectedItem) -> {
-            PhoneSms msg = (PhoneSms)selectedItem.getData();
-            MsgboxDialog.create(player, ItemController.getEventManager())
-                    .caption("Þinutë")
-                    .message("Data:" + msg.getDate().toString()
-                            + "\n" + (this.phonenumber == messages[0].getSenderNumber() ?
-                                    "Kam: " +  (phonebook.contains(msg.getRecipientNumber()) ? phonebook.getContactName(msg.getRecipientNumber()) : msg.getRecipientNumber()) :
-                                    "Nuo: " + (phonebook.contains(msg.getSenderNumber()) ? phonebook.getContactName(msg.getSenderNumber()) : msg.getSenderNumber()))
-                            + "\n\n" + msg.getText())
-                    .buttonOk("Atgal")
+        if(messages.length == 0) {
+            MsgboxDialog.create(player, ItemController.getInstance().getEventManager())
+                    .caption("Klaida.")
+                    .message("SMS nëra!")
+                    .buttonOk("Gerai")
+                    .buttonCancel("")
                     .onClickOk(AbstractDialog::showParentDialog)
                     .build()
                     .show();
+        }
+        else {
+            PageListDialog dialog = PageListDialog.create(player, ItemController.getInstance().getEventManager()).build();
+            for(PhoneSms msg : messages) {
+                ListDialogItem dialogItem = new ListDialogItem();
+                dialogItem.setData(msg);
+                String messageShortText = msg.getText().length() > 30 ? msg.getText().substring(0, 30) + "..." : msg.getText();
+                dialogItem.setItemText(msg.getDate().toString() + " " + messageShortText);
 
-        });
+                dialog.addItem(dialogItem);
+            }
+
+            String caption = this.phonenumber == messages[0].getSenderNumber() ? "Iðsiøstos þinutës" : "Gautos þinutës";
+            dialog.setCaption(caption);
+            dialog.setItemsPerPage(20);
+            dialog.setButtonOk("Perþiûrëti");
+            dialog.setButtonCancel("Atgal");
+            dialog.setNextPageItemText("Sekantis puslapis");
+            dialog.setPrevPageItemText("Praeitas puslapis");
+            dialog.setClickOkHandler((smsDialog, selectedItem) -> {
+                PhoneSms msg = (PhoneSms)selectedItem.getData();
+                MsgboxDialog.create(player, ItemController.getInstance().getEventManager())
+                        .caption("Þinutë")
+                        .message("Data:" + msg.getDate().toString()
+                                + "\n" + (this.phonenumber == messages[0].getSenderNumber() ?
+                                "Kam: " +  (phonebook.contains(msg.getRecipientNumber()) ? phonebook.getContactName(msg.getRecipientNumber()) : msg.getRecipientNumber()) :
+                                "Nuo: " + (phonebook.contains(msg.getSenderNumber()) ? phonebook.getContactName(msg.getSenderNumber()) : msg.getSenderNumber()))
+                                + "\n\n" + msg.getText())
+                        .buttonOk("Atgal")
+                        .onClickOk(AbstractDialog::showParentDialog)
+                        .build()
+                        .show();
+
+            });
+        }
     }
 
 
