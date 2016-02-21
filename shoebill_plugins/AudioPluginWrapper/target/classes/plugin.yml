@@ -1,5 +1,5 @@
 authors: Bebras
-class: Incognitos' Audio plugin Wrapper
+name: Incognitos' Audio plugin Wrapper
 version: 1.0-SNAPSHOT
 class: lt.maze.AudioPlugin
 buildDate: 2016.02.15
