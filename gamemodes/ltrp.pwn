@@ -527,7 +527,6 @@ new
     Mats = 300,
     bool:Windows[MAX_VEHICLES] = { false, ... },
     bool:gPlayerUsingLoopingAnim[MAX_PLAYERS],
-    bool:gPlayerAnimLibsPreloaded[MAX_PLAYERS],
     bool:IsOnePlayAnim[MAX_PLAYERS],
     BackOut[MAX_PLAYERS],
     Unfreeze[MAX_PLAYERS],
@@ -554,7 +553,7 @@ new
     Kils                    [ MAX_VEHICLES ],
     bool:UsingLoopAnim[ MAX_PLAYERS ],
     bool:AnimsPrelo   [ MAX_PLAYERS ],
-    ObjUpdate[ MAX_PLAYERS ],
+    //ObjUpdate[ MAX_PLAYERS ],
     Float:V_HP[ MAX_VEHICLES ],
     ac_SpeedWarns           [ MAX_PLAYERS ],
     //PlayerMoney             [ MAX_PLAYERS ],
@@ -3569,7 +3568,7 @@ public OnPlayerRequestClass(playerid, classid)
     #if defined DEBUG
         printf("OnPlayerRequestClass(%s, %d)", GetName(playerid), classid);
     #endif
-    switch( random( 3 ) )
+    /*switch( random( 3 ) )
     {
         case 0:
         {
@@ -3587,8 +3586,8 @@ public OnPlayerRequestClass(playerid, classid)
             InterpolateCameraLookAt(playerid, 128.530899, -1791.819824, 93.913764, 624.234130, -977.284240, 124.104843, 4000);
         }
     }
-    
-    new pName[MAX_PLAYER_NAME+1];
+    */
+    /*new pName[MAX_PLAYER_NAME+1];
     GetPlayerName(playerid,pName,MAX_PLAYER_NAME+1);
     if(!strcmp(pName,"npc1",true))
     {
@@ -3600,10 +3599,13 @@ public OnPlayerRequestClass(playerid, classid)
         SetPlayerSkin( playerid, 12 );
         return 1;
     }
-    
+    */
     //if( PlayerOn[ playerid ] )
     //    SpawnPlayerEx( playerid );
-    return false;
+    #if defined DEBUG
+        printf("OnPlayerRequestClass(%s, %d) end", GetName(playerid), classid);
+    #endif
+    return 1;
 }
 
 /*stock GetPlayerSqlId(playerid)
@@ -3744,8 +3746,11 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 3724, 2838.1953, -2407.1406, 29.3125, 0.25);
     RemoveBuildingForPlayer(playerid, 5158, 2837.7734, -2334.4766, 11.9922, 0.25);
     
-    SetPlayerColor(playerid,TEAM_HIT_COLOR);
+    //SetPlayerColor(playerid,TEAM_HIT_COLOR);
     //ShowPlayerLoginDialog(playerid);
+    #if defined DEBUG
+        printf("[debug] OnPlayerConnect(%s) end", GetName(playerid));
+    #endif
     return 1;
 }
 
@@ -3824,7 +3829,6 @@ stock NullPlayerInfo( playerid )
         SetPVarInt       ( playerid, ministr, 0 );
     }
     gPlayerUsingLoopingAnim [ playerid ] = false;
-    gPlayerAnimLibsPreloaded[ playerid ] = false;
     IsOnePlayAnim           [ playerid ] = false;
     BackOut                 [ playerid ] = 0;
 
@@ -4020,18 +4024,10 @@ public OnPlayerSpawn(playerid)
     #if defined DEBUG
         printf("[debug] OnPlayerSpawn(%s)", GetName(playerid));
     #endif
-    if(!IsPlayerLoggedIn(playerid))
-    {
-        SendClientMessage(playerid, GRAD, "Jûs nesate prisijungæs prie serverio, praðome prisijungti.");
-      //  Kick(playerid);
-        return 1;
-    }
-
+    /*
     if(FirstSpawn[ playerid ])
     {
-        FirstSpawn[ playerid ] = false;
-       // LoadPlayerKomp(playerid);
-        LoadPlayerWeapons(playerid);
+        
     }
     else 
     {
@@ -4047,42 +4043,30 @@ public OnPlayerSpawn(playerid)
                 GivePlayerWeapon(playerid, weapons[ i ], weapons[ i + 1]);
         }
     }
+    */
     
-    ObjUpdate[ playerid ] = true;
+   // ObjUpdate[ playerid ] = true;
 
-    SetPlayerSkillLevel(playerid, 0, 1);
-    SetPlayerSkillLevel(playerid, 6, 1);
-
-    SetPlayerSkillLevel(playerid, 3, 200);
-    SetPlayerSkillLevel(playerid, 4, 1);
-    SetPlayerSkillLevel(playerid, 5, 200);
-    SetPlayerSkillLevel(playerid, 7, 300);
-    SetPlayerSkillLevel(playerid, 8, 200);
-    SetPlayerSkillLevel(playerid, 9, 200);
-    SetPlayerSkillLevel(playerid, 10, 200);
-
-    PreloadAnimsForPlayer( playerid );
-    if(gPlayerAnimLibsPreloaded[playerid] == false)
-    {
-        gPlayerAnimLibsPreloaded[playerid] = true;
-    }
-    if( pInfo[ playerid ][ pMask ] == 0 )
+   /* if( pInfo[ playerid ][ pMask ] == 0 )
     {
         foreach(Player,i)
         {
             ShowPlayerNameTagForPlayer(i, playerid, pInfo[playerid][pMask]);
         }
-    }
-    if( GetPlayerLevel(playerid) == 0 )
+    }*/
+  /*  if( GetPlayerLevel(playerid) == 0 )
     {
         SetPlayerLevel(playerid, 1);
         SetPlayerScore( playerid, 1 );
         SetPlayerTeam( playerid, playerid );
         return 1;
-    }
-    SetPlayerTeam( playerid, playerid );
-    SetPlayerScore( playerid, GetPlayerLevel(playerid));
+    }*/
+   // SetPlayerTeam( playerid, playerid );
+    //SetPlayerScore( playerid, GetPlayerLevel(playerid));
     //SetTimerEx("GiveWeapons", 2000, 0, "d", playerid );
+    #if defined DEBUG
+        printf("[debug] OnPlayerSpawn(%s) end", GetName(playerid));
+    #endif
     return 1;
 }
 /*
@@ -4109,19 +4093,6 @@ public OnPlayerDeath(playerid, killerid, reason)
     #if defined DEBUG
         printf("[debug] OnPlayerDeath(%s, %d, %d)", GetName(playerid), killerid, reason);
     #endif
-    
-    if(Mires[playerid] == 0)
-    {
-        Mires[playerid] = 600;
-        GetPlayerPos(playerid,pInfo[playerid][pCrashPos][0],pInfo[playerid][pCrashPos][1],pInfo[playerid][pCrashPos][2]);
-        pInfo[playerid][pVirWorld] = GetPlayerVirtualWorld(playerid);
-        pInfo[playerid][pInt] = GetPlayerInterior(playerid);
-    }
-    else
-    {
-    	//SetSpawnInfo(playerid, NO_TEAM, GetPlayerSkin(playerid), )
-    	Mires[playerid] = 1;
-   	}
 
     if(gPlayerUsingLoopingAnim[playerid] == true)
     {
@@ -4135,23 +4106,6 @@ public OnPlayerDeath(playerid, killerid, reason)
     {
         BackOut[playerid] = 0;
     }
-    CancelEdit(playerid);
-    if ( killerid == INVALID_PLAYER_ID ) return 1;
-    foreach(Player,i)
-    {
-        if ( GetPlayerAdminLevel(i) >= 1 )
-        {
-            if ( GetPVarInt( i, "AP_KILLS" ) == 0 )
-            {
-                new string[ 126 ];
-                GetWeaponName( reason, string, 24 );
-
-                format          ( string, 126 ,"AdmWarn: þaidëjas (%s) nuþudë (%s) naudodamas (%s)", GetName( killerid ), GetName( playerid ), string );
-                SendAdminMessagePlayer( i, COLOR_ADM, string );
-            }
-        }
-    }
-    SaveAccount(playerid);
     return 1;
 }
 
@@ -10175,7 +10129,7 @@ CMD:canceloffer( playerid, params[ ] )
     }
     return 1;
 }
-
+/*
 CMD:die( playerid, params[ ] )
 {
     if ( Mires[ playerid ] == 0 ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs ne komos busenoje.");
@@ -10185,7 +10139,7 @@ CMD:die( playerid, params[ ] )
     TogglePlayerControllable(playerid, 0);
     DestroyDynamic3DTextLabel( DeathLabel[playerid] );
     return 1;
-}
+}*/
 /*
 CMD:repair( playerid, params[ ] )
 {
@@ -14464,6 +14418,9 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
         OldCar[ playerid ] = veh;
     }
+    #if defined DEBUG
+        printf("OnPlayerStateChange(%s, %d, %d) end", GetName(playerid), newstate, oldstate);
+    #endif
     return 1;
 }
 /*public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
@@ -21504,11 +21461,11 @@ FUNKCIJA:Sekunde()
         new plstate = GetPVarInt( i, "PLAYER_STATE" ),
             IsAfk = GetPVarInt( i, "Is_AFK" );
 
-        if ( ObjUpdate[ i ] )
+        /*if ( ObjUpdate[ i ] )
         {
             Streamer_Update( i );
             ObjUpdate[ i ] = false;
-        }
+        }*/
         
         if ( plstate == PLAYER_STATE_DRIVER )
         {
@@ -22747,7 +22704,6 @@ stock PreloadAnimsForPlayer( playerid )
     PreloadAnimLib( playerid, "FOOD" );
     PreloadAnimLib( playerid, "SWORD" );
     PreloadAnimLib( playerid, "CAMERA" );
-    gPlayerAnimLibsPreloaded[playerid] = true;
     return 1;
 }
 stock PreloadAnimLib( playerid, animlib[ ] )
