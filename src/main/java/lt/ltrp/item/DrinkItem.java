@@ -25,6 +25,7 @@ public class DrinkItem extends ConsumableItem {
     }
 
     @Override
+    @ItemUsageOption(name = "Gerti")
     public boolean use(LtrpPlayer player, Inventory inventory) {
         if(getDosesLeft() == 0) {
             inventory.remove(this);
@@ -44,13 +45,15 @@ public class DrinkItem extends ConsumableItem {
             } else {
                 final Inventory inv = inventory;
                 player.setSpecialAction(SpecialAction.DRINK_BEER);
-                keyStateEvent = ItemController.getEventManager().registerHandler(PlayerKeyStateChangeEvent.class, HandlerPriority.LOW, e-> {
+                player.sendActionMessage("iðsitraukia butelá ir já atsidaro");
+                keyStateEvent = ItemController.getInstance().getEventManager().registerHandler(PlayerKeyStateChangeEvent.class, HandlerPriority.LOW, e-> {
                    if(e.getOldState().isKeyPressed(PlayerKey.FIRE)) {
                        setDosesLeft(getDosesLeft()-1);
                        if(getDosesLeft() == 0) {
                            keyStateEvent.cancel();
                            inv.remove(this);
                            player.setSpecialAction(SpecialAction.NONE);
+                           player.sendActionMessage("iðgeria paskutiná laðà ir iðmeta butelá.");
                        }
                    }
                 });
