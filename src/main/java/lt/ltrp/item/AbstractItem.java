@@ -12,6 +12,10 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.TreeMap;
 import java.util.function.Supplier;
 
 /**
@@ -76,16 +80,22 @@ public abstract class AbstractItem implements Item {
                 break;
             }
         }
-
+        TreeMap<Float, List<ListDialogItem>> listDialogItems = new TreeMap<>();
         for(Method method : this.getClass().getMethods()) {
             // If so, method is an option
             if(method.isAnnotationPresent(ItemUsageOption.class)) {
-                logger.debug("showOptions adding method " + method.getName());
                 ItemUsageOption itemUsageAnnotation = method.getAnnotation(ItemUsageOption.class);
                 // if the class contains an enable supplier, we need to check if it allows the option to be enabled(visible)
                 if(enableSupplier != null && enableSupplier.getReturnType() == Supplier.class) {
                     try {
-                        Supplier<Boolean> supplier = (Supplier<Boolean>)enableSupplier.invoke(this, itemUsageAnnotation.name());
+                        Supplier<Boolean> supplier = null;
+                        // It may actually contain both, i think
+                        if(enableSupplier.getParameterCount() == 1) {
+                            supplier = (Supplier<Boolean>)enableSupplier.invoke(this, itemUsageAnnotation.name());
+                        }
+                        if(enableSupplier.getParameterCount() == 3) {
+                            supplier = (Supplier<Boolean>)enableSupplier.invoke(this, itemUsageAnnotation.name(), player, inventory);
+                        }
                         // If it is null, we consider it enabled
                         if(supplier != null && !supplier.get())
                             continue;
@@ -97,13 +107,23 @@ public abstract class AbstractItem implements Item {
                 listDialogItem.setData(method);
                 listDialogItem.setItemText(String.format("{%s}%s{%s}",
                         new Color(itemUsageAnnotation.color()).toRgbHexString(), itemUsageAnnotation.name(), Color.DIALOG.toRgbHexString()));
-                listDialog.addItem(listDialogItem);
+                float order = itemUsageAnnotation.order();
+                if(!listDialogItems.containsKey(order))
+                    listDialogItems.put(order, new ArrayList<>());
+
+                listDialogItems.get(order).add(listDialogItem);
             }
         }
+        listDialogItems.forEach((k,v) -> {
+            v.forEach(i -> {
+                logger.debug("showOptions adding option " + i.getItemText() + " method " + ((Method)i.getData()).getName() + " order " + k);
+                listDialog.addItem(i);
+            });
+        });
         listDialog.show();
     }
 
-    @ItemUsageOption(name = "Test", color = 0xFFEE00, order = 9f)
+    @ItemUsageOption(name = "Test", color = 0xFFEE00, order = 0.1f)
     public boolean lol(LtrpPlayer player) {
         player.sendMessage(String.format("Test Option. Item name: %s type:%s class:%s", getName(), getType().name(), getClass().getName()));
         player.sendMessage(String.format("Test Option. Item global id: %d item local id: %d amount:%d", getGlobalId(), getItemId(), getAmount()));
