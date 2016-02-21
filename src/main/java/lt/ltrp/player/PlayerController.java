@@ -7,7 +7,6 @@ import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.Animation;
-import lt.ltrp.dmv.Dmv;
 import lt.ltrp.dmv.DmvManager;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerLogInEvent;
@@ -16,20 +15,14 @@ import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Item;
 import lt.ltrp.job.ContractJob;
 import lt.ltrp.job.Faction;
-import lt.ltrp.job.Job;
 import lt.ltrp.job.JobManager;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.maze.streamer.StreamerPlugin;
 import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.amx.AmxCallable;
-import net.gtaun.shoebill.common.command.CommandEntry;
-import net.gtaun.shoebill.common.command.CustomCommandHandler;
-import net.gtaun.shoebill.common.dialog.ListDialogItem;
-import net.gtaun.shoebill.common.dialog.PageListDialog;
 import net.gtaun.shoebill.constant.WeaponSkill;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Color;
-import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.amx.AmxUnloadEvent;
@@ -43,8 +36,10 @@ import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PlayerController {
 
@@ -54,7 +49,6 @@ public class PlayerController {
 
     private Map<LtrpPlayer, Boolean> spawnsSetUp = new HashMap<>();
     private List<LtrpPlayer> firstSpawns = new ArrayList<>();
-    private Map<LtrpPlayer, Location> playerDeathLocations = new HashMap<>();
 
 
     public PlayerController(EventManager manager) {
@@ -107,33 +101,6 @@ public class PlayerController {
 
         playerCommandManager.registerCommands(new AdminCommands());
         playerCommandManager.registerCommands(new GeneralCommands());
-        playerCommandManager.registerCommand("test", new Class[]{LtrpPlayer.class}, new String[]{"player"}, (e, something) -> {
-            System.out.println("its test alright");
-            List<ListDialogItem> items = new ArrayList<ListDialogItem>();
-            for(Field f : e.getClass().getFields()) {
-                ListDialogItem item = new ListDialogItem();
-                item.setItemText(String.format("%s\t%s", f.getName(), f.toGenericString()));
-                items.add(item);
-            }
-            PageListDialog.create(e, LtrpGamemode.get().getEventManager())
-                    .caption("Okay")
-                    .items(items)
-                    .build().show();
-            return true;
-        });
-        playerCommandManager.registerCommand("test2", new Class[]{}, new String[]{}, (p,l) -> {
-            System.out.println("its test2 alright");
-
-            p.sendMessage("Job:" + p.getJob());
-            p.sendMessage(" Admin level;"  + p.getAdminLevel());
-            return true;
-        });
-
-
-
-
-
-
         //playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
 
 
@@ -237,7 +204,7 @@ public class PlayerController {
                 if(player.isInComa()) {
                     player.applyAnimation("CRACK", "crackdeth2", 4f, 1, 0, 0, 0, 0, 0);
                     // We start the coma countdown
-                    player.setCountdown(new PlayerCountdown(player, 30, true, p -> {
+                    player.setCountdown(new PlayerCountdown(player, 600, true, p -> {
                         player.setHealth(0f);
                     }, false, "~w~Iki mirties"));
                 }
