@@ -14,8 +14,9 @@ public class PlayerCountdown implements Destroyable{
     private int time;
     private int timeleft;
     private PlayerCountdownCallback callback;
-    private boolean paused, destroyed, frozen;
+    private boolean paused, destroyed, frozen, stoppable;
     private Timer timer;
+    private String infoBoxCaption;
 
     /**
      * Creates and starts a countdown
@@ -25,11 +26,17 @@ public class PlayerCountdown implements Destroyable{
      * @param callback the callback which will be called once the countdown is finished
      */
     public PlayerCountdown(LtrpPlayer player, int time, boolean freeze, PlayerCountdownCallback callback) {
+        this(player, time, freeze, callback, true, null);
+    }
+
+    public PlayerCountdown(LtrpPlayer player, int time, boolean frozen, PlayerCountdownCallback callback, boolean stoppable, String infoBoxCaption) {
         this.player = player;
         this.time = time;
-        this.timeleft = time;
+        this.frozen = frozen;
         this.callback = callback;
-        this.frozen = freeze;
+        this.stoppable = stoppable;
+        this.infoBoxCaption = infoBoxCaption;
+        this.timeleft = time;
         start();
     }
 
@@ -53,6 +60,10 @@ public class PlayerCountdown implements Destroyable{
         return frozen;
     }
 
+    public boolean isStoppable() {
+        return stoppable;
+    }
+
     private void start() {
         if(isDestroyed()) {
             return;
@@ -70,7 +81,10 @@ public class PlayerCountdown implements Destroyable{
             public void onTick(int i) {
                 timeleft--;
                 if(player.getInfoBox() != null) {
-                    player.getInfoBox().setCountDown(timeleft);
+                    if(infoBoxCaption != null)
+                        player.getInfoBox().setCountDown(infoBoxCaption, timeleft);
+                    else
+                        player.getInfoBox().setCountDown(timeleft);
                 }
                 if(callback != null) {
                     callback.onTick(player, timeleft);
@@ -81,6 +95,8 @@ public class PlayerCountdown implements Destroyable{
                 if(player.getInfoBox() != null) {
                     player.getInfoBox().setCountDown(null);
                 }
+                if(callback != null)
+                    callback.onStop(player);
                 stop();
             }
         });
@@ -108,14 +124,19 @@ public class PlayerCountdown implements Destroyable{
         }
     }
 
-
-    public void stop() {
+    public void forceStop() {
         timer.stop();
         if(callback != null) {
             callback.onStop(player);
         }
         if(frozen) {
             player.toggleControllable(true);
+        }
+    }
+
+    public void stop() {
+        if(stoppable) {
+            forceStop();
         }
     }
 

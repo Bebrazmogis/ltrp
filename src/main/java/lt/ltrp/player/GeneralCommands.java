@@ -67,4 +67,39 @@ public class GeneralCommands {
         }
         return false;
     }
+
+    @Command
+    @CommandHelp("Atðaukia vykdomà veiksmà")
+    public boolean stop(Player player) {
+        LtrpPlayer p =LtrpPlayer.get(player);
+        if(p.getCountdown() == null) {
+            p.sendErrorMessage("Jûs neatlikinëjate jokio veiksmo!");
+        } else if(!p.getCountdown().isStoppable()) {
+            p.sendErrorMessage("Ðio veiksmo atðaukti negalima!");
+        } else {
+            p.getCountdown().stop();
+            p.sendMessage("Veiksmas sëkmingia atðauktas.");
+            p.setCountdown(null);
+            return true;
+        }
+        return false;
+    }
+
+    @Command
+    @CommandHelp("Esant komos bûsenoje, leidþia susitaikyti su mirtimi")
+    public boolean die(Player player) {
+        LtrpPlayer p =LtrpPlayer.get(player);
+        if(!p.isInComa()) {
+            p.sendErrorMessage("Jûs neesate komos bûsenoje!");
+        } else if(p.getCountdown().getTimeleft() > 420) {
+            p.sendErrorMessage("Dar nepraëjo 3 minutës.");
+        } else {
+            p.setHealth(0f);
+            p.clearAnimations(1);
+            p.getCountdown().forceStop();
+            return true;
+        }
+        return false;
+    }
+
 }

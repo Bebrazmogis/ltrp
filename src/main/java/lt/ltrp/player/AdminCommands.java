@@ -274,7 +274,8 @@ public class AdminCommands {
             }
             if(target.isInComa()) {
                 target.setInComa(false);
-                target.getInfoBox().setDeathTime(null);
+                if(player.getCountdown() != null)
+                    player.getCountdown().forceStop();
             }
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pagydë jus.");
             player.sendMessage(Color.GREEN, "Þaidëjas " + target.getName() + "(ID:" + target.getId() + ") pagydytas");

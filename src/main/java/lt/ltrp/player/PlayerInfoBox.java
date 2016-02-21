@@ -17,14 +17,16 @@ import net.gtaun.shoebill.object.PlayerTextdraw;
  */
 public class PlayerInfoBox implements Destroyable{
 
+    private static final String DEFAULT_COUNTDOWN_CAPTION = "~w~Atliekama:";
 
     private PlayerTextdraw textdraw;
     private boolean destroyed, isShown;
     private LtrpPlayer player;
     private RadioItem radioItem;
     private LtrpVehicle vehicle;
-    private Integer countdownSeconds, deathCountdownSeconds, jailSeconds;
+    private Integer jailSeconds, countdownSeconds;
     private Taxi taxiTrip;
+    private String countdownCaption;
 
 
     public PlayerInfoBox(LtrpPlayer player) {
@@ -55,12 +57,12 @@ public class PlayerInfoBox implements Destroyable{
     }
 
     public void setCountDown(Integer seconds) {
-        this.countdownSeconds = seconds;
-        update();
+        this.setCountDown(DEFAULT_COUNTDOWN_CAPTION, seconds);
     }
 
-    public void setDeathTime(Integer seconds) {
-        this.deathCountdownSeconds = seconds;
+    public void setCountDown(String caption, Integer seconds) {
+        this.countdownSeconds = seconds;
+        this.countdownCaption = caption;
         update();
     }
 
@@ -120,12 +122,8 @@ public class PlayerInfoBox implements Destroyable{
             }
         }
         if(countdownSeconds != null) {
-            infoText.append("~n~~w~Atliekama: ");
+            infoText.append(String.format("~n~%s: ", countdownCaption));
             infoText.append(getTimeString(countdownSeconds));
-        }
-        if(deathCountdownSeconds != null) {
-            infoText.append("~n~~w~Iki mirties: ");
-            infoText.append(getTimeString(deathCountdownSeconds));
         }
         if(jailSeconds != null) {
             infoText.append("~n~~r~Sedeti liko: ~w~");
