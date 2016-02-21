@@ -48,7 +48,7 @@ public abstract class AbstractItem implements Item {
     @Override
     public void showOptions(LtrpPlayer player, Inventory inventory, AbstractDialog parentDialog) {
         logger.debug("showOptions called. player uid=" + player.getUserId() + " inventory name=" + inventory.getName());
-        ListDialog listDialog = ListDialog.create(player, ItemController.getEventManager()).build();
+        ListDialog listDialog = ListDialog.create(player, ItemController.getInstance().getEventManager()).build();
         listDialog.setCaption(getName() + " parinktys");
         listDialog.setButtonOk("Pasirinkti");
         listDialog.setButtonCancel("Atgal");
@@ -86,6 +86,11 @@ public abstract class AbstractItem implements Item {
     public boolean lol(LtrpPlayer player) {
         player.sendMessage(Color.CORAL, "Test option. This is " + getName() + " type:" + getType().name() + " Class:" + getClass().getName());
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Item && ((Item) o).getGlobalId() == this.getGlobalId();
     }
 
 
