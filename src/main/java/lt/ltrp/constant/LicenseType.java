@@ -6,7 +6,7 @@ package lt.ltrp.constant;
  */
 public enum LicenseType {
 
-    Car("Autobilio"),
+    Car("Automobilio"),
     Aircraft("Oro transporto"),
     Ship("Jûrininkystës"),
     Motorcycle("Motociklo"),
