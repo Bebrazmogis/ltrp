@@ -41,4 +41,15 @@ public class PlayerLicenses {
         }
         return null;
     }
+
+    public void remove(PlayerLicense license) {
+        for(int i = 0; i < licenseCount; i++) {
+            if(playerLicenses[ i ].equals(license)) {
+                playerLicenses[ i ] = playerLicenses[licenseCount-1];
+                playerLicenses[licenseCount-1] = null;
+                licenseCount--;
+                return;
+            }
+        }
+    }
 }

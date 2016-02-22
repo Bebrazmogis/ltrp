@@ -65,4 +65,9 @@ public class PlayerLicense {
     public void setDateAquired(Timestamp dateAquired) {
         this.dateAquired = dateAquired;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof PlayerLicense && ((PlayerLicense) o).getId() == getId();
+    }
 }

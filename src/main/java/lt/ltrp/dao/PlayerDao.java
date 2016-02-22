@@ -34,4 +34,5 @@ public interface PlayerDao {
     void updateLicense(PlayerLicense license);
     void insertLicense(PlayerLicense license);
     PlayerLicenses get(LtrpPlayer player);
+    void delete(PlayerLicense license);
 }

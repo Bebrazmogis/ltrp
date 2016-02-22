@@ -436,6 +436,20 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return licenses;
     }
 
+    @Override
+    public void delete(PlayerLicense license) {
+        String sql = "DELETE FROM player_licenses WHERE id = ?";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                ) {
+            stmt.setInt(1, license.getId());
+            stmt.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public LicenseWarning[] getWarnings(PlayerLicense license) {
         String sql = "SELECT * FROM player_license_warnings WHERE license_id = ?";
         List<LicenseWarning> warnings = new ArrayList<>();
