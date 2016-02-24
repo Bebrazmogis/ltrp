@@ -34,6 +34,27 @@ public class PlayerLicense {
         this.warnings = warnings;
     }
 
+    public void addWarning(LicenseWarning warn) {
+        int index = -1;
+        for(int i = 0 ; i < warnings.length; i++)
+            if(warnings[i] == null)
+            {
+                index = i;
+                break;
+            }
+        if(index != -1) {
+            warnings[index] = warn;
+        } else {
+            LicenseWarning[] tmp = new LicenseWarning[warnings.length+1];
+            index = 0;
+            for(LicenseWarning warning : getWarnings()) {
+                tmp[index++] = warning;
+            }
+            tmp[index] = warn;
+            setWarnings(tmp);
+        }
+    }
+
     public LicenseWarning[] getWarnings() {
         return warnings;
     }
