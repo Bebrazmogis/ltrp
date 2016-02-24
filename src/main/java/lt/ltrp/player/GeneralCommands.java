@@ -50,8 +50,9 @@ public class GeneralCommands {
         } else {
             target.sendMessage(Color.GREEN, String.format("|________%s licencijos________|", player.getCharName()));
             for(PlayerLicense license : player.getLicenses().get()) {
-                player.sendMessage(Color.WHITE, String.format("Licenzijos tipas:%s Iðlaikymo data: %s Áspëjimø skaièius: %d",
-                        license.getType(), license.getDateAquired(), license.getWarnings().length));
+                if(license != null)
+                    player.sendMessage(Color.WHITE, String.format("Licenzijos tipas:%s. Etapas: %s Iðlaikymo data: %s Áspëjimø skaièius: %d",
+                        license.getType().getName(), license.getStage() == 2 ? "Praktika" : "Teorija", license.getDateAquired(), license.getWarnings().length));
             }
         }
         return false;
