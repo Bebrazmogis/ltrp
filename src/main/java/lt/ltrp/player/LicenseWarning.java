@@ -1,6 +1,6 @@
 package lt.ltrp.player;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * @author Bebras
@@ -11,7 +11,7 @@ public class LicenseWarning {
     private int id;
     private PlayerLicense license;
     private String body, issuedBy;
-    private Date date;
+    private Timestamp date;
 
 
     public int getId() {
@@ -46,11 +46,11 @@ public class LicenseWarning {
         this.issuedBy = issuedBy;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 }
