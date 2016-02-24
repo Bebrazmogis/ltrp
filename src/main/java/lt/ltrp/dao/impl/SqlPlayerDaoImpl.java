@@ -462,7 +462,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             while(result.next()) {
                 LicenseWarning warning = new LicenseWarning();
                 warning.setId(result.getInt("id"));
-                warning.setBody(result.getString("body"));
+                warning.setBody(result.getString("warning"));
                 warning.setDate(result.getTimestamp("date"));
                 warning.setIssuedBy(result.getString("issued_by"));
                 warning.setLicense(license);
