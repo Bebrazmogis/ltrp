@@ -33,6 +33,7 @@ public interface PlayerDao {
     void updateLicenses(PlayerLicenses licenses);
     void updateLicense(PlayerLicense license);
     void insertLicense(PlayerLicense license);
+    void insert(LicenseWarning warning);
     PlayerLicenses get(LtrpPlayer player);
     void delete(PlayerLicense license);
 }

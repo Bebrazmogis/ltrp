@@ -16,10 +16,10 @@ CREATE TABLE players
   disease INT DEFAULT 0 NOT NULL,
   respect INT DEFAULT 0 NOT NULL,
   money INT DEFAULT 320 NOT NULL,
-  bank INT DEFAULT 0 NOT NULL,
+  bank_money INT DEFAULT 0 NOT NULL,
   deaths INT DEFAULT 0 NOT NULL,
   wanted_level INT DEFAULT 0 NOT NULL,
-  job INT DEFAULT 0 NOT NULL,
+  job_id INT DEFAULT 0 NOT NULL,
   leader INT DEFAULT 0 NOT NULL,
   member INT DEFAULT 0 NOT NULL,
   pJobCar INT DEFAULT 0 NOT NULL,
@@ -88,8 +88,20 @@ CREATE TABLE players
   Hunger TINYINT UNSIGNED DEFAULT 0 NOT NULL,
   TotalPaycheck INT UNSIGNED DEFAULT 0 NOT NULL,
   radio_slot TINYINT UNSIGNED DEFAULT 1 NOT NULL
-);
+)  ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
+CREATE TABLE IF NOT EXISTS player_job_levels
+(
+  id INT AUTO_INCREMENT NOT NULL,
+  player_id INT NOT NULL,
+  job_id TINYINT UNSIGNED NOT NULL,
+  `level` INT NOT NULL DEFAULT '1',
+  hours INT NOT NULL DEFAULT '0',
+  xp INT NOT NULL DEFAULT '0',
+  PRIMARY KEY(id),
+  INDEX(player_id),
+  INDEX(hours)
+) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 CREATE TABLE IF NOT EXISTS player_crashes
 (
@@ -99,7 +111,7 @@ CREATE TABLE IF NOT EXISTS player_crashes
   pos_y FLOAT NOT NULL,
   pos_z FLOAT NOT NULL,
   PRIMARY KEY(player_id)
-);
+)  ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 ALTER TABLE player_crashes ADD FOREIGN KEY(player_id) REFERENCES players(id) ON DELETE CASCADE;
 
 
@@ -186,7 +198,7 @@ CREATE TABLE IF NOT EXISTS phone_contacts (
   number int(11) NOT NULL,
   contact_number int(11) NOT NULL,
   name varchar(24) NOT NULL,
-  entry_date int(11) NOT NULL,
+  entry_date TIMESTAMP NOT NULL,
   PRIMARY KEY (id),
   INDEX(number),
   INDEX(contact_number)
@@ -453,4 +465,11 @@ CREATE TABLE IF NOT EXISTS player_vehicle_crimes
   date DATETIME NOT NULL,
   fine INT UNSIGNED NOT NULL,
   PRIMARY KEY(id)
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS radio_stations (
+  id int auto_increment not null,
+  name varchar(64) not null,
+  url varchar(255) not null,
+  primary key(id)
 )ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;

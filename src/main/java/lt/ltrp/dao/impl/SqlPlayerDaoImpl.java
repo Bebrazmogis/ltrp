@@ -463,7 +463,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 LicenseWarning warning = new LicenseWarning();
                 warning.setId(result.getInt("id"));
                 warning.setBody(result.getString("body"));
-                warning.setDate(result.getDate("date"));
+                warning.setDate(result.getTimestamp("date"));
                 warning.setIssuedBy(result.getString("issued_by"));
                 warning.setLicense(license);
                 warnings.add(warning);
@@ -474,8 +474,23 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return warnings.toArray(new LicenseWarning[0]);
     }
 
-    public void insertWarning(LicenseWarning warning) {
-
+    public void insert(LicenseWarning warning) {
+        String sql = "INSERT INTO player_license_warnings (license_id, warning, issued_by, `date`) VALUES (?, ?, ?, ?)";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ) {
+            stmt.setInt(1, warning.getLicense().getId());
+            stmt.setString(2, warning.getBody());
+            stmt.setString(3, warning.getIssuedBy());
+            stmt.setTimestamp(4, warning.getDate());
+            stmt.execute();
+            ResultSet keys = stmt.getGeneratedKeys();
+            if(keys.next())
+                warning.setId(keys.getInt(1));
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
