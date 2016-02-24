@@ -2,13 +2,13 @@ package lt.ltrp.job.policeman;
 
 import lt.ltrp.InitException;
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.job.policeman.modelpreview.RoadblockModelPreview;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.plugin.streamer.DynamicLabel;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import lt.ltrp.vehicle.JobVehicle;
 import lt.ltrp.vehicle.LtrpVehicle;
+import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.player.PlayerDeathEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
@@ -47,6 +47,7 @@ public class PolicemanManager  {
 
 
     public PolicemanManager() {
+        super();
         this.eventManager = LtrpGamemode.get().getEventManager().createChildNode();
         this.unitLabels = new HashMap<>();
         this.policeSirens = new HashMap<>();
@@ -60,8 +61,18 @@ public class PolicemanManager  {
            throw new InitException("Policeman manager initialization failed", e);
         }
 
-        commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
-        commandManager.registerCommands(new PoliceCommands(job, eventManager, unitLabels, policeSirens, dragTimers));
+        commandManager = new PlayerCommandManager(eventManager);
+
+        commandManager.replaceTypeParser(LtrpPlayer.class, s -> {
+            try {
+                return LtrpPlayer.get(Integer.parseInt(s));
+            } catch(NumberFormatException e) {
+                return LtrpPlayer.getByPartName(s);
+            }
+        });
+
+        commandManager.registerCommands(new PoliceCommands(commandManager, job, eventManager, unitLabels, policeSirens, dragTimers));
+        commandManager.installCommandHandler(HandlerPriority.NORMAL);
 
         eventHandlers.add(eventManager.registerHandler(VehicleDeathEvent.class, e -> {
             JobVehicle jobVehicle = JobVehicle.getById(e.getVehicle().getId());
