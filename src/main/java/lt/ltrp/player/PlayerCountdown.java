@@ -1,6 +1,5 @@
 package lt.ltrp.player;
 
-import lt.ltrp.data.Color;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Timer;
 
@@ -95,9 +94,7 @@ public class PlayerCountdown implements Destroyable{
                 if(player.getInfoBox() != null) {
                     player.getInfoBox().setCountDown(null);
                 }
-                if(callback != null)
-                    callback.onStop(player);
-                stop();
+                forceStop();
             }
         });
         timer.start();
@@ -127,7 +124,7 @@ public class PlayerCountdown implements Destroyable{
     public void forceStop() {
         timer.stop();
         if(callback != null) {
-            callback.onStop(player);
+            callback.onStop(player, getTimeleft() == 0);
         }
         if(frozen) {
             player.toggleControllable(true);
@@ -170,7 +167,7 @@ public class PlayerCountdown implements Destroyable{
 
     @FunctionalInterface
     public interface PlayerCountdownCallback {
-        void onStop(LtrpPlayer player);
+        void onStop(LtrpPlayer player, boolean finished);
         default void onTick(LtrpPlayer player, int timeremaining) {};
     }
 
