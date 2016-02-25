@@ -17,7 +17,7 @@ import net.gtaun.shoebill.object.PlayerTextdraw;
  */
 public class PlayerInfoBox implements Destroyable{
 
-    private static final String DEFAULT_COUNTDOWN_CAPTION = "~w~Atliekama:";
+    private static final String DEFAULT_COUNTDOWN_CAPTION = "~w~Atliekama";
 
     private PlayerTextdraw textdraw;
     private boolean destroyed, isShown;
