@@ -12,10 +12,13 @@ import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.shoebill.common.dialog.InputDialog;
+import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Vehicle;
+import net.gtaun.shoebill.object.VehicleDamage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +51,7 @@ public class AdminCommands {
 
         adminLevels.put("giveitem", 6);
         adminLevels.put("fly", 6);
+        adminLevels.put("vehicledmg", 6);
 
         teleportLocations.put("pc", new Location(2292.1936f, 26.7535f, 25.9974f, 0, 0));
         teleportLocations.put("ls", new Location(1540.1237f, -1675.2844f, 13.5500f, 0, 0));
@@ -60,9 +64,9 @@ public class AdminCommands {
 
 
     @BeforeCheck
-    public boolean beforeCheck(LtrpPlayer p, String cmd, String params) {
+    public boolean beforeCheck(Player p, String cmd, String params) {
         cmd = cmd.toLowerCase();
-        LtrpPlayer player = p;
+        LtrpPlayer player = LtrpPlayer.get(p);
         if(player != null) {
             System.out.println("AdminCommandst :: beforeCheck. Player: "+  p.getName() + " cmd: " +cmd + " params:" + params + " required admin level:" +
                     adminLevels.get(cmd) + " player admin levle:" + player.getAdminLevel());
@@ -143,7 +147,7 @@ public class AdminCommands {
 
     @Command
     @CommandHelp("Nukelia jus á pasirinktas koordinates")
-    public boolean gotopos(LtrpPlayer player, Float x, Float y, Float z) {
+    public boolean gotopos(Player player, Float x, Float y, Float z) {
         if(x == null || y == null || z == null) {
             player.sendMessage("Ne. ne taip");
             return false;
@@ -156,7 +160,8 @@ public class AdminCommands {
 
     @Command
     @CommandHelp("Nukelia jus prie pasirinktos transporot priemonës")
-    public boolean gotoCar(LtrpPlayer player, LtrpVehicle vehicle) {
+    public boolean gotoCar(Player p, LtrpVehicle vehicle) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         if(vehicle == null) {
             player.sendErrorMessage("Tokios transporto priemonës nëra!");
         } else {
@@ -199,7 +204,8 @@ public class AdminCommands {
 
     @Command
     @CommandHelp("Suteikia nurodytà daiktà nurodytam þaidëjui")
-    public boolean giveitem(LtrpPlayer p, LtrpPlayer p2, String itemClass, String args) {
+    public boolean giveitem(Player player, LtrpPlayer p2, String itemClass, String args) {
+        LtrpPlayer p = LtrpPlayer.get(player);
         if(p2 == null) {
             p.sendMessage(Color.LIGHTRED, "Tokio þaidëjo nëra.");
         } else {
@@ -225,7 +231,8 @@ public class AdminCommands {
 
     @Command
     @CommandHelp("Atstato visas nenaudojamas kontraktinio darbo transporto priemones á atsiradimo vietà")
-    public boolean rjc(LtrpPlayer player, ContractJob job) {
+    public boolean rjc(Player p, ContractJob job) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         if(job != null) {
             int count = 0;
             for(JobVehicle jobVehicle : job.getVehicles().values()) {
@@ -245,7 +252,8 @@ public class AdminCommands {
 
     @Command
     @CommandHelp("Atstato visas nenaudojamas frakcinio darbo transporto priemones á atsiradimo vietà")
-    public boolean rfc(LtrpPlayer player, Faction faction) {
+    public boolean rfc(Player p, Faction faction) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         if(faction != null) {
             int count = 0;
             for(JobVehicle jobVehicle : faction.getVehicles().values()) {
@@ -264,7 +272,8 @@ public class AdminCommands {
 
     @Command()
     @CommandHelp("Pagydo þaidëjà bei prikelia já ið komos")
-    public boolean aheal(LtrpPlayer player, @CommandParam("Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+    public boolean aheal(Player p, @CommandParam("Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
         } else {
@@ -287,7 +296,7 @@ public class AdminCommands {
 
     @Command
     @CommandHelp("Dont")
-    public boolean fly(LtrpPlayer player) {
+    public boolean fly(Player player) {
         if(player.getSpecialAction() == SpecialAction.NONE) {
             player.setSpecialAction(SpecialAction.USE_JETPACK);
         } else
@@ -295,8 +304,81 @@ public class AdminCommands {
         return true;
     }
 
+    @Command
+    public boolean vehicledmg(Player p, Vehicle v) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpVehicle vehicle;
+        if(v == null) {
+            vehicle = LtrpVehicle.getClosest(player, 5f);
+        } else {
+            vehicle = LtrpVehicle.getByVehicle(v);
+        }
+        if(vehicle != null) {
+            VehicleDamage dmg = vehicle.getDamage();
+            ListDialog.create(player, LtrpGamemode.get().getEventManager())
+                    .caption(vehicle.getModelName())
+                    .buttonOk("Pasirinkti")
+                    .buttonCancel("Iðeiti")
+                    .item("Padangos " + Integer.toBinaryString(dmg.getTires()), i -> {
+                        showBinaryInputDialog(player, "Padangø bûsena.",
+                                "Dabartinë bûsena: " + Integer.toBinaryString(dmg.getTires()) + "(" + dmg.getTires() + ")",
+                                (d, val) -> {
+                                    dmg.setTires(val);
+                                    player.sendMessage(Color.GREEN, "Padangø bûsena pakeista á" + Integer.toBinaryString(val));
+                                }).show();
+                    })
+                    .item("Panelës " + Integer.toBinaryString(dmg.getPanels()), i -> {
+                        showBinaryInputDialog(player, "Paneliø bûsena.",
+                                "Dabartinë bûsena: " + Integer.toBinaryString(dmg.getPanels()) + "(" + dmg.getPanels() + ")",
+                                (d, val) -> {
+                                    dmg.setPanels(val);
+                                    player.sendMessage(Color.GREEN, "Paneliø bûsena pakeista á" + Integer.toBinaryString(val));
+                                }).show();
+                    })
+                    .item("Ðviesos " + Integer.toBinaryString(dmg.getLights()), i -> {
+                        showBinaryInputDialog(player, "Ðviesø bûsena.",
+                                "Dabartinë bûsena: " + Integer.toBinaryString(dmg.getLights()) + "(" + dmg.getLights() + ")",
+                                (d, val) -> {
+                                    dmg.setLights(val);
+                                    player.sendMessage(Color.GREEN, "Ðviesø bûsena pakeista á" + Integer.toBinaryString(val));
+                                }).show();
+                    })
+                    .item("Durys " + Integer.toBinaryString(dmg.getDoors()), i -> {
+                        showBinaryInputDialog(player, "Durø bûsena.",
+                                "Durø bûsena: " + Integer.toBinaryString(dmg.getDoors()) + "(" + dmg.getDoors() + ")",
+                                (d, val) -> {
+                                    dmg.setDoors(val);
+                                    player.sendMessage(Color.GREEN, "Durø bûsena pakeista á" + Integer.toBinaryString(val));
+                                }).show();
+                    })
+                    .build()
+                    .show();
+            return true;
+        }
+        return false;
+    }
 
+    private InputDialog showBinaryInputDialog(LtrpPlayer player, String caption, String message, BinaryInputDiualogClickOkHandler inputHandler) {
+        return InputDialog.create(player, LtrpGamemode.get().getEventManager())
+                .caption(caption)
+                .message(message)
+                .onClickOk((d, s) -> {
+                    s = s.trim().replaceAll(" ", "");
+                    try {
+                        int val = Integer.parseInt(s, 2);
+                        inputHandler.onEnterBinary(d, val);
+                    } catch (NumberFormatException e) {
+                        player.sendErrorMessage("Praðome ávesti skaièiø, dvejetainiu formatu!");
+                        d.show();
+                    }
+                })
+                .build();
+    }
 
+    @FunctionalInterface
+    private interface BinaryInputDiualogClickOkHandler {
+        void onEnterBinary(InputDialog d, int val);
+    }
 
 }
 
