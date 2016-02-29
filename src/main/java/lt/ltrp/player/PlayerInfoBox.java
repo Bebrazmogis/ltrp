@@ -152,11 +152,11 @@ public class PlayerInfoBox implements Destroyable{
         int minutes = seconds / 60;
         seconds -= minutes * 60;
         if(hours > 0) {
-            return String.format("%2d:%2d:%2d", hours, minutes, seconds);
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
         } else if(minutes > 0){
-            return String.format("%2d:%2d", minutes, seconds);
+            return String.format("%02d:%02d", minutes, seconds);
         } else {
-            return String.format("%2d", seconds);
+            return String.format("%02d", seconds);
         }
     }
 
