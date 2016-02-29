@@ -15,11 +15,11 @@ public class StringUtils {
         ltToLatinChar.put('à', 'a');
         ltToLatinChar.put('è', 'c');
         ltToLatinChar.put('æ', 'e');
-        ltToLatinChar.put('ë', 'ë');
+        ltToLatinChar.put('ë', 'e');
         ltToLatinChar.put('á', 'i');
         ltToLatinChar.put('ð', 's');
         ltToLatinChar.put('ø', 'u');
-        ltToLatinChar.put('þ', 'þ');
+        ltToLatinChar.put('þ', 'z');
 
         ltToLatinChar.put('À', 'A');
         ltToLatinChar.put('È', 'C');
