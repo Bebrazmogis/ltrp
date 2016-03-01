@@ -96,10 +96,10 @@ public class ColorPicker {
             }
             for(int i = currentPage * ITEMS_PER_PAGE; i < (currentPage+1) * ITEMS_PER_PAGE && i < TEXTDRAWS.length; i++) {
                 if(e.getTextdraw().equals(TEXTDRAWS[i])) {
+                    hide();
                     if(handler != null) {
                         handler.colorSelected(i);
                     }
-                    hide();
                 }
             }
             if(e.getTextdraw().equals(NEXT_PAGE) && currentPage < MAX_PAGE) {
