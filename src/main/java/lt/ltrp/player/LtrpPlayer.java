@@ -181,6 +181,10 @@ public class LtrpPlayer implements Player {
         return offers;
     }
 
+    public boolean containsOffer(Class type) {
+        return offers.stream().filter(o -> o.getType() == type).findFirst().isPresent();
+    }
+
     public <T extends PlayerOffer> T getOffer(Class<T> type) {
         Optional<T> optional = (Optional<T>)offers.stream().filter(o -> o.getType() == type).findFirst();
         return optional.isPresent() ? optional.get() : null;
