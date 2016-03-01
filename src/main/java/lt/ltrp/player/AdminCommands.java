@@ -235,7 +235,7 @@ public class AdminCommands {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(job != null) {
             int count = 0;
-            for(JobVehicle jobVehicle : job.getVehicles().values()) {
+            for(JobVehicle jobVehicle : job.getVehicles()) {
                 if(!jobVehicle.isUsed()) {
                     jobVehicle.respawn();
                     count++;
@@ -256,7 +256,7 @@ public class AdminCommands {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(faction != null) {
             int count = 0;
-            for(JobVehicle jobVehicle : faction.getVehicles().values()) {
+            for(JobVehicle jobVehicle : faction.getVehicles()) {
                 if(!jobVehicle.isUsed()) {
                     jobVehicle.respawn();
                     count++;
