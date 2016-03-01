@@ -1,15 +1,18 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.data.Color;
-import lt.ltrp.job.ContractJob;
-import lt.ltrp.job.Faction;
+import lt.ltrp.LoadingException;
 import lt.ltrp.job.Job;
+import lt.ltrp.job.Rank;
+import lt.ltrp.job.drugdealer.DrugDealerJob;
+import lt.ltrp.job.mechanic.MechanicJob;
+import lt.ltrp.job.medic.MedicJob;
 import lt.ltrp.job.policeman.OfficerJob;
+import lt.ltrp.job.trashman.TrashManJob;
 import lt.ltrp.job.trashman.TrashMissions;
 import lt.ltrp.job.vehiclethief.VehicleThiefJob;
+import lt.ltrp.vehicle.JobVehicle;
 
-import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @author Bebras
@@ -17,68 +20,23 @@ import java.util.List;
  */
 public interface JobDao {
 
-    /**
-     * Reads all job data
-     * @return an array with all existing jobs
-     */
-    List<Job> get();
-
-    /**
-     * Reads all {@link lt.ltrp.job.Faction} data
-     * @return a list of existing factions
-     */
-    List<Faction> getFactions();
-
-    /**
-     * Reads the vehicle thief job data
-     * @param id the id of the job
-     * @return vehicle thief job, null if job couldn't be loaded(it doesn't exist)
-     */
-    VehicleThiefJob getVehicleThiefJob(int id);
-
-    /**
-     * Reads all {@link lt.ltrp.job.ContractJob} data
-     * @return a list of existing contract jobs
-     */
-    List<ContractJob> getContractJobs();
-
-    /**
-     * Persists contract job data
-     * @param job to be saved
-     */
-    void update(ContractJob job);
-
-    /**
-     * Persist faction job data
-     * @param faction to be stored
-     */
-    void update(Faction faction);
-
-    /**
-     * Deletes a job permanently
-     * @param job job to be deleted
-     */
-    void delete(Job job);
-
-    /**
-     * Generates a new unique ID for a job
-     * @param name of the new job
-     * @return the generated id or 0 on failure
-     */
-    int generateId(String name);
+    DrugDealerJob getDrugDealerJob(int id) throws LoadingException;
+    MechanicJob getMechanicJob(int id) throws LoadingException;
+    MedicJob getMedicJob(int id) throws LoadingException;
+    OfficerJob getOfficerJob(int id) throws LoadingException;
+    TrashManJob getTrashmanJob(int id) throws LoadingException;
+    VehicleThiefJob getVehicleThiefJob(int id) throws LoadingException;
 
 
-    /**
-     * Retrieves the trash missions for thrashman job
-     * @return a TrashMission instance containing all trash missions
-     */
+    Collection<JobVehicle> getVehicles(Job job) throws LoadingException;
+    void insertVehicle(JobVehicle vehicle);
+    void removeVehicle(JobVehicle vehicle);
+    void updateVehicle(JobVehicle vehicle);
+
+    Collection<Rank> getRanks(Job job) throws LoadingException;
+    void insertRank(Rank rank);
+    void removeRank(Rank rank);
+
     TrashMissions getTrashMissions();
 
-    /**
-     * Reads the policeman job data
-     * @param jobid hardcoded job id which indicates where should the data be loaded from
-     * @return an instance of {@link lt.ltrp.job.policeman.OfficerJob}  in any case
-     *  @throws IOException if an error occurs while reading the data
-     */
-    OfficerJob getPoliceFaction(int jobid) throws IOException;
 }

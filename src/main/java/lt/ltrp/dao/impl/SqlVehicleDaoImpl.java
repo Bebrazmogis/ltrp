@@ -1,5 +1,6 @@
 package lt.ltrp.dao.impl;
 
+import com.mysql.jdbc.*;
 import lt.ltrp.dao.VehicleDao;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.*;
@@ -7,6 +8,9 @@ import net.gtaun.shoebill.data.AngledLocation;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +19,7 @@ import java.util.Random;
  * @author Bebras
  *         2015.12.20.
  */
-public class SqlVehicleDaoImpl implements VehicleDao {
+public class  SqlVehicleDaoImpl implements VehicleDao {
 
     private DataSource dataSource;
 
@@ -40,10 +44,10 @@ public class SqlVehicleDaoImpl implements VehicleDao {
         ) {
             stmt.setInt(1, playerVehicle.getOwnerId());
             stmt.setInt(2, playerVehicle.getModelId());
-            stmt.setFloat(3, playerVehicle.getLocation().getX());
-            stmt.setFloat(4, playerVehicle.getLocation().getY());
-            stmt.setFloat(5, playerVehicle.getLocation().getZ());
-            stmt.setFloat(6, playerVehicle.getLocation().getAngle());
+            stmt.setFloat(3, playerVehicle.getSpawnLocation().getX());
+            stmt.setFloat(4, playerVehicle.getSpawnLocation().getY());
+            stmt.setFloat(5, playerVehicle.getSpawnLocation().getZ());
+            stmt.setFloat(6, playerVehicle.getSpawnLocation().getAngle());
             stmt.setInt(7, playerVehicle.getColor1());
             stmt.setInt(8, playerVehicle.getColor2());
             stmt.setInt(9, playerVehicle.getDeaths());
@@ -75,10 +79,10 @@ public class SqlVehicleDaoImpl implements VehicleDao {
                 ) {
             stmt.setInt(1, playerVehicle.getOwnerId());
             stmt.setInt(2, playerVehicle.getModelId());
-            stmt.setFloat(3, playerVehicle.getLocation().getX());
-            stmt.setFloat(4, playerVehicle.getLocation().getY());
-            stmt.setFloat(5, playerVehicle.getLocation().getZ());
-            stmt.setFloat(6, playerVehicle.getLocation().getAngle());
+            stmt.setFloat(3, playerVehicle.getSpawnLocation().getX());
+            stmt.setFloat(4, playerVehicle.getSpawnLocation().getY());
+            stmt.setFloat(5, playerVehicle.getSpawnLocation().getZ());
+            stmt.setFloat(6, playerVehicle.getSpawnLocation().getAngle());
             stmt.setInt(7, playerVehicle.getColor1());
             stmt.setInt(8, playerVehicle.getColor2());
             stmt.setInt(9, playerVehicle.getDeaths());
@@ -142,6 +146,73 @@ public class SqlVehicleDaoImpl implements VehicleDao {
             if(keys.next()) {
                 crime.setId(keys.getInt(1));
             }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(LtrpVehicle vehicle) {
+        String vehicleSql = "UPDATE vehicles SET model = ?, x = ?, y = ?, z = ?, angle = ?, license = ?, interior = ?, virtual_world = ?, color1 = ?, color2 = ? WHERE id = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement vehicleStmt = con.prepareStatement(vehicleSql);
+        ) {
+            vehicleStmt.setInt(1, vehicle.getModelId());
+            vehicleStmt.setFloat(2, vehicle.getSpawnLocation().getX());
+            vehicleStmt.setFloat(3, vehicle.getSpawnLocation().getY());
+            vehicleStmt.setFloat(4, vehicle.getSpawnLocation().getZ());
+            vehicleStmt.setFloat(5, vehicle.getSpawnLocation().getAngle());
+            vehicleStmt.setString(6, vehicle.getLicense());
+            vehicleStmt.setInt(7, vehicle.getSpawnLocation().getInteriorId());
+            vehicleStmt.setInt(8, vehicle.getSpawnLocation().getWorldId());
+            vehicleStmt.setInt(9, vehicle.getColor1());
+            vehicleStmt.setInt(10, vehicle.getColor2());
+            vehicleStmt.setInt(11, vehicle.getUniqueId());
+            vehicleStmt.execute();
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void insert(LtrpVehicle vehicle) {
+        String vehicleSql = "INSERT INTO vehicles (model, x, y, z, angle, license, interior, virtual_world, color1, color2) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement vehicleStmt = con.prepareStatement(vehicleSql, com.mysql.jdbc.Statement.RETURN_GENERATED_KEYS);
+        ) {
+            vehicleStmt.setInt(1, vehicle.getModelId());
+            vehicleStmt.setFloat(2, vehicle.getSpawnLocation().getX());
+            vehicleStmt.setFloat(3, vehicle.getSpawnLocation().getY());
+            vehicleStmt.setFloat(4, vehicle.getSpawnLocation().getZ());
+            vehicleStmt.setFloat(5, vehicle.getSpawnLocation().getAngle());
+            vehicleStmt.setString(6, vehicle.getLicense());
+            vehicleStmt.setInt(7, vehicle.getSpawnLocation().getInteriorId());
+            vehicleStmt.setInt(8, vehicle.getSpawnLocation().getWorldId());
+            vehicleStmt.setInt(9, vehicle.getColor1());
+            vehicleStmt.setInt(10, vehicle.getColor2());
+            vehicleStmt.execute();
+            ResultSet resultSet = vehicleStmt.getGeneratedKeys();
+            if(resultSet.next()) {
+                int id = resultSet.getInt(1);
+                vehicle.setUniqueId(id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(LtrpVehicle vehicle) {
+        String sql = "DELETE FROM vehicles WHERE id = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, vehicle.getUniqueId());
+            stmt.execute();
         } catch(SQLException e) {
             e.printStackTrace();
         }

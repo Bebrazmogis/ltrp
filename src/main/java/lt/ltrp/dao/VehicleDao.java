@@ -23,5 +23,8 @@ public interface VehicleDao {
 
     void insertCrime(VehicleCrime crime);
 
+    void update(LtrpVehicle vehicle);
+    void insert(LtrpVehicle vehicle);
+    void delete(LtrpVehicle vehicle);
 
 }

@@ -128,9 +128,9 @@ class JdbcDAO extends DAOFactory {
         this.phoneDao = new SqlPhoneDaoImpl(ds);
         this.itemDao = new SqlItemDao(ds);
         this.houseDao = new SqlHouseDao(ds);
-        this.jobDao = new FileJobDaoImpl(Shoebill.get().getResourceManager().getGamemode().getDataDir());
         this.dmvDao = new FileDmvDaoImpl(LtrpGamemode.get().getDataDir());
         this.vehicleDao = new SqlVehicleDaoImpl(ds);
+        this.jobDao = new MySqlJobDaoImpl(ds, vehicleDao);
         this.radioStationDao = new SqlRadioStationDao(ds);
         System.out.println("JDBCDAO initialized");
     }
