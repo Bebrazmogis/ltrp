@@ -100,7 +100,8 @@ CREATE TABLE IF NOT EXISTS player_job_levels
   xp INT NOT NULL DEFAULT '0',
   PRIMARY KEY(id),
   INDEX(player_id),
-  INDEX(hours)
+  INDEX(hours),
+  FOREIGN KEY(job_id) REFERENCES jobs(id) ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 CREATE TABLE IF NOT EXISTS player_crashes
@@ -453,7 +454,9 @@ CREATE TABLE IF NOT EXISTS player_vehicles
   panels INT NOT NULL,
   lights INT NOT NULL,
   tires INT NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (id) REFERENCES vehicles(id) ON DELETE CASCADE,
+  FOREIGN KEY (owner_id) REFERENCES players(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 CREATE TABLE IF NOT EXISTS player_vehicle_crimes
@@ -472,4 +475,64 @@ CREATE TABLE IF NOT EXISTS radio_stations (
   name varchar(64) not null,
   url varchar(255) not null,
   primary key(id)
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS vehicles (
+  id INT AUTO_INCREMENT NOT NULL ,
+  model SMALLINT UNSIGNED NOT NULL ,
+  x FLOAT NOT NULL ,
+  y FLOAT NOT NULL ,
+  z FLOAT NOT NULL ,
+  interior tinyint unsigned not null default '0',
+  virtual_world smallint unsigned not null default '0',
+  color1 TINYINT UNSIGNED NOT NULL ,
+  color2 TINYINT UNSIGNED NOT NULL ,
+  PRIMARY KEY (id),
+  INDEX (model)
+) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+
+CREATE TABLE IF NOT EXISTS jobs (
+  id int auto_increment not null,
+  name varchar(255) not null,
+  x float not null,
+  y float not null,
+  z float not null,
+  interior tinyint unsigned not null default '0',
+  virtual_world smallint unsigned not null default '0',
+  paycheck int not null default '0',
+  primary key(id)
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+create TABLE IF NOT EXISTS job_properties (
+  job_id int not null,
+  `key` text not null,
+  value text not null,
+  primary KEY (job_id, `key`),
+  FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS job_ranks (
+  id INT AUTO_INCREMENT NOT NULL,
+  job_id INT NOT NULL ,
+  name VARCHAR(65) NOT NULL ,
+  PRIMARY KEY (id),
+  FOREIGN KeY(job_id) REFERENCES jobs(id) ON DELETE CASCADE
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS job_ranks_contract (
+  id int NOT NULL ,
+  hours_needed SMALLINT UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (id),
+  FOREIGN KEY (id) REFERENCES job_ranks(id) ON DELETE CASCADE
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS job_vehicles (
+  id INT NOT NULL,
+  job_id INT NOT NULL,
+  rank_id INT NOT NULL ,
+  PRIMARY KEY(id),
+  FOREIGN KEY (id) REFERENCES vehicles(id) ON DELETE CASCADE ,
+  FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE ,
+  FOREIGN KEY (rank_id) REFERENCES job_ranks(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
