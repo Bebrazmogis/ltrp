@@ -54,7 +54,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     public static LtrpVehicle getByUniqueId(int uniqueid) {
         for(LtrpVehicle v : vehicles) {
-            if(v.getId() == uniqueid)
+            if(v.getUniqueId() == uniqueid)
                 return v;
         }
         return null;
@@ -202,6 +202,14 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
             }
         }
         return false;
+    }
+
+    public int getUniqueId() {
+        return super.getId();
+    }
+
+    public void setUniqueId(int id) {
+        super.setId(id);
     }
 
     public LtrpPlayer getDriver() {
