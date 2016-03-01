@@ -91,6 +91,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
     private float mileage;
     private LtrpPlayer driver;
     private Taxi taxi;
+    private AngledLocation spawnLocation;
 
     public LtrpVehicle(int id, Vehicle vehicle) {
         super(id, vehicle.getModelName(), new FixedSizeInventory(""));
@@ -138,6 +139,14 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     public void setTaxi(Taxi taxi) {
         this.taxi = taxi;
+    }
+
+    public AngledLocation getSpawnLocation() {
+        return spawnLocation;
+    }
+
+    public void setSpawnLocation(AngledLocation spawnLocation) {
+        this.spawnLocation = spawnLocation;
     }
 
     public boolean isLocked() {
