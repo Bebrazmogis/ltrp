@@ -185,7 +185,7 @@ forward OnPlayerLoginEx(playerid, sqlid);
 //#define JOB_MECHANIC  1
 #define JOB_SWEEPER   2
 //#define JOB_BOXER     3
-#define JOB_TRASH     3
+//#define JOB_TRASH     3
 #define JOB_DRUGS     4
 #define JOB_GUN       5
 #define JOB_TRUCKER   6
@@ -4309,8 +4309,8 @@ CMD:help(playerid)
     SendClientMessage( playerid, COLOR_FADE1, "  KITOS KOMANDOS: /lastad /bell /setcard /ccard /windows /trunk /bonnet /sid /savings");
 //    if ( pInfo[ playerid ][ pJob ] == JOB_MECHANIC )
 //    SendClientMessage( playerid, COLOR_LIGHTRED2, "  MECHANIKO KOMANDOS: /repair /repaint /addwheels");
-    if ( pInfo[ playerid ][ pJob ] == JOB_TRASH )
-      SendClientMessage( playerid, COLOR_LIGHTRED2, "  ÐIÛKÐLININKO: /startmission /endmission /takegarbage /throwgarbage");
+    //if ( pInfo[ playerid ][ pJob ] == JOB_TRASH )
+    //  SendClientMessage( playerid, COLOR_LIGHTRED2, "  ÐIÛKÐLININKO: /startmission /endmission /takegarbage /throwgarbage");
     if ( pInfo[ playerid ][ pJob ] == JOB_DRUGS )
       SendClientMessage( playerid, COLOR_LIGHTRED2, "  NARKOTIKØ PREKEIVIO KOMANDOS: /buyseeds /cutweed");
     if ( pInfo[ playerid ][ pJob ] == JOB_GUN )
@@ -6983,6 +6983,7 @@ CMD:d( playerid, params[ ] )
     }
     return 1;
 }
+/*
 CMD:startmission(playerid,params[])
 {
     if(pInfo[ playerid ][ pJob ] != JOB_TRASH)
@@ -7040,7 +7041,7 @@ CMD:endmission(playerid)
     SendClientMessage(playerid, COLOR_LIGHTRED, "Sëkmingai nutraukëtæ misijà, bet Jûsø surinktos ðiûkðlës sunkveþime niekur nedings.");
     return 1;
 }
-
+*/
 // Valid numbers are 1 - limit 
 stock ShowPlayerTrashMissionCP(playerid, mission, number)
 {
@@ -7110,7 +7111,7 @@ EndTrashMission(playerid)
     if(IsPlayerAttachedObjectSlotUsed(playerid, TRASH_OBJECT_INDEX))
         RemovePlayerAttachedObject(playerid, TRASH_OBJECT_INDEX);
 }
-
+/*
 CMD:takegarbage(playerid)
 {
     if(pInfo[ playerid ][ pJob ] != JOB_TRASH)
@@ -7171,7 +7172,7 @@ CMD:throwgarbage(playerid)
     }
 
     return 1;
-}
+}*/
 
 stock ShowMissionTrashObjects(playerid,missionid)
 {
@@ -14271,7 +14272,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             return 1;
         }
         
-        if(sVehicles[ veh ][ Job ] == JOB_TRASH)
+        /*if(sVehicles[ veh ][ Job ] == JOB_TRASH)
         {
             KillTimer(TrashTimer[ playerid ]);
             if(TrashMission[ playerid]  == TRASH_MISSION_NONE)
@@ -14285,7 +14286,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             return 1;
 
         }
-    
+    */
 
         if(Engine[veh] == false && VehicleHasEngine( GetVehicleModel( veh ) ) )
             ShowInfoText(playerid, "~w~SPAUSKITE ~r~ALT~n~~w~Kad uzvestumete automobili.", 2000);
@@ -14306,7 +14307,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
         //UpdatePlayerInfoText(playerid);
 
         new veh = OldCar[ playerid ];
-        if(sVehicles[ veh ][ Job ] == JOB_TRASH && pInfo[ playerid ][ pJob ] == JOB_TRASH)
+        /*if(sVehicles[ veh ][ Job ] == JOB_TRASH && pInfo[ playerid ][ pJob ] == JOB_TRASH)
         {
             if(TrashMission[ playerid ] != TRASH_MISSION_NONE)
             {
@@ -14319,6 +14320,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             
             return 1;
         }
+        */
     }
     if(oldstate == PLAYER_STATE_DRIVER)
     {
