@@ -1,5 +1,9 @@
 package lt.ltrp.job.mechanic;
 
+import lt.ltrp.LoadingException;
+import lt.ltrp.LtrpGamemode;
+import lt.ltrp.job.AbstractJobManager;
+import lt.ltrp.job.Job;
 import lt.ltrp.job.JobManager;
 import lt.ltrp.job.mechanic.event.PlayerLeaveRepairArea;
 import lt.ltrp.job.mechanic.event.RepairSessionEndEvent;
@@ -24,15 +28,8 @@ import java.util.Optional;
  * @author Bebras
  *         2016.02.08.
  */
-public class MechanicManager {
+public class MechanicManager extends AbstractJobManager {
 
-    private static final int JOB_ID = 1;
-    /**
-     * The amount it costs to remove hydraulics from a vehicle
-     */
-    protected static final int REMOVE_HYDRAULICS_PRICE = 200;
-    protected static final int INSTALL_HYDRAULICs_PRICE = 1500;
-    protected static final int WHEEL_PRICE = 400;
 
     public static final Map<String, Integer> WHEEL_COMPONENTS = new HashMap<>();
 
@@ -56,38 +53,34 @@ public class MechanicManager {
         WHEEL_COMPONENTS.put("Dollar", 1083);
     }
 
-    public static final String[] WHEEL_NAMES = new String[]{
-
-    };
 
 
-    private EventManagerNode eventNode;
     private MechanicJob job;
     private Map<LtrpPlayer, AbstractRepairSession> repairSessionMap;
     private PlayerCommandManager commandManager;
     private Map<LtrpPlayer, LtrpPlayer> playerTargetOffers;
     private Map<LtrpPlayer, Timer> offerTimers;
 
-    public MechanicManager(EventManager eventManager) {
-        eventNode = eventManager.createChildNode();
+    public MechanicManager(EventManager eventManager, int id) throws LoadingException {
+        super(eventManager);
         this.repairSessionMap = new HashMap<>();
         this.playerTargetOffers = new HashMap<>();
         this.offerTimers = new HashMap<>();
 
-        this.job = new MechanicJob(JobManager.getContractJob(JOB_ID));
+        this.job = LtrpGamemode.getDao().getJobDao().getMechanicJob(id);
 
         CommandGroup group = new CommandGroup();
-        group.registerCommands(new MechanicAcceptCommands(eventNode));
+        group.registerCommands(new MechanicAcceptCommands(eventManagerNode));
 
-        commandManager = new PlayerCommandManager(eventNode);
-        commandManager.registerCommands(new MechanicCommands(job, eventNode, this));
+        commandManager = new PlayerCommandManager(eventManagerNode);
+        commandManager.registerCommands(new MechanicCommands(job, eventManagerNode, this));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
         commandManager.registerChildGroup(group, "accept");
 
 
 
 
-        eventNode.registerHandler(VehicleEngineStartEvent.class, e -> {
+        eventManagerNode.registerHandler(VehicleEngineStartEvent.class, e -> {
             Optional<AbstractRepairSession> optionlSession = repairSessionMap.values().stream().filter(s -> s.getVehicle().equals(e.getVehicle())).findFirst();
             if(optionlSession.isPresent()) {
                 e.getPlayer().sendErrorMessage("Mechanikas dirba prie ðios transporto priemonës, niekur vaþiuoti negalite!");
@@ -95,11 +88,11 @@ public class MechanicManager {
             }
         });
 
-        eventNode.registerHandler(RepairSessionEndEvent.class, e -> {
+        eventManagerNode.registerHandler(RepairSessionEndEvent.class, e -> {
             repairSessionMap.remove(e.getPlayer());
         });
 
-        eventNode.registerHandler(PlayerLeaveRepairArea.class, e -> {
+        eventManagerNode.registerHandler(PlayerLeaveRepairArea.class, e -> {
            e.getPlayer().sendErrorMessage("Pasitraukëte per toli nuo taisomo automobilio! Laikas sustabdytas, gráþkite per 15 sekundþiø arba taisymas bus nutrauktas.");
         });
     }
@@ -133,5 +126,15 @@ public class MechanicManager {
     }
 
 
+    @Override
+    public Job getJob() {
+        return job;
+    }
 
+    @Override
+    public void destroy() {
+        offerTimers.values().forEach(Timer::destroy);
+        commandManager.destroy();
+        super.destroy();
+    }
 }

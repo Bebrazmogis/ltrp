@@ -18,12 +18,12 @@ import java.util.Map;
  */
 public class TrashmanCommands extends Commands {
 
-    private ContractJob job;
+    private TrashManJob job;
     private TrashmanManager trashmanManager;
     private Map<LtrpPlayer, TrashmanManager.PlayerTrashMission> playerTrashMissions;
     private Map<JobVehicle, Integer> vehicleTrashCount;
 
-    public TrashmanCommands(ContractJob job, TrashmanManager manager, Map<LtrpPlayer, TrashmanManager.PlayerTrashMission> pTrashMissions, Map<JobVehicle, Integer> trashCount) {
+    public TrashmanCommands(TrashManJob job, TrashmanManager manager, Map<LtrpPlayer, TrashmanManager.PlayerTrashMission> pTrashMissions, Map<JobVehicle, Integer> trashCount) {
         this.job = job;
         this.trashmanManager = manager;
         this.playerTrashMissions = pTrashMissions;
@@ -33,7 +33,7 @@ public class TrashmanCommands extends Commands {
 
     @BeforeCheck
     public boolean beforeCheck(LtrpPlayer player, String cmd, String params) {
-        if(player.getJob().getId() != TrashmanManager.JOB_ID) {
+        if(!player.getJob().equals(job)) {
             return false;
         } else {
             return true;
@@ -41,12 +41,12 @@ public class TrashmanCommands extends Commands {
     }
 
     @Command
-    public boolean startmission(LtrpPlayer player, String locationname) {
+    public boolean startMission(LtrpPlayer player, String locationname) {
         if(playerTrashMissions.get(player) == null) {
             TrashMission mission;
             if(locationname != null && !locationname.isEmpty() && (mission = trashmanManager.getTrashMissions().getByName(locationname)) != null) {
                 JobVehicle vehicle = JobVehicle.getById(player.getVehicle().getId());
-                if(vehicle != null && job.getVehicles().values().contains(vehicle)) {
+                if(vehicle != null && job.getVehicles().contains(vehicle)) {
                     TrashmanManager.PlayerTrashMission playerTrashMission = trashmanManager.new PlayerTrashMission(mission, player);
                     playerTrashMission.showCheckpoint();
                     playerTrashMissions.put(player, playerTrashMission);
@@ -108,7 +108,7 @@ public class TrashmanCommands extends Commands {
                     if(!vehicleTrashCount.containsKey(vehicle)) {
                         vehicleTrashCount.put(vehicle, 0);
                     }
-                    if(vehicleTrashCount.get(vehicle) < TrashmanManager.TRASHMASTER_CAPACITY) {
+                    if(vehicleTrashCount.get(vehicle) < job.getTrashMasterCapacity()) {
                         playerTrashMission.throwGarbage(200);
                         player.applyAnimation("GRENADE", "WEAPON_THROWU", 4.1f, 0, 0, 0, 0, 0, 0);
                         vehicleTrashCount.put(vehicle, vehicleTrashCount.get(vehicle)+1);

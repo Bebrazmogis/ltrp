@@ -1,16 +1,16 @@
 package lt.ltrp.job.trashman;
 
+import lt.ltrp.LoadingException;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.PawnFunc;
-import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.dao.JobDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.job.ContractJob;
+import lt.ltrp.job.AbstractJobManager;
 import lt.ltrp.job.Job;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.JobVehicle;
-import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.amx.AmxCallable;
+import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.constant.SpecialAction;
@@ -32,39 +32,28 @@ import java.util.Map;
  * @author Bebras
  *         2015.12.17.
  */
-public class TrashmanManager {
+public class TrashmanManager extends AbstractJobManager {
 
-    protected static final int JOB_ID = 3;
     protected static final int TRASH_SLOT = 4;
-    protected static final int TRASHMASTER_CAPACITY = 10;
-    protected static final int TRASH_ROUTE_BONUS = 380;
 
-    private static TrashmanManager ourInstance;
-
-    public static TrashmanManager getInstance() {
-        if(ourInstance == null) {
-            ourInstance = new TrashmanManager();
-        }
-        return ourInstance;
-    }
-
-
-    private EventManager eventManager;
-    private JobDao jobDao;
     private TrashMissions trashMissions;
     private Map<LtrpPlayer, PlayerTrashMission> playerTrashMissions;
     private Map<JobVehicle, Integer> vehicleTrashCounts;
     private PlayerCommandManager commandManager;
     private Checkpoint dumpCheckpoint;
+    private TrashManJob job;
 
-    private TrashmanManager() {
-        this.eventManager = LtrpGamemode.get().getEventManager().createChildNode();
-        this.jobDao = LtrpGamemode.getDao().getJobDao();
+    public TrashmanManager(EventManager eventManager, int id) throws LoadingException {
+        super(eventManager);
+        JobDao jobDao = LtrpGamemode.getDao().getJobDao();
+        job = jobDao.getTrashmanJob(id);
+        this.trashMissions = jobDao.getTrashMissions();
         this.playerTrashMissions = new HashMap<>();
         this.vehicleTrashCounts = new HashMap<>();
-        this.trashMissions = jobDao.getTrashMissions();
-        this.commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
-        this.commandManager.registerCommands(new TrashmanCommands((ContractJob)Job.get(JOB_ID), this, playerTrashMissions, vehicleTrashCounts));
+        this.commandManager = new PlayerCommandManager(eventManagerNode);
+        this.commandManager.installCommandHandler(HandlerPriority.NORMAL);
+        this.commandManager.registerCommands(new TrashmanCommands(job,  this, playerTrashMissions, vehicleTrashCounts));
+
         this.dumpCheckpoint = Checkpoint.create(new Radius(PawnFunc.Data_GetLocation("job_trash_dropoff"), 20.0f), (e) -> {
             LtrpPlayer player = LtrpPlayer.get(e.getId());
             if(player != null) {
@@ -74,10 +63,10 @@ public class TrashmanManager {
                         dumpCheckpoint.disable(player);
                         playerTrashMissions.remove(player);
                         vehicleTrashCounts.put(vehicle, 0);
-                        player.sendMessage(Color.NEWS, "Baigëte misijà. Jums prie algos buvo pridëti " + TRASH_ROUTE_BONUS + "$ Norëdami pradëti dar vienà misijà: /startmission");
+                        player.sendMessage(Color.NEWS, "Baigëte misijà. Jums prie algos buvo pridëti " + job.getTrashRouteBonus() + "$ Norëdami pradëti dar vienà misijà: /startmission");
                         AmxCallable addPaycheck = PawnFunc.getPublicMethod("AddPlayerPaycheck");
                         if(addPaycheck != null) {
-                            addPaycheck.call(player.getId(), TRASH_ROUTE_BONUS);
+                            addPaycheck.call(player.getId(), job.getTrashRouteBonus());
                         }
                     }
                 }
@@ -85,7 +74,7 @@ public class TrashmanManager {
         }, null);
 
 
-        this.eventManager.registerHandler(PlayerDisconnectEvent.class, e -> {
+        this.eventManagerNode.registerHandler(PlayerDisconnectEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             if(player != null) {
                 if(playerTrashMissions.containsKey(player)) {
@@ -95,15 +84,15 @@ public class TrashmanManager {
             }
         });
 
-        this.eventManager.registerHandler(PlayerStateChangeEvent.class, e -> {
+        this.eventManagerNode.registerHandler(PlayerStateChangeEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             if(player != null) {
                 if(player.getState().equals(PlayerState.DRIVER)) {
                     JobVehicle vehicle = JobVehicle.getById(player.getVehicle().getId());
-                    if (vehicle != null && vehicle.getJob().getId() == JOB_ID) {
+                    if (vehicle != null && vehicle.getJob().equals(job)) {
                         if(playerTrashMissions.containsKey(player)) {
                             PlayerTrashMission playerTrashMission = playerTrashMissions.get(player);
-                            if (vehicleTrashCounts.get(vehicle) == TRASHMASTER_CAPACITY) {
+                            if (vehicleTrashCounts.get(vehicle) == job.getTrashMasterCapacity()) {
                                 player.setCheckpoint(dumpCheckpoint);
                             } else {
                                 playerTrashMission.progress++;
@@ -119,7 +108,7 @@ public class TrashmanManager {
             }
         });
 
-        this.eventManager.registerHandler(VehicleDeathEvent.class, e -> {
+        this.eventManagerNode.registerHandler(VehicleDeathEvent.class, e -> {
             JobVehicle vehicle = JobVehicle.getById(e.getVehicle().getId());
             if(vehicle != null) {
                 if(vehicleTrashCounts.containsKey(vehicle)) {
@@ -133,6 +122,16 @@ public class TrashmanManager {
         return trashMissions;
     }
 
+    @Override
+    public Job getJob() {
+        return job;
+    }
+
+    @Override
+    public void destroy() {
+        commandManager.uninstallAllHandlers();
+        super.destroy();
+    }
 
 
 

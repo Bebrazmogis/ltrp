@@ -6,6 +6,7 @@ import lt.ltrp.vehicle.JobVehicle;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +18,18 @@ public interface Job {
 
     int getId();
     String getName();
+    void setName(String name);
     Location getLocation();
     void setLocation(Location loc);
-    List<? extends Rank> getRanks();
+    Collection<? extends Rank> getRanks();
     Rank getRank(int id);
-    Map<? extends Rank, JobVehicle> getVehicles();
+    void setRanks(Collection<? extends Rank> ranks);
+    Collection<JobVehicle> getVehicles();
+    void setVehicles(Collection<JobVehicle> vehicles);
+    Collection<JobVehicle> getVehicles(Rank rank);
+    void addVehicle(JobVehicle vehicle);
+    int getBasePaycheck();
+    void setBasePaycheck(int paycheck);
 
     /**
      * Checks if a player is at a workplace

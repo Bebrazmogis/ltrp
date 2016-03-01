@@ -1,7 +1,11 @@
 package lt.ltrp.job.policeman;
 
 import lt.ltrp.InitException;
+import lt.ltrp.LoadingException;
 import lt.ltrp.LtrpGamemode;
+import lt.ltrp.job.AbstractJobManager;
+import lt.ltrp.job.Job;
+import lt.ltrp.job.RoadblockCommands;
 import lt.ltrp.job.policeman.modelpreview.RoadblockModelPreview;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.plugin.streamer.DynamicLabel;
@@ -24,42 +28,24 @@ import java.util.*;
  * @author Bebras
  *         2015.12.27.
  */
-public class PolicemanManager  {
+public class PolicemanManager extends AbstractJobManager {
 
-    public static final int JOB_ID = 2;
-    private static PolicemanManager instance;
-
-    public static PolicemanManager getInstance() {
-        if(instance == null) {
-            instance = new PolicemanManager();
-        }
-        return instance;
-    }
-
-    private EventManager eventManager;
     private OfficerJob job;
     private RoadblockModelPreview roadblockPreview;
     protected Map<JobVehicle, DynamicLabel> unitLabels = new HashMap<>();
     protected Map<JobVehicle, DynamicSampObject> policeSirens = new HashMap<>();
     protected Map<LtrpPlayer, DragTimer> dragTimers;
-    private List<HandlerEntry> eventHandlers;
     private PlayerCommandManager commandManager;
 
 
-    public PolicemanManager() {
-        super();
-        this.eventManager = LtrpGamemode.get().getEventManager().createChildNode();
+    public PolicemanManager(EventManager eventManager, int id) throws LoadingException {
+        super(eventManager);
         this.unitLabels = new HashMap<>();
         this.policeSirens = new HashMap<>();
         this.dragTimers = new HashMap<>();
-        this.eventHandlers = new ArrayList<>();
         this.roadblockPreview = RoadblockModelPreview.get();
 
-        try {
-            this.job = LtrpGamemode.getDao().getJobDao().getPoliceFaction(JOB_ID);
-        } catch (IOException e) {
-           throw new InitException("Policeman manager initialization failed", e);
-        }
+        this.job = LtrpGamemode.getDao().getJobDao().getOfficerJob(id);
 
         commandManager = new PlayerCommandManager(eventManager);
 
@@ -72,9 +58,10 @@ public class PolicemanManager  {
         });
 
         commandManager.registerCommands(new PoliceCommands(commandManager, job, eventManager, unitLabels, policeSirens, dragTimers));
+        commandManager.registerCommands(new RoadblockCommands(job));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
 
-        eventHandlers.add(eventManager.registerHandler(VehicleDeathEvent.class, e -> {
+        eventManagerNode.registerHandler(VehicleDeathEvent.class, e -> {
             JobVehicle jobVehicle = JobVehicle.getById(e.getVehicle().getId());
             if (jobVehicle != null) {
                 if (unitLabels.containsKey(jobVehicle)) {
@@ -86,37 +73,48 @@ public class PolicemanManager  {
                     policeSirens.remove(jobVehicle);
                 }
             }
-        }));
+        });
 
-        eventHandlers.add(eventManager.registerHandler(PlayerDisconnectEvent.class, e -> {
+        eventManagerNode.registerHandler(PlayerDisconnectEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            if(player != null) {
+            if (player != null) {
                 Optional<DragTimer> timer = dragTimers.values().stream().filter(dt -> dt.getTarget().equals(player) || dt.getPlayer().equals(player)).findFirst();
-                if(timer.isPresent()) {
+                if (timer.isPresent()) {
                     DragTimer t = timer.get();
                     dragTimers.remove(t.getPlayer());
                     t.destroy();
                     t.getTarget().toggleControllable(true);
                 }
             }
-        }));
+        });
 
-        eventHandlers.add(eventManager.registerHandler(PlayerDeathEvent.class, e -> {
+        eventManagerNode.registerHandler(PlayerDeathEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            if(player != null) {
+            if (player != null) {
                 Optional<DragTimer> timer = dragTimers.values().stream().filter(dt -> dt.getTarget().equals(player) || dt.getPlayer().equals(player)).findFirst();
-                if(timer.isPresent()) {
+                if (timer.isPresent()) {
                     DragTimer t = timer.get();
                     dragTimers.remove(t.getPlayer());
                     t.destroy();
                     t.getTarget().toggleControllable(true);
                 }
             }
-        }));
+        });
 
 
 
 
     }
 
+    @Override
+    public void destroy() {
+        commandManager.uninstallAllHandlers();
+        commandManager.destroy();
+        super.destroy();
+    }
+
+    @Override
+    public Job getJob() {
+        return job;
+    }
 }

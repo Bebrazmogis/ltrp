@@ -1,6 +1,7 @@
 package lt.ltrp.job.mechanic;
 
 import lt.ltrp.job.ContractJob;
+import lt.ltrp.job.JobProperty;
 
 /**
  * @author Bebras
@@ -8,15 +9,31 @@ import lt.ltrp.job.ContractJob;
  */
 public class MechanicJob extends ContractJob {
 
-    public MechanicJob(ContractJob job) {
-        super();
-        super.setId(job.getId());
-        super.setLocation(job.getLocation());
-        super.setName(job.getName());
-        super.setContractLength(job.getContractLength());
-        super.setMinPaycheck(job.getMinPaycheck());
-        super.setMaxPaycheck(job.getMaxPaycheck());
-        super.setRanks(job.getRanks());
+    /**
+     * The amount it costs to remove hydraulics from a vehicle
+     */
+    @JobProperty("remove_hydraulics_price")
+    public int hydraulicsInstallPrice;
+
+    @JobProperty("install_hydraulic_price")
+    public int hydraulicRemovePrice;
+
+    @JobProperty("wheel_price")
+    public int wheelPrice;
+
+    public MechanicJob(int id) {
+        super(id);
     }
 
+    public int getHydraulicsInstallPrice() {
+        return hydraulicsInstallPrice;
+    }
+
+    public int getHydraulicRemovePrice() {
+        return hydraulicRemovePrice;
+    }
+
+    public int getWheelPrice() {
+        return wheelPrice;
+    }
 }

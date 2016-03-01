@@ -22,9 +22,15 @@ import java.util.Optional;
  */
 public class RoadblockCommands extends Commands {
 
+    private Job job;
+
+    public RoadblockCommands(Job job) {
+        this.job = job;
+    }
+
     @BeforeCheck
     public boolean beforeCheck(LtrpPlayer player, String cmd, String params) {
-        if(player.isAdmin() || player.getJob().getId() == PolicemanManager.JOB_ID || player.getJob().getId() == MedicManager.JOB_ID) {
+        if(player.isAdmin() || player.getJob().equals(job) || player.getJob().getId() == MedicManager.JOB_ID) {
             return true;
         } else {
             return false;

@@ -48,7 +48,6 @@ public class PoliceCommands extends Commands{
     private static final Map<String, Integer> commandToRankNumber;
     private static final List<String> jobVehicleCommands;
     private static final List<String> jobAreaCommands;
-    private static final int JOB_ID = 2;
 
     static {
         commandToRankNumber = new HashMap<>();
@@ -226,7 +225,7 @@ public class PoliceCommands extends Commands{
     public boolean setunit(Player p, @CommandParameter(name = "Tekstas")String text) {
         LtrpPlayer player = LtrpPlayer.get(p);
         JobVehicle jobVehicle = JobVehicle.getById(player.getVehicle().getId());
-        if(jobVehicle != null || jobVehicle.getJob().getId() != JOB_ID) {
+        if(jobVehicle != null || !jobVehicle.getJob().equals(job)) {
             if(!text.isEmpty()) {
                 DynamicLabel label = unitLabels.get(jobVehicle);
                 if(label != null) {
@@ -320,8 +319,8 @@ public class PoliceCommands extends Commands{
     public boolean mdc(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
         JobVehicle jobVehicle = JobVehicle.getById(player.getVehicle().getId());
-        if(player.getJob().isAtWork(player) || (jobVehicle != null && jobVehicle.getJob().getId() == JOB_ID)) {
-            new PoliceDatabaseMenu(player, JobManager.getInstance().getEventManager()).show();
+        if(player.getJob().isAtWork(player) || (jobVehicle != null && jobVehicle.getJob().equals(job))) {
+            new PoliceDatabaseMenu(player, eventManager).show();
         } else
             player.sendErrorMessage("Jûs turite bûti darbovietëje arba darbinëje transporto priemonëje.");
         return false;

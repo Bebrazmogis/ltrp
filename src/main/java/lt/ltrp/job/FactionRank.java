@@ -8,6 +8,7 @@ public class FactionRank implements Rank {
     
     private int number;
     private String name;
+    private Job job;
 
     public FactionRank(int number, String name) {
         this.number = number;
@@ -34,5 +35,15 @@ public class FactionRank implements Rank {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    @Override
+    public Job getJob() {
+        return job;
     }
 }

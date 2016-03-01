@@ -5,8 +5,11 @@ import lt.ltrp.vehicle.JobVehicle;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -20,10 +23,19 @@ public class Faction implements Job {
     private int id;
     private String name;
     private Location location;
-    private List<FactionRank> ranks;
+    private Collection<FactionRank> ranks;
     private int leaderId;
-    private Map<FactionRank, JobVehicle> vehicles;
+    private Collection<JobVehicle> vehicles;
 
+    public Faction() {
+        JobManager.getFactions().add(this);
+        vehicles = new ArrayList<>();
+    }
+
+    public Faction(int id) {
+        this();
+        this.id = id;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -33,8 +45,36 @@ public class Faction implements Job {
         this.name = name;
     }
 
-    public Map<FactionRank, JobVehicle> getVehicles() {
+    @Override
+    public Collection<JobVehicle> getVehicles() {
         return vehicles;
+    }
+
+    @Override
+    public void setVehicles(Collection<JobVehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    @Override
+    public Collection<JobVehicle> getVehicles(Rank rank) {
+        return vehicles == null ?
+                new ArrayList<>(0) :
+                vehicles.stream().filter(v -> v.getRequiredRank().equals(rank)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void addVehicle(JobVehicle vehicle) {
+        vehicles.add(vehicle);
+    }
+
+    @Override
+    public int getBasePaycheck() {
+        return 0;
+    }
+
+    @Override
+    public void setBasePaycheck(int paycheck) {
+
     }
 
     @Override
@@ -49,10 +89,6 @@ public class Faction implements Job {
                 p.sendMessage(color, message);
             }
         }
-    }
-
-    public void setVehicles(Map<FactionRank, JobVehicle> vehicles) {
-        this.vehicles = vehicles;
     }
 
     public int getLeaderId() {
@@ -84,7 +120,7 @@ public class Faction implements Job {
     }
 
     @Override
-    public List<FactionRank> getRanks() {
+    public Collection<FactionRank> getRanks() {
         return ranks;
     }
 
@@ -105,6 +141,11 @@ public class Faction implements Job {
             }
         }
         return null;
+    }
+
+    @Override
+    public void setRanks(Collection<? extends Rank> ranks) {
+        this.ranks = (Collection<FactionRank>) ranks;
     }
 
     @Override

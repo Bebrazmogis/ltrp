@@ -5,8 +5,8 @@ import lt.ltrp.vehicle.JobVehicle;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -22,8 +22,18 @@ public class ContractJob implements Job {
     private int minPaycheck, maxPaycheck;
     private String name;
     private Location location;
-    private List<ContractJobRank> ranks;
-    private Map<ContractJobRank, JobVehicle> vehicles;
+    private Collection<ContractJobRank> ranks;
+    private Collection<JobVehicle> vehicles;
+
+    public ContractJob() {
+        JobManager.getContractJobs().add(this);
+        vehicles = new ArrayList<>();
+    }
+
+    public ContractJob(int id) {
+        super();
+        this.id = id;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -54,7 +64,7 @@ public class ContractJob implements Job {
     }
 
     @Override
-    public List<ContractJobRank> getRanks() {
+    public Collection<ContractJobRank> getRanks() {
         return ranks;
     }
 
@@ -69,8 +79,38 @@ public class ContractJob implements Job {
     }
 
     @Override
-    public Map<ContractJobRank, JobVehicle> getVehicles() {
+    public void setRanks(Collection<? extends Rank> ranks) {
+        this.ranks = (Collection<ContractJobRank>) ranks;
+    }
+
+    @Override
+    public Collection<JobVehicle> getVehicles() {
         return vehicles;
+    }
+
+    @Override
+    public void setVehicles(Collection<JobVehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    @Override
+    public Collection<JobVehicle> getVehicles(Rank rank) {
+        return vehicles.stream().filter(v -> v.getRequiredRank().equals(rank)).collect(Collectors.toList());
+    }
+
+    @Override
+    public void addVehicle(JobVehicle vehicle) {
+        vehicles.add(vehicle);
+    }
+
+    @Override
+    public int getBasePaycheck() {
+        return minPaycheck;
+    }
+
+    @Override
+    public void setBasePaycheck(int paycheck) {
+        this.minPaycheck = paycheck;
     }
 
     @Override

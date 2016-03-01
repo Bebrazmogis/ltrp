@@ -20,7 +20,8 @@ public class VehicleThiefJob extends ContractJob{
     private Random random;
 
 
-    public VehicleThiefJob() {
+    public VehicleThiefJob(int id) {
+        super(id);
         this.vehicleBuyPoints = new HashMap<>();
         this.random = new Random();
     }

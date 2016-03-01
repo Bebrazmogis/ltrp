@@ -17,7 +17,9 @@ import net.gtaun.shoebill.common.command.CommandHelp;
  */
 public class DrugDealerCommands extends Commands {
 
+
     private DrugDealerJob job;
+
 
     public DrugDealerCommands(DrugDealerJob job) {
         this.job = job;
@@ -40,12 +42,12 @@ public class DrugDealerCommands extends Commands {
             player.sendErrorMessage("Èia niekas nieko neparduoda.");
         } else if(amount <= 0) {
             player.sendErrorMessage("Kiekis negali bûti maþesnis nei 1.");
-        } else if(player.getMoney() <= amount * SEED_PRICE) {
-            player.sendErrorMessage("Jums neuþtenka pinigø " + amount + " sëkloms. Jø kaina: " + (amount * SEED_PRICE));
+        } else if(player.getMoney() <= amount * job.getSeedPrice()) {
+            player.sendErrorMessage("Jums neuþtenka pinigø " + amount + " sëkloms. Jø kaina: " + (amount * job.getSeedPrice()));
         } else if(player.getInventory().isFull()) {
             player.sendErrorMessage("Jûsø inventorius pilnas!");
         } else {
-            int price = amount*SEED_PRICE;
+            int price = amount*job.getSeedPrice();
             player.giveMoney(-price);
             WeedSeedItem item = new WeedSeedItem("Marihuanos sëklos");
             item.setAmount(amount);

@@ -218,14 +218,14 @@ public class MechanicCommands {
                 MsgboxDialog.create(player, eventNode)
                         .caption("Ratai " + dialogItem.getItemText())
                         .message("Ratai: " + dialogItem.getItemText() +
-                                "\nKaina: " + Currency.SYMBOL + MechanicManager.WHEEL_PRICE +
+                                "\nKaina: " + Currency.SYMBOL + job.getWheelPrice() +
                                 "\n\n Ar norite pradëti ratø montavimà?")
                         .buttonOk("Taip")
                         .buttonCancel("Ne")
                         .onClickOk(d -> {
-                            if (player.getMoney() > MechanicManager.WHEEL_PRICE) {
+                            if (player.getMoney() > job.getWheelPrice()) {
                                 manager.addRepairSession(new WheelChangeSession(eventNode, player, vehicle, (pl, veh, finished) -> {
-                                    player.giveMoney(-MechanicManager.WHEEL_PRICE);
+                                    player.giveMoney(-job.getWheelPrice());
                                     vehicle.getComponent().add(componentId);
                                     player.sendMessage("Ratai sëkmingai pakeisti.");
                                 }));
@@ -250,15 +250,15 @@ public class MechanicCommands {
                         }));
                     })
                     .item("Paðalinti hidraulinæ pakabà", () -> vehicle.getComponent().get(VehicleComponentSlot.HYDRAULICS) != 0, i -> {
-                        MsgboxDialog dialog = RemoveHydraulicsMsgDialog.create(player, vehicle, eventNode, MechanicManager.REMOVE_HYDRAULICS_PRICE);
+                        MsgboxDialog dialog = RemoveHydraulicsMsgDialog.create(player, vehicle, eventNode, job.getHydraulicRemovePrice());
                         dialog.setClickOkHandler(d -> {
-                            if (player.getMoney() < MechanicManager.REMOVE_HYDRAULICS_PRICE) {
-                                player.sendErrorMessage("Jums neuþtenka pinigø iðimti hidraulikai. Tai kainuoja " + Currency.SYMBOL + MechanicManager.REMOVE_HYDRAULICS_PRICE);
+                            if (player.getMoney() < job.getHydraulicRemovePrice()) {
+                                player.sendErrorMessage("Jums neuþtenka pinigø iðimti hidraulikai. Tai kainuoja " + Currency.SYMBOL + job.getHydraulicRemovePrice());
                             } else {
                                 manager.addRepairSession(new HydraulicsRemovalSession(eventNode, player, vehicle, (pl, veh, finished) -> {
                                     if (finished) {
                                         vehicle.getComponent().remove(VehicleComponentSlot.HYDRAULICS);
-                                        player.giveMoney(-MechanicManager.REMOVE_HYDRAULICS_PRICE);
+                                        player.giveMoney(-job.getHydraulicRemovePrice());
                                         player.sendMessage("Hidraulika paðalinta sëkmingai.");
                                     }
                                 }));
@@ -270,7 +270,7 @@ public class MechanicCommands {
                         MsgboxDialog.create(player, eventNode)
                                 .caption("Hidraulinë pakaba")
                                 .message("Automobilis: " + vehicle.getModelName() +
-                                    "\nKaina: " + Currency.SYMBOL + MechanicManager.INSTALL_HYDRAULICs_PRICE +
+                                    "\nKaina: " + Currency.SYMBOL + job.getHydraulicsInstallPrice() +
                                     "\n\nAr norite pradëti darbus?")
                                 .buttonOk("Taip")
                                 .buttonCancel("Ne")
@@ -278,7 +278,7 @@ public class MechanicCommands {
                                     manager.addRepairSession(new HydraulicInstallSession(eventNode, player, vehicle, (pl, veh, finished) -> {
                                         if(finished) {
                                             vehicle.getComponent().add(1087);
-                                            player.giveMoney(-MechanicManager.INSTALL_HYDRAULICs_PRICE);
+                                            player.giveMoney(-job.getHydraulicsInstallPrice());
                                             player.sendMessage("Hidraulika sëkmingai ádiegta.");
                                         }
                                     }));

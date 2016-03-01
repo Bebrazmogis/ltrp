@@ -8,5 +8,7 @@ public interface Rank {
 
     int getNumber();
     String getName();
+    void setJob(Job job);
+    Job getJob();
 
 }

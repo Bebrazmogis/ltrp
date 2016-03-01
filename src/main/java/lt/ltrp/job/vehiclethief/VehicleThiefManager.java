@@ -1,8 +1,11 @@
 package lt.ltrp.job.vehiclethief;
 
+import lt.ltrp.LoadingException;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.item.ItemType;
+import lt.ltrp.job.AbstractJobManager;
+import lt.ltrp.job.Job;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerCountdown;
 import lt.ltrp.vehicle.PlayerVehicle;
@@ -11,41 +14,28 @@ import lt.ltrp.vehicle.VehicleLock;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
+import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.EventManagerNode;
 
 /**
  * @author Bebras
  *         2015.12.18.
  */
-public class VehicleThiefManager {
+public class VehicleThiefManager extends AbstractJobManager {
 
-    private static final int JOB_ID = 7;
-
-
-    private static VehicleThiefManager ourInstance;
-
-    public static VehicleThiefManager getInstance() {
-        if(ourInstance == null) {
-            ourInstance = new VehicleThiefManager();
-        }
-        return ourInstance;
-    }
-
-    private EventManager eventManager;
     private VehicleThiefJob job;
 
+    public VehicleThiefManager(EventManager manager, int jobid) throws LoadingException {
+        super(manager);
+        this.job = LtrpGamemode.getDao().getJobDao().getVehicleThiefJob(jobid);
 
-
-    private VehicleThiefManager() {
-        this.eventManager = LtrpGamemode.get().getEventManager().createChildNode();
-        this.job = LtrpGamemode.getDao().getJobDao().getVehicleThiefJob(JOB_ID);
-
-        this.eventManager.registerHandler(PaydayEvent.class, e -> {
+        this.eventManagerNode.registerHandler(PaydayEvent.class, e -> {
             job.resetRequiredModels();
         });
 
-        this.eventManager.registerHandler(PlayerKeyStateChangeEvent.class, e -> {
+        this.eventManagerNode.registerHandler(PlayerKeyStateChangeEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             if(player != null && player.getKeyState().isKeyPressed(PlayerKey.FIRE) && player.getJob() != null && player.getJob().equals(job) && player.getVehicle() != null) {
                 final PlayerVehicle vehicle = PlayerVehicle.getById(player.getVehicle().getId());
@@ -64,12 +54,14 @@ public class VehicleThiefManager {
                         LtrpPlayer.sendAdminMessage(player.getName() + " pradëjo vogti automobilá. Galbût norësite tai stebëti.");
                         player.sendActionMessage("ið árankiø dëþutës iðsitraukia reples, atsuktuvà ir bando ardyti spynelæ, kad uþvestu automobilá.", 30.0f);
 
-                        PlayerCountdown playerCountdown = new PlayerCountdown(player, time, true, p -> {
-                            boolean success = vehicle.getFuelTank().getFuel() != 0 && vehicle.getHealth() >= 400f;
-                            if(success) {
-                                vehicle.getState().setEngine(VehicleParam.PARAM_ON);
-                                eventManager.dispatchEvent(new VehicleEngineStartEvent(vehicle, player, success));
-                                job.log("Þaidëjas " + player.getUserId() + " sëkmingai uþkûrë automobilá " + vehicle.getId() + " kuris priklauso þaidëjui " + vehicle.getOwnerId());
+                        PlayerCountdown playerCountdown = new PlayerCountdown(player, time, true, (p, finished) -> {
+                            if(finished) {
+                                boolean success = vehicle.getFuelTank().getFuel() != 0 && vehicle.getHealth() >= 400f;
+                                if(success) {
+                                    vehicle.getState().setEngine(VehicleParam.PARAM_ON);
+                                    eventManagerNode.dispatchEvent(new VehicleEngineStartEvent(vehicle, player, success));
+                                    job.log("Þaidëjas " + player.getUserId() + " sëkmingai uþkûrë automobilá " + vehicle.getId() + " kuris priklauso þaidëjui " + vehicle.getOwnerId());
+                                }
                             }
                         });
                         player.setCountdown(playerCountdown);
@@ -83,4 +75,10 @@ public class VehicleThiefManager {
 
 
     }
+
+    @Override
+    public Job getJob() {
+        return job;
+    }
+
 }

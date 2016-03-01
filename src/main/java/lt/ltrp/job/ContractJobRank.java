@@ -8,6 +8,7 @@ public class ContractJobRank implements Rank {
 
     private int number, hoursNeeded;
     private String name;
+    private Job job;
 
     public ContractJobRank(int number, int hoursNeeded, String name) {
         this.number = number;
@@ -33,15 +34,23 @@ public class ContractJobRank implements Rank {
 
     @Override
     public int getNumber() {
-        return 0;
+        return number;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
-    public int hoursNeeded() {
-        return hoursNeeded;
+    @Override
+    public void setJob(Job job) {
+        this.job = job;
     }
+
+    @Override
+    public Job getJob() {
+        return job;
+    }
+
+
 }
