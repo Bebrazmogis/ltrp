@@ -55,7 +55,9 @@ main vehicles ranks  main vehicles ranks   main vehicles ranks  main vehicles ra
 * number = int
 * name = "name"
 * */
-public class FileJobDaoImpl implements JobDao {
+/*
+    @Deprecated
+ public class FileJobDaoImpl implements JobDao {
 
     private static final Logger logger = LoggerFactory.getLogger(FileJobDaoImpl.class);
 
@@ -626,3 +628,4 @@ public class FileJobDaoImpl implements JobDao {
         return null;
     }
 }
+*/
