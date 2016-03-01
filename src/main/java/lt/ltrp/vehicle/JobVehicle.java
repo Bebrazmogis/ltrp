@@ -56,21 +56,26 @@ public class JobVehicle extends LtrpVehicle {
     private Rank rankNeeded;
 
 
-    public JobVehicle(Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank) {
+    private JobVehicle(Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank) {
         this(0, job, modelid, location, color1, color2, requiredrank);
     }
 
-    public JobVehicle(int id, Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank) {
+    private JobVehicle(int id, Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank) {
         super(id, modelid, location, color1, color2);
         this.job = job;
         this.rankNeeded = requiredrank;
         if(getFuelTank() == null) {
             setFuelTank(new FuelTank(LtrpVehicleModel.getFuelTankSize(modelid), LtrpVehicleModel.getFuelTankSize(modelid)));
         }
+        this.setSpawnLocation(location);
     }
 
     public Rank getRequiredRank() {
         return rankNeeded;
+    }
+
+    public void setRequiredRank(Rank rankNeeded) {
+        this.rankNeeded = rankNeeded;
     }
 
     public Job getJob() {
