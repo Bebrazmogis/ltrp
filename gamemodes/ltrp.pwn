@@ -8393,7 +8393,7 @@ CMD:stopsmoke( playerid, params[ ] )
     }
     return 1;
 }
-
+/*
 CMD:licwarn( playerid, params[ ] )
 {
     new string[ 126 ],
@@ -8418,6 +8418,7 @@ CMD:licwarn( playerid, params[ ] )
     pInfo[ giveplayerid ][ pDriverWarn ] ++;
     return 1;
 }
+*/
 CMD:bell( playerid, params[ ] )
 {
     #pragma unused params
@@ -9601,7 +9602,7 @@ stock LoadVehicleCargo(sqlid, vehicleid, bool:isStatic = false)
 
 
 
-
+/*
 CMD:accept( playerid, params[ ] )
 {
     new idx, accept[128], string[ 128 ], giveplayerid, Float:Kords[ 3 ], IP[ 16 ], IP2[ 16 ];
@@ -9781,40 +9782,7 @@ CMD:accept( playerid, params[ ] )
         Offer[playerid][4] = 255;
         return 1;
     }
-    /*
-    else if(!strcmp("license",accept,true))
-    {
-        if(Offer[playerid][5] == 255) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Niekas tau nesiulo licenzijos.");
-        if(!PlayerToPlayer(5, playerid,Offer[playerid][5])) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Tu nesi ðialia prië tau siulanøio þmogaus");
-        if(OfferPrice[playerid][3] > GetPlayerMoney(playerid))
-        {
-            SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Neturi pakankamai pinigø.");
-            Offer[playerid][5] = 255;
-            return 1;
-        }
-        if(!IsPlayerConnected(Offer[playerid][5]))
-        {
-            SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-            Offer[playerid][5] = 255;
-            return 1;
-        }
-
-        pInfo[ playerid ][ pLicWeapon] = 1;
-        GivePlayerMoney( playerid, -OfferPrice[ playerid ][ 3 ]);
-        Biudzetas += OfferPrice[ playerid ][ 3 ] / 4*3;
-        pInfo[ Offer[ playerid ][ 5 ] ][ pPayCheck ] += OfferPrice[ playerid ][ 3 ]/4;
-
-        format           ( string, sizeof(string), "%s priëmë ið jûsø pasiûlimá .", GetPlayerNameEx(playerid) );
-        SendClientMessage( Offer[ playerid ][ 5 ],COLOR_NEWS,string);
-        format           ( string, sizeof(string), "Jûs priëmëte pasiûlimá  ið %s",GetPlayerNameEx(Offer[playerid][5]));
-        SendClientMessage( playerid, COLOR_NEWS, string);
-
-        Offer     [ playerid ][ 5 ] = 255;
-        OfferPrice[ playerid ][ 3 ] = 0;
-        OfferID   [ playerid ][ 3 ] = 0;
-        return 1;
-    }
-    */
+    
     else if(!strcmp("fight",accept,true))
     {
         if(Mires[playerid] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje.");
@@ -10065,6 +10033,7 @@ CMD:accept( playerid, params[ ] )
     }
     return 1;
 }
+*/
 CMD:takejob( playerid, params[ ] )
 {
     for ( new i = 0; i < MAX_JOBS; i++ )
@@ -13428,6 +13397,7 @@ CMD:setweather( playerid, params[ ] )
     }
     return 1;
 }
+
 CMD:dtc( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 2 )
@@ -13487,6 +13457,7 @@ CMD:rtc( playerid, params[ ] )
     }
     return 1;
 }
+/*
 CMD:rc(playerid, params[])
 {
     if(GetPlayerAdminLevel(playerid) < 1)
@@ -13574,7 +13545,7 @@ CMD:rfc( playerid, params[ ] )
         SendClientMessageToAll( COLOR_LIGHTRED, string);
     }
     return 1;
-}
+}*/
 
 CMD:olddriver(playerid, params[])
 {
