@@ -1260,7 +1260,7 @@ stock GetNumber( playerid, number )
 }
 
 */
-
+/*
 stock PlacePlayerRoadBlockInPos( playerid, type )
 {
     // Funkcija: PlacePlayerRoadBlockInPos( playerid, type )
@@ -1376,7 +1376,7 @@ stock PlacePlayerRoadBlockInPos( playerid, type )
 
     return true;
 }
-
+*/
 stock RemoveRoadBlock( id )
 {
     // Funkcija: RemoveRoadBlock( id )
@@ -3143,7 +3143,7 @@ stock WepNames[][24] = { // Ginklø pavadinimai
 
 
 
-
+/*
 FUNKCIJA:Explosion( Float:x, Float:y, Float:z, object, id, bool:destroy, virw, inter )
 {
     CreateExplosion( x+1, y-1, z, 13, 30 );
@@ -3177,7 +3177,7 @@ FUNKCIJA:Explosion( Float:x, Float:y, Float:z, object, id, bool:destroy, virw, i
         }
     }
     return 1;
-}
+}*/
 
 /*
 stock SaveAccount(playerid)
@@ -4450,7 +4450,7 @@ CMD:househelp(playerid)
     SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________" );	
     return 1;
 }
-
+/*
 CMD:setunit( playerid, params[ ] )
 {
     new
@@ -4478,6 +4478,7 @@ CMD:delunit( playerid, params[ ] )
         DestroyDynamic3DTextLabel( Units [ idcar ] );
     return 1;
 }
+*/
 CMD:forumname( playerid, params[ ] )
 {
     if (GetPlayerAdminLevel(playerid) >= 1 || pInfo[ playerid ][ pTester ] >= 1 )
@@ -17591,6 +17592,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    /*
     else if ( dialogid == 76 )
     {
         if ( response == 1 )
@@ -17674,6 +17676,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         return 1;
     }
+    */
+    /*
     else if ( dialogid == 77 )
     {
         if ( response == 1 )
@@ -17695,7 +17699,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
-  
+  */
     
     else if ( dialogid == 91 )
     {
