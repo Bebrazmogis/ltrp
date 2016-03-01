@@ -100,17 +100,19 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
         vehicles.add(this);
     }
 
-    public LtrpVehicle(int id, Vehicle vehicle, FuelTank fueltank) {
+    protected LtrpVehicle(int id, Vehicle vehicle, FuelTank fueltank) {
         this(id, vehicle);
         setFuelTank(fueltank);
     }
 
-    protected LtrpVehicle(int id, int modelid, AngledLocation location, int color1, int color2) {
+    protected LtrpVehicle(int id, int modelid, AngledLocation location, int color1, int color2, String license) {
         this(id, Vehicle.create(modelid, location, color1, color2, -1, false));
+        this.spawnLocation = location;
+        this.license = license;
     }
 
     protected LtrpVehicle(int modelid, AngledLocation location, int color1, int color2) {
-        this(0, modelid, location, color1, color2);
+        this(0, modelid, location, color1, color2, "");
     }
 
     protected Vehicle getVehicleObject() {
@@ -122,7 +124,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
     }
 
     protected LtrpVehicle() {
-        this(0, 0, null, 0, 0);
+        this(0, 0, null, 0, 0, "");
     }
 
     public FuelTank getFuelTank() {
@@ -206,7 +208,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     public boolean isUsed() {
         for(LtrpPlayer player : LtrpPlayer.get()) {
-            if(player.getVehicle().equals(this)) {
+            if(player.isInAnyVehicle() && player.getVehicle().equals(this)) {
                 return true;
             }
         }
@@ -368,7 +370,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
 
     public void putPlayer(LtrpPlayer player, int i) {
-        putPlayer(player, i);
+        vehicleObject.putPlayer(player, i);
     }
 
     public void putPlayer(LtrpPlayer player) {

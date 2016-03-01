@@ -32,7 +32,7 @@ public class DmvVehicle extends LtrpVehicle {
     private Dmv dmv;
 
     private DmvVehicle(Dmv dmv, int id, int modelid, AngledLocation location, int color1, int color2) {
-        super(id, modelid, location, color1, color2);
+        super(id, modelid, location, color1, color2, dmv.getName().length() >= 3 ? dmv.getName().substring(0, 3) + modelid : dmv.getName() + modelid);
         this.dmv = dmv;
     }
 

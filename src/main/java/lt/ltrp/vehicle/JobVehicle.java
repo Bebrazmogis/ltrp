@@ -40,11 +40,11 @@ public class JobVehicle extends LtrpVehicle {
     }
 
     public static JobVehicle create(Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank) {
-        return create(0, job, modelid, location, color1, color2, requiredrank);
+        return create(0, job, modelid, location, color1, color2, requiredrank, job.getName().substring(0, 3) + modelid);
     }
 
-    public static JobVehicle create(int id, Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank) {
-        JobVehicle veh =  new JobVehicle(id, job, modelid, location, color1, color2, requiredrank);
+    public static JobVehicle create(int id, Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank, String license) {
+        JobVehicle veh =  new JobVehicle(id, job, modelid, location, color1, color2, requiredrank, license);
         logger.debug("Creating job vehicle  " + veh.getId());
         LtrpVehicle.get().add(veh);
         return veh;
@@ -56,18 +56,17 @@ public class JobVehicle extends LtrpVehicle {
     private Rank rankNeeded;
 
 
-    private JobVehicle(Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank) {
-        this(0, job, modelid, location, color1, color2, requiredrank);
+    private JobVehicle(Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank, String license) {
+        this(0, job, modelid, location, color1, color2, requiredrank, license);
     }
 
-    private JobVehicle(int id, Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank) {
-        super(id, modelid, location, color1, color2);
+    private JobVehicle(int id, Job job, int modelid, AngledLocation spawnLocation, int color1, int color2, Rank requiredrank, String license) {
+        super(id, modelid, spawnLocation, color1, color2, license);
         this.job = job;
         this.rankNeeded = requiredrank;
         if(getFuelTank() == null) {
             setFuelTank(new FuelTank(LtrpVehicleModel.getFuelTankSize(modelid), LtrpVehicleModel.getFuelTankSize(modelid)));
         }
-        this.setSpawnLocation(location);
     }
 
     public Rank getRequiredRank() {
