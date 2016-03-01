@@ -61,6 +61,8 @@ public class LtrpPlayer implements Player {
      */
     private Map<PlayerVehicle, List<PlayerVehiclePermission>> loadedVehicles;
     private Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> vehicleMetadata;
+    private Collection<PlayerOffer> offers;
+
 
     private boolean isInComa;
 
@@ -166,12 +168,22 @@ public class LtrpPlayer implements Player {
         this.userId = userid;
         this.weapons = new LtrpWeaponData[13];
         this.infoBox = new PlayerInfoBox(this);
+        this.offers = new ArrayList<>();
         players.add(this);
         logger.debug("Creating instance of LtrpPlayer. Player object id " +player.getId());
     }
 
     public int getUserId() {
         return userId;
+    }
+
+    public Collection<PlayerOffer> getOffers() {
+        return offers;
+    }
+
+    public <T extends PlayerOffer> T getOffer(Class<T> type) {
+        Optional<T> optional = (Optional<T>)offers.stream().filter(o -> o.getType() == type).findFirst();
+        return optional.isPresent() ? optional.get() : null;
     }
 
     public PlayerCountdown getCountdown() {

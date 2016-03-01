@@ -4,12 +4,12 @@ package lt.ltrp.player;
 
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.PawnFunc;
-import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.Animation;
 import lt.ltrp.dmv.DmvManager;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerLogInEvent;
+import lt.ltrp.event.player.PlayerOfferExpireEvent;
 import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Item;
@@ -20,6 +20,7 @@ import lt.ltrp.vehicle.LtrpVehicle;
 import lt.maze.streamer.StreamerPlugin;
 import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.amx.AmxCallable;
+import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.WeaponSkill;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Color;
@@ -58,7 +59,8 @@ public class PlayerController {
 
         managerNode = manager.createChildNode();
 
-        PlayerCommandManager playerCommandManager = new PlayerCommandManager(HandlerPriority.NORMAL, managerNode);
+        PlayerCommandManager playerCommandManager = new PlayerCommandManager( managerNode);
+        playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
 
         playerCommandManager.replaceTypeParser(LtrpPlayer.class, s -> {
             int id = Player.INVALID_ID;
@@ -204,8 +206,9 @@ public class PlayerController {
                 if(player.isInComa()) {
                     player.applyAnimation("CRACK", "crckdeth2", 4f, 1, 0, 0, 0, 0, 0);
                     // We start the coma countdown
-                    player.setCountdown(new PlayerCountdown(player, 600, true, p -> {
-                        player.setHealth(0f);
+                    player.setCountdown(new PlayerCountdown(player, 600, true, (p, success) -> {
+                        if(success)
+                            player.setHealth(0f);
                     }, false, "~w~Iki mirties"));
                 }
                 StreamerPlugin.getInstance().update(player, StreamerType.Object);
@@ -248,6 +251,10 @@ public class PlayerController {
                 }
                 LtrpGamemode.getDao().getPlayerDao().update(player);
             }
+        });
+
+        managerNode.registerHandler(PlayerOfferExpireEvent.class, HandlerPriority.BOTTOM, e -> {
+            e.getPlayer().getOffers().remove(e.getOffer());
         });
 
         managerNode.registerHandler(PlayerCommandEvent.class, HandlerPriority.BOTTOM, e -> {
