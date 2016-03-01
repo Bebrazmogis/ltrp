@@ -69,6 +69,9 @@ public class JobVehicle extends LtrpVehicle {
         }
     }
 
+    public Rank getRequiredRank() {
+        return rankNeeded;
+    }
 
     public Job getJob() {
         return job;
