@@ -2,6 +2,7 @@ package lt.maze.streamer.object;
 
 import lt.maze.streamer.Constants;
 import lt.maze.streamer.Functions;
+import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
 import net.gtaun.shoebill.object.Player;
@@ -40,6 +41,14 @@ public class DynamicPickup implements StreamerItem {
 
     public static DynamicPickup create(int modelid, int type, Vector3D position) {
         return create(modelid, type, position.x, position.y, position.z, -1, -1, null, Constants.STREAMER_PICKUP_SD);
+    }
+
+    public static DynamicPickup create(int modelId, int type, Location location) {
+        return create(modelId, type, location.x, location.y, location.z, location.worldId, location.interiorId, null, Constants.STREAMER_PICKUP_SD);
+    }
+
+    public static DynamicPickup create(int modelId, int type, Location location, float streamDistance) {
+        return create(modelId, type, location.x, location.y, location.z, location.worldId, location.interiorId, null, streamDistance);
     }
 
     private int id;
