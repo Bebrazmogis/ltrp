@@ -130,6 +130,24 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
+    public int getPlayerVehicleCount(LtrpPlayer player) {
+        String sql = "SELECT COUNT(id) FROM player_vehicles WHERE owner_id = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, player.getUserId());
+            ResultSet result = stmt.executeQuery();
+            if(result.next()) {
+                return result.getInt(1);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
     public void insertCrime(VehicleCrime crime) {
         String sql = "INSERT INTO player_vehicle_crimes (license_plate, crime, reporter, `date`, fine) VALUES (?, ?, ?, ?, ?)";
         try (

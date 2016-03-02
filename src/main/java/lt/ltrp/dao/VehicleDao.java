@@ -20,6 +20,8 @@ public interface VehicleDao {
     void insert(PlayerVehicle playerVehicle);
     String generateLicensePlate();
 
+    int getPlayerVehicleCount(LtrpPlayer player);
+
 
     void insertCrime(VehicleCrime crime);
 
