@@ -48,7 +48,7 @@
 
     <build>
         <defaultGoal>clean install</defaultGoal>
-
+        <directory>F:/AAAA/LTRP/shoebill/plugins</directory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

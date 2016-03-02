@@ -1,7 +1,9 @@
 package lt.ltrp;
 
+import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
+import net.gtaun.shoebill.event.player.PlayerSpawnEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
@@ -35,11 +37,22 @@ public class EventHandler {
                     Optional<Npc> npc = npcList.stream().filter(n -> n.getName().equals(name)).findFirst();
                     if(npc.isPresent()) {
                         npc.get().setPlayer(p);
-                        npc.get().getVehicle().putPlayer(p, 0);
+                        npc.get().getPlayer().setSpawnInfo(new AngledLocation(), 0, 0, null, null, null);
+                        npc.get().getPlayer().spawn();
                     }
                 } else {
                     logger.warn("A NPC named " + p.getName() + " tried to connect from remote host IP " + p.getIp());
                     p.kick();
+                }
+            }
+        });
+
+        eventManager.registerHandler(PlayerSpawnEvent.class, e -> {
+            Player p = e.getPlayer();
+            if(p.isNpc()) {
+                Optional<Npc> optionalNpc = npcList.stream().filter(n -> n.getPlayer().equals(p)).findFirst();
+                if(optionalNpc.isPresent()) {
+                    optionalNpc.get().getVehicle().putPlayer(optionalNpc.get().getPlayer(), 1);
                 }
             }
         });
