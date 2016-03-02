@@ -195,7 +195,7 @@ public OnPayphoneLoad()
 
 */
 
-
+/*
 
 GeneratePhoneNumber(prefix = 86, length = 9, offset = 0)
 {
@@ -220,6 +220,7 @@ GeneratePhoneNumber(prefix = 86, length = 9, offset = 0)
     return strval(sz_phoneNumber);
 }
 
+*/
 IsValidPhoneNumber(phonenumber)
 {
 	new query[60], Cache:result, bool:valid = false;
@@ -234,6 +235,7 @@ IsValidPhoneNumber(phonenumber)
 }
 
 
+
 IsValidPlayerNumber(phonenumber)
 {
 	new query[90], Cache:result, bool:valid = false;
@@ -246,7 +248,7 @@ IsValidPlayerNumber(phonenumber)
 
 	return valid;
 }
-
+/*
 UpdatePhoneNumberLocation(phonenumber, E_PRIVATE_PHONE_LOCATIONS:location, locationid)
 {
 	new query[100];
@@ -254,7 +256,7 @@ UpdatePhoneNumberLocation(phonenumber, E_PRIVATE_PHONE_LOCATIONS:location, locat
 		_:location, locationid, phonenumber);
 	return mysql_pquery(DbHandle, query);
 }
-
+*/
 
 
 E_PRIVATE_PHONE_LOCATIONS:GetPhoneNumberLocation(phonenumber)

@@ -141,15 +141,6 @@ hook OnPlayerDeath(playerid, killerid, reason)
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	new wat[128];
-	format(wat, sizeof(wat), "inputtext:%s. PlayerUsedPhone: %d", inputtext, PlayerUsedPhone[ playerid ]);
-	SendClientMessage(playerid, COLOR_LIGHTRED, wat);
-
-	if(PlayerUsedPhone[ playerid ] != -1)
-	{
-		format(wat, sizeof(wat), "Phonenumber at that index:%d", PlayerPhones[ playerid ][ PlayerUsedPhone[ playerid ] ][ Number ]);
-		SendClientMessage(playerid, -1, wat);
-	}
 
 	switch(dialogid)
 	{
@@ -552,6 +543,7 @@ hook OnPlayerText(playerid, text[])
 		            EndPlayerTalkSession(playerid, IsPlayerCallOwner(playerid));
 		            return false;
 		        }
+		        /*
 		        case 816: // Mechanikø iðkvietimo parodymas
 		        {
 		            SendClientMessage(playerid, COLOR_FADE2, "Automatinis atsakiklis: Dëkojame uþ tai, kad naudojatës Los Santos serviso paslaugomis.");
@@ -563,6 +555,7 @@ hook OnPlayerText(playerid, text[])
 		            EndPlayerTalkSession(playerid, IsPlayerCallOwner(playerid));
 		            return false;
 		        }
+		        */
 		        case 817: // Taksi iðkvietimo parodymas
 		        {
 		            foreach(Player, mech)
@@ -653,7 +646,7 @@ public OnPlayerItemLoaded(playerid, loadeditemcount)
 	forward phone_OnPlayerItemLoaded(playerid, loadeditemcount);
 #endif
 
-
+/*
 OnPlayerPhoneLocationChange(playerid, E_PRIVATE_PHONE_LOCATIONS:oldlocation, E_PRIVATE_PHONE_LOCATIONS:newlocation, phonenumber, locationid)
 {
 	// èia IG locationid, NE sqlid.
@@ -688,6 +681,7 @@ OnPlayerPhoneLocationChange(playerid, E_PRIVATE_PHONE_LOCATIONS:oldlocation, E_P
 	return 1;
 }
 
+*/
 public OnPlayerCallNumber(playerid, callerphoneindex, phonenumber)
 {
 	new string[ 128 ], E_PRIVATE_PHONE_LOCATIONS:phonelocation = GetPhoneNumberLocation(phonenumber);
@@ -895,7 +889,7 @@ IsPlayerPhonePhonebookFull(playerid, phoneindex)
 	cache_delete(result);
 	return full;
 }
-
+/*
 GetCallerPhoneNumber(calleeid)
 {
 	foreach(new i : Player)
@@ -914,7 +908,7 @@ IsPlayerCalled(playerid)
 				if(PlayerTalkSession[ i ][ ContactNumber ] == PlayerPhones[ playerid ][ j ][ Number ])
 					return true;
 	return false;
-}
+}*/
 
 
 
@@ -1205,7 +1199,7 @@ GetFirstPlayerPhoneIndex(playerid)
 			return i;
 	return -1;
 }
-
+/*
 GivePlayerPhone(playerid, phonenumber)
 {
 	new query[ 128 ];
@@ -1220,8 +1214,7 @@ GivePlayerPhone(playerid, phonenumber)
 		}
 	return 0;
 }
-
-
+*/
 stock IsServicePhoneNumber(phonenumber)
 {
 	switch(phonenumber)
@@ -1729,6 +1722,7 @@ CMD:call(playerid, params[ ])
 	}
     return 1;
 }
+/*
 CMD:pickup(playerid)
 {
     if(!IsPlayerCalled(playerid))
@@ -1788,7 +1782,7 @@ CMD:hangup(playerid)
 CMD:h(playerid)
     return cmd_hangup(playerid);
 
-
+*/
 
 CMD:sms(playerid, params[ ])
 {
@@ -1803,7 +1797,7 @@ CMD:sms(playerid, params[ ])
     else if(Mute[playerid] == true)
     	SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jums yra uþdrausta kalbëtis (/mute), norëdami paðalinti draudimà susisiekite su Administratoriumi.");
 
-    else if(PlayerMoney[ playerid ] < 1)
+    else if(GetPlayerMoney(playerid) < 1)
     	SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs neturite $1 ");
 
     else if(!phonecount)

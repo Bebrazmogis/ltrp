@@ -84,8 +84,8 @@ enum E_GARAGE_DATA
 };
 new gInfo[ MAX_GARAGES ][ E_GARAGE_DATA ],
 	GarageItems[ MAX_GARAGES ][ MAX_GARAGE_ITEMS ][ E_GARAGE_ITEM_DATA ],
-	GarageFurniture[ MAX_GARAGES ][ MAX_GARAGE_FURNITURE ][ E_PROPERTY_FURNITURE_DATA ],
-    GaragePhones[ MAX_GARAGES ][ MAX_GARAGE_PHONES ][ E_PRIVATE_PHONE_DATA ];
+	GarageFurniture[ MAX_GARAGES ][ MAX_GARAGE_FURNITURE ][ E_PROPERTY_FURNITURE_DATA ];
+    //GaragePhones[ MAX_GARAGES ][ MAX_GARAGE_PHONES ][ E_PRIVATE_PHONE_DATA ];
 
 static PlayerUsedGarageIndex[ MAX_PLAYERS ];
 
@@ -143,15 +143,15 @@ public OnGameModeInit()
     strcat(query, "garage_furniture_textures.texture_name AS `garage_furniture_textures.texture_name`, ");
     strcat(query, "garage_furniture_textures.color AS `garage_furniture_textures.color`,");
     strcat(query, "furniture.name AS `default_furniture_name`, ");
-    strcat(query, "phones.number AS `phones.number`, ");
-    strcat(query, "phones.online AS `phones.online` ");
+    //strcat(query, "phones.number AS `phones.number`, ");
+    //strcat(query, "phones.online AS `phones.online` ");
     strcat(query, "FROM `garages`  ");
     strcat(query, "LEFT JOIN garage_items ON garages.id = garage_items.garage_id ");
     strcat(query, "LEFT JOIN garage_furniture ON garages.id = garage_furniture.garage_id ");
     strcat(query, "LEFT JOIN garage_furniture_textures ON garage_furniture.id = garage_furniture_textures.furniture_id ");
     strcat(query, "LEFT JOIN furniture ON garage_furniture.furniture_id = furniture.id ");
-    strcat(query, "LEFT JOIN phones ON phones.location_id = garages.id");
-    mysql_format(DbHandle, query, sizeof(query),"%s WHERE location_type = %d ", query, _:GarageInventory);
+    //strcat(query, "LEFT JOIN phones ON phones.location_id = garages.id");
+   // mysql_format(DbHandle, query, sizeof(query),"%s WHERE location_type = %d ", query, _:GarageInventory);
     strcat(query, "ORDER BY garages.id, garage_items.garage_id, garage_furniture.garage_id, garage_furniture_textures.furniture_id");
 
     mysql_pquery(DbHandle, query, "OnGarageLoad", "");
@@ -179,14 +179,14 @@ public OnGarageLoad()
     new garageCount = -1,
         garageItemCount,
         garageFurnitureCount,
-        garagePhoneCount,
+      //  garagePhoneCount,
         lastGarageId = -1,
         lastFurnitureId = -1,
         lastItemId = -1,
         itemid,
         garageid,
         furnituresqlid,
-        lastphonenumber,
+    //    lastphonenumber,
         tmp[32],
         ticks = GetTickCount()
     ;
@@ -200,7 +200,7 @@ public OnGarageLoad()
         {
             garageItemCount = 0;
             garageFurnitureCount = -1;
-            garagePhoneCount = -1;
+     //       garagePhoneCount = -1;
             garageCount++;
 
             lastGarageId = garageid;
@@ -318,6 +318,7 @@ public OnGarageLoad()
             SetDynamicObjectMaterial(GarageFurniture[ garageCount ][ garageFurnitureCount ][ ObjectId ], index, object, txd, texture, color);
         }
 
+/*
         // Telefonai.
         cache_get_field_content(i, "phones.number", tmp);
         // Jei ne null ir tokio telefono dar nekrovëm.
@@ -328,6 +329,7 @@ public OnGarageLoad()
             GaragePhones[ garageCount ][ garagePhoneCount ][ Number ] = lastphonenumber;
             GaragePhones[ garageCount ][ garagePhoneCount ][ Online ] = (cache_get_field_content_int(i, "online")) ? (true) : (false);
         }
+        */
     }
     printf("Serveryje yra sukurti %d garazai. Ju krovimas uztruko %d MS",garageCount+1, GetTickCount() - ticks);
     return 1;
@@ -432,8 +434,8 @@ stock ShowGarageInv(playerid, garageindex)
         if(!GarageItems[ garageindex ][ slot ][ SqlId ])
             format(string, sizeof(string), "%s%d\tNëra\n", string,slot+1);
         // Su telefonais kiek kitaip formatuojam
-        else if(GarageItems[ garageindex ][ slot ][ ItemId ] == ITEM_PHONE)
-            format(string, sizeof(string), "%s%d. %s\t%d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]), GetPlayerPhoneNumber(playerid, GetPlayerPhoneIndexFromInvIndex(playerid, slot)));
+        //else if(GarageItems[ garageindex ][ slot ][ ItemId ] == ITEM_PHONE)
+        //    format(string, sizeof(string), "%s%d. %s\t%d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]), GetPlayerPhoneNumber(playerid, GetPlayerPhoneIndexFromInvIndex(playerid, slot)));
         else
             format(string, sizeof(string), "%s%d. %s\t%d\n", string, slot+1, GetItemName(GarageItems[ garageindex ][ slot ][ ItemId ]) ,GarageItems[ garageindex ][ slot ][ Amount ]);
     }
@@ -662,7 +664,7 @@ stock GetGarageFreeItemSlot(garageindex)
             return i;
     return -1;
 }
-
+/*
 GetGaragePhonenumberGarageIndex(phonenumber)
 {
     foreach(new i : Garages)
@@ -689,6 +691,7 @@ IsGaragePhonenumberOnline(phonenumber)
                 return true;
     return false;
 }
+*/
 
 
 
@@ -1129,7 +1132,7 @@ CMD:buygarage(playerid)
     if(IsGarageOwned(garageIndex))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Garaþas neparduodamas");
 
-    if(PlayerMoney[ playerid ] < gInfo[ garageIndex ][ gPrice ])
+    if(GetPlayerMoney(playerid) < gInfo[ garageIndex ][ gPrice ])
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, neturite pakankamai grynøjø pinigø su savimi, kad atliktumëte ðá veiksmà. ");
 
 

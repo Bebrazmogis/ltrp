@@ -631,8 +631,8 @@ CMD:spray(playerid, params[])
     	else if(!IsGraffitiAllowed[ playerid ])
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
 
-    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
-    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+//    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+//    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
 
     	else if(IsPlayerInAnyInterior(playerid))
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, grafiti pieðti galima tik lauke.");
@@ -647,8 +647,8 @@ CMD:spray(playerid, params[])
     	else if(!IsGraffitiAllowed[ playerid ])
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
 
-    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
-    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+//    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+//    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
 
     	else
     		ShowPlayerGraffitiNameDialog(playerid);
@@ -661,8 +661,8 @@ CMD:spray(playerid, params[])
     	else if(!IsGraffitiAllowed[ playerid ])
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
 
-    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
-    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+//    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+//    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
 
     	else 
     		ShowPlayerGraffitiFontNamDialog(playerid);
@@ -675,8 +675,8 @@ CMD:spray(playerid, params[])
     	else if(!IsGraffitiAllowed[ playerid ])
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
 
-    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
-    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+//    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+//    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
 
     	else if(isnull(PlayerGraffiti[ playerid ][ FontName ]))
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, pirmiausia pasirinktite ðriftà.");
@@ -692,8 +692,8 @@ CMD:spray(playerid, params[])
     	else if(!IsGraffitiAllowed[ playerid ])
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
 
-    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
-    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+//    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+ //   		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
 
     	else 
     		ShowPlayerGraffitiColourDialog(playerid);
@@ -706,8 +706,8 @@ CMD:spray(playerid, params[])
     	else if(!IsGraffitiAllowed[ playerid ])
     		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jums nëra suteikta galimybë kurti grafiti. Jà suteikti gali administratorius.");
 
-    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
-    		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
+//    	else if(GetPlayerWeapon(playerid) != WEAPON_SPRAYCAN && !IsItemInPlayerInventory(playerid, WEAPON_SPRAYCAN))
+ //   		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, jûs neturite daþø.");
 
     	else 
     		EditDynamicObject(playerid, PlayerGraffiti[ playerid ][ ObjectId ]);

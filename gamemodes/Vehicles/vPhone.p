@@ -20,7 +20,7 @@ hook OnVehicleDeath(vehicleid)
 	return 1;
 }
 
-
+/*
 LoadVehiclePhones(sqlid, vehicleid)
 {
 	new query[90], Cache:result;
@@ -34,7 +34,7 @@ LoadVehiclePhones(sqlid, vehicleid)
 	}
 	cache_delete(result);
 	return 1;
-}
+}*/
 
 
 

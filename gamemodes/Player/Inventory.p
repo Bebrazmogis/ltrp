@@ -72,6 +72,7 @@ forward OnPlayerItemLoaded(playerid, loadeditemcount);
 
 */
 
+/*
 hook OnPlayerConnect(playerid)
 {
 	new query[120];
@@ -79,6 +80,7 @@ hook OnPlayerConnect(playerid)
 	mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM player_items WHERE player_id = (SELECT id FROM players WHERE name = '%e')", query);
 	mysql_pquery(DbHandle, query, "OnPlayerItemLoad", "i", playerid);
 }
+
 
 
 hook OnPlayerDisconnect(playerid, reason)
@@ -139,10 +141,11 @@ public OnPlayerItemLoaded(playerid, loadeditemcount)
 #if defined OnPlayerItemLoaded
 	forward OnPlayerItemLoaded(playerid, loadeditemcount);
 #endif
-
+*/
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+	/*
 	switch(dialogid)
 	{
 		case DIALOG_PLAYER_INVENTORY:
@@ -174,11 +177,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 
 			new itemid = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ ItemId ],
-				amount = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ Amount ],
-				contentamount = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ ContentAmount ],
-				durability = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ Durability ],
-				itemname[ MAX_ITEM_NAME ],
-				string[128];
+				//amount = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ Amount ],
+				//contentamount = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ ContentAmount ],
+				//durability = PlayerItems[ playerid ][ PlayerUsedItemIndex[ playerid ] ][ Durability ],
+				itemname[ MAX_ITEM_NAME ];
+				//string[128];
 
 			itemname = GetItemName(itemid);
 
@@ -193,7 +196,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                	SelectPlayerItem(playerid, PlayerUsedItemIndex[ playerid ]);
 	                }
 	            }
-	            /*
+	            
 	            case 1:
 	            {
 	                new
@@ -271,8 +274,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     return 1;
 	            }
-	            */
-	            /*
 	            case 2:
 	            {
 	                new car = GetNearestVehicle(playerid, 10.0);
@@ -339,8 +340,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                }
 	                return SendClientMessage(playerid , COLOR_LIGHTRED, "Klaida, ðios tr. priemonës bagaþinë pilna.");
 	            }
-	            */
-	            /*
 	            case 3:
 	            {
 	                new index = GetPlayerHouseIndex(playerid);
@@ -389,8 +388,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                SetHouseItem(index, slot, itemid, amount, contentamount, durability);
 	                return 1;
 	            }
-	            */
-	            /*
 	            case 4:
 	            {
 	                new index = GetPlayerGarageIndex(playerid);
@@ -441,20 +438,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                return 1;
 
 	            }
-	            */
 	            case 5: ShowPlayerInventoryDialog(playerid);
-	            /*
 	            case 6:
 	            {
 	                format(string, sizeof(string), "* %s ant þemës iðmetà %s.", GetPlayerNameEx(playerid), itemname);
 	                ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
 	                RemovePlayerItemAtIndex(playerid, PlayerUsedItemIndex[ playerid ]);
 	                return 1;
-	            }*/
+	            }
 	        }
 	        return 1;
 		}
-		/*
+		
 		case DIALOG_PLAYER_INVENTORY_AMOUNT:
 		{
 			if(!response)
@@ -488,11 +483,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             PlayerUsedItemIndex[ playerid ] = -1;
             return 1;
 		}
-		*/
+		
 	}
 	return 0;
 }
-
+*/
 
 public OnPlayerUseItem(playerid, itemid, success)
 {
@@ -514,6 +509,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
     switch ( itemid )
     {
         case ITEM_PHONE: pInfo[ playerid ][ pPhone ] = 0;
+        /*
         case ITEM_RADIO:
         {
             pInfo[ playerid ][ pRChannel ] = 0;
@@ -523,6 +519,7 @@ stock OnPlayerItemRemoved(playerid, itemid)
             	UpdatePlayerInfoText(playerid);
 
         }
+        */
         case ITEM_MASK,ITEM_MaskZorro1, ITEM_HockeyMask1:
         {
             if(IsItemInPlayerInventory( playerid, ITEM_MASK ) && pInfo[playerid][pMask] == 0)
@@ -596,7 +593,7 @@ public OnPlayerUseMask(playerid, itemid)
 
     foreach(Player, x)
     {
-        if(pInfo[ x ][ pAdmin ] >= 1 && AdminDuty[ x ])
+        if(GetPlayerAdminLevel(x) >= 1 && AdminDuty[ x ])
         {
             found = true;
             break;
@@ -801,7 +798,7 @@ Item:OnPlayerUseFuelTank(playerid, itemid, invindex, amount)
     return 1;
 }
 
-
+/*
 Item:OnPlayerUseToolkit(playerid, itemid)
 {
 	new
@@ -811,7 +808,7 @@ Item:OnPlayerUseToolkit(playerid, itemid)
 
     foreach(Player, x)
     {
-        if(pInfo[ x ][ pAdmin ] >= 1 && AdminDuty[ x ])
+        if(GetPlayerAdminLevel(x) >= 1 && AdminDuty[ x ])
         {
             found = true;
             break;
@@ -884,7 +881,7 @@ Item:OnPlayerUseToolkit(playerid, itemid)
         }
     }
     return 1;
-}
+}*/
 
 Item:OnPlayerUseWatch(playerid, itemid)
 {
@@ -919,7 +916,7 @@ Item:OnPlayerUseWatch(playerid, itemid)
 	return 1;
 }
 
-
+/*
 Item:OnPlayerUseDice(playerid, itemid)
 {
 	new spin,string[120];
@@ -928,6 +925,7 @@ Item:OnPlayerUseDice(playerid, itemid)
     ProxDetector(10.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
     return 1;
 }
+*/
 /*
 Item:OnPlayerUseWeedSeeds(playerid, itemid)
 {
@@ -1891,7 +1889,7 @@ stock ShowPlayerInventoryAmountInput(playerid, errostr[] = "")
 
 
 */
-
+/*
 CMD:inv(playerid, params[])
 {
     if(Mires[ playerid ] > 0)
@@ -1906,7 +1904,7 @@ CMD:inv(playerid, params[])
     ShowPlayerInventoryDialog(playerid);
     return 1;
 }
-
+*/
 /*
 CMD:invweapon(playerid)
 {

@@ -183,13 +183,13 @@ forward OnPlayerLoginEx(playerid, sqlid);
 // Darbø ID
 #define JOB_NONE      0
 //#define JOB_MECHANIC  1
-#define JOB_SWEEPER   2
+//#define JOB_SWEEPER   2
 //#define JOB_BOXER     3
 //#define JOB_TRASH     3
-#define JOB_DRUGS     4
+//#define JOB_DRUGS     4
 #define JOB_GUN       5
 #define JOB_TRUCKER   6
-#define JOB_JACKER    7
+//#define JOB_JACKER    7
 
 // Daugiausiai ginklø turimø rankose
 #define MAX_SAVED_WEAPONS 2
@@ -534,7 +534,7 @@ new
     OldCar[MAX_PLAYERS],
     tmpinteger[MAX_PLAYERS],
     bool:Belt[MAX_PLAYERS],
-    Float:Tlc[3],
+    //Float:Tlc[3],
     bool:Voted[MAX_PLAYERS] = { true, ... },
     Votes[ 2 ],
     RadioStation[ MAX_PLAYERS ],
@@ -811,6 +811,7 @@ new sVehicles[ MAX_VEHICLES ][ E_STATIC_VEHICLE_DATA ];
 
 new Iterator:Vehicles<MAX_VEHICLES>;
 
+/*
 enum fires
 {
     bool:active,
@@ -818,7 +819,7 @@ enum fires
     smoke
 };
 
-new Fire[MAX_FIRE][fires];
+new Fire[MAX_FIRE][fires];*/
 
 
 #include "Player\Weapons" // Yra AC dalykø
@@ -830,9 +831,9 @@ new Fire[MAX_FIRE][fires];
 #include "BugReporting"
 
 #include "Items"
-#include "Phones"
+//#include "Phones"
 
-#include "FishingSystem"
+//#include "FishingSystem"
 //#include "Job_TaxiDriver"
 #include "Property\Interiors"
 #include "Property\Furniture"
@@ -841,11 +842,11 @@ new Fire[MAX_FIRE][fires];
 #include "Property\Houses"
 #include "Property\Garages"
 #include "Player\Functions"
-#include "Player\Inventory"
+//#include "Player\Inventory"
 #include "Player\Attachments"
-#include "Player\Phone"
-#include "Vehicles\vPhone"
-#include "Bank"
+//#include "Player\Phone"
+//#include "Vehicles\vPhone"
+//#include "Bank"
 #include "Graffiti"
 #include "Entrances"
 //#include "Gambling/Blackjack"
@@ -1117,14 +1118,14 @@ enum E_GARBAGE_CANS {
     gObjectId
 };
 
-new GarbageInfo[ MAX_GARBAGE_CANS ][ E_GARBAGE_CANS ];
-
+//new GarbageInfo[ MAX_GARBAGE_CANS ][ E_GARBAGE_CANS ];
+/*
 new TrashMission[ MAX_PLAYERS ] = { TRASH_MISSION_NONE, ...}, 
     CurrentTrashCp[ MAX_PLAYERS ], 
     TrashTimer[ MAX_PLAYERS ],
     IsCarryingTrash[ MAX_PLAYERS ],
     TrashBagsInTrashVehicle[ MAX_VEHICLES ];
-
+*/
 
 
 
@@ -1804,6 +1805,7 @@ stock SaveMisc()
     mysql_query(DbHandle, string, false);
     return 1;
 }
+/*
 stock SaveFactions(i)
 {
     new string[1024],
@@ -1903,6 +1905,7 @@ stock SaveFactions(i)
         return 1;
     }
 }
+*/
 stock SavePayDay( idx )
 {
     new string[ 200 ];
@@ -2018,7 +2021,7 @@ stock SaveCar(carid)
     cInfo[ carid ][ cID        ]);
     mysql_query(DbHandle, string, false);
 
-    SaveVehicleFish(carid);
+//    SaveVehicleFish(carid);
     return 1;
 }
 stock SaveSVehicle(vehid)
@@ -3335,6 +3338,7 @@ public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
     }
     return 1;
 }
+/*
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
 {
     if( pInfo[ playerid ][ pJob ] == JOB_DRUGS && IsPlayerInRangeOfPoint( playerid, 2, 748.0026,257.0667,27.0859 ) )
@@ -3354,7 +3358,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
                 Opijus", "TOLIAU", "ATáAUKTI" );
     }
     return 0;
-}
+}*/
 
 
 public OnPlayerPickUpDynamicPickup( playerid, pickupid )
@@ -3833,10 +3837,10 @@ stock NullPlayerInfo( playerid )
     IsOnePlayAnim           [ playerid ] = false;
     BackOut                 [ playerid ] = 0;
 
-    TrashMission    [ playerid ] = TRASH_MISSION_NONE;
-    CurrentTrashCp  [ playerid ] = 0;
-    IsCarryingTrash[ playerid ] = false;
-    DeletePVar(playerid, "TrashMission_Vehicle");
+//    TrashMission    [ playerid ] = TRASH_MISSION_NONE;
+//    CurrentTrashCp  [ playerid ] = 0;
+    //IsCarryingTrash[ playerid ] = false;
+   // DeletePVar(playerid, "TrashMission_Vehicle");
     InfoTextTimer[ playerid ] = -1;
 
     VehicleLoadTimer[ playerid ] = -1;
@@ -4311,8 +4315,8 @@ CMD:help(playerid)
 //    SendClientMessage( playerid, COLOR_LIGHTRED2, "  MECHANIKO KOMANDOS: /repair /repaint /addwheels");
     //if ( pInfo[ playerid ][ pJob ] == JOB_TRASH )
     //  SendClientMessage( playerid, COLOR_LIGHTRED2, "  ÐIÛKÐLININKO: /startmission /endmission /takegarbage /throwgarbage");
-    if ( pInfo[ playerid ][ pJob ] == JOB_DRUGS )
-      SendClientMessage( playerid, COLOR_LIGHTRED2, "  NARKOTIKØ PREKEIVIO KOMANDOS: /buyseeds /cutweed");
+//    if ( pInfo[ playerid ][ pJob ] == JOB_DRUGS )
+ //     SendClientMessage( playerid, COLOR_LIGHTRED2, "  NARKOTIKØ PREKEIVIO KOMANDOS: /buyseeds /cutweed");
     if ( pInfo[ playerid ][ pJob ] == JOB_GUN )
       SendClientMessage( playerid, COLOR_LIGHTRED2, "  GINKLØ GAMINTOJO KOMANDOS: /weaponlist /make");
     if ( pInfo[ playerid ][ pJob ] == JOB_TRUCKER )
@@ -4519,8 +4523,8 @@ CMD:me( playerid, params[ ] )
     SetPlayerChatBubble( playerid, string, COLOR_PURPLE, 20.0, 10000);
     format             ( string, 256, "* %s %s" ,GetPlayerNameEx( playerid ), string );
     ProxDetector       ( 15.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-    if ( pInfo[ playerid ][ pJob ] == JOB_JACKER && ( LaikoTipas[playerid] == 5 || LaikoTipas[playerid] == 6 ) )
-        ActionLog( pInfo[ playerid ][ pMySQLID ], string );
+//    if ( pInfo[ playerid ][ pJob ] == JOB_JACKER && ( LaikoTipas[playerid] == 5 || LaikoTipas[playerid] == 6 ) )
+//        ActionLog( pInfo[ playerid ][ pMySQLID ], string );
     return 1;
 }
 CMD:stats( playerid, params[ ] )
@@ -5294,6 +5298,7 @@ CMD:ramcar( playerid, params[ ] )
     }
     return 1;
 }
+/*
 CMD:heal( playerid, params[ ] )
 {
     new
@@ -5335,6 +5340,7 @@ CMD:heal( playerid, params[ ] )
     }
     return 1;
 }
+*/
 /*
 CMD:rrb( playerid, params[ ] )
 {
@@ -5436,6 +5442,7 @@ CMD:takemoney( playerid, params[ ] )
     SaveMisc();
     return 1;
 }
+/*
 CMD:takefmoney( playerid, params[ ] )
 {
     new
@@ -5457,6 +5464,7 @@ CMD:takefmoney( playerid, params[ ] )
     SaveFactions(PlayerFaction( playerid ));
     return 1;
 }
+*/
 CMD:checkfbudget( playerid, params[ ] )
 {
     new
@@ -5565,6 +5573,7 @@ CMD:duty(playerid)
             return 1;
         }
     }
+    /*
     else if(PlayerFaction( playerid ) == 2 )
     {
         if(pInfo[playerid][pJobDuty] == 0)
@@ -5584,7 +5593,7 @@ CMD:duty(playerid)
             SetPlayerColor( playerid, TEAM_HIT_COLOR );
             return 1;
         }
-    }
+    }*/
     /*else if(PlayerFaction( playerid ) == 4 )
     {
         if(pInfo[playerid][pJobDuty] == 0)
@@ -5768,8 +5777,8 @@ CMD:do( playerid, params[ ] )
     SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 20.0, 10000);
     format(string,256,"* %s (( %s ))",string,GetPlayerNameEx(playerid));
     ProxDetector(15.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
-    if ( pInfo[ playerid ][ pJob ] == JOB_JACKER && ( LaikoTipas[playerid] == 5 || LaikoTipas[playerid] == 6 ) )
-        ActionLog( pInfo[ playerid ][ pMySQLID ], string );
+//    if ( pInfo[ playerid ][ pJob ] == JOB_JACKER && ( LaikoTipas[playerid] == 5 || LaikoTipas[playerid] == 6 ) )
+ //       ActionLog( pInfo[ playerid ][ pMySQLID ], string );
     return 1;
 }
 CMD:b( playerid, params[ ] )
@@ -6479,6 +6488,7 @@ CMD:admins( playerid, params[ ] )
     SendClientMessage(playerid, COLOR_TEAL, "----------------------------------------------------------------------------------------------");
     return 1;
 }
+/*
 CMD:transfer( playerid, params[ ] )
 {
     new giveplayerid,
@@ -6526,6 +6536,7 @@ CMD:transfer( playerid, params[ ] )
     SaveAccount      ( giveplayerid );
     return 1;
 }
+
 CMD:bank( playerid, params[ ] )
 {
     #pragma unused params
@@ -6537,8 +6548,8 @@ CMD:bank( playerid, params[ ] )
         return 1;
     }
     return 1;
-}
-
+}*/
+/*
 CMD:tlc( playerid, params[ ] )
 {
     #pragma unused params
@@ -6550,7 +6561,8 @@ CMD:tlc( playerid, params[ ] )
         return 1;
     }
     return 1;
-}
+}*/
+/*
 CMD:note( playerid, params[ ] )
 {
     if(!IsItemInPlayerInventory(playerid, ITEM_NOTE)) 
@@ -6636,6 +6648,7 @@ CMD:note( playerid, params[ ] )
     }
     return 1;
 }
+*/
 stock checkVehicleByNumbers( numbers[ ] )
 {
     foreach(Vehicles,i)
@@ -7253,7 +7266,7 @@ CMD:placetrash( playerid, params[ ] )
     }
     return 1;
 }
-
+/*
 CMD:giverec( playerid, params[ ] )
 {
     new giveplayerid,
@@ -7272,7 +7285,7 @@ CMD:giverec( playerid, params[ ] )
         return 1;
     }
     return 1;
-}
+}*/
 
 
 CMD:tpda(playerid)
@@ -8644,7 +8657,7 @@ CMD:bail( playerid, params[ ] )
     if ( GetPlayerBankMoney(playerid) < GetPVarInt(playerid, "Bail") )
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûsø banko sàskaitoje nëra pakankamai pinigø iðpirkai..");
 
-    SetPlayerBankMoney(playerid, GetPlayerBankMoney(playerid) - GetPVarInt(playerid, "Bail"));
+    AddPlayerBankMoney(playerid,  - GetPVarInt(playerid, "Bail"));
     pInfo[playerid][pJailTime] = GetPVarInt(playerid, "BailTime");
     SaveAccount( playerid );
     ShowPlayerInfoText( playerid );
@@ -8693,7 +8706,7 @@ CMD:prison( playerid, params[ ] )
     else
     {
         if ( GetPlayerBankMoney(giveplayerid) > bill )
-            SetPlayerBankMoney(giveplayerid, GetPlayerBankMoney(giveplayerid) - bill);
+             AddPlayerBankMoney(playerid,  - bill);
     }
     pInfo[giveplayerid][pJailTime] = time*60;
     pInfo[giveplayerid][pJail] = 2;
@@ -8738,7 +8751,7 @@ CMD:arrest( playerid, params[ ] )
     else
     {
         if ( GetPlayerBankMoney(giveplayerid) > bill )
-            SetPlayerBankMoney(giveplayerid, GetPlayerBankMoney(giveplayerid) - bill);
+             AddPlayerBankMoney(playerid,  - bill);
     }
     pInfo[giveplayerid][pJailTime] = time*60;
     pInfo[giveplayerid][pJail] = 3;
@@ -12760,7 +12773,7 @@ CMD:makeleader(playerid, params[])
         SendClientMessage(giveplayerid,COLOR_NEWS,string);
         format(string, sizeof(string), "INFORMACIJA: Jûs paskyrëte þaidëjá  %s frakcijos %s vadovu.",GetName(giveplayerid),fInfo[fact][fName]);
         SendClientMessage(playerid,GRAD,string);
-        SaveFactions(fact);
+        //SaveFactions(fact);
     }
     return 1;
 }
@@ -13865,6 +13878,7 @@ CMD:intvw( playerid, params[ ] )
     }
     return 1;
 }
+/*
 CMD:afrisk(playerid, params[])
 {
     if(!GetPlayerAdminLevel(playerid))
@@ -13883,7 +13897,7 @@ CMD:afrisk(playerid, params[])
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, þaidëjas neturi nei vieno daikto.");
 
 
-    ShowPlayerInvInfoForPlayer(targetid, playerid);
+//    ShowPlayerInvInfoForPlayer(targetid, playerid);
 
     SendClientMessage( playerid, COLOR_GREEN2, "_____________________ Laikomi ginklai __________________");
 
@@ -13902,6 +13916,7 @@ CMD:afrisk(playerid, params[])
     }
     return 1;
 }
+*/
 CMD:aproperty( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 1 )
@@ -14308,7 +14323,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
     {
         //UpdatePlayerInfoText(playerid);
 
-        new veh = OldCar[ playerid ];
+//        new veh = OldCar[ playerid ];
         /*if(sVehicles[ veh ][ Job ] == JOB_TRASH && pInfo[ playerid ][ pJob ] == JOB_TRASH)
         {
             if(TrashMission[ playerid ] != TRASH_MISSION_NONE)
@@ -15614,7 +15629,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 DeletePVar( playerid, "MOKESTIS" );
                 return 1;
             }
-            SetPlayerBankMoney(playerid, GetPlayerBankMoney(playerid) - GetPVarInt( playerid, "MOKESTIS" ));
+            AddPlayerBankMoney(playerid, - GetPVarInt( playerid, "MOKESTIS" ));
             ShowInfoText( playerid, "~w~Benzino bakas uzpildytas", 1000 );
             SaveCar( veh );
             DeletePVar( playerid, "MOKESTIS" );
@@ -16099,6 +16114,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    /*
     else if ( dialogid == 32 )
     {
         if ( response == 1 )
@@ -16130,7 +16146,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                             fInfo[ tmpinteger[ playerid ] ][ fSpawn ][ 2 ]);
 
                     fInfo[ tmpinteger[ playerid ] ][ fInt ] = GetPlayerInterior( playerid );
-                    SaveFactions( tmpinteger[ playerid ] );
+                    //SaveFactions( tmpinteger[ playerid ] );
                     SendClientMessage( playerid, GRAD, "Frakcijos darbuotojø/nariø atsiradimo vieta buvo sëkmingai pakeista." );
 
                     tmpinteger[ playerid ] = -9900;
@@ -16174,6 +16190,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    */
+    /*
     else if ( dialogid == 35 )
     {
         if ( response == 1 )
@@ -16257,6 +16275,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+    *//*
     else if ( dialogid == 37 )
     {
         if ( response == 1 )
@@ -16437,6 +16456,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    */
     else if( dialogid == 149 )
     {
         if(!response)
@@ -16789,6 +16809,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         return 1;
     }
     */
+    /*
     else if ( dialogid == 152 )
     {
         if ( response == 1 )
@@ -16804,6 +16825,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    */
     else if ( dialogid == 159 )
     {
         if( !response )
@@ -17727,7 +17749,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 SendClientMessage(Offer[playerid][3], COLOR_FADE2, "{FF6347}Perspëjimas: þaidëjas neturi pakankamai pinigu, kad sumokëtu baudá .");
                 return 1;
             }
-            SetPlayerBankMoney(playerid, GetPlayerBankMoney(playerid) - GetPVarInt( playerid, "MOKESTIS" ));
+            AddPlayerBankMoney(playerid, - GetPVarInt( playerid, "MOKESTIS" ));
             SendClientMessage(playerid,COLOR_WHITE,"Bauda sumokëta");
             SendClientMessage(Offer[playerid][3],COLOR_WHITE,"Jis sumokëjo baudá .");
             pInfo[ playerid ][ pPaydFines ] += pInfo[ playerid ][ pFines ];
@@ -20693,8 +20715,8 @@ FUNKCIJA:MinTime()
             SetPVarInt( i, "AddictionTime", GetPVarInt( i, "AddictionTime" )-1 );
         }
         
-        if( GetPlayerState(i) == 2 && VehicleHasEngine( GetVehicleModel( GetPlayerVehicleID ( i ) ) ) && Engine[GetPlayerVehicleID ( i )] == true )
-            SyncFuel( GetPlayerVehicleID ( i ) );
+        //if( GetPlayerState(i) == 2 && VehicleHasEngine( GetVehicleModel( GetPlayerVehicleID ( i ) ) ) && Engine[GetPlayerVehicleID ( i )] == true )
+        //    SyncFuel( GetPlayerVehicleID ( i ) );
         
         
         new Float:HP;
@@ -20722,9 +20744,9 @@ FUNKCIJA:MinTime()
             Loterry( );*/
 
         OldHour = Hour;
-        SetWorldTime( Hour );
-        SaveMisc();
-        SaveFactions(0);
+        //SetWorldTime( Hour );
+        //SaveMisc();
+        //SaveFactions(0);
         Mats += 50; // Mats per valanda
         /*UpdateJacker( 0, random( 2 ) );
         UpdateJacker( 1, random( 2 ) );
@@ -21189,8 +21211,8 @@ FUNKCIJA:Sekunde()
             //continue;
         }
 
-        new plstate = GetPVarInt( i, "PLAYER_STATE" ),
-            IsAfk = GetPVarInt( i, "Is_AFK" );
+        new plstate = GetPVarInt( i, "PLAYER_STATE" );
+//            IsAfk = GetPVarInt( i, "Is_AFK" );
 
         /*if ( ObjUpdate[ i ] )
         {
@@ -23861,7 +23883,7 @@ stock nullVehicle( vehicleid )
 {
     Engine[ vehicleid ] = false;
     VGaraze[ vehicleid ] = false;
-    VehicleFish[ vehicleid ] = 0;
+//    VehicleFish[ vehicleid ] = 0;
 
     if( IsValidDynamic3DTextLabel( Units [ vehicleid ] ) )
         DestroyDynamic3DTextLabel( Units [ vehicleid ] );
@@ -23968,8 +23990,8 @@ CMD:ame( playerid, params[ ] )
         SetPlayerChatBubble( playerid, szMessage, COLOR_PURPLE, 20, 10000 );
         format( szMessage, sizeof(szMessage),"> %s", szMessage );
         SendClientMessage( playerid, COLOR_PURPLE, szMessage );
-        if ( pInfo[ playerid ][ pJob ] == JOB_JACKER && ( LaikoTipas[playerid] == 5 || LaikoTipas[playerid] == 6 ) )
-            ActionLog( pInfo[ playerid ][ pMySQLID ], szMessage );
+//        if ( pInfo[ playerid ][ pJob ] == JOB_JACKER && ( LaikoTipas[playerid] == 5 || LaikoTipas[playerid] == 6 ) )
+ //           ActionLog( pInfo[ playerid ][ pMySQLID ], szMessage );
     }
 
     return true;
@@ -24047,6 +24069,7 @@ public OnLookupComplete(playerid)
         KickPlayer( "AC", playerid, "Proxy" );
 }
 
+/*
 CMD:blindfold(playerid, params[])
 {
     new targetid,
@@ -24094,8 +24117,8 @@ CMD:blindfold(playerid, params[])
         Offer[ targetid ][ 8 ] = playerid;
     }
     return 1;
-}
-
+}*/
+/*
 CMD:mask( playerid, params[ ] )
 {   
     #pragma unused params
@@ -24136,7 +24159,7 @@ CMD:mask( playerid, params[ ] )
         return 1;
     }
 }
-
+*/
 
 public OnQueryError(errorid, error[], callback[], query[], connectionHandle)
 {

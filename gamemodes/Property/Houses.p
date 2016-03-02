@@ -110,8 +110,8 @@ new hInfo[ MAX_HOUSES ][ E_HOUSE_DATA ],
     HouseFurnitureName[ MAX_HOUSES ][ MAX_HOUSE_FURNITURE ][ MAX_FURNITURE_NAME ],
     HouseRadio[ MAX_HOUSES ][ E_HOUSE_RADIO_DATA ],
     HouseWeed[ MAX_HOUSES ][ MAX_HOUSE_WEED_SAPLINGS ][ E_HOUSE_WEED_DATA ],
-    HouseItems[ MAX_HOUSES ][ MAX_HOUSE_ITEMS ][ E_HOUSE_ITEM_DATA ],
-    HousePhones[ MAX_HOUSES ][ MAX_HOUSE_PHONES ][ E_PRIVATE_PHONE_DATA ];
+    HouseItems[ MAX_HOUSES ][ MAX_HOUSE_ITEMS ][ E_HOUSE_ITEM_DATA ];
+//    HousePhones[ MAX_HOUSES ][ MAX_HOUSE_PHONES ][ E_PRIVATE_PHONE_DATA ];
 
 new Iterator:Houses<MAX_HOUSES>;
 
@@ -145,7 +145,7 @@ public OnGameModeInit()
         houses_OnGameModeInit();
     #endif
     new query[90];
-    mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM phones WHERE location_type = %d ORDER BY location_id", _:HouseInventory);
+    //mysql_format(DbHandle, query, sizeof(query), "SELECT * FROM phones WHERE location_type = %d ORDER BY location_id", _:HouseInventory);
 
     mysql_tquery(DbHandle, "SELECT * FROM `houses` ORDER BY `id` ASC", "OnHouseLoad", "");
     mysql_tquery(DbHandle, "SELECT * FROM `house_items` ORDER BY house_id, slot", "OnHouseItemLoad", "");
@@ -153,7 +153,7 @@ public OnGameModeInit()
     // Bei tam kad bûtø iðrikiuota pagal namo ID, todël vieno namo baldai bus vienas ðalia kito.
     mysql_tquery(DbHandle, "SELECT house_furniture.*,house_furniture_textures.*, furniture.name AS default_name FROM house_furniture LEFT JOIN house_furniture_textures ON house_furniture.id = house_furniture_textures.furniture_id LEFT JOIN furniture ON furniture.id = house_furniture.furniture_id ORDER BY house_furniture.house_id", "OnHouseFurnitureLoad", "");
     mysql_tquery(DbHandle, "SELECT * FROM house_weed WHERE harvested_by IS NULL", "OnHouseWeedLoad", "");
-    mysql_tquery(DbHandle, query, "OnHousePhoneLoad", "");
+    //mysql_tquery(DbHandle, query, "OnHousePhoneLoad", "");
     return 1;
 }
 #if defined _ALS_OnGameModeInit
@@ -340,7 +340,7 @@ public OnHouseFurnitureLoad()
     SanityChecks();
     return 1;
 }
-
+/*
 public OnHousePhoneLoad()
 {
     new phonecount, oldindex = -1, index;
@@ -363,10 +363,10 @@ public OnHousePhoneLoad()
     }
     return 1;
 }
-
+*/
 CMD:housesanity(playerid)
 {
-    if(pInfo[ playerid ][ pAdmin ] < 6)
+    if(GetPlayerAdminLevel(playerid) < 6)
         return 0;
 
     SendClientMessage(playerid, COLOR_LIGHTRED, "Pradëta..");
@@ -418,7 +418,7 @@ static stock SanityChecks()
     }
     return errors;
 }
-
+/*
 public OnHouseWeedLoad()
 {
     new hindex, lastHouseId, plantcount, planttime, Float:x, Float:y, Float:z;
@@ -467,7 +467,7 @@ public OnHouseWeedLoad()
     printf("Pakrauti %d þolës augalai.", cache_get_row_count());
     return 1;
 }
-
+*/
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     HouseManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
@@ -777,6 +777,12 @@ stock GetHouseFurnitureIndex(hindex, objectid)
     return false;
 }
 
+stock AddHouseBankMoney(hindex, money) 
+{
+    if(IsValidHouse(hindex))
+        hInfo[ hindex ][ hBank ] += money;
+}
+
 stock IsAnyHouseFurnitureObject(objectid)
 {
     foreach(new i : Houses)
@@ -971,7 +977,7 @@ stock HarvestHouseWeedPlant(playerid, house_index, weedindex)
     DestroyDynamicObject(HouseWeed[ house_index ][ weedindex ][ ObjectId ]);
     return yield;
 }
-
+/*
 
 GetHousePhonenumberHouseIndex(phonenumber)
 {
@@ -999,6 +1005,7 @@ IsHousePhonenumberOnline(phonenumber)
                 return true;
     return false;
 }
+*/
 
 /*
 
@@ -1467,7 +1474,7 @@ stock DestroyHouseWeed(playerid, houseindex)
 
 
 */
-
+/*
 timer WeedGrowTime[grow_time](grow_time, houseindex, weedindex)
 {
     new query[100], Float:x, Float:y, Float:z;
@@ -1483,7 +1490,7 @@ timer WeedGrowTime[grow_time](grow_time, houseindex, weedindex)
     GetDynamicObjectPos(HouseWeed[ houseindex ][ weedindex ][ ObjectId ], x, y, z);
     SetDynamicObjectPos(HouseWeed[ houseindex ][ weedindex ][ ObjectId ], x, y, z+(HOUSE_WEED_PLANT_HEIGHT / MAX_HOUSE_WEED_GROWTH_LEVEL));
 }
-
+*/
 
 
 
@@ -1549,7 +1556,7 @@ CMD:housedeposit(playerid, params[])
     if(money < 0 || money > MAX_HOUSE_DEPOSIT )
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodyta suma negali bøti maþesnë uþ 1$ arba didesnë uþ " #MAX_HOUSE_DEPOSIT "$" );
 
-    if(PlayerMoney[ playerid ] < money)
+    if(GetPlayerMoney(playerid) < money)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite dëti sumos, kurios neturite.");
 
     GivePlayerMoney( playerid, -money );
@@ -1762,7 +1769,7 @@ CMD:hu(playerid, params[])
         if(hInfo[ house_index ][ hUpgrades ][ Refrigerator ])
             return SendClientMessage(playerid, GRAD, "Name jau yra ðis patobulinimas. ");
 
-        if(PlayerMoney[ playerid ] < 8000)
+        if(GetPlayerMoney(playerid) < 8000)
             return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Neturite pakankamai pingø.");
 
         GivePlayerMoney(playerid, -8000 );
@@ -1790,7 +1797,7 @@ CMD:buyhouse(playerid, params[])
     if(IsHouseOwned(house_index))
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida. Ðis namas neparduodamas.");
 
-    if(PlayerMoney[ playerid ] < hInfo[ house_index ][ hPrice ])
+    if(GetPlayerMoney(playerid) < hInfo[ house_index ][ hPrice ])
         return SendClientMessage(playerid, COLOR_LIGHTRED,"Klaida, Jums nepakanka grynøjø pinigø, kad galëtumete nusipirkti namà prie kurio esate.");
 
     format(string, sizeof(string), "Sëkmingai ásigijote namà uþ %d.", hInfo[ house_index ][ hPrice ]);
@@ -1844,7 +1851,7 @@ CMD:rentroom(playerid, params[])
     if(!hInfo[ house_index ][ hRentPrice ])
         return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, ðis namas nenomuoja jokiø kambariø.");
 
-    if(hInfo[ house_index ][ hRentPrice ] > PlayerMoney[ playerid ])
+    if(hInfo[ house_index ][ hRentPrice ] > GetPlayerMoney(playerid))
         return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, neturite pakankamai pinigø, kad nomuotumëtës ðá namà. Paþiûrëkite á nustatytà nuomos kainà.");
 
     pInfo[playerid][pHouseKey] = hInfo[ house_index ][ hID ];

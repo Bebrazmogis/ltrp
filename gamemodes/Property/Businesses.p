@@ -318,7 +318,7 @@ new SupermarketItems[ ][ E_SUPERMARKET_ITEM_DATA ] = { // Parduotuvës nustatymai
     {ITEM_CIG},
     {ITEM_FUEL},
     {ITEM_TOLKIT},
-    {ITEM_CLOCK},
+   // {ITEM_CLOCK},
     {ITEM_DICE},
     {ITEM_VAISTAI},
     {ITEM_SVIRKSTAS},
@@ -633,7 +633,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(!strcmp(BusinessWares[ bizIndex ][ listitem ][ Name ], BUSINESS_WARES_EMPTY_SLOT))
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "Ði prekë nepridëta.");
 
-            if (PlayerMoney[ playerid ] < BusinessWares[ bizIndex ][ listitem ][ Price ])
+            if (GetPlayerMoney(playerid) < BusinessWares[ bizIndex ][ listitem ][ Price ])
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Perspëjimas: Nepakankamai pinigø.");
 
             if(bInfo[ bizIndex ][ bProducts ] <= 0)
@@ -688,7 +688,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 new capacity = (IsItemSoldFull(itemid)) ? (GetItemMaxCapacity(itemid)) : (0),
                     durability = (IsItemSoldWithMaxDurability(itemid)) ? (GetItemMaxDurability(itemid)) : (0),
                     amount = 1;
-
+                #pragma unused durability, capacity
                 if(itemid == WEAPON_CAMERA)
                 {
                     amount = 50;
@@ -750,20 +750,35 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						success = GivePlayerWeaponItem(playerid, itemid, amount);
 					}
+                    case ITEM_TOLKIT:
+                    {
+                        success = GivePlayerToolkit(playerid, itemid);   
+                    }
+                    case ITEM_MP3:
+                    {
+                        success = GivePlayerMp3(playerid, itemid);
+                    }
+                    case ITEM_AUDIO:
+                    {
+                        success = GivePlayerHouseAudio(playerid, itemid);
+                    }
+                    case ITEM_BIGAUDIO:
+                    {
+                        success = GivePlayerBoomBox(playerid, itemid);
+                    }
+                    case ITEM_SVIRKSTAS:
+                    {
+                        success = GivePlayerBasicItem(playerid, ITEM_SVIRKSTAS, 1, 23, 0);
+                    }
 
 				    // NOT IMPLEMENTEDE YET
 				    /*
-				    ITEM_CLOCK
-				    ITEM_TOLKIT
-				    ITEM_MP3
 				    ITEM_MAGNETOLA
-				    ITEM_AUDIO
 				    ITEM_VAISTAI
-				    ITEM_SVIRKSTAS
 				    ITEM_NOTE
 				    ITEM_MEDIC
 				    ITEM_PAPER
-				    ITEM_BIGAUDIO
+				
 				    */
 
 				}
@@ -786,14 +801,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     return 1;
                 }
                 */
-                else if(itemid == ITEM_RADIO )
+                /*else if(itemid == ITEM_RADIO )
                 {
                     pInfo[playerid][pRChannel] = 1;
                     ShowPlayerInfoText(playerid );
                     UpdatePlayerInfoText(playerid);
                     SaveAccount(playerid);
                     return 1;
-                }
+                }*/
                 format(string, sizeof(string)," ** Daiktas %s nupirktas, uþ $%d.", GetItemName(itemid), BusinessWares[ bizIndex ][ listitem ][ Price ]);
                 SendClientMessage(playerid, COLOR_FADE3,string);
                 SendClientMessage(playerid, COLOR_FADE2, "PAGALBA: Jeigu reikës daugiau pagalbos, paraðykite /help");
@@ -860,7 +875,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             // Todël aukðèiau neturi bûti jokiø nereikalingø return.
             PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
             GivePlayerMoney(playerid, -BusinessWares[ bizIndex ][ listitem ][ Price ]);
-            UpdatePlayerInfoText(playerid);
+            //UpdatePlayerInfoText(playerid);
             bInfo[ bizIndex ][ bBank ] += BusinessWares[ bizIndex ][ listitem ][ Price ];
             UpdateBusinessProducts(bizIndex, GetBusinessProductCount(bizIndex)-1);
             return 1;
@@ -1014,7 +1029,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if(sscanf(inputtext, "i", amount))
                 return BizOwnerMenu::MoneyWithdrawDialog(playerid, "Áveskite skaièiø.");
 
-            if(amount < 0 || amount > PlayerMoney[ playerid ])
+            if(amount < 0 || amount > GetPlayerMoney(playerid))
                 return BizOwnerMenu::MoneyWithdrawDialog(playerid, "Tiek pinigø jûs neturite!");
 
             bInfo[ bizIndex ][ bBank ] += amount;
@@ -1182,7 +1197,7 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
             }
 
 
-        if(PlayerMoney[ playerid ] < price)
+        if(GetPlayerMoney(playerid) < price)
             return SendClientMessage(playerid, COLOR_LIGHTRED,"Klaida, Jums nepakanka grynøjø pinigø ðiam veiksmui");
 
         if(IsPlayerInventoryFull(playerid))
@@ -1227,7 +1242,7 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, pasirinktos prekës jau nëra sandelyje.");
 
 
-        if(PlayerMoney[ playerid ] < 50)
+        if(GetPlayerMoney(playerid) < 50)
             return SendClientMessage(playerid, COLOR_LIGHTRED,"Klaida, Jums nepakanka grynøjø pinigø ðiam veiksmui");
 
         if(IsPlayerInventoryFull(playerid))
@@ -1418,7 +1433,7 @@ stock GetBusinessProductCount(bizindex)
 
 CMD:abizdata(playerid, params[])
 {
-    if(pInfo[ playerid ][ pAdmin ] < 6)
+    if(GetPlayerAdminLevel(playerid) < 6)
         return 0;
 
     new index = GetPlayerBusinessIndex(playerid), string[128];
@@ -2485,7 +2500,7 @@ CMD:buybiz(playerid)
     if(IsBusinessOwned(bizIndex))
         return SendClientMessage(playerid,COLOR_LIGHTRED,"Dëmesio, verslas prie kurio esate jau turi savo savininkà ir nëra parduodamas.");
 
-    if(PlayerMoney[ playerid ] < bInfo[ bizIndex ][ bPrice ])
+    if(GetPlayerMoney(playerid) < bInfo[ bizIndex ][ bPrice ])
         return SendClientMessage(playerid,COLOR_LIGHTRED,"Klaida, Jums nepakanka grynøjø pinigø, kad galëtumete nusipirkti verslà prie kurio esate.");
 
     bInfo[ bizIndex ][ bOwner ] = GetPlayerSqlId(playerid);

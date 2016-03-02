@@ -228,7 +228,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 objectid;
 
             // Jau tikrinom ankðèiau, but just in case
-            if(GetFurniturePrice(furnitureIndex) > Tabu_GetPlayerMoney(playerid))
+            if(GetFurniturePrice(furnitureIndex) > GetPlayerMoney(playerid))
                 return SendClientMessage(playerid, COLOR_WHITE,"Jums nepakanka pinigø.");
 
             GetPlayerPos(playerid, pos[ 0 ], pos[ 1 ], pos[ 2 ]);
@@ -710,7 +710,7 @@ public OnPlayerModelSelectionEx(playerid, response, extraid, modelid)
             return SendClientMessage(playerid, COLOR_WHITE, "Baldø limitas 400 baldø.");
 
 
-        if(Tabu_GetPlayerMoney(playerid) < GetFurniturePrice(furnitureIndex))
+        if(GetPlayerMoney(playerid) < GetFurniturePrice(furnitureIndex))
             return SendClientMessage( playerid, COLOR_WHITE,"{00FF00}* {FFFFFF}Jums nepakanka pinigø.");
 
         format(string, sizeof string, "{FFFFFF}\t\tBaldo pirkimas.\n\
@@ -1094,7 +1094,7 @@ CMD:enter(playerid)
 
         if(IsBusinessLocked(index))
             return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
-        if(PlayerMoney[ playerid ] < GetBusinessEntrancePrice(index))
+        if(GetPlayerMoney(playerid) < GetBusinessEntrancePrice(index))
             return GameTextForPlayer(playerid, "~r~UZRAKINTA", 2000, 1);
 
         // Jei produktu nera ir ne savininkas, neieis :(
