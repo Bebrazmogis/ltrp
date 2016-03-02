@@ -7,7 +7,7 @@ z = 40.260040
 angle = 359.589599
 color1 = 48
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2242
@@ -18,7 +18,7 @@ z = 40.259933
 angle = 359.589294
 color1 = 48
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2156
@@ -29,7 +29,7 @@ z = 39.817550
 angle = 2.506121
 color1 = 19
 color2 = 19
-minrank = 4
+rankid = 4
 
 [veh]
 id = 2168
@@ -40,7 +40,7 @@ z = 25.853542
 angle = 269.169311
 color1 = 19
 color2 = 1
-minrank = 3
+rankid = 3
 
 [veh]
 id = 2221
@@ -51,7 +51,7 @@ z = 39.493907
 angle = 280.605682
 color1 = 0
 color2 = 0
-minrank = 0
+rankid = 1
 
 [veh]
 id = 1857
@@ -62,7 +62,7 @@ z = 8.648437
 angle = 271.803283
 color1 = 0
 color2 = 0
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2144
@@ -73,7 +73,7 @@ z = 39.818164
 angle = 88.621063
 color1 = 19
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2219
@@ -84,7 +84,7 @@ z = 39.875404
 angle = 283.723815
 color1 = 1
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2147
@@ -95,7 +95,7 @@ z = 39.816303
 angle = 87.944976
 color1 = 19
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2222
@@ -106,7 +106,7 @@ z = 39.493404
 angle = 283.724060
 color1 = 1
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 1665
@@ -117,7 +117,7 @@ z = -0.496998
 angle = 86.812141
 color1 = 0
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2245
@@ -128,7 +128,7 @@ z = 40.070312
 angle = 359.526458
 color1 = 48
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2151
@@ -139,7 +139,7 @@ z = 39.818588
 angle = 359.112640
 color1 = 19
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2149
@@ -150,7 +150,7 @@ z = 39.816490
 angle = 359.112640
 color1 = 19
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2150
@@ -161,7 +161,7 @@ z = 39.815780
 angle = 359.112640
 color1 = 19
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2225
@@ -172,7 +172,7 @@ z = 39.472885
 angle = 282.821380
 color1 = 0
 color2 = 0
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2140
@@ -183,7 +183,7 @@ z = 39.815711
 angle = 88.621063
 color1 = 1
 color2 = 11
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2133
@@ -194,7 +194,7 @@ z = 39.817615
 angle = 270.293670
 color1 = 19
 color2 = 0
-minrank = 4
+rankid = 4
 
 [veh]
 id = 2195
@@ -205,7 +205,7 @@ z = 39.800998
 angle = 0.884278
 color1 = 19
 color2 = 19
-minrank = 9
+rankid = 9
 
 [veh]
 id = 2099
@@ -216,7 +216,7 @@ z = -5.242187
 angle = 358.304199
 color1 = 211
 color2 = 211
-minrank = 4
+rankid = 4
 
 [veh]
 id = 2134
@@ -227,7 +227,7 @@ z = 39.819931
 angle = 270.340454
 color1 = 19
 color2 = 1
-minrank = 4
+rankid = 4
 
 [veh]
 id = 2248
@@ -238,7 +238,7 @@ z = 40.072620
 angle = 269.470764
 color1 = 48
 color2 = 1
-minrank = 0
+rankid = 1
 
 [veh]
 id = 2100
@@ -249,7 +249,7 @@ z = -5.242187
 angle = 87.313766
 color1 = 228
 color2 = 228
-minrank = 4
+rankid = 4
 
 [veh]
 id = 2167
@@ -260,7 +260,7 @@ z = 25.853542
 angle = 268.912780
 color1 = 0
 color2 = 0
-minrank = 2
+rankid = 2
 
 [veh]
 id = 2097
@@ -271,4 +271,4 @@ z = -5.242187
 angle = 359.873321
 color1 = 244
 color2 = 244
-minrank = 0
+rankid = 1
