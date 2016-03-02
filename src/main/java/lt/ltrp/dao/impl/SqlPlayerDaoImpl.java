@@ -82,8 +82,10 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     public boolean loadData(LtrpPlayer player) {
         boolean loaded = false;
         String sql = "SELECT " +
-                "secret_question, secret_answer, admin_level, players.level, players.job_id, money, connected_time, box_style, age, respect, bank_money, deaths, hunger " +
-                ", player_job_levels.level AS job_level, player_job_levels.hours AS job_hours, player_job_levels.xp AS job_xp FROM players LEFT JOIN player_job_levels ON players.id = player_job_levels.player_id AND players.job_id = player_job_levels.job_id" +
+                "secret_question, secret_answer, admin_level, players.level, players.job_id, money, hours_online, box_style, age, " +
+                "respect, deaths, hunger, total_paycheck, job_contract, minutes_online_since_payday " +
+                ", player_job_levels.level AS job_level, player_job_levels.hours AS job_hours, player_job_levels.xp AS job_xp " +
+                "FROM players LEFT JOIN player_job_levels ON players.id = player_job_levels.player_id AND players.job_id = player_job_levels.job_id" +
                 " WHERE players.id = ? LIMIT 1";
         try(
                 Connection connection = dataSource.getConnection();
@@ -98,17 +100,19 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setJob(Job.get(result.getInt("job_id")));
                 player.setSecretQuestion(result.getString("secret_question"));
                 player.setSecretAnswer(result.getString("secret_answer"));
-                player.setConnectedTime(result.getInt("connected_time"));
+                player.setOnlineHours(result.getInt("hours_online"));
                 player.setBoxStyle(result.getInt("box_style"));
                 player.setAge(result.getInt("age"));
                 player.setRespect(result.getInt("respect"));
-                player.setBankMoney(result.getInt("bank_money"));
                 player.setDeaths(result.getInt("deaths"));
                 player.setHunger(result.getInt("hunger"));
+                player.setTotalPaycheck(result.getInt("total_paycheck"));
+                player.setJobContract(result.getInt("job_contract"));
+                player.setMinutesOnlineSincePayday(result.getInt("minutes_online_since_payday"));
 
                 int jobLevel = result.getInt("job_level");
                 if(!result.wasNull()) {
-                    player.setJobLevel(jobLevel);
+                   // player.setJobLevel(jobLevel);
                     player.setJobHours(result.getInt("job_hours"));
                     player.setJobExperience(result.getInt("job_xp"));
                 }
@@ -152,6 +156,24 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
         return spawnData;
+    }
+
+    @Override
+    public void setSpawnData(LtrpPlayer player) {
+        String sql = "UPDATE players SET skin = ?, spawn_type = ?, spawn_ui = ? WHERE id = ?";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                ) {
+            SpawnData spawnData = player.getSpawnData();
+            stmt.setInt(1, spawnData.getSkin());
+            stmt.setInt(2, spawnData.getType().ordinal());
+            stmt.setInt(3, spawnData.getId());
+            stmt.setInt(4, player.getUserId());
+            stmt.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
