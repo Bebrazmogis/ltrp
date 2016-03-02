@@ -20,6 +20,7 @@ public interface PlayerDao {
     public boolean loadData(LtrpPlayer player);
     public boolean update(LtrpPlayer player);
     public SpawnData getSpawnData(LtrpPlayer player);
+    void setSpawnData(LtrpPlayer player);
     public JailData getJailData(LtrpPlayer player);
     public CrashData getCrashData(LtrpPlayer player);
     public boolean remove(LtrpPlayer player, CrashData data);
