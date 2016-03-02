@@ -138,7 +138,7 @@ public class MySqlJobDaoImpl implements JobDao {
 
     @Override
     public Collection<JobVehicle> getVehicles(Job job) throws LoadingException{
-        String sql = "SELECT vehicles.*, job_ranks.id AS rank_id, job_ranks.name, job_ranks_contract.hours_needed FROM job_vehicles " +
+        String sql = "SELECT vehicles.*, job_ranks.id AS rank_id, job_ranks.name, job_ranks.salary, job_ranks_contract.xp_needed FROM job_vehicles " +
                 "LEFT JOIN vehicles ON vehicles.id = job_vehicles.id " +
                 "LEFT JOIN job_ranks ON job_ranks.id = job_vehicles.rank_id " +
                 "LEFT JOIN job_ranks_contract ON job_ranks.id = job_ranks_contract.id " +
@@ -153,9 +153,9 @@ public class MySqlJobDaoImpl implements JobDao {
             while(result.next()) {
                 Rank rank;
                 if(job instanceof ContractJob)
-                    rank = new ContractJobRank(result.getInt("rank_id"), result.getInt("hours_needed"), result.getString("name"));
+                    rank = new ContractJobRank(result.getInt("rank_id"), result.getInt("hours_needed"), result.getString("name"), result.getInt("salary"));
                 else
-                    rank = new FactionRank(result.getInt("rank_id"), result.getString("name"));
+                    rank = new FactionRank(result.getInt("rank_id"), result.getString("name"), result.getInt("salary"));
                 JobVehicle vehicle = JobVehicle.create(
                         result.getInt("id"),
                         job,
@@ -235,7 +235,7 @@ public class MySqlJobDaoImpl implements JobDao {
     public Collection<Rank> getRanks(Job job) throws LoadingException {
         // In this case it is sorted by the number, although this is not guaranteed
         Collection<Rank> ranks = new TreeSet<>((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber()));
-        String sql = "SELECT job_ranks.*, job_ranks_contract.hours_needed FROm job_ranks LEFT JOIN job_ranks_contract ON job_ranks.id = job_ranks_contract.id WHERE job_ranks.job_id = ?";
+        String sql = "SELECT job_ranks.*, job_ranks_contract.xp_needed FROm job_ranks LEFT JOIN job_ranks_contract ON job_ranks.id = job_ranks_contract.id WHERE job_ranks.job_id = ?";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)
@@ -246,11 +246,12 @@ public class MySqlJobDaoImpl implements JobDao {
             while(resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
-                int hours = resultSet.getInt("hours_needed");
+                int xp = resultSet.getInt("xp_needed");
+                int salary = resultSet.getInt("salary");
                 if(resultSet.wasNull()) {
-                    rank =  new FactionRank(id, name);
+                    rank =  new FactionRank(id, name, salary);
                 } else {
-                    rank = new ContractJobRank(id, hours, name);
+                    rank = new ContractJobRank(id, xp, name, salary);
                 }
                 rank.setJob(job);
                 ranks.add(rank);
@@ -264,8 +265,8 @@ public class MySqlJobDaoImpl implements JobDao {
 
     @Override
     public void insertRank(Rank rank) {
-        String sql = "INSERT INTO job_ranks (id, job_id, name) VALUES (?, ?, ?)";
-        String contractSql = "INSERT INTO job_ranks_contract (id, job_id, hours_needed) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO job_ranks (id, job_id, name, salary) VALUES (?, ?, ?, ?)";
+        String contractSql = "INSERT INTO job_ranks_contract (id, job_id, xp_needed) VALUES (?, ?, ?)";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
@@ -274,12 +275,13 @@ public class MySqlJobDaoImpl implements JobDao {
             stmt.setInt(1, rank.getJob().getId());
             stmt.setInt(2, rank.getNumber());
             stmt.setString(3, rank.getName());
+            stmt.setInt(4, rank.getSalary());
             stmt.execute();
 
             if(rank instanceof ContractJobRank) {
                 contractStmt.setInt(1, rank.getNumber());
                 contractStmt.setInt(2, rank.getJob().getId());
-                contractStmt.setInt(3, ((ContractJobRank) rank).getHoursNeeded());
+                contractStmt.setInt(3, ((ContractJobRank) rank).getXpNeeded());
                 contractStmt.execute();
             }
         } catch (SQLException e) {

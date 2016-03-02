@@ -6,26 +6,27 @@ package lt.ltrp.job;
  */
 public class ContractJobRank implements Rank {
 
-    private int number, hoursNeeded;
+    private int number, xpNeeded,salary;
     private String name;
     private Job job;
 
-    public ContractJobRank(int number, int hoursNeeded, String name) {
+    public ContractJobRank(int number, int xpNeeded, String name, int salary) {
         this.number = number;
-        this.hoursNeeded = hoursNeeded;
+        this.xpNeeded = xpNeeded;
         this.name = name;
+        this.salary = salary;
     }
 
     public void setNumber(int number) {
         this.number = number;
     }
 
-    public int getHoursNeeded() {
-        return hoursNeeded;
+    public int getXpNeeded() {
+        return xpNeeded;
     }
 
-    public void setHoursNeeded(int hoursNeeded) {
-        this.hoursNeeded = hoursNeeded;
+    public void setXpNeeded(int xpNeeded) {
+        this.xpNeeded = xpNeeded;
     }
 
     public void setName(String name) {
@@ -52,5 +53,13 @@ public class ContractJobRank implements Rank {
         return job;
     }
 
+    @Override
+    public int getSalary() {
+        return salary;
+    }
 
+    @Override
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
 }

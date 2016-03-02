@@ -6,13 +6,14 @@ package lt.ltrp.job;
  */
 public class FactionRank implements Rank {
     
-    private int number;
+    private int number, salary;
     private String name;
     private Job job;
 
-    public FactionRank(int number, String name) {
+    public FactionRank(int number, String name, int salary) {
         this.number = number;
         this.name = name;
+        this.salary = salary;
     }
 
     public FactionRank() {
@@ -45,5 +46,15 @@ public class FactionRank implements Rank {
     @Override
     public Job getJob() {
         return job;
+    }
+
+    @Override
+    public int getSalary() {
+        return salary;
+    }
+
+    @Override
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 }

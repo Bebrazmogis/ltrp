@@ -10,5 +10,7 @@ public interface Rank {
     String getName();
     void setJob(Job job);
     Job getJob();
+    int getSalary();
+    void setSalary(int salary);
 
 }
