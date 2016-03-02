@@ -473,6 +473,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     HouseManagementDialog.OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
     switch(dialogid)
     {
+        /*
         case DIALOG_HOUSE_RADIO:
         {
             if(!response)
@@ -587,6 +588,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             format(string, sizeof(string), "* %s pakeièia audio sistemos daþná á kità." ,GetPlayerNameEx(playerid));
             ProxDetector(20.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE);
         }
+        */
         /*
         case DIALOG_HOUSE_ITEM_LIST:
         {
@@ -1603,7 +1605,7 @@ CMD:hinv(playerid, params[])
     ShowHouseInv(playerid, house_index);
     return 1;
 }*/
-
+/*
 CMD:hradio(playerid)
 {
     new sendername[ MAX_PLAYER_NAME ];
@@ -1627,7 +1629,7 @@ CMD:hradio(playerid)
     SetPVarInt(playerid, "HouseIndex", house_index);
     ShowPlayerDialog(playerid, DIALOG_HOUSE_RADIO, DIALOG_STYLE_LIST,"Garso sistema", string, "Rinktis", "Atsaukti");
     return 1;
-}
+}*/
 
 CMD:tenantry(playerid, params[])
 {

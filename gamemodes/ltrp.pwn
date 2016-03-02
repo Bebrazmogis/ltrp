@@ -37,7 +37,7 @@ native CallShoebillFunction(name[], {Float,_}:...);
 //#include <a_http>
 #include <foreach>
 #include <a_mysql>
-#include <audio>
+//#include <audio>
 #include <sscanf2>
 #include <streamer>
 #include <lookup>
@@ -308,6 +308,7 @@ enum radioInfo
 
 #define STATIONS 18
 
+/*
 #define MAX_RADIO_STATION_URL           64
 new
     RadioStations [ STATIONS ] [ radioInfo ] =
@@ -331,7 +332,7 @@ new
     { "West Coast Classic", "Rap", "http://streaming.radionomy.com/WestCoastClassics"},
     { "Radio Salsa", "Rap", "http://streaming.radionomy.com/Radio-Salsa---Clasicos"}
 };
-
+*/
 new GunObjects[47] = {
     0,331,333,334,335,336,337,338,339,341,321,322,323,324,325,326,342,343,344,
     0,0,0,346,347,348,349,350,351,352,353,355,356,372,357,358,359,360,361,362,
@@ -533,14 +534,14 @@ new
     AfkCheck[MAX_PLAYERS],
     OldCar[MAX_PLAYERS],
     tmpinteger[MAX_PLAYERS],
-    bool:Belt[MAX_PLAYERS],
+    //bool:Belt[MAX_PLAYERS],
     //Float:Tlc[3],
     bool:Voted[MAX_PLAYERS] = { true, ... },
     Votes[ 2 ],
-    RadioStation[ MAX_PLAYERS ],
-    RadioName[ MAX_PLAYERS ],
-    VehicleRadio[ MAX_VEHICLES ] = { 99, ... },
-    VehRadio[ MAX_VEHICLES ][ 128 ],
+    //RadioStation[ MAX_PLAYERS ],
+    //RadioName[ MAX_PLAYERS ],
+    //VehicleRadio[ MAX_VEHICLES ] = { 99, ... },
+    //VehRadio[ MAX_VEHICLES ][ 128 ],
     //Police[ MAX_VEHICLES ],
     bool:VGaraze[ MAX_VEHICLES ] = { false, ... },
     Camera      [ MAX_PLAYERS  ] = { -1, ... },
@@ -3653,7 +3654,7 @@ stock GetPlayerIP(playerid)
     ipv += strval(ip[pos]);
     return ipv;
 }
-public Audio_OnClientConnect( playerid )
+/*public Audio_OnClientConnect( playerid )
 {
     RadioName[ playerid ] = 99;
     return 1;
@@ -3667,6 +3668,7 @@ public Audio_OnRadioStationChange( playerid, station )
 {
     return 1;
 }
+*/
 public OnPlayerConnect(playerid)
 {
     #if defined DEBUG
@@ -3965,11 +3967,12 @@ public OnPlayerDisconnect(playerid, reason)
     }
     if ( aInfo[ playerid ][ aObjekt ] > 0 )
     {
-        foreach(Player,id)
+       /* foreach(Player,id)
         {
             if ( IsPlayerInDynamicArea( id, aInfo[ playerid ][ aArea ] ) )
                 Set3DAudioForPlayer( id, "", playerid );
         }
+        */
         aInfo[ playerid ][ aKords ][ 0 ] = 0.0;
         aInfo[ playerid ][ aKords ][ 1 ] = 0.0;
         aInfo[ playerid ][ aKords ][ 2 ] = 0.0;
@@ -4309,7 +4312,7 @@ CMD:help(playerid)
     SendClientMessage( playerid, COLOR_FADE1, "  DARBAS IR FRAKCIJA: /leavefaction /takejob /leavejob");	
     SendClientMessage( playerid, COLOR_FADE2, "  ADMINISTRACIJA IR PAGALBA: /admins /moderators /(re)port /askq");
     SendClientMessage( playerid, COLOR_FADE1, "  TURTO PIRKIMAS: /buy /buygun /buyhouse /buybiz");
-    SendClientMessage( playerid, COLOR_FADE2, "  KITOS KOMANDOS: /bail /id /make /bank /note /knock /maxspeed /charity /lock /accept /fines /vehiclefines /setbelt");
+    SendClientMessage( playerid, COLOR_FADE2, "  KITOS KOMANDOS: /bail /id /make /bank /note /knock /maxspeed /charity /lock /accept /fines /vehiclefines /seatbelt");
     SendClientMessage( playerid, COLOR_FADE1, "  KITOS KOMANDOS: /lastad /bell /setcard /ccard /windows /trunk /bonnet /sid /savings");
 //    if ( pInfo[ playerid ][ pJob ] == JOB_MECHANIC )
 //    SendClientMessage( playerid, COLOR_LIGHTRED2, "  MECHANIKO KOMANDOS: /repair /repaint /addwheels");
@@ -6224,6 +6227,7 @@ CMD:pm( playerid, params[ ] )
     PlayerPlaySound(giveplayerid, 1057, 0.0, 0.0, 0.0 );
     return 1;
 }
+/*
 CMD:setbelt( playerid, params[ ] )
 {
     #pragma unused params
@@ -6243,6 +6247,7 @@ CMD:setbelt( playerid, params[ ] )
     ProxDetector( 15.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
     return 1;
 }
+*/
 CMD:togf( playerid, params[ ] )
 {
     #pragma unused params
@@ -7850,6 +7855,7 @@ stock SellVehicleToPlayer(owner_playerid, vehicleid, buyer_playerid, price)
     return 1;
 }
 
+/*
 CMD:vradio( playerid)
 {
     if(!IsPlayerInAnyVehicle(playerid))
@@ -7869,6 +7875,7 @@ CMD:vradio( playerid)
     else SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs sëdite ne automobilio priekyje." );
     return 1;
 }
+*/
 
 CMD:tazer( playerid, params[ ] )
 {
@@ -8357,6 +8364,7 @@ stock MoveCamera( playerid, Float:degres, Float:radius, camera )
     SetPlayerCameraLookAt(playerid, WachX[ playerid ], WachY[ playerid ], CCTV[ camera ][ 3 ]);
     return 1;
 }
+/*
 CMD:license(playerid)
 {
     if(!Data_IsPlayerInRangeOfCoords(playerid, 5.0, "license_center"))
@@ -8370,7 +8378,9 @@ CMD:license(playerid)
                                                             \t- Pilotavimo\n\
                                                             Spauskite pradëti, kad pradëtumëte testà.", "Pradëti", "Atðaukti");
     return 1;
-}/*
+}
+*/
+/*
 CMD:maxspeed( playerid, params[ ] )
 {
     if ( !IsPlayerInAnyVehicle( playerid ) )
@@ -14262,7 +14272,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
         {
 
         }
-
+/*
 
         if ( Audio_IsClientConnected( playerid ) )
         {
@@ -14278,9 +14288,9 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             if ( VehicleRadio[ veh ] != 99 )
                 SetPlayerRadio( playerid, VehRadio[ veh ] );
         }
-
+*/
         OldCar[ playerid ] = veh;
-
+/*
         if ( isLicCar( veh ) )
         {
             SendClientMessage( playerid, COLOR_LIGHTRED2,"** Los Santos Driver License Center "),
@@ -14289,6 +14299,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             return 1;
         }
         
+        */
         /*if(sVehicles[ veh ][ Job ] == JOB_TRASH)
         {
             KillTimer(TrashTimer[ playerid ]);
@@ -14304,7 +14315,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
         }
     */
-
+/*
         if(Engine[veh] == false && VehicleHasEngine( GetVehicleModel( veh ) ) )
             ShowInfoText(playerid, "~w~SPAUSKITE ~r~ALT~n~~w~Kad uzvestumete automobili.", 2000);
 
@@ -14318,6 +14329,8 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             SendClientMessage( playerid, COLOR_WHITE, string );
             return 1;
         }
+    }
+    */
     }
     else if(newstate == PLAYER_STATE_ONFOOT)
     {
@@ -14341,9 +14354,10 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
     }
     if(oldstate == PLAYER_STATE_DRIVER)
     {
-        if ( VehicleRadio[ OldCar[ playerid ] ] != 99 )
+/*        if ( VehicleRadio[ OldCar[ playerid ] ] != 99 )
             StopPlayerRadio( playerid );
 
+*/
         //Check_VHP( OldCar[ playerid ], 1 );
         if(GetPVarInt(playerid,"used") == 1)
         {
@@ -14351,13 +14365,14 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             DestroyPlayerObject(playerid,vehview[playerid]);
             SetPVarInt(playerid,"used",0);
         }
-        if ( Belt[ playerid ] == true )
+       /* if ( Belt[ playerid ] == true )
         {
             new string[ 126 ];
             format      ( string, 126, "* %s iðlipdamas atsisegë saugos dirþà .", GetPlayerNameEx( playerid ) );
             ProxDetector( 15.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
             Belt[ playerid ] = false;
         }
+        */
         if ( Checkpoint[ playerid ] == CHECKPOINT_LIC )
         {
             DisablePlayerCheckpoint( playerid );
@@ -14368,10 +14383,10 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
         }
     }
     if(oldstate == PLAYER_STATE_PASSENGER)
-    {
+    {/*
         if ( VehicleRadio[ OldCar[ playerid ] ] != 99 )
             StopPlayerRadio( playerid );
-
+*/
         if(GetPVarInt(playerid,"used") == 1)
         {
             SetCameraBehindPlayer(playerid);
@@ -14379,13 +14394,13 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             SetPVarInt(playerid,"used",0);
         }
 
-        if ( Belt[ playerid ] == true )
+        /*if ( Belt[ playerid ] == true )
         {
             new string[ 126 ];
             format( string, 126, "* %s atsisega saugos dirþà ir iðlipa ið tr. priemonës.", GetPlayerNameEx( playerid ) );
             ProxDetector( 15.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
             Belt[ playerid ] = false;
-        }
+        }*/
     }
     if(newstate == PLAYER_STATE_PASSENGER)
     {
@@ -14396,7 +14411,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             RemovePlayerFromVehicle(playerid);
             return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite sësti èia, kadangi èia pridëtà kroviniø.");
         }
-
+/*
         if ( Audio_IsClientConnected( playerid ) )
         {
             Audio_StopRadio( playerid );
@@ -14411,7 +14426,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
             if ( VehicleRadio[ veh ] != 99 )
                 SetPlayerRadio( playerid, VehRadio[ veh ] );
         }
-
+*/
         OldCar[ playerid ] = veh;
     }
     #if defined DEBUG
@@ -14823,6 +14838,7 @@ public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
     CancelEdit(playerid);
     return 1;
 }
+/*
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
     new plstate = GetPVarInt( playerid, "PLAYER_STATE" );
@@ -14835,6 +14851,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
     }
     return 1;
 }
+*/
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
     return 1;
@@ -17184,6 +17201,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         SendClientMessage(playerid, COLOR_NEWS, "Turgus sëkmingai sukurtas.");
         return 1;
     }
+    /*
     else if ( dialogid == 67 )
     {
         if ( response == 1 )
@@ -17215,6 +17233,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+    */
+    /*
     else if ( dialogid == 137 )
     {
         if ( !response ) return true;
@@ -17364,6 +17384,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    */
     /*
     else if ( dialogid == 76 )
     {
@@ -19321,7 +19342,7 @@ stock ShowAdminMenu( playerid, type, tmp )
     }
     return 1;
 }
-
+/*
 stock Set3DAudioForPlayer( playerid, station[ ], radio )
 {
     if ( Audio_IsClientConnected( playerid ) == 0 )
@@ -19350,7 +19371,7 @@ stock Set3DAudioForPlayer( playerid, station[ ], radio )
     Audio_Set3DPosition( playerid, RadioStation[ playerid ], aInfo[ radio ][ aKords ][ 0 ], aInfo[ radio ][ aKords ][ 1 ], aInfo[ radio ][ aKords ][ 2 ], 30.0);
     RadioName[ playerid ] = 2;
     return 1;
-}
+}*/
 
 stock GetWeaponObjectModel(weaponid)
 {
@@ -19406,6 +19427,7 @@ stock GetSpaceString(amount)
         strcat(string, " ");
     return string;
 }
+/*
 stock StopPlayerRadio( playerid )
 {
     if ( Audio_IsClientConnected( playerid ) )
@@ -19449,6 +19471,7 @@ stock SetPlayerRadioVolume( playerid, volume )
 stock GetRadioVolume( playerid )
     return GetPVarInt( playerid, "VOLUME" );
 
+*/
 FUNKCIJA:Vote( )
 {
     new string[ 64 ];
@@ -23470,6 +23493,7 @@ stock SetPlayerRaceCheckPointEx( playerid, cptype, type, Float:x, Float:y, Float
     Checkpoint[ playerid ] = cptype;
     return 1;
 }
+/*
 stock setLicenseCp( playerid )
 {
     switch( GetPVarInt( playerid, "LIC_TYPE" ) )
@@ -23566,7 +23590,7 @@ stock setLicenseCp( playerid )
     }
     return 1;
 }
-
+*/
 stock FactionID( mysqlid )
 {
     foreach(Faction,id)

@@ -1075,11 +1075,12 @@ CMD:enter(playerid)
         SetPlayerInterior(playerid, GetInteriorInteriorId(GetHouseInteriorID(index)));
         SetPlayerVirtualWorld(playerid,GetHouseVirtualWorld(index));
         CallShoebillFunction("OnPlayerEnterHouse", playerid, GetHouseID(index));
-        if(Audio_IsClientConnected(playerid))
+/*        if(Audio_IsClientConnected(playerid))
         {
             if(IsHouseRadioTurnedOn(index))
                 SetPlayerRadio(playerid, GetHouseRadioStation(index));
         }
+        */
         return 1;
     }
 
@@ -1198,7 +1199,7 @@ CMD:exit(playerid)
         Unfreeze[ playerid ] = 2;
         TogglePlayerControllable(playerid, false);
 
-        StopPlayerRadio(playerid);
+    //    StopPlayerRadio(playerid);
         return 1;
     }
 
