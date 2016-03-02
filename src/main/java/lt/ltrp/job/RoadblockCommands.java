@@ -30,7 +30,7 @@ public class RoadblockCommands extends Commands {
 
     @BeforeCheck
     public boolean beforeCheck(LtrpPlayer player, String cmd, String params) {
-        if(player.isAdmin() || player.getJob().equals(job) || player.getJob().getId() == MedicManager.JOB_ID) {
+        if(player.isAdmin() || player.getJob().equals(job)) {
             return true;
         } else {
             return false;
