@@ -1,17 +1,22 @@
 package lt.ltrp.Util;
 
+import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Bebras
  *         2015.11.12.
  */
 public class PawnFunc {
+
+    private static final Logger logger = LoggerFactory.getLogger(PawnFunc.class);
 
     public static AmxCallable getNativeMethod(String name) {
         AmxCallable nativeMethod = null;
@@ -65,6 +70,16 @@ public class PawnFunc {
             location.setWorldId((Integer)method.call(key));
         }
         return location;
+    }
+
+    public static boolean isPlayerInRangeOfCoords(LtrpPlayer player, float distance, String key) {
+        AmxCallable func = getPublicMethod("Data_IsPlayerInRangeOfCoords");
+        if(func != null) {
+            return (boolean)func.call(player.getId(), distance, key);
+        } else {
+            logger.error("Data_IsPlayerInRangeOfCoords is not registered");
+        }
+        return false;
     }
 
 }

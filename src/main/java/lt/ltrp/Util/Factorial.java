@@ -7,6 +7,9 @@ package lt.ltrp.Util;
 public class Factorial {
 
     public static int get(int number) {
+        if(number == 0) {
+            return 0;
+        }
         return number + get(number-1);
     }
 
