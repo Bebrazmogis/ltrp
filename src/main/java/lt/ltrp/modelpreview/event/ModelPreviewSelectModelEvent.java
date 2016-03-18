@@ -1,6 +1,6 @@
-package lt.ltrp.event.modelpreview;
+package lt.ltrp.modelpreview.event;
 
-import lt.ltrp.ModelPreview;
+import lt.ltrp.modelpreview.ModelPreview;
 import lt.ltrp.player.LtrpPlayer;
 
 /**
