@@ -12,6 +12,7 @@ import lt.ltrp.plugin.streamer.DynamicLabel;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import lt.ltrp.vehicle.JobVehicle;
 import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.vehicle.VehicleManager;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.player.PlayerDeathEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
@@ -31,19 +32,19 @@ import java.util.*;
 public class PolicemanManager extends AbstractJobManager {
 
     private OfficerJob job;
-    private RoadblockModelPreview roadblockPreview;
     protected Map<JobVehicle, DynamicLabel> unitLabels = new HashMap<>();
     protected Map<JobVehicle, DynamicSampObject> policeSirens = new HashMap<>();
     protected Map<LtrpPlayer, DragTimer> dragTimers;
     private PlayerCommandManager commandManager;
+    private Collection<LtrpPlayer> playersOnDuty;
 
 
-    public PolicemanManager(EventManager eventManager, int id) throws LoadingException {
+    public PolicemanManager(EventManager eventManager, int id, VehicleManager vehicleManager) throws LoadingException {
         super(eventManager);
         this.unitLabels = new HashMap<>();
         this.policeSirens = new HashMap<>();
         this.dragTimers = new HashMap<>();
-        this.roadblockPreview = RoadblockModelPreview.get();
+        this.playersOnDuty = new ArrayList<>();
 
         this.job = LtrpGamemode.getDao().getJobDao().getOfficerJob(id);
 
@@ -57,8 +58,8 @@ public class PolicemanManager extends AbstractJobManager {
             }
         });
 
-        commandManager.registerCommands(new PoliceCommands(commandManager, job, eventManager, unitLabels, policeSirens, dragTimers));
-        commandManager.registerCommands(new RoadblockCommands(job));
+        commandManager.registerCommands(new PoliceCommands(commandManager, job, eventManager, unitLabels, policeSirens, dragTimers, this, vehicleManager.getPlayerVehicleManager()));
+        commandManager.registerCommands(new RoadblockCommands(job, eventManagerNode));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
 
         eventManagerNode.registerHandler(VehicleDeathEvent.class, e -> {
@@ -104,6 +105,17 @@ public class PolicemanManager extends AbstractJobManager {
 
 
 
+    }
+
+    public boolean isOnDuty(LtrpPlayer player) {
+        return playersOnDuty.contains(player);
+    }
+
+    public void setOnDuty(LtrpPlayer player, boolean set) {
+        if(set)
+            playersOnDuty.add(player);
+        else
+            playersOnDuty.remove(player);
     }
 
     @Override

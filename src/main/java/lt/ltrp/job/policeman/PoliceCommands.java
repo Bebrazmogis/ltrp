@@ -1,19 +1,20 @@
 package lt.ltrp.job.policeman;
 
 import lt.ltrp.LtrpGamemode;
+import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.Util.StringUtils;
-import lt.ltrp.command.CommandParam;
 import lt.ltrp.command.Commands;
 import lt.ltrp.constant.LicenseType;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
-import lt.ltrp.dialog.CrimeListDialog;
-import lt.ltrp.dialog.PoliceWeaponryDialog;
+import lt.ltrp.job.policeman.dialog.ConfirmDelArrestMsgboxDialog;
+import lt.ltrp.job.policeman.dialog.CrimeListDialog;
+import lt.ltrp.job.policeman.dialog.PoliceGearListDialog;
+import lt.ltrp.job.policeman.dialog.PoliceWeaponryDialog;
 import lt.ltrp.dialogmenu.PoliceDatabaseMenu;
 import lt.ltrp.item.Item;
 import lt.ltrp.item.ItemType;
-import lt.ltrp.job.JobManager;
-import lt.ltrp.job.policeman.OfficerJob;
+import lt.ltrp.modelpreview.SkinModelPreview;
 import lt.ltrp.player.LicenseWarning;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerCrime;
@@ -22,17 +23,22 @@ import lt.ltrp.plugin.streamer.DynamicLabel;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import lt.ltrp.property.House;
 import lt.ltrp.property.HouseWeedSapling;
-import lt.ltrp.vehicle.JobVehicle;
+import lt.ltrp.vehicle.*;
+import lt.ltrp.vehicle.event.PlayerVehicleArrestDeleteEvent;
+import lt.ltrp.vehicle.event.PlayerVehicleArrestEvent;
+import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.*;
+import net.gtaun.shoebill.common.dialog.AbstractDialog;
+import net.gtaun.shoebill.common.dialog.ListDialog;
+import net.gtaun.shoebill.common.dialog.ListDialogItem;
+import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.constant.VehicleModelInfoType;
-import net.gtaun.shoebill.data.Area3D;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.object.Checkpoint;
 import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 
 import java.sql.Timestamp;
@@ -68,6 +74,11 @@ public class PoliceCommands extends Commands{
         commandToRankNumber.put("abk", 1);
         commandToRankNumber.put("take", 1);
         commandToRankNumber.put("licwarn", 1);
+        commandToRankNumber.put("pgear", 1);
+        commandToRankNumber.put("duty", 1);
+        commandToRankNumber.put("pdclothes", 1);
+        commandToRankNumber.put("arrestcar", 1);
+        commandToRankNumber.put("delarrestcar", 1);
 
         commandToRankNumber.put("wepstore", 2);
 
@@ -78,6 +89,9 @@ public class PoliceCommands extends Commands{
 
         jobAreaCommands = new ArrayList<>();
         jobAreaCommands.add("wepstore");
+        jobAreaCommands.add("pgear");
+        jobAreaCommands.add("duty");
+        jobAreaCommands.add("pdclothes");
 
 
     }
@@ -89,9 +103,13 @@ public class PoliceCommands extends Commands{
     private Map<LtrpPlayer, DragTimer> dragTimers;
     private Map<LtrpPlayer, List<LtrpPlayer>> backupRequests;
     private PlayerCommandManager playerCommandManager;
+    private PolicemanManager policemanManager;
+    private PlayerVehicleManager playerVehicleManager;
 
 
-    public PoliceCommands(PlayerCommandManager cmdmanger, OfficerJob job, EventManager eventManager, Map<JobVehicle, DynamicLabel> unitLabels, Map<JobVehicle, DynamicSampObject> sirends, Map<LtrpPlayer,DragTimer> dragtimers) {
+    public PoliceCommands(PlayerCommandManager cmdmanger, OfficerJob job, EventManager eventManager,
+                          Map<JobVehicle, DynamicLabel> unitLabels, Map<JobVehicle, DynamicSampObject> sirends, Map<LtrpPlayer,DragTimer> dragtimers, PolicemanManager policemanager,
+                          PlayerVehicleManager playerVehicleManager) {
         this.playerCommandManager = cmdmanger;
         this.job = job;
         this.backupRequests = new HashMap<>();
@@ -99,6 +117,8 @@ public class PoliceCommands extends Commands{
         this.unitLabels = unitLabels;
         this.policeSirens = sirends;
         this.dragTimers = dragtimers;
+        this.policemanManager = policemanager;
+        this.playerVehicleManager = playerVehicleManager;
     }
 
     @BeforeCheck
@@ -423,7 +443,7 @@ public class PoliceCommands extends Commands{
             backupRequests.get(t).add(player);
             return true;
         }
-        return false;
+        return true;
     }
 
 
@@ -484,7 +504,7 @@ public class PoliceCommands extends Commands{
                 // TODO narkotikø paðalinimas
             }
         }
-        return false;
+        return true;
     }
 
     @Command
@@ -512,8 +532,121 @@ public class PoliceCommands extends Commands{
             LtrpGamemode.getDao().getPlayerDao().insert(warning);
             target.sendMessage("Jûs gavote vairavimp áspëjimà nuo pareigûno " + player.getCharName() + ". Paþeidimas: " + warningText + ".");
             player.sendMessage(target.getCharName() + " áspëtas.");
-            return true;
         }
-        return false;
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia persirengti policijos drabuþiais")
+    public boolean pGear(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PoliceGearListDialog.create(player, eventManager)
+                .show();
+        return true;
+    }
+
+    @Command
+    public boolean duty(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(policemanManager.isOnDuty(player)) {
+            player.sendActionMessage("pasidëjo savo turimus ginklus á savo ginklø saugyklà.");
+            player.removeJobWeapons();
+            player.setColor(Color.WHITE);
+        } else {
+            player.sendActionMessage("atsidaro savo ginklø saugyklà.");
+            player.setArmour(100f);
+            player.setColor(new Color(0x8d8dffAA));
+            PoliceWeaponryDialog.create(player, eventManager, (OfficerJob)player.getJob());
+        }
+        policemanManager.setOnDuty(player, !policemanManager.isOnDuty(player));
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia persirengti bûnant bûstinëje")
+    public boolean pdClothes(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        SkinModelPreview.create(player, eventManager, (preview, skindId) ->{
+            player.setSkin(skindId);
+        });
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Areðtuoja artimiausià transporto priemonæ")
+    public boolean arrestCar(Player p, @CommandParameter(name = "Areðto prieþastis")String reason) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PlayerVehicle vehicle = PlayerVehicle.getClosest(player, 8f);
+        if(vehicle == null) {
+            player.sendErrorMessage("Prie jûsø nëra jokios transporto priemonës.");
+        } else if(PawnFunc.isPlayerInRangeOfCoords(player, 40f, "job_police_confiscated_garage")) {
+            player.sendErrorMessage("Turite bûti policijos konfiskuotø transporto priemoniø garaþe.");
+        } else {
+            LtrpPlayer vehicleOwner = LtrpPlayer.get(vehicle.getOwnerId());
+            if(vehicleOwner != null) {
+                player.sendMessage(Color.NEWS, " Policijos pareigûnas " + player.getCharName() + "  areðtavo Jûsø automobilá" + vehicle.getModelName() + ", kurio numeriai: " + vehicle.getLicense());
+            }
+            job.sendMessage(Color.POLICE, String.format("%s %s areðtavo %s, valstybiniai numeriai %s. Prieþastis: %s.",
+                    player.getJobRank().getName(),
+                    player.getCharName(),
+                    vehicle.getModelName(),
+                    vehicle.getLicense(),
+                    reason));
+            eventManager.dispatchEvent(new PlayerVehicleArrestEvent(player, vehicle, reason));
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Paðalina areðtuota transporto priemonæ")
+    public boolean delArrestCar(Player p, @CommandParameter(name = "Auto numeriai ARBA þaidëjo ID")String params) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(!StringUtils.isNumeric(params)) {
+            PlayerVehicleArrest arrest = playerVehicleManager.getArrest(params);
+            if(arrest != null) {
+                MsgboxDialog dialog = ConfirmDelArrestMsgboxDialog.create(player, eventManager, arrest);
+                dialog.setClickOkHandler(d -> {
+                    job.sendMessage(Color.POLICE, "Policijos pareigûnas " + player.getCharName() + " nutraukë areðtà tr. priemonei");
+                    eventManager.dispatchEvent(new PlayerVehicleArrestDeleteEvent(player, arrest));
+                });
+                dialog.show();
+            } else {
+                player.sendErrorMessage("Transporto priemonë neberasta arba ji neareðtuota.");
+            }
+        } else {
+            LtrpPlayer target = LtrpPlayer.get(Integer.parseInt(params));
+            if(target == null) {
+                player.sendErrorMessage("Tokio þaidëjo nëra!");
+            } else if(target.getDistanceToPlayer(player) > 10f) {
+                player.sendErrorMessage(target.getCharName() + " per toli.");
+            } else {
+                Collection<ListDialogItem> items = new ArrayList<>();
+                for(int vehicleId : playerVehicleManager.getArrestedVehicles(target)) {
+                    PlayerVehicleMetadata meta = playerVehicleManager.getMetaData(vehicleId);
+                    items.add(new ListDialogItem(meta, "", (d, i) -> {
+                        PlayerVehicleArrest arrest =  playerVehicleManager.getArrest(meta.getId());
+                        MsgboxDialog dialog = ConfirmDelArrestMsgboxDialog.create(player, eventManager, arrest);
+                        dialog.setClickOkHandler(dd -> {
+                            job.sendMessage(Color.POLICE, "Policijos pareigûnas " + player.getCharName() + " nutraukë areðtà tr. priemonei");
+                            eventManager.dispatchEvent(new PlayerVehicleArrestDeleteEvent(player, arrest));
+                        });
+                        dialog.show();
+                    }));
+                }
+                if(items.size() == 0) {
+                    player.sendErrorMessage(target.getCharName() + " neturi nei vienos areðtuotos transporto priemonës.");
+                } else {
+                    ListDialog.create(player, eventManager)
+                            .caption(target.getCharName() + " areðtuoti atuomobiliai")
+                            .buttonOk("Pasirinkti")
+                            .buttonCancel("Atðaukti")
+                            .items(items)
+                            .build()
+                            .show();
+                }
+
+            }
+        }
+        return true;
     }
 }
