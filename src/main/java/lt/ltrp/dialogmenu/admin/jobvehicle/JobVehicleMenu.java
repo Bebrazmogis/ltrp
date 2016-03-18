@@ -76,7 +76,7 @@ public class JobVehicleMenu extends PlayerDialogMenu {
                                         if (model >= 400 && model < 613 && color1 >= 0 && color1 < 256 && color2 >= 0 && color2 < 256) {
                                             JobRankDialog dialog = new JobRankDialog(player, eventManager, job);
                                             dialog.setClickOkHandler((JobRankDialog.ClickOkHandler) (ddd, rank) -> {
-                                                JobVehicle vehicle = JobVehicle.create(job, model, player.getLocation(), color1, color2, rank);
+                                                JobVehicle vehicle = JobVehicle.create(job, model, player.getLocation(), color1, color2, rank, 0f);
                                                 job.addVehicle(vehicle);
                                                 LtrpGamemode.getDao().getJobDao().insertVehicle(vehicle);
                                                 player.sendMessage(Color.GREEN, "Automobilis sukurtas. Jo unikalus ID " + vehicle.getUniqueId() + " þaidimo ID " + vehicle.getId());
