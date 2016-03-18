@@ -1,12 +1,15 @@
 package lt.ltrp.dao;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import lt.ltrp.DatabasePlugin;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.RadioStation;
 import lt.ltrp.dao.impl.*;
 import lt.ltrp.item.SqlItemDao;
 import net.gtaun.shoebill.Shoebill;
 
+import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -21,13 +24,7 @@ import java.util.Properties;
 public abstract class DAOFactory {
 
 
-    private static final String driver = "com.mysql.jdbc.Driver";
-    private static final String user = "root";
-    private static final String password = "";
-    private static final String database = "ltrp-java";
-    private static final String url = "jdbc:mysql://localhost:3306/" + database;
-    //private static final String url = "jdbc:jdbcdslog:jdbc:mysql://localhost:3306/" + database + ";targetDriver=" + driver;
-    //jdbc:jdbcdslog:<original URL>;targetDriver=<original JDBC driver full class name>
+
 
     public static DAOFactory getInstance() {
         DAOFactory instance = null;
@@ -37,21 +34,11 @@ public abstract class DAOFactory {
         //p.put("com.mchange.v2.log.FallbackMLog.DEFAULT_CUTOFF_LEVEL", "ALL"); // Off or any other level
         System.setProperties(p);
 
-        ComboPooledDataSource cpds = new ComboPooledDataSource();
-        try {
-            cpds.setDriverClass(driver);
-        } catch (PropertyVetoException e) {
-            e.printStackTrace();
-        }
-        cpds.setJdbcUrl(url);
-        cpds.setUser(user);
-        cpds.setPassword(password);
-
-        cpds.setMinPoolSize(1);
-        cpds.setMaxPoolSize(6);
+        DatabasePlugin dbPlugin = Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class);
+        DataSource dataSource = dbPlugin.getDataSource();
 
         try {
-            instance = new JdbcDAO(cpds);
+            instance = new JdbcDAO(dataSource);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
@@ -75,7 +62,7 @@ public abstract class DAOFactory {
 
 class JdbcDAO extends DAOFactory {
 
-    private ComboPooledDataSource ds;
+    private DataSource ds;
     private PlayerDao playerDao;
     private PhoneDao phoneDao;
     private ItemDao itemDao;
@@ -85,7 +72,7 @@ class JdbcDAO extends DAOFactory {
     private VehicleDao vehicleDao;
     private RadioStationDao radioStationDao;
 
-    public JdbcDAO(ComboPooledDataSource ds) throws IOException, SQLException {
+    public JdbcDAO(DataSource ds) throws IOException, SQLException {
         this.ds = ds;
         /*BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("database.sql")));
         String line;
