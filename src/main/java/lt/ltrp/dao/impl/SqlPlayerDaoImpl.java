@@ -472,6 +472,56 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
+    @Override
+    public void removeJob(int userId) {
+        String sql = "UPDATE players SET job_id = NULL, job_rank = NULL WHERE id = ?";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, userId);
+            stmt.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String getUsername(int userId) {
+        String sql = "SELECT username FROM players WHERE id = ?";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, userId);
+            ResultSet resultSet = stmt.executeQuery();
+            if(resultSet.next()) {
+                return resultSet.getString("username");
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public int getUserId(String username) {
+        String sql = "SELECT id FROM players WHERE username= ?";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setString(1, username);
+            ResultSet resultSet = stmt.executeQuery();
+            if(resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return LtrpPlayer.INVALID_USER_ID;
+    }
+
     public LicenseWarning[] getWarnings(PlayerLicense license) {
         String sql = "SELECT * FROM player_license_warnings WHERE license_id = ?";
         List<LicenseWarning> warnings = new ArrayList<>();

@@ -37,4 +37,9 @@ public interface PlayerDao {
     void insert(LicenseWarning warning);
     PlayerLicenses get(LtrpPlayer player);
     void delete(PlayerLicense license);
+
+    // methods for manipulating offline users
+    void removeJob(int userId);
+    public String getUsername(int userId);
+    public int getUserId(String username);
 }
