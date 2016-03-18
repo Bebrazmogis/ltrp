@@ -770,10 +770,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     {
                         success = GivePlayerBasicItem(playerid, ITEM_SVIRKSTAS, 1, 23, 0);
                     }
-
+                    case ITEM_MAGNETOLA:
+                    {
+                        success = GivePlayerBasicItem(playerid, ITEM_MAGNETOLA, 1, 40, 0);
+                    }
 				    // NOT IMPLEMENTEDE YET
 				    /*
-				    ITEM_MAGNETOLA
+				    
 				    ITEM_VAISTAI
 				    ITEM_NOTE
 				    ITEM_MEDIC

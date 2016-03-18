@@ -709,8 +709,7 @@ stock SetPlayerHealthBonus(playerid, Float:health)
     #define _ALS_SetPlayerHealth
 #endif
 #define SetPlayerHealth SetPlayerHealthBonus
-
-enum E_FACTION_DATA
+/*enum E_FACTION_DATA
 {
     fID,
     fName[126],
@@ -737,7 +736,7 @@ enum E_FACTION_DATA
 };
 new fInfo[20][E_FACTION_DATA];
 new Iterator:Faction<16>;
-
+*/
 enum cars
 {
     cName[20],
@@ -1749,6 +1748,7 @@ GetIndustryCargoStock(index, cargoid)
     return 0;
 }
 
+/*
 stock UnLoadFactions()
 {
     foreach(Faction,i)
@@ -1779,7 +1779,7 @@ stock UnLoadFactions()
     }
     Itter_Clear(Faction);
     return 1;
-}
+}*/
 
 stock LoadMisc()
 {
@@ -1907,6 +1907,7 @@ stock SaveFactions(i)
     }
 }
 */
+/*
 stock SavePayDay( idx )
 {
     new string[ 200 ];
@@ -1917,6 +1918,7 @@ stock SavePayDay( idx )
     mysql_query(DbHandle,  string, false);
     return string;
 }
+*/
 stock UnPackTrunk(veh,trunkinfo[])
 {
     sscanf( trunkinfo, "p</>dddddddddddddddddddddddddddddddddddddddddddddddd",
@@ -3680,7 +3682,7 @@ public OnPlayerConnect(playerid)
     //MySQL_Check_Account( playerid );
     //CheckBan(playerid);	
 //=============================[ Iconos þemëlapyje rodomos visiems ]================================
-    SetPlayerMapIcon( playerid, 70, fInfo[ 2 ][ fSpawn ][ 0 ], fInfo[ 2 ][ fSpawn ][ 1 ] ,fInfo[ 2 ][ fSpawn ][ 2 ], 22, 0, MAPICON_LOCAL ); //Ligoninë
+  /*  SetPlayerMapIcon( playerid, 70, fInfo[ 2 ][ fSpawn ][ 0 ], fInfo[ 2 ][ fSpawn ][ 1 ] ,fInfo[ 2 ][ fSpawn ][ 2 ], 22, 0, MAPICON_LOCAL ); //Ligoninë
     SetPlayerMapIcon( playerid, 71, 2861.1670,-1405.5068,11.7382, 52, 0, MAPICON_LOCAL ); //Bankas
     SetPlayerMapIcon( playerid, 72, 1671.8431,-1858.0848,13.5313, 27, 0, MAPICON_LOCAL ); //Mechanikai
     SetPlayerMapIcon( playerid, 73, fInfo[ 5 ][ fSpawn ][ 0 ], fInfo[ 5 ][ fSpawn ][ 1 ] ,fInfo[ 5 ][ fSpawn ][ 2 ], 20, 0, MAPICON_LOCAL ); //Goverment
@@ -3691,6 +3693,7 @@ public OnPlayerConnect(playerid)
    // SetPlayerMapIcon( playerid, 80, -368.4724,1510.7081,76.3117, 55, 0, MAPICON_LOCAL ); //CarShop BIKE
     SetPlayerMapIcon( playerid, 81, 1491.0953,1306.8651,1093.2891, 36, 0, MAPICON_LOCAL ); //DMV
     SetPlayerMapIcon( playerid, 82, 1368.7064,-1279.9117,13.5469, 18, 0, MAPICON_LOCAL ); //GunShop
+    */
 	
     for(new car = 0; car < 21; car++)
         pInfo[ playerid ][ pCar ][ car ] = 0;
@@ -4329,9 +4332,9 @@ CMD:help(playerid)
 	}
    // if ( pInfo[ playerid ][ pJob ] == JOB_JACKER )
 //		SendClientMessage( playerid, COLOR_LIGHTRED2, "  TR. PRIEMONËS VOGIMO KOMANDOS: /sellcar /info /spots");
-	if ( PlayerFaction( playerid ) == 1 )
-		SendClientMessage( playerid, COLOR_POLICE, "  LOS SANTOS POLICIJOS DEPARTAMENTAS: /policehelp");
-    if ( PlayerFaction( playerid ) == 2 ) 
+//	if ( PlayerFaction( playerid ) == 1 )
+		//SendClientMessage( playerid, COLOR_POLICE, "  LOS SANTOS POLICIJOS DEPARTAMENTAS: /policehelp");
+   /* if ( PlayerFaction( playerid ) == 2 ) 
 	{
         SendClientMessage( playerid, COLOR_LIGHTRED2, "|________________________________Mediko komandos________________________________|"),
 		SendClientMessage( playerid, COLOR_WHITE, "  /rb /rrb /drag /fdgear /duty /heal /takefmoney /checfkbudget /flist /tlc");     
@@ -4340,7 +4343,7 @@ CMD:help(playerid)
 	{
         SendClientMessage( playerid, COLOR_GREEN2, "|________________________Savivaldybës darbuotojo komandos________________________|"),
 		SendClientMessage( playerid, COLOR_WHITE, "  /duty /takemoney /takefmoney /checfkbudget /checkbudget /flist");     
-	}
+	}*/
     if ( pInfo[ playerid ][ pLead ] > 1 )
         SendClientMessage( playerid, COLOR_WHITE, "  FRAKCIJOS VALDYMAS: /invite /uninvite /setrank /flist /nof /togf" );
     if ( GetPlayerAdminLevel(playerid) > 0 )
@@ -5118,6 +5121,7 @@ CMD:weaponlist( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:fdgear( playerid, params[ ] )
 {
     #pragma unused params
@@ -5143,6 +5147,7 @@ CMD:pgear( playerid, params[ ] )
         Skydas", "Pasiimti", "Atðaukti" );
     return 1;
 }
+*/
 /*
 CMD:drag( playerid, params[ ] )
 {
@@ -5179,6 +5184,7 @@ CMD:drag( playerid, params[ ] )
         return 1;
     }
 }*/
+/*
 CMD:m(playerid, params[])
 {
     return cmd_megaphone(playerid, params);
@@ -5201,6 +5207,8 @@ CMD:megaphone( playerid, params[ ] )
     ProxDetector(40.0, playerid, string,COLOR_POLICEM,COLOR_POLICEM,COLOR_POLICEM,COLOR_POLICEM,COLOR_POLICEM);
     return 1;
 }
+*/
+/*
 CMD:killcheckpoint(playerid, params[])
 {
     if ( pInfo[ playerid ][ pJob ] != JOB_TRUCKER && !UsePDCMD( playerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Atliekant veiksmà ávyko klaida. " );
@@ -5213,7 +5221,9 @@ CMD:killcheckpoint(playerid, params[])
     Checkpoint[ playerid ] = CHECKPOINT_NONE;
     SetPVarInt( playerid, "BACKUP", INVALID_PLAYER_ID );
     return 1;
-}/*
+}
+**/
+/*
 CMD:abk( playerid, params[ ] )
 {
     new
@@ -5281,6 +5291,7 @@ CMD:backup( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:ramcar( playerid, params[ ] )
 {
     #pragma unused params
@@ -5301,6 +5312,7 @@ CMD:ramcar( playerid, params[ ] )
     }
     return 1;
 }
+*/
 /*
 CMD:heal( playerid, params[ ] )
 {
@@ -5406,6 +5418,7 @@ CMD:roadblock( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:jobid( playerid, params[ ] )
 {
     new
@@ -5424,6 +5437,7 @@ CMD:jobid( playerid, params[ ] )
     SendClientMessage(giveplayerid,COLOR_WHITE, string);
     return 1;
 }
+*/
 CMD:takemoney( playerid, params[ ] )
 {
     new
@@ -5468,6 +5482,7 @@ CMD:takefmoney( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:checkfbudget( playerid, params[ ] )
 {
     new
@@ -5505,6 +5520,7 @@ CMD:charity( playerid, params[ ] )
     SaveMisc();
     return 1;
 }
+*/
 /*
 CMD:cuff( playerid, params[ ] )
 {
@@ -5546,6 +5562,7 @@ CMD:cuff( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:duty(playerid)
 {
     new
@@ -5576,7 +5593,7 @@ CMD:duty(playerid)
             return 1;
         }
     }
-    /*
+    
     else if(PlayerFaction( playerid ) == 2 )
     {
         if(pInfo[playerid][pJobDuty] == 0)
@@ -5596,8 +5613,8 @@ CMD:duty(playerid)
             SetPlayerColor( playerid, TEAM_HIT_COLOR );
             return 1;
         }
-    }*/
-    /*else if(PlayerFaction( playerid ) == 4 )
+    }
+    else if(PlayerFaction( playerid ) == 4 )
     {
         if(pInfo[playerid][pJobDuty] == 0)
         {
@@ -5613,7 +5630,7 @@ CMD:duty(playerid)
             SendClientMessage(playerid, COLOR_WHITE, "Baigëte darbà .");
             return 1;
         }
-    }*/
+    }
 
     
     else if(PlayerFaction( playerid ) == 5 )
@@ -5641,6 +5658,7 @@ CMD:duty(playerid)
     }
     return 1;
 }
+*/
 CMD:windows( playerid, params[ ] )
 {
     #pragma unused params
@@ -5691,6 +5709,7 @@ CMD:trunk( playerid, params[ ] )
     ShowTrunk( playerid, car );
     return 1;
 }
+/*
 CMD:nof( playerid, params[ ] )
 {
     #pragma unused params
@@ -5715,6 +5734,8 @@ CMD:nof( playerid, params[ ] )
     return 1;
 }
 
+*/
+/*
 CMD:f( playerid, params[ ] )
 {
     new string[ 256 ];
@@ -5737,6 +5758,7 @@ CMD:f( playerid, params[ ] )
     SendTeamMessage( PlayerFaction( playerid ), COLOR_FCHAT, string );
     return 1;
 }
+*/
 CMD:id( playerid, params[ ] )
 {
     new id[ 24 ];
@@ -5816,6 +5838,7 @@ CMD:g( playerid, params[ ] )
     SendOrginMessage( playerid, string );
     return 1;
 }
+/*
 CMD:setswat( playerid, params[ ] )
 {
 	new giveplayerid,
@@ -5860,6 +5883,8 @@ CMD:setswat( playerid, params[ ] )
 	}
 	return 1;
 }
+*/
+/*
 CMD:setfd( playerid, params[ ] )
 {
     new
@@ -5885,6 +5910,7 @@ CMD:setfd( playerid, params[ ] )
     }
     return 1;
 }
+*/
 /*
 CMD:checkalco( playerid, params[ ] )
 {
@@ -6129,6 +6155,7 @@ CMD:report( playerid, params[] )
 FUNKCIJA:REPORT_T( playerid )
     return DeletePVar( playerid, "REPORTED" );
 
+/*
 CMD:flist( playerid, params[ ] )
 {
     #pragma unused params
@@ -6145,7 +6172,7 @@ CMD:flist( playerid, params[ ] )
     }
     return 1;
 }
-
+*/
 CMD:w( playerid, params[ ] )
 {
     new string[ 256 ],
@@ -6287,7 +6314,7 @@ CMD:towup( playerid, params[ ] )
     }
     return 1;
 }
-
+/*
 CMD:fdclothes( playerid, params[ ] )
 {
 	#pragma unused params
@@ -6312,7 +6339,7 @@ CMD:pdclothes( playerid, params[ ] )
     ShowModelSelectionMenu ( playerid, skinlist, "Select Skin" ) ;
     //ShowPlayerDialog(playerid,16,DIALOG_STYLE_INPUT,"Apranga","áraðykite norimá  aprangos\nSkino ID, tada jis jum bus pakeistas.","Pakeisti","Iðjungti");
     return 1;
-}
+}*/
 
 CMD:sid( playerid, params[ ] )
 {
@@ -6396,6 +6423,7 @@ CMD:r( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:rlow( playerid, params[ ] )
 {
     if ( pInfo[ playerid ][ pRChannel ] == 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: neturite racijos." );
@@ -6415,6 +6443,7 @@ CMD:rlow( playerid, params[ ] )
     ProxDetector2   ( 2.0, playerid, string, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5 );
     return 1;
 }
+*/
 CMD:setchannel( playerid, params[ ] )
 {
     SendClientMessage(playerid, COLOR_RED, "Klaida. Naudokite /setfrequency [Daþnis]");
@@ -6662,6 +6691,7 @@ stock checkVehicleByNumbers( numbers[ ] )
     }
     return INVALID_VEHICLE_ID;
 }
+/*
 CMD:delarrestcar( playerid, params[ ] )
 {
     if ( !UsePDCMD( playerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente.");
@@ -6685,6 +6715,8 @@ CMD:delarrestcar( playerid, params[ ] )
     }
     return 1;
 }
+*/
+/*
 CMD:arrestcar( playerid, params[ ] )
 {
     #pragma unused params
@@ -6730,6 +6762,7 @@ CMD:arrestcar( playerid, params[ ] )
     nullVehicle   ( car );
     return 1;
 }
+*/
 stock checkArrestedCar( playerid, car, mode = 1 )
 {
     new string[ 126 ], bool:arrested = false, Cache:result; 
@@ -6769,6 +6802,7 @@ stock checkArrestedCar( playerid, car, mode = 1 )
     cache_delete(result);
     return arrested;
 }
+/*
 CMD:fopen( playerid, params[ ] )
 {
     #pragma unused params
@@ -6842,6 +6876,8 @@ CMD:fopen( playerid, params[ ] )
     }
     return 1;
 }
+*/
+/*
 CMD:open( playerid, params[ ] )
 {
     #pragma unused params
@@ -6870,6 +6906,7 @@ CMD:open( playerid, params[ ] )
     }
     return 1;
 }
+*/
 CMD:bonnet(playerid)
 {
     if ( !IsPlayerInAnyVehicle( playerid ) )
@@ -6985,6 +7022,7 @@ CMD:t( playerid, params[ ] )
     ProxDetector(7.0, playerid, string,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_FADE1,COLOR_FADE2);
     return 1;
 }
+/*
 CMD:d( playerid, params[ ] )
 {
     new string[ 256 ];
@@ -7001,6 +7039,7 @@ CMD:d( playerid, params[ ] )
     }
     return 1;
 }
+*/
 /*
 CMD:startmission(playerid,params[])
 {
@@ -7877,6 +7916,7 @@ CMD:vradio( playerid)
 }
 */
 
+/*
 CMD:tazer( playerid, params[ ] )
 {
     #pragma unused params
@@ -7915,6 +7955,7 @@ CMD:tazer( playerid, params[ ] )
     }
     return 1;
 }
+
 CMD:auttazer( playerid, params[ ] )
 {
     #pragma unused params
@@ -7942,7 +7983,7 @@ CMD:auttazer( playerid, params[ ] )
         TazerAut = true;
         return 1;
     }
-}
+}*/
 
 CMD:weapon(playerid, params[])
 {
@@ -8446,6 +8487,7 @@ CMD:licwarn( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:bell( playerid, params[ ] )
 {
     #pragma unused params
@@ -8462,6 +8504,7 @@ CMD:bell( playerid, params[ ] )
     SetTimerEx( "PD_BELL", 30000, false, "d", playerid );
     return 1;
 }
+*/
 FUNKCIJA:PD_BELL( playerid )
     return DeletePVar( playerid, "PD_BELL" );
 
@@ -8591,6 +8634,7 @@ stock StopFillUp(playerid)
     IsFillingFuel[ playerid ] = false;
     return 1;
 }
+/*
 CMD:checkspeed( playerid, params[ ] )
 {
     new
@@ -8618,6 +8662,7 @@ CMD:checkspeed( playerid, params[ ] )
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalimas veiksmas, kadangi aplink Jus nëra pravaþiuojanèiø tr. priemoniø");
     return true;
 }
+*/
 /*
 CMD:mdc( playerid, params[] )
 {
@@ -8675,6 +8720,7 @@ CMD:bail( playerid, params[ ] )
     DeletePVar(playerid, "BailTime");
     return 1;
 }
+/*
 CMD:prison( playerid, params[ ] )
 {
     if(!Data_IsPlayerInRangeOfCoords(playerid, 30.0, "ic_prison"))
@@ -8728,6 +8774,8 @@ CMD:prison( playerid, params[ ] )
     ShowPlayerInfoText( giveplayerid );
     return 1;
 }
+*/
+/*
 CMD:arrest( playerid, params[ ] )
 {
     if(!Data_IsPlayerInRangeOfCoords(playerid, 20.0, "ic_custody"))
@@ -8774,6 +8822,7 @@ CMD:arrest( playerid, params[ ] )
     TogglePlayerControllable(giveplayerid, 1);
     return 1;
 }
+*/
 /*
 CMD:wepstore( playerid, params[ ] )
 {
@@ -9177,6 +9226,7 @@ CMD:payfines( playerid, params[ ] )
     SaveAccount( playerid );
     return 1;
 }
+/*
 CMD:fine( playerid, params[ ] )
 {
     if ( PlayerFaction( playerid ) != 1)
@@ -9213,6 +9263,7 @@ CMD:fine( playerid, params[ ] )
     SetTimerEx("FineOfferExpires", 15000, false, "i", giveplayerid);
     return 1;
 }
+*/
 forward FineOfferExpires(playerid);
 public FineOfferExpires(playerid)
 {
@@ -9240,6 +9291,7 @@ CMD:fines( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:vehiclefines( playerid, params[ ] )
 {
     if ( PlayerFaction( playerid ) != 1)
@@ -9261,6 +9313,7 @@ CMD:vehiclefines( playerid, params[ ] )
     }
     return 1;
 }
+
 CMD:vehiclefine( playerid, params[ ] )
 {
     if ( PlayerFaction( playerid ) != 1)
@@ -9284,6 +9337,7 @@ CMD:vehiclefine( playerid, params[ ] )
     SendClientMessage( playerid, COLOR_POLICE, "[LSPD] Sëkmingai iðraðëtæ baudos lapelá ðiai tr. priemonei." );
     return 1;
 }
+*/
 stock DeclineOffer( playerid )
 {
     SendClientMessage( GetPVarInt( playerid, "OFFER_ID" ), GRAD, " ** Jis atmetë jûsø pasiûlimá . " );
@@ -9425,6 +9479,7 @@ public SpecLabelDissapear(playerid)
             UpdateDynamic3DTextLabelText(SpecCommandLabel[ i ], 0x00AA00FF, " ");
 }
 
+/*
 CMD:invite( playerid, params[ ] )
 {
     new
@@ -9450,6 +9505,8 @@ CMD:invite( playerid, params[ ] )
     else
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs neturite galimybës naudotis ðia komanda.");
 }
+*/
+/*
 CMD:setrank( playerid, params[ ] )
 {
     new
@@ -9470,6 +9527,8 @@ CMD:setrank( playerid, params[ ] )
     SendClientMessage(playerid,COLOR_NEWS, string);
     return 1;
 }
+*/
+/*
 CMD:uninvite( playerid, params[ ] )
 {
     new
@@ -9504,9 +9563,9 @@ CMD:uninvite( playerid, params[ ] )
     }
     else
        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, Jûs neturite galimybës naudotis ðia komanda.");
-}
+}*/
 
-
+/*
 CMD:setspawn (playerid, params[])
 {
     if(isnull(params))
@@ -9584,6 +9643,7 @@ CMD:setspawn (playerid, params[])
     }
     return true;
 }
+*/
 
 CMD:lock(playerid)
 {
@@ -10061,6 +10121,7 @@ CMD:accept( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:takejob( playerid, params[ ] )
 {
     for ( new i = 0; i < MAX_JOBS; i++ )
@@ -10077,6 +10138,7 @@ CMD:takejob( playerid, params[ ] )
     }
     return 1;
 }
+*/
 
 CMD:stop( playerid, params[ ] )
 {
@@ -12757,6 +12819,7 @@ CMD:checkgun( playerid, params [ ] )
     }
     return 1;
 }
+/*
 CMD:makeleader(playerid, params[])
 {
     new
@@ -12788,6 +12851,7 @@ CMD:makeleader(playerid, params[])
     return 1;
 }
 
+*/
 CMD:makefactionmanager(playerid, params[])
 {
     if(!IsPlayerAdmin(playerid) && GetPlayerAdminLevel(playerid) < 4)
@@ -13081,6 +13145,7 @@ CMD:hideadmins( playerid, params[ ] )
     }
     return 1;
 }
+/*
 CMD:checkflist(playerid, params[])
 {
     if( GetPlayerAdminLevel(playerid) >= 1 )
@@ -13131,6 +13196,8 @@ CMD:fon( playerid, params[ ] )
     }
     return 1;
 }
+*/
+/*
 stock IsOnlineFactionMembers( id )
 {
     new count;
@@ -13141,6 +13208,7 @@ stock IsOnlineFactionMembers( id )
     }
     return count;
 }
+*/
 CMD:checkjail( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 1 )
@@ -15313,7 +15381,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
     if ( damagedid == INVALID_PLAYER_ID ) return 1;
     new
         ShooterWep = weaponid;
-    if( PlayerFaction( playerid ) == 1 )
+    /*if( PlayerFaction( playerid ) == 1 )
     {
         switch( ShooterWep )
         {
@@ -15324,6 +15392,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
             }
         }
     }
+    */
     if ( GetPVarInt( playerid, "TAZER_MODE" ) == 1 )
     {
         if ( ShooterWep != 23 ) return SetPVarInt( playerid, "TAZER_MODE", 0 );
@@ -16047,6 +16116,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+    /*
     else if ( dialogid == 29 )
     {
         if ( response == 1 )
@@ -16131,6 +16201,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    */
     /*
     else if ( dialogid == 32 )
     {
@@ -16207,6 +16278,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+
     */
     /*
     else if ( dialogid == 35 )
@@ -16292,7 +16364,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
-    *//*
+    */
+    /*
     else if ( dialogid == 37 )
     {
         if ( response == 1 )
@@ -16916,6 +16989,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    /*
     else if ( dialogid == 61 )
     {
         if ( response == 1 )
@@ -16925,6 +16999,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    */
     else if(dialogid == DIALOG_VEHICLE_SHOPS_LIST)
     {
         if(!response)
@@ -17553,15 +17628,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     format( string, 349, "{FFFFFF}-Veikëjo OOC informacija\n\
                                                   -Veikëjo IC informacija\n\
                                                   -Frakcijos ir darbo informacija\n\
-                                                    \t- Frakcijos informacija: %d\n\
                                                     \t\t- Pavadinimas: \t%s\n\
-                                                    \t\t- Rangas: \t%s\n\
                                                     \t- Darbo informacija\n\
                                                     \t\t- Pavadinimas: \t%s\n\
                                                     \t\t- Kontraktas: \t%d",
                                                     pInfo[ playerid ][ pMember ],
-                                                    fInfo[ PlayerFaction( playerid ) ][ fName ],
-                                                    GetPlayerRangName( playerid ),
+                                                 //   fInfo[ PlayerFaction( playerid ) ][ fName ],
+                                                  //  GetPlayerRangName( playerid ),
                                                     GetJobName( pInfo[ playerid ][ pJob ] ),
                                                     pInfo[ playerid ][ pJobContr ] );
                     ShowPlayerDialog( playerid, 91, DIALOG_STYLE_LIST, GetName( playerid ), string, "Rinktis", "Iðjungti");
@@ -17629,15 +17702,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     format( string, 349, "{FFFFFF}-Veikëjo OOC informacija\n\
                                                   -Veikëjo IC informacija\n\
                                                   -Frakcijos ir darbo informacija\n\
-                                                    \t- Frakcijos informacija: %d\n\
                                                     \t\t- Pavadinimas: \t%s\n\
-                                                    \t\t- Rangas: \t%s\n\
                                                     \t- Darbo informacija\n\
                                                     \t\t- Pavadinimas: \t%s\n\
                                                     \t\t- Kontraktas: \t%d",
                                                     pInfo[ playerid ][ pMember ],
-                                                    fInfo[ PlayerFaction( playerid ) ][ fName ],
-                                                    GetPlayerRangName( playerid ),
+                                                   // fInfo[ PlayerFaction( playerid ) ][ fName ],
                                                     GetJobName( pInfo[ playerid ][ pJob ] ),
                                                     pInfo[ playerid ][ pJobContr ] );
                     ShowPlayerDialog( playerid, 91, DIALOG_STYLE_LIST, GetName( playerid ), string, "Rinktis", "Iðjungti");
@@ -17705,15 +17775,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     format( string, 349, "{FFFFFF}-Veikëjo OOC informacija\n\
                                                   -Veikëjo IC informacija\n\
                                                   -Frakcijos ir darbo informacija\n\
-                                                    \t- Frakcijos informacija: %d\n\
                                                     \t\t- Pavadinimas: \t%s\n\
-                                                    \t\t- Rangas: \t%s\n\
                                                     \t- Darbo informacija\n\
                                                     \t\t- Pavadinimas: \t%s\n\
                                                     \t\t- Kontraktas: \t%d",
                                                     pInfo[ playerid ][ pMember ],
-                                                    fInfo[ PlayerFaction( playerid ) ][ fName ],
-                                                    GetPlayerRangName( playerid ),
+                                                  //  fInfo[ PlayerFaction( playerid ) ][ fName ],
+                                             //       GetPlayerRangName( playerid ),
                                                     GetJobName( pInfo[ playerid ][ pJob ] ),
                                                     pInfo[ playerid ][ pJobContr ] );
                     ShowPlayerDialog( playerid, 91, DIALOG_STYLE_LIST, GetName( playerid ), string, "Rinktis", "Iðjungti");
@@ -17780,6 +17848,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    /*
     else if ( dialogid == 100 )
     {
         if ( response == 1 )
@@ -17808,6 +17877,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             return 1;
         }
     }
+    */
     else if(dialogid == 101) // Lifto
     {
         if(!response)
@@ -18613,6 +18683,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
         ShowPlayerDialog(playerid,9999,DIALOG_STYLE_MSGBOX,"911 details", string, "OK", "");
     }
+    /*
     else if ( dialogid == 104 )
     {
         if( !response )
@@ -18725,6 +18796,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+    */
     else if ( dialogid == 103 )
     {
         if ( response == 1 )
@@ -18870,6 +18942,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         cache_delete(result);
       
     }
+    /*
     else if( dialogid == 132 )
     {
         if(!response)
@@ -18886,6 +18959,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{FFFFFF}Áraðykite prieþasti dël ko átraukti átariamajá", "Pridëti", "Uþdaryti" );
         }
     }
+    */
+    /*
     else if( dialogid == 133 )
     {
         if(!response)
@@ -18922,6 +18997,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             DeletePVar ( playerid, "nick" );
         }
     }
+    */
     else if( dialogid == 131 )
     {
         if(!response)
@@ -18978,6 +19054,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
 		{FFFFFF}Áraðykite prieþastá kodël tr. priemonë paieðkoma", "Pridëti", "Atðaukti " );
     }
+    /*
     else if( dialogid == 135 )
     {
         if(!response)
@@ -19029,6 +19106,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         cache_delete(result);
     }
+    */
     else if( dialogid == 128 )
     {
         if(!response)
@@ -19315,6 +19393,7 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
     return 1;
 }
 
+/*
 stock ShowAdminMenu( playerid, type, tmp )
 {
     switch( type )
@@ -19342,6 +19421,7 @@ stock ShowAdminMenu( playerid, type, tmp )
     }
     return 1;
 }
+*/
 /*
 stock Set3DAudioForPlayer( playerid, station[ ], radio )
 {
@@ -21689,6 +21769,7 @@ stock LockVehicle(carid,type)
     }
     return 1;
 }
+/*
 stock SendTeamMessage(team, color, string[])
 {
     foreach(Player,i)
@@ -21699,8 +21780,7 @@ stock SendTeamMessage(team, color, string[])
     return 1;
 }
 
-
-
+*/
 stock SendAdminWarningMessage(const format[], va_args<>)
 {
     new str[ 180 ];
@@ -21959,6 +22039,7 @@ stock MySQLCheckConnection()
     }
     */
 }
+/*
 stock SuspectPlayer(playerid,crime[],sendername[])
 {
     new string[256];
@@ -21984,6 +22065,7 @@ stock UsePDCMD(playerid)
     else
         return 0;
 }
+*/
 stock StartTimer(playerid,ilgis,tipas)
 {
     if(Mires[playerid] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: ðiuo metu Jûs esate komos bûsenoje.");
@@ -23200,6 +23282,7 @@ stock GetJobName(jobid)
     format( txt, 56, "%s", pJobs[ jobid ][ Name ] );
     return txt;
 }
+/*
 stock GetPlayerRangName( playerid )
 {
     new rtext[ 30 ],
@@ -23223,6 +23306,7 @@ stock GetPlayerRangName( playerid )
     }
     return rtext;
 }
+*/
 stock ShowStats( giveplayerid, playerid )
 {
         new string[ 180 ],
@@ -23286,8 +23370,8 @@ stock ShowStats( giveplayerid, playerid )
 		format           ( string, sizeof(string), "|DARBAS| Dirba:[%s] Kontraktas:[%d] Rangas darbe:[%s] Patirties taðkai darbe:[%d]" ,
 		GetJobName(pInfo[playerid][pJob]),pInfo[playerid][pJobContr], rankstr,(( pInfo[ playerid ][ pJobLevel ] +1 ) * 100));	
 		SendClientMessage( giveplayerid, COLOR_FADE1, string);		
-		format           ( string, sizeof(string), "|FRAKCIJA| Frakcijos pavadinimas:[%s (ID%d)] Rangas frakcijoje: [Nr.%d, %s]" ,
-		fInfo[ PlayerFaction( playerid ) ][ fName ],pInfo[ playerid ][ pMember ], pInfo[ playerid ][ pRank ], GetPlayerRangName( playerid ));
+		//format           ( string, sizeof(string), "|FRAKCIJA| Frakcijos pavadinimas:[%s (ID%d)] Rangas frakcijoje: [Nr.%d, %s]" ,
+		//fInfo[ PlayerFaction( playerid ) ][ fName ],pInfo[ playerid ][ pMember ], pInfo[ playerid ][ pRank ], GetPlayerRangName( playerid ));
 		SendClientMessage( giveplayerid, COLOR_FADE2, string);
         format           ( string, sizeof(string), "|PRIKLAUSOMYBË| Heroinas:[%d] Amfetaminas:[%d] Kokainas:[%d] Metamfetaminas[%d] Ekstazi:[%d]",
 		pInfo[ playerid ][ pHeroineAddict ], pInfo[ playerid ][ pAmfaAddict ], pInfo[ playerid ][ pCocaineAddict ], pInfo[ playerid ][ pMetaAmfaineAddict ], pInfo[ playerid ][ pExtazyAddict ] );
@@ -23591,6 +23675,7 @@ stock setLicenseCp( playerid )
     return 1;
 }
 */
+/*
 stock FactionID( mysqlid )
 {
     foreach(Faction,id)
@@ -23612,6 +23697,7 @@ stock PlayerFaction( playerid )
     }
     return 0;
 }
+*/
 stock savePlayerNotes( playerid, slot )
 {
     new string[ 126 ],
@@ -24062,7 +24148,7 @@ CMD:rbadge( playerid, params[] )
 
 }
 
-
+/*
 CMD:vest( playerid, params[ ] )
 {
     #pragma unused params
@@ -24086,6 +24172,7 @@ CMD:vest( playerid, params[ ] )
     }
     return 1;
 }
+*/
 
 public OnLookupComplete(playerid)
 {

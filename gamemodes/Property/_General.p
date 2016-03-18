@@ -946,7 +946,7 @@ stock ShowPlayerFurnitureNameChange(playerid, errostr[] = "")
 
 
 */
-
+/*
 
 CMD:ram(playerid)
 {
@@ -994,7 +994,7 @@ CMD:ram(playerid)
     return 1;
 }
 
-
+*/
 
 CMD:furniture(playerid, params[])
 {
