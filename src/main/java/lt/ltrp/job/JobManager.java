@@ -1,13 +1,18 @@
 package lt.ltrp.job;
 
 import lt.ltrp.LoadingException;
-import lt.ltrp.command.PlayerCommandManager;
+import lt.ltrp.LtrpGamemode;
+import lt.ltrp.dao.JobDao;
 import lt.ltrp.data.Color;
 import lt.ltrp.job.drugdealer.DrugDealerManager;
 import lt.ltrp.job.mechanic.MechanicManager;
 import lt.ltrp.job.policeman.PolicemanManager;
 import lt.ltrp.job.trashman.TrashmanManager;
 import lt.ltrp.job.vehiclethief.VehicleThiefManager;
+import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.vehicle.VehicleManager;
+import net.gtaun.shoebill.common.command.CommandGroup;
+import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerPriority;
@@ -17,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Bebras
@@ -77,13 +83,15 @@ public class JobManager implements Destroyable {
     private PolicemanManager policemanManager;
     private MechanicManager mechanicManager;
     private DrugDealerManager drugDealerManager;
+    private JobDao jobDao;
 
 
-    public JobManager(EventManager eventManager) throws LoadingException{
+    public JobManager(EventManager eventManager, JobDao jobDao, VehicleManager vehicleManager) throws LoadingException{
+        this.jobDao = jobDao;
 
         trashmanManager = new TrashmanManager(eventManager, JobId.TrashMan.id);
         vehicleThiefManager = new VehicleThiefManager(eventManager, JobId.VehicleThief.id);
-        policemanManager = new PolicemanManager(eventManager, JobId.Officer.id);
+        policemanManager = new PolicemanManager(eventManager, JobId.Officer.id, vehicleManager);
         mechanicManager = new MechanicManager(eventManager, JobId.Mechanic.id);
         drugDealerManager = new DrugDealerManager(eventManager, JobId.DrugDealer.id);
 
@@ -94,8 +102,35 @@ public class JobManager implements Destroyable {
         contractJobs.add((ContractJob)mechanicManager.getJob());
         contractJobs.add((ContractJob)drugDealerManager.getJob());
 
-        PlayerCommandManager playerCommandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
-        playerCommandManager.registerCommand("jobtest", new Class[]{}, new String[]{""}, (player, params) -> {
+        PlayerCommandManager playerCommandManager = new PlayerCommandManager(eventManager);
+        playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
+        playerCommandManager.registerCommands(new FactionLeaderCommands(eventManager, this));
+
+        CommandGroup group = new CommandGroup();
+        group.registerCommands(new FactionAcceptCommands());
+        playerCommandManager.registerChildGroup(group, "accept");
+
+        playerCommandManager.registerCommand("takejob", new Class[0], (p, params) -> {
+            LtrpPlayer player = LtrpPlayer.get(p);
+            if(player.getJob() != null) {
+                player.sendErrorMessage("Jûs jau turite darbà.");
+            } else {
+                Optional<ContractJob> contractJobOptional = getContractJobs().stream().filter(j -> j.getLocation().distance(player.getLocation()) < 10f).findFirst();
+                if(!contractJobOptional.isPresent()){
+                    player.sendErrorMessage("Ðià komandà galite naudoti tik prie darbovieèiø.");
+                } else {
+                    Job job = contractJobOptional.get();
+                    player.setJob(job);
+                    player.setJobRank(job.getRanks().stream().min((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber())).get());
+                    player.sendMessage(Color.NEWS, "* Jûs ásidarbinote, jeigu reikia daugiau pagalbos raðykite /help.");
+                    LtrpGamemode.getDao().getPlayerDao().update(player);
+                }
+            }
+            return true;
+        }, null, null, null);
+
+        playerCommandManager.registerCommand("jobtest", new Class[0], (p, params) -> {
+            LtrpPlayer player = LtrpPlayer.get(p);
             player.sendMessage(Color.SILVER, "Darbø skaièius: " + get().size());
             for(Job job : get()) {
                 player.sendMessage(Color.CADETBLUE, String.format("[%d]%s. Class:%s Rank count: %d Vehicle count: %d",
@@ -120,41 +155,43 @@ public class JobManager implements Destroyable {
                     player.sendMessage(Color.ROYALBLUE, String.format("Properties: %d. %s", propertyCount, propString));
             }
             return true;
-        });
+        }, null, null, null);
 
 
-        playerCommandManager.registerCommand("givemejob", new Class[]{Integer.class}, new String[]{"Darbo ID"}, (p, params) -> {
+
+
+        playerCommandManager.registerCommand("givemejob", new Class[]{Integer.class}, (p, params) -> {
+            LtrpPlayer player = LtrpPlayer.get(p);
             for(Object o : params) {
                 System.out.println(o);
                 p.sendMessage(Color.LIGHTYELLOW, o.toString());
             }
-            if(params.length == 0) {
-                playerCommandManager.setUsageMessage("givemejob", "TAIP");
-                p.sendErrorMessage("NO SHIT");
+            if(params.size() == 0) {
+                player.sendErrorMessage("NO SHIT");
             } else {
-                int jobid = (Integer)params[1];
+                int jobid = (Integer)params.poll();
                 Job job = Job.get(jobid);
                 if(job == null) {
-                    p.sendErrorMessage("YO, nëra toki odarbo");
+                    player.sendErrorMessage("YO, nëra toki odarbo");
                 } else {
-                    p.setJob(job);
+                    player.setJob(job);
                     if(job.getRanks() != null)
-                        p.setJobRank(job.getRank(1));
-                    p.sendMessage(Color.CRIMSON, "Tavo naujas darbas :" + job.getName() + " id: "+ job.getId());
+                        player.setJobRank(job.getRank(1));
+                    p.sendMessage(Color.CRIMSON, "Tavo naujas darbas :" + job.getName() + " id: " + job.getId());
                 }
                 return true;
             }
             return false;
-        });
-        playerCommandManager.setUsageMessage("givemejob", "TAIP");
+        }, null, null, null);
 
-        playerCommandManager.registerCommand("givemerank", new Class[]{Integer.class}, new String[]{"Rank ID"}, (p, params) -> {
+        playerCommandManager.registerCommand("givemerank", new Class[]{Integer.class}, (player, params) -> {
+            LtrpPlayer p = LtrpPlayer.get(player);
             if(p.getJob() == null) {
                 p.sendErrorMessage("you got no job son");
-            } else if(params.length < 1) {
+            } else if(params.size() < 1) {
                 p.sendErrorMessage("learn to use kiddo");
             } else {
-                int rankid = (Integer)params[1];
+                int rankid = (Integer)params.poll();
                 Rank rank = p.getJob().getRank(rankid);
                 if(rank == null) {
                     p.sendErrorMessage("No such rank.");
@@ -165,12 +202,30 @@ public class JobManager implements Destroyable {
                 }
             }
             return false;
-        });
+        }, null, null, null);
 
 
 
 
         logger.info("Job manager initialized");
+    }
+
+    public void addFactionLeader(Faction f, int userId) {
+        f.addLeader(userId);
+        jobDao.addLeader(f, userId);
+    }
+
+    public void removeFactionLeader(Faction f, int userId) {
+        f.removeLeader(userId);
+        jobDao.removeLeader(f, userId);
+    }
+
+    public boolean isJobLeader(LtrpPlayer player) {
+        return isJobLeader(player.getUserId());
+    }
+
+    public boolean isJobLeader(int userId) {
+        return factions.stream().filter(f -> f.getLeaders().contains(userId)).findFirst().isPresent();
     }
 
     @Override
@@ -193,6 +248,7 @@ public class JobManager implements Destroyable {
         DrugDealer(4),
         Officer(2),
         TrashMan(3),
+        Medic(5),
         VehicleThief(7),
         Mechanic(1);
 

@@ -24,11 +24,12 @@ public class Faction implements Job {
     private String name;
     private Location location;
     private Collection<FactionRank> ranks;
-    private int leaderId;
+    private Collection<Integer> leaderIds;
     private Collection<JobVehicle> vehicles;
 
     public Faction() {
         JobManager.getFactions().add(this);
+        this.leaderIds = new ArrayList<>();
         vehicles = new ArrayList<>();
     }
 
@@ -62,6 +63,18 @@ public class Faction implements Job {
                 vehicles.stream().filter(v -> v.getRequiredRank().equals(rank)).collect(Collectors.toList());
     }
 
+    public void addLeader(int userid) {
+        leaderIds.add(userid);
+    }
+
+    public Collection<Integer> getLeaders() {
+        return leaderIds;
+    }
+
+    protected void removeLeader(int userid) {
+        leaderIds.remove(userid);
+    }
+
     @Override
     public void addVehicle(JobVehicle vehicle) {
         vehicles.add(vehicle);
@@ -91,13 +104,6 @@ public class Faction implements Job {
         }
     }
 
-    public int getLeaderId() {
-        return leaderId;
-    }
-
-    public void setLeaderId(int leaderId) {
-        this.leaderId = leaderId;
-    }
 
     @Override
     public int getId() {
