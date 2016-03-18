@@ -5,6 +5,7 @@ import lt.ltrp.plugin.streamer.DynamicSampObject;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Timer;
+import net.gtaun.util.event.EventManager;
 import sun.security.krb5.internal.crypto.Des;
 
 import java.time.Instant;
@@ -32,6 +33,7 @@ public class HouseWeedSapling implements Destroyable{
     private int plantedByUser, harvestedByUser;
     private int yield;
     private boolean destroyed;
+    private EventManager eventManager;
 
 
     private DynamicSampObject weedObject, plantPotObject;
@@ -45,16 +47,17 @@ public class HouseWeedSapling implements Destroyable{
         } else {
             setTimer();
         }
-        PropertyManager.get().getEventManager().dispatchEvent(new WeedGrowEvent(house, this, isGrown()));
+        eventManager.dispatchEvent(new WeedGrowEvent(house, this, isGrown()));
     };
 
 
-    public HouseWeedSapling(Location location, House house, int plantedByUser) {
+    public HouseWeedSapling(Location location, House house, int plantedByUser, EventManager eventManager) {
 
         this.location = location;
         this.house = house;
         this.plantedByUser = plantedByUser;
         this.stage = GrowthStage.Seed;
+        this.eventManager = eventManager;
         this.plantTimestamp = Instant.now().getEpochSecond();
     }
 
