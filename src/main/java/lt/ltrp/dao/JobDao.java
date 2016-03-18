@@ -1,6 +1,7 @@
 package lt.ltrp.dao;
 
 import lt.ltrp.LoadingException;
+import lt.ltrp.job.Faction;
 import lt.ltrp.job.Job;
 import lt.ltrp.job.Rank;
 import lt.ltrp.job.drugdealer.DrugDealerJob;
@@ -13,6 +14,7 @@ import lt.ltrp.job.vehiclethief.VehicleThiefJob;
 import lt.ltrp.vehicle.JobVehicle;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * @author Bebras
@@ -26,6 +28,11 @@ public interface JobDao {
     OfficerJob getOfficerJob(int id) throws LoadingException;
     TrashManJob getTrashmanJob(int id) throws LoadingException;
     VehicleThiefJob getVehicleThiefJob(int id) throws LoadingException;
+
+    void addLeader(Faction faction, int userid);
+    void removeLeader(Faction faction, int userid);
+
+    Map<String, Rank> getEmployeeList(Job job);
 
 
     Collection<JobVehicle> getVehicles(Job job) throws LoadingException;

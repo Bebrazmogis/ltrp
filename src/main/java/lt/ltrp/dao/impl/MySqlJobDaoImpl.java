@@ -1,6 +1,6 @@
 package lt.ltrp.dao.impl;
 
-import com.mysql.jdbc.Statement;
+
 import lt.ltrp.LoadingException;
 import lt.ltrp.dao.JobDao;
 import lt.ltrp.dao.VehicleDao;
@@ -45,7 +45,14 @@ public class MySqlJobDaoImpl implements JobDao {
     }
 
     private void loadJob(Job job) throws LoadingException {
-        String sql = "SELECT jobs.*, job_properties.key, job_properties.value FROM jobs LEFT JOIN job_properties ON job_properties.job_id = jobs.id WHERE jobs.id = ?";
+        String sql = "SELECT " +
+                "jobs.*, " +
+                "job_properties.key, job_properties.value, " +
+                "job_leaders.player_id AS leader_id " +
+                "FROM jobs " +
+                "LEFT JOIN job_properties ON job_properties.job_id = jobs.id " +
+                "LEFT JOIN job_leaders ON jobs.id = job_leaders.job_id " +
+                "WHERE jobs.id = ?";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
@@ -66,6 +73,14 @@ public class MySqlJobDaoImpl implements JobDao {
             }
             while(result.next()) {
                 properties.setProperty(result.getString("key"), result.getString("value"));
+                int leaderId = result.getInt("leader_id");
+                if(!result.wasNull()) {
+                    if(job instanceof Faction) {
+                        ((Faction) job).addLeader(leaderId);
+                    } else {
+                        logger.error("Job " + job.getId() + " contains leaders, but does not inherit from 'Faction'");
+                    }
+                }
             }
             for(Field f : job.getClass().getFields()) {
                 if(f.isAnnotationPresent(JobProperty.class)) {
@@ -137,6 +152,68 @@ public class MySqlJobDaoImpl implements JobDao {
     }
 
     @Override
+    public void addLeader(Faction faction, int userid) {
+        String sql = "INSERT INTO job_leaders (job_id, player_id) VALUES (?, ?) ";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ) {
+            stmt.setInt(1, faction.getId());
+            stmt.setInt(2, userid);
+            stmt.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removeLeader(Faction faction, int userid) {
+        String sql = "DELETE FROM job_leaders WHERE job_id = ? AND player_id = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, faction.getId());
+            stmt.setInt(2, userid);
+            stmt.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Map<String, Rank> getEmployeeList(Job job) {
+        Map<String, Rank> ranks = new HashMap<>();
+        String sql = "SELECT players.username, job_ranks.*, job_ranks_contract.* FROM players " +
+                "LEFT JOIN job_ranks ON players.job_id = job_ranks.job_id " +
+                "LEFT JOIN job_ranks_contract ON job_ranks.id = job_ranks_contract.id AND job_ranks.job_id = job_ranks_contract.job_id " +
+                "WHERE players.job_id = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, job.getId());
+            ResultSet r = stmt.executeQuery();
+            while(r.next()) {
+                Rank rank;
+                int number = r.getInt("number");
+                String name = r.getString("name");
+                int salary = r.getInt("salary");
+                int xp_needed = r.getInt("xp_needed");
+                if(!r.wasNull()) {
+                    rank = new ContractJobRank(number, xp_needed, name, salary);
+                } else {
+                    rank = new FactionRank(number, name, salary);
+                }
+                ranks.put(r.getString("username"), rank);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return ranks;
+    }
+
+    @Override
     public Collection<JobVehicle> getVehicles(Job job) throws LoadingException{
         String sql = "SELECT vehicles.*, job_ranks.id AS rank_id, job_ranks.name, job_ranks.salary, job_ranks_contract.xp_needed FROM job_vehicles " +
                 "LEFT JOIN vehicles ON vehicles.id = job_vehicles.id " +
@@ -170,7 +247,8 @@ public class MySqlJobDaoImpl implements JobDao {
                         result.getInt("color1"),
                         result.getInt("color2"),
                         rank,
-                        result.getString("license")
+                        result.getString("license"),
+                        result.getFloat("mileage")
                 );
                 vehicles.add(vehicle);
             }
