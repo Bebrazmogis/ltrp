@@ -1,12 +1,16 @@
 package lt.ltrp.player;
 
+import lt.ltrp.BankPlugin;
+import lt.ltrp.LtrpGamemode;
 import lt.ltrp.constant.LicenseType;
+import lt.ltrp.dialogmenu.admin.jobvehicle.JobVehicleMenu;
 import lt.ltrp.item.ItemPhone;
 import lt.ltrp.item.ItemType;
 import lt.ltrp.item.RadioItem;
 import lt.ltrp.job.ContractJobRank;
 import lt.ltrp.job.Job;
 import lt.ltrp.job.Rank;
+import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.exception.AlreadyExistException;
 import net.gtaun.shoebill.exception.IllegalLengthException;
@@ -18,12 +22,20 @@ import net.gtaun.shoebill.exception.IllegalLengthException;
 public class GettersSetters {
 
     public GettersSetters(AmxInstance amx) {
-        amx.registerFunction("getPlayerId", params-> {
+        amx.registerFunction("getPlayerSqlId", params-> {
             LtrpPlayer p = LtrpPlayer.get((Integer)params[0]);
             if(p != null) {
                 return p.getUserId();
             }
             return -1;
+        }, Integer.class);
+
+        amx.registerFunction("showJobVehManagementDialog", params -> {
+            LtrpPlayer p = LtrpPlayer.get((Integer)params[0]);
+            if(p != null) {
+                new JobVehicleMenu(p, LtrpGamemode.get().getEventManager()).show();
+            }
+            return 0;
         }, Integer.class);
 
 
@@ -153,7 +165,7 @@ public class GettersSetters {
         amx.registerFunction("setPlayerConnectedTime", params-> {
             LtrpPlayer p = LtrpPlayer.get((Integer)params[0]);
             if(p != null) {
-                p.setConnectedTime((Integer)params[1]);
+                p.setOnlineHours((Integer)params[1]);
                 return 1;
             }
             return 0;
@@ -197,6 +209,14 @@ public class GettersSetters {
         }, Integer.class, Integer.class);
 
 
+        amx.registerFunction("addJobExp", params -> {
+            LtrpPlayer p = LtrpPlayer.get((Integer)params[0]);
+            if(p != null && p.getJob() != null) {
+                p.addJobExperience((Integer)params[1]);
+                return 1;
+            }
+            return 0;
+        }, Integer.class, Integer.class);
 
 
         amx.registerFunction("getPlayerRespect", params-> {
@@ -234,19 +254,23 @@ public class GettersSetters {
             return 0;
         }, Integer.class, Integer.class);
 
-
+        BankPlugin plugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
         amx.registerFunction("getPlayerBankMoney", params-> {
             LtrpPlayer p = LtrpPlayer.get((Integer)params[0]);
             if(p != null) {
-                return p.getBankMoney();
+                BankAccount account = plugin.getBankController().getAccount(p);
+                if(account != null)
+                    return account.getMoney();
             }
             return -1;
         }, Integer.class);
 
-        amx.registerFunction("setPlayerBank", params-> {
+        amx.registerFunction("addPlayerBankMoney", params-> {
             LtrpPlayer p = LtrpPlayer.get((Integer)params[0]);
             if(p != null) {
-                p.setBankMoney((Integer) params[1]);
+                BankAccount account = plugin.getBankController().getAccount(p);
+                if(account != null)
+                    account.addMoney((Integer) params[1]);
                 return 1;
             }
             return 0;
