@@ -18,26 +18,30 @@ public class DmvVehicle extends LtrpVehicle {
     private static final List<WeakReference<DmvVehicle>> dmvVehicles = new ArrayList<>();
 
     public static DmvVehicle create(Dmv dmv, int id, int modelid, AngledLocation location, int color1, int color2) {
-        DmvVehicle v = new DmvVehicle(dmv, id, modelid, location, color1, color2);
+        DmvVehicle v = new DmvVehicle(dmv, id, modelid, location, color1, color2, 0f);
         dmvVehicles.add(new WeakReference<DmvVehicle>(v));
         return v;
     }
 
     public static DmvVehicle create(Dmv dmv, int id, Vehicle vehicle, FuelTank fuelTank) {
-        DmvVehicle v = new DmvVehicle(dmv, id, vehicle, fuelTank);
+        DmvVehicle v = new DmvVehicle(dmv, id, vehicle, fuelTank, 0f);
         dmvVehicles.add(new WeakReference<DmvVehicle>(v));
         return v;
     }
 
+    private static String generateLicense(Dmv dmv, int modelId) {
+        return dmv.getName().length() >= 3 ? dmv.getName().substring(0, 3) + modelId : dmv.getName() + modelId;
+    }
+
     private Dmv dmv;
 
-    private DmvVehicle(Dmv dmv, int id, int modelid, AngledLocation location, int color1, int color2) {
-        super(id, modelid, location, color1, color2, dmv.getName().length() >= 3 ? dmv.getName().substring(0, 3) + modelid : dmv.getName() + modelid);
+    private DmvVehicle(Dmv dmv, int id, int modelid, AngledLocation location, int color1, int color2, float mileage) {
+        super(id, modelid, location, color1, color2, generateLicense(dmv, modelid), mileage);
         this.dmv = dmv;
     }
 
-    private DmvVehicle(Dmv dmv, int id, Vehicle vehicle, FuelTank fuelTank) {
-        super(id, vehicle, fuelTank);
+    private DmvVehicle(Dmv dmv, int id, Vehicle vehicle, FuelTank fuelTank, float mileage) {
+        super(id, vehicle, fuelTank, generateLicense(dmv, vehicle.getModelId()), mileage);
         this.dmv = dmv;
     }
 
@@ -48,4 +52,5 @@ public class DmvVehicle extends LtrpVehicle {
     public void setDmv(Dmv dmv) {
         this.dmv = dmv;
     }
+
 }

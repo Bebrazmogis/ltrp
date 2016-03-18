@@ -1,7 +1,7 @@
 package lt.ltrp.dmv.event;
 
 import lt.ltrp.dmv.Dmv;
-import lt.ltrp.dmv.FlyingTest;
+import lt.ltrp.dmv.aircraft.FlyingTest;
 import lt.ltrp.player.LtrpPlayer;
 
 /**

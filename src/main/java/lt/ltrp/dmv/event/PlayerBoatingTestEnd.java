@@ -1,6 +1,6 @@
 package lt.ltrp.dmv.event;
 
-import lt.ltrp.dmv.BoatingTest;
+import lt.ltrp.dmv.boat.BoatingTest;
 import lt.ltrp.dmv.Dmv;
 import lt.ltrp.player.LtrpPlayer;
 

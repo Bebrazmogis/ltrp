@@ -23,7 +23,6 @@ public class FlyingTest extends AbstractCheckpointTest {
      * For example, if the lowest checkpoint is at 5.0f(on Z axis) then the lowest a player is allowed to get is 5 - MIN_Z_MARGIN
      */
     private static final float MIN_Z_MARGIN = 17.0f;
-    public static final int PRICE = 300;
 
     public static FlyingTest create(LtrpPlayer player, LtrpVehicle vehicle, CheckpointDmv dmv, EventManager eventManager) {
         return new FlyingTest(player, vehicle, dmv, eventManager);
@@ -58,12 +57,13 @@ public class FlyingTest extends AbstractCheckpointTest {
     }
 
     public float getAllowedMinZ() {
-        Optional<DmvCheckpoint> optional = getDmv().getCheckpoints().stream().min((o1, o2) -> (int)(o2.getRadius().getZ() - o1.getRadius().getZ()));
-        if(optional.isPresent()) {
-            return optional.get().getRadius().getZ() - MIN_Z_MARGIN;
-        } else {
-            return 0.0f;
+        float min = 0f;
+        for(DmvCheckpoint checkpoint : getDmv().getCheckpoints()) {
+            if(checkpoint.getRadius().getZ() < min) {
+                min = checkpoint.getRadius().getZ();
+            }
         }
+        return min - MIN_Z_MARGIN;
     }
 
     public float getMinZ() {

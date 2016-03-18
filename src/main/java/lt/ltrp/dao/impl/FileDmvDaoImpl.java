@@ -1,10 +1,15 @@
 package lt.ltrp.dao.impl;
 
+import lt.ltrp.LoadingException;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.dao.DmvDao;
 import lt.ltrp.dmv.*;
+import lt.ltrp.dmv.aircraft.AircraftDmv;
+import lt.ltrp.dmv.boat.BoatDmv;
+import lt.ltrp.dmv.car.CarDmv;
 import lt.ltrp.vehicle.FuelTank;
 import lt.ltrp.vehicle.LtrpVehicle;
+import net.gtaun.shoebill.constant.RaceCheckpointType;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.object.Vehicle;
@@ -13,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -39,117 +45,121 @@ public class FileDmvDaoImpl implements DmvDao {
 
 
     @Override
-    public void getQuestionDmv(QuestionDmv dmv) {
-        File dmvDirectory = getDmvDirecotry(dmv);
-        File[] dmvDataFiles = dmvDirectory.listFiles(dmvDataFileFilter);
-        if (dmvDataFiles != null) {
-            for (File dataFile : dmvDataFiles) {
-                if (dataFile.getName().toLowerCase().startsWith("main")) {
-                    Properties properties = new Properties();
-                    try {
-                        properties.load(new FileReader(dataFile));
-                        parseProperties(dmv, properties);
-                    } catch (IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " data. Error: " + e.getMessage());
-                    }
-                } else if (dataFile.getName().toLowerCase().startsWith("vehicles")) {
-                    try {
-                        dmv.setVehicles(parseDmvVehicles(dataFile));
-                    } catch (IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " vehicles. Error: " + e.getMessage());
-                    }
-                } else if(dataFile.getName().toLowerCase().startsWith("questions")) {
-                    try {
-                        dmv.setQuestions(parseDmvQuestions(dataFile));
-                    } catch(IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " \"questions\". Error: " + e.getMessage());
-                    }
-                }
-            }
+    public CarDmv getCarDmv(int id) throws LoadingException {
+        CarDmv carDmv = new CarDmv(id);
+        File dmvDirectory = getDmvDirecotry(carDmv);
+        if(dmvDirectory == null) {
+            throw new LoadingException("No data directory found for dmv " + id);
         }
-    }
 
-
-    @Override
-    public void getCheckpointDmv(CheckpointDmv dmv) {
-        File dmvDirectory = getDmvDirecotry(dmv);
         // List all the files that are contained in the directory
         File[] dmvDataFiles = dmvDirectory.listFiles(dmvDataFileFilter);
-        if (dmvDataFiles != null) {
-            for (File dataFile : dmvDataFiles) {
-                if (dataFile.getName().toLowerCase().startsWith("main")) {
-                    Properties properties = new Properties();
-                    try {
-                        properties.load(new FileReader(dataFile));
-                        parseProperties(dmv, properties);
-                    } catch (IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " data. Error: " + e.getMessage());
-                    }
-                } else if (dataFile.getName().toLowerCase().startsWith("vehicles")) {
-                    try {
-                        dmv.setVehicles(parseDmvVehicles(dataFile));
-                    } catch (IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " vehicles. Error: " + e.getMessage());
-                    }
-                } else if(dataFile.getName().toLowerCase().startsWith("checkpoints")) {
-                    try {
-                        dmv.setCheckpoints(parseDmvCheckpoints(dataFile));
-                    } catch(IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " checkpoints. Error: " + e.getMessage());
-                    }
-                }
-            }
+        if(dmvDataFiles == null) {
+            throw new LoadingException("No data files found for dmv " + id);
         }
-    }
 
-    @Override
-    public void getQuestionCheckpointDmv(QuestionCheckpointDmv dmv) {
-        File dmvDirectory = getDmvDirecotry(dmv);
-        // List all the files that are contained in the directory
-        File[] dmvDataFiles = dmvDirectory.listFiles(dmvDataFileFilter);
-        if(dmvDataFiles != null) {
+        try {
             for(File dataFile : dmvDataFiles) {
                 if(dataFile.getName().toLowerCase().startsWith("main")) {
                     Properties properties = new Properties();
-                    try {
-                        properties.load(new FileReader(dataFile));
-                        parseProperties(dmv, properties);
-                    } catch(IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " data. Error: " + e.getMessage());
-                    }
+                    properties.load(new FileReader(dataFile));
+                    parseProperties(carDmv, properties);
+                    carDmv.setQuestionTestPrice(Integer.parseInt(properties.getProperty("question_test_price")));
+                    carDmv.setDrivingTestPrice(Integer.parseInt(properties.getProperty("driving_test_price")));
                 } else if(dataFile.getName().toLowerCase().startsWith("vehicles")) {
-                    try {
-                        dmv.setVehicles(parseDmvVehicles(dataFile));
-                    } catch(IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " vehicles. Error: " + e.getMessage());
-                    }
+                    carDmv.setVehicles(parseDmvVehicles(carDmv, dataFile));
                 } else if(dataFile.getName().toLowerCase().startsWith("checkpoints")) {
-                    try {
-                        dmv.setCheckpoints(parseDmvCheckpoints(dataFile));
-                    } catch(IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " checkpoints. Error: " + e.getMessage());
-                    }
+                    carDmv.setCheckpoints(parseDmvCheckpoints(dataFile));
                 } else if(dataFile.getName().toLowerCase().startsWith("questions")) {
-                    try {
-                        dmv.setQuestions(parseDmvQuestions(dataFile));
-                    } catch(IOException e) {
-                        logger.error("Could not load dmv " + dmv.getId() + " questions. Error: " + e.getMessage());
-                    }
+                    carDmv.setQuestions(parseDmvQuestions(dataFile));
                 }
             }
+        } catch(Exception e) {
+            throw new LoadingException(e);
         }
+        return carDmv;
+    }
+
+    @Override
+    public BoatDmv getBoatDmv(int id) throws LoadingException {
+        BoatDmv boatDmv = new BoatDmv(id);
+        File dmvDirectory = getDmvDirecotry(boatDmv);
+        if(dmvDirectory == null) {
+            throw new LoadingException("No data directory found for dmv " + id);
+        }
+
+        // List all the files that are contained in the directory
+        File[] dmvDataFiles = dmvDirectory.listFiles(dmvDataFileFilter);
+        if(dmvDataFiles == null) {
+            throw new LoadingException("No data files found for dmv " + id);
+        }
+
+        try {
+            for(File dataFile : dmvDataFiles) {
+                if(dataFile.getName().toLowerCase().startsWith("main")) {
+                    Properties properties = new Properties();
+                    properties.load(new FileReader(dataFile));
+                    parseProperties(boatDmv, properties);
+                    boatDmv.setCheckpointTestPrice(Integer.parseInt(properties.getProperty("test_price")));
+                } else if(dataFile.getName().toLowerCase().startsWith("vehicles")) {
+                    boatDmv.setVehicles(parseDmvVehicles(boatDmv, dataFile));
+                } else if(dataFile.getName().toLowerCase().startsWith("checkpoints")) {
+                    boatDmv.setCheckpoints(parseDmvCheckpoints(dataFile));
+                }
+            }
+        } catch(Exception e) {
+            throw new LoadingException(e);
+        }
+        return boatDmv;
+    }
+
+    @Override
+    public AircraftDmv getAircraftDmv(int id) throws LoadingException {
+        AircraftDmv aircraftDmv = new AircraftDmv(id);
+        File dmvDirectory = getDmvDirecotry(aircraftDmv);
+        if(dmvDirectory == null) {
+            throw new LoadingException("No data directory found for dmv " + id);
+        }
+
+        // List all the files that are contained in the directory
+        File[] dmvDataFiles = dmvDirectory.listFiles(dmvDataFileFilter);
+        if(dmvDataFiles == null) {
+            throw new LoadingException("No data files found for dmv " + id);
+        }
+
+        try {
+            for(File dataFile : dmvDataFiles) {
+                if(dataFile.getName().toLowerCase().startsWith("main")) {
+                    Properties properties = new Properties();
+                    properties.load(new FileReader(dataFile));
+                    parseProperties(aircraftDmv, properties);
+                    if(properties.getProperty("test_price") != null) {
+                        aircraftDmv.setCheckpointTestPrice(Integer.parseInt(properties.getProperty("test_price")));
+                    } else
+                        throw new LoadingException("Property test_price not found in " + properties.toString());
+                } else if(dataFile.getName().toLowerCase().startsWith("vehicles")) {
+                    aircraftDmv.setVehicles(parseDmvVehicles(aircraftDmv, dataFile));
+                } else if(dataFile.getName().toLowerCase().startsWith("checkpoints")) {
+                    aircraftDmv.setCheckpoints(parseDmvCheckpoints(dataFile));
+                }
+            }
+        } catch(Exception e) {
+            throw new LoadingException(e);
+        }
+        return aircraftDmv;
     }
 
     /**
      * Returns a list of {@link lt.ltrp.dmv.Dmv} vehicles.
      * One line should represent one vehicle. Values must be separated by the character ','. Format is: model id, x, y, z, color1, color2
      * Lines starting with a semicolon are interpreted as comments.
+     * @param dmv dmv
      * @param file file to read the vehicles from
      * @return returns a list of vehicles associated with the specified DMV
      * @throws IOException
      */
-    private List<LtrpVehicle> parseDmvVehicles(File file) throws IOException {
-        List<LtrpVehicle> vehicles = new ArrayList<>();
+    private List<DmvVehicle> parseDmvVehicles(Dmv dmv, File file) throws IOException {
+        List<DmvVehicle> vehicles = new ArrayList<>();
         try (
                 BufferedReader bf = new BufferedReader(new FileReader(file));
                 ) {
@@ -173,7 +183,7 @@ public class FileDmvDaoImpl implements DmvDao {
                 } catch(NumberFormatException ignored) {}
                 if(vehicle != null) {
                     FuelTank fuelTank = new FuelTank(LtrpVehicleModel.getFuelTankSize(vehicle.getModelId()), LtrpVehicleModel.getFuelTankSize(vehicle.getModelId()));
-                    vehicles.add(new LtrpVehicle(vehicleId++, vehicle, fuelTank));
+                    vehicles.add(DmvVehicle.create(dmv, vehicleId++, vehicle, fuelTank));
                 }
             }
         }
@@ -190,7 +200,7 @@ public class FileDmvDaoImpl implements DmvDao {
     private List<DmvQuestion> parseDmvQuestions(File file) throws IOException {
         List<DmvQuestion> questions = new ArrayList<>();
         try (
-                BufferedReader bf = new BufferedReader(new InputStreamReader (new FileInputStream(file), "UTF8"));
+                BufferedReader bf = new BufferedReader(new InputStreamReader (new FileInputStream(file), "cp1257"));
         ) {
             String line;
             DmvQuestion question = null;
@@ -199,32 +209,77 @@ public class FileDmvDaoImpl implements DmvDao {
                 int index = line.indexOf("=");
                 if(index != -1) {
                     String key = line.substring(0, index).trim();
-                    String value = line.substring(index).trim();
+                    String value = line.substring(index+1).trim();
                     if(key.equalsIgnoreCase("question")) {
                         if(question != null) {
                             question.setAnswers(answers.toArray(new DmvQuestion.DmvAnswer[0]));
-                            questions.clear();
+                            answers.clear();
                             questions.add(question);
                         }
                         question = new DmvQuestion();
                         question.setId(questionId++);
                         question.setQuestion(value);
                     } else {
-                        boolean correct = false;
-                        if(key.contains("true")) {
-                            correct = true;
-                        }
+                        boolean correct = key.contains("true");
                         answers.add(question.new DmvAnswer(answerId++, value, correct));
                     }
                 }
             }
             if(question != null) {
                 question.setAnswers(answers.toArray(new DmvQuestion.DmvAnswer[0]));
-                questions.clear();
                 questions.add(question);
             }
         }
         return questions;
+    }
+
+    private DmvRaceCheckpoint parseRaceCheckpoints(List<String> data, List<DmvRaceCheckpoint> output, int index) {
+        DmvRaceCheckpoint cp = null;
+        if(index < data.size()) {
+            String[] parts = data.get(index).split(";");
+            if(parts.length >= 7) {
+                cp = new DmvRaceCheckpoint(checkpointId++,
+                        new Radius(
+                                Float.parseFloat(parts[0].trim()),
+                                Float.parseFloat(parts[1].trim()),
+                                Float.parseFloat(parts[2].trim()),
+                                Integer.parseInt(parts[3].trim()),
+                                Integer.parseInt(parts[4].trim()),
+                                Float.parseFloat(parts[5].trim())
+                        ),
+                        RaceCheckpointType.get(Integer.parseInt(parts[5])),
+                        parseRaceCheckpoints(data, output, index + 1)
+                );
+                output.add(cp);
+            }
+        }
+        return cp;
+    }
+
+    private DmvCheckpoint[] parseCheckpoints(List<String> data) {
+        List<DmvCheckpoint> checkpoints = new ArrayList<>();
+        for(String line : data) {
+            String[] parts = line.split(";");
+            DmvCheckpoint dmvCheckpoint = null;
+            try {
+                if(parts.length == 6) {
+                    dmvCheckpoint = new DmvCheckpoint(checkpointId++,
+                            new Radius(
+                                    Float.parseFloat(parts[0].trim()),
+                                    Float.parseFloat(parts[1].trim()),
+                                    Float.parseFloat(parts[2].trim()),
+                                    Integer.parseInt(parts[3].trim()),
+                                    Integer.parseInt(parts[4].trim()),
+                                    Float.parseFloat(parts[5].trim())
+                            )
+                    );
+                }
+            } catch(NumberFormatException ignored) {}
+            if(dmvCheckpoint != null) {
+                checkpoints.add(dmvCheckpoint);
+            }
+        }
+        return checkpoints.toArray(new DmvCheckpoint[0]);
     }
 
     /**
@@ -233,32 +288,19 @@ public class FileDmvDaoImpl implements DmvDao {
      * @return returns a {@link java.util.List} of {@link lt.ltrp.dmv.DmvCheckpoint}
      * @throws IOException
      */
-    private List<DmvCheckpoint> parseDmvCheckpoints(File file) throws IOException {
-        List<DmvCheckpoint> checkpoints = new ArrayList<>();
-        try (
-                BufferedReader bf = new BufferedReader(new FileReader(file));
-        ) {
-            String line;
-            while((line = bf.readLine()) != null) {
-                String[] parts = line.split(",");
-                DmvCheckpoint checkpoint = null;
-                try {
-                    checkpoint = new DmvCheckpoint(checkpointId++,
-                            new Radius(
-                                    Float.parseFloat(parts[0].trim()),
-                                    Float.parseFloat(parts[1].trim()),
-                                    Float.parseFloat(parts[2].trim()),
-                                    Integer.parseInt(parts[3].trim()),
-                                    Integer.parseInt(parts[4].trim()),
-                                    Float.parseFloat(parts[5].trim())
-                            ));
-                } catch(NumberFormatException ignored) {}
-                if(checkpoint != null) {
-                    checkpoints.add(checkpoint);
-                }
+    private DmvCheckpoint[] parseDmvCheckpoints(File file) throws IOException {
+        List<String> lines = Files.readAllLines(file.toPath());
+        if(lines.size() > 0) {
+            String[] parts = lines.get(0).split(";");
+            if(parts.length == 5) {
+                return parseCheckpoints(lines);
+            } else if(parts.length >= 7) {
+                List<DmvRaceCheckpoint> checkpoints = new ArrayList<>();
+                parseRaceCheckpoints(lines, checkpoints, 0);
+                return checkpoints.toArray(new DmvCheckpoint[0]);
             }
         }
-        return checkpoints;
+        return new DmvCheckpoint[0];
     }
 
     /**
@@ -298,57 +340,6 @@ public class FileDmvDaoImpl implements DmvDao {
     }
 
 
-    @Override
-    public List<DmvQuestion> getQuestions(Dmv dmv) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void insert(Dmv dmv, DmvQuestion question) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void update(DmvQuestion question) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void delete(DmvQuestion question) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public List<DmvCheckpoint> getCheckpoints(Dmv dmv) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void insert(Dmv dmv, DmvCheckpoint checkpoint) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void update(DmvCheckpoint checkpoint) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public List<LtrpVehicle> getVehicles(Dmv dmv) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void insert(Dmv dmv, LtrpVehicle vehicle) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void update(LtrpVehicle vehicle) {
-        throw new NotImplementedException();
-    }
-
-
     /**
      * Generates a filename from the DMV
      * @param dmv dmv to be used
@@ -367,6 +358,7 @@ public class FileDmvDaoImpl implements DmvDao {
         int index;
         try {
             if((index = file.getName().indexOf("-")) == -1) {
+                System.out.println("Index == -1. Filename: "+ file.getName());
                 return Integer.parseInt(file.getName());
             } else {
                 return Integer.parseInt(file.getName().substring(0, index).trim());

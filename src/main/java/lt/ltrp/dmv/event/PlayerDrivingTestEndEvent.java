@@ -1,7 +1,7 @@
 package lt.ltrp.dmv.event;
 
 import lt.ltrp.dmv.Dmv;
-import lt.ltrp.dmv.DrivingTest;
+import lt.ltrp.dmv.car.DrivingTest;
 import lt.ltrp.player.LtrpPlayer;
 
 /**

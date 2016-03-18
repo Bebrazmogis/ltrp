@@ -1,8 +1,11 @@
 package lt.ltrp.dao;
 
+import lt.ltrp.LoadingException;
 import lt.ltrp.dmv.*;
+import lt.ltrp.dmv.aircraft.AircraftDmv;
+import lt.ltrp.dmv.boat.BoatDmv;
+import lt.ltrp.dmv.car.CarDmv;
 import lt.ltrp.vehicle.LtrpVehicle;
-import net.gtaun.shoebill.object.Checkpoint;
 
 import java.util.List;
 
@@ -19,42 +22,21 @@ public interface DmvDao {
 
 
     /**
-     * Loads a question DMV, Dmv must have ID set
-     * @param dmv dmv
+     * Loads a CarDmv with the specified ID
+     * @param id CarDmv ID to be loaded
+     * @return a CarDmw or null if it couldn't be loaded
      */
-    void getQuestionDmv(QuestionDmv dmv);
+    CarDmv getCarDmv(int id) throws LoadingException;
 
     /**
-     * Loads a checkpoint DMV, Dmv must have ID set
-     * @param dmv dmv
+     * Loads a BoatDmv with the specified ID
+     * @param id ID of the boat dmv
+     * @return CarDmv or null if it couldn't be loaded
+     * @throws LoadingException if an error occurs while loading
      */
-    void getCheckpointDmv(CheckpointDmv dmv);
+    BoatDmv getBoatDmv(int id) throws LoadingException;
 
-    /**
-     * Loads a question and checkpoint DMV, Dmv must have ID set
-     * @param dmv dmv
-     */
-    void getQuestionCheckpointDmv(QuestionCheckpointDmv dmv);
-
-    /**
-     * Returns a list of questions for a dmv
-     * @param dmv
-     * @return list of questions
-     */
-    List<DmvQuestion> getQuestions(Dmv dmv);
-    void insert(Dmv dmv, DmvQuestion question);
-    void update(DmvQuestion question);
-    void delete(DmvQuestion question);
-
-    List<DmvCheckpoint> getCheckpoints(Dmv dmv);
-    void insert(Dmv dmv, DmvCheckpoint checkpoint);
-    void update(DmvCheckpoint checkpoint);
-
-
-    List<LtrpVehicle> getVehicles(Dmv dmv);
-    void insert(Dmv dmv, LtrpVehicle vehicle);
-    void update(LtrpVehicle vehicle);
-
+    AircraftDmv getAircraftDmv(int id) throws LoadingException;
 
 
 }

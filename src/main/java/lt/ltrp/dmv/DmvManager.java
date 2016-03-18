@@ -12,8 +12,11 @@ import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
+import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
+import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,25 +28,20 @@ import java.util.Map;
  * @author Bebras
  *         2015.12.13.
  */
-public class DmvManager {
+public class DmvManager implements Destroyable {
 
     private static final Logger logger = LoggerFactory.getLogger(DmvManager.class);
-    private static final DmvManager instance = new DmvManager();
 
-    public static DmvManager getInstance() {
-        return instance;
-    }
-
-
-    private EventManager eventManager;
+    private EventManagerNode eventManager;
     private PlayerCommandManager commandManager;
+    private boolean destroyed;
 
     private Map<LtrpPlayer, DmvTest> playerTests;
 
 
-    private DmvManager() {
+    public DmvManager(EventManager eventManager1) {
         this.playerTests = new HashMap<>();
-        eventManager = LtrpGamemode.get().getEventManager().createChildNode();
+        eventManager = eventManager1.createChildNode();
 
         DmvDao dmvDao = LtrpGamemode.getDao().getDmvDao();
         CarDmvManager carDmvManager = new CarDmvManager(eventManager);
@@ -95,6 +93,15 @@ public class DmvManager {
         });
 
 
+        eventManager.registerHandler(AmxLoadEvent.class, e -> {
+            e.getAmxInstance().registerFunction("isDmvVehicle", params -> {
+                LtrpVehicle vehicle = LtrpVehicle.getById((Integer)params[0]);
+                if(vehicle != null) {
+                    return isDmvVehicle(vehicle) ? 1 : 0;
+                }
+                return 0;
+            }, Integer.class);
+        });
 
         logger.info("Dmv manager initialized with " + dmvManagers.length + " dmvs");
     }
@@ -106,5 +113,18 @@ public class DmvManager {
 
     public boolean isDmvVehicle(LtrpVehicle vehicle) {
         return vehicle instanceof DmvVehicle;
+    }
+
+    @Override
+    public void destroy() {
+        destroyed = true;
+        eventManager.cancelAll();
+        commandManager.destroy();
+        playerTests.forEach((p, v) -> v.stop());
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return destroyed;
     }
 }

@@ -30,7 +30,7 @@ public class BoatDmv implements CheckpointDmv {
 
 
     public BoatDmv(int id) {
-
+        this.id = id;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package lt.ltrp.dmv.dialog;
 
 
-import lt.ltrp.dmv.DrivingTest;
+import lt.ltrp.dmv.car.DrivingTest;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.shoebill.object.VehicleParam;
