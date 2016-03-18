@@ -1,7 +1,5 @@
 package lt.ltrp.player;
 
-import net.gtaun.shoebill.data.AngledLocation;
-import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.data.WeaponData;
 
 /**
@@ -9,6 +7,8 @@ import net.gtaun.shoebill.data.WeaponData;
  *         2015.11.12.
  */
 public class SpawnData {
+
+    public static final SpawnData DEFAULT = new SpawnData(SpawnType.Default, 0, 104, new WeaponData[0]);
 
     public enum SpawnType {
         Default,
