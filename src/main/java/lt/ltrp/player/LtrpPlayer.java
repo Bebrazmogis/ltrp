@@ -1,10 +1,13 @@
 package lt.ltrp.player;
 
 import javafx.util.Pair;
+import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.data.*;
 import lt.ltrp.data.Animation;
 import lt.ltrp.item.Inventory;
+import lt.ltrp.job.ContractJob;
+import lt.ltrp.job.ContractJobRank;
 import lt.ltrp.job.Job;
 import lt.ltrp.job.Rank;
 import lt.ltrp.property.Property;
@@ -36,37 +39,6 @@ public class LtrpPlayer implements Player {
     private static List<LtrpPlayer> players = new ArrayList<>();
     private static final Logger logger = LoggerFactory.getLogger(LtrpPlayer.class);
 
-    private Player player;
-
-    private int userId, adminLevel, level;
-
-    private String password, secretAnswer, secretQuestion;
-    private JailData jailData;
-    private Property property;
-    private Inventory inventory;
-    private LtrpWeaponData[] weapons;
-    private LtrpVehicle lastUsedVehicle;
-    private PlayerCountdown countdown;
-    private Job job;
-    private Rank jobRank;
-    private PlayerInfoBox infoBox;
-    private PlayerLicenses licenses;
-    private boolean seatbelt, masked, cuffed;
-    private int jobExperience, jobLevel, jobHours, connectedTime, boxStyle, age, respect, bankMoney, deaths, hunger;
-    private SpawnData spawnData;
-    private AudioHandle audioHandle;
-    /**
-     * Not necessarily all existing player vehicles, just the ones that are currently loaded( or not spawned)
-     * Basically lazy loading is used, if the vehicle was loaded once it will be stored
-     */
-    private Map<PlayerVehicle, List<PlayerVehiclePermission>> loadedVehicles;
-    private Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> vehicleMetadata;
-    private Collection<PlayerOffer> offers;
-
-
-    private boolean isInComa;
-
-    private boolean loggedIn, dataLoaded, isFactionManager;
 
     public static List<LtrpPlayer> get() {
         return players;
@@ -92,8 +64,8 @@ public class LtrpPlayer implements Player {
 
     public static LtrpPlayer get(int id) {
         for(LtrpPlayer p : players) {
-           if(p.getId() == id)
-               return p;
+            if(p.getId() == id)
+                return p;
         }
         return null;
     }
@@ -158,10 +130,63 @@ public class LtrpPlayer implements Player {
     }
 
     public static void sendGlobalMessage(String s) {
-        for(LtrpPlayer p : players) {
-            p.sendMessage(Color.GREENYELLOW, s);
-        }
+        sendGlobalMessage(Color.GREENYELLOW, s);
     }
+
+    public static void sendGlobalMessage(Color c, String s) {
+        get().forEach(p -> p.sendMessage(c, s));
+    }
+
+
+    private Player player;
+
+    private int userId, adminLevel, level;
+
+    private String password, secretAnswer, secretQuestion;
+    private JailData jailData;
+    private Property property;
+    private Inventory inventory;
+    private LtrpWeaponData[] weapons;
+    private LtrpVehicle lastUsedVehicle;
+    private PlayerCountdown countdown;
+    private Job job;
+    private Rank jobRank;
+    private PlayerInfoBox infoBox;
+    private PlayerLicenses licenses;
+    private boolean seatbelt, masked, cuffed;
+    private int jobExperience, jobHours, boxStyle, age, respect, deaths, hunger;
+    /**
+     * Paydays a user spent online
+     */
+    private int onlineHours;
+
+    /**
+     * Basically this has one ue: to check if the user is allowed to get payday
+     * If this is larger or equal to {@link lt.ltrp.player.PlayerController#MINUTES_FOR_PAYDAY} he will get payday
+     */
+    private int minutesOnlineSincePayday;
+
+    /**
+     * Total unclaimed job money
+     */
+    private int totalPaycheck;
+    /**
+     * The user may have a contract binding him to a job, this hold the hours left on his contract
+     */
+    private int jobContract;
+    private SpawnData spawnData;
+    private AudioHandle audioHandle;
+    /**
+     * Not necessarily all existing player vehicles, just the ones that are currently loaded( or not spawned)
+     * Basically lazy loading is used, if the vehicle was loaded once it will be stored
+     */
+    private Map<PlayerVehicle, List<PlayerVehiclePermission>> loadedVehicles;
+    private Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> vehicleMetadata;
+    private Collection<PlayerOffer> offers;
+
+    private boolean isInComa;
+    private boolean loggedIn, dataLoaded, isFactionManager;
+
 
     public LtrpPlayer(Player player, int userid) {
         this.player = player;
@@ -216,6 +241,48 @@ public class LtrpPlayer implements Player {
 
     public void setJobExperience(int jobExperience) {
         this.jobExperience = jobExperience;
+        if(getJob() instanceof ContractJob) {
+            ContractJobRank rank = (ContractJobRank)getJobRank();
+            if(rank.getXpNeeded() <= getJobExperience()) {
+                setJobRank(rank);
+            }
+        }
+    }
+
+    public int getMinutesOnlineSincePayday() {
+        return minutesOnlineSincePayday;
+    }
+
+    public void setMinutesOnlineSincePayday(int minutesOnlineSincePayday) {
+        this.minutesOnlineSincePayday = minutesOnlineSincePayday;
+    }
+
+    public int getJobContract() {
+        return jobContract;
+    }
+
+    public void setJobContract(int jobContract) {
+        this.jobContract = jobContract;
+    }
+
+    public int getOnlineHours() {
+        return onlineHours;
+    }
+
+    public void setOnlineHours(int onlineHours) {
+        this.onlineHours = onlineHours;
+    }
+
+    public void addTotalPaycheck(int amount) {
+        setTotalPaycheck(getTotalPaycheck() + amount);
+    }
+
+    public int getTotalPaycheck() {
+        return totalPaycheck;
+    }
+
+    public void setTotalPaycheck(int totalPaycheck) {
+        this.totalPaycheck = totalPaycheck;
     }
 
     public int getJobHours() {
@@ -226,13 +293,6 @@ public class LtrpPlayer implements Player {
         this.jobHours = jobHours;
     }
 
-    public int getJobLevel() {
-        return jobLevel;
-    }
-
-    public void setJobLevel(int jobLevel) {
-        this.jobLevel = jobLevel;
-    }
 
     public boolean isSeatbelt() {
         return seatbelt;
@@ -408,6 +468,20 @@ public class LtrpPlayer implements Player {
         this.weapons = newWeapons;
     }
 
+    public void removeJobWeapons() {
+        LtrpWeaponData[] newWeapons = new LtrpWeaponData[13];
+        int newWeaponCount = 0;
+        for(int i = 0; i < weapons.length; i++) {
+            if(!weapons[i].isJob()) {
+                newWeapons[newWeaponCount++] = weapons[i];
+            }
+        }
+        resetWeapons();
+        this.weapons = newWeapons;
+    }
+
+
+
     public boolean isCuffed() {
         return cuffed;
     }
@@ -445,10 +519,6 @@ public class LtrpPlayer implements Player {
 
     public void setSecretQuestion(String secretQuestion) {
         this.secretQuestion = secretQuestion;
-    }
-
-    public void setConnectedTime(int connectedTime) {
-        this.connectedTime = connectedTime;
     }
 
     public int getBoxStyle() {
@@ -490,14 +560,6 @@ public class LtrpPlayer implements Player {
 
     public void setHunger(int hunger) {
         this.hunger = hunger;
-    }
-
-    public int getBankMoney() {
-        return bankMoney;
-    }
-
-    public void setBankMoney(int bankMoney) {
-        this.bankMoney = bankMoney;
     }
 
     public boolean isInComa() {
@@ -1121,6 +1183,10 @@ public class LtrpPlayer implements Player {
         player.applyAnimation(s, s1, v, i, i1, i2, i3, i4, i5);
     }
 
+    public void clearAnimations() {
+        clearAnimations(1);
+    }
+
     @Override
     public void clearAnimations(int i) {
         player.clearAnimations(i);
@@ -1586,6 +1652,10 @@ public class LtrpPlayer implements Player {
         return player.getZoneName();
     }
 
+    /**
+     *
+     * @return returns the time a player is connected in milliseconds
+     */
     @Override
     public int getConnectedTime() {
         return player.getConnectedTime();
