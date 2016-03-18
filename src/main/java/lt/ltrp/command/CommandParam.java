@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
  *         For example languages different from general code language or acroynms and such.
  */
 
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface CommandParam {

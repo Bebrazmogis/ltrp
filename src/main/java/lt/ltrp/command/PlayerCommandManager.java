@@ -2,6 +2,7 @@ package lt.ltrp.command;
 
 import lt.ltrp.data.Color;
 import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -29,6 +30,7 @@ import java.util.regex.Pattern;
  * @author Bebras
  *         2015.11.13.
  */
+@Deprecated
 public class PlayerCommandManager {
 
     private static final Map<Class<?>, Function<String, Object>> TYPE_PARSER = new HashMap<>();
@@ -44,10 +46,8 @@ public class PlayerCommandManager {
     private Map<String, Collection<CommandData>> commands;
     private Map<Class<?>, CustomCommandHandler> beforeCheckers;
 
-    private static final UsageMessageSupplier DEFAULT_USAGE_MESSAGE_SUPPLIER = (p, cmd, prefix, params, help) -> {
-        String message = "Naudojimas: " + prefix + cmd;
-        for (String param : params)
-            message += " [" + param + "]";
+    private static final UsageMessageSupplier DEFAULT_USAGE_MESSAGE_SUPPLIER = (p, prefix, command) -> {
+        String message = "Naudojimas: " + prefix + command;
         return message;
     };
 
@@ -81,6 +81,7 @@ public class PlayerCommandManager {
         // Custom defaults
         TYPE_PARSER.put(LtrpPlayer.class, (s) -> LtrpPlayer.get(Player.getByNameOrId(s)));
         TYPE_PARSER.put(Vehicle.class, (s) -> Vehicle.get(Integer.parseInt(s)));
+        TYPE_PARSER.put(LtrpVehicle.class, s -> LtrpVehicle.getById(Integer.parseInt(s)));
 
     }
 
@@ -149,9 +150,10 @@ public class PlayerCommandManager {
                 if(commandUsageMessages.containsKey(cmdName)) {
                     player.sendMessage(Color.NEWS, commandUsageMessages.get(cmdName));
                 } else {
-                    player.sendMessage(Color.NEWS, usageMessageSupplier != null ?
-                            usageMessageSupplier.get(player, cmdName, "/", commandData.getParamNames(), commandData.getHelpMessage()) :
+                   /* player.sendMessage(Color.NEWS, usageMessageSupplier != null ?
+                            usageMessageSupplier.get(player, "/", cmdName) :
                             DEFAULT_USAGE_MESSAGE_SUPPLIER.get(player, cmdName, "/", commandData.getParamNames(), commandData.getHelpMessage()));
+                            */
                 }
                 return true;
             } else {
