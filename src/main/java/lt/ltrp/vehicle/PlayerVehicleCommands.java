@@ -41,14 +41,14 @@ public class PlayerVehicleCommands extends Commands{
 
     private static final int PARKING_SPACE_PRICE = 300;
 
-    private static final VehicleLock[] locks = {
+    protected static final VehicleLock[] LOCKS = {
       new VehicleLock("Neþinomos firm. spynos uþraktas", 120, 200),
             new VehicleLock("Originalus spynos uþraktas", 240, 500),
             new VehicleLock("Sustiprintas spynos uþraktas", 360, 1100),
             new VehicleLock("Titaninis spynos uþraktas", 480, 1600),
             new VehicleLock("Titaninis spynos uþraktas su el. rakteliu ", 600, 2100)
     };
-    private static final Pair<VehicleAlarm, Integer>[] ALARMS = new Pair[]{
+    protected static final Pair<VehicleAlarm, Integer>[] ALARMS = new Pair[]{
             new ImmutablePair<VehicleAlarm, Integer>(VehicleAlarm.get(null, 1), 400),
             new ImmutablePair<VehicleAlarm, Integer>(VehicleAlarm.get(null, 2), 2100),
             new ImmutablePair<VehicleAlarm, Integer>(VehicleAlarm.get(null, 3), 4000)
@@ -66,7 +66,7 @@ public class PlayerVehicleCommands extends Commands{
             if(cmd.equals("v buyLock")) {
                 p.sendMessage(Color.GREEN, "____________________Galimos spynos___________________________");
                 int i = 0;
-                for(VehicleLock lock : locks) {
+                for(VehicleLock lock : LOCKS) {
                     p.sendMessage(Color.WHITE, String.format("%2d. %s %c%d", i++, lock.getName(), Currency.SYMBOL, lock.getPrice()));
                 }
                 return null;
@@ -429,14 +429,14 @@ public class PlayerVehicleCommands extends Commands{
             player.sendErrorMessage("Ðià komandà galite naudoti tik bûdamas transporto priemonëje!");
         } else if(!vehicle.getPermissions(player.getUserId()).contains(PlayerVehiclePermission.Upgrade)) {
             player.sendErrorMessage("Jûs neturite teisës to daryti!");
-        } else if(index < 0 || index >= locks.length) {
-            player.sendErrorMessage("Galimi numeriai 1 - " + locks.length);
-        } else if(player.getMoney() < locks[index].getPrice()) {
+        } else if(index < 0 || index >= LOCKS.length) {
+            player.sendErrorMessage("Galimi numeriai 1 - " + LOCKS.length);
+        } else if(player.getMoney() < LOCKS[index].getPrice()) {
             player.sendErrorMessage("Jums neuþtenka pinigø ðiai spynai!");
-        } else if(vehicle.getLock() != null && vehicle.getLock().getLevel() > locks[index].getLevel()) {
+        } else if(vehicle.getLock() != null && vehicle.getLock().getLevel() > LOCKS[index].getLevel()) {
             player.sendErrorMessage("Ðiame automobilyje jau yra aukðtesnio lygio spyna!");
         } else {
-            VehicleLock newLock = locks[index];
+            VehicleLock newLock = LOCKS[index];
             player.giveMoney(-newLock.getPrice());
             vehicle.setLock(newLock);
             playerVehicleManager.getEventManager().dispatchEvent(new PlayerVehicleBuyLockEvent(player, vehicle, newLock));
