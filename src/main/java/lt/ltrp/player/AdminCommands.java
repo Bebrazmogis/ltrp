@@ -4,9 +4,12 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.AdminLog;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.data.Color;
+import lt.ltrp.dialog.FactionListDialog;
+import lt.ltrp.dialog.JobListDialog;
 import lt.ltrp.item.Item;
 import lt.ltrp.job.ContractJob;
 import lt.ltrp.job.Faction;
+import lt.ltrp.job.JobManager;
 import lt.ltrp.vehicle.JobVehicle;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -14,16 +17,15 @@ import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
+import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.shoebill.object.VehicleDamage;
+import net.gtaun.util.event.EventManager;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,6 +50,8 @@ public class AdminCommands {
         adminLevels.put("aheal", 2);
 
         adminLevels.put("makefactionmanager", 4);
+        adminLevels.put("makeleader", 4);
+        adminLevels.put("removeLeader", 4);
 
         adminLevels.put("giveitem", 6);
         adminLevels.put("fly", 6);
@@ -60,6 +64,14 @@ public class AdminCommands {
         teleportLocations.put("dl", new Location(641.5609f, -559.9846f, 16.0626f, 0, 0));
         teleportLocations.put("fc", new Location(-183.3534f, 1034.6022f, 19.7422f, 0, 0));
         teleportLocations.put("lb", new Location(-837.1216f, 1537.0032f, 22.5471f, 0, 0));
+    }
+
+    private JobManager jobManager;
+    private EventManager eventManager;
+
+    public AdminCommands(JobManager jobManager, EventManager eventManager) {
+        this.jobManager = jobManager;
+        this.eventManager = eventManager;
     }
 
 
@@ -199,6 +211,85 @@ public class AdminCommands {
 
             AdminLog.log(p, "Paskyrë þaidëjà " + p2.getName() + " frakcijø priþirëtoju.");
         }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Paskiria þaidëjà frakcijos lyderiu")
+    public boolean makeLeader(Player p, LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null) {
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        } else if(jobManager.isJobLeader(target)) {
+            player.sendErrorMessage(target.getName() + " jau yra kitos frakcijos lyderis. Paðalinti já galite su /removeLeader");
+        } else {
+            FactionListDialog.create(player, eventManager, JobManager.getFactions())
+                    .caption("Pasirinkite frakcijà")
+                    .buttonOk("Pasirinkti")
+                    .buttonCancel("Iðeiti")
+                    .onSelectFaction((d, f) -> {
+                        String message = "Ar tikrai norite pridëti " + target.getName() + " á frakcijos " + f.getName() + " lyderius?" +
+                                "\n\nDabartinis(-ai) lyderis(-ai):\n";
+                        for(int leaderId : f.getLeaders()) {
+                            LtrpPlayer leader = LtrpPlayer.getByUserId(leaderId);
+                            if(leader != null) {
+                                message += leader.getName() + "(ID:" + leader.getId() + ")\n";
+                            } else {
+                                message += LtrpGamemode.getDao().getPlayerDao().getUsername(leaderId) + "\n";
+                            }
+                        }
+
+                        MsgboxDialog.create(player, eventManager)
+                                .caption("Dëmesio.")
+                                .message(message)
+                                .buttonOk("Taip")
+                                .buttonCancel("Ne")
+                                .onClickOk(dd -> {
+                                    target.setJob(f);
+                                    target.setJobRank(f.getRank(f.getRanks().size()-1));
+                                    LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pridëjo " + target.getName() + " á frakcijos " + f.getName() + " lyderius.");
+                                    target.sendMessage(Color.NEWS, "Administratorius " + player.getName() + " paskyrë jus, frakcijos " + f.getName() + " lyderiu!");
+                                    f.sendMessage(Color.NEWS, target.getName() + " buvo paskirtas naujuoju frakcijos lyderiu!");
+                                    jobManager.addFactionLeader(f, target.getUserId());
+                                })
+                                .build()
+                                .show();
+                    })
+                    .build()
+                    .show();
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Paðalina pasirinktos frakcijos lyderá, nesvarbu prisijungæs jis ar ne")
+    public boolean removeLeader(Player p, String username) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        int userId = LtrpGamemode.getDao().getPlayerDao().getUserId(username);
+        if(userId == LtrpPlayer.INVALID_USER_ID) {
+            player.sendErrorMessage("Tokio vartotojo nëra!");
+        } else if(!jobManager.isJobLeader(userId)) {
+            player.sendErrorMessage("Vartotojas " + username + " nevadovauja jokiai frakcijai.");
+        } else {
+            Optional<Faction> factionOp = JobManager.getFactions().stream().filter(f -> f.getLeaders().contains(userId)).findFirst();
+            if(factionOp.isPresent()) {
+                Faction f = factionOp.get();
+                MsgboxDialog.create(player, eventManager)
+                        .caption("Frakcijos lyderio ðalinimas")
+                        .buttonOk("Taip")
+                        .buttonCancel("Ne")
+                        .message("Ar tikrai norite paðalinti " + username + " ið frakcijos " + f.getName() + " lyderiu?" +
+                            "\nÐiuo metu frakcija turi " + f.getLeaders().size() + " lyderius.")
+                        .onClickOk(d -> {
+                            jobManager.removeFactionLeader(f, userId);
+                            LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " paðalino frakcijos " + f.getName() + " lyderá " + username + " ið pareigø.");
+                            f.sendMessage(Color.NEWS, "Lyderis " + username + " buvo paðalintas ið pareigø.");
+                            LtrpGamemode.getDao().getPlayerDao().removeJob(userId);
+                        })
+                        .build().show();
+            }
+        }
+
         return true;
     }
 
