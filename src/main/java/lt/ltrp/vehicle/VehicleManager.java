@@ -1,32 +1,31 @@
 package lt.ltrp.vehicle;
 
-import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.Factorial;
-import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.constant.LicenseType;
 import lt.ltrp.constant.LtrpVehicleModel;
-import lt.ltrp.job.Rank;
-import lt.ltrp.job.Job;
+import lt.ltrp.dao.VehicleDao;
+import lt.ltrp.item.Item;
+import lt.ltrp.item.ItemType;
 import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.shopplugin.VehicleShopPlugin;
 import lt.ltrp.vehicle.event.SpeedometerTickEvent;
 import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
 import net.gtaun.shoebill.amx.AmxInstance;
+import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.constant.VehicleModel;
-import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Velocity;
-import net.gtaun.shoebill.event.amx.AmxLoadEvent;
-import net.gtaun.shoebill.event.amx.AmxUnloadEvent;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
 import net.gtaun.shoebill.event.player.PlayerStateChangeEvent;
-import net.gtaun.shoebill.event.server.GameModeInitEvent;
+import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleEnterEvent;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,45 +44,39 @@ public class VehicleManager {
     private static final Logger logger = LoggerFactory.getLogger(VehicleManager.class);
 
 
-    private static VehicleManager manager;
-
-
-    private EventManager eventManager;
-    private Timer timer;
+    private EventManagerNode eventManager;
+    private Timer timer, fuelUseTimer;
     private Map<LtrpVehicle, Timer> vehicleEngineTimers;
     private Map<LtrpPlayer, Float> maxSpeeds;
     private Random random;
+    private PlayerVehicleManager playerVehicleManager;
 
 
-    public static VehicleManager get() {
-        if(manager == null) {
-            manager = new VehicleManager();
-        }
-        return manager;
-    }
-
-    private VehicleManager() {
+    public VehicleManager(EventManager manager, VehicleDao vehicleDao, VehicleShopPlugin shopPlugin) {
         this.maxSpeeds = new HashMap<>();
         random = new Random();
-        eventManager = LtrpGamemode.get().getEventManager().createChildNode();
+        eventManager = manager.createChildNode();
         this.vehicleEngineTimers = new HashMap<>();
+        PlayerCommandManager commandManager = new PlayerCommandManager(eventManager);
+        this.playerVehicleManager = new PlayerVehicleManager(eventManager, vehicleDao, commandManager, shopPlugin);
 
-        PlayerCommandManager commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
-        commandManager.registerCommands(new VehicleCommands(maxSpeeds));
-        commandManager.registerCommands(new PlayerVehicleCommands());
+        commandManager.registerCommands(new VehicleCommands(maxSpeeds, eventManager));
+        commandManager.installCommandHandler(HandlerPriority.NORMAL);
 
-
-        eventManager.registerHandler(AmxLoadEvent.class, e -> {
-           registerPawnFunctions(e.getAmxInstance());
-
+        PlayerCommandManager.replaceTypeParser(LtrpVehicle.class, s -> {
+            return LtrpVehicle.getById(Integer.parseInt(s));
         });
 
-        eventManager.registerHandler(AmxUnloadEvent.class, e -> {
-           unregisterPawnFunctions(e.getAmxInstance());
-        });
-
-        eventManager.registerHandler(GameModeInitEvent.class, e -> {
-
+        eventManager.registerHandler(VehicleDeathEvent.class, e -> {
+            LtrpVehicle vehicle = LtrpVehicle.getByVehicle(e.getVehicle());
+            if(vehicle != null) {
+                // Once a vehicle dies, car audio is removed. Sort of item sink
+                if(vehicle.getInventory().containsType(ItemType.CarAudio)) {
+                    Item item = vehicle.getInventory().getItem(ItemType.CarAudio);
+                    vehicle.getInventory().remove(item);
+                    item.destroy();
+                }
+            }
         });
 
         eventManager.registerHandler(PlayerStateChangeEvent.class, e -> {
@@ -111,6 +104,10 @@ public class VehicleManager {
                         player.sendActionMessage("iðlipdamas atsisega saugos dirþus");
                         player.setSeatbelt(false);
                     }
+                    // If the vehicle player left had music playing, we need to stop it for that player
+                    if(player.getLastUsedVehicle() != null && player.getLastUsedVehicle().getRadioStation() != null && player.getCurrentAudioHandle() != null) {
+                        player.getCurrentAudioHandle().stop();
+                    }
                 }
             }
         });
@@ -119,6 +116,12 @@ public class VehicleManager {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             LtrpVehicle vehicle = LtrpVehicle.getByVehicle(e.getVehicle());
             if(player != null && vehicle != null) {
+                // If the vehicle has radio playing, let's start it for the player who entered it
+                if(vehicle.getRadioStation() != null) {
+                    player.playAudioStream(vehicle.getRadioStation().getUrl());
+                    player.setVolume(vehicle.getRadioVolume());
+                }
+
                 VehicleModel.VehicleType type = VehicleModel.getType(vehicle.getModelId());
                 // If it's an aicraft but the player isn't licensed to use one
                 if (type == VehicleModel.VehicleType.AIRCRAFT && !player.getLicenses().contains(LicenseType.Aircraft)) {
@@ -149,6 +152,7 @@ public class VehicleManager {
                                 int deaths = ((PlayerVehicle)vehicle).getDeaths();
                                 time = 1500 + deaths * 150;
                                 percentage = (int) (100 - Factorial.get((int)(deaths * 1.5)) - dmg / 40f);
+                                logger.debug("Vehicle start percentage:" + percentage);
                             } else {
                                 time = 1500;
                                 percentage = 100 - (int)dmg / 40;
@@ -169,10 +173,10 @@ public class VehicleManager {
                                 player.sendStateMessage("pasuka automobilio raktelá ir bando uþvesti variklá.");
                                 Timer t = Timer.create(time, 1, ticks -> {
                                     if (success) {
-                                        //vehicle.sendStateMessage("variklis uþsikuria");
+                                        vehicle.sendStateMessage("variklis uþsikuria");
                                         vehicle.getState().setEngine(VehicleParam.PARAM_ON);
                                     } else {
-                                        //vehicle.sendStateMessage("variklis neuþsikuria");
+                                        vehicle.sendStateMessage("variklis neuþsikuria");
                                     }
                                     vehicleEngineTimers.remove(vehicle);
                                 });
@@ -194,13 +198,14 @@ public class VehicleManager {
             }
         });
 
-        eventManager.registerHandler(VehicleEngineStartEvent.class, e -> {
+     /*   eventManager.registerHandler(VehicleEngineStartEvent.class, HandlerPriority.BOTTOM, e -> {
             LtrpVehicle vehicle = e.getVehicle();
             if(e.isSuccess())
                 vehicle.sendStateMessage("Automobilio variklis uþsivedë.");
             else
                 vehicle.sendStateMessage("Automobilio variklis neuþsiveda.");
         });
+        */
 
         timer = Timer.create(160, ticks -> {
             for(LtrpVehicle vehicle : LtrpVehicle.get()) {
@@ -227,15 +232,33 @@ public class VehicleManager {
         });
         timer.start();
 
+        this.fuelUseTimer = Timer.create(60000, (i) -> {
+            LtrpVehicle.get()
+                    .stream()
+                    .filter(v -> v.getState().getEngine() == VehicleParam.PARAM_ON)
+                    .forEach(v -> {
+                FuelTank fuelTank = v.getFuelTank();
+                fuelTank.setFuel(fuelTank.getFuel() - LtrpVehicleModel.getFuelConsumption(v.getModelId()));
+                if(fuelTank.getFuel() <= 0) {
+                    fuelTank.setFuel(0f);
+                    v.getState().setEngine(VehicleParam.PARAM_OFF);
+                    v.sendActionMessage("Variklis uþgæsta..");
+                }
+            });
+        });
+        this.fuelUseTimer.start();
+
         logger.info("Vehicle manager initialized");
     }
 
-
+    public PlayerVehicleManager getPlayerVehicleManager() {
+        return playerVehicleManager;
+    }
 
     private void registerPawnFunctions(AmxInstance amx) {
 
         // createJobVehicle(vehuid, jobid, modelid, x, y, z, angle, color1, color2, min_rank_nr, plate[])
-        amx.registerFunction("createJobVehicle", params -> {
+     /*   amx.registerFunction("createJobVehicle", params -> {
             logger.info("createJobVehicle called amx handle:"  + amx.getHandle());
             int id = (Integer)params[0];
             Job job = Job.get((Integer)params[1]);
@@ -249,7 +272,17 @@ public class VehicleManager {
             jobVehicle.setLicense((String)params[10]);
             return jobVehicle != null ? 1 : 0;
         }, Integer.class, Integer.class, Integer.class, Float.class, Float.class, Float.class, Float.class, Integer.class, Integer.class, Integer.class, String.class);
+*/
+    }
 
+
+    public void destroy() {
+        timer.stop();
+        timer.destroy();
+        fuelUseTimer.stop();
+        fuelUseTimer.destroy();
+        playerVehicleManager.destroy();
+        eventManager.cancelAll();
     }
 
     private void unregisterPawnFunctions(AmxInstance amx) {

@@ -3,6 +3,8 @@ package lt.ltrp.vehicle;
 import lt.ltrp.command.Commands;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
+import lt.ltrp.dialog.radio.RadioOptionListDialog;
+import lt.ltrp.item.ItemType;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -11,7 +13,9 @@ import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.data.VehicleState;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.VehicleParam;
+import net.gtaun.util.event.EventManager;
 
+import java.awt.*;
 import java.util.Map;
 
 /**
@@ -21,18 +25,21 @@ import java.util.Map;
 public class VehicleCommands extends Commands {
 
     private Map<LtrpPlayer, Float> maxSpeeds;
+    private EventManager eventManager;
 
-    public VehicleCommands(Map<LtrpPlayer, Float> speeds) {
+    public VehicleCommands(Map<LtrpPlayer, Float> speeds, EventManager eventManager) {
         this.maxSpeeds = speeds;
+        this.eventManager = eventManager;
     }
 
 
 
     @BeforeCheck
-    public boolean beforeCheck(LtrpPlayer p, String cmd, String params) {
+    public boolean beforeCheck(Player p, String cmd, String params) {
         logger.debug("beforeCheck cmd " + cmd);
         logger.debug("beforeCheck. Player find by player instance" + LtrpPlayer.get(p));
-        LtrpVehicle vehicle = LtrpVehicle.getClosest(p, 4.0f);
+        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
         if(vehicle != null) {
             return true;
         } else
@@ -43,7 +50,8 @@ public class VehicleCommands extends Commands {
 
     @Command
     @CommandHelp("Parodo transporto priemonës inventoriø")
-    public boolean trunk(LtrpPlayer player) {
+    public boolean trunk(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         logger.info("trunk command called");
         LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
         if(vehicle != null) {
@@ -59,7 +67,8 @@ public class VehicleCommands extends Commands {
 
     @Command
     @CommandHelp("Uþdaro/atidaro automobilio bagaþinæ")
-    public boolean trunko(LtrpPlayer player) {
+    public boolean trunko(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
         if(vehicle != null) {
             if(!vehicle.isLocked()) {
@@ -83,7 +92,8 @@ public class VehicleCommands extends Commands {
 
     @Command
     @CommandHelp("Uþdaro/atidaro automobilio kapotà")
-    public boolean bonnet(LtrpPlayer player) {
+    public boolean bonnet(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         LtrpVehicle vehicle = player.getVehicle();
         if(vehicle != null) {
             if(player.getState() != PlayerState.DRIVER) {
@@ -107,7 +117,8 @@ public class VehicleCommands extends Commands {
 
     @Command
     @CommandHelp("Uþdaro/atidaro automobilio langus")
-    public boolean windows(LtrpPlayer player) {
+    public boolean windows(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         LtrpVehicle vehicle = player.getVehicle();
         if(vehicle != null) {
             if(LtrpVehicleModel.HasWindows(vehicle.getModelId())) {
@@ -171,7 +182,8 @@ public class VehicleCommands extends Commands {
 
     @Command
     @CommandHelp("Uþsega/atesga suagos dirþus")
-    public boolean seatbelt(LtrpPlayer player) {
+    public boolean seatbelt(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         LtrpVehicle vehicle = player.getVehicle();
         if(vehicle != null) {
             if(player.getVehicleSeat() == 0) {
@@ -191,7 +203,8 @@ public class VehicleCommands extends Commands {
 
     @Command
     @CommandHelp("Nustato/paðalina maksimalø automobilio greitá")
-    public boolean maxSpeed(LtrpPlayer player, Float speed) {
+    public boolean maxSpeed(Player p, Float speed) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         LtrpVehicle vehicle = player.getVehicle();
         if(vehicle == null) {
             player.sendErrorMessage("Jûs neesate transporto priemonëje!");
@@ -208,5 +221,30 @@ public class VehicleCommands extends Commands {
             return true;
         }
         return false;
+    }
+
+    @Command
+    @CommandHelp("Leidþia valdyti automobilio radijà")
+    public boolean vradio(Player pp) {
+        LtrpPlayer player = LtrpPlayer.get(pp);
+        LtrpVehicle vehicle=  LtrpVehicle.getByVehicle(player.getVehicle());
+        if(vehicle == null) {
+            player.sendErrorMessage("Jûs turite bûti transporto priemonëje!");
+        } else if(!vehicle.getInventory().containsType(ItemType.CarAudio)) {
+            player.sendErrorMessage("Ðiame automobilyje nëra automagnetolos.");
+        } else if(player.getVehicleSeat() > 1) {
+            player.sendErrorMessage("Negalite valdyti radijos sedëdamas gale!");
+        } else {
+            RadioOptionListDialog.create(player, eventManager, (d, vol) -> {
+                vehicle.setRadioVolume(vol);
+                player.sendActionMessage("pakeièia radijos garsà á " + vol);
+            }, (d, station) -> {
+                vehicle.setRadioStation(station);
+                player.sendActionMessage("pakeièia radijo stotá á " + station.getName());
+            }, (d) -> {
+                vehicle.setRadioStation(null);
+            });
+        }
+        return true;
     }
 }

@@ -7,8 +7,8 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.shoebill.object.VehicleDamage;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -16,9 +16,37 @@ import java.util.List;
  */
 public class PlayerVehicle extends LtrpVehicle {
 
+    public static List<PlayerVehicle> get() {
+        ArrayList<PlayerVehicle> a = new ArrayList<>();
+        LtrpVehicle.get().stream().filter(v -> v instanceof PlayerVehicle).forEach(v -> a.add((PlayerVehicle)v));
+        return a;
+    }
+
     public static PlayerVehicle getById(int id) {
         for(LtrpVehicle veh : LtrpVehicle.get()) {
             if(veh instanceof PlayerVehicle && veh.getId() == id) {
+                return (PlayerVehicle)veh;
+            }
+        }
+        return null;
+    }
+
+    public static PlayerVehicle getByVehicle(Vehicle vehicle) {
+        if(vehicle == null)
+            return null;
+
+        for(LtrpVehicle veh : LtrpVehicle.get()) {
+            if(veh instanceof PlayerVehicle && veh.equals(vehicle)) {
+                return (PlayerVehicle)veh;
+            }
+        }
+        return null;
+    }
+
+
+    public static PlayerVehicle getByUniqueId(int uid) {
+        for(LtrpVehicle veh : LtrpVehicle.get()) {
+            if(veh instanceof PlayerVehicle && veh.getUniqueId() == uid) {
                 return (PlayerVehicle)veh;
             }
         }
@@ -31,7 +59,7 @@ public class PlayerVehicle extends LtrpVehicle {
     public static PlayerVehicle getClosest(Location location, float distance) {
         PlayerVehicle vehicle = null;
         for(LtrpVehicle v : get()) {
-            if(!(v instanceof JobVehicle))
+            if(!(v instanceof PlayerVehicle))
                 continue;
             float dis = location.distance(v.getLocation());
             if(dis < distance) {
@@ -42,108 +70,92 @@ public class PlayerVehicle extends LtrpVehicle {
         return vehicle;
     }
 
+    public static PlayerVehicle create(int id, int modelId, AngledLocation location, int color1, int color2, int ownerId,
+                                       int deaths, FuelTank fueltank, float mileage, String license, int insurance, VehicleAlarm alarm, VehicleLock lock, int doors, int panels,
+                                       int lights, int tires, float health) {
+        PlayerVehicle vehicle = new PlayerVehicle(id, modelId, location, color1, color2, ownerId, deaths, fueltank, mileage, license, insurance, alarm, lock, doors, panels, lights, tires, health);
+
+        return vehicle;
+    }
 
 
-    private int ownerId, modelId, color1, color2, panels, lights, doors, tires, insurance;
+    private int ownerId, insurance;
     private VehicleLock lock;
     private VehicleAlarm alarm;
     private int deaths;
-    private AngledLocation spawnLocation;
-    private boolean spawned;
+    private Map<Integer, Collection<PlayerVehiclePermission>> userPermissions;
+    private float health;
 
-
-    public PlayerVehicle() {
-
+    private PlayerVehicle(int id, int modelId, AngledLocation location, int color1, int color2, int ownerId,
+                          int deaths, FuelTank fueltank, float mileage, String license, int insurance, VehicleAlarm alarm,
+                          VehicleLock lock, int doors, int panels, int lights, int tires, float health) {
+        super(id, Vehicle.create(modelId, location, color1, color2, -1, false), fueltank, license, mileage);
+        this.ownerId = ownerId;
+        this.deaths = deaths;
+        this.insurance = insurance;
+        this.alarm = alarm;
+        this.lock = lock;
+        this.health = health;
+        VehicleDamage dmg = getVehicleObject().getDamage();
+        dmg.setDoors(doors);
+        dmg.setPanels(panels);
+        dmg.setLights(lights);
+        dmg.setTires(tires);
+        setHealth(health);
+        this.userPermissions = new HashMap<>();
     }
 
-    public void spawn() {
-        if(!spawned) {
-            Vehicle vehicle = Vehicle.create(modelId, spawnLocation, color1, color2, -1, false);
-            vehicle.setNumberPlate(getLicense());
-            vehicle.getDamage().set(panels, doors, lights, tires);
-            LtrpVehicle.get().add(this);
-            this.setVehicleObject(vehicle);
+    public void addPermission(int userId, PlayerVehiclePermission permission) {
+        if(!userPermissions.containsKey(userId))
+            userPermissions.put(userId, new ArrayList<>());
+        userPermissions.get(userId).add(permission);
+    }
 
-            spawned = true;
+    public void addPermission(LtrpPlayer player, PlayerVehiclePermission permission) {
+        addPermission(player.getUserId(), permission);
+    }
+
+    /**
+     * Returns the user permissions for this PlayerVehicle object
+     * @param userId user ID whose permissions to get
+     * @return a list of user permissions, if the user has no permission an empty collection is still returned
+     */
+    public Collection<PlayerVehiclePermission> getPermissions(int userId) {
+        return userPermissions.containsKey(userId) ? userPermissions.get(userId) : new ArrayList<>(0);
+    }
+
+    public Map<Integer, Collection<PlayerVehiclePermission>> getPermissions() {
+        return userPermissions;
+    }
+
+    public void removePermission(LtrpPlayer player, PlayerVehiclePermission permission) {
+        removePermission(player.getUserId(), permission);
+    }
+
+    public void removePermission(int userId, PlayerVehiclePermission permission) {
+        if(userPermissions.containsKey(userId)) {
+            userPermissions.get(userId).remove(permission);
         }
     }
 
-
-
-    public void despawn() {
-        if(spawned) {
-            // This is to update stuff into my own values
-            getDamage();
-
-            getVehicleObject().destroy();
-            setVehicleObject(null);
-
-            LtrpVehicle.get().add(this);
-            spawned = false;
+    public void removePermissions(int userId) {
+        if(userPermissions.containsKey(userId)) {
+            userPermissions.remove(userId);
         }
     }
 
-    public void setDamageStatus(int panels, int doors, int lights, int tires) {
-        this.panels = panels;
-        this.doors = doors;
-        this.lights = lights;
-        this.tires = tires;
+    @Override
+    public void setHealth(float health) {
+        this.health = health;
+        super.setHealth(health);
+    }
+
+    @Override
+    public float getHealth() {
         if(getVehicleObject() != null) {
-            getVehicleObject().getDamage().set(panels, doors, lights, tires);
+            health = super.getHealth();
         }
-    }
-
-    public int getTires() {
-        return tires;
-    }
-
-    public int getDoorsDmg() {
-        return doors;
-    }
-
-    public int getLights() {
-        return lights;
-    }
-
-    public int getPanels() {
-        return panels;
-    }
-
-    @Override
-    public int getColor1() {
-        return color1;
-    }
-
-    @Override
-    public int getColor2() {
-        return color2;
-    }
-
-    @Override
-    public int getModelId() {
-        return modelId;
-    }
-
-    public void setModelId(int modelId) {
-        this.modelId = modelId;
-    }
-
-
-    @Override
-    public VehicleDamage getDamage() {
-        VehicleDamage dmg = super.getDamage();
-        this.panels = dmg.getPanels();
-        this.doors = dmg.getDoors();
-        this.lights = dmg.getLights();
-        this.tires = dmg.getTires();
-        return dmg;
-    }
-
-    @Override
-    public void setColor(int color1, int color2) {
-        this.color1 = color1;
-        this.color2 = color2;
-        super.setColor(color1, color2);
+        return health;
     }
 
     public int getInsurance() {
@@ -152,22 +164,6 @@ public class PlayerVehicle extends LtrpVehicle {
 
     public void setInsurance(int insurance) {
         this.insurance = insurance;
-    }
-
-    public boolean isSpawned() {
-        return spawned;
-    }
-
-    public void setSpawned(boolean spawned) {
-        this.spawned = spawned;
-    }
-
-    public AngledLocation getSpawnLocation() {
-        return spawnLocation;
-    }
-
-    public void setSpawnLocation(AngledLocation spawnLocation) {
-        this.spawnLocation = spawnLocation;
     }
 
     public int getDeaths() {
@@ -200,5 +196,12 @@ public class PlayerVehicle extends LtrpVehicle {
 
     public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
+    }
+
+    @Override
+    public void destroy() {
+        if(getVehicleObject() != null) {
+            super.destroy();
+        }
     }
 }

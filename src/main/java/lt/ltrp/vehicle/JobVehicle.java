@@ -39,14 +39,13 @@ public class JobVehicle extends LtrpVehicle {
         return vehicle;
     }
 
-    public static JobVehicle create(Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank) {
-        return create(0, job, modelid, location, color1, color2, requiredrank, job.getName().substring(0, 3) + modelid);
+    public static JobVehicle create(Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank, float mileage) {
+        return create(0, job, modelid, location, color1, color2, requiredrank, job.getName().substring(0, 3) + modelid, mileage);
     }
 
-    public static JobVehicle create(int id, Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank, String license) {
-        JobVehicle veh =  new JobVehicle(id, job, modelid, location, color1, color2, requiredrank, license);
+    public static JobVehicle create(int id, Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank, String license, float mileage) {
+        JobVehicle veh =  new JobVehicle(id, job, modelid, location, color1, color2, requiredrank, license, mileage);
         logger.debug("Creating job vehicle  " + veh.getId());
-        LtrpVehicle.get().add(veh);
         return veh;
     }
 
@@ -56,17 +55,14 @@ public class JobVehicle extends LtrpVehicle {
     private Rank rankNeeded;
 
 
-    private JobVehicle(Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank, String license) {
-        this(0, job, modelid, location, color1, color2, requiredrank, license);
+    private JobVehicle(Job job, int modelid, AngledLocation location, int color1, int color2, Rank requiredrank, String license, float mileage) {
+        this(0, job, modelid, location, color1, color2, requiredrank, license, mileage);
     }
 
-    private JobVehicle(int id, Job job, int modelid, AngledLocation spawnLocation, int color1, int color2, Rank requiredrank, String license) {
-        super(id, modelid, spawnLocation, color1, color2, license);
+    private JobVehicle(int id, Job job, int modelid, AngledLocation spawnLocation, int color1, int color2, Rank requiredrank, String license, float mileage) {
+        super(id, modelid, spawnLocation, color1, color2, license, mileage);
         this.job = job;
         this.rankNeeded = requiredrank;
-        if(getFuelTank() == null) {
-            setFuelTank(new FuelTank(LtrpVehicleModel.getFuelTankSize(modelid), LtrpVehicleModel.getFuelTankSize(modelid)));
-        }
     }
 
     public Rank getRequiredRank() {

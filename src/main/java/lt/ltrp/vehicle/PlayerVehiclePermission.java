@@ -13,4 +13,7 @@ public enum PlayerVehiclePermission {
     Lock,
     Upgrade,
     Register,
+    Scrap,
+    Sell,
+    Get
 }

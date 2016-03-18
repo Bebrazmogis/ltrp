@@ -36,6 +36,7 @@ public class SimpleAlarm implements VehicleAlarm {
     }
 
 
+
     @Override
     public String getName() {
         return name;
@@ -55,5 +56,10 @@ public class SimpleAlarm implements VehicleAlarm {
     @Override
     public void deactivate() {
         vehicle.getState().setAlarm(VehicleParam.PARAM_OFF);
+    }
+
+    @Override
+    public boolean isFindable() {
+        return false;
     }
 }

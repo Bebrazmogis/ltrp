@@ -1,6 +1,7 @@
 package lt.ltrp.vehicle;
 
 import lt.ltrp.InventoryEntity;
+import lt.ltrp.RadioStation;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Inventory;
@@ -41,14 +42,14 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
             return null;
         }
         for(LtrpVehicle v : vehicles) {
-            if(v.getVehicleObject().equals(vehicle)) {
+            if(vehicle.equals(v.getVehicleObject())) {
                 return v;
             }
         }
         return null;
     }
 
-    public static List<LtrpVehicle> get() {
+    public static List<? extends LtrpVehicle> get() {
         return vehicles;
     }
 
@@ -92,28 +93,41 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
     private LtrpPlayer driver;
     private Taxi taxi;
     private AngledLocation spawnLocation;
+    private RadioStation radioStation;
+    private int radioVolume;
 
-    public LtrpVehicle(int id, Vehicle vehicle) {
+    /*
+    public LtrpVehicle(int id, Vehicle vehicle, String license) {
         super(id, vehicle.getModelName(), new FixedSizeInventory(""));
         this.vehicleObject = vehicle;
         setLocked(this.locked);
+        this.license = license;
         vehicles.add(this);
     }
-
-    protected LtrpVehicle(int id, Vehicle vehicle, FuelTank fueltank) {
-        this(id, vehicle);
-        setFuelTank(fueltank);
-    }
-
-    protected LtrpVehicle(int id, int modelid, AngledLocation location, int color1, int color2, String license) {
-        this(id, Vehicle.create(modelid, location, color1, color2, -1, false));
-        this.spawnLocation = location;
+*/
+    protected LtrpVehicle(int id, Vehicle vehicle, FuelTank fueltank, String license, float mileage) {
+        super(id, vehicle.getModelName() + " " + license, new FixedSizeInventory(""));
+        vehicle.setNumberPlate(license);
+        this.fuelTank = fueltank;
+        this.mileage = mileage;
+        this.spawnLocation = vehicle.getLocation();
+        //this(id, vehicle.getModelName() + license, vehicle.getLocation(), mileage, license, fueltank);
+        this.vehicleObject = vehicle;
+        if(LtrpVehicleModel.HasNumberPlates(vehicle.getModelId()))
+        vehicle.setNumberPlate(license);
         this.license = license;
+        vehicles.add(this);
+        setLocked(this.locked);
+        this.radioVolume = 50;
     }
 
-    protected LtrpVehicle(int modelid, AngledLocation location, int color1, int color2) {
-        this(0, modelid, location, color1, color2, "");
+    protected LtrpVehicle(int id, int modelid, AngledLocation location, int color1, int color2, String license, float mileage) {
+        this(id,
+                Vehicle.create(modelid, location, color1, color2, -1, false),
+                new FuelTank(LtrpVehicleModel.getFuelTankSize(modelid), LtrpVehicleModel.getFuelTankSize(modelid)),
+                license, mileage);
     }
+
 
     protected Vehicle getVehicleObject() {
         return vehicleObject;
@@ -121,10 +135,6 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     protected void setVehicleObject(Vehicle vehicle) {
         this.vehicleObject = vehicle;
-    }
-
-    protected LtrpVehicle() {
-        this(0, 0, null, 0, 0, "");
     }
 
     public FuelTank getFuelTank() {
@@ -213,6 +223,39 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
             }
         }
         return false;
+    }
+
+    public RadioStation getRadioStation() {
+        return radioStation;
+    }
+
+    public void setRadioStation(RadioStation radioStation) {
+        this.radioStation = radioStation;
+        if(radioStation == null) {
+            LtrpPlayer.get()
+                    .stream()
+                    .filter(p -> p.isInVehicle(this))
+                    .forEach(p -> p.getCurrentAudioHandle().stop());
+        } else {
+            LtrpPlayer.get().stream().filter(p -> p.isInVehicle(this))
+                    .forEach(p -> {
+                        p.playAudioStream(radioStation.getUrl());
+                        p.setVolume(radioVolume);
+                    });
+        }
+
+    }
+
+    public int getRadioVolume() {
+        return radioVolume;
+    }
+
+    public void setRadioVolume(int radioVolume) {
+        this.radioVolume = radioVolume;
+        LtrpPlayer.get()
+                .stream()
+                .filter(p -> p.isInVehicle(this))
+                .forEach(p -> p.setVolume(radioVolume));
     }
 
     public int getUniqueId() {
@@ -400,7 +443,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
 
     public boolean isPlayerIn(LtrpPlayer player) {
-        return isPlayerIn(player);
+        return vehicleObject.isPlayerIn(player);
     }
 
     @Override
@@ -410,7 +453,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
 
     public boolean isStreamedIn(LtrpPlayer player) {
-        return isStreamedIn(player);
+        return vehicleObject.isStreamedIn(player);
     }
 
     @Override

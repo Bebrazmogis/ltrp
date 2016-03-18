@@ -6,6 +6,18 @@ package lt.ltrp.vehicle;
  */
 public interface VehicleAlarm {
 
+    static VehicleAlarm get(PlayerVehicle vehicle, int level) {
+        switch(level) {
+            case 1:
+                return new SimpleAlarm("Paprasta signalizacija", vehicle);
+            case 2:
+                return new PoliceAlertAlarm("Profesonali signalizacija su GPS ir PD ryðiu", vehicle);
+            case 3:
+                return new PersonalAlarm("Pro. Signalizacija su GPS, policijos ir asmeniniu praneðikliu ", vehicle);
+            default:
+                return null;
+        }
+    }
 
     int getLevel();
 
@@ -15,5 +27,9 @@ public interface VehicleAlarm {
     void activate();
     void deactivate();
 
-
+    /**
+     * Returns true if the implementation supports In character "gps tracking"
+     * @return
+     */
+    boolean isFindable();
 }
