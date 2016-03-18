@@ -7,6 +7,8 @@ import lt.ltrp.dao.VehicleDao;
 import lt.ltrp.data.Color;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.shopplugin.ShopVehicle;
+import lt.ltrp.shopplugin.VehicleShop;
 import lt.ltrp.shopplugin.VehicleShopPlugin;
 import lt.ltrp.vehicle.event.*;
 import net.gtaun.shoebill.common.command.CommandGroup;
@@ -17,6 +19,7 @@ import net.gtaun.shoebill.event.destroyable.DestroyEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
 import net.gtaun.util.event.EventManager;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 
 import java.lang.ref.SoftReference;
@@ -32,6 +35,7 @@ public class PlayerVehicleManager {
     private static final Collection<PlayerVehicle> playerVehiclesList = new ArrayList<>();
     private static final Logger logger = LtrpGamemode.get().getLogger();
     private static final int INSURANCE_BASE_PRICE = 800;
+    private static final int SCRAP_BASE_PRICE = 200;
 
     private static final CommandHandler V_HELP_HANDLER = (p, params) -> {
         p.sendMessage(Color.GREEN, "|______________________Tr. Priemoniu komandos ir naudojimas__________________________|");
@@ -49,11 +53,13 @@ public class PlayerVehicleManager {
     private Map<LtrpPlayer, int[]> playerVehicles;
     private Map<Integer, SoftReference<Collection<PlayerVehiclePermission>>> permissionCache = new HashMap<>();
     private VehicleDao vehicleDao;
+    private VehicleShopPlugin shopPlugin;
 
     public PlayerVehicleManager(EventManager manager, VehicleDao vehicleDao, PlayerCommandManager commandManager, VehicleShopPlugin shopPlugin) {
         this.eventManager = manager;
         this.playerVehicles = new HashMap<>();
         this.vehicleDao = vehicleDao;
+        this.shopPlugin = shopPlugin;
 
         CommandGroup vGroup = new CommandGroup();
         vGroup.setEmptyCommandHandler((p, g) -> {
@@ -297,7 +303,46 @@ public class PlayerVehicleManager {
     }
 
     public int getScrapPrice(PlayerVehicle vehicle) {
-        return 10;
+        int averageShopPrice = 0;
+        int shopCount = 0;
+        VehicleShop[] shops = shopPlugin.getVehicleShops();
+        for(VehicleShop shop : shops) {
+            for(ShopVehicle v : shop.getVehicles()) {
+                if(v.getModelId() == vehicle.getModelId()) {
+                    averageShopPrice += v.getPrice();
+                    shopCount++;
+                }
+            }
+        }
+        averageShopPrice /= shopCount;
+        int lockPrice = 0;
+        if(vehicle.getLock() != null) {
+            for(VehicleLock l : PlayerVehicleCommands.LOCKS) {
+                if(l.equals(vehicle.getLock())) {
+                    lockPrice = l.getPrice();
+                    break;
+                }
+            }
+        }
+        int alarmPrice = 0;
+        if(vehicle.getAlarm() != null) {
+            for(Pair<VehicleAlarm, Integer> p : PlayerVehicleCommands.ALARMS) {
+                if(p.getKey().equals(vehicle.getAlarm())) {
+                    alarmPrice = p.getValue();
+                    break;
+                }
+            }
+        }
+        int price = averageShopPrice -
+                (averageShopPrice / 20 * vehicle.getDeaths()) -
+                (Math.round(vehicle.getMileage() / 10f)) -
+                (Math.round(1000f - vehicle.getHealth()) / 2) +
+                (alarmPrice / 3) +
+                (lockPrice / 3);
+        if(price <= 0) {
+            price = SCRAP_BASE_PRICE;
+        }
+        return price;
     }
 
     public Collection<PlayerVehicle> getSpawnedVehicles(LtrpPlayer player) {
