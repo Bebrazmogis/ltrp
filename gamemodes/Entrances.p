@@ -827,8 +827,9 @@ CMD:enter(playerid)
 	else if(vehicleid && !IsVehicleEntrance(entrindex))
 		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, su transporto priemone ávaþiuoti èia negalite.");
 
-	else if(IsFactionEntrance(entrindex) && GetPlayerFactionId(playerid) != GetEntranceFaction(entrindex))
+/*	else if(IsFactionEntrance(entrindex) && GetPlayerFactionId(playerid) != GetEntranceFaction(entrindex))
 		SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðis áëjimas tik darbuotojams.");
+		*/
 
 	else
 	{
