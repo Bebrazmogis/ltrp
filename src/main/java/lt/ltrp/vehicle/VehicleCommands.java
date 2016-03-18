@@ -9,6 +9,7 @@ import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.data.VehicleState;
 import net.gtaun.shoebill.object.Player;
@@ -59,7 +60,7 @@ public class VehicleCommands extends Commands {
                 vehicle.getInventory().show(player);
                 return true;
             } else
-                player.sendErrorMessage(vehicle.getModelName() + " uþrakinta. Naudokite /trunko");
+                player.sendErrorMessage(vehicle.getModelName() + " bagaþinë uþdaryta. Naudokite /trunko");
         } else
             player.sendErrorMessage("Prie jûsø nëra jokios transporto priemonës");
         return false;
@@ -74,10 +75,10 @@ public class VehicleCommands extends Commands {
             if(!vehicle.isLocked()) {
                 if(vehicle.getState().getBoot() != VehicleParam.PARAM_ON) {
                     vehicle.getState().setBoot(VehicleParam.PARAM_OFF);
-                    player.sendActionMessage("uþdaro " + vehicle.getModelName() + " bagaþinæ.");
+                    player.sendActionMessage("atidaro " + vehicle.getModelName() + " bagaþinæ.");
                 } else {
                     vehicle.getState().setBoot(VehicleParam.PARAM_ON);
-                    player.sendActionMessage("atidaro " + vehicle.getModelName() + " bagaþinæ.");
+                    player.sendActionMessage("uþdaro " + vehicle.getModelName() + " bagaþinæ.");
                 }
                 player.playSound(1057);
                 return true;
@@ -165,9 +166,9 @@ public class VehicleCommands extends Commands {
                             break;
                     }
                     if(newstate == VehicleParam.PARAM_ON) {
-                        player.sendActionMessage("atidaro langà");
+                        player.sendActionMessage("atidaro tr. priemonës langà");
                     } else
-                        player.sendActionMessage("uþdaro langà");
+                        player.sendActionMessage("uþdaro tr. priemonës langà");
                     player.playSound(1057);
                     return true;
                 }
@@ -203,7 +204,7 @@ public class VehicleCommands extends Commands {
 
     @Command
     @CommandHelp("Nustato/paðalina maksimalø automobilio greitá")
-    public boolean maxSpeed(Player p, Float speed) {
+    public boolean maxSpeed(Player p, @CommandParameter(name = "Maksimalus greitis")Float speed) {
         LtrpPlayer player = LtrpPlayer.get(p);
         LtrpVehicle vehicle = player.getVehicle();
         if(vehicle == null) {
@@ -229,7 +230,7 @@ public class VehicleCommands extends Commands {
         LtrpPlayer player = LtrpPlayer.get(pp);
         LtrpVehicle vehicle=  LtrpVehicle.getByVehicle(player.getVehicle());
         if(vehicle == null) {
-            player.sendErrorMessage("Jûs turite bûti transporto priemonëje!");
+            player.sendErrorMessage("Jûs turite bûti nuosavoje transporto priemonëje!");
         } else if(!vehicle.getInventory().containsType(ItemType.CarAudio)) {
             player.sendErrorMessage("Ðiame automobilyje nëra automagnetolos.");
         } else if(player.getVehicleSeat() > 1) {
