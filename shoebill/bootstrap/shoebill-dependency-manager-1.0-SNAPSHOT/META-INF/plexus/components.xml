@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-set>
+  <components>
+    <component>
+      <role>org.eclipse.aether.impl.ArtifactResolver</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultArtifactResolver</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.spi.io.FileProcessor</role>
+          <role-hint />
+          <field-name>fileProcessor</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RepositoryEventDispatcher</role>
+          <role-hint />
+          <field-name>repositoryEventDispatcher</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.VersionResolver</role>
+          <role-hint />
+          <field-name>versionResolver</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.UpdateCheckManager</role>
+          <role-hint />
+          <field-name>updateCheckManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RepositoryConnectorProvider</role>
+          <role-hint />
+          <field-name>repositoryConnectorProvider</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RemoteRepositoryManager</role>
+          <role-hint />
+          <field-name>remoteRepositoryManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.SyncContextFactory</role>
+          <role-hint />
+          <field-name>syncContextFactory</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.OfflineController</role>
+          <role-hint />
+          <field-name>offlineController</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.spi.connector.checksum.ChecksumPolicyProvider</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultChecksumPolicyProvider</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>loggerFactory</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.DependencyCollector</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultDependencyCollector</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RemoteRepositoryManager</role>
+          <role-hint />
+          <field-name>remoteRepositoryManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.ArtifactDescriptorReader</role>
+          <role-hint />
+          <field-name>descriptorReader</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.VersionRangeResolver</role>
+          <role-hint />
+          <field-name>versionRangeResolver</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.Deployer</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultDeployer</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.spi.io.FileProcessor</role>
+          <role-hint />
+          <field-name>fileProcessor</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RepositoryEventDispatcher</role>
+          <role-hint />
+          <field-name>repositoryEventDispatcher</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RepositoryConnectorProvider</role>
+          <role-hint />
+          <field-name>repositoryConnectorProvider</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RemoteRepositoryManager</role>
+          <role-hint />
+          <field-name>remoteRepositoryManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.UpdateCheckManager</role>
+          <role-hint />
+          <field-name>updateCheckManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.MetadataGeneratorFactory</role>
+          <field-name>metadataFactories</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.SyncContextFactory</role>
+          <role-hint />
+          <field-name>syncContextFactory</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.OfflineController</role>
+          <role-hint />
+          <field-name>offlineController</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.spi.io.FileProcessor</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultFileProcessor</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.Installer</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultInstaller</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.spi.io.FileProcessor</role>
+          <role-hint />
+          <field-name>fileProcessor</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RepositoryEventDispatcher</role>
+          <role-hint />
+          <field-name>repositoryEventDispatcher</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.MetadataGeneratorFactory</role>
+          <field-name>metadataFactories</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.SyncContextFactory</role>
+          <role-hint />
+          <field-name>syncContextFactory</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.LocalRepositoryProvider</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultLocalRepositoryProvider</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.spi.localrepo.LocalRepositoryManagerFactory</role>
+          <field-name>managerFactories</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.MetadataResolver</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultMetadataResolver</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RepositoryEventDispatcher</role>
+          <role-hint />
+          <field-name>repositoryEventDispatcher</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.UpdateCheckManager</role>
+          <role-hint />
+          <field-name>updateCheckManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RepositoryConnectorProvider</role>
+          <role-hint />
+          <field-name>repositoryConnectorProvider</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RemoteRepositoryManager</role>
+          <role-hint />
+          <field-name>remoteRepositoryManager</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.SyncContextFactory</role>
+          <role-hint />
+          <field-name>syncContextFactory</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.OfflineController</role>
+          <role-hint />
+          <field-name>offlineController</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.OfflineController</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultOfflineController</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.RemoteRepositoryManager</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultRemoteRepositoryManager</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.UpdatePolicyAnalyzer</role>
+          <role-hint />
+          <field-name>updatePolicyAnalyzer</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.spi.connector.checksum.ChecksumPolicyProvider</role>
+          <role-hint />
+          <field-name>checksumPolicyProvider</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.RepositoryConnectorProvider</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultRepositoryConnectorProvider</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.spi.connector.RepositoryConnectorFactory</role>
+          <field-name>connectorFactories</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.RepositoryEventDispatcher</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultRepositoryEventDispatcher</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.RepositoryListener</role>
+          <field-name>listeners</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.spi.connector.layout.RepositoryLayoutProvider</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultRepositoryLayoutProvider</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.spi.connector.layout.RepositoryLayoutFactory</role>
+          <field-name>factories</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.RepositorySystem</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultRepositorySystem</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.VersionResolver</role>
+          <role-hint />
+          <field-name>versionResolver</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.VersionRangeResolver</role>
+          <role-hint />
+          <field-name>versionRangeResolver</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.ArtifactResolver</role>
+          <role-hint />
+          <field-name>artifactResolver</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.MetadataResolver</role>
+          <role-hint />
+          <field-name>metadataResolver</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.ArtifactDescriptorReader</role>
+          <role-hint />
+          <field-name>artifactDescriptorReader</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.DependencyCollector</role>
+          <role-hint />
+          <field-name>dependencyCollector</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.Installer</role>
+          <role-hint />
+          <field-name>installer</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.Deployer</role>
+          <role-hint />
+          <field-name>deployer</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.LocalRepositoryProvider</role>
+          <role-hint />
+          <field-name>localRepositoryProvider</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.SyncContextFactory</role>
+          <role-hint />
+          <field-name>syncContextFactory</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.RemoteRepositoryManager</role>
+          <role-hint />
+          <field-name>remoteRepositoryManager</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.SyncContextFactory</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultSyncContextFactory</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+    </component>
+    <component>
+      <role>org.eclipse.aether.spi.connector.transport.TransporterProvider</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultTransporterProvider</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.spi.connector.transport.TransporterFactory</role>
+          <field-name>factories</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.UpdateCheckManager</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultUpdateCheckManager</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+        <requirement>
+          <role>org.eclipse.aether.impl.UpdatePolicyAnalyzer</role>
+          <role-hint />
+          <field-name>updatePolicyAnalyzer</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.impl.UpdatePolicyAnalyzer</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.DefaultUpdatePolicyAnalyzer</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.spi.localrepo.LocalRepositoryManagerFactory</role>
+      <role-hint>enhanced</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.EnhancedLocalRepositoryManagerFactory</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.spi.connector.layout.RepositoryLayoutFactory</role>
+      <role-hint>maven2</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.Maven2RepositoryLayoutFactory</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+    </component>
+    <component>
+      <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+      <role-hint>default</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.PlexusLoggerFactory</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.codehaus.plexus.logging.LoggerManager</role>
+          <role-hint />
+          <field-name>loggerManager</field-name>
+        </requirement>
+      </requirements>
+    </component>
+    <component>
+      <role>org.eclipse.aether.spi.localrepo.LocalRepositoryManagerFactory</role>
+      <role-hint>simple</role-hint>
+      <implementation>org.eclipse.aether.internal.impl.SimpleLocalRepositoryManagerFactory</implementation>
+      <description />
+      <isolated-realm>false</isolated-realm>
+      <requirements>
+        <requirement>
+          <role>org.eclipse.aether.spi.log.LoggerFactory</role>
+          <role-hint />
+          <field-name>logger</field-name>
+        </requirement>
+      </requirements>
+    </component>
+  </components>
+</component-set>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>net.gtaun</groupId>
+  <artifactId>shoebill-common</artifactId>
+  <version>1.3-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20160317.194404</timestamp>
+      <buildNumber>6</buildNumber>
+    </snapshot>
+    <lastUpdated>20160317194404</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>1.3-20160317.194404-6</value>
+        <updated>20160317194404</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>1.3-20160317.194404-6</value>
+        <updated>20160317194404</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <classifier>sources</classifier>
+        <extension>jar</extension>
+        <value>1.3-20160317.194404-6</value>
+        <updated>20160317194404</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>

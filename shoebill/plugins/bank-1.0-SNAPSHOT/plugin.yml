@@ -1,0 +1,7 @@
+authors: Bebras
+version: 1.0-SNAPSHOT
+class: lt.maze.streamer.StreamerPlugin
+name: Incognitos streamer plugin wrapper
+buildNumber: 0
+buildDate: Unknown
+description: Incognitos Streamer plugin wrapper in Java.
