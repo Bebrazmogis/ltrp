@@ -1,42 +1,41 @@
 package lt.ltrp.property;
 
+import lt.ltrp.BankPlugin;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.PlayerCommandManager;
+import lt.ltrp.constant.Currency;
+import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.event.property.*;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Inventory;
+import lt.ltrp.player.BankAccount;
 import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.SpawnData;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
+import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Bebras
  *         2015.11.29.
  */
-public class PropertyManager {
+public class PropertyManager implements Destroyable {
 
+    private static final Logger logger = LoggerFactory.getLogger(PropertyManager.class);
 
-    private final EventManager eventManager;
-    private static PropertyManager instance;
+    private final EventManagerNode eventManager;
+    private boolean destroyed;
 
-    public static void init() {
-        instance = new PropertyManager();
-    }
-
-    public static PropertyManager get() {
-        if(instance == null) {
-            init();
-        }
-        return instance;
-    }
-
-    public PropertyManager() {
-        eventManager = LtrpGamemode.get().getEventManager().createChildNode();
+    public PropertyManager(EventManager eventManager1, BankPlugin bankPlugin) {
+        eventManager = eventManager1.createChildNode();
 
         PlayerCommandManager commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
         commandManager.registerCommands(new HouseCommands());
@@ -68,10 +67,41 @@ public class PropertyManager {
                 owner.sendMessage(Color.DARKGREEN, "..Galbût þolë namie jau uþaugo?");
             }
         });
+
+        eventManager.registerHandler(PaydayEvent.class, e -> {
+            LtrpPlayer.get().stream().filter(p -> p.getSpawnData().getType() == SpawnData.SpawnType.House).forEach(p -> {
+                House house = House.get(p.getSpawnData().getId());
+                if(house != null) {
+                    int rent = house.getHouseRent();
+                    BankAccount account = bankPlugin.getBankController().getAccount(p);
+                    if(account.getMoney() >= rent) {
+                        account.addMoney(- rent);
+                        bankPlugin.getBankController().update(account);
+                        house.addBankMoney(rent);
+                        p.sendMessage(Color.WHITE, String.format("| Mokestis uþ nuomà: %d%c |", rent, Currency.SYMBOL));
+                    } else {
+                        p.sendMessage("Jûsø banko sàskaitoje nëra pakankamai pinigø susimokëti uþ nuomà, todël buvote iðmestas.");
+                        p.setSpawnData(SpawnData.DEFAULT);
+                        LtrpGamemode.getDao().getPlayerDao().setSpawnData(p);
+                    }
+
+                } else {
+                    logger.error("Player " + p.getUserId() + " lives in an unexistent house " + p.getSpawnData().getId());
+                }
+            });
+        });
     }
 
+    @Override
+    public void destroy() {
+        this.destroyed = true;
+        eventManager.cancelAll();
+    }
 
-
+    @Override
+    public boolean isDestroyed() {
+        return destroyed;
+    }
 
     // Functions for Pawn
     private void addPawnFunctions(AmxInstance amx) {
