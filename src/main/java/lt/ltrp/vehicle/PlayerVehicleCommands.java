@@ -56,12 +56,10 @@ public class PlayerVehicleCommands extends Commands{
     };
 
     private PlayerVehicleManager playerVehicleManager;
-    private VehicleShopPlugin shopPlugin;
 
-    public PlayerVehicleCommands(PlayerVehicleManager playerVehicleManager, VehicleShopPlugin shopPlugin, PlayerCommandManager commandManager) {
+    public PlayerVehicleCommands(PlayerVehicleManager playerVehicleManager, PlayerCommandManager commandManager) {
         logger = LoggerFactory.getLogger(PlayerVehicleCommands.class);
         this.playerVehicleManager = playerVehicleManager;
-        this.shopPlugin = shopPlugin;
         commandManager.setUsageMessageSupplier((p, cmd, cmdentry) -> {
             if(cmd.equals("v buyLock")) {
                 p.sendMessage(Color.GREEN, "____________________Galimos spynos___________________________");
@@ -255,7 +253,7 @@ public class PlayerVehicleCommands extends Commands{
             player.sendErrorMessage("Ði transporto priemonë nëra iðspawninta.");
         } else {
             PlayerVehicle vehicle = PlayerVehicle.getByUniqueId(vehicles[index]);
-            if(!vehicle.getAlarm().isFindable()) {
+            if(vehicle.getAlarm() == null || !vehicle.getAlarm().isFindable()) {
                 player.sendErrorMessage("Jûsø automobilyje nëra GPS siøstuvo.");
             } else {
                 player.setCheckpoint(Checkpoint.create(new Radius(vehicle.getLocation(), 3f), pp -> {
@@ -377,27 +375,33 @@ public class PlayerVehicleCommands extends Commands{
     @Command
     public boolean buy(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        VehicleShop shop  = shopPlugin.getClosestVehicleShop(player.getLocation(), 6f);
-        if(shop == null) {
-            player.sendErrorMessage("Prie jûsø nëra transporto priemoniø parduotuvës!");
+        VehicleShopPlugin shopPlugin = playerVehicleManager.getShopPlugin();
+        if(shopPlugin == null) {
+            player.sendErrorMessage("Atsipraðome, bet ðiuo metu ðio veiksmo ávykdyti negalima. Klaida #" + ErrorCode.SHOP_PLUGIN_DOWN);
+            LtrpPlayer.sendAdminMessage(player.getName() + " klaida. #" + ErrorCode.SHOP_PLUGIN_DOWN);
         } else {
-            VehicleShopListDialog dialog = new VehicleShopListDialog(player, playerVehicleManager.getEventManager(), shop);
-            dialog.setSelectVehicleHandler((d, v) -> {
-                if(player.getMoney() < v.getPrice()) {
-                    player.sendErrorMessage("Jums neuþtenka pinigø." + VehicleModel.getName(v.getModelId()) +  " kainuoja " + Currency.SYMBOL + v.getPrice());
-                } else if(playerVehicleManager.getPlayerOwnedVehicleCount(player) == playerVehicleManager.getMaxOwnedVehicles(player)) {
-                    player.sendErrorMessage("Jûs nebegalite turëti daugiau transporto priemoniø, pirmiausia parduokite senas.");
-                } else {
-                    AngledLocation spawnLocation = shop.getRandomSpawnLocation();
-                    Random random = new Random();
-                    int color1 = random.nextInt(255);
-                    int color2 = random.nextInt(255);
-                    playerVehicleManager.getEventManager().dispatchEvent(new PlayerBuyNewVehicleEvent(player, v.getModelId(), spawnLocation, color1, color2, v.getPrice()));
-                    player.giveMoney(-v.getPrice());
-                    player.sendMessage(Color.NEWS, "Sëkmingai ásigijote " + VehicleModel.getName(v.getModelId()) + " uþ "  + Currency.SYMBOL + v.getPrice() + ". Perþiûrëti transporto priemones galite /v list, gauti jà su /v get");
-                }
-            });
-            dialog.show();
+            VehicleShop shop  = shopPlugin.getClosestVehicleShop(player.getLocation(), 6f);
+            if(shop == null) {
+                player.sendErrorMessage("Prie jûsø nëra transporto priemoniø parduotuvës!");
+            } else {
+                VehicleShopListDialog dialog = new VehicleShopListDialog(player, playerVehicleManager.getEventManager(), shop);
+                dialog.setSelectVehicleHandler((d, v) -> {
+                    if(player.getMoney() < v.getPrice()) {
+                        player.sendErrorMessage("Jums neuþtenka pinigø." + VehicleModel.getName(v.getModelId()) +  " kainuoja " + Currency.SYMBOL + v.getPrice());
+                    } else if(playerVehicleManager.getPlayerOwnedVehicleCount(player) == playerVehicleManager.getMaxOwnedVehicles(player)) {
+                        player.sendErrorMessage("Jûs nebegalite turëti daugiau transporto priemoniø, pirmiausia parduokite senas.");
+                    } else {
+                        AngledLocation spawnLocation = shop.getRandomSpawnLocation();
+                        Random random = new Random();
+                        int color1 = random.nextInt(255);
+                        int color2 = random.nextInt(255);
+                        playerVehicleManager.getEventManager().dispatchEvent(new PlayerBuyNewVehicleEvent(player, v.getModelId(), spawnLocation, color1, color2, v.getPrice()));
+                        player.giveMoney(-v.getPrice());
+                        player.sendMessage(Color.NEWS, "Sëkmingai ásigijote " + VehicleModel.getName(v.getModelId()) + " uþ "  + Currency.SYMBOL + v.getPrice() + ". Perþiûrëti transporto priemones galite /v list, gauti jà su /v get");
+                    }
+                });
+                dialog.show();
+            }
         }
         return true;
     }

@@ -52,13 +52,13 @@ public class VehicleManager {
     private PlayerVehicleManager playerVehicleManager;
 
 
-    public VehicleManager(EventManager manager, VehicleDao vehicleDao, VehicleShopPlugin shopPlugin) {
+    public VehicleManager(EventManager manager, VehicleDao vehicleDao) {
         this.maxSpeeds = new HashMap<>();
         random = new Random();
         eventManager = manager.createChildNode();
         this.vehicleEngineTimers = new HashMap<>();
         PlayerCommandManager commandManager = new PlayerCommandManager(eventManager);
-        this.playerVehicleManager = new PlayerVehicleManager(eventManager, vehicleDao, commandManager, shopPlugin);
+        this.playerVehicleManager = new PlayerVehicleManager(eventManager, vehicleDao, commandManager);
 
         commandManager.registerCommands(new VehicleCommands(maxSpeeds, eventManager));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);

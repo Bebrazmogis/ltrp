@@ -11,6 +11,7 @@ import lt.ltrp.shopplugin.ShopVehicle;
 import lt.ltrp.shopplugin.VehicleShop;
 import lt.ltrp.shopplugin.VehicleShopPlugin;
 import lt.ltrp.vehicle.event.*;
+import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.CommandHandler;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -41,7 +42,7 @@ public class PlayerVehicleManager {
         p.sendMessage(Color.GREEN, "|______________________Tr. Priemoniu komandos ir naudojimas__________________________|");
         p.sendMessage(Color.LIGHTRED, "  KOMANDOS NAUDOJIMAS: /v [KOMANDA], pavyzdþiui: /v list");
         p.sendMessage(Color.WHITE, "  PAGRINDINËS KOMANDOS: list, get, park, buypark, lock, find, documents ");
-        p.sendMessage(Color.WHITESMOKE, "  TR. PRIEMONËS SKOLINIMAS: setpermission managerperms");
+        p.sendMessage(Color.WHITESMOKE, "  TR. PRIEMONËS SKOLINIMAS: setpermission managePerms");
         p.sendMessage(Color.WHITE, "  TOBULINIMAS/TVARKYMAS: register buy buyalarm buylock buyinsurance");
         p.sendMessage(Color.WHITESMOKE, "  VALDYMAS: /trunk /trunko /bonnet /windows /seatbelt /maxspeed /vradio ");
         //  player.sendMessage(Color.WHITE, "  KITA: destroy scrap payticket faction buy ");
@@ -53,20 +54,18 @@ public class PlayerVehicleManager {
     private Map<LtrpPlayer, int[]> playerVehicles;
     private Map<Integer, SoftReference<Collection<PlayerVehiclePermission>>> permissionCache = new HashMap<>();
     private VehicleDao vehicleDao;
-    private VehicleShopPlugin shopPlugin;
 
-    public PlayerVehicleManager(EventManager manager, VehicleDao vehicleDao, PlayerCommandManager commandManager, VehicleShopPlugin shopPlugin) {
+    public PlayerVehicleManager(EventManager manager, VehicleDao vehicleDao, PlayerCommandManager commandManager) {
         this.eventManager = manager;
         this.playerVehicles = new HashMap<>();
         this.vehicleDao = vehicleDao;
-        this.shopPlugin = shopPlugin;
 
         CommandGroup vGroup = new CommandGroup();
         vGroup.setEmptyCommandHandler((p, g) -> {
             V_HELP_HANDLER.handle(p, null);
             return true;
         });
-        vGroup.registerCommands(new PlayerVehicleCommands(this, shopPlugin, commandManager));
+        vGroup.registerCommands(new PlayerVehicleCommands(this, commandManager));
         commandManager.registerChildGroup(vGroup, "v");
        // commandManager.registerCommand("v", new Class[0], V_HELP_HANDLER, null, null, null);
        // commandManager.registerCommand("v", new Class[]{String.class}, null, null, (short)-1000, false, V_HELP_HANDLER, null, null, null);
@@ -108,6 +107,7 @@ public class PlayerVehicleManager {
 
         eventManager.registerHandler(DestroyEvent.class, e -> {
             Optional<PlayerVehicle> vehicle = playerVehiclesList.stream().filter(v -> v.equals(e.getDestroyable())).findFirst();
+            logger.debug("DestroyEvent. Vehicle: "+ vehicle.isPresent());
             if(vehicle.isPresent()) {
                 destroyVehicle(vehicle.get());
             }
@@ -115,6 +115,7 @@ public class PlayerVehicleManager {
 
         eventManager.registerHandler(VehicleDeathEvent.class, e -> {
             PlayerVehicle vehicle = PlayerVehicle.getByVehicle(e.getVehicle());
+            logger.debug("VehicleDeathEvent:" + vehicle);
             if(vehicle != null) {
                 // If the vehicle did not have insurance, it we set it's health low #28
                 if(vehicle.getInsurance() == 0) {
@@ -305,6 +306,10 @@ public class PlayerVehicleManager {
     public int getScrapPrice(PlayerVehicle vehicle) {
         int averageShopPrice = 0;
         int shopCount = 0;
+        VehicleShopPlugin shopPlugin = getShopPlugin();
+        if(shopPlugin == null) {
+            return SCRAP_BASE_PRICE;
+        }
         VehicleShop[] shops = shopPlugin.getVehicleShops();
         for(VehicleShop shop : shops) {
             for(ShopVehicle v : shop.getVehicles()) {
@@ -376,6 +381,10 @@ public class PlayerVehicleManager {
 
     public EventManager getEventManager() {
         return eventManager;
+    }
+
+    public VehicleShopPlugin getShopPlugin() {
+        return Shoebill.get().getResourceManager().getPlugin(VehicleShopPlugin.class);
     }
 
     public void destroy() {

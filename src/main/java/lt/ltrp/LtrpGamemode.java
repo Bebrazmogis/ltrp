@@ -88,10 +88,9 @@ public class LtrpGamemode extends Gamemode {
         EventManager eventManager = getEventManager();
 
         BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
-        VehicleShopPlugin shopPlugin = Shoebill.get().getResourceManager().getPlugin(VehicleShopPlugin.class);
 
         try {
-            vehicleManager = new VehicleManager(eventManager, getDao().getVehicleDao(), shopPlugin);
+            vehicleManager = new VehicleManager(eventManager, getDao().getVehicleDao());
             jobManager = new JobManager(eventManager, getDao().getJobDao(), vehicleManager);
             propertyManager = new PropertyManager(eventManager, bankPlugin);
             dmvManager = new DmvManager(eventManager);
