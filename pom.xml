@@ -34,7 +34,7 @@
         <dependency>
             <groupId>net.gtaun</groupId>
             <artifactId>shoebill-api</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <version>1.2-SNAPSHOT</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
@@ -42,21 +42,9 @@
         <dependency>
             <groupId>net.gtaun</groupId>
             <artifactId>shoebill-common</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <version>1.3-SNAPSHOT</version>
             <type>jar</type>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>mchange-commons-java</artifactId>
-            <version>0.2.10</version>
         </dependency>
 
         <dependency>
@@ -90,10 +78,45 @@
             <artifactId>log4j-core</artifactId>
             <version>2.4.1</version>
         </dependency>
+        
+        <!-- My plugins and stuff -->
+
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>bank</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>database</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
 
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>npc-manager</artifactId>
+            <version>1.0-SNAPSHOT</version>
 
+        </dependency>
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>audio</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>streamer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>vehicle-shop</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
@@ -110,7 +133,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <compilerArgument></compilerArgument>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
