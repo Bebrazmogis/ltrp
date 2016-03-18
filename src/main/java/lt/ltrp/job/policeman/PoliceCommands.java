@@ -24,7 +24,6 @@ import lt.ltrp.plugin.streamer.DynamicSampObject;
 import lt.ltrp.property.House;
 import lt.ltrp.property.HouseWeedSapling;
 import lt.ltrp.vehicle.*;
-import lt.ltrp.vehicle.event.PlayerVehicleArrestDeleteEvent;
 import lt.ltrp.vehicle.event.PlayerVehicleArrestEvent;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.*;
@@ -607,7 +606,6 @@ public class PoliceCommands extends Commands{
                 MsgboxDialog dialog = ConfirmDelArrestMsgboxDialog.create(player, eventManager, arrest);
                 dialog.setClickOkHandler(d -> {
                     job.sendMessage(Color.POLICE, "Policijos pareigûnas " + player.getCharName() + " nutraukë areðtà tr. priemonei");
-                    eventManager.dispatchEvent(new PlayerVehicleArrestDeleteEvent(player, arrest));
                 });
                 dialog.show();
             } else {
@@ -624,12 +622,8 @@ public class PoliceCommands extends Commands{
                 for(int vehicleId : playerVehicleManager.getArrestedVehicles(target)) {
                     PlayerVehicleMetadata meta = playerVehicleManager.getMetaData(vehicleId);
                     items.add(new ListDialogItem(meta, "", (d, i) -> {
-                        PlayerVehicleArrest arrest =  playerVehicleManager.getArrest(meta.getId());
-                        MsgboxDialog dialog = ConfirmDelArrestMsgboxDialog.create(player, eventManager, arrest);
-                        dialog.setClickOkHandler(dd -> {
-                            job.sendMessage(Color.POLICE, "Policijos pareigûnas " + player.getCharName() + " nutraukë areðtà tr. priemonei");
-                            eventManager.dispatchEvent(new PlayerVehicleArrestDeleteEvent(player, arrest));
-                        });
+                        MsgboxDialog dialog = ConfirmDelArrestMsgboxDialog.create(player, eventManager, playerVehicleManager.getArrest(meta.getId()));
+                        dialog.setClickOkHandler(delArrestHandler);
                         dialog.show();
                     }));
                 }
