@@ -2,23 +2,28 @@ package lt.ltrp.player;
 
 
 
+import lt.ltrp.BankPlugin;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.PawnFunc;
+import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.Animation;
 import lt.ltrp.dmv.DmvManager;
+import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.event.player.PlayerOfferExpireEvent;
 import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Item;
-import lt.ltrp.job.ContractJob;
-import lt.ltrp.job.Faction;
-import lt.ltrp.job.JobManager;
+import lt.ltrp.job.*;
+import lt.ltrp.property.Business;
+import lt.ltrp.property.Garage;
+import lt.ltrp.property.House;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.maze.streamer.StreamerPlugin;
 import lt.maze.streamer.constant.StreamerType;
+import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.WeaponSkill;
@@ -37,12 +42,11 @@ import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PlayerController {
+
+    protected static final int MINUTES_FOR_PAYDAY = 20;
 
     private EventManagerNode managerNode;
     private PlayerDao playerDao;
@@ -50,18 +54,16 @@ public class PlayerController {
 
     private Map<LtrpPlayer, Boolean> spawnsSetUp = new HashMap<>();
     private List<LtrpPlayer> firstSpawns = new ArrayList<>();
+    private Timer javaMinuteTimer;
+    private PlayerCommandManager playerCommandManager;
 
-
-    public PlayerController(EventManager manager) {
-
+    public PlayerController(EventManager manager, JobManager jobManager) {
         playerDao = LtrpGamemode.getDao().getPlayerDao();
-
 
         managerNode = manager.createChildNode();
 
-        PlayerCommandManager playerCommandManager = new PlayerCommandManager( managerNode);
+        playerCommandManager = new PlayerCommandManager( managerNode);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
-
         playerCommandManager.replaceTypeParser(LtrpPlayer.class, s -> {
             int id = Player.INVALID_ID;
             try {
@@ -101,9 +103,8 @@ public class PlayerController {
         });
 
 
-        playerCommandManager.registerCommands(new AdminCommands());
+        playerCommandManager.registerCommands(new AdminCommands(jobManager, managerNode));
         playerCommandManager.registerCommands(new GeneralCommands());
-        //playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
 
 
 
@@ -123,14 +124,13 @@ public class PlayerController {
 
             // Various options and settings
 
-            player.setColor(new Color(0, 0, 0, 0)); // Make the users radai blip invisible
+            player.setColor(Color.WHITE); // Make the users radai blip invisible
 
             // Authentication
             new AuthController(managerNode, player);
 
 
         });
-
 
         managerNode.registerHandler(PlayerSpawnSetUpEvent.class, e -> {
             logger.info("PlayerSpawnSetupEvent received");
@@ -253,6 +253,69 @@ public class PlayerController {
             }
         });
 
+        managerNode.registerHandler(PaydayEvent.class, HandlerPriority.HIGH, e -> {
+            BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
+           LtrpPlayer.get().forEach(p -> {
+               // fail-safe
+               if(Player.get(p.getId()) == null)
+                   LtrpPlayer.remove(p);
+
+               int houseTax = (int)House.get().stream().filter(h -> h.getOwnerUserId() == p.getUserId()).count() * LtrpGamemode.getHouseTax();
+               int businessTax = (int)Business.get().stream().filter(b -> b.getOwnerUserId() == p.getUserId()).count() * LtrpGamemode.getBusinessTax();
+               int garageTax = (int)Garage.get().stream().filter(g -> g.getOwnerUserId() == p.getUserId()).count() * LtrpGamemode.getGarageTax();
+               int vehicleTax = LtrpGamemode.getDao().getVehicleDao().getPlayerVehicleCount(p) * LtrpGamemode.getVehicleTax();
+
+               if(p.getMinutesOnlineSincePayday() > MINUTES_FOR_PAYDAY) {
+                   int paycheck = 0;
+
+                   if (p.getJob() != null) {
+                       paycheck = p.getJobRank().getSalary();
+                       p.setJobHours(p.getJobHours() + 1);
+                       if(p.getJob() instanceof ContractJob) {
+                           p.setJobContract(p.getJobContract() - 1);
+                       }
+                       if (p.getJob() instanceof ContractJob && p.getJobRank() instanceof ContractJobRank) {
+                           ContractJobRank nextRank = (ContractJobRank) p.getJob().getRank(p.getJobRank().getNumber() + 1);
+                           // If the user doesn't have the highest rank yet
+                           if (nextRank != null) {
+                               if (nextRank.getXpNeeded() <= p.getJobExperience()) {
+                                   p.setJobRank(nextRank);
+                               }
+                           }
+                       }
+                   } else {
+                       paycheck = 100;
+                   }
+                   BankAccount bankAccount = bankPlugin.getBankController().getAccount(p);
+                   int totalTaxes = houseTax + businessTax + garageTax + vehicleTax;
+                   p.sendMessage(Color.LIGHTGREEN, "|______________ Los Santos banko ataskaita______________ |");
+                   p.sendMessage(Color.WHITE, String.format("| Gautas atlyginimas: %d%c | Papildomi mokesčiai: %d%c |", paycheck, Currency.SYMBOL,totalTaxes, Currency.SYMBOL));
+                   p.sendMessage(Color.WHITE, String.format("| Buvęs banko balansas: %d%c |", bankAccount.getMoney(), Currency.SYMBOL));
+                   p.sendMessage(Color.WHITE, String.format("| Galutinė gauta suma: %d%c |", paycheck, Currency.SYMBOL));
+                   bankAccount.addMoney(-totalTaxes);
+                   bankPlugin.getBankController().update(bankAccount);
+                   p.sendMessage(Color.WHITE, String.format("| Dabartinis banko balansas: %d%c |", bankAccount.getMoney(), Currency.SYMBOL));
+                   p.addTotalPaycheck(paycheck);
+                   p.sendMessage(Color.WHITE, String.format("| Sukauptas atlyginimas: %d%c", p.getTotalPaycheck(), Currency.SYMBOL));
+                   if (houseTax > 0)
+                       p.sendMessage(Color.WHITE, String.format("| Mokestis už nekilnojama turtą: %d%c |", houseTax, Currency.SYMBOL));
+                   if (businessTax > 0)
+                       p.sendMessage(Color.WHITE, String.format("| Verslo mokestis: %d%c |", businessTax, Currency.SYMBOL));
+                   if (vehicleTax > 0)
+                       p.sendMessage(Color.WHITE, String.format("| Tr. Priemonių mokestis: %d%c |", vehicleTax, Currency.SYMBOL));
+
+                   p.sendGameText(1, 5000, " ~y~Mokesciai~n~~g~Alga");
+                   p.setOnlineHours(p.getOnlineHours() + 1);
+
+                   p.setMinutesOnlineSincePayday(0);
+               } else {
+                   p.sendErrorMessage("Apgailestaujame, bet atlyginimo už šią valandą negausite, kadangi Jūs nebuvote prisijungęs pakankamai.");
+               }
+               LtrpGamemode.getDao().getPlayerDao().update(p);
+           });
+        });
+
+
         managerNode.registerHandler(PlayerOfferExpireEvent.class, HandlerPriority.BOTTOM, e -> {
             e.getPlayer().getOffers().remove(e.getOffer());
         });
@@ -260,6 +323,14 @@ public class PlayerController {
         managerNode.registerHandler(PlayerCommandEvent.class, HandlerPriority.BOTTOM, e -> {
             //e.setProcessed();
         });
+
+        javaMinuteTimer = new Timer("Java minute timer");
+        javaMinuteTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                LtrpPlayer.get().forEach(p -> p.setMinutesOnlineSincePayday(p.getMinutesOnlineSincePayday() + 1));
+            }
+        }, 0, 60000);
 
         addPawnFunctions();
 
@@ -280,14 +351,6 @@ public class PlayerController {
                     player.getInfoBox().update();
                 }
                 return player == null ? 0 : 1;
-            }, Integer.class);
-
-            e.getAmxInstance().registerFunction("isDmvVehicle", params -> {
-                LtrpVehicle vehicle = LtrpVehicle.getById((Integer)params[0]);
-                if(vehicle != null) {
-                    return DmvManager.getInstance().isDmvVehicle(vehicle) ? 1 : 0;
-                }
-                return 0;
             }, Integer.class);
 
             e.getAmxInstance().registerFunction("isPlayerLoggedIn", params -> {
@@ -363,6 +426,13 @@ public class PlayerController {
             return player.isLoggedIn();
         } else System.out.println("PLAYER IS NULLLL");
         return false;
+    }
+
+    public void destroy() {
+        managerNode.cancelAll();
+        managerNode.destroy();
+        javaMinuteTimer.cancel();
+        playerCommandManager.destroy();
     }
 
 }
