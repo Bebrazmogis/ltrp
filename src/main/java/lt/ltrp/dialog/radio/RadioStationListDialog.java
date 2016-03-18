@@ -1,4 +1,4 @@
-package lt.ltrp.dialogmenu.radio;
+package lt.ltrp.dialog.radio;
 
 import lt.ltrp.RadioStation;
 import net.gtaun.shoebill.common.dialog.ListDialog;
@@ -16,6 +16,7 @@ import java.util.List;
 public class RadioStationListDialog extends PageListDialog {
 
     private List<RadioStation> radioStationList;
+    private ClickOkHandler clickOkHandler;
 
     public RadioStationListDialog(Player player, EventManager eventManager, List<RadioStation> radioStations) {
         super(player, eventManager);
@@ -24,7 +25,12 @@ public class RadioStationListDialog extends PageListDialog {
     }
 
     public void setClickOkHandler(ClickOkHandler clickOkHandler) {
-        super.setClickOkHandler(clickOkHandler);
+        this.clickOkHandler = clickOkHandler;
+        super.setClickOkHandler((d, i) -> {
+            if(clickOkHandler != null) {
+                clickOkHandler.onClickOk((RadioStationListDialog)d, (RadioStation)i.getData());
+            }
+        });
     }
 
     @Override
