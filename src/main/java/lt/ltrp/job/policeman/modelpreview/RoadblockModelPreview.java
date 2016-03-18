@@ -1,32 +1,31 @@
 package lt.ltrp.job.policeman.modelpreview;
 
-import lt.ltrp.Initializable;
-import lt.ltrp.ModelPreview;
-import lt.ltrp.data.Color;
-import lt.ltrp.event.modelpreview.ModelPreviewCancelEvent;
-import lt.ltrp.event.modelpreview.ModelPreviewSelectModelEvent;
-import lt.ltrp.event.modelpreview.ModelPreviewSelectModelHandler;
-import lt.ltrp.job.policeman.Roadblock;
+import lt.ltrp.modelpreview.BasicModelPreview;
+import lt.ltrp.modelpreview.ModelPreview;
 import lt.ltrp.player.LtrpPlayer;
-import net.gtaun.shoebill.constant.TextDrawFont;
-import net.gtaun.shoebill.event.player.PlayerClickTextDrawEvent;
-import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Textdraw;
 import net.gtaun.util.event.EventManager;
-import net.gtaun.util.event.HandlerEntry;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Bebras
  *         2015.12.27.
  */
-public class RoadblockModelPreview implements Initializable, ModelPreview {
+public class RoadblockModelPreview {
 
+    private static final int[] models = new int[] {
+            978, 981, 1228, 1423, 1251, 8548, 2599, 1238, 19979, 19978, 19384, 1425
+    };
+
+    private RoadblockModelPreview() {
+
+    }
+
+    public static ModelPreview create(LtrpPlayer player, EventManager eventManager, BasicModelPreview.SelectModelHandler handler) {
+        return BasicModelPreview.create(player, eventManager)
+                .onSelectModel(handler)
+                .models(models)
+                .build();
+    }
+/*
     private static final RoadblockModelPreview instance = new RoadblockModelPreview();
 
     private final Color backgroundColor = new Color(255, 255 ,255, 100);
@@ -161,6 +160,6 @@ public class RoadblockModelPreview implements Initializable, ModelPreview {
     public boolean isShown(LtrpPlayer player) {
         return initialized && shownToPlayersHandlers.containsKey(player);
     }
-
+*/
 
 }

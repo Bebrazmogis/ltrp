@@ -1,4 +1,4 @@
-package lt.ltrp.dialog;
+package lt.ltrp.job.policeman.dialog;
 
 import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.job.policeman.OfficerJob;
