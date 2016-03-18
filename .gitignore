@@ -17,3 +17,4 @@ shoebill/gamemodes/generated-sources/**
 shoebill/gamemodes/maven-archiver/**
 shoebill/gamemodes/maven-status/**
 gamemodes/.idea/**
+.idea/**
