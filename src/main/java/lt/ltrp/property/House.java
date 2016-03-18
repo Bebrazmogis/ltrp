@@ -82,6 +82,20 @@ public class House extends Property {
         return -1;
     }
 
+    public int getHouseRent() {
+        AmxCallable getRent = PawnFunc.getPublicMethod("GetHouseRent");
+        if(getRent != null) {
+            return (Integer)getRent.call(GetHouseIndex());
+        }
+        return 0;
+    }
+
+    public void addBankMoney(int amount) {
+        AmxCallable addBankMoney =PawnFunc.getPublicMethod("AddHouseBankMoney");
+        if(addBankMoney != null) {
+            addBankMoney.call(GetHouseIndex(), amount);
+        }
+    }
 
 
 }
