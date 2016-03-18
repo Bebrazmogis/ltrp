@@ -53,7 +53,7 @@ public class VehicleThiefCommands extends Commands {
                                 player.sendMessage(String.format("SMS: Nustebinai mane, atgabenai ðá %s, uþ ðá darbelá atsilyginsiu Tau %d$. Siuntëjas: Nenustatytas numeris", vehicle.getModelName(), money));
                                 player.giveMoney(money);
                                 LtrpGamemode.getDao().getVehicleDao().update(vehicle);
-                                vehicle.despawn();
+                                vehicle.destroy();
                                 player.addJobExperience(1);
                                 job.log("Þaidëjas " + player.getUserId() + "(darbas:" + job.getId() + ") pardavë transporto priemonæ " + vehicle.getModelName() + " kuri priklauso þaidëjui " + vehicle.getOwnerId());
                                 return true;
