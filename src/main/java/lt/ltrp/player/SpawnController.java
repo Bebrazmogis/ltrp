@@ -51,7 +51,8 @@ public class SpawnController implements Runnable {
 
         // The player doesn't exist
         if(spawnData == null) {
-            // TODO Generate default spawn data
+            spawnData = SpawnData.DEFAULT;
+            player.setSpawnData(spawnData);
             return;
         }
 
