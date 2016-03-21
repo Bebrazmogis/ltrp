@@ -52,13 +52,8 @@ public class GettersSetters {
         amx.registerFunction("setPlayerUsername", params-> {
             LtrpPlayer p = LtrpPlayer.get((Integer)params[0]);
             if(p != null) {
-                try {
-                    p.setName((String) params[1]);
-                } catch (IllegalLengthException e) {
-                    e.printStackTrace();
-                } catch (AlreadyExistException e) {
-                    e.printStackTrace();
-                }
+                p.setName((String) params[1]);
+
                 return 1;
             }
             return 0;
