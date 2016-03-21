@@ -1,5 +1,6 @@
 package lt.ltrp.property;
 
+import lt.ltrp.InventoryEntity;
 import lt.ltrp.item.Inventory;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.data.Location;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author Bebras
  *         2015.11.29.
  */
-public abstract class Property implements Destroyable {
+public abstract class Property extends InventoryEntity implements Destroyable {
 
     private static List<Property> propertyList = new ArrayList<>();
 
@@ -29,7 +30,6 @@ public abstract class Property implements Destroyable {
     private Location entrance, exit;
     private Label label;
     private Pickup pickup;
-    private Inventory inventory;
     private boolean destroyed;
 
     public Property(int uniqueid, String name) {
@@ -78,13 +78,6 @@ public abstract class Property implements Destroyable {
         this.name = name;
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
 
     public void sendActionMessage(String s) {
         for(LtrpPlayer p : LtrpPlayer.get()) {

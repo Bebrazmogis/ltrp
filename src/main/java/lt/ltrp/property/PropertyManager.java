@@ -122,18 +122,18 @@ public class PropertyManager implements Destroyable {
             Inventory inventory = null;
             if(type.equalsIgnoreCase("House")) {
                 House house = House.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
-                inventory = new FixedSizeInventory("Namo " + house.getUid() + " daiktai");
+                inventory = new FixedSizeInventory("Namo " + house.getUid() + " daiktai", house);
                 inventory.add(LtrpGamemode.getDao().getItemDao().getItems(House.class, house.getUid()));
                 house.setWeedSaplings(LtrpGamemode.getDao().getHouseDao().getWeed(house));
 
                 property = house;
             } else if(type.equalsIgnoreCase("garagE")) {
                 property = Garage.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
-                inventory = new FixedSizeInventory("Garaþo " + property.getUid() + " daiktai");
+                inventory = new FixedSizeInventory("Garaþo " + property.getUid() + " daiktai", property);
                 inventory.add(LtrpGamemode.getDao().getItemDao().getItems(Garage.class, property.getUid()));
             } else if(type.equalsIgnoreCase("business")) {
                 property = Business.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
-                inventory = new FixedSizeInventory("Verslo " + property.getUid() + " daiktai");
+                inventory = new FixedSizeInventory("Verslo " + property.getUid() + " daiktai", property);
                 inventory.add(LtrpGamemode.getDao().getItemDao().getItems(Business.class, property.getUid()));
             } else {
                 return 0;
