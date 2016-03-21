@@ -4,6 +4,8 @@ import lt.ltrp.dao.ItemDao;
 import org.slf4j.Logger;
 
 import javax.sql.DataSource;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,24 @@ public class SqlItemDao implements ItemDao {
                 ItemType type = ItemType.getById(result.getInt("type"));
                 String typeClass = result.getString("type_class");
                 AbstractItem item = null;
+                try {
+                    Class<?> cls = Class.forName(typeClass);
+                    Method method = cls.getDeclaredMethod("getById", Integer.TYPE, ItemType.class, Connection.class);
+                    if(!method.isAccessible()) {
+                        logger.error(method.getName() + " is not accessible");
+                        method.setAccessible(true);
+                    }
+                    item = (AbstractItem)method.invoke(null, itemid, type, con);
+
+                } catch (ClassNotFoundException e) {
+                    logger.error("Class " + typeClass + " not found. Cause:" + e.getMessage());
+                } catch(NoSuchMethodException e) {
+                    logger.error("Method getById could not be found. Cause: " +e.getMessage());
+                } catch(IllegalAccessException e) {
+                    logger.error("Method getById can not be accessed. Cause" + e.getMessage());
+                } catch(InvocationTargetException e) {
+                    logger.error("Invocation target exception. Cause: "+ e.getMessage());
+                }/*
                 switch(typeClass) {
                     case "lt.ltrp.item.DurableItem":
                         item = DurableItem.getById(itemid, type, con);
@@ -116,11 +136,21 @@ public class SqlItemDao implements ItemDao {
                     case "lt.ltrp.item.RadioItem":
                         item = RadioItem.getById(itemid, type, con);
                         break;
+                    case "lt.ltrp.item.Toolbox":
+                        item = ToolboxItem.getById(itemid, type, con);
+                        break;
+                    case "lt.ltrp.item.Mp3Item":
+                        item = Mp3Item.getById(itemid, type, con);
+                        break;
+                    case "lt.ltrp.item.BoomBoxItem":
+                        item = BoomBoxItem.getById(itemid, type, con);
+                        break;
                     case "lt.ltrp.item.BasicItem":
                         item = BasicItem.getById(itemid, type, con);
                         break;
 
                 }
+                */
                 if(item != null) {
                     items.add(item);
                     item.setGlobalId(result.getInt("id"));
@@ -165,12 +195,17 @@ public class SqlItemDao implements ItemDao {
 
     @Override
     public void delete(Item item) {
-        logger.debug("delete called item id=" + item.getGlobalId());
+        logger.debug("delete called globalidid=" + item.getGlobalId() + "itemid=" + item.getItemId());
         AbstractItem abstractItem = (AbstractItem)item;
+        String sql = "DELETE FROM items WHERE id = ?";
         try (
                 Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
                 ) {
             abstractItem.delete(connection);
+            stmt.setInt(1, item.getGlobalId());
+            stmt.execute();
+
         } catch(SQLException e) {
             e.printStackTrace();
         }
@@ -210,7 +245,7 @@ public class SqlItemDao implements ItemDao {
             } catch(SQLException e) {
                 e.printStackTrace();
             }
-        });
+        }).start();
     }
 
     @Override
