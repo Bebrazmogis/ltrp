@@ -1,5 +1,6 @@
 package lt.ltrp.item;
 
+import lt.ltrp.InventoryEntity;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.constant.WeaponModel;
@@ -33,4 +34,10 @@ public interface Inventory {
     public <T> T[] getItems(Class<T> t);
     public Item getItem(ItemType type);
     public void show(LtrpPlayer player);
+
+    /**
+     *
+     * @return returns the {@link lt.ltrp.InventoryEntity} this inventory is associated to
+     */
+    public InventoryEntity getEntity();
 }

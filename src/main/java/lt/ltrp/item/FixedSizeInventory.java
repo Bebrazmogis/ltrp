@@ -1,5 +1,6 @@
 package lt.ltrp.item;
 
+import lt.ltrp.InventoryEntity;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
@@ -24,15 +25,17 @@ public class FixedSizeInventory implements Inventory {
     private String name;
     private Item[] items;
     private int itemCount;
+    private InventoryEntity entity;
 
-    public FixedSizeInventory(String name, Item[] items, int size) {
+    public FixedSizeInventory(String name, Item[] items, int size, InventoryEntity entity) {
         this.size = size;
         this.name = name;
         this.items = items;
         this.itemCount = items.length;
+        this.entity = entity;
     }
 
-    public FixedSizeInventory(String name) {
+    public FixedSizeInventory(String name, InventoryEntity entity) {
         this.name = name;
         if(this.name == null || this.name.equals("")) {
             this.name = " ";
@@ -40,6 +43,7 @@ public class FixedSizeInventory implements Inventory {
         this.items = new Item[DEFAULT_SIZE];
         this.size = DEFAULT_SIZE;
         this.itemCount = 0;
+        this.entity = entity;
     }
 
 
@@ -229,5 +233,10 @@ public class FixedSizeInventory implements Inventory {
                     .build()
                     .show();
         }
+    }
+
+    @Override
+    public InventoryEntity getEntity() {
+        return entity;
     }
 }
