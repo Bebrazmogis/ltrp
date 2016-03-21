@@ -389,7 +389,7 @@ public class PlayerController {
             playerDao.loadData(player);
             Item[] items = LtrpGamemode.getDao().getItemDao().getItems(LtrpPlayer.class, player.getUserId());
             logger.info("PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUserId());
-            player.setInventory(new FixedSizeInventory(player.getName() + " kuprinės"));
+            player.setInventory(new FixedSizeInventory(player.getName() + " kuprinės", player));
             player.getInventory().add(items);
 
             player.setVehicleMetadata(playerDao.getVehiclePermissions(player));

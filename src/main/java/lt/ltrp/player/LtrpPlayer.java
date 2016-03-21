@@ -1,6 +1,7 @@
 package lt.ltrp.player;
 
 import javafx.util.Pair;
+import lt.ltrp.InventoryEntity;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.data.*;
@@ -32,7 +33,7 @@ import java.util.*;
  * @author Bebras
  *         2015.11.12.
  */
-public class LtrpPlayer implements Player {
+public class LtrpPlayer extends InventoryEntity implements Player {
 
     public static final int INVALID_USER_ID = 0;
 
@@ -145,7 +146,6 @@ public class LtrpPlayer implements Player {
     private String password, secretAnswer, secretQuestion;
     private JailData jailData;
     private Property property;
-    private Inventory inventory;
     private LtrpWeaponData[] weapons;
     private LtrpVehicle lastUsedVehicle;
     private PlayerCountdown countdown;
@@ -570,14 +570,6 @@ public class LtrpPlayer implements Player {
         this.isInComa = isInComa;
     }
 
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
-
     public Property getProperty() {
         return property;
     }
@@ -953,8 +945,15 @@ public class LtrpPlayer implements Player {
     }
 
     @Override
-    public void setName(String s) throws IllegalArgumentException, IllegalLengthException, AlreadyExistException {
-        player.setName(s);
+    public void setName(String s) {
+        super.setName(s);
+        try {
+            player.setName(s);
+        } catch (IllegalLengthException e) {
+            e.printStackTrace();
+        } catch (AlreadyExistException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
