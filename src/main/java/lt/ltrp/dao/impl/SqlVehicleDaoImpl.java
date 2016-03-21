@@ -89,8 +89,8 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     public PlayerVehicleMetadata getPlayerVehicleMeta(int vehicleId) {
         PlayerVehicleMetadata data = null;
         String sql = "SELECT  vehicles.id, vehicles.model, vehicles.fuel, vehicles.license, player_Vehicles.owner_id, player_vehicles.alarm," +
-                "player_vehicles.lock_name, player_vehicles.lock_cracktime, player_vehicles.lock_price, player_vehicles.insurance " +
-                "FROM player_vehicles LEFT JOIN player_vehicles ON player_vehicles.id = vehicles.id " +
+                "player_vehicles.lock_name, player_vehicles.lock_cracktime, player_vehicles.lock_price, player_vehicles.insurance, player_vehicles.deaths " +
+                "FROM player_vehicles LEFT JOIN vehicles ON player_vehicles.id = vehicles.id " +
                 "WHERE player_vehicles.id = ? ";
         try (
                 Connection con = dataSource.getConnection();
@@ -617,6 +617,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
             stmt.setInt(10, playerVehicle.getDamage().getLights());
             stmt.setInt(11, playerVehicle.getDamage().getTires());
             stmt.setFloat(12, playerVehicle.getHealth());
+            stmt.setInt(13, playerVehicle.getUniqueId());
             stmt.execute();
         } catch(SQLException e) {
             e.printStackTrace();
