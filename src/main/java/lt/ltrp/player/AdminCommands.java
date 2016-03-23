@@ -12,6 +12,8 @@ import lt.ltrp.job.Faction;
 import lt.ltrp.job.JobManager;
 import lt.ltrp.vehicle.JobVehicle;
 import lt.ltrp.vehicle.LtrpVehicle;
+import lt.maze.shoebilleventlogger.ShoebillEventLoggerPlugin;
+import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -56,6 +58,7 @@ public class AdminCommands {
         adminLevels.put("giveitem", 6);
         adminLevels.put("fly", 6);
         adminLevels.put("vehicledmg", 6);
+        adminLevels.put("eventlog", 6);
 
         teleportLocations.put("pc", new Location(2292.1936f, 26.7535f, 25.9974f, 0, 0));
         teleportLocations.put("ls", new Location(1540.1237f, -1675.2844f, 13.5500f, 0, 0));
@@ -471,5 +474,43 @@ public class AdminCommands {
         void onEnterBinary(InputDialog d, int val);
     }
 
+    @Command
+    @CommandHelp
+    public boolean eventlog(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        ShoebillEventLoggerPlugin loggerPlugin = Shoebill.get().getResourceManager().getPlugin(ShoebillEventLoggerPlugin.class);
+        if(loggerPlugin == null) {
+            player.sendErrorMessage("Ðiuo metu plugin'as yra iðjungtas.");
+        } else {
+            ListDialog.create(p, eventManager)
+                    .caption("Event logging")
+                    .item("Globalus 'update' event loginimas[" + (loggerPlugin.isLogUpdateEvents() ? "+" : "-") + "]", i -> {
+                        loggerPlugin.setLogUpdateEvents(!loggerPlugin.isLogUpdateEvents());
+                        player.sendMessage("Update tipo event loginimas atnaujintas.");
+                        i.getCurrentDialog().show();
+                    })
+                    .item("Mano loginimas[" + (loggerPlugin.isLoggingEnabled(p) ? "+" : "-") + "]", i -> {
+                        if (loggerPlugin.isLoggingEnabled(p)) {
+                            loggerPlugin.stopLogging(p);
+                            player.sendMessage("Loginimas sustabdytas");
+                        } else {
+                            loggerPlugin.startLogging(p, false);
+                            player.sendMessage("Loginimas pradëtas.");
+                        }
+                        i.getCurrentDialog().show();
+                    })
+                    .item("Mano 'update' event loginimas[" + (loggerPlugin.isUpdateLoggingEnabled(p) ? "+" : "-") + "]", i -> {
+                        loggerPlugin.startLogging(p, !loggerPlugin.isUpdateLoggingEnabled(p));
+                        player.sendMessage("Asmeninë 'update' tipo loginimo informacija atnaujinta.");
+                        i.getCurrentDialog().show();
+                    })
+                    .buttonOk("Pasirinkti")
+                    .buttonCancel("Iðeiti")
+                    .build()
+                    .show();
+
+        }
+        return true;
+    }
 }
 
