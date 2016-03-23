@@ -10,6 +10,7 @@ import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;
+import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.data.VehicleState;
 import net.gtaun.shoebill.object.Player;
@@ -40,7 +41,7 @@ public class VehicleCommands extends Commands {
         logger.debug("beforeCheck cmd " + cmd);
         logger.debug("beforeCheck. Player find by player instance" + LtrpPlayer.get(p));
         LtrpPlayer player = LtrpPlayer.get(p);
-        LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
+        LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 6.0f);
         if(vehicle != null) {
             return true;
         } else
@@ -58,36 +59,34 @@ public class VehicleCommands extends Commands {
         if(vehicle != null) {
             if(vehicle.getState().getBoot() == VehicleParam.PARAM_ON) {
                 vehicle.getInventory().show(player);
-                return true;
             } else
                 player.sendErrorMessage(vehicle.getModelName() + " bagaþinë uþdaryta. Naudokite /trunko");
         } else
             player.sendErrorMessage("Prie jûsø nëra jokios transporto priemonës");
-        return false;
+        return true;
     }
 
     @Command
     @CommandHelp("Uþdaro/atidaro automobilio bagaþinæ")
     public boolean trunko(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
+        LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 6.0f);
         if(vehicle != null) {
             if(!vehicle.isLocked()) {
                 if(vehicle.getState().getBoot() != VehicleParam.PARAM_ON) {
-                    vehicle.getState().setBoot(VehicleParam.PARAM_OFF);
+                    vehicle.getState().setBoot(VehicleParam.PARAM_ON);
                     player.sendActionMessage("atidaro " + vehicle.getModelName() + " bagaþinæ.");
                 } else {
-                    vehicle.getState().setBoot(VehicleParam.PARAM_ON);
+                    vehicle.getState().setBoot(VehicleParam.PARAM_OFF);
                     player.sendActionMessage("uþdaro " + vehicle.getModelName() + " bagaþinæ.");
                 }
                 player.playSound(1057);
-                return true;
             } else {
                 player.sendErrorMessage("Transporto priemonë uþrakinta.");
             }
         } else
             player.sendErrorMessage("Prie jûsø nëra transporto priemonës.");
-        return false;
+        return true;
     }
 
 
@@ -97,22 +96,22 @@ public class VehicleCommands extends Commands {
         LtrpPlayer player = LtrpPlayer.get(p);
         LtrpVehicle vehicle = player.getVehicle();
         if(vehicle != null) {
-            if(player.getState() != PlayerState.DRIVER) {
-                if(vehicle.getState().getBonnet() != VehicleParam.PARAM_ON) {
-                    vehicle.getState().setBonnet(VehicleParam.PARAM_OFF);
-                    player.sendActionMessage("uþdaro " + vehicle.getModelName() + " kapotà.");
-                } else {
-                    vehicle.getState().setBonnet(VehicleParam.PARAM_ON);
+            if(player.getState() == PlayerState.DRIVER) {
+                VehicleParam state = vehicle.getState();
+                if(state.getBonnet() != VehicleParam.PARAM_ON) {
+                    state.setBonnet(VehicleParam.PARAM_ON);
                     player.sendActionMessage("atidaro " + vehicle.getModelName() + " kapotà.");
+                } else {
+                    state.setBonnet(VehicleParam.PARAM_OFF);
+                    player.sendActionMessage("uþdaro " + vehicle.getModelName() + " kapotà.");
                 }
                 player.playSound(1057);
-                return true;
             } else {
                 player.sendErrorMessage("Jûs neesate transporto priemonës vairuotojas.");
             }
         } else
             player.sendErrorMessage("Jûsø neesate transporto priemonëje.");
-        return false;
+        return true;
     }
 
 
@@ -129,7 +128,7 @@ public class VehicleCommands extends Commands {
                     int newstate = -1;
                     switch(seat) {
                         case 0:
-                            if(windows.getDriver() == VehicleParam.PARAM_ON) {
+                            if(windows.getDriver() != VehicleParam.PARAM_OFF) {
                                 windows.setDriver(VehicleParam.PARAM_OFF);
                                 newstate = VehicleParam.PARAM_OFF;
                             } else {
@@ -138,7 +137,7 @@ public class VehicleCommands extends Commands {
                             }
                             break;
                         case 1:
-                            if(windows.getPassenger() == VehicleParam.PARAM_ON) {
+                            if(windows.getPassenger() != VehicleParam.PARAM_OFF) {
                                 windows.setPassenger(VehicleParam.PARAM_OFF);
                                 newstate = VehicleParam.PARAM_OFF;
                             } else {
@@ -147,7 +146,7 @@ public class VehicleCommands extends Commands {
                             }
                             break;
                         case 2:
-                            if(windows.getBackLeft() == VehicleParam.PARAM_ON) {
+                            if(windows.getBackLeft() != VehicleParam.PARAM_OFF) {
                                 windows.setBackLeft(VehicleParam.PARAM_OFF);
                                 newstate = VehicleParam.PARAM_OFF;
                             } else {
@@ -156,7 +155,7 @@ public class VehicleCommands extends Commands {
                             }
                             break;
                         case 3:
-                            if(windows.getBackRight() == VehicleParam.PARAM_ON) {
+                            if(windows.getBackRight() != VehicleParam.PARAM_OFF) {
                                 windows.setBackRight(VehicleParam.PARAM_OFF);
                                 newstate = VehicleParam.PARAM_OFF;
                             } else {
@@ -165,19 +164,21 @@ public class VehicleCommands extends Commands {
                             }
                             break;
                     }
+                    vehicle.setWindows(windows);
                     if(newstate == VehicleParam.PARAM_ON) {
-                        player.sendActionMessage("atidaro tr. priemonës langà");
-                    } else
                         player.sendActionMessage("uþdaro tr. priemonës langà");
+                    } else
+                        player.sendActionMessage("atidaro tr. priemonës langà");
                     player.playSound(1057);
-                    return true;
+                } else {
+                    player.sendErrorMessage("Ðis langas neatsidaro!");
                 }
             } else {
                 player.sendErrorMessage("Jûs neesate transporto priemonës vairuotojas.");
             }
         } else
             player.sendErrorMessage("Jûsø neesate transporto priemonëje.");
-        return false;
+        return true;
     }
 
 
@@ -198,7 +199,7 @@ public class VehicleCommands extends Commands {
                 player.sendErrorMessage("Jûs neesate transporto priemonës vairuotojas.");
         } else
             player.sendErrorMessage("Jûsø neesate transporto priemonëje.");
-        return false;
+        return true;
     }
 
 
@@ -219,16 +220,15 @@ public class VehicleCommands extends Commands {
         } else {
             maxSpeeds.put(player, speed);
             player.sendMessage(Color.WHITE, "* Greièio ribotuvas buvo nustatytas: " + speed + " Km/h ");
-            return true;
         }
-        return false;
+        return true;
     }
 
     @Command
     @CommandHelp("Leidþia valdyti automobilio radijà")
     public boolean vradio(Player pp) {
         LtrpPlayer player = LtrpPlayer.get(pp);
-        LtrpVehicle vehicle=  LtrpVehicle.getByVehicle(player.getVehicle());
+        PlayerVehicle vehicle = PlayerVehicle.getByVehicle(player.getVehicle());
         if(vehicle == null) {
             player.sendErrorMessage("Jûs turite bûti nuosavoje transporto priemonëje!");
         } else if(!vehicle.getInventory().containsType(ItemType.CarAudio)) {
