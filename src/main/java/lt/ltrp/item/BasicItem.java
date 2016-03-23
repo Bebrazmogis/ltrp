@@ -48,6 +48,7 @@ public class BasicItem extends AbstractItem {
             player.getInventory().add(this);
             inventory.remove(this);
             player.sendActionMessage("paëme " + getName() + " ið " + inventory.getName());
+            ItemController.getInstance().getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, inventory, player.getInventory(), player));
         }
         return true;
     }
@@ -98,6 +99,7 @@ public class BasicItem extends AbstractItem {
             target.getInventory().add(this);
             player.getInventory().remove(this);
             player.applyAnimation("DEALER", "shop_pay", 4.0f, 0, 1, 1, 1, 0, 0);
+            ItemController.getInstance().getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, player.getInventory(), target.getInventory(), player));
             return true;
         }
         return false;
