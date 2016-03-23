@@ -1507,6 +1507,8 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     @Override
     public void playAudioStream(String s) {
         if(isAudioConnected()) {
+            if(audioHandle != null)
+                audioHandle.stop();
             this.audioHandle = AudioHandle.playStreamed(this, s, false, false, false);
         } else {
             player.playAudioStream(s);
