@@ -12,6 +12,7 @@ import lt.ltrp.shopplugin.dialog.VehicleShopListDialog;
 import lt.ltrp.vehicle.dialog.VehicleUserPermissionDialog;
 import lt.ltrp.vehicle.event.*;
 import net.gtaun.shoebill.common.command.Command;
+import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.common.dialog.ListDialog;
@@ -57,11 +58,12 @@ public class PlayerVehicleCommands extends Commands{
 
     private PlayerVehicleManager playerVehicleManager;
 
-    public PlayerVehicleCommands(PlayerVehicleManager playerVehicleManager, PlayerCommandManager commandManager) {
+    public PlayerVehicleCommands(PlayerVehicleManager playerVehicleManager, CommandGroup vehicleCommandGroup) {
         logger = LoggerFactory.getLogger(PlayerVehicleCommands.class);
         this.playerVehicleManager = playerVehicleManager;
-        commandManager.setUsageMessageSupplier((p, cmd, cmdentry) -> {
-            if(cmd.equals("v buyLock")) {
+        vehicleCommandGroup.setUsageMessageSupplier((p, prefix, cmd) -> {
+            logger.debug("usage message supplier cmd:" + cmd.getCommand() + " prefix:" + prefix);
+            if(cmd.getCommand().equalsIgnoreCase("v buyLock")) {
                 p.sendMessage(Color.GREEN, "____________________Galimos spynos___________________________");
                 int i = 0;
                 for(VehicleLock lock : LOCKS) {
@@ -69,7 +71,7 @@ public class PlayerVehicleCommands extends Commands{
                 }
                 return null;
             }
-            return PlayerCommandManager.DEFAULT_USAGE_MESSAGE_SUPPLIER.get(p, cmd, cmdentry);
+            return PlayerCommandManager.DEFAULT_USAGE_MESSAGE_SUPPLIER.get(p, prefix, cmd);
         });
     }
 
@@ -81,7 +83,7 @@ public class PlayerVehicleCommands extends Commands{
         for(int vehicleId : playerVehicleManager.getVehicles(player)) {
             metadata.add(playerVehicleManager.getMetaData(vehicleId));
         }
-        int number = 0;
+        int number = 1;
         player.sendMessage(Color.GREEN, "|______________________JUMS PRIKLAUSANTIS TRANSPORTAS_____________________|");
         for(PlayerVehicleMetadata m : metadata.stream().filter(mm -> mm.getOwnerId() == player.getUserId()).collect(Collectors.toList())) {
             player.sendMessage(Color.WHITE, String.format("%d. Modelis[%s] Paþeidimai[%d] Degalø bake[%.1f.] Numeriai[%s] Signalizacija[lvl:%d] Uþraktas[lvl:%d] Draudimas[%d] Iðkviesta[%s]",
@@ -357,7 +359,7 @@ public class PlayerVehicleCommands extends Commands{
                     }
                 });
                 if(items.size() == 0) {
-                    player.sendErrorMessage("Niekas neturi jokiø teisiø prie jûsø tr. priemonës! Pasidalinti transporto priemone galite su /managePerms");
+                    player.sendErrorMessage("Niekas neturi jokiø teisiø prie jûsø tr. priemonës! Pasidalinti transporto priemone galite su /setpermission");
                 } else {
                     ListDialog.create(player, playerVehicleManager.getEventManager())
                             .caption(vehicle.getName() + " vartotojai.")
@@ -425,7 +427,7 @@ public class PlayerVehicleCommands extends Commands{
     }
 
     @Command
-    public boolean buyLock(Player p, int number) {
+    public boolean buyLock(Player p, @CommandParameter(name = "Spynos numeris")int number) {
         LtrpPlayer player = LtrpPlayer.get(p);
         PlayerVehicle vehicle = PlayerVehicle.getByVehicle(player.getVehicle());
         int index = number -1;
@@ -450,7 +452,7 @@ public class PlayerVehicleCommands extends Commands{
     }
 
     @Command
-    public boolean buyAlarm(Player p, int number) {
+    public boolean buyAlarm(Player p, @CommandParameter(name = "Signalizacijos numeris")int number) {
         LtrpPlayer player = LtrpPlayer.get(p);
         PlayerVehicle vehicle = PlayerVehicle.getByVehicle(player.getVehicle());
         int index = number -1;
