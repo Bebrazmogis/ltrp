@@ -17,57 +17,46 @@ import java.util.stream.Collectors;
 public class PlayerVehicle extends LtrpVehicle {
 
     public static List<PlayerVehicle> get() {
-        ArrayList<PlayerVehicle> a = new ArrayList<>();
-        LtrpVehicle.get().stream().filter(v -> v instanceof PlayerVehicle).forEach(v -> a.add((PlayerVehicle)v));
-        return a;
+        return (List)PlayerVehicleManager.playerVehiclesList;
     }
 
     public static PlayerVehicle getById(int id) {
-        for(LtrpVehicle veh : LtrpVehicle.get()) {
-            if(veh instanceof PlayerVehicle && veh.getId() == id) {
-                return (PlayerVehicle)veh;
-            }
-        }
-        return null;
+        Optional<PlayerVehicle> optional = get()
+                .stream()
+                .filter(v -> v.getId() == id)
+                .findFirst();
+        return optional.isPresent() ? optional.get() : null;
     }
 
     public static PlayerVehicle getByVehicle(Vehicle vehicle) {
         if(vehicle == null)
             return null;
 
-        for(LtrpVehicle veh : LtrpVehicle.get()) {
-            if(veh instanceof PlayerVehicle && veh.equals(vehicle)) {
-                return (PlayerVehicle)veh;
-            }
-        }
-        return null;
+        Optional<PlayerVehicle> optional = get()
+                .stream()
+                .filter(v -> v.getVehicleObject().equals(vehicle) || v.equals(vehicle))
+                .findFirst();
+        return optional.isPresent() ? optional.get() : null;
     }
 
 
     public static PlayerVehicle getByUniqueId(int uid) {
-        for(LtrpVehicle veh : LtrpVehicle.get()) {
-            if(veh instanceof PlayerVehicle && veh.getUniqueId() == uid) {
-                return (PlayerVehicle)veh;
-            }
-        }
-        return null;
+        Optional<PlayerVehicle> optional = get()
+                .stream()
+                .filter(v -> v.getUUID() == uid)
+                .findFirst();
+        return optional.isPresent() ? optional.get() : null;
     }
 
     public static PlayerVehicle getClosest(LtrpPlayer player, float distance) {
         return getClosest(player.getLocation(), distance);
     }
-    public static PlayerVehicle getClosest(Location location, float distance) {
-        PlayerVehicle vehicle = null;
-        for(LtrpVehicle v : get()) {
-            if(!(v instanceof PlayerVehicle))
-                continue;
-            float dis = location.distance(v.getLocation());
-            if(dis < distance) {
-                vehicle = (PlayerVehicle)v;
-                distance = dis;
-            }
-        }
-        return vehicle;
+    public static PlayerVehicle getClosest(Location location, final float distance) {
+        Optional<PlayerVehicle> optional = get()
+                .stream()
+                .filter(v -> v.getLocation().distance(location) <= distance)
+                .min((v1, v2) -> Float.compare(v1.getLocation().distance(location), v2.getLocation().distance(location)));
+        return optional.isPresent() ? optional.get() : null;
     }
 
     public static PlayerVehicle create(int id, int modelId, AngledLocation location, int color1, int color2, int ownerId,
@@ -203,5 +192,10 @@ public class PlayerVehicle extends LtrpVehicle {
         if(getVehicleObject() != null) {
             super.destroy();
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s: %d %s location:%s", getClass().getName(), getUUID(), getName(), getLocation());
     }
 }

@@ -55,7 +55,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
-            stmt.setInt(1, player.getUserId());
+            stmt.setInt(1, player.getUUID());
             ResultSet result = stmt.executeQuery();
             if(result.next()) {
                 return result.getInt(1);
@@ -142,8 +142,8 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
-            stmt.setInt(1, owner.getUserId());
-            stmt.setInt(2, vehicle.getUniqueId());
+            stmt.setInt(1, owner.getUUID());
+            stmt.setInt(2, vehicle.getUUID());
             stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -157,7 +157,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
-            stmt.setInt(1, vehicle.getUniqueId());
+            stmt.setInt(1, vehicle.getUUID());
             stmt.setInt(2, userId);
             stmt.execute();
         } catch (SQLException e) {
@@ -172,7 +172,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
-            stmt.setInt(1, vehicle.getUniqueId());
+            stmt.setInt(1, vehicle.getUUID());
             stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -187,7 +187,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
             stmt.setInt(1, userId);
-            stmt.setInt(2, vehicle.getUniqueId());
+            stmt.setInt(2, vehicle.getUUID());
             stmt.setString(3, permission.name());
             stmt.execute();
         } catch (SQLException e) {
@@ -197,12 +197,12 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
 
     @Override
     public void addPermission(PlayerVehicle vehicle, LtrpPlayer player, PlayerVehiclePermission permission) {
-        addPermission(vehicle, player.getUserId(), permission);
+        addPermission(vehicle, player.getUUID(), permission);
     }
 
     @Override
     public void addPermission(PlayerVehicle vehicle, int userId, PlayerVehiclePermission permission) {
-       addPermission(vehicle.getUniqueId(), userId, permission);
+       addPermission(vehicle.getUUID(), userId, permission);
     }
 
     @Override
@@ -357,7 +357,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
             vehicleStmt.setInt(10, vehicle.getColor2());
             vehicleStmt.setFloat(11, vehicle.getFuelTank().getFuel());
             vehicleStmt.setFloat(12, vehicle.getMileage());
-            vehicleStmt.setInt(13, vehicle.getUniqueId());
+            vehicleStmt.setInt(13, vehicle.getUUID());
             vehicleStmt.execute();
 
         } catch(SQLException e) {
@@ -376,7 +376,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 vehicle.getFuelTank().getFuel(),
                 vehicle.getMileage()
         );
-        vehicle.setUniqueId(id);
+        vehicle.setUUID(id);
         return id;
     }
 
@@ -419,7 +419,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)
         ) {
-            stmt.setInt(1, vehicle.getUniqueId());
+            stmt.setInt(1, vehicle.getUUID());
             stmt.execute();
         } catch(SQLException e) {
             e.printStackTrace();
@@ -434,7 +434,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)
         ) {
-            stmt.setInt(1, player.getUserId());
+            stmt.setInt(1, player.getUUID());
             ResultSet resultSet = stmt.executeQuery();
             while(resultSet.next()) {
                 ids.add(resultSet.getInt(1));
@@ -461,7 +461,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql)
         ) {
-            stmt.setInt(1, player.getUserId());
+            stmt.setInt(1, player.getUUID());
             ResultSet resultSet = stmt.executeQuery();
             while(resultSet.next()) {
                 ids.add(resultSet.getInt(1));
@@ -573,7 +573,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
-            stmt.setInt(1, vehicle.getUniqueId());
+            stmt.setInt(1, vehicle.getUUID());
             ResultSet r = stmt.executeQuery();
             while(r.next()) {
                 vehicle.addPermission(r.getInt("player_id"), PlayerVehiclePermission.valueOf(r.getString("permission")));
@@ -617,7 +617,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
             stmt.setInt(10, playerVehicle.getDamage().getLights());
             stmt.setInt(11, playerVehicle.getDamage().getTires());
             stmt.setFloat(12, playerVehicle.getHealth());
-            stmt.setInt(13, playerVehicle.getUniqueId());
+            stmt.setInt(13, playerVehicle.getUUID());
             stmt.execute();
         } catch(SQLException e) {
             e.printStackTrace();
@@ -637,7 +637,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 try (
                         PreparedStatement stmt = con.prepareStatement(s);
                         ) {
-                    stmt.setInt(1, vehicle.getUniqueId());
+                    stmt.setInt(1, vehicle.getUUID());
                     stmt.execute();
                 }
             }

@@ -79,7 +79,7 @@ public class JobVehicleMenu extends PlayerDialogMenu {
                                                 JobVehicle vehicle = JobVehicle.create(job, model, player.getLocation(), color1, color2, rank, 0f);
                                                 job.addVehicle(vehicle);
                                                 LtrpGamemode.getDao().getJobDao().insertVehicle(vehicle);
-                                                player.sendMessage(Color.GREEN, "Automobilis sukurtas. Jo unikalus ID " + vehicle.getUniqueId() + " þaidimo ID " + vehicle.getId());
+                                                player.sendMessage(Color.GREEN, "Automobilis sukurtas. Jo unikalus ID " + vehicle.getUUID() + " þaidimo ID " + vehicle.getId());
                                                 player.sendMessage(Color.GREEN, "Automobilis priklauso " + job.getName() + ". Privalomas rangas: " + rank.getName());
                                             });
                                             dialog.setClickCancelHandler(AbstractDialog::showParentDialog);

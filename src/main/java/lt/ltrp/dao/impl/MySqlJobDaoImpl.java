@@ -266,7 +266,7 @@ public class MySqlJobDaoImpl implements JobDao {
                 PreparedStatement jobVehicleStmt = con.prepareStatement(jobVehicleSql);
         ) {
             vehicleDao.insert(vehicle);
-            jobVehicleStmt.setInt(1, vehicle.getUniqueId());
+            jobVehicleStmt.setInt(1, vehicle.getUUID());
             jobVehicleStmt.setInt(2, vehicle.getJob().getId());
             jobVehicleStmt.setInt(3, vehicle.getRequiredRank().getNumber());
             jobVehicleStmt.execute();
@@ -301,7 +301,7 @@ public class MySqlJobDaoImpl implements JobDao {
              vehicleDao.update(vehicle);
              jobVehicleStmt.setInt(1, vehicle.getJob().getId());
              jobVehicleStmt.setInt(2, vehicle.getRequiredRank().getNumber());
-             jobVehicleStmt.setInt(3, vehicle.getUniqueId());
+             jobVehicleStmt.setInt(3, vehicle.getUUID());
              jobVehicleStmt.execute();
 
         } catch(SQLException e) {
