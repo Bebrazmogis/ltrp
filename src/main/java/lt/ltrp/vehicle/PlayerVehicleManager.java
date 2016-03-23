@@ -6,6 +6,7 @@ import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.dao.VehicleDao;
 import lt.ltrp.data.Color;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
+import lt.ltrp.item.Item;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.shopplugin.ShopVehicle;
 import lt.ltrp.shopplugin.VehicleShop;
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
  */
 public class PlayerVehicleManager {
 
-    private static final Collection<PlayerVehicle> playerVehiclesList = new ArrayList<>();
+    protected static final Collection<PlayerVehicle> playerVehiclesList = new ArrayList<>();
     private static final Logger logger = LtrpGamemode.get().getLogger();
     private static final int INSURANCE_BASE_PRICE = 800;
     private static final int SCRAP_BASE_PRICE = 200;
@@ -61,11 +62,11 @@ public class PlayerVehicleManager {
         this.vehicleDao = vehicleDao;
 
         CommandGroup vGroup = new CommandGroup();
-        vGroup.setEmptyCommandHandler((p, g) -> {
+        vGroup.setNotFoundHandler((p, g, cmd) -> {
             V_HELP_HANDLER.handle(p, null);
             return true;
         });
-        vGroup.registerCommands(new PlayerVehicleCommands(this, commandManager));
+        vGroup.registerCommands(new PlayerVehicleCommands(this, vGroup));
         commandManager.registerChildGroup(vGroup, "v");
        // commandManager.registerCommand("v", new Class[0], V_HELP_HANDLER, null, null, null);
        // commandManager.registerCommand("v", new Class[]{String.class}, null, null, (short)-1000, false, V_HELP_HANDLER, null, null, null);
@@ -182,7 +183,8 @@ public class PlayerVehicleManager {
         });
 
         eventManager.registerHandler(PlayerVehicleParkEvent.class, e -> {
-           vehicleDao.update(e.getVehicle());
+           //vehicleDao.update(e.getVehicle());
+            e.getVehicle().destroy();
         });
 
         eventManager.registerHandler(PlayerVehicleUpdateParkEvent.class, e -> {
@@ -215,7 +217,7 @@ public class PlayerVehicleManager {
         eventManager.registerHandler(PlayerVehicleArrestEvent.class, e -> {
             PlayerVehicle vehicle = e.getVehicle();
             LtrpPlayer officer = e.getPlayer();
-            vehicleDao.insertArrest(vehicle.getUniqueId(), officer.getUserId(), e.getReason());
+            vehicleDao.insertArrest(vehicle.getUUID(), officer.getUserId(), e.getReason());
             vehicle.destroy();
         });
 
@@ -253,13 +255,15 @@ public class PlayerVehicleManager {
 
     public PlayerVehicle loadVehicle(int uid) {
         PlayerVehicle vehicle = vehicleDao.get(uid);
+        Item[] items = LtrpGamemode.getDao().getItemDao().getItems(vehicle.getClass(), vehicle.getUUID());
+        vehicle.getInventory().add(items);
         logger.info("PlayerVehicle " + uid + " loaded.");
         playerVehiclesList.add(vehicle);
         return vehicle;
     }
 
     public boolean isSpawned(int vehicleId) {
-        return playerVehiclesList.stream().filter(v -> v.getUniqueId() == vehicleId).findFirst().isPresent();
+        return playerVehiclesList.stream().filter(v -> v.getUUID() == vehicleId).findFirst().isPresent();
     }
 
     public void setLicensePlate(PlayerVehicle vehicle) {
@@ -270,12 +274,8 @@ public class PlayerVehicleManager {
 
     public void destroyVehicle(PlayerVehicle vehicle) {
         vehicleDao.update(vehicle);
-        logger.info("PlayerVehicle " + vehicle.getUniqueId() + " destroyed.");
+        logger.info("PlayerVehicle " + vehicle.getUUID() + " destroyed.");
         playerVehiclesList.remove(vehicle);
-        Optional<LtrpPlayer> optional = LtrpPlayer.get().stream().filter(p -> vehicle.getOwnerId() == p.getUserId()).findFirst();
-        if(optional.isPresent()) {
-            loadVehicles(optional.get());
-        }
     }
 
     public PlayerVehicleArrest getArrest(int vehicleId) {
@@ -354,7 +354,7 @@ public class PlayerVehicleManager {
         return PlayerVehicle.get().stream()
                 .filter(v -> {
                     for(int vehicleUId : playerVehicles.get(player)) {
-                        if(vehicleUId == v.getUniqueId()) {
+                        if(vehicleUId == v.getUUID()) {
                             return true;
                         }
                     }
