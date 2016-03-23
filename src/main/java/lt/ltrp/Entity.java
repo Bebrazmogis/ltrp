@@ -6,22 +6,21 @@ package lt.ltrp;
  */
 public class Entity {
 
-    private int id;
+    private int uuid;
 
     public Entity(int id) {
-        this.id = id;
+        this.uuid = id;
     }
 
     public Entity() {
 
     }
 
-    public int getId() {
-        return id;
+    public int getUUID() {
+        return uuid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUUID(int uuid) {
+        this.uuid = uuid;
     }
-
 }

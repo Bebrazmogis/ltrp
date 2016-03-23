@@ -55,7 +55,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
 
     public static LtrpVehicle getByUniqueId(int uniqueid) {
         for(LtrpVehicle v : vehicles) {
-            if(v.getUniqueId() == uniqueid)
+            if(v.getUUID() == uniqueid)
                 return v;
         }
         return null;
@@ -71,9 +71,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
         LtrpVehicle vehicle = null;
         for(LtrpVehicle v : vehicles) {
             float dis = loc.distance(v.getLocation());
-            logger.debug("Vehicle " + v.getId() + " distance to point: "+  dis + " max distance : " + distance);
             if(dis < distance) {
-                logger.debug(dis + " is less than " + distance);
                 vehicle = v;
                 distance = dis;
             }
@@ -106,7 +104,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
     }
 */
     protected LtrpVehicle(int id, Vehicle vehicle, FuelTank fueltank, String license, float mileage) {
-        super(id, vehicle.getModelName() + " " + license, new FixedSizeInventory(""));
+        super(id, vehicle.getModelName() + " " + license, null);
         vehicle.setNumberPlate(license);
         this.fuelTank = fueltank;
         this.mileage = mileage;
@@ -119,6 +117,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
         vehicles.add(this);
         setLocked(this.locked);
         this.radioVolume = 50;
+        setInventory(new FixedSizeInventory(VehicleModel.getName(vehicle.getModelId()) + " bagaþinës", this));
     }
 
     protected LtrpVehicle(int id, int modelid, AngledLocation location, int color1, int color2, String license, float mileage) {
@@ -258,13 +257,6 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
                 .forEach(p -> p.setVolume(radioVolume));
     }
 
-    public int getUniqueId() {
-        return super.getId();
-    }
-
-    public void setUniqueId(int id) {
-        super.setId(id);
-    }
 
     public LtrpPlayer getDriver() {
         return driver;
@@ -549,5 +541,10 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
     @Override
     public boolean isDestroyed() {
         return vehicleObject.isDestroyed();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof LtrpVehicle && ((LtrpVehicle) obj).getUUID() == getUUID();
     }
 }

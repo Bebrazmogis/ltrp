@@ -141,7 +141,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     private Player player;
 
-    private int userId, adminLevel, level;
+    private int adminLevel, level;
 
     private String password, secretAnswer, secretQuestion;
     private JailData jailData;
@@ -189,8 +189,8 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
 
     public LtrpPlayer(Player player, int userid) {
+        super(userid, player.getName(), null);
         this.player = player;
-        this.userId = userid;
         this.weapons = new LtrpWeaponData[13];
         this.infoBox = new PlayerInfoBox(this);
         this.offers = new ArrayList<>();
@@ -199,7 +199,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     }
 
     public int getUserId() {
-        return userId;
+        return super.getUUID();
     }
 
     public Collection<PlayerOffer> getOffers() {
