@@ -73,7 +73,7 @@ public class HouseCommands {
     }
 
     @Command
-    @CommandHelp("Atidaro namø radijo valdymà")
+    @CommandHelp("Atidaro namø radijo valdymo meniu")
     public boolean hradio(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
         House house = (House)player.getProperty();
