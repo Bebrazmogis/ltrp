@@ -1,6 +1,6 @@
-package lt.ltrp.dialog.radio;
+package lt.ltrp.radio.dialog;
 
-import lt.ltrp.RadioStation;
+import lt.ltrp.radio.RadioStation;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.PageListDialog;
