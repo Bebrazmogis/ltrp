@@ -3,21 +3,20 @@ package lt.ltrp.vehicle;
 import lt.ltrp.command.Commands;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
-import lt.ltrp.dialog.radio.RadioOptionListDialog;
+import lt.ltrp.radio.Radio;
+import lt.ltrp.radio.dialog.RadioOptionListDialog;
 import lt.ltrp.item.ItemType;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;
-import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.data.VehicleState;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.util.event.EventManager;
 
-import java.awt.*;
 import java.util.Map;
 
 /**
@@ -236,14 +235,15 @@ public class VehicleCommands extends Commands {
         } else if(player.getVehicleSeat() > 1) {
             player.sendErrorMessage("Negalite valdyti radijos sedëdamas gale!");
         } else {
+            final Radio radio = vehicle.getRadio();
             RadioOptionListDialog.create(player, eventManager, (d, vol) -> {
-                vehicle.setRadioVolume(vol);
+                radio.setVolume(vol);
                 player.sendActionMessage("pakeièia radijos garsà á " + vol);
             }, (d, station) -> {
-                vehicle.setRadioStation(station);
+                radio.play(station);
                 player.sendActionMessage("pakeièia radijo stotá á " + station.getName());
             }, (d) -> {
-                vehicle.setRadioStation(null);
+                radio.stop();
             });
         }
         return true;

@@ -1,10 +1,10 @@
 package lt.ltrp.vehicle;
 
 import lt.ltrp.InventoryEntity;
-import lt.ltrp.RadioStation;
+import lt.ltrp.LtrpGamemode;
+import lt.ltrp.radio.RadioStation;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.item.FixedSizeInventory;
-import lt.ltrp.item.Inventory;
 import lt.ltrp.job.Taxi;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.constant.VehicleModel;
@@ -91,8 +91,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
     private LtrpPlayer driver;
     private Taxi taxi;
     private AngledLocation spawnLocation;
-    private RadioStation radioStation;
-    private int radioVolume;
+    private VehicleRadio radio;
 
     /*
     public LtrpVehicle(int id, Vehicle vehicle, String license) {
@@ -116,7 +115,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
         this.license = license;
         vehicles.add(this);
         setLocked(this.locked);
-        this.radioVolume = 50;
+        this.radio = new VehicleRadio(this, LtrpGamemode.get().getEventManager());
         setInventory(new FixedSizeInventory(VehicleModel.getName(vehicle.getModelId()) + " bagaþinës", this));
     }
 
@@ -224,39 +223,9 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
         return false;
     }
 
-    public RadioStation getRadioStation() {
-        return radioStation;
+    public VehicleRadio getRadio() {
+        return radio;
     }
-
-    public void setRadioStation(RadioStation radioStation) {
-        this.radioStation = radioStation;
-        if(radioStation == null) {
-            LtrpPlayer.get()
-                    .stream()
-                    .filter(p -> p.isInVehicle(this))
-                    .forEach(p -> p.getCurrentAudioHandle().stop());
-        } else {
-            LtrpPlayer.get().stream().filter(p -> p.isInVehicle(this))
-                    .forEach(p -> {
-                        p.playAudioStream(radioStation.getUrl());
-                        p.setVolume(radioVolume);
-                    });
-        }
-
-    }
-
-    public int getRadioVolume() {
-        return radioVolume;
-    }
-
-    public void setRadioVolume(int radioVolume) {
-        this.radioVolume = radioVolume;
-        LtrpPlayer.get()
-                .stream()
-                .filter(p -> p.isInVehicle(this))
-                .forEach(p -> p.setVolume(radioVolume));
-    }
-
 
     public LtrpPlayer getDriver() {
         return driver;
