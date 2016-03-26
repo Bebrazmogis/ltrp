@@ -2,7 +2,7 @@ package lt.ltrp.property;
 
 
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.command.CommandParam;
+import lt.ltrp.radio.dialog.RadioOptionListDialog;
 import lt.ltrp.item.ItemType;
 import lt.ltrp.item.WeedItem;
 import lt.ltrp.player.LtrpPlayer;
@@ -11,6 +11,7 @@ import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.object.Player;
+import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,11 @@ import java.util.List;
  *         2015.12.05.
  */
 public class HouseCommands {
+    private EventManager eventManager;
+
+    public HouseCommands(EventManager event) {
+        this.eventManager = event;
+    }
 
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
@@ -66,5 +72,33 @@ public class HouseCommands {
         return false;
     }
 
+    @Command
+    @CommandHelp("Atidaro namø radijo valdymà")
+    public boolean hradio(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        House house = (House)player.getProperty();
+        if(!house.isOwner(player)) {
+            player.sendErrorMessage("Tik savininkas gali valdyti radijà!");
+        } else if(!house.isUpgradeInstalled(HouseUpgradeType.Radio)) {
+            player.sendErrorMessage("Ðiame name nëra audio sistemos!");
+        } else {
+            final HouseRadio radio = house.getRadio();
+            RadioOptionListDialog.create(player, eventManager,
+                    (d, vol) -> {
+                        radio.setVolume(vol);
+                        player.sendActionMessage("Priena prie radijos ir pareguliuoja jos garsà");
+                    },
+                    (d, station) -> {
+                        radio.play(station);
+                        player.sendActionMessage("prieina prie radijos ir pakeièia radijo stotá á " + station.getName());
+                    },
+                    (d) -> {
+                        radio.stop();
+                        player.sendActionMessage("prieina prie radijos ir jà iðjungia.");
+                    })
+                    .show();
+        }
+        return true;
+    }
 }
 
