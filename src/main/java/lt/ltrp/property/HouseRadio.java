@@ -41,6 +41,15 @@ public class HouseRadio extends AbstractRadio {
     }
 
     @Override
+    public void setVolume(int vol) {
+        LtrpPlayer.get()
+                .stream()
+                .filter(p -> house.equals(p.getProperty()))
+                .forEach(p -> p.setVolume(vol));
+        super.setVolume(vol);
+    }
+
+    @Override
     public void stop() {
         LtrpPlayer.get()
                 .stream()
