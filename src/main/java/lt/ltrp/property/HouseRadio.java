@@ -34,7 +34,7 @@ public class HouseRadio extends AbstractRadio {
         if(radioStation != null) {
             LtrpPlayer.get()
                     .stream()
-                    .filter(p -> p.getProperty().equals(house))
+                    .filter(p -> house.equals(p.getProperty()))
                     .forEach(p -> p.playAudioStream(radioStation.getUrl()));
         }
         super.play(radioStation);
@@ -44,7 +44,7 @@ public class HouseRadio extends AbstractRadio {
     public void stop() {
         LtrpPlayer.get()
                 .stream()
-                .filter(p -> p.getProperty().equals(house))
+                .filter(p -> house.equals(p.getProperty()))
                 .forEach(LtrpPlayer::stopAudioStream);
         super.stop();
     }
