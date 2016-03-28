@@ -7,5 +7,6 @@ package lt.ltrp.Util;
 public class ErrorCode {
 
     public static final int PVEHICLE_LOAD_FAILD = 5001;
+    public static final int SHOP_PLUGIN_DOWN = 5002;
 
 }
