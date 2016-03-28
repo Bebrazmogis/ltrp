@@ -9,6 +9,6 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class Commands {
 
-    protected static final Logger logger = LoggerFactory.getLogger(Commands.class);
+    protected static Logger logger = LoggerFactory.getLogger(Commands.class);
 
 }
