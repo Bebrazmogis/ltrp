@@ -2,25 +2,11 @@ package lt.ltrp;
 
 /**
  * @author Bebras
- *         2015.11.29.
+ *         2016.03.23.
  */
-public class Entity {
+public interface Entity {
 
-    private int uuid;
+    void setUUID(int uuid);
+    int getUUID();
 
-    public Entity(int id) {
-        this.uuid = id;
-    }
-
-    public Entity() {
-
-    }
-
-    public int getUUID() {
-        return uuid;
-    }
-
-    public void setUUID(int uuid) {
-        this.uuid = uuid;
-    }
 }

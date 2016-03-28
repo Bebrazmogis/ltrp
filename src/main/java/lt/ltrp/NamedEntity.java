@@ -2,25 +2,20 @@ package lt.ltrp;
 
 /**
  * @author Bebras
- *         2015.11.29.
+ *         2016.03.23.
  */
-public class NamedEntity extends Entity {
+public interface NamedEntity extends Entity {
 
-    private String name;
+    /**
+     *
+     * @return returns the entities name
+     */
+    String getName();
 
-    public NamedEntity(int id, String name) {
-        super(id);
-        this.name = name;
-    }
+    /**
+     * Sets the entities name
+     * @param name the name to set
+     */
+    void setName(String name);
 
-    public NamedEntity(){
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
