@@ -1,0 +1,7 @@
+authors: Bebras
+version: 1.0-SNAPSHOT
+class: lt.maze.shoebilleventlogger.ShoebillEventLoggerPlugin
+name: Shoebill native event logger
+buildNumber: 0
+buildDate: Unknown
+description: It logs events to the console and/or to specified players. That's all.

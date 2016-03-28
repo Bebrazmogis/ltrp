@@ -1,0 +1,4 @@
+lt\maze\shoebilleventlogger\EventHandler.class
+lt\maze\shoebilleventlogger\ShoebillEventLoggerPlugin.class
+lt\maze\shoebilleventlogger\event\LogEvent.class
+lt\maze\shoebilleventlogger\LoggingHandler.class
