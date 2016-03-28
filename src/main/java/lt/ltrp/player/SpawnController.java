@@ -59,7 +59,7 @@ public class SpawnController implements Runnable {
         player.setSpawnData(spawnData);
 
         if(jailData != null) {
-            player.jail(jailData);
+            player.setJailData(jailData);
         } else {
             if(crashData != null) {
                 player.setSpawnInfo(crashData.getLocation(), 0.0f, spawnData.getSkin(), Player.NO_TEAM, spawnData.getWeaponData()[0], spawnData.getWeaponData()[1], spawnData.getWeaponData()[2]);

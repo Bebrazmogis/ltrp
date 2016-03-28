@@ -1,7 +1,7 @@
 package lt.ltrp.dao;
 
 import lt.ltrp.LoadingException;
-import lt.ltrp.RadioStation;
+import lt.ltrp.radio.RadioStation;
 
 import java.util.List;
 
