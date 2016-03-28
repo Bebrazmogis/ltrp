@@ -23,6 +23,10 @@ public class PlayerDrawWeaponItemEvent extends PlayerEvent {
         this.item = item;
     }
 
+    public WeaponItem getItem() {
+        return item;
+    }
+
     public Inventory getDrawLocation() {
         return drawLocation;
     }
