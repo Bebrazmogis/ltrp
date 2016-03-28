@@ -5659,6 +5659,7 @@ CMD:duty(playerid)
     return 1;
 }
 */
+/*
 CMD:windows( playerid, params[ ] )
 {
     #pragma unused params
@@ -5682,6 +5683,8 @@ CMD:windows( playerid, params[ ] )
     }
     return 1;
 }
+*/
+/*
 CMD:trunk( playerid, params[ ] )
 {
     #pragma unused params
@@ -5709,6 +5712,7 @@ CMD:trunk( playerid, params[ ] )
     ShowTrunk( playerid, car );
     return 1;
 }
+*/
 /*
 CMD:nof( playerid, params[ ] )
 {
@@ -6907,6 +6911,7 @@ CMD:open( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:bonnet(playerid)
 {
     if ( !IsPlayerInAnyVehicle( playerid ) )
@@ -6961,6 +6966,7 @@ CMD:trunko(playerid)
         return 1;
     }
 }
+*/
 CMD:buygun( playerid, params[ ] )
 {
     #pragma unused params

@@ -1697,7 +1697,7 @@ CMD:call(playerid, params[ ])
 		else
 		{
 			contactnumber = (IsNumeric(string)) ? (strval(string)) : (GetPlayerContactNumberByName(playerid, string));
-		}
+		}i
 	}
 
 	// Jeigu viskas gerai.
