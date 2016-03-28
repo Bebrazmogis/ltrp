@@ -6,7 +6,7 @@ import lt.ltrp.item.Inventory;
  * @author Bebras
  *         2015.11.29.
  */
-public class InventoryEntity extends NamedEntity {
+public class InventoryEntity extends NamedEntityImpl {
 
     private Inventory inventory;
 
