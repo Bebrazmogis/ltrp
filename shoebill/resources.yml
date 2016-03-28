@@ -23,10 +23,12 @@ runtimes:
 
 # Additional plugins
 plugins: 
+  - shoebill-event-logger-1.0-SNAPSHOT
   - database-1.0-SNAPSHOT
   - bank-1.0-SNAPSHOT
   - audio-1.0-SNAPSHOT
   - npc-manager-1.0-SNAPSHOT
   - streamer-1.0-SNAPSHOT
+  - vehicle-shop-1.0-SNAPSHOT
 # Your gamemode
 gamemode: LtrpGamemode-1.0-SNAPSHOT
