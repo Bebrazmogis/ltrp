@@ -31,4 +31,9 @@ public class PlayerCallNumberEvent extends PlayerEvent {
     public ItemPhone getCallerPhone() {
         return callerPhone;
     }
+
+    @Override
+    public void interrupt() {
+        super.interrupt();
+    }
 }
