@@ -1,16 +1,14 @@
-package lt.ltrp.dialog.phone;
+package lt.ltrp.item.phone.dialog;
 
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.data.Color;
+import lt.ltrp.data.PhoneBook;
 import lt.ltrp.data.PhoneContact;
-import lt.ltrp.data.Phonebook;
-import lt.ltrp.item.ItemController;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
-import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
 /**
@@ -19,12 +17,12 @@ import net.gtaun.util.event.EventManager;
  */
 public class PhonebookListDialog extends ListDialog {
 
-    private Phonebook phonebook;
+    private PhoneBook phonebook;
     private CallContactHandler callContactHandler;
     private SendSmsHandler sendSmsHandler;
     private ContactDeleteHandler deleteHandler;
 
-    public PhonebookListDialog(LtrpPlayer player, EventManager eventManager, Phonebook phonebook) {
+    public PhonebookListDialog(LtrpPlayer player, EventManager eventManager, PhoneBook phonebook) {
         super(player, eventManager);
         this.phonebook = phonebook;
 

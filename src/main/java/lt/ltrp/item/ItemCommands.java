@@ -2,6 +2,8 @@ package lt.ltrp.item;
 
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.data.*;
+import lt.ltrp.item.event.PlayerAnswerPhoneEvent;
+import lt.ltrp.item.event.PlayerEndCallEvent;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerCountdown;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -13,6 +15,7 @@ import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Timer;
+import net.gtaun.util.event.EventManager;
 
 import java.util.Optional;
 
@@ -26,6 +29,11 @@ public class ItemCommands {
     public boolean beforeCheck(Player p, String cmd, String parms) {
         System.out.println("beforeCheck :: itemCommands");
         return true;
+    }
+
+    private EventManager eventManager;
+    public ItemCommands(EventManager eventManager) {
+        this.eventManager = eventManager;
     }
 
 
@@ -50,14 +58,16 @@ public class ItemCommands {
                     player.applyAnimation(new Animation("BOMBER", "BOM_Plant_2Idle", true, 5000));
                     PlayerCountdown playerCountdown = new PlayerCountdown(player, 2, true, new PlayerCountdown.PlayerCountdownCallback() {
                         @Override
-                        public void onStop(LtrpPlayer player) {
-                            player.sendActionMessage("baigia gaminti molotov");
-                            fueltank.setItemCount(fueltank.getItemCount()-1);
-                            player.getInventory().remove(newspaper);
+                        public void onStop(LtrpPlayer player, boolean finished) {
+                            if(finished) {
+                                player.sendActionMessage("baigia gaminti molotov");
+                                fueltank.setItemCount(fueltank.getItemCount()-1);
+                                player.getInventory().remove(newspaper);
 
-                            MolotovItem item = new MolotovItem();
-                            LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
-                            player.getInventory().add(item);
+                                MolotovItem item = new MolotovItem();
+                                LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
+                                player.getInventory().add(item);
+                            }
                             player.clearAnimations(1);
                         }
                         @Override
@@ -133,16 +143,23 @@ public class ItemCommands {
         if(phone.getPhonecall() == null) {
             return;
         }
-        phone.getPhonecall().setState(Phonecall.PhonecallState.Talking);
-        String contactName = phone.getPhonecall().getCallerPhone().getPhonebook().getContactName(phone.getPhonenumber());
-        if(contactName == null) {
-            contactName = ""+phone.getPhonenumber();
-        }
-        phone.getPhonecall().getCaller().sendMessage(contactName + " atsiliepë..");
-        phone.getPhonecall().getCaller().sendMessage(Color.YELLOW, "Naudokite t kad galbëtumëte telefonu");
-        player.sendMessage(Color.YELLOW, "Naudokite t kad galbëtumëte telefonu");
+        eventManager.dispatchEvent(new PlayerAnswerPhoneEvent(player, phone));
     }
 
+    @Command
+    @CommandHelp("Baigia telefoniná pokalbá")
+    public boolean hangup(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        ItemPhone[] phones = (ItemPhone[])player.getInventory().getItems(ItemType.Phone);
+        for(ItemPhone phone : phones) {
+            if(phone.getPhonecall() != null) {
+                eventManager.dispatchEvent(new PlayerEndCallEvent(player, phone.getPhonecall()));
+                return true;
+            }
+        }
+        player.sendErrorMessage("Jums niekas neskambina!");
+        return true;
+    }
 
     @Command
     @CommandHelp("Ádeda jûsø dabartiná ginklà á iventoriø")
@@ -159,6 +176,9 @@ public class ItemCommands {
         } else {
             player.sendMessage(Color.NEWS, "Ginklas sëkmingai ádëtas á inventoriø.");
             player.playSound(1057);
+            WeaponItem item = new WeaponItem(player.getArmedWeaponData());
+            player.getInventory().add(item);
+            LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
             player.removeWeapon(player.getArmedWeaponData());
             return true;
         }

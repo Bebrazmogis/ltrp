@@ -1,4 +1,4 @@
-package lt.ltrp.dialog.phone;
+package lt.ltrp.item.phone.dialog;
 
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.data.Color;
