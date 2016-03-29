@@ -222,6 +222,7 @@ public class JobManager implements Destroyable {
                 e.getPlayer().setSpecialAction(SpecialAction.USE_CELLPHONE);
                 e.getPlayer().sendMessage(Color.WHITE, "INFORMACIJA: Naudokite T, kad kalbëtumëte á telefonà. (/h)angup kad padëtumëte rageli.");
                 e.getPlayer().sendMessage(Color.LIGHTGREY, "PAGALBOS LINIJA: Su kuo jus sujungti? Policija, medikais? Ar su abu?");
+                e.getCallerPhone().setBusy(true);
             }
         });
 
