@@ -2,10 +2,15 @@ package lt.ltrp.job;
 
 import lt.ltrp.LoadingException;
 import lt.ltrp.LtrpGamemode;
+import lt.ltrp.Util.StringUtils;
+import lt.ltrp.constant.WorldZone;
 import lt.ltrp.dao.JobDao;
 import lt.ltrp.data.Color;
+import lt.ltrp.item.ItemPhone;
+import lt.ltrp.item.event.PlayerCallNumberEvent;
 import lt.ltrp.job.drugdealer.DrugDealerManager;
 import lt.ltrp.job.mechanic.MechanicManager;
+import lt.ltrp.job.medic.MedicManager;
 import lt.ltrp.job.policeman.PolicemanManager;
 import lt.ltrp.job.trashman.TrashmanManager;
 import lt.ltrp.job.vehiclethief.VehicleThiefManager;
@@ -13,16 +18,18 @@ import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.vehicle.VehicleManager;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
+import net.gtaun.shoebill.constant.SpecialAction;
+import net.gtaun.shoebill.event.player.PlayerTextEvent;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerPriority;
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Bebras
@@ -83,17 +90,21 @@ public class JobManager implements Destroyable {
     private PolicemanManager policemanManager;
     private MechanicManager mechanicManager;
     private DrugDealerManager drugDealerManager;
+    private MedicManager medicManager;
     private JobDao jobDao;
+    private Map<LtrpPlayer, Pair<ItemPhone, Integer>> playerEmergencyCalls;
 
 
     public JobManager(EventManager eventManager, JobDao jobDao, VehicleManager vehicleManager) throws LoadingException{
         this.jobDao = jobDao;
+        this.playerEmergencyCalls = new HashMap<>();
 
         trashmanManager = new TrashmanManager(eventManager, JobId.TrashMan.id);
         vehicleThiefManager = new VehicleThiefManager(eventManager, JobId.VehicleThief.id);
         policemanManager = new PolicemanManager(eventManager, JobId.Officer.id, vehicleManager);
         mechanicManager = new MechanicManager(eventManager, JobId.Mechanic.id);
         drugDealerManager = new DrugDealerManager(eventManager, JobId.DrugDealer.id);
+        medicManager = new MedicManager(eventManager, JobId.Medic.id);
 
         // The code from hell
 
@@ -205,7 +216,73 @@ public class JobManager implements Destroyable {
         }, null, null, null);
 
 
+        eventManager.registerHandler(PlayerCallNumberEvent.class, e -> {
+            if(e.getPhoneNumber() == 911) {
+                playerEmergencyCalls.put(e.getPlayer(), new MutablePair<>(e.getCallerPhone(), 0));
+                e.getPlayer().setSpecialAction(SpecialAction.USE_CELLPHONE);
+                e.getPlayer().sendMessage(Color.WHITE, "INFORMACIJA: Naudokite T, kad kalbëtumëte á telefonà. (/h)angup kad padëtumëte rageli.");
+                e.getPlayer().sendMessage(Color.LIGHTGREY, "PAGALBOS LINIJA: Su kuo jus sujungti? Policija, medikais? Ar su abu?");
+            }
+        });
 
+        eventManager.registerHandler(PlayerTextEvent.class, HandlerPriority.HIGH, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            String text = e.getText();
+            if(playerEmergencyCalls.containsKey(player)) {
+                WorldZone zone = WorldZone.get(player.getLocation());
+                int phonenumber = playerEmergencyCalls.get(player).getLeft().getPhonenumber();
+                switch(playerEmergencyCalls.get(player).getRight()) {
+                    case 0:
+                        if(StringUtils.equalsIgnoreLtCharsAndCase(text, "medikais")) {
+                            player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: tuojaus sujungsime Jus su policijos departamentu.");
+                            player.sendMessage(Color.LIGHTGREY, "LOS SANTOS POLICIJOS DEPARTAMENTAS: Los Santos policija klauso, koks Jûsø praneðimas ir vieta?");
+                            playerEmergencyCalls.get(player).setValue(1);
+                        } else if(StringUtils.equalsIgnoreLtCharsAndCase(text, "policija")) {
+                            player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: tuojaus sujungsime Jus su ligonine ar kita medicinos ástaiga.");
+                            player.sendMessage(Color.LIGHTGREY, "LOS SANTOS ligoninë: Los Santos ligoninë klauso, apibûdinkite kas nutiko ir kur nutiko.");
+                            playerEmergencyCalls.get(player).setValue(2);
+                        } else if(StringUtils.equalsIgnoreLtCharsAndCase(text, "abu")) {
+                            player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: tuojaus sujungsime su bendros pagalbos centru.");
+                            player.sendMessage(Color.LIGHTGREY, "LOS SANTOS bendra pagalbos linija: apibûdinkite savo ávyki, bei ávykio vietà.");
+                            playerEmergencyCalls.get(player).setValue(3);
+                        } else {
+                            player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: Atleiskite, bet að nesuprantu su kuo Jûs reikia sujungti: Policija ar medikais?");
+                        }
+                        break;
+                    case 1:
+                        player.sendMessage(Color.WHITE, "LOS SANTOS LIGONINË: Jûsø praneðimas uþfiksuotas ir praneðtas mûsø medikams.");
+                        player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti, medikai jau atvyksta");
+                        medicManager.getJob().sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
+                        medicManager.getJob().sendMessage(Color.WHITE, "| ávyki praneðë | " + phonenumber + ", nustatyta vieta: " + zone.getName());
+                        medicManager.getJob().sendMessage(Color.WHITE, "| ávykio praneðimas | " + text);
+                        player.setSpecialAction(SpecialAction.NONE);
+                        playerEmergencyCalls.remove(player);
+                        break;
+                    case 2:
+                        player.sendMessage(Color.WHITE, "LOS SANTOS POLICIJOS DEPARTAMENTAS: Jûsø praneðimas uþfiksuotas ir praneðtas pareigûnams.");
+                        player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie incidentà, pasistengsime Jums padëti.");
+                        policemanManager.getJob().sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
+                        policemanManager.getJob().sendMessage(Color.POLICE, "| ávykis: " + text);
+                        player.setSpecialAction(SpecialAction.NONE);
+                        playerEmergencyCalls.remove(player);
+                        break;
+                    case 3:
+                        player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija Jûsø ávykis buvo praneðtas visiems departamentams.");
+                        player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti.");
+                        medicManager.getJob().sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
+                        policemanManager.getJob().sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
+                        String s = String.format("| ávyki praneðë | %d, nustatyta vieta: %s", phonenumber, zone.getName());
+                        medicManager.getJob().sendMessage(Color.WHITE, s);
+                        policemanManager.getJob().sendMessage(Color.POLICE, s);
+                        s = String.format("| ávykio praneðimas | %s", text);
+                        medicManager.getJob().sendMessage(Color.WHITE, s);
+                        policemanManager.getJob().sendMessage(Color.POLICE, s);
+                        player.setSpecialAction(SpecialAction.NONE);
+                        playerEmergencyCalls.remove(player);
+                        break;
+                }
+            }
+        });
 
         logger.info("Job manager initialized");
     }
@@ -236,6 +313,7 @@ public class JobManager implements Destroyable {
         policemanManager.destroy();
         mechanicManager.destroy();
         drugDealerManager.destroy();
+        medicManager.destroy();
     }
 
     @Override
