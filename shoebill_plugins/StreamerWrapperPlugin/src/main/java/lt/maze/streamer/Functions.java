@@ -123,9 +123,15 @@ public class Functions {
 		functions.put("AttachDynamicAreaToObject", instance.getNative("AttachDynamicAreaToObject", ReturnType.INTEGER));
 		functions.put("AttachDynamicAreaToPlayer", instance.getNative("AttachDynamicAreaToPlayer", ReturnType.INTEGER));
 		functions.put("AttachDynamicAreaToVehicle", instance.getNative("AttachDynamicAreaToVehicle", ReturnType.INTEGER));
+
+        functions.put("CreateDynamicPolygon", instance.getNative("CreateDynamicPolygon", ReturnType.INTEGER));
 	}
 
 
+    public static int CreateDynamicPolygon(float[] points, float minz, float maxz, int maxpoints, int worldid, int interiorid, int playerid)
+    {
+        return (int)functions.get("CreateDynamicPolygon").call(points, minz, maxz, maxpoints, worldid, interiorid, playerid);
+    }
 
 	public static int Streamer_GetTickRate() {
 		return (int) functions.get("Streamer_GetTickRate").call();
