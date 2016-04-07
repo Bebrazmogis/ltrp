@@ -387,9 +387,9 @@ public class PlayerController {
     private void loadDataThreaded(LtrpPlayer player) {
         new Thread(() -> {
             playerDao.loadData(player);
-            Item[] items = LtrpGamemode.getDao().getItemDao().getItems(LtrpPlayer.class, player.getUserId());
+            Item[] items = LtrpGamemode.getDao().getItemDao().getItems(player);
             logger.info("PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUserId());
-            player.setInventory(new FixedSizeInventory(player.getName() + " kuprinės", player));
+            player.setInventory(new FixedSizeInventory(managerNode, player.getName() + " kuprinės", player));
             player.getInventory().add(items);
 
             player.setVehicleMetadata(playerDao.getVehiclePermissions(player));
