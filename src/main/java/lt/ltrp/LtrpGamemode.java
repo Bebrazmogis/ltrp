@@ -45,6 +45,7 @@ public class LtrpGamemode extends Gamemode {
     private VehicleManager vehicleManager;
     private PropertyManager propertyManager;
     private DmvManager dmvManager;
+    private ItemController itemController;
 
     public static final Location GYM_LOCATION = new Location(770.3773f, -70.6785f, 1000.7243f);
 
@@ -78,21 +79,21 @@ public class LtrpGamemode extends Gamemode {
             if (player != null && player.getAdminLevel() > 0) {
                 float z = MapAndreas.FindZ(e.getPosition().getX(), e.getPosition().getY());
                 System.out.println("Player location: " + e.getPlayer().getLocation() + " selected pos:" + e.getPosition() + " MapAndreas z:" + z);
-                player.setLocation(new Location(e.getPosition().getX(), e.getPosition().getY(), z));
+                player.setLocation(new Location(e.getPosition().getX(), e.getPosition().getY(), z+ 0.5f));
             }
         });
 
         schedulePaydayTimer();
         logger.debug("DATA DIR: " + Shoebill.get().getResourceManager().getGamemode().getDataDir().getAbsolutePath());
-        ItemController.getInstance();
         EventManager eventManager = getEventManager();
 
         BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
 
         try {
+            itemController = new ItemController(eventManager, dao.getItemDao());
             vehicleManager = new VehicleManager(eventManager, getDao().getVehicleDao());
             jobManager = new JobManager(eventManager, getDao().getJobDao(), vehicleManager);
-            propertyManager = new PropertyManager(eventManager, bankPlugin);
+            propertyManager = new PropertyManager(eventManager, dao.getHouseDao(), bankPlugin);
             dmvManager = new DmvManager(eventManager);
         } catch(Exception e) {
             e.printStackTrace();
