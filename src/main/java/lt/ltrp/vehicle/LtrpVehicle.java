@@ -1,10 +1,10 @@
 package lt.ltrp.vehicle;
 
 import lt.ltrp.InventoryEntity;
+import lt.ltrp.LtrpGamemode;
 import lt.ltrp.RadioStation;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.item.FixedSizeInventory;
-import lt.ltrp.item.Inventory;
 import lt.ltrp.job.Taxi;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.constant.VehicleModel;
@@ -117,7 +117,7 @@ public class LtrpVehicle extends InventoryEntity implements Vehicle {
         vehicles.add(this);
         setLocked(this.locked);
         this.radioVolume = 50;
-        setInventory(new FixedSizeInventory(VehicleModel.getName(vehicle.getModelId()) + " bagaþinës", this));
+        setInventory(new FixedSizeInventory(LtrpGamemode.get().getEventManager(), VehicleModel.getName(vehicle.getModelId()) + " bagaþinës", this));
     }
 
     protected LtrpVehicle(int id, int modelid, AngledLocation location, int color1, int color2, String license, float mileage) {

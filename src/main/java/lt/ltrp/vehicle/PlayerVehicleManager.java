@@ -96,7 +96,7 @@ public class PlayerVehicleManager {
             }
             player.getOffers().remove(offer);
             return true;
-        }, null, null, null);
+        }, null, null, null, null);
         commandManager.registerChildGroup(acceptGroup, "accept");
 
         eventManager.registerHandler(PlayerDataLoadEvent.class, e -> {
@@ -255,7 +255,7 @@ public class PlayerVehicleManager {
 
     public PlayerVehicle loadVehicle(int uid) {
         PlayerVehicle vehicle = vehicleDao.get(uid);
-        Item[] items = LtrpGamemode.getDao().getItemDao().getItems(vehicle.getClass(), vehicle.getUUID());
+        Item[] items = LtrpGamemode.getDao().getItemDao().getItems(vehicle);
         vehicle.getInventory().add(items);
         logger.info("PlayerVehicle " + uid + " loaded.");
         playerVehiclesList.add(vehicle);
