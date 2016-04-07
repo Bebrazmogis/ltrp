@@ -2,7 +2,6 @@ package lt.ltrp.vehicle;
 
 import lt.ltrp.InventoryEntity;
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.radio.RadioStation;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.job.Taxi;
