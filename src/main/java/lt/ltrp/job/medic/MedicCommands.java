@@ -2,11 +2,15 @@ package lt.ltrp.job.medic;
 
 import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
+import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.object.Player;
+
+import java.util.Random;
 
 /**
  * @author Bebras
@@ -65,8 +69,26 @@ public class MedicCommands extends Commands {
                 target.sendMessage("Daktaras " + player.getCharName() + " sëkmingai padëjo Jums iðgyti, bei pasveikti. Gydymo iðlaidos 50$.");
                 target.giveMoney(-50);
                 target.clearAnimations(1);
-                player.applyAnimation("MEDIC", "CPR", 4.1f, 0, 0, 0, 0, 0, 0);
+                player.applyAnimation("MEDIC", "CPR", 4.1f, false, false, false, false, 0, false);
             }
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Paskiria darbuotoja gaisrininku")
+    public boolean setFd(Player p, LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null) {
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        } else if(player.getDistanceToPlayer(target) > 5f) {
+            player.sendErrorMessage(target.getCharName() + " yra per toli");
+        } else if(player.getJob().equals(target.getJob())) {
+            player.sendErrorMessage(target.getCharName() + " jums nedirba!");
+        } else {
+            target.setSkin(277 + new Random().nextInt(3));
+            target.giveWeapon(new LtrpWeaponData(WeaponModel.CHAINSAW, 1, true));
+            target.giveWeapon(new LtrpWeaponData(WeaponModel.FIREEXTINGUISHER, 5000, true));
         }
         return true;
     }
