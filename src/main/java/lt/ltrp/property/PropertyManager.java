@@ -4,13 +4,14 @@ import lt.ltrp.BankPlugin;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.constant.Currency;
+import lt.ltrp.dao.HouseDao;
 import lt.ltrp.event.PaydayEvent;
-import lt.ltrp.event.property.*;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Inventory;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.SpawnData;
+import lt.ltrp.property.event.*;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.data.Color;
@@ -34,11 +35,11 @@ public class PropertyManager implements Destroyable {
     private final EventManagerNode eventManager;
     private boolean destroyed;
 
-    public PropertyManager(EventManager eventManager1, BankPlugin bankPlugin) {
+    public PropertyManager(EventManager eventManager1, HouseDao houseDao, BankPlugin bankPlugin) {
         eventManager = eventManager1.createChildNode();
 
         PlayerCommandManager commandManager = new PlayerCommandManager(HandlerPriority.NORMAL, eventManager);
-        commandManager.registerCommands(new HouseCommands());
+        commandManager.registerCommands(new HouseCommands(eventManager));
         commandManager.registerCommands(new BusinessCommands());
         commandManager.registerCommands(new GarageCommands());
         commandManager.registerCommands(new PropertyCommands());
@@ -57,6 +58,10 @@ public class PropertyManager implements Destroyable {
             LtrpPlayer p = e.getPlayer();
             Property property = e.getProperty();
             p.setProperty(null);
+        });
+
+        eventManager.registerHandler(PlayerPlantWeedEvent.class, e -> {
+             houseDao.insertWeed(e.getWeedSapling());
         });
 
         eventManager.registerHandler(WeedGrowEvent.class, e -> {
@@ -122,22 +127,20 @@ public class PropertyManager implements Destroyable {
             Inventory inventory = null;
             if(type.equalsIgnoreCase("House")) {
                 House house = House.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
-                inventory = new FixedSizeInventory("Namo " + house.getUid() + " daiktai", house);
-                inventory.add(LtrpGamemode.getDao().getItemDao().getItems(House.class, house.getUid()));
+                inventory = new FixedSizeInventory(eventManager, "Namo " + house.getUid() + " daiktai", house);
                 house.setWeedSaplings(LtrpGamemode.getDao().getHouseDao().getWeed(house));
 
                 property = house;
             } else if(type.equalsIgnoreCase("garagE")) {
                 property = Garage.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
-                inventory = new FixedSizeInventory("Garaþo " + property.getUid() + " daiktai", property);
-                inventory.add(LtrpGamemode.getDao().getItemDao().getItems(Garage.class, property.getUid()));
+                inventory = new FixedSizeInventory(eventManager, "Garaþo " + property.getUid() + " daiktai", property);
             } else if(type.equalsIgnoreCase("business")) {
                 property = Business.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
-                inventory = new FixedSizeInventory("Verslo " + property.getUid() + " daiktai", property);
-                inventory.add(LtrpGamemode.getDao().getItemDao().getItems(Business.class, property.getUid()));
+                inventory = new FixedSizeInventory(eventManager, "Verslo " + property.getUid() + " daiktai", property);
             } else {
                 return 0;
             }
+            inventory.add(LtrpGamemode.getDao().getItemDao().getItems(property));
             property.setInventory(inventory);
            return property.getUid();
         }, String.class, Integer.class, Float.class, Float.class, Float.class, Integer.class, Integer.class, Float.class, Float.class, Float.class, Integer.class, Integer.class);

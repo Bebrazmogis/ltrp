@@ -1,12 +1,11 @@
 package lt.ltrp.property;
 
-import lt.ltrp.event.property.WeedGrowEvent;
+import lt.ltrp.property.event.WeedGrowEvent;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
-import sun.security.krb5.internal.crypto.Des;
 
 import java.time.Instant;
 import java.util.Random;

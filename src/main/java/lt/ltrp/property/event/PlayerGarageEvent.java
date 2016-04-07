@@ -1,8 +1,7 @@
-package lt.ltrp.event.property;
+package lt.ltrp.property.event;
 
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.property.Garage;
-import lt.ltrp.property.Property;
 
 /**
  * @author Bebras

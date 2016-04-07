@@ -1,4 +1,4 @@
-package lt.ltrp.event.property;
+package lt.ltrp.property.event;
 
 import lt.ltrp.property.House;
 import net.gtaun.util.event.Event;

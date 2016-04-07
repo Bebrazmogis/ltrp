@@ -11,6 +11,7 @@ import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.object.Player;
+import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,12 @@ import java.util.List;
  *         2015.12.05.
  */
 public class HouseCommands {
+
+    private EventManager eventManager;
+
+    public HouseCommands(EventManager e) {
+        this.eventManager = e;
+    }
 
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
@@ -52,7 +59,7 @@ public class HouseCommands {
                     house.getWeedSaplings().removeAll(grownSaplings);
                     grownSaplings.forEach(sapling -> LtrpGamemode.getDao().getHouseDao().updateWeed(sapling));
 
-                    WeedItem weed = new WeedItem("Marichuana", 1);
+                    WeedItem weed = new WeedItem(eventManager, 1);
                     weed.setAmount(totalYield);
                     player.getInventory().add(weed);
                     player.sendMessage(Color.FORESTGREEN, "Sëkmingai nuëmëte derliø. Ið viso pavyko uþauginti " + totalYield + "gramus ið " + grownSaplings.size() + " augalø.");
