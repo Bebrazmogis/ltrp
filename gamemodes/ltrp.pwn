@@ -20290,7 +20290,7 @@ FUNKCIJA:DrugsEffect( i )
     }
     return 1;
 }
-
+/*
 FUNKCIJA:DrugsEffects( i )
 {
     KillTimer( DrugTimer[ i ] );
@@ -20309,7 +20309,7 @@ FUNKCIJA:DrugsEffects( i )
         DrugTimer[ i ] = SetTimerEx( "DrugsEffects", 12000, false, "i", i );
     }
     return 1;
-}
+}*/
 
 /*
 stock UpdatePlayerInfoText(playerid ,plstate = PLAYER_STATE_ONFOOT )
