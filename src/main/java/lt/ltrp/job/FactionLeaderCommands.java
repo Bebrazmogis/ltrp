@@ -16,6 +16,9 @@ import java.util.Optional;
 /**
  * @author Bebras
  *         2016.03.04.
+ *
+ *         This contains only the commands that are valid for ALL faction leaders
+ *         For specific job leader commands see the appropriate package file
  */
 public class FactionLeaderCommands extends Commands {
 
