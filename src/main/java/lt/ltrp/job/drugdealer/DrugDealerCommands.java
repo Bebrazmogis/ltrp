@@ -6,10 +6,12 @@ import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
 import lt.ltrp.item.Item;
 import lt.ltrp.item.WeedSeedItem;
+import lt.ltrp.item.event.ItemCreateEvent;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.util.event.EventManager;
 
 /**
  * @author Bebras
@@ -19,10 +21,12 @@ public class DrugDealerCommands extends Commands {
 
 
     private DrugDealerJob job;
+    private EventManager eventManager;
 
 
-    public DrugDealerCommands(DrugDealerJob job) {
+    public DrugDealerCommands(DrugDealerJob job, EventManager eventManager) {
         this.job = job;
+        this.eventManager = eventManager;
     }
 
 
@@ -49,10 +53,10 @@ public class DrugDealerCommands extends Commands {
         } else {
             int price = amount*job.getSeedPrice();
             player.giveMoney(-price);
-            WeedSeedItem item = new WeedSeedItem("Marihuanos sëklos");
+            WeedSeedItem item = new WeedSeedItem(eventManager);
             item.setAmount(amount);
             player.getInventory().add(item);
-            LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
+            eventManager.dispatchEvent(new ItemCreateEvent(item, player));
             player.sendMessage(Color.WHITE, "Nusipirkote " + amount + " sëklas uþ " + price + ". Gero derliaus!");
             return true;
         }

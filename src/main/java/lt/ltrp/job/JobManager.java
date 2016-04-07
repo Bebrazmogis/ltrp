@@ -7,7 +7,7 @@ import lt.ltrp.constant.WorldZone;
 import lt.ltrp.dao.JobDao;
 import lt.ltrp.data.Color;
 import lt.ltrp.item.ItemPhone;
-import lt.ltrp.item.event.PlayerCallNumberEvent;
+import lt.ltrp.item.phone.event.PlayerCallNumberEvent;
 import lt.ltrp.job.drugdealer.DrugDealerManager;
 import lt.ltrp.job.mechanic.MechanicManager;
 import lt.ltrp.job.medic.MedicManager;
@@ -138,7 +138,7 @@ public class JobManager implements Destroyable {
                 }
             }
             return true;
-        }, null, null, null);
+        }, null, null, null, null);
 
         playerCommandManager.registerCommand("jobtest", new Class[0], (p, params) -> {
             LtrpPlayer player = LtrpPlayer.get(p);
@@ -166,7 +166,7 @@ public class JobManager implements Destroyable {
                     player.sendMessage(Color.ROYALBLUE, String.format("Properties: %d. %s", propertyCount, propString));
             }
             return true;
-        }, null, null, null);
+        }, null, null, null, null);
 
 
 
@@ -193,7 +193,7 @@ public class JobManager implements Destroyable {
                 return true;
             }
             return false;
-        }, null, null, null);
+        }, null, null, null, null);
 
         playerCommandManager.registerCommand("givemerank", new Class[]{Integer.class}, (player, params) -> {
             LtrpPlayer p = LtrpPlayer.get(player);
@@ -213,7 +213,7 @@ public class JobManager implements Destroyable {
                 }
             }
             return false;
-        }, null, null, null);
+        }, null, null, null, null);
 
 
         eventManager.registerHandler(PlayerCallNumberEvent.class, e -> {

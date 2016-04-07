@@ -26,7 +26,7 @@ public class DrugDealerManager extends AbstractJobManager {
 
         this.playerCommandManager = new PlayerCommandManager(eventManagerNode);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
-        playerCommandManager.registerCommands(new DrugDealerCommands(job));
+        playerCommandManager.registerCommands(new DrugDealerCommands(job, eventManager));
     }
 
     @Override
