@@ -4,11 +4,16 @@ import lt.ltrp.data.Color;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * @author Bebras
  *         2015.12.14.
  */
 public class RadioItem extends BasicItem {
+
+    public static final Collection<Float> PRIVATE_FREQUENCIES = new ArrayList<>();
 
     private float frequency;
 

@@ -238,6 +238,8 @@ public class ItemCommands {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(!player.getInventory().containsType(ItemType.Radio)) {
             player.sendErrorMessage("Jûs neturite racijos!");
+        } else if(RadioItem.PRIVATE_FREQUENCIES.contains(frequency)) {
+            player.sendErrorMessage("Jûs negalite prisijungti á ði radijo kanalà.");
         } else {
             RadioItem item = (RadioItem)player.getInventory().getItem(ItemType.Radio);
             item.setFrequency(frequency);
@@ -246,6 +248,10 @@ public class ItemCommands {
             return true;
         }
         return false;
+    }
+    @Command
+    public boolean radio(Player p, @CommandParameter(name = "Tekstas")String msg) {
+        return r(p, msg);
     }
 
     @Command
