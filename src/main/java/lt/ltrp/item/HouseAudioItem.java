@@ -6,6 +6,7 @@ import lt.ltrp.property.House;
 import lt.ltrp.property.HouseUpgradeType;
 import lt.ltrp.property.Property;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
+import net.gtaun.util.event.EventManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,12 +19,12 @@ import java.sql.SQLException;
  */
 public class HouseAudioItem extends BasicItem {
 
-    public HouseAudioItem(String name) {
-        super(name, ItemType.HouseAudio, false);
+    public HouseAudioItem(int id, String name, EventManager eventManager) {
+        super(id, name, eventManager, ItemType.HouseAudio, false);
     }
 
-    public HouseAudioItem() {
-        this("Namø audio sistema");
+    public HouseAudioItem(EventManager eventManager) {
+        this(0, "Namø audio sistema", eventManager);
     }
 
 
@@ -33,11 +34,11 @@ public class HouseAudioItem extends BasicItem {
         if(property != null && property instanceof House) {
             House house = (House)property;
             if(!house.isUpgradeInstalled(HouseUpgradeType.Radio)) {
-                MsgboxDialog.create(player, ItemController.getEventManager())
+                MsgboxDialog.create(player, getEventManager())
                         .caption("Patvirtinimas")
                         .buttonOk("Taip")
                         .buttonCancel("Ne")
-                        .message("Ðio veiksmo atstatyti neámanoma."
+                        .message("Ðio veiksmo atstatyti neámanoma - atgauti audio sistemos nebegalësite."
                                 + "\nAr tikrai norite tæsti?"
                                 + (house.getOwnerUserId() != player.getUserId() ? "\n\n{FF0000}Pastaba. Ðis namas jums nepriklauso." : ""))
                         .onClickOk(dialog -> {
@@ -53,20 +54,4 @@ public class HouseAudioItem extends BasicItem {
         return false;
     }
 
-    protected static HouseAudioItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
-        String sql = "SELECT * FROM items_basic WHERE id = ?";
-        HouseAudioItem item = null;
-        try (
-                PreparedStatement stmt = connection.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, itemid);
-
-            ResultSet result = stmt.executeQuery();
-            if(result.next()) {
-                item = new HouseAudioItem(result.getString("name"));
-                item.setItemId(itemid);
-            }
-        }
-        return item;
-    }
 }

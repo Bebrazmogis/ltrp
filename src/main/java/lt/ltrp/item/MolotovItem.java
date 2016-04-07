@@ -6,12 +6,9 @@ import lt.ltrp.plugin.mapandreas.MapAndreas;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
-import net.gtaun.shoebill.object.Timer;
+import net.gtaun.util.event.EventManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -20,12 +17,12 @@ import java.util.Random;
  */
 public class MolotovItem extends BasicItem {
 
-    public MolotovItem(String name) {
-        super(name, ItemType.Molotov, false);
+    public MolotovItem(int id, String name, EventManager eventManager) {
+        super(id, name, eventManager, ItemType.Molotov, false);
     }
 
-    public MolotovItem() {
-        super("Degus skystis", ItemType.Molotov, false);
+    public MolotovItem(EventManager eventManager) {
+        this(0, "Degus skystis", eventManager);
     }
 
     @ItemUsageOption(name = "Mesti")
@@ -35,21 +32,12 @@ public class MolotovItem extends BasicItem {
             return false;
         }
 
-        LtrpPlayer[] closestPlayers = player.getClosestPlayers(5.0f);
         // Molotovs are only allowed to use when an administrator is near.
-        LtrpPlayer admin = null;
-        if(player.getAdminLevel() > 2)
-            admin = player;
-        else {
-            for(LtrpPlayer p : closestPlayers) {
-                if(p.getAdminLevel() > 2) {
-                    admin = p;
-                    break;
-                }
-            }
-        }
+        Optional<LtrpPlayer> optionalAdmin = LtrpPlayer.get().stream()
+                .filter(LtrpPlayer::isAdmin)
+                .findFirst();
 
-        if(admin != null) {
+        if(optionalAdmin.isPresent()) {
             Item item = inventory.getItem(ItemType.Lighter);
             if(item != null) {
                 player.applyAnimation("GRENADE", "WEAPON_throw", 4.1f, 0, 1, 1, 0, 2000, 1);
@@ -61,7 +49,10 @@ public class MolotovItem extends BasicItem {
 
                 explosionLoc.setX(playerLoc.getX() + (float)(distanceThrown * Math.sin(-Math.toRadians(playerLoc.getAngle()))));
                 explosionLoc.setY(playerLoc.getY() + (float) (distanceThrown * Math.cos(-Math.toRadians(playerLoc.getAngle()))));
+                LtrpPlayer.sendAdminMessage("Þaidëjas " + player.getName() + " meta molotov kokteilá, artimiausias administratorius " + optionalAdmin.get().getName());
                 // We play the animation until we find the Z coordination asynchronously
+                // Note2. Actually there's no need for this, MapAndreas is fast(at the time of code writing I thought it takes 2+ seconds)
+                // Just leaving this to see how it looks in-game
                 new Thread(() -> {
                     explosionLoc.setZ(MapAndreas.FindZ(explosionLoc.getX(), explosionLoc.getY()));
                     // Once we get the Z coordinate we run explosion creation on SAMP thread
@@ -80,22 +71,6 @@ public class MolotovItem extends BasicItem {
         return false;
     }
 
-    protected static MolotovItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
-        String sql = "SELECT * FROM items_basic WHERE id = ?";
-        MolotovItem item = null;
-        try (
-                PreparedStatement stmt = connection.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, itemid);
-
-            ResultSet result = stmt.executeQuery();
-            if(result.next()) {
-                item = new MolotovItem(result.getString("name"));
-                item.setItemId(itemid);
-            }
-        }
-        return item;
-    }
 
 }
 

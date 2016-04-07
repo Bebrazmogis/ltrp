@@ -1,7 +1,12 @@
 package lt.ltrp.item;
 
 import lt.ltrp.player.LtrpPlayer;
+import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.constant.SpecialAction;
+import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
+import net.gtaun.shoebill.object.Timer;
+import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.HandlerEntry;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,36 +21,58 @@ public class CigarettesItem extends DurableItem {
 
     private static final int MAX_CIGARETTES = 20;
 
-    public CigarettesItem(String name, int durabilityy) {
-        super(name, ItemType.Cigarettes, durabilityy, MAX_CIGARETTES, false);
+    private HandlerEntry keyStateEventEntry;
+    private Timer smokingTimer;
+    private Timer animDelayTimer;
+
+    public CigarettesItem(int id, String name, EventManager eventManager, int durabilityy) {
+        super(id, name, eventManager, ItemType.Cigarettes, durabilityy, MAX_CIGARETTES, false);
+
+        keyStateEventEntry = getEventManager().registerHandler(PlayerKeyStateChangeEvent.class, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            if(!player.isInAnyVehicle() && !e.getOldState().isKeyPressed(PlayerKey.FIRE) && player.getKeyState().isKeyPressed(PlayerKey.FIRE)) {
+                player.applyAnimation("SMOKING", "M_SMK_DRAG", 4.1f, false, true, true, false, 0, false);
+                animDelayTimer = Timer.create(2200, 1, i -> {
+                    player.applyAnimation("SMOKING", "M_SMK_TAP", 4.1f, false, true, true, false, 0, false);
+                });
+                animDelayTimer.start();
+            }
+        });
     }
 
+    public CigarettesItem(EventManager eventManager) {
+        this(0, "Cigaretës", eventManager, MAX_CIGARETTES);
+    }
 
     @ItemUsageOption(name = "Uþsirûkyti")
     public boolean use(LtrpPlayer player, Inventory inventory) {
         if(player.getInventory().containsType((ItemType.Lighter)) || inventory.containsType(ItemType.Lighter)) {
-            player.setSpecialAction(SpecialAction.SMOKE_CIGGY);
-            this.use();
-            player.sendActionMessage("iðástraukia cigaretæ, ja prisidega ir pradeda rûkyti");
+            if(player.getSpecialAction() != SpecialAction.SMOKE_CIGGY) {
+                player.setSpecialAction(SpecialAction.SMOKE_CIGGY);
+                super.use();
+                player.sendActionMessage("iðástraukia cigaretæ, ja prisidega ir pradeda rûkyti");
+                player.applyAnimation("SMOKING", "M_smk_in", 4.1f, false, false, false, false, 0, false);
+                smokingTimer = Timer.create(60000, 1, i -> {
+                    player.sendActionMessage("numeta nuorukà ant þemës ir uþtrypia jà koja");
+                    keyStateEventEntry.cancel();
+                    keyStateEventEntry = null;
+                    animDelayTimer = null;
+                });
+                smokingTimer.start();
+            }
         }
         return false;
     }
 
 
-    protected static CigarettesItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
-        CigarettesItem item = null;
-        String sql = "SELECT * FROM items_durable WHERE id = ?";
-        try (
-                PreparedStatement stmt = connection.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, itemid);
-            ResultSet result = stmt.executeQuery();
-            if(result.next()) {
-                item = new CigarettesItem(result.getString("name"), result.getInt("durability"));
-                item.setItemId(itemid);
-            }
-        }
-        return item;
+    @Override
+    public void destroy() {
+        if(keyStateEventEntry != null)
+            keyStateEventEntry.cancel();
+        if(smokingTimer != null)
+            smokingTimer.destroy();
+        if(animDelayTimer != null)
+            animDelayTimer.destroy();
+        super.destroy();
     }
-
 }

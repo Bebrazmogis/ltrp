@@ -3,16 +3,13 @@ package lt.ltrp.item;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PhoneBook;
-import lt.ltrp.data.PhoneCall;
-import lt.ltrp.data.PhoneSms;
-import lt.ltrp.item.event.PlayerCallNumberEvent;
-import lt.ltrp.item.event.PlayerSendSmsEvent;
-import lt.ltrp.item.phone.PhoneController;
+import lt.ltrp.item.phone.PhoneBook;
+import lt.ltrp.item.phone.PhoneCall;
+import lt.ltrp.item.phone.PhoneSms;
+import lt.ltrp.item.phone.event.PlayerCallNumberEvent;
+import lt.ltrp.item.phone.event.PlayerSendSmsEvent;
 import lt.ltrp.item.phone.dialog.PhonebookListDialog;
 import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.property.Property;
-import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
@@ -30,8 +27,8 @@ import java.util.List;
  */
 public class ItemPhone extends BasicItem {
 
-    private static final int NUMBER_MIN = 86000000;
-    private static final int NUMBER_MAX = 87000000;
+    public static final int NUMBER_MIN = 86000000;
+    public static final int NUMBER_MAX = 87000000;
 
     private static List<WeakReference<ItemPhone>> phones = new ArrayList<>();
 
@@ -73,6 +70,10 @@ public class ItemPhone extends BasicItem {
         } else {
             this.phonebook = phonebook;
         }
+    }
+
+    public ItemPhone(EventManager eventManager, int phonenumber) {
+        this(0, Integer.toString(phonenumber), eventManager, phonenumber, null);
     }
 
 
@@ -158,8 +159,6 @@ public class ItemPhone extends BasicItem {
     }
 
     public void sendSms(LtrpPlayer player, Inventory inventory, int phonenumber, String messagetext) {
-        //TODO log that message
-
         // Kol kas leidþiam raðyti tik ið jo paties inventoriaus.
         if(player.getInventory() != inventory) {
             return;
@@ -171,7 +170,7 @@ public class ItemPhone extends BasicItem {
 
     private void showSmsManagement(LtrpPlayer player, PhoneSms[] messages, Inventory inventory) {
         if(messages.length == 0) {
-            MsgboxDialog.create(player, ItemController.getInstance().getEventManager())
+            MsgboxDialog.create(player, getEventManager())
                     .caption("Klaida.")
                     .message("SMS nëra!")
                     .buttonOk("Gerai")
@@ -181,7 +180,7 @@ public class ItemPhone extends BasicItem {
                     .show();
         }
         else {
-            PageListDialog dialog = PageListDialog.create(player, ItemController.getInstance().getEventManager()).build();
+            PageListDialog dialog = PageListDialog.create(player, getEventManager()).build();
             for(PhoneSms msg : messages) {
                 ListDialogItem dialogItem = new ListDialogItem();
                 dialogItem.setData(msg);
@@ -200,7 +199,7 @@ public class ItemPhone extends BasicItem {
             dialog.setPrevPageItemText("Praeitas puslapis");
             dialog.setClickOkHandler((smsDialog, selectedItem) -> {
                 PhoneSms msg = (PhoneSms)selectedItem.getData();
-                MsgboxDialog.create(player, ItemController.getInstance().getEventManager())
+                MsgboxDialog.create(player, getEventManager())
                         .caption("Þinutë")
                         .message("Data:" + msg.getDate().toString()
                                 + "\n" + (this.phonenumber == messages[0].getSenderNumber() ?

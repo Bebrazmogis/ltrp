@@ -1,4 +1,4 @@
-package lt.ltrp.data;
+package lt.ltrp.item.phone;
 
 import java.sql.Timestamp;
 import java.util.Date;

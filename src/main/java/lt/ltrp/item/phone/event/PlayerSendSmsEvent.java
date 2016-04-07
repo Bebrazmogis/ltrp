@@ -1,4 +1,4 @@
-package lt.ltrp.item.event;
+package lt.ltrp.item.phone.event;
 
 import lt.ltrp.item.ItemPhone;
 import lt.ltrp.player.LtrpPlayer;

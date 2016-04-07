@@ -6,12 +6,15 @@ import lt.ltrp.item.event.PlayerDropItemEvent;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
-import java.sql.*;
+import net.gtaun.util.event.EventManager;
+
 import java.util.function.Supplier;
 
 /**
  * @author Bebras
  *         2015.11.14.
+ *
+ *         The mother of all items
  */
 
 public class BasicItem extends AbstractItem {
@@ -21,8 +24,8 @@ public class BasicItem extends AbstractItem {
     private static final String OPTION_PLACE = "Padëti";
     private static final String OPTION_GIVE_TO_PLAYER = "Perduoti kitam þaidëjui";
 
-    public BasicItem(String name, ItemType type, boolean stackable) {
-        super(name, type, stackable);
+    public BasicItem(int id, String name, EventManager eventManager, ItemType type, boolean stackable) {
+        super(id, name, eventManager, type, stackable);
     }
 
     @ItemUsageOption(name = OPTION_DROP, order = 20)
@@ -30,7 +33,7 @@ public class BasicItem extends AbstractItem {
         if(player.getInventory().equals(inventory)) {
             player.getInventory().remove(this);
             player.sendActionMessage("iðmeta daiktà kuris atrodo kaip " + getName());
-            ItemController.getInstance().getEventManager().dispatchEvent(new PlayerDropItemEvent(player, this));
+            getEventManager().dispatchEvent(new PlayerDropItemEvent(player, this));
             return true;
         } else {
             return false;
@@ -48,7 +51,7 @@ public class BasicItem extends AbstractItem {
             player.getInventory().add(this);
             inventory.remove(this);
             player.sendActionMessage("paëme " + getName() + " ið " + inventory.getName());
-            ItemController.getInstance().getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, inventory, player.getInventory(), player));
+            getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, inventory, player.getInventory(), player));
         }
         return true;
     }
@@ -74,7 +77,7 @@ public class BasicItem extends AbstractItem {
                     inventory.add(this);
                     player.getInventory().remove(this);
                     player.sendActionMessage("padeda daiktà kuris atrodo kaip " +  getName());
-                    ItemController.getInstance().getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, player.getInventory(), inventory, player));
+                    getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, player.getInventory(), inventory, player));
                 } else
                     player.sendErrorMessage(inventory.getName() + " nebegali turëti daugiau daiktø.");
             }
@@ -99,7 +102,7 @@ public class BasicItem extends AbstractItem {
             target.getInventory().add(this);
             player.getInventory().remove(this);
             player.applyAnimation("DEALER", "shop_pay", 4.0f, 0, 1, 1, 1, 0, 0);
-            ItemController.getInstance().getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, player.getInventory(), target.getInventory(), player));
+            getEventManager().dispatchEvent(new ItemLocationChangeEvent(this, player.getInventory(), target.getInventory(), player));
             return true;
         }
         return false;
@@ -130,7 +133,7 @@ public class BasicItem extends AbstractItem {
         }
         return null;
     }
-
+/*
     @Override
     protected PreparedStatement getUpdateStatement(Connection connection) throws SQLException {
         String sql = "UPDATE items_basic SET `name` = ?, stackable = ? WHERE id = ?";
@@ -174,5 +177,6 @@ public class BasicItem extends AbstractItem {
         }
         return item;
     }
+    */
 
 }

@@ -1,9 +1,9 @@
 package lt.ltrp.item;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.dao.ItemDao;
 import lt.ltrp.data.*;
-import lt.ltrp.item.event.PlayerAnswerPhoneEvent;
-import lt.ltrp.item.event.PlayerEndCallEvent;
+import lt.ltrp.item.phone.event.PlayerAnswerPhoneEvent;
+import lt.ltrp.item.phone.event.PlayerEndCallEvent;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.player.PlayerCountdown;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -14,7 +14,6 @@ import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 
 import java.util.Optional;
@@ -32,8 +31,11 @@ public class ItemCommands {
     }
 
     private EventManager eventManager;
-    public ItemCommands(EventManager eventManager) {
+    private ItemDao itemDao;
+
+    public ItemCommands(EventManager eventManager, ItemDao itemDao) {
         this.eventManager = eventManager;
+        this.itemDao = itemDao;
     }
 
 
@@ -64,8 +66,8 @@ public class ItemCommands {
                                 fueltank.setItemCount(fueltank.getItemCount()-1);
                                 player.getInventory().remove(newspaper);
 
-                                MolotovItem item = new MolotovItem();
-                                LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
+                                MolotovItem item = new MolotovItem(eventManager);
+                                itemDao.insert(item, player);
                                 player.getInventory().add(item);
                             }
                             player.clearAnimations(1);
@@ -116,7 +118,7 @@ public class ItemCommands {
             }
             answerPhone(player, phone);
         } else {
-            ListDialog dialog = ListDialog.create(player, ItemController.getInstance().getEventManager()).build();
+            ListDialog dialog = ListDialog.create(player, eventManager).build();
             dialog.setCaption("Skambuèiai");
             for(ItemPhone phone : phones) {
                 if(phone.getPhonecall() == null) {
@@ -176,9 +178,9 @@ public class ItemCommands {
         } else {
             player.sendMessage(Color.NEWS, "Ginklas sëkmingai ádëtas á inventoriø.");
             player.playSound(1057);
-            WeaponItem item = new WeaponItem(player.getArmedWeaponData());
+            WeaponItem item = new WeaponItem(eventManager, player.getArmedWeaponData());
             player.getInventory().add(item);
-            LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
+            itemDao.insert(item, player);
             player.removeWeapon(player.getArmedWeaponData());
             return true;
         }
@@ -218,8 +220,8 @@ public class ItemCommands {
             if(player.getInventory().isFull()) {
                 player.sendErrorMessage("Jûsø inventorius pilnas.");
             } else {
-                WeaponItem item = new WeaponItem(weaponData);
-                LtrpGamemode.getDao().getItemDao().insert(item, LtrpPlayer.class, player.getUserId());
+                WeaponItem item = new WeaponItem(eventManager, weaponData);
+                itemDao.insert(item, player);
                 player.getInventory().add(item);
                 weaponData.destroy();
                 player.sendMessage(Color.WHITE, " Ginklas sëkmingai ádëtas á inventoriø. ");

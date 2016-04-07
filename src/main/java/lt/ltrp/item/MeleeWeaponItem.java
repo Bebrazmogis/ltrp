@@ -6,6 +6,8 @@ import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.event.player.PlayerGiveDamageEvent;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
+import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerEntry;
 import net.gtaun.util.event.HandlerPriority;
 
@@ -17,21 +19,42 @@ import java.sql.*;
  */
 public class MeleeWeaponItem extends ClothingItem {
 
-    private static final Animation DEFAULT_ANIM = new Animation("BSKTBALL", "BBALL_def_jump_shot", false, 1000);
-
+    private static final Animation DEFAULT_ANIM = new Animation("BASEBALL", "BAT_1", 4.1f, false, true, true, false, false, 0);
+    /*
+    18644 - screwdriver
+    18633 - wrench
+    18634 - crowbar
+    18890 - rake
+    19590 - woozie sword
+    19631 - sledge hammer
+     */
     private Animation animation;
     private HandlerEntry keyStateEntry;
-    private HandlerEntry giveDamageEntry;
-    private float damageIncrease;
 
-    public MeleeWeaponItem(String name, ItemType type, int modelid, PlayerAttachBone bone, Animation animation, float extradmgproc) {
-        super(name, type, modelid, bone);
-        this.animation = animation;
-        this.damageIncrease = extradmgproc;
+    public MeleeWeaponItem(int id, String name, EventManager eventManager, int modelId) {
+        super(id, name, eventManager, ItemType.MeleeWeapon, modelId, PlayerAttachBone.HAND_RIGHT);
+        switch(modelId) {
+            case 18644:
+                this.animation = new Animation("KNIFE", "KNIFE_3", 4.1f, false, true, true, false, false, 0);
+                break;
+            case 18633:
+            case 18634:
+                this.animation = new Animation("BASEBALL", "BAT_1", 4.1f, false, true, true, false, false, 0);
+                break;
+            case 18890:
+            case 19590:
+            case 19631:
+                this.animation = new Animation("BASEBALL", "BAT_4", 4.1f, false, true, true, false, false, 0);
+                break;
+            default:
+                this.animation = DEFAULT_ANIM;
+                break;
+        }
     }
 
-    public MeleeWeaponItem(String name, ItemType type, int modelid, PlayerAttachBone bone, float extradmproc) {
-        this(name, type, modelid, bone, DEFAULT_ANIM, extradmproc);
+    public MeleeWeaponItem(String name, EventManager eventManager, int modelId, Animation animation) {
+        this(0, name, eventManager, modelId);
+        this.animation = animation;
     }
 
     public Animation getAnimation() {
@@ -42,32 +65,21 @@ public class MeleeWeaponItem extends ClothingItem {
         this.animation = animation;
     }
 
-    public float getDamageIncrease() {
-        return damageIncrease;
-    }
-
-    public void setDamageIncrease(float damageIncrease) {
-        this.damageIncrease = damageIncrease;
-    }
-
     @Override
     public boolean equip(LtrpPlayer player, Inventory inventory) {
-        if(super.equip(player, inventory)) {
-            keyStateEntry = ItemController.getEventManager().registerHandler(PlayerKeyStateChangeEvent.class, e-> {
-                if(e.getOldState().isKeyPressed(PlayerKey.FIRE)) {
-                    player.applyAnimation(animation);
-                }
-            });
-
-            giveDamageEntry = ItemController.getEventManager().registerHandler(PlayerGiveDamageEvent.class, HandlerPriority.LOW, e -> {
-                if(e.getVictim() != null) {
-                    e.getVictim().setHealth(e.getVictim().getHealth() - e.getAmount() * damageIncrease);
-                }
-            });
-            return true;
+        if(player.isInAnyVehicle()) {
+            player.sendErrorMessage("Negalite iðsitraukti ðio ginklo bûdamas transporto priemonëje!");
         } else {
-            return false;
+            if(super.equip(player, inventory)) {
+                keyStateEntry = getEventManager().registerHandler(PlayerKeyStateChangeEvent.class, e-> {
+                    if(!e.getOldState().isKeyPressed(PlayerKey.FIRE) && player.getKeyState().isKeyPressed(PlayerKey.FIRE)) {
+                        player.applyAnimation(animation);
+                    }
+                });
+                return true;
+            }
         }
+        return false;
     }
 
     @Override
@@ -75,9 +87,6 @@ public class MeleeWeaponItem extends ClothingItem {
         if(super.unequip(player, inventory)) {
             if(keyStateEntry != null) {
                 keyStateEntry.cancel();
-            }
-            if(giveDamageEntry != null) {
-                giveDamageEntry.cancel();
             }
             return true;
         } else {
@@ -90,68 +99,7 @@ public class MeleeWeaponItem extends ClothingItem {
         if(keyStateEntry != null) {
             keyStateEntry.cancel();
         }
-        if(giveDamageEntry != null) {
-            giveDamageEntry.cancel();
-        }
         super.destroy();
     }
-
-
-    @Override
-    protected PreparedStatement getUpdateStatement(Connection connection) throws SQLException {
-        String sql = "UPDATE items_melee_weapon SET `name` = ?, stackable = ?, model = ?, bone = ?, worn = ?, anim_lib = ?, anim_name = ?, dmg_increase = ? WHERE id = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setString(1, getName());
-        stmt.setBoolean(2, isStackable());
-        stmt.setInt(3, getModelid());
-        stmt.setInt(4, getBone().getValue());
-        stmt.setBoolean(5, isWorn());
-        stmt.setString(6, getAnimation().getAnimLib());
-        stmt.setString(7, getAnimation().getAnimName());
-        stmt.setFloat(8, getDamageIncrease());
-        stmt.setInt(9, getItemId());
-        return stmt;
-    }
-
-    @Override
-    protected PreparedStatement getInsertStatement(Connection connection) throws SQLException {
-        String sql = "INSERT INTO items_melee_weapon (`name`, stackable, model, bone, worn, anim_lib, anim_name, dmg_increase) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        stmt.setString(1, getName());
-        stmt.setBoolean(2, isStackable());
-        stmt.setInt(3, getModelid());
-        stmt.setInt(4, getBone().getValue());
-        stmt.setString(5, getAnimation().getAnimLib());
-        stmt.setString(6, getAnimation().getAnimName());
-        stmt.setFloat(7, getDamageIncrease());
-        stmt.setBoolean(8, isWorn());
-        return stmt;
-    }
-
-    @Override
-    protected PreparedStatement getDeleteStatement(Connection connection) throws SQLException {
-        String sql = "DELETE FROM items_melee_weapon WHERE id = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, getItemId());
-        return stmt;
-    }
-
-    protected static MeleeWeaponItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
-        String sql = "SELECT * FROM items_clothing WHERE id = ?";
-        MeleeWeaponItem item = null;
-        try (
-                PreparedStatement stmt = connection.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, itemid);
-
-            ResultSet result = stmt.executeQuery();
-            if(result.next()) {
-                item = new MeleeWeaponItem(result.getString("name"), type, result.getInt("model"), PlayerAttachBone.get(result.getInt("bone")), new Animation(result.getString("anim_lib"), result.getString("anim_name"), false, 1000), result.getFloat("dmg_increase"));
-                item.setItemId(itemid);
-            }
-        }
-        return item;
-    }
-
 
 }

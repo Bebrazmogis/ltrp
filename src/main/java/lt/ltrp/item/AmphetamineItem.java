@@ -1,14 +1,12 @@
 package lt.ltrp.item;
 
-import lt.ltrp.Util.PawnFunc;
+import lt.ltrp.item.drug.DrugItem;
 import lt.ltrp.player.LtrpPlayer;
-import net.gtaun.shoebill.amx.AmxCallable;
+import lt.maze.ysf.YSFPlugin;
+import lt.maze.ysf.object.YSFPlayer;
 import net.gtaun.shoebill.object.Timer;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import net.gtaun.shoebill.object.World;
+import net.gtaun.util.event.EventManager;
 
 /**
  * @author Bebras
@@ -16,48 +14,52 @@ import java.sql.SQLException;
  */
 public class AmphetamineItem extends DrugItem {
 
-    public AmphetamineItem(String name, int dosesLeft) {
-        super(name, ItemType.Amphetamine, dosesLeft);
+    private Timer drugTimer;
+
+    public AmphetamineItem(int id, String name, EventManager eventManager, int dosesLeft) {
+        super(id, name, eventManager, ItemType.Amphetamine, dosesLeft);
+    }
+
+    public AmphetamineItem(EventManager eventManager, int doses) {
+        this(0, "Amfetaminas", eventManager, doses);
     }
 
     @Override
     public boolean use(LtrpPlayer player, Inventory inventory) {
+        if(player.getDrugs().isOn(getClass()))
+            return false;
+
         player.sendActionMessage("staigiai átraukia amfetamino dozæ per nosá.");
-        player.setWeather(-68);
-        Timer.create(1300, 1, new Timer.TimerCallback() {
-            @Override
-            public void onTick(int i) {
-
+        drugTimer = Timer.create(2000, 1, i -> {
+            player.setWeather(-68);
+            YSFPlayer ysfP = YSFPlugin.get(player);
+            if(ysfP != null) {
+                ysfP.setGravity(World.get().getGravity() - 0.002f);
             }
-
-            @Override
-            public void onStop() {
-                player.setVarInt("DrugHP", 10);
-                player.setVarInt("DrugHPLimit", 50);
-
-                AmxCallable func = PawnFunc.getPublicMethod("DrugEffects");
-                if (func != null) {
-                    func.call(player.getId());
-                }
-            }
+            player.setHealth(player.getHealth() + 10f);
         });
+        drugTimer.start();
+        super.use(player, inventory);
+        super.setDrugEffectDuration(player, 4 * 60);
         return true;
     }
 
-    protected static AmphetamineItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
-        String sql = "SELECT * FROM items_consumable WHERE id = ?";
-        AmphetamineItem item = null;
-        try (
-                PreparedStatement stmt = connection.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, itemid);
-
-            ResultSet result = stmt.executeQuery();
-            if(result.next()) {
-                item = new AmphetamineItem(result.getString("name"), result.getInt("doses"));
-                item.setItemId(itemid);
-            }
+    @Override
+    protected void onDrugEffectEnd(LtrpPlayer p) {
+        YSFPlayer ysfP = YSFPlugin.get(p);
+        if(ysfP != null) {
+            ysfP.setGravity(World.get().getGravity());
         }
-        return item;
+        p.setWeather(World.get().getWeather());
+        if(p.getHealth() > 90f) {
+            p.setHealth(90f);
+        }
+        p.setDrunkLevel(p.getDrunkLevel() + 5000);
+    }
+
+    @Override
+    public void destroy() {
+        drugTimer.destroy();
+        super.destroy();
     }
 }

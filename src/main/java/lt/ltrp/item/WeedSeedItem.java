@@ -1,19 +1,13 @@
 package lt.ltrp.item;
 
-import lt.ltrp.LtrpGamemode;
-import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.property.House;
 import lt.ltrp.property.HouseWeedSapling;
 import lt.ltrp.property.Property;
-import net.gtaun.shoebill.amx.AmxCallable;
+import lt.ltrp.property.event.PlayerPlantWeedEvent;
 import net.gtaun.shoebill.data.Location;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import net.gtaun.util.event.EventManager;
 
 /**
  * @author Bebras
@@ -23,8 +17,12 @@ public class WeedSeedItem extends BasicItem {
 
 
 
-    public WeedSeedItem(String name) {
-        super(name, ItemType.WeedSeed, true);
+    public WeedSeedItem(EventManager eventManager) {
+        this(0, "Þolës sëklos", eventManager);
+    }
+
+    public WeedSeedItem(int id, String name, EventManager eventManager) {
+        super(id, name, eventManager, ItemType.WeedSeed, true);
     }
 
 
@@ -37,10 +35,10 @@ public class WeedSeedItem extends BasicItem {
             if(house.getOwnerUserId() == player.getUserId()) {
                 Location location = player.getLocation();
                 location.setZ(location.getZ()-1.1f);
-                HouseWeedSapling sapling = new HouseWeedSapling(location, house, player.getUserId());
+                HouseWeedSapling sapling = new HouseWeedSapling(location, house, player.getUserId(), getEventManager());
                 sapling.startGrowth();
                 house.getWeedSaplings().add(sapling);
-                LtrpGamemode.getDao().getHouseDao().insertWeed(sapling);
+                getEventManager().dispatchEvent(new PlayerPlantWeedEvent(player, house, sapling));
                 player.sendMessage(Color.NEWS, "Jums sëkmingai pavyko pasëti þolës sëklas, dabar beliekà laukti kol augalas pilnai uþaugs.");
             } else {
                 player.sendErrorMessage("Tai ne jûsø namas!");
@@ -49,22 +47,5 @@ public class WeedSeedItem extends BasicItem {
             player.sendErrorMessage("Jûs neesate namuose.");
         }
         return false;
-    }
-
-    protected static WeedSeedItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
-        String sql = "SELECT * FROM items_basic WHERE id = ?";
-        WeedSeedItem item = null;
-        try (
-                PreparedStatement stmt = connection.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, itemid);
-
-            ResultSet result = stmt.executeQuery();
-            if(result.next()) {
-                item = new WeedSeedItem(result.getString("name"));
-                item.setItemId(itemid);
-            }
-        }
-        return item;
     }
 }

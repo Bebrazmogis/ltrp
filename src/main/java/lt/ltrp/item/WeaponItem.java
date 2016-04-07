@@ -3,11 +3,9 @@ package lt.ltrp.item;
 import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.item.event.PlayerDrawWeaponItemEvent;
 import lt.ltrp.player.LtrpPlayer;
-import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.object.Timer;
-
-import java.sql.*;
+import net.gtaun.util.event.EventManager;
 
 /**
  * @author Bebras
@@ -19,13 +17,13 @@ public class WeaponItem extends BasicItem {
     private boolean beingDrawn = false;
     private Timer drawTimer;
 
-    public WeaponItem(String name, LtrpWeaponData weaponData) {
-        super(name, ItemType.Weapon, false);
+    public WeaponItem(int id, String name, EventManager eventManager, LtrpWeaponData weaponData) {
+        super(id, name, eventManager, ItemType.Weapon, false);
         this.weaponData = weaponData;
-    }
+}
 
-    public WeaponItem(LtrpWeaponData weaponData) {
-        this(weaponData.getModel().getName(), weaponData);
+    public WeaponItem(EventManager eventManager, LtrpWeaponData weaponData) {
+        this(0, weaponData.getModel().getName(), eventManager, weaponData);
     }
 
     public LtrpWeaponData getWeaponData() {
@@ -56,7 +54,7 @@ public class WeaponItem extends BasicItem {
         if(beingDrawn) {
             return false;
         }
-        if(player.getInventory() == inventory) {
+        if(player.getInventory().equals(inventory)) {
             player.sendActionMessage("bando kaþkà iðsitraukti");
             beingDrawn = true;
             drawTimer = Timer.create(1500 + player.getDrunkLevel()/2, 1, e -> {
@@ -82,56 +80,15 @@ public class WeaponItem extends BasicItem {
         }
         beingDrawn = false;
         location.remove(this);
-        ItemController.getInstance().getEventManager().dispatchEvent(new PlayerDrawWeaponItemEvent(player, location, this));
-    }
-
-
-
-    @Override
-    protected PreparedStatement getUpdateStatement(Connection connection) throws SQLException {
-        String sql = "UPDATE items_weapon SET `name` = ?, stackable = ?, weapon_id = ?, ammo = ? WHERE id = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setString(1, getName());
-        stmt.setBoolean(2, isStackable());
-        stmt.setInt(3, getWeaponData().getModel().getId());
-        stmt.setInt(4, getWeaponData().getAmmo());
-        stmt.setInt(5, getItemId());
-        return stmt;
+        getEventManager().dispatchEvent(new PlayerDrawWeaponItemEvent(player, location, this));
     }
 
     @Override
-    protected PreparedStatement getInsertStatement(Connection connection) throws SQLException {
-        String sql = "INSERT INTO items_weapon (`name`, stackable, weapon_id, ammo) VALUES (?, ?, ?, ?)";
-        PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        stmt.setString(1, getName());
-        stmt.setBoolean(2, isStackable());
-        stmt.setInt(3, getWeaponData().getModel().getId());
-        stmt.setInt(4, getWeaponData().getAmmo());
-        return stmt;
+    public void destroy() {
+        if(drawTimer != null)
+            drawTimer.destroy();
+        super.destroy();
     }
 
-    @Override
-    protected PreparedStatement getDeleteStatement(Connection connection) throws SQLException {
-        String sql = "DELETE FROM items_weapon WHERE id = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, getItemId());
-        return stmt;
-    }
 
-    protected static WeaponItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
-        String sql = "SELECT * FROM items_weapon WHERE id = ?";
-        WeaponItem item = null;
-        try (
-                PreparedStatement stmt = connection.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, itemid);
-
-            ResultSet result = stmt.executeQuery();
-            if(result.next()) {
-                item = new WeaponItem(result.getString("name"), new LtrpWeaponData(WeaponModel.get(result.getInt("weapon_id")), result.getInt("ammo"), false));
-                item.setItemId(itemid);
-            }
-        }
-        return item;
-    }
 }

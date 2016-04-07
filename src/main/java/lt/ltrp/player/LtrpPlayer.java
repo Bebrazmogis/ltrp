@@ -26,6 +26,7 @@ import net.gtaun.shoebill.exception.IllegalLengthException;
 import net.gtaun.shoebill.object.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
@@ -184,6 +185,8 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     private Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> vehicleMetadata;
     private Collection<PlayerOffer> offers;
 
+    private PlayerDrugs drugs;
+
     private boolean isInComa;
     private boolean loggedIn, dataLoaded, isFactionManager;
 
@@ -200,6 +203,17 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     public int getUserId() {
         return super.getUUID();
+    }
+
+    public PlayerDrugs getDrugs() {
+        if(drugs == null) {
+            drugs = new PlayerDrugs(this);
+        }
+        return drugs;
+    }
+
+    public void setDrugs(PlayerDrugs drugs) {
+        this.drugs = drugs;
     }
 
     public Collection<PlayerOffer> getOffers() {
@@ -1178,8 +1192,17 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     }
 
     @Override
+    @Deprecated
     public void applyAnimation(String s, String s1, float v, int i, int i1, int i2, int i3, int i4, int i5) {
-        player.applyAnimation(s, s1, v, i, i1, i2, i3, i4, i5);
+            throw new NotImplementedException();
+    }
+
+    public void applyAnimation(String animlib, String anim, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, int time, boolean forsesync) {
+        player.applyAnimation(animlib, anim, speed, loop ? 1 : 0, lockX ? 1 : 0, lockY ? 1 : 0, freeze ? 1 : 0, time, forsesync ? 1 : 0);
+    }
+
+    public void applyAnimation(String animLib, String animname, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze) {
+        this.applyAnimation(animLib, animname, speed, loop, lockX, lockY, freeze, 0, false);
     }
 
     public void clearAnimations() {

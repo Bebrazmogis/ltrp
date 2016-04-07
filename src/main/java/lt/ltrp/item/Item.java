@@ -1,5 +1,6 @@
 package lt.ltrp.item;
 
+import lt.ltrp.NamedEntity;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.object.Destroyable;
@@ -13,13 +14,8 @@ import java.sql.Connection;
  * @author Bebras
  *         2015.11.14.
  */
-public interface Item extends Destroyable {
+public interface Item extends NamedEntity, Destroyable {
 
-    // Getter, setters and such
-    int getGlobalId();
-    int getItemId();
-    public String getName();
-    public void setName(String name);
     public ItemType getType();
     public boolean isStackable();
     public int getAmount();

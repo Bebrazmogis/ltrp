@@ -1,4 +1,4 @@
-package lt.ltrp.data;
+package lt.ltrp.item.phone;
 
 import java.util.Date;
 
@@ -21,6 +21,13 @@ public class PhoneSms {
         this.date = date;
         this.text = text;
         this.read = read;
+    }
+
+    public PhoneSms(int senderNumber, int recipientNumber, Date date, String text) {
+        this.senderNumber = senderNumber;
+        this.recipientNumber = recipientNumber;
+        this.date = date;
+        this.text = text;
     }
 
     public int getSenderNumber() {

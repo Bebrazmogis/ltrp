@@ -6,6 +6,7 @@ import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.constant.WeaponModel;
+import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -26,8 +27,10 @@ public class FixedSizeInventory implements Inventory {
     private Item[] items;
     private int itemCount;
     private InventoryEntity entity;
+    private EventManager eventManager;
 
-    public FixedSizeInventory(String name, Item[] items, int size, InventoryEntity entity) {
+    public FixedSizeInventory(EventManager eventManager, String name, Item[] items, int size, InventoryEntity entity) {
+        this.eventManager = eventManager;
         this.size = size;
         this.name = name;
         this.items = items;
@@ -35,7 +38,8 @@ public class FixedSizeInventory implements Inventory {
         this.entity = entity;
     }
 
-    public FixedSizeInventory(String name, InventoryEntity entity) {
+    public FixedSizeInventory(EventManager eventManager, String name, InventoryEntity entity) {
+        this.eventManager = eventManager;
         this.name = name;
         if(this.name == null || this.name.equals("")) {
             this.name = " ";
@@ -199,7 +203,7 @@ public class FixedSizeInventory implements Inventory {
         logger.debug("showing for " + player.getUserId() + " item count:" + itemCount);
         List<ListDialogItem> dialogItems = new ArrayList<>();
         if(itemCount == 0) {
-            ListDialog dialog = ListDialog.create(player, ItemController.getInstance().getEventManager())
+            ListDialog dialog = ListDialog.create(player, eventManager)
                     .caption(getName())
                     .item("{FF0000}Daiktø nëra")
                     .buttonOk("Gerai")
@@ -220,7 +224,7 @@ public class FixedSizeInventory implements Inventory {
                 dialogItems.add(item);
             }
 
-            ListDialog.create(player, ItemController.getInstance().getEventManager())
+            ListDialog.create(player, eventManager)
                     .caption(getName())
                     .buttonOk("Pasirinkti")
                     .buttonCancel("Iðeiti")

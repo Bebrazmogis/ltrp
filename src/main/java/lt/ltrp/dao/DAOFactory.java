@@ -1,20 +1,15 @@
 package lt.ltrp.dao;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import lt.ltrp.DatabasePlugin;
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.RadioStation;
 import lt.ltrp.dao.impl.*;
-import lt.ltrp.item.SqlItemDao;
+import lt.ltrp.dao.impl.SqlItemDao;
 import net.gtaun.shoebill.Shoebill;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
-import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Properties;
 
 /**
@@ -58,6 +53,7 @@ public abstract class DAOFactory {
     public abstract DmvDao getDmvDao();
     public abstract VehicleDao getVehicleDao();
     public abstract RadioStationDao getRadioStationDao();
+    public abstract DrugAddictionDao getDrugAddictionDao();
 }
 
 class JdbcDAO extends DAOFactory {
@@ -71,6 +67,7 @@ class JdbcDAO extends DAOFactory {
     private DmvDao dmvDao;
     private VehicleDao vehicleDao;
     private RadioStationDao radioStationDao;
+    private DrugAddictionDao drugAddictionDao;
 
     public JdbcDAO(DataSource ds) throws IOException, SQLException {
         this.ds = ds;
@@ -113,12 +110,13 @@ class JdbcDAO extends DAOFactory {
         */
         this.playerDao = new SqlPlayerDaoImpl(ds);
         this.phoneDao = new SqlPhoneDaoImpl(ds);
-        this.itemDao = new SqlItemDao(ds);
+        this.itemDao = new SqlItemDao(ds, LtrpGamemode.get().getEventManager(), phoneDao);
         this.houseDao = new SqlHouseDao(ds);
         this.dmvDao = new FileDmvDaoImpl(LtrpGamemode.get().getDataDir());
         this.vehicleDao = new SqlVehicleDaoImpl(ds);
         this.jobDao = new MySqlJobDaoImpl(ds, vehicleDao);
         this.radioStationDao = new SqlRadioStationDao(ds);
+        this.drugAddictionDao = new MySqlDrugAddictionDaoImpl(ds);
         System.out.println("JDBCDAO initialized");
     }
 
@@ -126,6 +124,7 @@ class JdbcDAO extends DAOFactory {
     public Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
+
 
 
     @Override
@@ -166,6 +165,11 @@ class JdbcDAO extends DAOFactory {
     @Override
     public RadioStationDao getRadioStationDao() {
         return radioStationDao;
+    }
+
+    @Override
+    public DrugAddictionDao getDrugAddictionDao() {
+        return drugAddictionDao;
     }
 
 }

@@ -1,19 +1,22 @@
 package lt.ltrp.item;
 
 
+import lt.ltrp.NamedEntityImpl;
 import lt.ltrp.data.Color;
+import lt.ltrp.item.event.ItemDestroyEvent;
 import lt.ltrp.player.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
+import net.gtaun.shoebill.event.destroyable.DestroyEvent;
+import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.function.Supplier;
@@ -22,38 +25,31 @@ import java.util.function.Supplier;
  * @author Bebras
  *         2015.12.04.
  */
-public abstract class AbstractItem implements Item {
+public abstract class AbstractItem extends NamedEntityImpl implements Item {
 
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected static Logger logger = null;
 
-    private String name;
-    /**
-     * id which identifies the item amongst its kind
-     */
-    private int itemId;
-    /**
-     * A unique id
-     */
-    private int id;
     private boolean isDestroyed;
-
     private ItemType type;
     private boolean stackable;
     private int amount;
+    private EventManager eventManager;
 
-    public AbstractItem(String name, ItemType type, boolean stackable) {
-        this.name = name;
+    public AbstractItem(int id, String name, EventManager eventManager, ItemType type, boolean stackable) {
+        super(id, name);
+        if(logger == null) {
+            logger =  LoggerFactory.getLogger(this.getClass());
+        }
         this.type = type;
         this.stackable = stackable;
         this.amount = 0;
+        this.eventManager = eventManager;
     }
-
-
 
     @Override
     public void showOptions(LtrpPlayer player, Inventory inventory, AbstractDialog parentDialog) {
-        logger.debug("showOptions called. player uid=" + player.getUserId() + " inventory name=" + inventory.getName());
-        ListDialog listDialog = ListDialog.create(player, ItemController.getInstance().getEventManager()).build();
+        logger.debug("showOptions called. player uid=" + player.getUUID() + " inventory name=" + inventory.getName());
+        ListDialog listDialog = ListDialog.create(player, getEventManager()).build();
         listDialog.setCaption(getName() + " parinktys");
         listDialog.setButtonOk("Pasirinkti");
         listDialog.setButtonCancel("Atgal");
@@ -126,46 +122,13 @@ public abstract class AbstractItem implements Item {
     @ItemUsageOption(name = "Test", color = 0xFFEE00, order = 0.1f)
     public boolean lol(LtrpPlayer player) {
         player.sendMessage(String.format("Test Option. Item name: %s type:%s class:%s", getName(), getType().name(), getClass().getName()));
-        player.sendMessage(String.format("Test Option. Item global id: %d item local id: %d amount:%d", getGlobalId(), getItemId(), getAmount()));
+        player.sendMessage(String.format("Test Option. Item UUID: %d amount:%d", getUUID(), getAmount()));
         return true;
     }
 
     @Override
     public boolean equals(Object o) {
-        return o instanceof Item && ((Item) o).getGlobalId() == this.getGlobalId();
-    }
-
-
-    public int getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
-    }
-
-    @Override
-    public int getGlobalId() {
-        return id;
-    }
-
-    /**
-     * Sets the items global ID. It should only be used when creating or loading the item
-     * No changes at runtime should be made
-     * @param id the new id
-     */
-    protected void setGlobalId(int id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
+        return o instanceof Item && ((Item) o).getUUID() == this.getUUID();
     }
 
     @Override
@@ -191,10 +154,27 @@ public abstract class AbstractItem implements Item {
         }
     }
 
+    @Override
+    public void destroy() {
+        isDestroyed = true;
+        getEventManager().dispatchEvent(new ItemDestroyEvent(this), this);
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
+
+    protected EventManager getEventManager() {
+        return eventManager;
+    }
+
+
     /**
      * Updates the item data
      * @param con connection
      */
+    /*
     protected void update(Connection con) {
         try {
             getUpdateStatement(con).execute();
@@ -210,13 +190,14 @@ public abstract class AbstractItem implements Item {
             e.printStackTrace();
         }
     }
-
+*/
     /**
      * Inserts this items data
      * @param con connection which will be used to generate and execute statements
      * @return the items item id
      * @throws SQLException
      */
+    /*
     protected int insert(Connection con) throws SQLException {
         try (
                 PreparedStatement stmt = getInsertStatement(con);
@@ -236,14 +217,5 @@ public abstract class AbstractItem implements Item {
     protected abstract PreparedStatement getInsertStatement(Connection connection) throws SQLException;
 
     protected abstract PreparedStatement getDeleteStatement(Connection connection) throws SQLException;
-
-    @Override
-    public void destroy() {
-        isDestroyed = true;
-    }
-
-    @Override
-    public boolean isDestroyed() {
-        return isDestroyed;
-    }
+    */
 }

@@ -2,23 +2,19 @@ package lt.ltrp.item.phone;
 
 import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PhoneCall;
 import lt.ltrp.item.ItemPhone;
-import lt.ltrp.item.event.PlayerAnswerPhoneEvent;
-import lt.ltrp.item.event.PlayerCallNumberEvent;
-import lt.ltrp.item.event.PlayerEndCallEvent;
-import lt.ltrp.item.event.PlayerSendSmsEvent;
+import lt.ltrp.item.phone.event.PlayerAnswerPhoneEvent;
+import lt.ltrp.item.phone.event.PlayerCallNumberEvent;
+import lt.ltrp.item.phone.event.PlayerEndCallEvent;
+import lt.ltrp.item.phone.event.PlayerSendSmsEvent;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.event.player.PlayerTextEvent;
-import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.*;
 
@@ -134,6 +130,7 @@ public class PhoneController {
                                     Integer.toString(senderPhone.getPhonenumber());
                             p.sendMessage(Color.SMS_RECEIVED, "SMS: " + text + ", siuntëjas: " + senderName);
                             p.playSound(1052);
+                            phoneDao.addSms(new PhoneSms(senderPhone.getPhonenumber(), contactPhone.getPhonenumber(), new Date(), text));
                             return;
                         }
                     }
@@ -189,6 +186,7 @@ public class PhoneController {
             PhoneCall call = ongoingCalls.get(player);
             if(call != null) {
                 player.sendActionMessage("sako (telefonu): " + e.getText());
+                phoneDao.logConversation(call.getCallerPhone().getPhonenumber(), call.getRecipientPhone().getPhonenumber(), e.getText());
                 ItemPhone playerPhone;
                 ItemPhone targetPhone;
                 LtrpPlayer target;

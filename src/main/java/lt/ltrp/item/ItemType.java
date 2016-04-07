@@ -44,6 +44,9 @@ public enum ItemType {
     Prescription(35),
     Materials(36),
     Toolbox(37),
+    Mp3Player(38),
+    BoomBox(39),
+    CarAudio(40)
     ;
 
     public int id;

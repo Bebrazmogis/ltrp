@@ -28,7 +28,7 @@ public class Mp3Item extends BasicItem {
 
     @ItemUsageOption(name = "Pasirinkti stotá")
     public boolean play(LtrpPlayer player) {
-        RadioStationListDialog dialog = new RadioStationListDialog(player, ItemController.getInstance().getEventManager(), RadioStation.get());
+        RadioStationListDialog dialog = new RadioStationListDialog(player, getEventManager(), RadioStation.get());
         dialog.setClickOkHandler((d, station) -> {
             setCurrentRadioStation(station);
             this.isPlaying = true;
@@ -44,7 +44,7 @@ public class Mp3Item extends BasicItem {
     @ItemUsageOption(name = "Keisti garsà")
     public boolean volume(LtrpPlayer player) {
         if(player.isAudioConnected()) {
-            InputDialog.create(player, ItemController.getInstance().getEventManager())
+            InputDialog.create(player, getEventManager())
                     .caption("MP3 grotuvo garsas")
                     .message("Áveskite norimà garsà nuo 0 iki 100." +
                         "0 - visiðka tyla" +

@@ -2,14 +2,16 @@ package lt.ltrp.dao.impl;
 
 import lt.ltrp.Util.Sql;
 import lt.ltrp.dao.PhoneDao;
-import lt.ltrp.data.PhoneContact;
-import lt.ltrp.data.PhoneSms;
-import lt.ltrp.data.Phonebook;
+import lt.ltrp.item.ItemPhone;
+import lt.ltrp.item.phone.PhoneBook;
+import lt.ltrp.item.phone.PhoneContact;
+import lt.ltrp.item.phone.PhoneSms;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Bebras
@@ -96,8 +98,8 @@ public class SqlPhoneDaoImpl implements PhoneDao {
     }
 
     @Override
-    public Phonebook getPhonebook(int phonenumber) {
-        Phonebook phonebook = null;
+    public PhoneBook getPhonebook(int phonenumber) {
+        PhoneBook phonebook = null;
         String sql = "SELECT * FROM phone_contacts WHERE number = ?";
         try (
                 Connection con = dataSource.getConnection();
@@ -108,14 +110,14 @@ public class SqlPhoneDaoImpl implements PhoneDao {
 
             while(result.next()) {
                 if(phonebook == null) {
-                    phonebook = new Phonebook(result.getInt("number"));
+                    phonebook = new PhoneBook(result.getInt("number"));
                 }
                 phonebook.addContact(resultToPhoneContact(result));
             }
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        return phonebook == null ? new Phonebook(phonenumber) : phonebook;
+        return phonebook == null ? new PhoneBook(phonenumber) : phonebook;
     }
 
     @Override
@@ -171,6 +173,29 @@ public class SqlPhoneDaoImpl implements PhoneDao {
         } catch(SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int generateNumber() {
+        String sql = "SELECT COUNT(item_id) FROM items_phone WHERE number = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            Random random = new Random();
+            int number;
+            while(true) {
+                number = random.nextInt(ItemPhone.NUMBER_MAX - ItemPhone.NUMBER_MIN) + ItemPhone.NUMBER_MIN;
+                stmt.setInt(1, number);
+                ResultSet r = stmt.executeQuery();
+                if(!r.next() || r.getInt(1) == 0) {
+                    return number;
+                }
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override

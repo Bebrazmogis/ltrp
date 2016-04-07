@@ -1,9 +1,22 @@
 package lt.ltrp.item;
 
 import lt.ltrp.Util.PawnFunc;
+import lt.ltrp.item.drug.DrugItem;
 import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.vehicle.event.SpeedometerTickEvent;
+import lt.maze.ysf.YSFPlugin;
+import lt.maze.ysf.object.YSFPlayer;
 import net.gtaun.shoebill.amx.AmxCallable;
+import net.gtaun.shoebill.constant.PlayerKey;
+import net.gtaun.shoebill.constant.PlayerState;
+import net.gtaun.shoebill.data.Velocity;
+import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
+import net.gtaun.shoebill.event.player.PlayerStateChangeEvent;
 import net.gtaun.shoebill.object.Timer;
+import net.gtaun.shoebill.object.World;
+import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.EventManagerNode;
+import net.gtaun.util.event.HandlerEntry;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,8 +29,15 @@ import java.sql.SQLException;
  */
 public class HeroinItem extends DrugItem {
 
-    public HeroinItem(String name, int dosesLeft) {
-        super(name, ItemType.Heroin, dosesLeft);
+    private Timer drugTimer;
+    private EventManagerNode node;
+
+    public HeroinItem(int id, String name, EventManager eventManager, int dosesLeft) {
+        super(id, name, eventManager, ItemType.Heroin, dosesLeft);
+    }
+
+    public HeroinItem(EventManager eventManager, int doses) {
+        this(0, "Heroinas", eventManager, doses);
     }
 
     @Override
@@ -26,51 +46,65 @@ public class HeroinItem extends DrugItem {
             player.sendErrorMessage("Jûs neturite ðvirkðto");
             return false;
         } else {
-            super.use(player, inventory);
             Item syringe = inventory.getItem(ItemType.Syringe);
             if(syringe == null) {
                 syringe = player.getInventory().getItem(ItemType.Syringe);
+                player.getInventory().remove(syringe);
+            } else {
+                inventory.remove(syringe);
             }
-            player.setWeather(-64);
-            syringe.setAmount(syringe.getAmount()-1);
             player.sendActionMessage("pasiemæs ðvirkstà ástato já á venà ant rankos ir susileidþia heroinà.");
 
-            Timer.create(1300, 1, new Timer.TimerCallback() {
-                @Override
-                public void onTick(int i) {
-
+            drugTimer = Timer.create(3000, 1, i -> {
+                YSFPlayer ysfP = YSFPlugin.get(player);
+                if(ysfP != null) {
+                    ysfP.setGravity(World.get().getGravity() - 0.003f);
                 }
-
-                @Override
-                public void onStop() {
-                    player.setVarInt("DrugHP", 5);
-                    player.setVarInt("DrugHPLimit", 65);
-
-                    AmxCallable func = PawnFunc.getPublicMethod("DrugEffects");
-                    if (func != null) {
-                        func.call(player.getId());
+                player.setWeather(-64);
+                node = getEventManager().createChildNode();
+                node.registerHandler(SpeedometerTickEvent.class, e -> {
+                    if(e.getPlayer().equals(player)) {
+                        e.getVehicle().setVelocity(new Velocity(0f, 0f, 0f));
                     }
-                }
+                });
+
+                node.registerHandler(PlayerStateChangeEvent.class, e -> {
+                    LtrpPlayer p = LtrpPlayer.get(e.getPlayer());
+                    if(p.equals(player)) {
+                        if(p.getState().equals(PlayerState.DRIVER)) {
+                            p.applyAnimation("PED", "CAR_DEAD_LHS", 4.1f, true, false, false, false);
+                        }
+                    }
+                });
             });
+            drugTimer.start();
+            super.setDrugEffectDuration(player, 2 * 60);
+            super.use(player, inventory);
             return true;
         }
     }
 
-    protected static HeroinItem getById(int itemid, ItemType type, Connection connection) throws SQLException {
-        String sql = "SELECT * FROM items_consumable WHERE id = ?";
-        HeroinItem item = null;
-        try (
-                PreparedStatement stmt = connection.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, itemid);
-
-            ResultSet result = stmt.executeQuery();
-            if(result.next()) {
-                item = new HeroinItem(result.getString("name"), result.getInt("doses"));
-                item.setItemId(itemid);
-            }
+    @Override
+    protected void onDrugEffectEnd(LtrpPlayer p) {
+        if(node != null)
+            node.cancelAll();
+        YSFPlayer ysfP = YSFPlugin.get(p);
+        if(ysfP != null) {
+            ysfP.setGravity(World.get().getGravity());
         }
-        return item;
+        p.setWeather(World.get().getWeather());
+        if(p.getHealth() > 50f) {
+            p.setHealth(50f);
+        }
     }
+
+    @Override
+    public void destroy() {
+        drugTimer.destroy();
+        if(node != null)
+            node.cancelAll();
+        super.destroy();
+    }
+
 
 }

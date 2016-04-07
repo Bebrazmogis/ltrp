@@ -1,8 +1,8 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.data.PhoneContact;
-import lt.ltrp.data.PhoneSms;
-import lt.ltrp.data.Phonebook;
+import lt.ltrp.item.phone.PhoneBook;
+import lt.ltrp.item.phone.PhoneContact;
+import lt.ltrp.item.phone.PhoneSms;
 
 /**
  * @author Bebras
@@ -16,10 +16,12 @@ public interface PhoneDao {
     public void update(PhoneSms sms);
 
 
-    public Phonebook getPhonebook(int phonenumber);
+    public PhoneBook getPhonebook(int phonenumber);
     public PhoneContact add(int ownernumber, int contactnumber, String name);
     public void update(PhoneContact contact);
     public void remove(PhoneContact contact);
+
+    int generateNumber();
 
     public void logConversation(int phonenumberfrom, int phonenumberto, String text);
 
