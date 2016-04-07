@@ -7,6 +7,7 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Label;
 import net.gtaun.shoebill.object.Pickup;
+import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,12 @@ public abstract class Property extends InventoryEntity implements Destroyable {
     private Label label;
     private Pickup pickup;
     private boolean destroyed;
+    protected EventManager eventManager;
 
-    public Property(int uniqueid, String name) {
+    public Property(int uniqueid, String name, EventManager eventManager) {
         this.uid = uniqueid;
         this.name = name;
+        this.eventManager = eventManager;
         propertyList.add(this);
     }
 

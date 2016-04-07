@@ -1,6 +1,6 @@
 package lt.ltrp.item;
 
-import lt.ltrp.RadioStation;
+import lt.ltrp.radio.RadioStation;
 import lt.ltrp.data.Color;
 import lt.ltrp.dialog.radio.RadioStationListDialog;
 import lt.ltrp.player.LtrpPlayer;

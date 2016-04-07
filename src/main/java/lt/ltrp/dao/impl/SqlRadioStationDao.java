@@ -1,8 +1,7 @@
 package lt.ltrp.dao.impl;
 
 import lt.ltrp.LoadingException;
-import lt.ltrp.RadioStation;
-import lt.ltrp.Util.Sql;
+import lt.ltrp.radio.RadioStation;
 import lt.ltrp.dao.RadioStationDao;
 
 import javax.sql.DataSource;

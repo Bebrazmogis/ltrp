@@ -11,6 +11,8 @@ import lt.ltrp.job.ContractJob;
 import lt.ltrp.job.ContractJobRank;
 import lt.ltrp.job.Job;
 import lt.ltrp.job.Rank;
+import lt.ltrp.player.event.PlayerJailEvent;
+import lt.ltrp.player.event.PlayerUnJailEvent;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.PlayerVehicle;
@@ -24,6 +26,7 @@ import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.exception.AlreadyExistException;
 import net.gtaun.shoebill.exception.IllegalLengthException;
 import net.gtaun.shoebill.object.*;
+import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -156,6 +159,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     private PlayerLicenses licenses;
     private boolean seatbelt, masked, cuffed;
     private int jobExperience, jobHours, boxStyle, age, respect, deaths, hunger;
+    private EventManager eventManager;
     /**
      * Paydays a user spent online
      */
@@ -191,12 +195,13 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     private boolean loggedIn, dataLoaded, isFactionManager;
 
 
-    public LtrpPlayer(Player player, int userid) {
+    public LtrpPlayer(Player player, int userid, EventManager manager) {
         super(userid, player.getName(), null);
         this.player = player;
         this.weapons = new LtrpWeaponData[13];
         this.infoBox = new PlayerInfoBox(this);
         this.offers = new ArrayList<>();
+        this.eventManager = manager;
         players.add(this);
         logger.debug("Creating instance of LtrpPlayer. Player object id " +player.getId());
     }
@@ -329,29 +334,18 @@ public class LtrpPlayer extends InventoryEntity implements Player {
         return jailData;
     }
 
+    public void setJailData(JailData data) {
+        this.jailData = data;
+    }
+
+    public void unjail() {
+        eventManager.dispatchEvent(new PlayerUnJailEvent(this, jailData));
+        this.jailData = null;
+    }
+
     public void jail(JailData data) {
         this.jailData = data;
-        AmxCallable getPos = PawnFunc.getPublicMethod("Data_GetCoordinates");
-        AmxCallable getWorld = PawnFunc.getPublicMethod("Data_GetVirtualWorld");
-        AmxCallable getInterior = PawnFunc.getPublicMethod("Data_GetInterior");
-        String key = "";
-        switch(data.getType()) {
-            case OutOfCharacter:
-                key = "ooc_jail";
-                break;
-            case InCharacter:
-                key = "ic_prison";
-                break;
-        }
-        if(getPos != null && getWorld != null && getInterior != null) {
-            float x = 0.0f, y = 0.0f, z = 0.0f;
-            int world, interior;
-            getPos.call(key, x, y, z);
-            world = (Integer)getWorld.call(key);
-            interior = (Integer)getInterior.call(key);
-            player.setLocation(new Location(x, y, z, world, interior));
-
-        }
+        eventManager.dispatchEvent(new PlayerJailEvent(this, jailData));
     }
 
 

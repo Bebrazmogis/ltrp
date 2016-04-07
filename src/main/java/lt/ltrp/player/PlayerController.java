@@ -56,9 +56,11 @@ public class PlayerController {
     private List<LtrpPlayer> firstSpawns = new ArrayList<>();
     private Timer javaMinuteTimer;
     private PlayerCommandManager playerCommandManager;
+    private PlayerJailController playerJailController;
 
     public PlayerController(EventManager manager, JobManager jobManager) {
         playerDao = LtrpGamemode.getDao().getPlayerDao();
+        this.playerJailController = new PlayerJailController(manager, playerDao);
 
         managerNode = manager.createChildNode();
 
@@ -433,6 +435,7 @@ public class PlayerController {
         managerNode.destroy();
         javaMinuteTimer.cancel();
         playerCommandManager.destroy();
+        playerJailController.destroy();
     }
 
 }

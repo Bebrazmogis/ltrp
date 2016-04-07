@@ -3,6 +3,7 @@ package lt.ltrp.property;
 import lt.ltrp.Util.PawnFunc;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.data.Location;
+import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,12 @@ public class House extends Property {
 
     private static List<House> houseList = new ArrayList<>();
 
-    public static House create(int uniqueid, String name) {
-        return create(uniqueid, name, null, null);
+    public static House create(int uniqueid, String name, EventManager eventManager1) {
+        return create(uniqueid, name, null, null, eventManager1);
     }
 
-    public static House create(int uniqueid, String name, Location entrance, Location exit) {
-        House property = new House(uniqueid, name);
+    public static House create(int uniqueid, String name, Location entrance, Location exit, EventManager eventManager) {
+        House property = new House(uniqueid, name, eventManager);
         property.setEntrance(entrance);
         property.setExit(exit);
 
@@ -39,11 +40,16 @@ public class House extends Property {
     }
 
     private List<HouseWeedSapling> weedSaplings;
+    private HouseRadio radio;
 
-    public House(int uniqueid, String name) {
-        super(uniqueid, name);
+    public House(int uniqueid, String name, EventManager manager) {
+        super(uniqueid, name, manager);
+        radio = new HouseRadio(this, eventManager);
     }
 
+    public HouseRadio getRadio() {
+        return radio;
+    }
 
     public boolean isUpgradeInstalled(HouseUpgradeType upgradeType) {
         int index = GetHouseIndex();
