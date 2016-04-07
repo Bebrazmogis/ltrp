@@ -73,7 +73,7 @@ public class BoatDmvManager extends AbstractDmvManager {
                 }
             }
             return false;
-        }, null, null, null);
+        }, null, null, null, null);
 
         getEventManagerNode().registerHandler(PlayerBoatingTestEnd.class, e -> {
             if(e.getTest().isPassed()) {

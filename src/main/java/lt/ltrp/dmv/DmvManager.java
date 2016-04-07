@@ -78,7 +78,7 @@ public class DmvManager implements Destroyable {
                 p.sendErrorMessage("Ðià komandà galite naudoti tik bûdami vairavimo mokyklos transporto priemonëje arba mokyklos patalpose.");
             }
             return true;
-        }, null, null, null);
+        }, null, null, null, null);
 
         eventManager.registerHandler(PlayerCommandEvent.class, e -> {
             String command = e.getCommand().toLowerCase();

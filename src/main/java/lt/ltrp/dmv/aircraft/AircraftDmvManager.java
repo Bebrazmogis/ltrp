@@ -75,7 +75,7 @@ public class AircraftDmvManager extends AbstractDmvManager {
                 }
             }
             return false;
-        }, null, null, null);
+        }, null, null, null, null);
 
         getEventManagerNode().registerHandler(PlayerFlyingTestEnd.class, e -> {
             if(e.getTest().isPassed()) {
