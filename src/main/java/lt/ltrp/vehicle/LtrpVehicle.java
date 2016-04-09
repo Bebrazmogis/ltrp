@@ -1,11 +1,12 @@
 package lt.ltrp.vehicle;
 
 import lt.ltrp.InventoryEntity;
+import lt.ltrp.InventoryEntityImpl;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.job.Taxi;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.data.*;
 import net.gtaun.shoebill.object.*;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
  * @author Bebras
  *         2015.11.13.
  */
-public class LtrpVehicle extends InventoryEntity implements Vehicle {
+public class LtrpVehicle extends InventoryEntityImpl implements Vehicle {
 
     public static final float SPEED_MAGIC_NUMBER = 170f;
     private static List<LtrpVehicle> vehicles = new ArrayList<>();

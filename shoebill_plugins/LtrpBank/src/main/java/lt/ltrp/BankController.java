@@ -5,7 +5,7 @@ import lt.ltrp.dao.BankDao;
 import lt.ltrp.dialog.BankAccountDialog;
 import lt.ltrp.event.*;
 import lt.ltrp.player.BankAccount;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.streamer.event.PlayerDynamicPickupEvent;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
@@ -115,7 +115,7 @@ public class BankController implements Destroyable {
     public String generateAccountNumber(LtrpPlayer player) {
         String number = null;
         while(number == null || getAccount(number) == null) {
-            number = String.format("%s%06d", LtrpGamemode.NameShort, player.getUserId() + player.getId());
+            number = String.format("%s%06d", LtrpGamemode.NameShort, player.getUUID() + player.getId());
         }
         return number;
     }
@@ -132,7 +132,7 @@ public class BankController implements Destroyable {
     public BankAccount getAccount(LtrpPlayer player) {
         for(SoftReference<BankAccount> softAccount : bankAccountCache) {
             BankAccount account = softAccount.get();
-            if(account != null && account.getUserId() == player.getUserId()) {
+            if(account != null && account.getUserId() == player.getUUID()) {
                 return account;
             }
         }

@@ -9,7 +9,7 @@ import lt.ltrp.item.phone.PhoneSms;
 import lt.ltrp.item.phone.event.PlayerCallNumberEvent;
 import lt.ltrp.item.phone.event.PlayerSendSmsEvent;
 import lt.ltrp.item.phone.dialog.PhonebookListDialog;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;

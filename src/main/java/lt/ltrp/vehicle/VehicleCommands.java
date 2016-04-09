@@ -6,7 +6,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.radio.Radio;
 import lt.ltrp.radio.dialog.RadioOptionListDialog;
 import lt.ltrp.item.ItemType;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -188,12 +188,12 @@ public class VehicleCommands extends Commands {
         LtrpVehicle vehicle = player.getVehicle();
         if(vehicle != null) {
             if(player.getVehicleSeat() == 0) {
-                if(!player.getSeatbelt()) {
+                if(!player.isSeatbelt()) {
                     player.sendActionMessage("patempia saugos dirþà ir juos uþsisega.");
                 } else {
                     player.sendActionMessage("atsisega saugos dirþus.");
                 }
-                player.setSeatbelt(!player.getSeatbelt());
+                player.setSeatbelt(!player.isSeatbelt());
             } else
                 player.sendErrorMessage("Jûs neesate transporto priemonës vairuotojas.");
         } else

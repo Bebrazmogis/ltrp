@@ -8,7 +8,7 @@ import lt.ltrp.job.JobManager;
 import lt.ltrp.job.mechanic.event.PlayerLeaveRepairArea;
 import lt.ltrp.job.mechanic.event.RepairSessionEndEvent;
 import lt.ltrp.job.mechanic.session.AbstractRepairSession;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
 import net.gtaun.shoebill.common.command.CommandGroup;

@@ -6,18 +6,16 @@ import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.item.ItemType;
 import lt.ltrp.job.AbstractJobManager;
 import lt.ltrp.job.Job;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerCountdown;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.player.object.PlayerCountdown;
 import lt.ltrp.vehicle.PlayerVehicle;
 import lt.ltrp.vehicle.VehicleAlarm;
 import lt.ltrp.vehicle.VehicleLock;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
-import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.util.event.EventManager;
-import net.gtaun.util.event.EventManagerNode;
 
 /**
  * @author Bebras
@@ -41,7 +39,7 @@ public class VehicleThiefManager extends AbstractJobManager {
                 final PlayerVehicle vehicle = PlayerVehicle.getById(player.getVehicle().getId());
                 if(vehicle != null && vehicle.getState().getEngine() != VehicleParam.PARAM_ON) {
                     if(player.getInventory().containsType(ItemType.Toolbox)) {
-                        job.log("Þaidëjas " + player.getUserId() + " bando pavogti transporto priemonæ " + vehicle.getId() + ". Automobilio savininkas " + vehicle.getOwnerId());
+                        job.log("Þaidëjas " + player.getUUID() + " bando pavogti transporto priemonæ " + vehicle.getId() + ". Automobilio savininkas " + vehicle.getOwnerId());
                         int time = 60;
                         if(vehicle.getAlarm() != null) {
                             VehicleAlarm alarm = vehicle.getAlarm();
@@ -54,13 +52,13 @@ public class VehicleThiefManager extends AbstractJobManager {
                         LtrpPlayer.sendAdminMessage(player.getName() + " pradëjo vogti automobilá. Galbût norësite tai stebëti.");
                         player.sendActionMessage("ið árankiø dëþutës iðsitraukia reples, atsuktuvà ir bando ardyti spynelæ, kad uþvestu automobilá.", 30.0f);
 
-                        PlayerCountdown playerCountdown = new PlayerCountdown(player, time, true, (p, finished) -> {
+                        PlayerCountdown playerCountdown = PlayerCountdown.create(player, time, true, (p, finished) -> {
                             if(finished) {
                                 boolean success = vehicle.getFuelTank().getFuel() != 0 && vehicle.getHealth() >= 400f;
                                 if(success) {
                                     vehicle.getState().setEngine(VehicleParam.PARAM_ON);
                                     eventManagerNode.dispatchEvent(new VehicleEngineStartEvent(vehicle, player, success));
-                                    job.log("Þaidëjas " + player.getUserId() + " sëkmingai uþkûrë automobilá " + vehicle.getId() + " kuris priklauso þaidëjui " + vehicle.getOwnerId());
+                                    job.log("Þaidëjas " + player.getUUID() + " sëkmingai uþkûrë automobilá " + vehicle.getId() + " kuris priklauso þaidëjui " + vehicle.getOwnerId());
                                 }
                             }
                         });

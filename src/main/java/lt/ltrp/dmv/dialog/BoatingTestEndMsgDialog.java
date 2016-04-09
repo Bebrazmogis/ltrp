@@ -1,7 +1,7 @@
 package lt.ltrp.dmv.dialog;
 
 import lt.ltrp.dmv.boat.BoatingTest;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 

@@ -1,7 +1,7 @@
 package lt.ltrp.job.mechanic.dialog;
 
 import lt.ltrp.constant.LtrpVehicleModel;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;

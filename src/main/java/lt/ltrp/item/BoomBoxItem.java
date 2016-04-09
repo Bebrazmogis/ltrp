@@ -1,10 +1,10 @@
 package lt.ltrp.item;
 
-import lt.ltrp.RadioStation;
 import lt.ltrp.dialog.IntegerInputDialog;
-import lt.ltrp.dialog.radio.RadioStationListDialog;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.plugin.mapandreas.MapAndreas;
+import lt.ltrp.radio.RadioStation;
+import lt.ltrp.radio.dialog.RadioStationListDialog;
 import lt.maze.streamer.event.PlayerEnterDynamicAreaEvent;
 import lt.maze.streamer.event.PlayerLeaveDynamicAreaEvent;
 import lt.maze.streamer.object.DynamicObject;
@@ -89,8 +89,8 @@ public class BoomBoxItem extends BasicItem {
     @ItemUsageOption(name = OPTION_PICKUP)
     public boolean pickup(LtrpPlayer player) {
         LtrpPlayer.get().stream()
-                .filter(p -> dynamicArea.isInArea(p) && p.getCurrentAudioHandle() != null)
-                .forEach(p -> p.getCurrentAudioHandle().stop());
+                .filter(p -> dynamicArea.isInArea(p) && p.getAudioHandle() != null)
+                .forEach(p -> p.getAudioHandle().stop());
         audioObject.destroy();
         dynamicArea.destroy();
         exitHandleEntry.cancel();
@@ -142,7 +142,7 @@ public class BoomBoxItem extends BasicItem {
     @ItemUsageOption(name = OPTION_STOP)
     public boolean stop(LtrpPlayer player) {
         if(audioObject != null && dynamicArea != null) {
-            LtrpPlayer.get().stream().filter(dynamicArea::isInArea).forEach(p -> p.getCurrentAudioHandle().stop());
+            LtrpPlayer.get().stream().filter(dynamicArea::isInArea).forEach(p -> p.getAudioHandle().stop());
             radioStation = null;
             return true;
         }

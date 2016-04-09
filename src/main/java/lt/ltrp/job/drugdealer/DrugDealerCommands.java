@@ -1,13 +1,11 @@
 package lt.ltrp.job.drugdealer;
 
-import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
-import lt.ltrp.item.Item;
 import lt.ltrp.item.WeedSeedItem;
 import lt.ltrp.item.event.ItemCreateEvent;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;

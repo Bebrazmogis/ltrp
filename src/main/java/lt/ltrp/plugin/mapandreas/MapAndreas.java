@@ -1,7 +1,8 @@
 package lt.ltrp.plugin.mapandreas;
 
-import lt.ltrp.Util.PawnFunc;
+
 import lt.ltrp.plugin.PluginWrapper;
+import lt.ltrp.util.PawnFunc;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import org.slf4j.Logger;

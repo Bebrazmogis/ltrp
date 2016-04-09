@@ -5,7 +5,7 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.radio.dialog.RadioOptionListDialog;
 import lt.ltrp.item.ItemType;
 import lt.ltrp.item.WeedItem;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -21,11 +21,7 @@ import java.util.List;
  *         2015.12.05.
  */
 public class HouseCommands {
-    private EventManager eventManager;
 
-    public HouseCommands(EventManager event) {
-        this.eventManager = event;
-    }
 
     private EventManager eventManager;
 
@@ -58,7 +54,7 @@ public class HouseCommands {
                     List<HouseWeedSapling> grownSaplings = new ArrayList<>();
                     for(HouseWeedSapling sapling : house.getWeedSaplings()) {
                         totalYield += sapling.getYield();
-                        sapling.setHarvestedByUser(player.getUserId());
+                        sapling.setHarvestedByUser(player.getUUID());
                         grownSaplings.add(sapling);
                     }
                     house.getWeedSaplings().removeAll(grownSaplings);

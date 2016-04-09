@@ -9,10 +9,13 @@ import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Inventory;
 import lt.ltrp.player.BankAccount;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.SpawnData;
+import lt.ltrp.player.data.SpawnData;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.property.event.*;
 import lt.ltrp.vehicle.LtrpVehicle;
+import net.gtaun.shoebill.SampObjectFactory;
+import net.gtaun.shoebill.SampObjectStore;
+import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
@@ -87,11 +90,11 @@ public class PropertyManager implements Destroyable {
                     } else {
                         p.sendMessage("Jûsø banko sàskaitoje nëra pakankamai pinigø susimokëti uþ nuomà, todël buvote iðmestas.");
                         p.setSpawnData(SpawnData.DEFAULT);
-                        LtrpGamemode.getDao().getPlayerDao().setSpawnData(p);
+                        LtrpPlayer.getPlayerDao().setSpawnData(p);
                     }
 
                 } else {
-                    logger.error("Player " + p.getUserId() + " lives in an unexistent house " + p.getSpawnData().getId());
+                    logger.error("Player " + p.getUUID() + " lives in an unexistent house " + p.getSpawnData().getId());
                 }
             });
         });
@@ -126,16 +129,16 @@ public class PropertyManager implements Destroyable {
             Property property = null;
             Inventory inventory = null;
             if(type.equalsIgnoreCase("House")) {
-                House house = House.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
+                House house = House.create((Integer)params[1], params[0] + " " + params[1], entrance, exit, eventManager);
                 inventory = new FixedSizeInventory(eventManager, "Namo " + house.getUid() + " daiktai", house);
                 house.setWeedSaplings(LtrpGamemode.getDao().getHouseDao().getWeed(house));
 
                 property = house;
             } else if(type.equalsIgnoreCase("garagE")) {
-                property = Garage.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
+                property = Garage.create((Integer)params[1], params[0] + " " + params[1], entrance, exit, eventManager);
                 inventory = new FixedSizeInventory(eventManager, "Garaþo " + property.getUid() + " daiktai", property);
             } else if(type.equalsIgnoreCase("business")) {
-                property = Business.create((Integer)params[1], params[0] + " " + params[1], entrance, exit);
+                property = Business.create((Integer)params[1], params[0] + " " + params[1], entrance, exit, eventManager);
                 inventory = new FixedSizeInventory(eventManager, "Verslo " + property.getUid() + " daiktai", property);
             } else {
                 return 0;

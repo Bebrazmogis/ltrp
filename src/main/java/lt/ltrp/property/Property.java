@@ -1,8 +1,9 @@
 package lt.ltrp.property;
 
 import lt.ltrp.InventoryEntity;
+import lt.ltrp.InventoryEntityImpl;
 import lt.ltrp.item.Inventory;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Label;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author Bebras
  *         2015.11.29.
  */
-public abstract class Property extends InventoryEntity implements Destroyable {
+public abstract class Property extends InventoryEntityImpl implements Destroyable  {
 
     private static List<Property> propertyList = new ArrayList<>();
 
@@ -99,7 +100,7 @@ public abstract class Property extends InventoryEntity implements Destroyable {
     }
 
     public boolean isOwner(LtrpPlayer player) {
-        return player.getUserId() == getOwnerUserId();
+        return player.getUUID() == getOwnerUserId();
     }
 
 

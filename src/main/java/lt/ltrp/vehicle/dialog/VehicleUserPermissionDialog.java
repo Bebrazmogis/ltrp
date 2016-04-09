@@ -1,7 +1,7 @@
 package lt.ltrp.vehicle.dialog;
 
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.PlayerVehicle;
 import lt.ltrp.vehicle.event.PlayerVehicleAddPermissionEvent;
 import lt.ltrp.vehicle.event.PlayerVehicleRemovePermissionEvent;

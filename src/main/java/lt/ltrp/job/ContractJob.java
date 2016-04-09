@@ -1,6 +1,6 @@
 package lt.ltrp.job;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.JobVehicle;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;

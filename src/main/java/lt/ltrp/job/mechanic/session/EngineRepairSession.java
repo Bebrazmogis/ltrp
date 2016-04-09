@@ -1,6 +1,6 @@
 package lt.ltrp.job.mechanic.session;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.util.event.EventManager;
 

@@ -1,8 +1,9 @@
 package lt.ltrp.dmv.car;
 
-import lt.ltrp.constant.LicenseType;
+
 import lt.ltrp.dmv.*;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.constant.LicenseType;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;

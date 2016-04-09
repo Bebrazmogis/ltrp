@@ -4,7 +4,7 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
 import lt.ltrp.dialog.JobRankDialog;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -33,7 +33,7 @@ public class FactionLeaderCommands extends Commands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        Optional<Faction> factionOptional = JobManager.getFactions().stream().filter(f -> f.getLeaders().contains(player.getUserId())).findFirst();
+        Optional<Faction> factionOptional = JobManager.getFactions().stream().filter(f -> f.getLeaders().contains(player.getUUID())).findFirst();
         return factionOptional.isPresent();
     }
 
@@ -71,7 +71,7 @@ public class FactionLeaderCommands extends Commands {
             player.sendMessage(Color.NEWS, target.getJobRank().getName() + " " + target.getCharName() + " iðmestas ið darbo.");
             target.setJob(null);
             target.setJobRank(null);
-            LtrpGamemode.getDao().getPlayerDao().update(target);
+            LtrpPlayer.getPlayerDao().update(target);
         }
         return true;
     }
@@ -96,7 +96,7 @@ public class FactionLeaderCommands extends Commands {
                 }
                 player.sendMessage(Color.NEWS, target.getCharName() + " paskirtas " + r.getName());
                 target.setJobRank(r);
-                LtrpGamemode.getDao().getPlayerDao().update(player);
+                LtrpPlayer.getPlayerDao().update(player);
 
             });
             dialog.show();
@@ -105,7 +105,7 @@ public class FactionLeaderCommands extends Commands {
     }
 
     private Faction getLeaderFaction(LtrpPlayer leader) {
-        Optional<Faction> factionOptional = JobManager.getFactions().stream().filter(f -> f.getLeaders().contains(leader.getUserId())).findFirst();
+        Optional<Faction> factionOptional = JobManager.getFactions().stream().filter(f -> f.getLeaders().contains(leader.getUUID())).findFirst();
         return factionOptional.isPresent() ? factionOptional.get() : null;
     }
 

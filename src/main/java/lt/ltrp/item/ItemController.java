@@ -3,7 +3,6 @@ package lt.ltrp.item;
 import lt.ltrp.InventoryEntity;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.dao.ItemDao;
-import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.event.item.ItemLocationChangeEvent;
 import lt.ltrp.item.drug.DrugController;
 import lt.ltrp.item.drug.DrugItem;
@@ -12,7 +11,8 @@ import lt.ltrp.item.event.ItemDestroyEvent;
 import lt.ltrp.item.event.PlayerDrawWeaponItemEvent;
 import lt.ltrp.item.event.PlayerDropItemEvent;
 import lt.ltrp.item.phone.PhoneController;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.data.LtrpWeaponData;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
@@ -138,7 +138,7 @@ public class ItemController {
             logger.debug("tryGivePlayerItemType called");
             LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
             ItemType type = ItemType.getById((Integer)params[1]);
-            logger.debug("tryGivePlayerItemType player uid=" + player.getUserId() + " type="+ type.name());
+            logger.debug("tryGivePlayerItemType player uid=" + player.getUUID() + " type="+ type.name());
             Item item = null;
             switch(type) {
                 case Clothing:

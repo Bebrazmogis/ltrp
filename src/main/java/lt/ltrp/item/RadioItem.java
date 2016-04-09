@@ -1,7 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;

@@ -4,8 +4,11 @@ import lt.ltrp.dao.ItemDao;
 import lt.ltrp.data.*;
 import lt.ltrp.item.phone.event.PlayerAnswerPhoneEvent;
 import lt.ltrp.item.phone.event.PlayerEndCallEvent;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerCountdown;
+import lt.ltrp.player.data.Animation;
+import lt.ltrp.player.data.DroppedWeaponData;
+import lt.ltrp.player.data.LtrpWeaponData;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.player.object.PlayerCountdown;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -58,12 +61,12 @@ public class ItemCommands {
                 if(player.getCountdown() == null) {
                     player.sendActionMessage(" iðsitraukia kuro bakelá, laikraðtá ir butelá....");
                     player.applyAnimation(new Animation("BOMBER", "BOM_Plant_2Idle", true, 5000));
-                    PlayerCountdown playerCountdown = new PlayerCountdown(player, 2, true, new PlayerCountdown.PlayerCountdownCallback() {
+                    PlayerCountdown playerCountdown = PlayerCountdown.create(player, 2, true, new PlayerCountdown.PlayerCountdownCallback() {
                         @Override
                         public void onStop(LtrpPlayer player, boolean finished) {
-                            if(finished) {
+                            if (finished) {
                                 player.sendActionMessage("baigia gaminti molotov");
-                                fueltank.setItemCount(fueltank.getItemCount()-1);
+                                fueltank.setItemCount(fueltank.getItemCount() - 1);
                                 player.getInventory().remove(newspaper);
 
                                 MolotovItem item = new MolotovItem(eventManager);
@@ -72,9 +75,10 @@ public class ItemCommands {
                             }
                             player.clearAnimations(1);
                         }
+
                         @Override
                         public void onTick(LtrpPlayer player, int timeremaining) {
-                            switch(timeremaining) {
+                            switch (timeremaining) {
                                 case 1:
                                     player.sendActionMessage("paima kuro bakelá, ápyla kuro á butelá...");
                                     break;

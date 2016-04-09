@@ -3,7 +3,7 @@ package lt.ltrp.job;
 import lt.ltrp.command.Commands;
 import lt.ltrp.dao.JobDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.object.Player;

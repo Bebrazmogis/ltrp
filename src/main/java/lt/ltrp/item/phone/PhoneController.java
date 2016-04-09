@@ -7,7 +7,7 @@ import lt.ltrp.item.phone.event.PlayerAnswerPhoneEvent;
 import lt.ltrp.item.phone.event.PlayerCallNumberEvent;
 import lt.ltrp.item.phone.event.PlayerEndCallEvent;
 import lt.ltrp.item.phone.event.PlayerSendSmsEvent;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.event.player.PlayerTextEvent;

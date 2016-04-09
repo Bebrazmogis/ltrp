@@ -2,7 +2,7 @@ package lt.ltrp.event.item;
 
 import lt.ltrp.item.Inventory;
 import lt.ltrp.item.Item;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.util.event.Event;
 
 /**

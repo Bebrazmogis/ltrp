@@ -1,6 +1,6 @@
 package lt.ltrp.job.policeman;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.data.AngledLocation;

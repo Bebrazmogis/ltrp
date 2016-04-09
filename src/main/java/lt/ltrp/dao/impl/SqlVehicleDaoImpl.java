@@ -2,7 +2,7 @@ package lt.ltrp.dao.impl;
 
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.dao.VehicleDao;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.*;
 import net.gtaun.shoebill.data.AngledLocation;
 

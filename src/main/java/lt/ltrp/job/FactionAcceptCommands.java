@@ -2,7 +2,7 @@ package lt.ltrp.job;
 
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.object.Player;
 
@@ -29,7 +29,7 @@ public class FactionAcceptCommands {
             player.setJobRank(minRank);
             player.sendMessage(Color.NEWS, "Prisijungëte prie frakcijos \"" + leader.getJob().getName() + "\". Jûsø rangas: " + minRank.getName());
             leader.sendMessage(Color.NEWS, player.getCharName() + " prisijungë prie jûsø frakcijos, jam paskirtas rangas " + minRank.getName());
-            LtrpGamemode.getDao().getPlayerDao().update(player);
+            LtrpPlayer.getPlayerDao().update(player);
         }
         return true;
     }

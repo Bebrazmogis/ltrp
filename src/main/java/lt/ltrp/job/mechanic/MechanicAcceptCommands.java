@@ -1,7 +1,7 @@
 package lt.ltrp.job.mechanic;
 
 import lt.ltrp.colorpicker.ColorPicker;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.object.Player;

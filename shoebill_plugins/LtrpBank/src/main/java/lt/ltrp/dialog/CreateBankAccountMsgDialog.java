@@ -4,7 +4,7 @@ import lt.ltrp.BankController;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.event.BankAccountCreateEvent;
 import lt.ltrp.player.BankAccount;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
@@ -29,7 +29,7 @@ public class CreateBankAccountMsgDialog  {
                         + "\n\nAr norite dabar atsidaryti sàskaità?")
                 .onClickOk(d -> {
                     String number = bankController.generateAccountNumber(player);
-                    BankAccount account = new BankAccount(number, player.getUserId());
+                    BankAccount account = new BankAccount(number, player.getUUID());
                     eventManager.dispatchEvent(new BankAccountCreateEvent(player, account));
                 })
                 .build();

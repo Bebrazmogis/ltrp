@@ -1,6 +1,6 @@
 package lt.ltrp.vehicle;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.radio.AbstractRadio;
 import lt.ltrp.radio.RadioStation;
 import net.gtaun.shoebill.constant.PlayerState;

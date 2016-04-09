@@ -1,13 +1,13 @@
 package lt.ltrp.job.mechanic;
 
-import lt.ltrp.Util.StringUtils;
 import lt.ltrp.colorpicker.ColorPicker;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Color;
 import lt.ltrp.job.mechanic.dialog.HullRepairMsgDialog;
 import lt.ltrp.job.mechanic.dialog.RemoveHydraulicsMsgDialog;
 import lt.ltrp.job.mechanic.session.*;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.util.StringUtils;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;

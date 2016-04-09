@@ -9,7 +9,7 @@ import lt.ltrp.dialog.JobRankDialog;
 import lt.ltrp.dialogmenu.PlayerDialogMenu;
 import lt.ltrp.job.Job;
 import lt.ltrp.job.Rank;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.JobVehicle;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;

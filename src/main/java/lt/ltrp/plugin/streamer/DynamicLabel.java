@@ -1,6 +1,6 @@
 package lt.ltrp.plugin.streamer;
 
-import lt.ltrp.Util.PawnFunc;
+import lt.ltrp.util.PawnFunc;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;

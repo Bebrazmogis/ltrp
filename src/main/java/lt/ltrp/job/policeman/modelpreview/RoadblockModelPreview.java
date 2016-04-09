@@ -2,7 +2,7 @@ package lt.ltrp.job.policeman.modelpreview;
 
 import lt.ltrp.modelpreview.BasicModelPreview;
 import lt.ltrp.modelpreview.ModelPreview;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
 /**

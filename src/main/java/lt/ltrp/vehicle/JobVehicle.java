@@ -3,7 +3,7 @@ package lt.ltrp.vehicle;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.job.Rank;
 import lt.ltrp.job.Job;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 

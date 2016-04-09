@@ -1,7 +1,7 @@
 package lt.ltrp.vehicle;
 
 import lt.ltrp.dao.VehicleDao;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Vehicle;
@@ -101,7 +101,7 @@ public class PlayerVehicle extends LtrpVehicle {
     }
 
     public void addPermission(LtrpPlayer player, PlayerVehiclePermission permission) {
-        addPermission(player.getUserId(), permission);
+        addPermission(player.getUUID(), permission);
     }
 
     /**
@@ -118,7 +118,7 @@ public class PlayerVehicle extends LtrpVehicle {
     }
 
     public void removePermission(LtrpPlayer player, PlayerVehiclePermission permission) {
-        removePermission(player.getUserId(), permission);
+        removePermission(player.getUUID(), permission);
     }
 
     public void removePermission(int userId, PlayerVehiclePermission permission) {

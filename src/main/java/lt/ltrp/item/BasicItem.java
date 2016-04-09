@@ -3,7 +3,7 @@ package lt.ltrp.item;
 import lt.ltrp.data.Color;
 import lt.ltrp.event.item.ItemLocationChangeEvent;
 import lt.ltrp.item.event.PlayerDropItemEvent;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.util.event.EventManager;

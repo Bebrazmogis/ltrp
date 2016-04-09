@@ -4,7 +4,7 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.data.Color;
 import lt.ltrp.item.phone.PhoneBook;
 import lt.ltrp.item.phone.PhoneContact;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;

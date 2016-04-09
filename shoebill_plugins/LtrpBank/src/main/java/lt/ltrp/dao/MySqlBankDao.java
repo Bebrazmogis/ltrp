@@ -1,8 +1,7 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.BankController;
 import lt.ltrp.player.BankAccount;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Location;
 
 import java.sql.*;
@@ -36,13 +35,13 @@ public class MySqlBankDao implements BankDao {
         try (
                 PreparedStatement stmt = connection.prepareStatement(sql);
                 ) {
-            stmt.setInt(1, player.getUserId());
+            stmt.setInt(1, player.getUUID());
             ResultSet resultSet = stmt.executeQuery();
             if(resultSet.next()) {
                 BankAccount account = new BankAccount(
                         resultSet.getInt("id"),
                         resultSet.getString("number"),
-                        player.getUserId(),
+                        player.getUUID(),
                         resultSet.getInt("money"),
                         resultSet.getInt("deposit"),
                         resultSet.getInt("interest"),

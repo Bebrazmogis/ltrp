@@ -8,7 +8,7 @@ import lt.ltrp.job.medic.MedicManager;
 import lt.ltrp.job.policeman.PolicemanManager;
 import lt.ltrp.job.policeman.Roadblock;
 import lt.ltrp.job.policeman.modelpreview.RoadblockModelPreview;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;

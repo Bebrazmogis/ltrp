@@ -1,6 +1,6 @@
 package lt.ltrp.item;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;

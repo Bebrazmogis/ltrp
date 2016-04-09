@@ -1,7 +1,7 @@
 package lt.ltrp.dmv;
 
 import lt.ltrp.dmv.event.PlayerDrivingTestEndEvent;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.event.SpeedometerTickEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;

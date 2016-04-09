@@ -4,8 +4,8 @@ import lt.ltrp.item.ConsumableItem;
 import lt.ltrp.item.Inventory;
 import lt.ltrp.item.ItemType;
 import lt.ltrp.item.drug.event.PlayerUseDrugsEvent;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerDrugs;
+import lt.ltrp.player.data.PlayerDrugs;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 

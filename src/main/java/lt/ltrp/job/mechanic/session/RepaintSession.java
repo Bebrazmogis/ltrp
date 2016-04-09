@@ -1,7 +1,7 @@
 package lt.ltrp.job.mechanic.session;
 
-import lt.ltrp.data.Animation;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.data.Animation;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.util.event.EventManager;

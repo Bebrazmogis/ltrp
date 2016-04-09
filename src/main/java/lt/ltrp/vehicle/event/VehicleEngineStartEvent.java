@@ -1,7 +1,7 @@
 package lt.ltrp.vehicle.event;
 
 import lt.ltrp.Deniable;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.event.vehicle.VehicleEvent;
 import net.gtaun.util.event.Interruptable;

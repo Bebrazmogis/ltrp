@@ -1,10 +1,7 @@
 package lt.ltrp.job.policeman;
 
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.Util.PawnFunc;
-import lt.ltrp.Util.StringUtils;
 import lt.ltrp.command.Commands;
-import lt.ltrp.constant.LicenseType;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
 import lt.ltrp.job.policeman.dialog.ConfirmDelArrestMsgboxDialog;
@@ -15,14 +12,17 @@ import lt.ltrp.dialogmenu.PoliceDatabaseMenu;
 import lt.ltrp.item.Item;
 import lt.ltrp.item.ItemType;
 import lt.ltrp.modelpreview.SkinModelPreview;
-import lt.ltrp.player.LicenseWarning;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerCrime;
-import lt.ltrp.player.PlayerLicense;
+import lt.ltrp.player.constant.LicenseType;
+import lt.ltrp.player.data.LicenseWarning;
+import lt.ltrp.player.data.PlayerCrime;
+import lt.ltrp.player.data.PlayerLicense;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.plugin.streamer.DynamicLabel;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import lt.ltrp.property.House;
 import lt.ltrp.property.HouseWeedSapling;
+import lt.ltrp.util.PawnFunc;
+import lt.ltrp.util.StringUtils;
 import lt.ltrp.vehicle.*;
 import lt.ltrp.vehicle.event.PlayerVehicleArrestDeleteEvent;
 import lt.ltrp.vehicle.event.PlayerVehicleArrestEvent;
@@ -214,7 +214,7 @@ public class PoliceCommands extends Commands{
         } else if(p.getLocation().distance(p2.getLocation()) > 10.0f) {
             p.sendErrorMessage("Ðià komandà galima naudoti tik kai þaidëjas prie jûsø. " + p2.getCharName() + " yra per toli");
         } else {
-            List<PlayerCrime> crimes = LtrpGamemode.getDao().getPlayerDao().getCrimes(p2);
+            List<PlayerCrime> crimes = LtrpPlayer.getPlayerDao().getCrimes(p2);
             if(crimes.size() == 0) {
                 p.sendErrorMessage(p2.getCharName() + " nëra nieko padaræs.");
             } else {
@@ -469,7 +469,7 @@ public class PoliceCommands extends Commands{
                     target.getInventory().remove(weapon);
                 }
                 player.sendActionMessage("apieðko " + target.getCharName() + " ir atima visus ginklus.");
-                LtrpGamemode.getDao().getPlayerDao().update(target);
+                LtrpPlayer.getPlayerDao().update(target);
                 return true;
             } else if(action.equalsIgnoreCase("licenzijas")) {
                 if(params.length != 2) {
@@ -483,7 +483,7 @@ public class PoliceCommands extends Commands{
                             if(target.getLicenses().contains(type)) {
                                 PlayerLicense license = target.getLicenses().get(type);
                                 target.getLicenses().remove(license);
-                                LtrpGamemode.getDao().getPlayerDao().delete(license);
+                                LtrpPlayer.getPlayerDao().delete(license);
                                 player.sendActionMessage("Paima ið " + target.getCharName() + " " + type.getName() + " licenzijà.");
                                 return true;
                             } else {
@@ -529,7 +529,7 @@ public class PoliceCommands extends Commands{
             warning.setIssuedBy(player.getName());
             warning.setBody(warningText);
             target.getLicenses().get(LicenseType.Car).addWarning(warning);
-            LtrpGamemode.getDao().getPlayerDao().insert(warning);
+            LtrpPlayer.getPlayerDao().insert(warning);
             target.sendMessage("Jûs gavote vairavimp áspëjimà nuo pareigûno " + player.getCharName() + ". Paþeidimas: " + warningText + ".");
             player.sendMessage(target.getCharName() + " áspëtas.");
         }

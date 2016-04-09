@@ -3,7 +3,7 @@ package lt.ltrp.job.trashman;
 import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
 import lt.ltrp.job.ContractJob;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.JobVehicle;
 import lt.ltrp.job.trashman.TrashmanManager;
 import lt.ltrp.vehicle.LtrpVehicle;

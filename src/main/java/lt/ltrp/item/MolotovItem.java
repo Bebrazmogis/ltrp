@@ -1,7 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.object.Fire;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.plugin.mapandreas.MapAndreas;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.data.AngledLocation;

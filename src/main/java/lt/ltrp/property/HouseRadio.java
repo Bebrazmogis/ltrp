@@ -1,8 +1,8 @@
 package lt.ltrp.property;
 
-import lt.ltrp.event.property.PlayerEnterHouseEvent;
-import lt.ltrp.event.property.PlayerExitHouseEvent;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.property.event.PlayerEnterHouseEvent;
+import lt.ltrp.property.event.PlayerExitHouseEvent;
 import lt.ltrp.radio.AbstractRadio;
 import lt.ltrp.radio.RadioStation;
 import net.gtaun.util.event.EventManager;

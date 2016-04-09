@@ -2,7 +2,6 @@ package lt.ltrp.job;
 
 import lt.ltrp.LoadingException;
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.Util.StringUtils;
 import lt.ltrp.constant.WorldZone;
 import lt.ltrp.dao.JobDao;
 import lt.ltrp.data.Color;
@@ -14,7 +13,8 @@ import lt.ltrp.job.medic.MedicManager;
 import lt.ltrp.job.policeman.PolicemanManager;
 import lt.ltrp.job.trashman.TrashmanManager;
 import lt.ltrp.job.vehiclethief.VehicleThiefManager;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.util.StringUtils;
 import lt.ltrp.vehicle.VehicleManager;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -99,6 +99,26 @@ public class JobManager implements Destroyable {
         this.jobDao = jobDao;
         this.playerEmergencyCalls = new HashMap<>();
 
+        PlayerCommandManager.replaceTypeParser(ContractJob.class, s -> {
+            int id = ContractJob.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return JobManager.getContractJob(id);
+        });
+
+        PlayerCommandManager.replaceTypeParser(Faction.class, s -> {
+            int id = Faction.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return JobManager.getFaction(id);
+        });
+
         trashmanManager = new TrashmanManager(eventManager, JobId.TrashMan.id);
         vehicleThiefManager = new VehicleThiefManager(eventManager, JobId.VehicleThief.id);
         policemanManager = new PolicemanManager(eventManager, JobId.Officer.id, vehicleManager);
@@ -134,7 +154,7 @@ public class JobManager implements Destroyable {
                     player.setJob(job);
                     player.setJobRank(job.getRanks().stream().min((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber())).get());
                     player.sendMessage(Color.NEWS, "* Jûs ásidarbinote, jeigu reikia daugiau pagalbos raðykite /help.");
-                    LtrpGamemode.getDao().getPlayerDao().update(player);
+                    LtrpPlayer.getPlayerDao().update(player);
                 }
             }
             return true;
@@ -299,7 +319,7 @@ public class JobManager implements Destroyable {
     }
 
     public boolean isJobLeader(LtrpPlayer player) {
-        return isJobLeader(player.getUserId());
+        return isJobLeader(player.getUUID());
     }
 
     public boolean isJobLeader(int userId) {

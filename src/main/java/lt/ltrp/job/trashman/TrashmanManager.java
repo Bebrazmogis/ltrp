@@ -2,12 +2,12 @@ package lt.ltrp.job.trashman;
 
 import lt.ltrp.LoadingException;
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.Util.PawnFunc;
 import lt.ltrp.dao.JobDao;
 import lt.ltrp.data.Color;
 import lt.ltrp.job.AbstractJobManager;
 import lt.ltrp.job.Job;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.util.PawnFunc;
 import lt.ltrp.vehicle.JobVehicle;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;

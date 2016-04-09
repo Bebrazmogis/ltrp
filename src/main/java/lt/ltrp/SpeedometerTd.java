@@ -2,7 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.FuelTank;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.constant.TextDrawFont;

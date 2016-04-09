@@ -7,7 +7,7 @@ import lt.ltrp.dmv.aircraft.AircraftDmvManager;
 import lt.ltrp.dmv.boat.BoatDmvManager;
 import lt.ltrp.dmv.car.CarDmv;
 import lt.ltrp.dmv.car.CarDmvManager;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;

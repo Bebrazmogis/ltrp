@@ -1,7 +1,8 @@
 package lt.ltrp.plugin.streamer;
 
-import lt.ltrp.Util.PawnFunc;
-import lt.ltrp.player.LtrpPlayer;
+
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.util.PawnFunc;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.constant.ObjectMaterialSize;

@@ -6,8 +6,7 @@ import lt.ltrp.dmv.DmvManager;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.item.ItemController;
 import lt.ltrp.job.JobManager;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerController;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.plugin.mapandreas.MapAndreas;
 import lt.ltrp.plugin.mapandreas.MapAndreasMode;
 import lt.ltrp.property.PropertyManager;
@@ -99,7 +98,6 @@ public class LtrpGamemode extends Gamemode {
             e.printStackTrace();
         }
 
-        new PlayerController(eventManager, jobManager);
         new PawnCallbacks(eventManager);
     }
 

@@ -1,6 +1,6 @@
 package lt.ltrp.property.event;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.property.Property;
 import net.gtaun.shoebill.event.player.PlayerEvent;
 import net.gtaun.shoebill.object.Player;

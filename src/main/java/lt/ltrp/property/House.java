@@ -1,6 +1,6 @@
 package lt.ltrp.property;
 
-import lt.ltrp.Util.PawnFunc;
+import lt.ltrp.util.PawnFunc;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;

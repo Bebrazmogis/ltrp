@@ -1,10 +1,10 @@
 package lt.ltrp.job.mechanic.session;
 
-import lt.ltrp.data.Animation;
 import lt.ltrp.job.mechanic.event.PlayerLeaveRepairArea;
 import lt.ltrp.job.mechanic.event.RepairSessionEndEvent;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerCountdown;
+import lt.ltrp.player.data.Animation;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.player.object.PlayerCountdown;
 import lt.ltrp.vehicle.LtrpVehicle;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.data.Color;
@@ -43,7 +43,7 @@ public abstract class AbstractRepairSession {
         this.duration = duration;
         this.player = player;
         this.vehicle = vehicle;
-        this.countdown = new PlayerCountdown(player, duration, false, (p, finished) -> {
+        this.countdown = PlayerCountdown.create(player, duration, false, (p, finished) -> {
             if(finished) {
                 eventManagerNode.cancelAll();
                 if(handler != null) {

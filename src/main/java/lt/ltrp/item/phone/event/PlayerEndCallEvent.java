@@ -1,7 +1,7 @@
 package lt.ltrp.item.phone.event;
 
 import lt.ltrp.item.phone.PhoneCall;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.event.player.PlayerEvent;
 
 /**

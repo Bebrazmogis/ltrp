@@ -1,10 +1,9 @@
 package lt.ltrp.job.policeman.dialog;
 
-import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.job.policeman.OfficerJob;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.data.LtrpWeaponData;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
-import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.util.event.EventManager;
 

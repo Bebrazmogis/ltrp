@@ -4,6 +4,7 @@ import lt.ltrp.DatabasePlugin;
 import lt.ltrp.LtrpGamemode;
 import lt.ltrp.dao.impl.*;
 import lt.ltrp.dao.impl.SqlItemDao;
+import lt.ltrp.player.dao.PlayerDao;
 import net.gtaun.shoebill.Shoebill;
 
 import javax.sql.DataSource;
@@ -108,7 +109,6 @@ class JdbcDAO extends DAOFactory {
         System.out.println("File read");
         in.close();
         */
-        this.playerDao = new SqlPlayerDaoImpl(ds);
         this.phoneDao = new SqlPhoneDaoImpl(ds);
         this.itemDao = new SqlItemDao(ds, LtrpGamemode.get().getEventManager(), phoneDao);
         this.houseDao = new SqlHouseDao(ds);

@@ -1,7 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.item.drug.DrugItem;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.ysf.YSFPlugin;
 import lt.maze.ysf.object.YSFPlayer;
 import net.gtaun.shoebill.object.Timer;

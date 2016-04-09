@@ -5,7 +5,7 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.job.AbstractJobManager;
 import lt.ltrp.job.Job;
 import lt.ltrp.job.RoadblockCommands;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.util.event.EventManager;

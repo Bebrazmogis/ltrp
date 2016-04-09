@@ -1,7 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.property.House;
 import lt.ltrp.property.HouseUpgradeType;
 import lt.ltrp.property.Property;
@@ -40,7 +40,7 @@ public class HouseAudioItem extends BasicItem {
                         .buttonCancel("Ne")
                         .message("Ðio veiksmo atstatyti neámanoma - atgauti audio sistemos nebegalësite."
                                 + "\nAr tikrai norite tæsti?"
-                                + (house.getOwnerUserId() != player.getUserId() ? "\n\n{FF0000}Pastaba. Ðis namas jums nepriklauso." : ""))
+                                + (house.getOwnerUserId() != player.getUUID() ? "\n\n{FF0000}Pastaba. Ðis namas jums nepriklauso." : ""))
                         .onClickOk(dialog -> {
                             house.addUpgrade(HouseUpgradeType.Radio);
                             player.sendMessage(Color.NEWS, "Sveikiname sëkmingai instaliavus garso sistemà. Gero klausymosi!");

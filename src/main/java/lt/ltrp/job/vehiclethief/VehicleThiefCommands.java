@@ -5,7 +5,7 @@ import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.NamedLocation;
 import lt.ltrp.job.ContractJob;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.PlayerVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -55,7 +55,7 @@ public class VehicleThiefCommands extends Commands {
                                 LtrpGamemode.getDao().getVehicleDao().update(vehicle);
                                 vehicle.destroy();
                                 player.addJobExperience(1);
-                                job.log("Þaidëjas " + player.getUserId() + "(darbas:" + job.getId() + ") pardavë transporto priemonæ " + vehicle.getModelName() + " kuri priklauso þaidëjui " + vehicle.getOwnerId());
+                                job.log("Þaidëjas " + player.getUUID() + "(darbas:" + job.getId() + ") pardavë transporto priemonæ " + vehicle.getModelName() + " kuri priklauso þaidëjui " + vehicle.getOwnerId());
                                 return true;
                             } else
                                 player.sendErrorMessage(vehicle.getModelName() + " man nereikia. Vaþiuok ið èia.");

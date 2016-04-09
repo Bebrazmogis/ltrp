@@ -2,7 +2,7 @@ package lt.ltrp.item;
 
 import lt.ltrp.InventoryEntity;
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.constant.WeaponModel;
@@ -200,7 +200,7 @@ public class FixedSizeInventory implements Inventory {
 
     @Override
     public void show(LtrpPlayer player) {
-        logger.debug("showing for " + player.getUserId() + " item count:" + itemCount);
+        logger.debug("showing for " + player.getUUID() + " item count:" + itemCount);
         List<ListDialogItem> dialogItems = new ArrayList<>();
         if(itemCount == 0) {
             ListDialog dialog = ListDialog.create(player, eventManager)

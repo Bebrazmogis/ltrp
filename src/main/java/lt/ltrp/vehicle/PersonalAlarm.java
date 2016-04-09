@@ -1,7 +1,7 @@
 package lt.ltrp.vehicle;
 
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras
@@ -25,7 +25,7 @@ public class PersonalAlarm extends PoliceAlertAlarm {
     @Override
     public void activate() {
         super.activate();
-        LtrpPlayer player = LtrpPlayer.getByUserId(getVehicle().getOwnerId());
+        LtrpPlayer player = LtrpPlayer.get(getVehicle().getOwnerId());
         if(player != null) {
             player.sendMessage(Color.WHITE, "SMS: á Jûsø automobilá bando kaþkas ásilauþti, siuntëjas: Jûsu Automobilis");
             player.playSound(1052);

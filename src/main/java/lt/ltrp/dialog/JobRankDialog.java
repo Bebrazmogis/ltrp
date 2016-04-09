@@ -2,7 +2,7 @@ package lt.ltrp.dialog;
 
 import lt.ltrp.job.Job;
 import lt.ltrp.job.Rank;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.PageListDialog;

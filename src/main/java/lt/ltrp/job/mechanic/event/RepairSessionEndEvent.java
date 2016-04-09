@@ -1,7 +1,7 @@
 package lt.ltrp.job.mechanic.event;
 
 import lt.ltrp.job.mechanic.session.AbstractRepairSession;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.event.player.PlayerEvent;
 
 /**

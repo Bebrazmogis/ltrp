@@ -2,7 +2,7 @@ package lt.ltrp.item.event;
 
 import lt.ltrp.item.Inventory;
 import lt.ltrp.item.WeaponItem;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.event.player.PlayerEvent;
 import net.gtaun.shoebill.object.Player;

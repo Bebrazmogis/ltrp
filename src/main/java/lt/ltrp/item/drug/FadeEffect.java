@@ -1,7 +1,7 @@
 package lt.ltrp.item.drug;
 
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.fader.FaderPlugin;
 
 /**

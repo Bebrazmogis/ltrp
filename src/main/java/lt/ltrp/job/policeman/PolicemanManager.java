@@ -7,7 +7,7 @@ import lt.ltrp.job.AbstractJobManager;
 import lt.ltrp.job.Job;
 import lt.ltrp.job.RoadblockCommands;
 import lt.ltrp.job.policeman.modelpreview.RoadblockModelPreview;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.plugin.streamer.DynamicLabel;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import lt.ltrp.vehicle.JobVehicle;

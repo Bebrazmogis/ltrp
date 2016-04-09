@@ -1,13 +1,13 @@
 package lt.ltrp.vehicle;
 
-import lt.ltrp.Util.Factorial;
-import lt.ltrp.constant.LicenseType;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.dao.VehicleDao;
 import lt.ltrp.item.Item;
 import lt.ltrp.item.ItemType;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.constant.LicenseType;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.shopplugin.VehicleShopPlugin;
+import lt.ltrp.util.Factorial;
 import lt.ltrp.vehicle.event.SpeedometerTickEvent;
 import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
@@ -105,8 +105,8 @@ public class VehicleManager {
                         player.setSeatbelt(false);
                     }
                     // If the vehicle player left had music playing, we need to stop it for that player
-                    if(player.getLastUsedVehicle() != null && player.getLastUsedVehicle().getRadioStation() != null && player.getCurrentAudioHandle() != null) {
-                        player.getCurrentAudioHandle().stop();
+                    if(player.getLastUsedVehicle() != null && player.getLastUsedVehicle().getRadio().getStation() != null && player.getAudioHandle() != null) {
+                        player.getAudioHandle().stop();
                     }
                 }
             }
@@ -117,9 +117,9 @@ public class VehicleManager {
             LtrpVehicle vehicle = LtrpVehicle.getByVehicle(e.getVehicle());
             if(player != null && vehicle != null) {
                 // If the vehicle has radio playing, let's start it for the player who entered it
-                if(vehicle.getRadioStation() != null) {
-                    player.playAudioStream(vehicle.getRadioStation().getUrl());
-                    player.setVolume(vehicle.getRadioVolume());
+                if(vehicle.getRadio().getStation() != null) {
+                    player.playAudioStream(vehicle.getRadio().getStation().getUrl());
+                    player.setVolume(vehicle.getRadio().getVolume());
                 }
 
                 VehicleModel.VehicleType type = VehicleModel.getType(vehicle.getModelId());
@@ -151,7 +151,7 @@ public class VehicleManager {
                             if(vehicle instanceof PlayerVehicle) {
                                 int deaths = ((PlayerVehicle)vehicle).getDeaths();
                                 time = 1500 + deaths * 150;
-                                percentage = (int) (100 - Factorial.get((int)(deaths * 1.5)) - dmg / 40f);
+                                percentage = (int) (100 - Factorial.get((int) (deaths * 1.5)) - dmg / 40f);
                                 logger.debug("Vehicle start percentage:" + percentage);
                             } else {
                                 time = 1500;
