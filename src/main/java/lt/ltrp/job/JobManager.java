@@ -290,24 +290,6 @@ public class JobManager implements Destroyable {
         logger.info("Job manager initialized");
     }
 
-    public static void addFactionLeader(Faction f, int userId) {
-        instance.addLeader(f, userId);
-    }
-
-    public void addLeader(Faction f, int userId) {
-        f.addLeader(userId);
-        jobDao.addLeader(f, userId);
-    }
-
-    public static void removeFactionLeader(Faction f, int userId) {
-        instance.removeLeader(f, userId);
-    }
-
-    public void removeLeader(Faction f, int userId) {
-        f.removeLeader(userId);
-        jobDao.removeLeader(f, userId);
-    }
-
     public static boolean isJobLeader(LtrpPlayer player) {
         return isJobLeader(player.getUserId());
     }
