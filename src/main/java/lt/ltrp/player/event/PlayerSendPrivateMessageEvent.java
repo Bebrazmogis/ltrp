@@ -24,4 +24,9 @@ public class PlayerSendPrivateMessageEvent extends PlayerEvent {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "target=" + target + "message=" + message;
+    }
 }

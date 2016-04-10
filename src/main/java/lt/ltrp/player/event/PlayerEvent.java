@@ -16,4 +16,9 @@ public class PlayerEvent extends net.gtaun.shoebill.event.player.PlayerEvent {
     public LtrpPlayer getPlayer() {
         return (LtrpPlayer)super.getPlayer();
     }
+
+    @Override
+    public String toString() {
+        return String.format("player=%s", getPlayer().toString());
+    }
 }

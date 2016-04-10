@@ -2,7 +2,6 @@ package lt.ltrp.player.event;
 
 import lt.ltrp.player.JailData;
 import lt.ltrp.player.LtrpPlayer;
-import net.gtaun.shoebill.event.player.PlayerEvent;
 
 /**
  * Created by Bebras on 2016.03.27.
@@ -16,12 +15,13 @@ public class PlayerJailEvent extends PlayerEvent {
         this.jailData = jd;
     }
 
-    @Override
-    public LtrpPlayer getPlayer() {
-        return (LtrpPlayer)super.getPlayer();
-    }
 
     public JailData getJailData() {
         return jailData;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "jailData=" + jailData;
     }
 }

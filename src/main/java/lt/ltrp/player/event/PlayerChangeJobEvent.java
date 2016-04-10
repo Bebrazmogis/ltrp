@@ -25,4 +25,9 @@ public class PlayerChangeJobEvent extends PlayerEvent {
     public Job getNewJob() {
         return newJob;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "oldJob=" + oldJob + "newJob=" + newJob;
+    }
 }

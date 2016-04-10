@@ -18,4 +18,9 @@ public class PlayerActionMessageEvent extends PlayerEvent{
     public String getText() {
         return text;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + String.format("text=%s", text);
+    }
 }
