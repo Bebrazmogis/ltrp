@@ -142,6 +142,13 @@ CREATE TABLE IF NOT EXISTS player_crashes
 );
 ALTER TABLE player_crashes ADD FOREIGN KEY(player_id) REFERENCES players(id) ON DELETE CASCADE;
 
+CREATE TABLE IF NOT EXISTS player_settings (
+  player_id INT NOT NULL,
+  setting VARCHAR(16) NOT NULL,
+  value VARCHAR(64) NOT NULL,
+  PRIMARY KEY (player_id, setting),
+  FOREIGN KEY (player_id) REFERENCES players(id) ON DELETE CASCADE
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 CREATE TABLE `ltrp-java`.logs_admin
 (
