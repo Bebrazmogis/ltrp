@@ -2,8 +2,8 @@ package lt.ltrp.item;
 
 import lt.ltrp.radio.RadioStation;
 import lt.ltrp.data.Color;
-import lt.ltrp.dialog.radio.RadioStationListDialog;
 import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.radio.dialog.RadioStationListDialog;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.util.event.EventManager;
 

@@ -1,10 +1,10 @@
 package lt.ltrp.item;
 
-import lt.ltrp.RadioStation;
 import lt.ltrp.dialog.IntegerInputDialog;
-import lt.ltrp.dialog.radio.RadioStationListDialog;
 import lt.ltrp.player.LtrpPlayer;
 import lt.ltrp.plugin.mapandreas.MapAndreas;
+import lt.ltrp.radio.RadioStation;
+import lt.ltrp.radio.dialog.RadioStationListDialog;
 import lt.maze.streamer.event.PlayerEnterDynamicAreaEvent;
 import lt.maze.streamer.event.PlayerLeaveDynamicAreaEvent;
 import lt.maze.streamer.object.DynamicObject;
