@@ -109,7 +109,7 @@ public class PlayerController {
 
 
         playerCommandManager.registerCommands(new AdminCommands(jobManager, managerNode));
-        playerCommandManager.registerCommands(new GeneralCommands());
+        playerCommandManager.registerCommands(new GeneralCommands(managerNode));
 
 
 

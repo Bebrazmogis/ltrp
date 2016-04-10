@@ -4,10 +4,13 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.dialog.FightStyleDialog;
+import lt.ltrp.player.event.PlayerSendPrivateMessageEvent;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.object.Player;
+import net.gtaun.util.event.EventManager;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +21,11 @@ import java.util.logging.Logger;
  */
 public class GeneralCommands {
 
+    private EventManager eventManager;
+
+    public GeneralCommands(EventManager eventManager) {
+        this.eventManager = eventManager;
+    }
 
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
@@ -42,7 +50,8 @@ public class GeneralCommands {
 
     @Command
     @CommandHelp("Parodo jûsø turimas licenzijas pasirinktam þaidëjui")
-    public boolean licenses(LtrpPlayer player, @CommandParam("Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+    public boolean licenses(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player =LtrpPlayer.get(p);
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
         } else if(player.getDistanceToPlayer(target) > 5f) {
@@ -101,6 +110,25 @@ public class GeneralCommands {
             return true;
         }
         return false;
+    }
+
+    @Command
+    @CommandHelp("Nusiunèia þaidëjui privaèià, OOC þinutæ")
+    public boolean pm(Player player,
+                      @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                      @CommandParameter(name = "Þinutës tekstas")String text) {
+        LtrpPlayer p =LtrpPlayer.get(player);
+        if(target == null) {
+            p.sendErrorMessage("Tokio þaidëjo nëra!");
+        } else if(target.getSettings().isPmDisabled()) {
+            p.sendErrorMessage(target.getName() + " þaidëjas yra iðjungæs PM þinuèiø gavimà.");
+        } else {
+            target.playSound(1057);
+            target.sendMessage(Color.PM_RECEIVED, String.format("(( Gauta PÞ nuo %s[ID:%d]: %s ))", p.getName(), p.getId(), text));
+            p.sendMessage(Color.PM_SENT, String.format("(( PÞ iðsiûsta %s[ID:%d]: %s ))", target.getName(), target.getId(), text));
+            eventManager.dispatchEvent(new PlayerSendPrivateMessageEvent(p, target, text));
+        }
+        return true;
     }
 
 }
