@@ -17,6 +17,7 @@ import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Item;
 import lt.ltrp.job.*;
+import lt.ltrp.player.event.PlayerEditSettingsEvent;
 import lt.ltrp.player.util.PlayerLog;
 import lt.ltrp.property.Business;
 import lt.ltrp.property.Garage;
@@ -327,6 +328,10 @@ public class PlayerController {
 
         managerNode.registerHandler(PlayerCommandEvent.class, HandlerPriority.BOTTOM, e -> {
             //e.setProcessed();
+        });
+
+        managerNode.registerHandler(PlayerEditSettingsEvent.class, e -> {
+            playerDao.update(e.getSettings());
         });
 
         javaMinuteTimer = new Timer("Java minute timer");

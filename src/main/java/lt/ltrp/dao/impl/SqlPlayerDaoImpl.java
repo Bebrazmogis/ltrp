@@ -116,12 +116,25 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                     player.setJobHours(result.getInt("job_hours"));
                     player.setJobExperience(result.getInt("job_xp"));
                 }
+                loadSettings(player, connection);
                 loaded = true;
             }
         } catch(SQLException e) {
             e.printStackTrace();
         }
         return loaded;
+    }
+
+    private void loadSettings(LtrpPlayer player, Connection connection) throws SQLException {
+        try(PreparedStatement stmt = connection.prepareStatement("SELECT * FROM player_settings WHERE player_id = ?")) {
+            stmt.setInt(1, player.getUUID());
+            ResultSet r = stmt.executeQuery();
+            Properties settings = new Properties();
+            while(r.next()) {
+                settings.put(r.getString("setting"), r.getString("value"));
+            }
+            player.setSettings(new PlayerSettings(player, settings));
+        }
     }
 
     @Override
@@ -383,6 +396,31 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
 
         return permissions;
+    }
+
+    @Override
+    public void update(PlayerSettings settings) {
+        String sql = "INSERT INTO player_settings (player_id, setting, `value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ) {
+            Properties props = settings.toProperties();
+            props.forEach((k, v) -> {
+                try {
+                    stmt.setInt(1, settings.getPlayer().getUUID());
+                    stmt.setString(2, (String)k);
+                    stmt.setString(3, (String)v);
+                    stmt.addBatch();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            stmt.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

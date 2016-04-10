@@ -31,6 +31,8 @@ public interface PlayerDao {
     List<PlayerCrime> getCrimes(LtrpPlayer player);
     Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player);
 
+    void update(PlayerSettings settings);
+
     void updateLicenses(PlayerLicenses licenses);
     void updateLicense(PlayerLicense license);
     void insertLicense(PlayerLicense license);

@@ -158,6 +158,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     private PlayerLicenses licenses;
     private boolean seatbelt, masked, cuffed;
     private int jobExperience, jobHours, boxStyle, age, respect, deaths, hunger;
+    private PlayerSettings settings;
     private EventManager eventManager;
     /**
      * Paydays a user spent online
@@ -207,6 +208,14 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     public int getUserId() {
         return super.getUUID();
+    }
+
+    public PlayerSettings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(PlayerSettings settings) {
+        this.settings = settings;
     }
 
     public PlayerDrugs getDrugs() {

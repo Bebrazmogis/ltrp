@@ -4,6 +4,7 @@ import lt.ltrp.LtrpGamemode;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.dialog.FightStyleDialog;
+import lt.ltrp.player.dialog.PlayerSettingsListDialog;
 import lt.ltrp.player.event.PlayerSendPrivateMessageEvent;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -45,7 +46,7 @@ public class GeneralCommands {
         Logger.getLogger(getClass().getSimpleName()).log(Level.INFO, "GeneralCommands :: inv called");
         p.sendMessage(p.getInventory().getName());
         p.getInventory().show(p);
-        return false;
+        return true;
     }
 
     @Command
@@ -64,7 +65,7 @@ public class GeneralCommands {
                         license.getType().getName(), license.getStage() == 2 ? "Praktika" : "Teorija", license.getDateAquired(), license.getWarnings().length));
             }
         }
-        return false;
+        return true;
     }
 
     @Command
@@ -75,7 +76,7 @@ public class GeneralCommands {
         } else {
             FightStyleDialog.create(player, LtrpGamemode.get().getEventManager()).show();
         }
-        return false;
+        return true;
     }
 
     @Command
@@ -92,7 +93,7 @@ public class GeneralCommands {
             p.setCountdown(null);
             return true;
         }
-        return false;
+        return true;
     }
 
     @Command
@@ -109,7 +110,7 @@ public class GeneralCommands {
             p.getCountdown().forceStop();
             return true;
         }
-        return false;
+        return true;
     }
 
     @Command
@@ -128,6 +129,15 @@ public class GeneralCommands {
             p.sendMessage(Color.PM_SENT, String.format("(( PÞ iðsiûsta %s[ID:%d]: %s ))", target.getName(), target.getId(), text));
             eventManager.dispatchEvent(new PlayerSendPrivateMessageEvent(p, target, text));
         }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Atidaro þaidimo nustatymø meniu")
+    public boolean settings(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PlayerSettingsListDialog.create(player, eventManager, player.getSettings())
+                .show();
         return true;
     }
 
