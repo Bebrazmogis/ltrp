@@ -49,6 +49,7 @@ import java.util.*;
 public class PlayerController {
 
     protected static final int MINUTES_FOR_PAYDAY = 20;
+    public static final Color DEFAULT_PLAYER_COLOR = new Color(0xFFFFFF00);
 
     private EventManagerNode managerNode;
     private PlayerDao playerDao;
@@ -86,7 +87,7 @@ public class PlayerController {
             spawn.run();
 
             // Various options and settings
-            player.setColor(Color.WHITE); // Make the users radai blip invisible
+            player.setColor(DEFAULT_PLAYER_COLOR); // Make the users radai blip invisible
 
             // Authentication
             new AuthController(managerNode, player);
