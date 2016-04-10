@@ -6228,7 +6228,7 @@ CMD:oldcar(playerid, params[])
     SendClientMessage( playerid, COLOR_WHITE, string );
     return 1;
 }
-
+/*
 CMD:pm( playerid, params[ ] )
 {
     new giveplayerid,
@@ -6258,6 +6258,7 @@ CMD:pm( playerid, params[ ] )
     PlayerPlaySound(giveplayerid, 1057, 0.0, 0.0, 0.0 );
     return 1;
 }
+*/
 /*
 CMD:setbelt( playerid, params[ ] )
 {
