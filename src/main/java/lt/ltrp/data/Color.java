@@ -18,6 +18,7 @@ public class Color extends net.gtaun.shoebill.data.Color {
     public static final net.gtaun.shoebill.data.Color DIALOG = new net.gtaun.shoebill.data.Color(0xA9, 0xC4, 0xE4); // A9C4E4
     public static final net.gtaun.shoebill.data.Color PM_RECEIVED = new net.gtaun.shoebill.data.Color(0xBB, 0xA0, 0x33); //0xBBA033AA
     public static final net.gtaun.shoebill.data.Color PM_SENT = new net.gtaun.shoebill.data.Color(0xE5, 0xC4, 0x3E); //0xE5C43EAA
+    public static final net.gtaun.shoebill.data.Color MODERATOR = new net.gtaun.shoebill.data.Color(0xA4, 0xDE6, 0x3); // 0xA4DE63FF
 
     public Color(int value) {
         super(value);
