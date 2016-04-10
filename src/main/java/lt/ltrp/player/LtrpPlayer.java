@@ -711,6 +711,11 @@ public class LtrpPlayer extends InventoryEntity implements Player {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "uuid=" + getUUID() + player.toString();
+    }
+
     // Player overrides
 
     @Override
