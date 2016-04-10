@@ -1,7 +1,9 @@
 package lt.ltrp.player;
 
 import lt.ltrp.LtrpGamemode;
+import lt.ltrp.data.Color;
 import lt.ltrp.player.event.PlayerAcceptPlayerQuestion;
+import lt.ltrp.player.event.PlayerAskQuestionEvent;
 import lt.ltrp.player.event.PlayerRejectPlayerQuestion;
 import lt.ltrp.player.event.PlayerToggleModDutyEvent;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -58,6 +60,13 @@ public class AdminController implements Destroyable {
         eventManagerNode.registerHandler(PlayerRejectPlayerQuestion.class, e -> {
             pendingPlayerQuestions.remove(e.getTarget());
         });
+
+        eventManagerNode.registerHandler(PlayerAskQuestionEvent.class, e -> {
+            LtrpPlayer p = e.getPlayer();
+            String question = e.getQuestion();
+            pendingPlayerQuestions.put(p, question);
+            p.sendMessage(Color.MODERATOR, "Jûsø pateiktas klausimas buvo nusiûstas budintiems moderatoriams, palaukite (Prisijungusiu moderatoriø " + moderatorsOnDuty.size() + ")");
+        });
     }
 
     @Override
@@ -79,5 +88,9 @@ public class AdminController implements Destroyable {
 
     public Collection<LtrpPlayer> getModeratorsOnDuty() {
         return instance.moderatorsOnDuty;
+    }
+
+    public static Collection<LtrpPlayer> getOndutyModerators() {
+        return instance.getModeratorsOnDuty();
     }
 }

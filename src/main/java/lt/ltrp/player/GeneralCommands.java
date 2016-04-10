@@ -5,16 +5,24 @@ import lt.ltrp.command.CommandParam;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.dialog.FightStyleDialog;
 import lt.ltrp.player.dialog.PlayerSettingsListDialog;
+import lt.ltrp.player.event.PlayerAskQuestionEvent;
 import lt.ltrp.player.event.PlayerSendPrivateMessageEvent;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;
+import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.HandlerEntry;
 
+import java.time.Instant;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -23,9 +31,18 @@ import java.util.logging.Logger;
 public class GeneralCommands {
 
     private EventManager eventManager;
+    private Map<LtrpPlayer, Long> askqUseTimestamps;
+    private HandlerEntry disconnectEntry;
 
     public GeneralCommands(EventManager eventManager) {
         this.eventManager = eventManager;
+        this.askqUseTimestamps = new HashMap<>();
+        disconnectEntry = eventManager.registerHandler(PlayerDisconnectEvent.class, e -> askqUseTimestamps.remove(LtrpPlayer.get(e.getPlayer())));
+    }
+
+    @Override
+    protected void finalize() {
+        disconnectEntry.cancel();
     }
 
     @BeforeCheck
@@ -141,4 +158,39 @@ public class GeneralCommands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Iðsiunèia klausimà administracijai")
+    public boolean askq(Player p, @CommandParameter(name = "Klausimas")String message) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        long current = Instant.now().getEpochSecond();
+        if(askqUseTimestamps.containsKey(player) && current - askqUseTimestamps.get(player) > 60) {
+            player.sendErrorMessage("Klausti klausimus galite tik kas minutæ!");
+        } else {
+            askqUseTimestamps.put(player, current);
+            eventManager.dispatchEvent(new PlayerAskQuestionEvent(player, message));
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo prisijungusiø moderatoriø sàraðà")
+    public boolean moderators(Player pl) {
+        LtrpPlayer p = LtrpPlayer.get(pl);
+        Collection<LtrpPlayer> onlineMods = LtrpPlayer.get()
+                .stream()
+                .filter(LtrpPlayer::isModerator)
+                .collect(Collectors.toList());
+        if(onlineMods.size() > 0) {
+            p.sendMessage(Color.MODERATOR, "|_________________PRISIJUNGÆ MODERATORIAI_________________|");
+            onlineMods.forEach(m -> {
+                if(AdminController.getOndutyModerators().contains(m))
+                    p.sendMessage(Color.GREEN, String.format("Moderatorius %s (%s) ájungæs budinèio moderatoriaus rëþimà.", p.getName(), p.getForumName()));
+                else
+                    p.sendMessage(Color.LIGHTRED, String.format("Moderatorius %s (%s) iðjungæs budinèio moderatoriaus rëþimà.", p.getName(), p.getForumName()));
+            });
+        } else {
+            p.sendErrorMessage("Nëra nei vieno prisingusio moderatoriaus!");
+        }
+        return true;
+    }
 }
