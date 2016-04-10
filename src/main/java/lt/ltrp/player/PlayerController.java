@@ -17,6 +17,7 @@ import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Item;
 import lt.ltrp.job.*;
+import lt.ltrp.player.util.PlayerLog;
 import lt.ltrp.property.Business;
 import lt.ltrp.property.Garage;
 import lt.ltrp.property.House;
@@ -57,12 +58,14 @@ public class PlayerController {
     private Timer javaMinuteTimer;
     private PlayerCommandManager playerCommandManager;
     private PlayerJailController playerJailController;
+    private PlayerLog playerLog;
 
     public PlayerController(EventManager manager, JobManager jobManager) {
         playerDao = LtrpGamemode.getDao().getPlayerDao();
         this.playerJailController = new PlayerJailController(manager, playerDao);
-
         managerNode = manager.createChildNode();
+
+        this.playerLog = new PlayerLog(managerNode);
 
         playerCommandManager = new PlayerCommandManager( managerNode);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
@@ -431,6 +434,7 @@ public class PlayerController {
     }
 
     public void destroy() {
+        playerLog.destroy();
         managerNode.cancelAll();
         managerNode.destroy();
         javaMinuteTimer.cancel();

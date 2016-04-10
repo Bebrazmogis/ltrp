@@ -11,8 +11,7 @@ import lt.ltrp.job.ContractJob;
 import lt.ltrp.job.ContractJobRank;
 import lt.ltrp.job.Job;
 import lt.ltrp.job.Rank;
-import lt.ltrp.player.event.PlayerJailEvent;
-import lt.ltrp.player.event.PlayerUnJailEvent;
+import lt.ltrp.player.event.*;
 import lt.ltrp.property.Property;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.PlayerVehicle;
@@ -407,6 +406,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     }
 
     public void setJob(Job job) {
+        eventManager.dispatchEvent(new PlayerChangeJobEvent(this, this.job, job));
         this.job = job;
     }
 
@@ -640,6 +640,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     public void sendActionMessage(String s, float distance) {
         this.sendMessage(lt.ltrp.data.Color.ACTION, "* "+ getName() + " " + s, distance);
+        this.eventManager.dispatchEvent(new PlayerActionMessageEvent(this, s));
     }
 
     public void sendActionMessage(String s) {
@@ -648,6 +649,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     public void sendStateMessage(String s, float distance) {
         this.sendMessage(lt.ltrp.data.Color.ACTION, "* " + s + " ((" + getName() + "))", distance);
+        this.eventManager.dispatchEvent(new PlayerStateMessageEvent(this, s));
     }
 
     public void sendStateMessage(String s) {
