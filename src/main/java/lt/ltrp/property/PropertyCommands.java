@@ -26,18 +26,4 @@ public class PropertyCommands {
     }
 
 
-    @Command()
-    @CommandHelp("Atveria nekilnojamojo turto inventoriø")
-    public boolean ninv(LtrpPlayer player) {
-        Property property = player.getProperty();
-        if(property != null ) {
-            if(property.isOwner(player)) {
-                property.getInventory().show(player);
-            } else {
-                player.sendErrorMessage("Jûs neesate savininkas.");
-            }
-        }
-        return false;
-    }
-
 }

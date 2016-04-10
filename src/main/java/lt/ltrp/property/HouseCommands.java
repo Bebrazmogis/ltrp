@@ -27,11 +27,6 @@ public class HouseCommands {
         this.eventManager = event;
     }
 
-    private EventManager eventManager;
-
-    public HouseCommands(EventManager e) {
-        this.eventManager = e;
-    }
 
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
@@ -46,10 +41,25 @@ public class HouseCommands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Atidaro namo inventoriø")
+    public boolean hInv(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        House house = (House)player.getProperty();
+        if(house.getInventory() == null) {
+
+        } else if(!house.isOwner(player)) {
+            player.sendErrorMessage("Ðis namas jums nepriklauso");
+        } else {
+            house.getInventory().show(player);
+        }
+        return true;
+    }
 
     @Command()
     @CommandHelp("Nuima uþaugintà þolæ namuose")
-    public boolean cutWeed(LtrpPlayer player) {
+    public boolean cutWeed(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
         House house = (House)player.getProperty();
         if(house.isOwner(player)) {
             if(house.getWeedSaplings().size() != 0) {
