@@ -7,7 +7,6 @@ import lt.ltrp.dao.VehicleDao;
 import lt.ltrp.item.Item;
 import lt.ltrp.item.ItemType;
 import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.shopplugin.VehicleShopPlugin;
 import lt.ltrp.vehicle.event.SpeedometerTickEvent;
 import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
@@ -104,10 +103,6 @@ public class VehicleManager {
                         player.sendActionMessage("iðlipdamas atsisega saugos dirþus");
                         player.setSeatbelt(false);
                     }
-                    // If the vehicle player left had music playing, we need to stop it for that player
-                    if(player.getLastUsedVehicle() != null && player.getLastUsedVehicle().getRadioStation() != null && player.getCurrentAudioHandle() != null) {
-                        player.getCurrentAudioHandle().stop();
-                    }
                 }
             }
         });
@@ -116,11 +111,6 @@ public class VehicleManager {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             LtrpVehicle vehicle = LtrpVehicle.getByVehicle(e.getVehicle());
             if(player != null && vehicle != null) {
-                // If the vehicle has radio playing, let's start it for the player who entered it
-                if(vehicle.getRadioStation() != null) {
-                    player.playAudioStream(vehicle.getRadioStation().getUrl());
-                    player.setVolume(vehicle.getRadioVolume());
-                }
 
                 VehicleModel.VehicleType type = VehicleModel.getType(vehicle.getModelId());
                 // If it's an aicraft but the player isn't licensed to use one
