@@ -4,6 +4,7 @@ import lt.maze.streamer.Constants;
 import lt.maze.streamer.Functions;
 import net.gtaun.shoebill.amx.types.ReferenceString;
 import net.gtaun.shoebill.data.Color;
+import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
 import net.gtaun.shoebill.object.Player;
@@ -53,6 +54,14 @@ public class DynamicLabel implements StreamerItem {
         DynamicLabel label = new DynamicLabel(id);
         labels.add(label);
         return label;
+    }
+
+    public static DynamicLabel create(String text, Color color, Location location, float drawDistance, Player attachedPlayer, boolean testLOS) {
+        return create(text, color, location.x, location.y, location.z, drawDistance, attachedPlayer, null, testLOS, location.worldId, location.interiorId, null, Constants.STREAMER_3D_TEXT_LABEL_SD);
+    }
+
+    public static DynamicLabel create(String text, Color color, Location location, float drawDistance, Vehicle attachedVehicle, boolean testLOS) {
+        return create(text, color, location.x, location.y, location.z, drawDistance, null, attachedVehicle, testLOS, location.worldId, location.interiorId, null, Constants.STREAMER_3D_TEXT_LABEL_SD);
     }
 
     public static DynamicLabel create(String text, Color color, Vector3D position, float drawdistance) {
