@@ -56,6 +56,14 @@ public class PlayerSettingsListDialog {
                             settings.setMusicDisabled(!settings.isMusicDisabled());
                         })
                         .build())
+                .item(TabListDialogItem.create()
+                        .enabled(() -> settings.getPlayer().isAdmin() || settings.getPlayer().isModerator())
+                        .column(0, ListDialogItem.create().itemText("Þaidëjø klausimø blokavimas").build())
+                        .column(1, getBoolSetting(settings.isModChatDisabled()))
+                        .onSelect(item -> {
+                            settings.setModChatDisabled(!settings.isModChatDisabled());
+                        })
+                        .build())
                 .buttonOk("Keisti")
                 .buttonCancel("Uþdaryti")
                 .onClickOk((d, i) -> {
