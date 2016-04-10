@@ -48,6 +48,7 @@ public class PlayerJailController implements Destroyable {
                         }
                     });
         });
+        this.jailTimeTimer.start();
 
         this.node.registerHandler(PlayerLeaveDynamicAreaEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());

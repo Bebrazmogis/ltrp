@@ -43,6 +43,7 @@ public class DragTimer implements Destroyable {
         this.player = p;
         this.target = p2;
         this.timesInstance = t;
+        this.timesInstance.start();
     }
 
 

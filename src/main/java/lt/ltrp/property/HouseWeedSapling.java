@@ -87,6 +87,7 @@ public class HouseWeedSapling implements Destroyable{
 
     private void setTimer() {
         growthTimer = Timer.create(stage.getDuration(), timerCallback);
+        growthTimer.start();
     }
 
     public boolean isGrown() {

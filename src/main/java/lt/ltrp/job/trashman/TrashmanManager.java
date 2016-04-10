@@ -195,6 +195,7 @@ public class TrashmanManager extends AbstractJobManager {
                     timer = Timer.create(delay, 1, ticks -> {
                         slot.remove();
                     });
+                    timer.start();
                 }
             }
         }

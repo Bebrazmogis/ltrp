@@ -24,6 +24,7 @@ public class PlayerOffer {
             eventManager.dispatchEvent(new PlayerOfferExpireEvent(player, this));
             expireTimer.destroy();
         });
+        expireTimer.start();
     }
 
     public PlayerOffer(LtrpPlayer player, LtrpPlayer offeredBy, Class offerType) {

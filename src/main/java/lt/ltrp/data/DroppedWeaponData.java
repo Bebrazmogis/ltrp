@@ -48,6 +48,7 @@ public class DroppedWeaponData extends LtrpWeaponData implements Destroyable{
                 timer = Timer.create(DISAPPEAR_INTERVAL, 1, (interval) -> {
                     this.destroy();
                 });
+                timer.start();
             });
         }).start();
         droppedWeapons.add(this);
