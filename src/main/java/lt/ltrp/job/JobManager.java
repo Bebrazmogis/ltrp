@@ -40,6 +40,7 @@ public class JobManager implements Destroyable {
     private static final Logger logger = LoggerFactory.getLogger(JobManager.class);
     private static List<Faction> factions = new ArrayList<>();
     private static List<ContractJob> contractJobs = new ArrayList<>();
+    private static JobManager instance;
 
     public static List<Job> get() {
         List<Job> jobs = new ArrayList<>();
@@ -96,6 +97,7 @@ public class JobManager implements Destroyable {
 
 
     public JobManager(EventManager eventManager, JobDao jobDao, VehicleManager vehicleManager) throws LoadingException{
+        instance = this;
         this.jobDao = jobDao;
         this.playerEmergencyCalls = new HashMap<>();
 
@@ -288,21 +290,29 @@ public class JobManager implements Destroyable {
         logger.info("Job manager initialized");
     }
 
-    public void addFactionLeader(Faction f, int userId) {
+    public static void addFactionLeader(Faction f, int userId) {
+        instance.addLeader(f, userId);
+    }
+
+    public void addLeader(Faction f, int userId) {
         f.addLeader(userId);
         jobDao.addLeader(f, userId);
     }
 
-    public void removeFactionLeader(Faction f, int userId) {
+    public static void removeFactionLeader(Faction f, int userId) {
+        instance.removeLeader(f, userId);
+    }
+
+    public void removeLeader(Faction f, int userId) {
         f.removeLeader(userId);
         jobDao.removeLeader(f, userId);
     }
 
-    public boolean isJobLeader(LtrpPlayer player) {
+    public static boolean isJobLeader(LtrpPlayer player) {
         return isJobLeader(player.getUserId());
     }
 
-    public boolean isJobLeader(int userId) {
+    public static boolean isJobLeader(int userId) {
         return factions.stream().filter(f -> f.getLeaders().contains(userId)).findFirst().isPresent();
     }
 
