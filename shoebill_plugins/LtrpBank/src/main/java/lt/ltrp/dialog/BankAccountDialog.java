@@ -24,7 +24,7 @@ public class BankAccountDialog {
         } else {
             return ListDialog.create(player, eventManager)
                     .caption("Los Santos Bankas")
-                    .item("Dabartinis balansas: " + Currency.SYMBOL + player.getBankMoney(), i -> i.getCurrentDialog().show())
+                    .item("Dabartinis balansas: " + Currency.SYMBOL + playerBankAccount.getMoney(), i -> i.getCurrentDialog().show())
                     .item("Sàskaitos nr. " + playerBankAccount.getNumber(), i -> i.getCurrentDialog().show())
                     .item("Nuimti pinigø", () -> playerBankAccount.getDeposit() == 0, i -> {
                         WithdrawMoneyInputDialog.create(player, eventManager, playerBankAccount)
