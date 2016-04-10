@@ -144,7 +144,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     private Player player;
 
-    private int adminLevel, level;
+    private int adminLevel, level, modLevel;
 
     private String password, secretAnswer, secretQuestion;
     private JailData jailData;
@@ -601,6 +601,18 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     public void setAdminLevel(int adminLevel) {
         this.adminLevel = adminLevel;
+    }
+
+    public int getModLevel() {
+        return modLevel;
+    }
+
+    public void setModLevel(int modLevel) {
+        this.modLevel = modLevel;
+    }
+
+    public boolean isModerator() {
+        return modLevel > 0;
     }
 
     public int getLevel() {

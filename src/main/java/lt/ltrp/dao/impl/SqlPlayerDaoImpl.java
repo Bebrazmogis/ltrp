@@ -82,7 +82,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     public boolean loadData(LtrpPlayer player) {
         boolean loaded = false;
         String sql = "SELECT " +
-                "secret_question, secret_answer, admin_level, players.level, players.job_id, money, hours_online, box_style, age, " +
+                "secret_question, secret_answer, admin_level, mod_level, players.level, players.job_id, money, hours_online, box_style, age, " +
                 "respect, deaths, hunger, total_paycheck, job_contract, minutes_online_since_payday " +
                 ", player_job_levels.level AS job_level, player_job_levels.hours AS job_hours, player_job_levels.xp AS job_xp " +
                 "FROM players LEFT JOIN player_job_levels ON players.id = player_job_levels.player_id AND players.job_id = player_job_levels.job_id" +
@@ -109,6 +109,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setTotalPaycheck(result.getInt("total_paycheck"));
                 player.setJobContract(result.getInt("job_contract"));
                 player.setMinutesOnlineSincePayday(result.getInt("minutes_online_since_payday"));
+                player.setModLevel(result.getInt("mod_level"));
 
                 int jobLevel = result.getInt("job_level");
                 if(!result.wasNull()) {
