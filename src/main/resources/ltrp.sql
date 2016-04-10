@@ -159,6 +159,22 @@ CREATE TABLE `ltrp-java`.logs_admin
   action VARCHAR(255) NOT NULL
 ) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
+CREATE TABLE IF NOT EXISTS logs_admin_duty
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  admin_name VARCHAR(24) NOT NULL,
+  user_id INT NULL,
+  first_watch DATETIME NULL,
+  last_watch DATETIME NULL,
+  longest_watch INT NOT NULL DEFAULT 0,
+  total_watch_time INT NOT NULL DEFAULT 0,
+  reports_accepted INT NOT NULL DEFAULT 0,
+  reports_rejected INT NOT NULL DEFAULT 0,
+  PRIMARY KEY(id),
+  FOREIGN KEY (user_id) REFERENCES players (id) ON DELETE SET NULL
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+
 CREATE TABLE IF NOT EXISTS logs_player (
   id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(24) NOT NULL,

@@ -8,6 +8,7 @@ import lt.ltrp.dialog.FactionListDialog;
 import lt.ltrp.dialog.JobListDialog;
 import lt.ltrp.item.Item;
 import lt.ltrp.job.*;
+import lt.ltrp.player.event.PlayerToggleAdminDutyEvent;
 import lt.ltrp.vehicle.JobVehicle;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.maze.shoebilleventlogger.ShoebillEventLoggerPlugin;
@@ -44,6 +45,9 @@ public class AdminCommands {
         adminLevels.put("rc", 1);
         adminLevels.put("gotoloc", 1);
         adminLevels.put("rjc", 1);
+        adminLevels.put("adminduty", 1);
+        adminLevels.put("aduty", 1);
+
         adminLevels.put("rfc", 2);
         adminLevels.put("gotopos", 2);
         adminLevels.put("gotocar", 2);
@@ -127,6 +131,24 @@ public class AdminCommands {
     @Command
     public boolean togq(Player p) {
         p.sendMessage("Komanda paðalinta. Naudokite /settings");
+        return true;
+    }
+
+    @Command
+    public boolean aDuty(Player p) {
+        return adminDuty(p);
+    }
+
+
+    @Command
+    @CommandHelp("Pradeda/uþbaigia administracijos budëjimà")
+    public boolean adminDuty(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(controller.getAdminsOnDuty().contains(player)) {
+            eventManager.dispatchEvent(new PlayerToggleAdminDutyEvent(player, true));
+        } else {
+            eventManager.dispatchEvent(new PlayerToggleAdminDutyEvent(player, false));
+        }
         return true;
     }
 
