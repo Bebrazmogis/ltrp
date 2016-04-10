@@ -7,9 +7,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.dialog.FactionListDialog;
 import lt.ltrp.dialog.JobListDialog;
 import lt.ltrp.item.Item;
-import lt.ltrp.job.ContractJob;
-import lt.ltrp.job.Faction;
-import lt.ltrp.job.JobManager;
+import lt.ltrp.job.*;
 import lt.ltrp.vehicle.JobVehicle;
 import lt.ltrp.vehicle.LtrpVehicle;
 import lt.maze.shoebilleventlogger.ShoebillEventLoggerPlugin;
@@ -69,11 +67,11 @@ public class AdminCommands {
         teleportLocations.put("lb", new Location(-837.1216f, 1537.0032f, 22.5471f, 0, 0));
     }
 
-    private JobManager jobManager;
+    private AdminController controller;
     private EventManager eventManager;
 
-    public AdminCommands(JobManager jobManager, EventManager eventManager) {
-        this.jobManager = jobManager;
+    public AdminCommands(AdminController controller, EventManager eventManager) {
+        this.controller = controller;
         this.eventManager = eventManager;
     }
 
@@ -127,6 +125,12 @@ public class AdminCommands {
     }
 
     @Command
+    public boolean togq(Player p) {
+        p.sendMessage("Komanda paðalinta. Naudokite /settings");
+        return true;
+    }
+
+    @Command
     @CommandHelp("Atkelia nurodytà transporto priemonæ á jûsø pozicijà")
     public boolean getoldcar(Player player, @CommandParam("Transporto priemonës ID")Vehicle vehicle) {
         LtrpPlayer p = LtrpPlayer.get(player);
@@ -170,7 +174,7 @@ public class AdminCommands {
         if(x != 0f && y != 0f && z != 0f) {
             player.setLocation(x, y, z);
         }
-        return false;
+        return true;
     }
 
     @Command
@@ -184,7 +188,7 @@ public class AdminCommands {
             player.sendMessage(Color.NEWS, "Nusikëlëte prie " + vehicle.getModelName() + "(ID:" + vehicle.getId() + ")");
             return true;
         }
-        return false;
+        return true;
     }
 
     @Command
@@ -223,7 +227,7 @@ public class AdminCommands {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra.");
-        } else if(jobManager.isJobLeader(target)) {
+        } else if(JobManager.isJobLeader(target)) {
             player.sendErrorMessage(target.getName() + " jau yra kitos frakcijos lyderis. Paðalinti já galite su /removeLeader");
         } else {
             FactionListDialog.create(player, eventManager, JobManager.getFactions())
@@ -253,7 +257,8 @@ public class AdminCommands {
                                     LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pridëjo " + target.getName() + " á frakcijos " + f.getName() + " lyderius.");
                                     target.sendMessage(Color.NEWS, "Administratorius " + player.getName() + " paskyrë jus, frakcijos " + f.getName() + " lyderiu!");
                                     f.sendMessage(Color.NEWS, target.getName() + " buvo paskirtas naujuoju frakcijos lyderiu!");
-                                    jobManager.addFactionLeader(f, target.getUserId());
+                                    eventManager.dispatchEvent(new PlayerSetFactionLeaderEvent(target, f));
+
                                 })
                                 .build()
                                 .show();
@@ -271,7 +276,7 @@ public class AdminCommands {
         int userId = LtrpGamemode.getDao().getPlayerDao().getUserId(username);
         if(userId == LtrpPlayer.INVALID_USER_ID) {
             player.sendErrorMessage("Tokio vartotojo nëra!");
-        } else if(!jobManager.isJobLeader(userId)) {
+        } else if(!JobManager.isJobLeader(userId)) {
             player.sendErrorMessage("Vartotojas " + username + " nevadovauja jokiai frakcijai.");
         } else {
             Optional<Faction> factionOp = JobManager.getFactions().stream().filter(f -> f.getLeaders().contains(userId)).findFirst();
@@ -284,7 +289,7 @@ public class AdminCommands {
                         .message("Ar tikrai norite paðalinti " + username + " ið frakcijos " + f.getName() + " lyderiu?" +
                             "\nÐiuo metu frakcija turi " + f.getLeaders().size() + " lyderius.")
                         .onClickOk(d -> {
-                            jobManager.removeFactionLeader(f, userId);
+                            eventManager.dispatchEvent(new RemoveFactionLeaderEvent(userId, f));
                             LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " paðalino frakcijos " + f.getName() + " lyderá " + username + " ið pareigø.");
                             f.sendMessage(Color.NEWS, "Lyderis " + username + " buvo paðalintas ið pareigø.");
                             LtrpGamemode.getDao().getPlayerDao().removeJob(userId);
@@ -319,7 +324,7 @@ public class AdminCommands {
             return true;
 
         }
-        return false;
+        return true;
     }
 
 
@@ -337,10 +342,9 @@ public class AdminCommands {
             }
             player.sendMessage("Atstatytos " + count + " darbo " + job.getName() + " transporto priemonës.");
             LtrpPlayer.sendGlobalMessage("Administratorius atstatë visas nenaudojamas darbo " + job.getName() + "transporto priemones.");
-            return true;
         } else
             player.sendErrorMessage("Darbo su tokiu ID nëra.");
-        return false;
+        return true;
     }
 
 
@@ -358,10 +362,9 @@ public class AdminCommands {
             }
             player.sendMessage("Atstatytos " + count + " darbo " + faction.getName() + " transporto priemonës.");
             LtrpPlayer.sendGlobalMessage("Administratorius atstatë visas nenaudojamas darbo " + faction.getName() + "transporto priemones.");
-            return true;
         } else
             player.sendErrorMessage("Frakcijos su tokiu ID nëra.");
-        return false;
+        return true;
     }
 
     @Command()
@@ -383,9 +386,8 @@ public class AdminCommands {
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pagydë jus.");
             player.sendMessage(Color.GREEN, "Þaidëjas " + target.getName() + "(ID:" + target.getId() + ") pagydytas");
             AdminLog.log(player, "Healed user " + target.getName() + " uid: " + target.getUserId());
-            return true;
         }
-        return false;
+        return true;
     }
 
     @Command
@@ -447,9 +449,8 @@ public class AdminCommands {
                     })
                     .build()
                     .show();
-            return true;
         }
-        return false;
+        return true;
     }
 
     private InputDialog showBinaryInputDialog(LtrpPlayer player, String caption, String message, BinaryInputDiualogClickOkHandler inputHandler) {

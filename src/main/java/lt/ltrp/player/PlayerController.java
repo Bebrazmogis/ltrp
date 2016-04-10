@@ -59,9 +59,10 @@ public class PlayerController {
     private Timer javaMinuteTimer;
     private PlayerCommandManager playerCommandManager;
     private PlayerJailController playerJailController;
+    private AdminController adminController;
     private PlayerLog playerLog;
 
-    public PlayerController(EventManager manager, JobManager jobManager) {
+    public PlayerController(EventManager manager) {
         playerDao = LtrpGamemode.getDao().getPlayerDao();
         this.playerJailController = new PlayerJailController(manager, playerDao);
         managerNode = manager.createChildNode();
@@ -71,8 +72,9 @@ public class PlayerController {
         playerCommandManager = new PlayerCommandManager(managerNode);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
         replaceTypeParsers();
-        playerCommandManager.registerCommands(new AdminCommands(jobManager, managerNode));
         playerCommandManager.registerCommands(new GeneralCommands(managerNode));
+
+        adminController = new AdminController(managerNode, playerCommandManager);
 
         managerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.HIGHEST, e -> {
             logger.info("PlayerConnectEvent received: " + e.getPlayer().getName());
@@ -388,6 +390,7 @@ public class PlayerController {
         javaMinuteTimer.cancel();
         playerCommandManager.destroy();
         playerJailController.destroy();
+        adminController.destroy();
     }
 
     private static void replaceTypeParsers() {

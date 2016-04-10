@@ -133,6 +133,12 @@ public class LtrpPlayer extends InventoryEntity implements Player {
         }
     }
 
+    public static void sendModMessage(String s) {
+        get().stream()
+                .filter(p -> (p.isModerator() || p.isAdmin()) && !p.getSettings().isModChatDisabled())
+                .forEach(p -> p.sendMessage(lt.ltrp.data.Color.MODERATOR, s));
+    }
+
     public static void sendGlobalMessage(String s) {
         sendGlobalMessage(Color.GREENYELLOW, s);
     }
