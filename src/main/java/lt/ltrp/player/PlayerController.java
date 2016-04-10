@@ -120,7 +120,7 @@ public class PlayerController {
             if(e.getPlayer().isNpc()) {
                 return;
             }
-            LtrpPlayer player = new LtrpPlayer(e.getPlayer(), playerDao.getUserId(e.getPlayer()));
+            LtrpPlayer player = new LtrpPlayer(e.getPlayer(), playerDao.getUserId(e.getPlayer()), managerNode);
             SpawnController spawn = new SpawnController(managerNode, player);
             spawn.run();
 
