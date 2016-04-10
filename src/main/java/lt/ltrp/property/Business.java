@@ -1,6 +1,7 @@
 package lt.ltrp.property;
 
 import net.gtaun.shoebill.data.Location;
+import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +15,12 @@ public class Business extends Property {
 
     private static List<Business> businesses = new ArrayList<>();
 
-    public static Business create(int uniqueid, String name) {
-        return create(uniqueid, name, null, null);
+    public static Business create(int uniqueid, String name, EventManager eventManager1) {
+        return create(uniqueid, name, null, null, eventManager1);
     }
 
-    public static Business create(int uniqueid, String name, Location entrance, Location exit) {
-        Business property = new Business(uniqueid, name);
+    public static Business create(int uniqueid, String name, Location entrance, Location exit, EventManager eventManager1) {
+        Business property = new Business(uniqueid, name, eventManager1);
         property.setEntrance(entrance);
         property.setExit(exit);
 
@@ -38,8 +39,8 @@ public class Business extends Property {
     }
 
 
-    public Business(int uniqueid, String name) {
-        super(uniqueid, name);
+    public Business(int uniqueid, String name, EventManager eventManager1) {
+        super(uniqueid, name, eventManager1);
     }
 
 }
