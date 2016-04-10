@@ -153,6 +153,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     private int adminLevel, level, modLevel;
 
     private String password, secretAnswer, secretQuestion;
+    private String forumName;
     private JailData jailData;
     private Property property;
     private LtrpWeaponData[] weapons;
@@ -222,6 +223,14 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     public void setSettings(PlayerSettings settings) {
         this.settings = settings;
+    }
+
+    public String getForumName() {
+        return forumName;
+    }
+
+    public void setForumName(String forumName) {
+        this.forumName = forumName;
     }
 
     public PlayerDrugs getDrugs() {
