@@ -68,56 +68,11 @@ public class PlayerController {
 
         this.playerLog = new PlayerLog(managerNode);
 
-        playerCommandManager = new PlayerCommandManager( managerNode);
+        playerCommandManager = new PlayerCommandManager(managerNode);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
-        playerCommandManager.replaceTypeParser(LtrpPlayer.class, s -> {
-            int id = Player.INVALID_ID;
-            try {
-                id = Integer.parseInt(s);
-            } catch(NumberFormatException e) {
-                return null;
-            }
-            return LtrpPlayer.get(id);
-        });
-        playerCommandManager.replaceTypeParser(Vehicle.class, s -> {
-            int id = Vehicle.INVALID_ID;
-            try {
-                id = Integer.parseInt(s);
-            } catch(NumberFormatException e) {
-                return null;
-            }
-            return Vehicle.get(id);
-        });
-        playerCommandManager.replaceTypeParser(ContractJob.class, s -> {
-            int id = ContractJob.INVALID_ID;
-            try {
-                id = Integer.parseInt(s);
-            } catch(NumberFormatException e) {
-                return null;
-            }
-            return JobManager.getContractJob(id);
-        });
-
-        playerCommandManager.replaceTypeParser(Faction.class, s -> {
-            int id = Faction.INVALID_ID;
-            try {
-                id = Integer.parseInt(s);
-            } catch(NumberFormatException e) {
-                return null;
-            }
-            return JobManager.getFaction(id);
-        });
-
-
+        replaceTypeParsers();
         playerCommandManager.registerCommands(new AdminCommands(jobManager, managerNode));
         playerCommandManager.registerCommands(new GeneralCommands(managerNode));
-
-
-
-        managerNode.registerHandler(PlayerCommandEvent.class, e -> {
-            logger.info("PlayerController :: constructor. PlayerCommandEvent received. Command:" + e.getCommand());
-        });
-
 
         managerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.HIGHEST, e -> {
             logger.info("PlayerConnectEvent received: " + e.getPlayer().getName());
@@ -129,13 +84,10 @@ public class PlayerController {
             spawn.run();
 
             // Various options and settings
-
             player.setColor(Color.WHITE); // Make the users radai blip invisible
 
             // Authentication
             new AuthController(managerNode, player);
-
-
         });
 
         managerNode.registerHandler(PlayerSpawnSetUpEvent.class, e -> {
@@ -429,15 +381,6 @@ public class PlayerController {
         }
     }
 
-
-    private boolean isPlayerLoggedIn(int id) {
-        LtrpPlayer player = LtrpPlayer.get(id);
-        if(player != null) {
-            return player.isLoggedIn();
-        } else System.out.println("PLAYER IS NULLLL");
-        return false;
-    }
-
     public void destroy() {
         playerLog.destroy();
         managerNode.cancelAll();
@@ -445,6 +388,46 @@ public class PlayerController {
         javaMinuteTimer.cancel();
         playerCommandManager.destroy();
         playerJailController.destroy();
+    }
+
+    private static void replaceTypeParsers() {
+        PlayerCommandManager.replaceTypeParser(LtrpPlayer.class, s -> {
+            int id = Player.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return LtrpPlayer.get(id);
+        });
+        PlayerCommandManager.replaceTypeParser(Vehicle.class, s -> {
+            int id = Vehicle.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return Vehicle.get(id);
+        });
+        PlayerCommandManager.replaceTypeParser(ContractJob.class, s -> {
+            int id = ContractJob.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return JobManager.getContractJob(id);
+        });
+
+        PlayerCommandManager.replaceTypeParser(Faction.class, s -> {
+            int id = Faction.INVALID_ID;
+            try {
+                id = Integer.parseInt(s);
+            } catch(NumberFormatException e) {
+                return null;
+            }
+            return JobManager.getFaction(id);
+        });
     }
 
 }
