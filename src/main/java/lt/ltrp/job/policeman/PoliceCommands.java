@@ -32,6 +32,7 @@ import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
+import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.constant.VehicleModelInfoType;
 import net.gtaun.shoebill.data.Location;
@@ -79,6 +80,7 @@ public class PoliceCommands extends Commands{
         commandToRankNumber.put("pdclothes", 1);
         commandToRankNumber.put("arrestcar", 1);
         commandToRankNumber.put("delarrestcar", 1);
+        commandToRankNumber.put("vest", 1);
 
         commandToRankNumber.put("wepstore", 2);
 
@@ -92,6 +94,7 @@ public class PoliceCommands extends Commands{
         jobAreaCommands.add("pgear");
         jobAreaCommands.add("duty");
         jobAreaCommands.add("pdclothes");
+        jobAreaCommands.add("vest");
 
 
     }
@@ -646,6 +649,23 @@ public class PoliceCommands extends Commands{
                 }
 
             }
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Paima/padeda neperðaunama liemenæ")
+    public boolean vest(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(player.getArmour() > 0f) {
+            player.sendMessage(Color.POLICE, "[LSPD] Neperðaunama liemenë buvo nuimta.");
+            player.setArmour(0f);
+            player.getAttach().getSlotByBone(PlayerAttachBone.NECK).remove();
+        } else {
+            player.sendMessage(Color.POLICE, "[LSPD] Neperðaunama liemenë buvo uþdëta.");
+            player.setArmour(100f);
+            player.getAttach().getSlotByBone(PlayerAttachBone.NECK).set(PlayerAttachBone.NECK, 19142, new Vector3D(1f, 0.1f, 0.05f), new Vector3D(), new Vector3D(), 0, 0);
+            player.getAttach().getSlotByBone(PlayerAttachBone.NECK).edit();
         }
         return true;
     }
