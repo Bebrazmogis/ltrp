@@ -6,6 +6,7 @@ import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 /**
  * @author Bebras
@@ -35,14 +36,31 @@ public class RadioItem extends BasicItem {
     }
 
     public void sendMessage(LtrpPlayer player, String msg) {
+        this.sendMessage(player, msg, LtrpPlayer.DEFAULT_ACTION_MESSAGE_DISTANCE);
+    }
+
+    public void sendMessage(LtrpPlayer player, String text, float distance) {
+        // If it's a decreased distance message, we add some interference
+        if(distance <= LtrpPlayer.DEFAULT_ACTION_MESSAGE_DISTANCE) {
+            int inf = text.length() / 9;
+            int textLen = text.length();
+            char[] chars = text.toCharArray();
+            int index;
+            Random random = new Random();
+            while(inf > 0 && !Character.isWhitespace(chars[(index = random.nextInt(textLen))]) && chars[index] != '?') {
+                chars[index] = '?';
+                inf--;
+            }
+            text = new String(chars);
+        }
         String message = String.format("**[D:%.1f] %s: %s",
                 getFrequency(),
                 player.getCharName(),
-                msg);
+                text);
         LtrpPlayer.get().stream().
                 filter(p -> p.getInventory().containsType(ItemType.Radio) && ((RadioItem)p.getInventory().getItem(ItemType.Radio)).getFrequency() == getFrequency())
                 .forEach(p -> p.sendMessage(Color.RADIO, message));
-        player.sendActionMessage("sako:[RACIJA] " + msg);
+        player.sendActionMessage("sako:[RACIJA] " + text, distance);
     }
 
 }
