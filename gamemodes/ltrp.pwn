@@ -499,7 +499,6 @@ new
     Offer[MAX_PLAYERS][9],
     OfferPrice[MAX_PLAYERS][8],
     OfferID[MAX_PLAYERS][8],
-    bool:TogChat[MAX_PLAYERS][4],
     bool:PlayersBlocked[ MAX_PLAYERS ][ MAX_PLAYERS ],
     bool:Engine[MAX_VEHICLES] = { false, ... },
     bool:StartingEngine[MAX_PLAYERS] = { false, ... },
@@ -3801,10 +3800,6 @@ stock NullPlayerInfo( playerid )
     Offer[ playerid ][ 5 ] = 255;
     Offer[ playerid ][ 8 ] = INVALID_PLAYER_ID;
 
-    TogChat[ playerid ][ 0 ] = true;
-    TogChat[ playerid ][ 1 ] = true;
-    TogChat[ playerid ][ 2 ] = true;
-    TogChat[ playerid ][ 3 ] = true;
 
     Boxing[ playerid ] = false;
     Voted [ playerid ] = true;
@@ -5295,7 +5290,7 @@ CMD:backup( playerid, params[ ] )
 CMD:ramcar( playerid, params[ ] )
 {
     #pragma unused params
-    if(UsePDCMD(playerid) != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente.");
+    if(UsePDCMD(playerid) != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami polici\jos departamente.");
     if(pInfo[playerid][pRank] < 2)       return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, komanda leidþiama naudotis 2 rango pareigønams.");
     new car = INVALID_VEHICLE_ID;
     if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
@@ -6229,37 +6224,6 @@ CMD:oldcar(playerid, params[])
     return 1;
 }
 /*
-CMD:pm( playerid, params[ ] )
-{
-    new giveplayerid,
-    string[ 256 ],
-    string2[ 256 ];
-
-    if(sscanf( params, "us[256]", giveplayerid, string ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /pm [veikëjo id][tekstas]" );
-
-    if(Mute[ playerid ] == true )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jums yra uþdrausta kalbëtis (/mute), norëdami paðalinti draudimà susisiekite su Administratoriumi." );
-
-    if(!IsPlayerConnected( giveplayerid ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje." );
-
-    if(TogChat[ giveplayerid ][ 2 ] == false && GetPlayerAdminLevel(playerid) == 0 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: negalite raðyti þaidëjui, nes jis blokuoja /pm þinutes. " );
-
-
-    if(PlayersBlocked[ giveplayerid ][ playerid ] && GetPlayerAdminLevel(playerid) == 0 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: negalite raðyti þaidëjui, nes jis blokuoja /pm þinutes." );
-
-    format         (string2, 256, "(( Gauta PÞ nuo %s[ID:%d]: %s ))", GetName(playerid), playerid, string);
-    SendChatMessage(giveplayerid, 0xBBA033AA, string2 );
-    format         (string2, 256, "(( PÞ iðsiûsta %s[ID:%d]: %s ))", GetName(giveplayerid), giveplayerid, string);
-    SendChatMessage(playerid,  0xE5C43EAA, string2    );
-    PlayerPlaySound(giveplayerid, 1057, 0.0, 0.0, 0.0 );
-    return 1;
-}
-*/
-/*
 CMD:setbelt( playerid, params[ ] )
 {
     #pragma unused params
@@ -6405,58 +6369,6 @@ CMD:levelup(playerid,params[])
 
     format(string,sizeof(string),"Jums liko %d taðkai.", pInfo[ playerid ][ pPoints ]);
     SendClientMessage(playerid, COLOR_NEWS, string);
-    return 1;
-}
-/*
-CMD:r( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pRChannel ] == 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: neturite racijos." );
-    if ( pInfo[ playerid ][ pRChannel ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: racijos kanalas nenustatytas." );
-    if ( pInfo[ playerid ][ pRChannel ] == 911 && PlayerFaction( playerid ) != 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Racijos kanalas kurá esate nustatà neveikia." );
-    if ( pInfo[ playerid ][ pRChannel ] == 912 && PlayerFaction( playerid ) != 2 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Racijos kanalas kurá esate nustatà neveikia." );
-    if ( Mute[ playerid ] == true ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jums yra uþdrausta kalbëtis (/mute), norëdami paðalinti draudimà susisiekite su Administratoriumi." );
-    if ( Mires[ playerid ] > 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje." );
-    new string[ 256 ],
-        text[ 256 ];
-    if ( sscanf( params, "s[256]", text ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /r [tekstas]" );
-
-    SetPlayerChatBubble( playerid, text, COLOR_FADE1, 20.0, 10000 );
-    format          ( string, 256,"**[KN: %d, S: %d] %s: %s.", pInfo[ playerid ][ pRChannel ], pInfo[ playerid ][ pRSlot ], GetPlayerNameEx( playerid ), text );
-    SendRadioMessage( pInfo[ playerid ][ pRChannel ], pInfo[ playerid ][ pRSlot ], 0x8D8DFF00, string );
-    format          ( string, 256, " %s sako:[RACIJA] %s", GetPlayerNameEx( playerid ), text );
-    ProxDetector2   ( 20.0, playerid, string, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5 );
-    return 1;
-}
-*/
-/*
-CMD:rlow( playerid, params[ ] )
-{
-    if ( pInfo[ playerid ][ pRChannel ] == 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: neturite racijos." );
-    if ( pInfo[ playerid ][ pRChannel ] == 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: racijos kanalas nenustatytas." );
-    if ( pInfo[ playerid ][ pRChannel ] == 911 && PlayerFaction( playerid ) != 1 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Racijos kanalas kurá esate nustatà neveikia." );
-    if ( pInfo[ playerid ][ pRChannel ] == 912 && PlayerFaction( playerid ) != 2 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Racijos kanalas kurá esate nustatà neveikia." );
-    if ( Mute[ playerid ] == true ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, ðiuo metu Jums yra uþdrausta kalbëtis (/mute), norëdami paðalinti draudimà susisiekite su Administratoriumi." );
-    if ( Mires[ playerid ] > 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, Jûsø veikëjas ðiuo metu yra kritinëje arba komos bûsenoje." );
-    new string[ 256 ],
-        text[ 256 ];
-    if ( sscanf( params, "s[256]", text ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /rlow [tekstas]" );
-
-    SetPlayerChatBubble( playerid, text, COLOR_FADE1, 2.0, 10000 );
-    format          ( string, 256,"**[KN: %d, S: %d] %s:[Tyliai] %s.", pInfo[ playerid ][ pRChannel ], pInfo[ playerid ][ pRSlot ], GetPlayerNameEx( playerid ), text );
-    SendRadioMessage( pInfo[ playerid ][ pRChannel ], pInfo[ playerid ][ pRSlot ], 0x8D8DFF00, string );
-    format          ( string, 256, " %s sako:[RACIJA][Tyliai] %s", GetPlayerNameEx( playerid ), text );
-    ProxDetector2   ( 2.0, playerid, string, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5 );
-    return 1;
-}
-*/
-CMD:setchannel( playerid, params[ ] )
-{
-    SendClientMessage(playerid, COLOR_RED, "Klaida. Naudokite /setfrequency [Daþnis]");
-    return 1;
-}
-CMD:setslot( playerid, params[ ] )
-{
-    SendClientMessage(playerid, COLOR_RED, "Klaida. Naudokite /setfrequency [Daþnis]");
     return 1;
 }
 CMD:o( playerid, params[ ] )
@@ -8861,140 +8773,6 @@ CMD:gov( playerid, params[ ] )
     return 1;
 }
 
-stock SendTesterMessage( color, text[ ] )
-{
-    foreach(Player,i)
-    {
-        if ( pInfo[ i ][ pTester ] >= 1 || (GetPlayerAdminLevel(i) >= 1 && TogChat[i][3] == true ) )
-        {
-            if ( GetPVarInt( i, "TESTER_TOG" ) == 0 )
-                SendClientMessage( i, color, text );
-        }
-    }
-    return 1;
-}
-CMD:moderators( playerid, params[ ] )
-{
-    #pragma unused params
-    new
-        string[ 128 ];
-    SendClientMessage( playerid, COLOR_MODERATOR, "|_________________PRISIJUNGÆ MODERATORIAI_________________|" );
-    foreach(Player,i)
-    {
-        if ( pInfo[ i ][ pTester ] >= 1 )
-        {
-            if ( GetPVarInt( i, "TESTER_DUTY" ) == 1 )
-            {
-                format( string, sizeof(string), "Moderatorius %s (%s) ájungæs budinèio moderatoriaus rëþimà.", GetName( i ), pInfo[ i ][ pForumName ] );
-                SendClientMessage( playerid, COLOR_GREEN, string );
-            }
-            else
-            {
-                format( string, sizeof(string), "Moderatorius %s (%s) áðjungæs budinèio moderatoriaus rëþimà.", GetName( i ), pInfo[ i ][ pForumName ] );
-                SendClientMessage( playerid, GRAD, string );
-            }
-        }
-    }
-    return 1;
-}
-CMD:mduty( playerid, params[ ] )
-{
-    #pragma unused params
-    if ( pInfo[ playerid ][ pTester ] <= 0 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate testuotojas, kad naudotumët ðiá  komanda." );
-
-    new string[ 100 ];
-    if ( GetPVarInt( playerid, "TESTER_DUTY" ) == 1 )
-    {
-        format( string, 100, "[ModCmd] Moderatorius %s iðjungë aktyvaus bûdëjimo rëþimà. ", GetName( playerid ) );
-        SendTesterMessage( COLOR_MODERATOR, string );
-        SetPVarInt( playerid, "TESTER_DUTY", 0 );
-        SetPlayerColor( playerid, TEAM_HIT_COLOR );
-        return 1;
-    }
-    else if ( GetPVarInt( playerid, "TESTER_DUTY" ) == 0 )
-    {
-        format( string, 100, "[ModCmd] Moderatorius %s ájungë aktyvaus bûdëjimo rëþimà ", GetName( playerid ) );
-        SendTesterMessage( COLOR_MODERATOR, string );
-        SetPVarInt( playerid, "TESTER_DUTY", 1 );
-        SetPlayerColor( playerid, TEAM_TESTER_COLOR );
-        return 1;
-    }
-    return 1;
-}
-CMD:acpq( playerid, params[ ] )
-{
-    new string[ 128 ],
-        giveplayerid;
-    if ( sscanf( params, "r", giveplayerid ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /acpq [VEIKËJO ID] " );
-    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        if ( GetPVarInt( giveplayerid, "ASK_Q" ) == 1 )
-        {
-            format(string,126,"[ModCmd] Moderatorius %s patvirinto pateiktà klausimà: %s", GetName( playerid ), GetName( giveplayerid ));
-            AdminLog( pInfo[ playerid ][ pMySQLID ], pInfo[ giveplayerid ][ pMySQLID ], string );
-        
-            format( string, 126, "Dëmesio, Jûsø pateiktà klausimà patvirtino moderatorius %s, pasistengsime kuo greièiau pateikti atsakymà.", GetPlayerFirstName( playerid ) );
-            SendClientMessage( giveplayerid, COLOR_MODERATOR, string );
-            format( string, 126, "[ModCmd] Moderatorius %s priimë pateiktà klausimà ið %s", GetName( playerid ), GetName( giveplayerid ) );
-            SendTesterMessage( COLOR_MODERATOR, string );
-            DeletePVar( giveplayerid, "ASK_Q" );
-            return 1;
-        }
-        return 1;
-    }
-    return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate testuotojas, arba administratorius." );
-}
-CMD:dcpq( playerid, params[ ] )
-{
-    new string[ 126 ],
-        giveplayerid;
-    if ( sscanf( params, "r", giveplayerid ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /dcpq [ veikëjo vardas, id ] " );
-    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        if ( GetPVarInt( giveplayerid, "ASK_Q" ) == 1 )
-        {
-            format(string,126,"Administratorius %s atmetë klausimá  %s", GetName( playerid ), GetName( giveplayerid ));
-            AdminLog( pInfo[ playerid ][ pMySQLID ], pInfo[ giveplayerid ][ pMySQLID ], string );
-            
-            format( string, 126, "Dëmesio, Jûsø pateiktas klausimas buvo atmestas moderatoriaus: %s.", GetPlayerFirstName( playerid ) );
-            SendClientMessage( giveplayerid, COLOR_MODERATOR, string );
-            format( string, 126, "[ModCmd] Moderatorius %s atmetë %s pateiktà klausimà",GetName( playerid ), GetName( giveplayerid ) );
-            SendTesterMessage( COLOR_MODERATOR, string );
-            DeletePVar( giveplayerid, "ASK_Q" );
-            return 1;
-        }
-        return 1;
-    }
-    return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate testuotojas, arba administratorius." );
-}
-CMD:askq( playerid, params[ ] )
-{
-    new string[ 256 ];
-    if ( sscanf( params, "s[256]", string ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /askq [KLAUSIMAS] ");
-    if ( GetPVarInt( playerid, "ASK_Q" ) == 1 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, komandà /askq galite naudoti kas vienà minutæ." );
-
-    format           ( string, 256, "** [ModCmd] Autorius %s [ID: %d]: %s", GetName( playerid ), playerid, string );
-    SendTesterMessage( COLOR_YELLOW, string );
-    SendTesterMessage( COLOR_MODERATOR, "** [ModCmd] Priimti klausimà: /acpq [VEIKËJO ID] Atmesti: /dcpq [VEIKËJO ID]" );
-    new counttesters;
-    foreach(Player,i)
-    {
-        if ( pInfo[ i ][ pTester ] >= 1 )
-            counttesters ++;
-    }
-    format           ( string, 126, "Jûsø pateiktas klausimas buvo nusiûstas budintiems moderatoriams, palaukite (Prisijungusiu moderatoriø %d)", counttesters );
-    SendClientMessage( playerid, COLOR_MODERATOR, string );
-
-    SetPVarInt( playerid, "ASK_Q", 1 );
-    SetTimerEx( "ASK_Q_T", 60000, false, "d", playerid );
-    return 1;
-}
-
 FUNKCIJA:ClosePVartai( id )
 {
     switch ( id )
@@ -9045,9 +8823,6 @@ FUNKCIJA:ClosePVartai( id )
     }
 }
 
-FUNKCIJA:ASK_Q_T( playerid )
-    return DeletePVar( playerid, "ASK_Q" );
-
 CMD:makemoderator( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 4 )
@@ -9070,56 +8845,7 @@ CMD:makemoderator( playerid, params[ ] )
     }
     return 1;
 }
-CMD:mc( playerid, params[ ] )
-{
-    new string[ 256 ];
-    if ( sscanf( params, "s[256]", string ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /tc [ tekstas ] " );
 
-    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        format( string, 256, "[Mod] %s: %s ", GetName( playerid ), string );
-        foreach(Player,i)
-        {
-            if ( pInfo[ i ][ pTester ] >= 1 && GetPVarInt( i, "TESTER_TOG" ) == 0 )
-                SendClientMessage( i, COLOR_MODERATOR, string );
-        }
-        return 1;
-    }
-    return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðia komanda nebûdami moderatoriumi/Administratoriumi" );
-}
-CMD:togq( playerid, params[ ] )
-{
-    #pragma unused params
-    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        if ( GetPVarInt( playerid, "TESTER_TOG" ) == 1 )
-        {
-            SetPVarInt( playerid, "TESTER_TOG", 0 );
-            SendClientMessage( playerid, COLOR_MODERATOR, "[TOGq] Serverio veikëjø klausimø praneðimai buvo ájungti." );
-            return 1;
-        }
-        else if ( GetPVarInt( playerid, "TESTER_TOG" ) == 0 )
-        {
-            SetPVarInt( playerid, "TESTER_TOG", 1 );
-            SendClientMessage( playerid, COLOR_MODERATOR, "[TOGq] Serverio veikëjø klausimø praneðimai buvo iðjungti " );
-            return 1;
-        }
-    }
-    return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate testuotojas, arba administratorius." );
-}
-CMD:modhelp( playerid, params[ ] )
-{
-    #pragma unused params
-    if ( pInfo[ playerid ][ pTester ] >= 1 || GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        SendClientMessage( playerid, COLOR_MODERATOR, "|____________________MODERATORIAUS SKYRIUS____________________|" );
-        SendClientMessage( playerid, COLOR_FADE1, " /togq /mc /dcpq /acpq /mduty /mkick " );
-        SendClientMessage( playerid, COLOR_MODERATOR, "|________________________________________________________________|" );		
-        return 1;
-    }
-    return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðia komanda nebûdami moderatoriumi/Administratoriumi" );
-}
 CMD:togooc( playerid, params[] )
 {
     #pragma unused params
@@ -9674,27 +9400,6 @@ CMD:lock(playerid)
     }
     return 1;
 }
-
-stock LoadVehicleCargo(sqlid, vehicleid, bool:isStatic = false)
-{
-    new query[100],cargoid, amount, Cache:result;
-    for(new i = 0; i < MAX_TRUCKER_CARGO_OBJECTS; i++)
-        cInfo[ vehicleid ][ objectai ][ i ] = -1;
-    format(query,sizeof(query),"SELECT cargo_id, amount FROM vehicle_cargo WHERE vehicle_id = %d AND is_static = %d",
-		sqlid, isStatic);
-    result = mysql_query(DbHandle, query);
-    for(new i = 0; i < cache_get_row_count(); i++)
-    {
-        cargoid = cache_get_field_content_int(i, "cargo_id");
-        amount = cache_get_field_content_int(i, "amount");
-		for(new j = 0; j < amount; j++)
-			AddCargoToVehicle(vehicleid, cargoid,true);
-	}
-    cache_delete(result);
-}
-
-
-
 
 /*
 CMD:accept( playerid, params[ ] )
@@ -11157,21 +10862,6 @@ CMD:lean( playerid, params[ ] )
     }
     return 1;
 }
-CMD:mkick( playerid, params[ ] )
-{
-    new
-        giveplayerid,
-        gMessage[ 64 ];
-        
-    if ( pInfo[ playerid ][ pTester ] <= 0 ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate testuotojas, kad naudotumët ðiá  komanda." );
-    if(sscanf(params,"us[64]",giveplayerid, gMessage)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /tkick [þaidëjo id][preiþastis]");
-    if(IsPlayerNPC(giveplayerid)) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite uþdaryti ðio veikëjo, kadangi tai serverio dirbtinis þaidëjas (BOT)");
-    if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-    if ( strfind( gMessage, "'", true ) != -1 ) return 1;
-    mysql_real_escape_string(gMessage,gMessage);
-    KickPlayer( GetName(playerid), giveplayerid, gMessage );
-    return 1;
-}
 CMD:dance( playerid, params[ ] )
 {
     if (GetPlayerState( playerid ) == PLAYER_STATE_ONFOOT )
@@ -11572,70 +11262,6 @@ CMD:gethere( playerid, params [ ] )
     }
     return 1;
 }
-CMD:adminduty( playerid, params [ ] )
-{
-    if ( GetPlayerAdminLevel(playerid) >= 1 )
-        cmd_aduty(playerid);
-    return 1;
-}
-CMD:aduty(playerid)
-{
-    new string[ 256 ];
-
-    static DutyStartTimestamp[ MAX_PLAYERS ];
-    if(GetPlayerAdminLevel(playerid)>= 1)
-    {
-        if(AdminDuty[playerid] == false)
-        {
-            AdminDuty[playerid] = true;
-            DutyStartTimestamp[ playerid ] = gettime();
-            SetPlayerHealth(playerid, 999);
-            SetPlayerArmour(playerid, 999);
-            AdminON[playerid] = Create3DTextLabel("BUDINTIS\nAdministratorius\nAð galiu padëti.",COLOR_GREEN,0.0,0.0,0.7,20.0, 0 );
-            Attach3DTextLabelToPlayer(AdminON[playerid], playerid, 0.0, 0.0, 0.7);
-            format(string, sizeof(string), "AdmWarn: [ID:%d]%s ásijungë budinèio Administratoriaus statusà.", playerid,GetName(playerid));
-            SendAdminMessage(COLOR_ADM,string);
-            SetPlayerColor( playerid, TEAM_ADMIN_COLOR );
-            SetPlayerAttachedObject( playerid, 3, 19270, 4, -0.018133, -0.025358, 0.0, 0.0, 259.281860, 0.0, 1.0, 1.0, 1.0 );
-        }
-        else if(AdminDuty[playerid] == true)
-        {
-            Delete3DTextLabel(AdminON[playerid]);
-            AdminDuty[playerid] = false;
-            SetPlayerArmour(playerid, 0);
-            SetPlayerHealth(playerid, 100);
-            format(string, sizeof(string), "AdmWarn: [ID:%d]%s iðjungë budinèio Administratoriaus statusà.", playerid, GetName(playerid));
-            SendAdminMessage(COLOR_ADM,string);
-            SetPlayerColor(playerid, TEAM_HIT_COLOR);
-            RemovePlayerAttachedObject(playerid, 3);
-
-            mysql_format(DbHandle, string, sizeof(string), "SELECT longest_watch FROM admin_watch_duty WHERE admin_id = %d",
-                GetPlayerSqlId(playerid));
-            new Cache:result = mysql_query(DbHandle, string);
-
-            new duration = gettime() - DutyStartTimestamp[ playerid ];
-            if(cache_get_row_count())
-            {
-                mysql_format(DbHandle, string, sizeof(string), "UPDATE admin_watch_duty SET last_watch = FROM_UNIXTIME(%d), total_watch_time = total_watch_time + %d",
-                    DutyStartTimestamp[ playerid ], duration);
-
-                if(cache_get_field_content_int(0, "longest_watch") < duration)
-                    mysql_format(DbHandle, string, sizeof(string),"%s, longest_watch = %d ", 
-                        string, duration);
-
-                mysql_format(DbHandle, string, sizeof(string), "%s WHERE admin_id = %d", string, GetPlayerSqlId(playerid));
-            }
-            else 
-                mysql_format(DbHandle, string, sizeof(string), "INSERT INTO admin_watch_duty (admin_id, first_watch, last_watch, longest_watch, total_watch_time) \
-                    VALUES (%d, FROM_UNIXTIME(%d), FROM_UNIXTIME(%d), %d, %d)",
-                    GetPlayerSqlId(playerid), DutyStartTimestamp[ playerid ], DutyStartTimestamp[ playerid ], duration, duration);
-
-            cache_delete(result);
-            mysql_pquery(DbHandle, string);
-        }
-    }
-    return 1;
-}
 CMD:setskin( playerid, params [ ] )
 {
     new
@@ -11872,6 +11498,7 @@ CMD:warn( playerid, params [ ] )
     }
     return 1;
 }
+/*
 CMD:whipe( playerid, params [ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 5 )
@@ -12353,8 +11980,8 @@ CMD:whipe( playerid, params [ ] )
         }
     }
     return 1;
-}
-
+}*/
+/*
 CMD:serverguns( playerid, params [ ] )
 {
     if( GetPlayerAdminLevel(playerid) >= 3 )
@@ -12581,6 +12208,7 @@ CMD:serverguns( playerid, params [ ] )
     }
     return 1;
 }
+*/
 CMD:checkgun( playerid, params [ ] )
 {
     if( GetPlayerAdminLevel(playerid) >= 3 )
@@ -12859,39 +12487,7 @@ CMD:makeleader(playerid, params[])
 }
 
 */
-CMD:makefactionmanager(playerid, params[])
-{
-    if(!IsPlayerAdmin(playerid) && GetPlayerAdminLevel(playerid) < 4)
-        return 0;
-
-    new targetid, query[ 128 ];
-    if(sscanf(params, "u", targetid))
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas /makefactionmanager [Þaidëjo ID/Dalis vardo]");
-
-    if(!IsPlayerConnected(targetid)) 
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-    
-    if(IsPlayerNPC(targetid)) 
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "NPC negali bûti frakcijø prieþiûrëtoju.");
-
-    pInfo[ targetid ][ pFactionManager ] = true;
-    mysql_format(DbHandle, query, sizeof(query), "UPDATE players SET faction_manager = 1 WHERE id = %d",
-        GetPlayerSqlId(playerid));
-    mysql_pquery(DbHandle, query);
-
-
-    format(query, sizeof(query),"Administratorius %s suteikë þaidëjui %s frakcijø priþiûrëtojo rangà.",
-        GetName(playerid), GetName(targetid));
-    SendAdminMessage(COLOR_NEWS, query);
-
-    format(query, sizeof(query), "Administratorius %s suteikë jums frakcijø priþiûrëtojo rangà.",
-        GetName(playerid));
-    SendClientMessage(targetid, COLOR_NEWS, query);
-
-    AdminLog(GetPlayerSqlId(playerid), GetPlayerSqlId(targetid), "Paskyrë frakcijø priþiûrëtoju.");
-    return 1;
-}
-
+/*
 CMD:setstatcar(playerid, params[])
 {
     if( GetPlayerAdminLevel(playerid) >= 4 )
@@ -12927,6 +12523,7 @@ CMD:setstatcar(playerid, params[])
     }
     return 1;
 }
+*/
 /*
 CMD:setstat(playerid, params[])
 {
