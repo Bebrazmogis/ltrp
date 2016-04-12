@@ -677,6 +677,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     public void sendActionMessage(String s, float distance) {
         this.sendMessage(lt.ltrp.data.Color.ACTION, "* "+ getName() + " " + s, distance);
+        this.setChatBubble(s, lt.ltrp.data.Color.ACTION, distance, s.length() * 50);
         this.eventManager.dispatchEvent(new PlayerActionMessageEvent(this, s));
     }
 
@@ -686,6 +687,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
 
     public void sendStateMessage(String s, float distance) {
         this.sendMessage(lt.ltrp.data.Color.ACTION, "* " + s + " ((" + getName() + "))", distance);
+        this.setChatBubble(s, lt.ltrp.data.Color.ACTION, distance, s.length() * 50);
         this.eventManager.dispatchEvent(new PlayerStateMessageEvent(this, s));
     }
 
