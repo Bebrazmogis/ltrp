@@ -39,6 +39,7 @@ import java.util.*;
 public class LtrpPlayer extends InventoryEntity implements Player {
 
     public static final int INVALID_USER_ID = 0;
+    public static final float DEFAULT_ACTION_MESSAGE_DISTANCE = 20.0f;
 
     private static List<LtrpPlayer> players = new ArrayList<>();
     private static final Logger logger = LoggerFactory.getLogger(LtrpPlayer.class);
@@ -680,7 +681,7 @@ public class LtrpPlayer extends InventoryEntity implements Player {
     }
 
     public void sendActionMessage(String s) {
-        this.sendActionMessage(s, 20.0f);
+        this.sendActionMessage(s, DEFAULT_ACTION_MESSAGE_DISTANCE);
     }
 
     public void sendStateMessage(String s, float distance) {
