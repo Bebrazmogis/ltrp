@@ -91,7 +91,7 @@ public class ItemCommands {
                 player.sendErrorMessage("Jûs neturite vietos inventoriuje.");
         } else
             player.sendErrorMessage("Jûs neturite kuro arba laikraðèio.");
-        return false;
+        return true;
     }
 
     @Command
@@ -184,7 +184,7 @@ public class ItemCommands {
             player.removeWeapon(player.getArmedWeaponData());
             return true;
         }
-        return false;
+        return true;
     }
 
 
@@ -205,7 +205,7 @@ public class ItemCommands {
                 player.sendErrorMessage("Negalite iðmesti darbinio ginklo.");
         } else
             player.sendErrorMessage("Jûs nelaikote ginklo!");
-        return false;
+        return true;
     }
 
     @Command
@@ -229,7 +229,7 @@ public class ItemCommands {
                 return true;
             }
         }
-        return false;
+        return true;
     }
 
     @Command
@@ -247,7 +247,7 @@ public class ItemCommands {
             player.sendActionMessage("Iðsitraukia racijà ir pakeièia daþná..");
             return true;
         }
-        return false;
+        return true;
     }
     @Command
     public boolean radio(Player p, @CommandParameter(name = "Tekstas")String msg) {
@@ -267,7 +267,23 @@ public class ItemCommands {
             item.sendMessage(p, msg);
             return true;
         }
-        return false;
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia tyliai kalbëti á racijà")
+    public boolean rLow(Player p, @CommandParameter(name = "Tekstas")String msg) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(msg == null || msg.isEmpty()) {
+            return false;
+        } else if(!player.getInventory().containsType(ItemType.Radio)) {
+            player.sendErrorMessage("Jûs neturite racijos!");
+        } else {
+            RadioItem item = (RadioItem)player.getInventory().getItem(ItemType.Radio);
+            item.sendMessage(player, msg, 5);
+            return true;
+        }
+        return true;
     }
 
     @Command
@@ -279,6 +295,6 @@ public class ItemCommands {
         } else {
             return ((DiceItem)p.getInventory().getItem(ItemType.Dice)).dice(p);
         }
-        return false;
+        return true;
     }
 }
