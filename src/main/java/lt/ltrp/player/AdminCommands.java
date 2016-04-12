@@ -16,6 +16,7 @@ import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
@@ -55,7 +56,8 @@ public class AdminCommands {
 
         adminLevels.put("makefactionmanager", 4);
         adminLevels.put("makeleader", 4);
-        adminLevels.put("removeLeader", 4);
+        adminLevels.put("removeleader", 4);
+        adminLevels.put("auninvite", 4);
 
         adminLevels.put("giveitem", 6);
         adminLevels.put("fly", 6);
@@ -226,7 +228,7 @@ public class AdminCommands {
 
     @Command
     @CommandHelp("Paskiria nurodytà þaidëjà frakcijø priþiûrëtoju")
-    public boolean makefactionmanager(Player player, @CommandParam("Þaidëjo ID/Dalis vardo")LtrpPlayer p2) {
+    public boolean makeFactionManager(Player player, @CommandParam("Þaidëjo ID/Dalis vardo")LtrpPlayer p2) {
         LtrpPlayer p = LtrpPlayer.get(player);
         if(p2 == null) {
             p.sendMessage(Color.LIGHTRED, "Tokio þaidëjo nëra.");
@@ -391,7 +393,7 @@ public class AdminCommands {
 
     @Command()
     @CommandHelp("Pagydo þaidëjà bei prikelia já ið komos")
-    public boolean aheal(Player p, @CommandParam("Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+    public boolean aheal(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
@@ -532,6 +534,24 @@ public class AdminCommands {
                     .build()
                     .show();
 
+        }
+        return true;
+    }
+
+
+    @Command
+    @CommandHelp("Iðmeta þaidëjà ið darbo")
+    public boolean aUnInvite(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null) {
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        } else if(target.getJob() == null) {
+            player.sendErrorMessage(target.getName() + " neturi darbo.");
+        } else {
+            Job job = target.getJob();
+            target.setJob(null);
+            player.sendMessage(Color.GREEN, String.format("Þaidëjas %s(%d) iðmestas ið darbo \"%s\".", target.getName(), target.getId(), job.getName()));
+            target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " iðmetë jus ið darbo.");
         }
         return true;
     }
