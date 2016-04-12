@@ -40,6 +40,7 @@ public class RadioItem extends BasicItem {
     }
 
     public void sendMessage(LtrpPlayer player, String text, float distance) {
+        String message;
         // If it's a decreased distance message, we add some interference
         if(distance <= LtrpPlayer.DEFAULT_ACTION_MESSAGE_DISTANCE) {
             int inf = text.length() / 9;
@@ -52,11 +53,16 @@ public class RadioItem extends BasicItem {
                 inf--;
             }
             text = new String(chars);
+            message = String.format("**[D: %.1f] %s:[Tyliai] %s.",
+                    getFrequency(),
+                    player.getCharName(),
+                    String.valueOf(chars));
+        } else {
+            message = String.format("**[D: %.1f] %s: %s",
+                    getFrequency(),
+                    player.getCharName(),
+                    text);
         }
-        String message = String.format("**[D:%.1f] %s: %s",
-                getFrequency(),
-                player.getCharName(),
-                text);
         LtrpPlayer.get().stream().
                 filter(p -> p.getInventory().containsType(ItemType.Radio) && ((RadioItem)p.getInventory().getItem(ItemType.Radio)).getFrequency() == getFrequency())
                 .forEach(p -> p.sendMessage(Color.RADIO, message));
