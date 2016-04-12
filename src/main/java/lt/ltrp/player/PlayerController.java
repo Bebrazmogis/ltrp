@@ -17,6 +17,7 @@ import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.Item;
 import lt.ltrp.job.*;
+import lt.ltrp.player.event.PlayerChangeJobEvent;
 import lt.ltrp.player.event.PlayerEditSettingsEvent;
 import lt.ltrp.player.util.PlayerLog;
 import lt.ltrp.property.Business;
