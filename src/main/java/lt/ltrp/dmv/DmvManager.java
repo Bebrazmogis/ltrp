@@ -1,16 +1,15 @@
 package lt.ltrp.dmv;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.dao.DmvDao;
 import lt.ltrp.data.Color;
 import lt.ltrp.dmv.aircraft.AircraftDmvManager;
 import lt.ltrp.dmv.boat.BoatDmvManager;
-import lt.ltrp.dmv.car.CarDmv;
 import lt.ltrp.dmv.car.CarDmvManager;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
@@ -43,7 +42,7 @@ public class DmvManager implements Destroyable {
         this.playerTests = new HashMap<>();
         eventManager = eventManager1.createChildNode();
 
-        DmvDao dmvDao = LtrpGamemode.getDao().getDmvDao();
+        DmvDao dmvDao = LtrpGamemodeImpl.getDao().getDmvDao();
         CarDmvManager carDmvManager = new CarDmvManager(eventManager);
         BoatDmvManager boatDmvManager = new BoatDmvManager(eventManager);
         AircraftDmvManager aircraftDmvManager = new AircraftDmvManager(eventManager);

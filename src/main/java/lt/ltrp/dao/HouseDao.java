@@ -1,7 +1,8 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.property.House;
-import lt.ltrp.property.HouseWeedSapling;
+
+import lt.ltrp.property.data.HouseWeedSapling;
+import lt.ltrp.property.object.House;
 
 import java.util.List;
 

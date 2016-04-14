@@ -1,7 +1,11 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.*;
+import lt.ltrp.vehicle.constant.PlayerVehiclePermission;
+import lt.ltrp.vehicle.data.PlayerVehicleArrest;
+import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.vehicle.object.PlayerVehicle;
 import net.gtaun.shoebill.data.AngledLocation;
 
 import java.util.Collection;

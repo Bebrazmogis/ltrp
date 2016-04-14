@@ -1,9 +1,5 @@
 package lt.ltrp;
 
-import lt.ltrp.Util.PawnFunc;
-import lt.ltrp.event.player.PlayerDataLoadEvent;
-import lt.ltrp.event.player.PlayerLogInEvent;
-import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.util.event.EventManager;
 
@@ -25,7 +21,7 @@ public class PawnCallbacks  {
 
     public PawnCallbacks(EventManager manager) {
         System.out.println("PawnCallbacks :: constructor");
-
+/*
         manager.registerHandler(PlayerDataLoadEvent.class, e -> {
             AmxCallable callback = PawnFunc.getPublicMethod("OnPlayerDataLoad");
             if(callback != null) {
@@ -52,6 +48,8 @@ public class PawnCallbacks  {
                 System.out.println("PawnCallbacks :: constructor. Pawn code does not contain OnPlayerSpawnSetUp, nothing to call");
             }
         });
+        */
     }
+
 
 }

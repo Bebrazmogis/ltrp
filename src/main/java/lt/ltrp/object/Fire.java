@@ -1,6 +1,6 @@
 package lt.ltrp.object;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
@@ -45,7 +45,7 @@ public class Fire implements Destroyable {
 
 
     private Fire(LtrpPlayer starter, int explosionType, Location center, int fireCount, int explosionCount) {
-        this.starterUserId = starter.getUserId();
+        this.starterUserId = starter.getUUID();
         this.explosionType = explosionType;
         this.center = center;
         this.fireCount = fireCount;

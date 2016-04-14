@@ -1,18 +1,18 @@
 package lt.ltrp.dmv.aircraft;
 
-import lt.ltrp.InitException;
-import lt.ltrp.LoadingException;
-import lt.ltrp.LtrpGamemode;
-import lt.ltrp.constant.LicenseType;
+import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.api.InitException;
+import lt.ltrp.api.LoadingException;
 import lt.ltrp.data.Color;
 import lt.ltrp.dmv.AbstractDmvManager;
 import lt.ltrp.dmv.Dmv;
 import lt.ltrp.dmv.DmvTest;
 import lt.ltrp.dmv.dialog.FlyingTestEndMsgDialog;
 import lt.ltrp.dmv.event.PlayerFlyingTestEnd;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerLicense;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.player.constant.LicenseType;
+import lt.ltrp.player.data.PlayerLicense;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
@@ -35,7 +35,7 @@ public class AircraftDmvManager extends AbstractDmvManager {
         this.ongoingPlayerFlyingTestMap = new HashMap<>();
 
         try {
-            this.dmv = LtrpGamemode.getDao().getDmvDao().getAircraftDmv(2);
+            this.dmv = LtrpGamemodeImpl.getDao().getDmvDao().getAircraftDmv(2);
         } catch(LoadingException e) {
             throw new InitException(getClass().getSimpleName() + " could not be initialized", e);
         }
@@ -43,7 +43,7 @@ public class AircraftDmvManager extends AbstractDmvManager {
         getPlayerCommandManager().registerCommand("takelesson", new Class[0], (player, params) -> {
             LtrpPlayer p = LtrpPlayer.get(player);
             if(p != null) {
-                LtrpVehicle vehicle = p.getVehicle();
+                LtrpVehicle vehicle = LtrpVehicle.getByVehicle(p.getVehicle());
                 if(vehicle != null && dmv.getVehicles().contains(vehicle)) {
                     if(!p.getLicenses().contains(LicenseType.Aircraft)) {
                         if(p.getMoney() >= dmv.getCheckpointTestPrice()) {
@@ -84,7 +84,7 @@ public class AircraftDmvManager extends AbstractDmvManager {
                 license.setPlayer(e.getPlayer());
                 license.setDateAquired(new Timestamp(new Date().getTime()));
                 license.setStage(1);
-                LtrpGamemode.getDao().getPlayerDao().insertLicense(license);
+                LtrpPlayer.getPlayerDao().insertLicense(license);
                 e.getPlayer().getLicenses().add(license);
             }
             FlyingTestEndMsgDialog.create(e.getPlayer(), getEventManagerNode(), e.getTest())

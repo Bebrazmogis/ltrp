@@ -1,0 +1,6 @@
+lt\ltrp\job\JobManager$Instance.class
+lt\ltrp\job\data\TaxiFare.class
+lt\ltrp\job\JobManager.class
+lt\ltrp\job\JobVehicle.class
+lt\ltrp\job\object\Job.class
+lt\ltrp\job\object\Rank.class

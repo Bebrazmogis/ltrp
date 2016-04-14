@@ -3,10 +3,10 @@ package lt.ltrp.dmv.car;
 
 import lt.ltrp.dmv.AbstractCheckpointTest;
 import lt.ltrp.dmv.event.PlayerDrivingTestEndEvent;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.event.SpeedometerTickEvent;
 
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;
@@ -50,7 +50,7 @@ public class DrivingTest extends AbstractCheckpointTest {
         onSpeedometerTickEntry.cancel();
 
         lights = getVehicle().getState().getLights();
-        seatbelt = getPlayer().getSeatbelt();
+        seatbelt = getPlayer().isSeatbelt();
         System.out.println("DrivingTest. lights" + lights + "seatbelt:" + seatbelt);
 
         System.out.println("MAX_SPEED:" + MAX_SPEED + " MAX_SPEED plusfive:" + (MAX_SPEED + 5f) + " actual max speed: "+ maxSpeed + "rounded max speed:" + Math.round(maxSpeed));

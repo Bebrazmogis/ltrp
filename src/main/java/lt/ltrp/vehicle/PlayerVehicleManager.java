@@ -1,17 +1,22 @@
 package lt.ltrp.vehicle;
 
-import lt.ltrp.LtrpGamemode;
-import lt.ltrp.constant.Currency;
-import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.common.constant.Currency;
+import lt.ltrp.common.constant.LtrpVehicleModel;
 import lt.ltrp.dao.VehicleDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.event.player.PlayerDataLoadEvent;
-import lt.ltrp.item.Item;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.item.object.Item;
+import lt.ltrp.player.event.PlayerDataLoadEvent;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.shopplugin.ShopVehicle;
 import lt.ltrp.shopplugin.VehicleShop;
 import lt.ltrp.shopplugin.VehicleShopPlugin;
+import lt.ltrp.vehicle.constant.PlayerVehiclePermission;
+import lt.ltrp.vehicle.data.PlayerVehicleArrest;
+import lt.ltrp.vehicle.data.VehicleLock;
 import lt.ltrp.vehicle.event.*;
+import lt.ltrp.vehicle.object.PlayerVehicle;
+import lt.ltrp.vehicle.object.VehicleAlarm;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.CommandHandler;
@@ -35,7 +40,7 @@ import java.util.stream.Collectors;
 public class PlayerVehicleManager {
 
     protected static final Collection<PlayerVehicle> playerVehiclesList = new ArrayList<>();
-    private static final Logger logger = LtrpGamemode.get().getLogger();
+    private static final Logger logger = LtrpGamemodeImpl.get().getLogger();
     private static final int INSURANCE_BASE_PRICE = 800;
     private static final int SCRAP_BASE_PRICE = 200;
 
@@ -77,7 +82,7 @@ public class PlayerVehicleManager {
             BuyVehicleOffer offer = player.getOffer(BuyVehicleOffer.class);
             if(offer == null) {
                 player.sendErrorMessage("Jums niekas nesiûlo pirkti automobilio!");
-            } else if(offer.getVehicle().getOwnerId() != offer.getOfferedBy().getUserId()) {
+            } else if(offer.getVehicle().getOwnerId() != offer.getOfferedBy().getUUID()) {
                 player.sendErrorMessage("Automobilis jau parduotas.");
             } else if(getPlayerOwnedVehicleCount(player) >= getMaxOwnedVehicles(player)) {
                 player.sendErrorMessage("Daugiau transporto priemoniø turëti negalite.");
@@ -156,7 +161,7 @@ public class PlayerVehicleManager {
                     e.getColor2(),
                     0f,
                     LtrpVehicleModel.getFuelTankSize(e.getModelId()),
-                    e.getPlayer().getUserId(),
+                    e.getPlayer().getUUID(),
                     0,
                     null,
                     null,
@@ -170,7 +175,7 @@ public class PlayerVehicleManager {
                     1000f
             );
             for(PlayerVehiclePermission perm : PlayerVehiclePermission.values())
-                    vehicleDao.addPermission(uid, e.getPlayer().getUserId(), perm);
+                    vehicleDao.addPermission(uid, e.getPlayer().getUUID(), perm);
 
             // Retrieve the vehicle UID list again so it would contain the newly inserted vehicle
             loadVehicles(e.getPlayer());
@@ -183,7 +188,7 @@ public class PlayerVehicleManager {
         });
 
         eventManager.registerHandler(PlayerVehicleParkEvent.class, e -> {
-           //vehicleDao.update(e.getVehicle());
+           vehicleDao.update(e.getVehicle());
             e.getVehicle().destroy();
         });
 
@@ -195,7 +200,7 @@ public class PlayerVehicleManager {
         eventManager.registerHandler(PlayerVehicleRemovePermissionEvent.class, e -> {
             vehicleDao.removePermission(e.getVehicle(), e.getTarget(), e.getPermission());
             e.getPlayer().sendMessage(e.getPermission().name() + " teisë sëkmingai pridëta.");
-            LtrpPlayer target = LtrpPlayer.getByUserId(e.getTarget());
+            LtrpPlayer target = LtrpPlayer.get(e.getTarget());
             if(target != null) {
                 target.sendMessage(Color.NEWS, e.getPlayer().getCharName() + " suteikë jums teisæ \"" + e.getPermission().name() + "\" su jo automobiliu");
             }
@@ -204,7 +209,7 @@ public class PlayerVehicleManager {
         eventManager.registerHandler(PlayerVehicleAddPermissionEvent.class, e -> {
            vehicleDao.addPermission(e.getVehicle(), e.getTarget(), e.getPermission());
             e.getPlayer().sendMessage(e.getPermission().name() + " teisë sëkmingai paðalinta.");
-            LtrpPlayer target = LtrpPlayer.getByUserId(e.getTarget());
+            LtrpPlayer target = LtrpPlayer.get(e.getTarget());
             if(target != null) {
                 target.sendMessage(Color.NEWS, e.getPlayer().getCharName() + " atëmë ið jûsø teisæ \"" + e.getPermission().name() + "\" su jo automobiliu");
             }
@@ -217,7 +222,7 @@ public class PlayerVehicleManager {
         eventManager.registerHandler(PlayerVehicleArrestEvent.class, e -> {
             PlayerVehicle vehicle = e.getVehicle();
             LtrpPlayer officer = e.getPlayer();
-            vehicleDao.insertArrest(vehicle.getUUID(), officer.getUserId(), e.getReason());
+            vehicleDao.insertArrest(vehicle.getUUID(), officer.getUUID(), e.getReason());
             vehicle.destroy();
         });
 
@@ -244,7 +249,7 @@ public class PlayerVehicleManager {
                 permissionCache.remove(vehicleUId);
             }
         }
-        Collection<PlayerVehiclePermission> perms = vehicleDao.getPermissions(vehicleUId, player.getUserId());
+        Collection<PlayerVehiclePermission> perms = vehicleDao.getPermissions(vehicleUId, player.getUUID());
         permissionCache.put(vehicleUId, new SoftReference<>(perms));
         return perms;
     }
@@ -255,7 +260,7 @@ public class PlayerVehicleManager {
 
     public PlayerVehicle loadVehicle(int uid) {
         PlayerVehicle vehicle = vehicleDao.get(uid);
-        Item[] items = LtrpGamemode.getDao().getItemDao().getItems(vehicle);
+        Item[] items = LtrpGamemodeImpl.getDao().getItemDao().getItems(vehicle);
         vehicle.getInventory().add(items);
         logger.info("PlayerVehicle " + uid + " loaded.");
         playerVehiclesList.add(vehicle);

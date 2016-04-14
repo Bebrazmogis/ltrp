@@ -1,7 +1,10 @@
 package lt.ltrp.item;
 
-import lt.ltrp.item.drug.DrugItem;
-import lt.ltrp.player.LtrpPlayer;
+
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.drug.DrugItemImpl;
+import lt.ltrp.item.object.Inventory;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.ysf.YSFPlugin;
 import lt.maze.ysf.object.YSFPlayer;
 import net.gtaun.shoebill.object.Timer;
@@ -12,7 +15,7 @@ import net.gtaun.util.event.EventManager;
  * @author Bebras
  *         2015.12.03.
  */
-public class AmphetamineItem extends DrugItem {
+public class AmphetamineItem extends DrugItemImpl {
 
     private Timer drugTimer;
 

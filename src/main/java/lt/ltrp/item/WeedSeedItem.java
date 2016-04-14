@@ -1,11 +1,14 @@
 package lt.ltrp.item;
 
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.property.House;
-import lt.ltrp.property.HouseWeedSapling;
-import lt.ltrp.property.Property;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.object.Inventory;
+import lt.ltrp.player.object.LtrpPlayer;
+
+import lt.ltrp.property.data.HouseWeedSapling;
 import lt.ltrp.property.event.PlayerPlantWeedEvent;
+import lt.ltrp.property.object.House;
+import lt.ltrp.property.object.Property;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
@@ -32,13 +35,13 @@ public class WeedSeedItem extends BasicItem {
         Property property = player.getProperty();
         if(property instanceof House) {
             House house = (House)property;
-            if(house.getOwnerUserId() == player.getUserId()) {
+            if(house.getOwnerUserId() == player.getUUID()) {
                 Location location = player.getLocation();
                 location.setZ(location.getZ()-1.1f);
-                HouseWeedSapling sapling = new HouseWeedSapling(location, house, player.getUserId(), getEventManager());
+                HouseWeedSapling sapling = new HouseWeedSapling(location, house, player.getUUID(), getEventManager());
                 sapling.startGrowth();
                 house.getWeedSaplings().add(sapling);
-                getEventManager().dispatchEvent(new PlayerPlantWeedEvent(player, house, sapling));
+        //        getEventManager().dispatchEvent(new PlayerPlantWeedEvent(player, house, sapling));
                 player.sendMessage(Color.NEWS, "Jums sëkmingai pavyko pasëti þolës sëklas, dabar beliekà laukti kol augalas pilnai uþaugs.");
             } else {
                 player.sendErrorMessage("Tai ne jûsø namas!");

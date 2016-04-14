@@ -2,7 +2,7 @@ package lt.ltrp.dmv.event;
 
 import lt.ltrp.dmv.Dmv;
 import lt.ltrp.dmv.DmvTest;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.event.player.PlayerEvent;
 import net.gtaun.shoebill.object.Player;
 

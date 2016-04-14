@@ -1,11 +1,15 @@
 package lt.ltrp.property;
 
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.property.constant.HouseUpgradeType;
+import lt.ltrp.property.data.HouseRadio;
+import lt.ltrp.property.data.HouseWeedSapling;
+import lt.ltrp.property.object.House;
 import lt.ltrp.radio.dialog.RadioOptionListDialog;
-import lt.ltrp.item.ItemType;
 import lt.ltrp.item.WeedItem;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -21,11 +25,7 @@ import java.util.List;
  *         2015.12.05.
  */
 public class HouseCommands {
-    private EventManager eventManager;
 
-    public HouseCommands(EventManager event) {
-        this.eventManager = event;
-    }
 
 
     @BeforeCheck
@@ -68,11 +68,11 @@ public class HouseCommands {
                     List<HouseWeedSapling> grownSaplings = new ArrayList<>();
                     for(HouseWeedSapling sapling : house.getWeedSaplings()) {
                         totalYield += sapling.getYield();
-                        sapling.setHarvestedByUser(player.getUserId());
+                        sapling.setHarvestedByUser(player.getUUID());
                         grownSaplings.add(sapling);
                     }
                     house.getWeedSaplings().removeAll(grownSaplings);
-                    grownSaplings.forEach(sapling -> LtrpGamemode.getDao().getHouseDao().updateWeed(sapling));
+                    grownSaplings.forEach(sapling -> LtrpGamemodeImpl.getDao().getHouseDao().updateWeed(sapling));
 
                     WeedItem weed = new WeedItem(eventManager, 1);
                     weed.setAmount(totalYield);

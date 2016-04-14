@@ -1,15 +1,17 @@
 package lt.ltrp.item;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.data.Color;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.object.Inventory;
 import lt.ltrp.item.phone.PhoneBook;
 import lt.ltrp.item.phone.PhoneCall;
 import lt.ltrp.item.phone.PhoneSms;
 import lt.ltrp.item.phone.event.PlayerCallNumberEvent;
 import lt.ltrp.item.phone.event.PlayerSendSmsEvent;
 import lt.ltrp.item.phone.dialog.PhonebookListDialog;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
@@ -107,7 +109,7 @@ public class ItemPhone extends BasicItem {
 
     @ItemUsageOption(name = "Perþiûrëti gautas SMS")
     public boolean showSmsInbox(LtrpPlayer player, Inventory inventory) {
-        PhoneDao phoneDao = LtrpGamemode.getDao().getPhoneDao();
+        PhoneDao phoneDao = LtrpGamemodeImpl.getDao().getPhoneDao();
         if(phoneDao != null) {
             PhoneSms[] sms = phoneDao.getSmsByRecipient(this.phonenumber);
             showSmsManagement(player, sms, inventory);
@@ -118,7 +120,7 @@ public class ItemPhone extends BasicItem {
 
     @ItemUsageOption(name = "Perþiûrëti iðsiøstas SMS")
     public boolean showSmsOutbox(LtrpPlayer player, Inventory inventory) {
-        PhoneDao phoneDao = LtrpGamemode.getDao().getPhoneDao();
+        PhoneDao phoneDao = LtrpGamemodeImpl.getDao().getPhoneDao();
         if(phoneDao != null) {
             PhoneSms[] sms = phoneDao.getSmsBySender(this.phonenumber);
             showSmsManagement(player, sms, inventory);
@@ -141,7 +143,7 @@ public class ItemPhone extends BasicItem {
         });
 
         dialog.setDeleteHandler((d, contact) -> {
-            LtrpGamemode.getDao().getPhoneDao().remove(contact);
+            LtrpGamemodeImpl.getDao().getPhoneDao().remove(contact);
             phonebook.remove(contact);
             player.sendMessage(Color.NEWS, "Kontaktas " + contact.getName() + " paðalintas");
         });

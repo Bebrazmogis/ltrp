@@ -3,7 +3,7 @@ package lt.ltrp.modelpreview;
 import lt.ltrp.data.Color;
 import lt.ltrp.modelpreview.event.ModelPreviewCancelEvent;
 import lt.ltrp.modelpreview.event.ModelPreviewSelectModelEvent;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.TextDrawAlign;
 import net.gtaun.shoebill.constant.TextDrawFont;
 import net.gtaun.shoebill.event.player.PlayerClickPlayerTextDrawEvent;

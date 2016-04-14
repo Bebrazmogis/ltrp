@@ -1,8 +1,8 @@
 package lt.ltrp.command;
 
 import lt.ltrp.data.Color;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;

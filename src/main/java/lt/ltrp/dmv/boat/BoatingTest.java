@@ -3,8 +3,8 @@ package lt.ltrp.dmv.boat;
 import lt.ltrp.dmv.AbstractCheckpointTest;
 import lt.ltrp.dmv.CheckpointDmv;
 import lt.ltrp.dmv.event.PlayerBoatingTestEnd;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.util.event.EventManager;
 
 /**

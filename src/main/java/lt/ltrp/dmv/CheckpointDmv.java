@@ -1,9 +1,8 @@
 package lt.ltrp.dmv;
 
 
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
-import net.gtaun.util.event.Event;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.util.event.EventManager;
 
 import java.util.List;

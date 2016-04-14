@@ -1,33 +1,29 @@
 package lt.ltrp.item;
 
-import lt.ltrp.InventoryEntity;
-import lt.ltrp.LtrpGamemode;
-import lt.ltrp.dao.ItemDao;
-import lt.ltrp.data.LtrpWeaponData;
-import lt.ltrp.event.item.ItemLocationChangeEvent;
+import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.dao.ItemDao;
 import lt.ltrp.item.drug.DrugController;
-import lt.ltrp.item.drug.DrugItem;
-import lt.ltrp.item.event.ItemCreateEvent;
-import lt.ltrp.item.event.ItemDestroyEvent;
-import lt.ltrp.item.event.PlayerDrawWeaponItemEvent;
-import lt.ltrp.item.event.PlayerDropItemEvent;
+import lt.ltrp.item.event.*;
+import lt.ltrp.item.object.Inventory;
+import lt.ltrp.item.object.InventoryEntity;
+import lt.ltrp.item.object.Item;
+import lt.ltrp.item.object.drug.DrugItem;
 import lt.ltrp.item.phone.PhoneController;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.data.LtrpWeaponData;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
-import net.gtaun.shoebill.event.destroyable.DestroyEvent;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
 
 /**
  * @author Bebras
@@ -48,8 +44,8 @@ public class ItemController {
         this.eventManager = eventManager.createChildNode();
 
 
-        drugController = new DrugController(eventManager, LtrpGamemode.getDao().getDrugAddictionDao());
-        phoneController = new PhoneController(eventManager, LtrpGamemode.getDao().getPhoneDao());
+        drugController = new DrugController(eventManager, LtrpGamemodeImpl.getDao().getDrugAddictionDao());
+        phoneController = new PhoneController(eventManager, LtrpGamemodeImpl.getDao().getPhoneDao());
 
         PlayerCommandManager commandManager = new PlayerCommandManager(eventManager);
         System.out.println("ItemController registering commands");
@@ -138,7 +134,7 @@ public class ItemController {
             logger.debug("tryGivePlayerItemType called");
             LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
             ItemType type = ItemType.getById((Integer)params[1]);
-            logger.debug("tryGivePlayerItemType player uid=" + player.getUserId() + " type="+ type.name());
+            logger.debug("tryGivePlayerItemType player uid=" + player.getUUID() + " type="+ type.name());
             Item item = null;
             switch(type) {
                 case Clothing:
@@ -154,7 +150,7 @@ public class ItemController {
                     item = new MaskItem("Kaukë", eventManager,(Integer)params[4]);
                     break;
                 case Phone:
-                    int number = LtrpGamemode.getDao().getPhoneDao().generateNumber();
+                    int number = LtrpGamemodeImpl.getDao().getPhoneDao().generateNumber();
                     item = new ItemPhone(eventManager, number);
                     break;
                 case Cigarettes:
@@ -167,7 +163,7 @@ public class ItemController {
                     item = new FishingRodItem(eventManager);
                     break;
                 case FishingBait:
-                    item = new DurableItem(0, "Masalas", eventManager, type, (Integer)params[4], (Integer)params[5], (Integer)params[2] == 1);
+                    item = new DurableItemImpl(0, "Masalas", eventManager, type, (Integer)params[4], (Integer)params[5], (Integer)params[2] == 1);
                     break;
                 case FishingBag:
                     item = new ContainerItem(0, "Krepðys þuvims", eventManager, type, (Integer)params[6] == 1, (Integer)params[4], (Integer)params[5]);
@@ -176,7 +172,7 @@ public class ItemController {
                     item = new DrinkItem(0, "Gërimas", eventManager, type, (Integer)params[4], SpecialAction.get((Integer)params[5]));
                     break;
                 case Weapon:
-                    item = new WeaponItem(eventManager, new LtrpWeaponData(WeaponModel.get((Integer)params[2]), (Integer)params[3], false));
+                    item = new WeaponItemImpl(eventManager, new LtrpWeaponData(WeaponModel.get((Integer)params[2]), (Integer)params[3], false));
                     break;
                 case Amphetamine:
                     item = new AmphetamineItem(eventManager, 1);
@@ -203,7 +199,7 @@ public class ItemController {
                     item = new DiceItem(eventManager);
                     break;
                 case Radio:
-                    item = new RadioItem(eventManager);
+                    item = new RadioItemImpl(eventManager);
                     break;
                 case CarAudio:
                     item = new BasicItem(0, "Automagnetola", eventManager, ItemType.CarAudio, false);

@@ -1,7 +1,7 @@
 package lt.ltrp.modelpreview.event;
 
 import lt.ltrp.modelpreview.ModelPreview;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

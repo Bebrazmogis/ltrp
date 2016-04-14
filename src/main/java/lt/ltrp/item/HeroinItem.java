@@ -1,33 +1,27 @@
 package lt.ltrp.item;
 
-import lt.ltrp.Util.PawnFunc;
-import lt.ltrp.item.drug.DrugItem;
-import lt.ltrp.player.LtrpPlayer;
+
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.drug.DrugItemImpl;
+import lt.ltrp.item.object.Inventory;
+import lt.ltrp.item.object.Item;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.event.SpeedometerTickEvent;
 import lt.maze.ysf.YSFPlugin;
 import lt.maze.ysf.object.YSFPlayer;
-import net.gtaun.shoebill.amx.AmxCallable;
-import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.data.Velocity;
-import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
 import net.gtaun.shoebill.event.player.PlayerStateChangeEvent;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.object.World;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
-import net.gtaun.util.event.HandlerEntry;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * @author Bebras
  *         2015.12.03.
  */
-public class HeroinItem extends DrugItem {
+public class HeroinItem extends DrugItemImpl {
 
     private Timer drugTimer;
     private EventManagerNode node;

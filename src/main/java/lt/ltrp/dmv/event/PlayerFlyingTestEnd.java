@@ -2,7 +2,7 @@ package lt.ltrp.dmv.event;
 
 import lt.ltrp.dmv.Dmv;
 import lt.ltrp.dmv.aircraft.FlyingTest;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

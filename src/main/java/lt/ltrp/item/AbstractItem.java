@@ -1,14 +1,18 @@
 package lt.ltrp.item;
 
 
-import lt.ltrp.NamedEntityImpl;
+
+import lt.ltrp.api.NamedEntityImpl;
 import lt.ltrp.data.Color;
+import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.event.ItemDestroyEvent;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.item.object.Inventory;
+import lt.ltrp.item.object.Item;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
-import net.gtaun.shoebill.event.destroyable.DestroyEvent;
+import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +29,7 @@ import java.util.function.Supplier;
  * @author Bebras
  *         2015.12.04.
  */
-public abstract class AbstractItem extends NamedEntityImpl implements Item {
+public abstract class AbstractItem extends NamedEntityImpl implements lt.ltrp.item.object.Item {
 
     protected static Logger logger = null;
 
@@ -47,8 +51,8 @@ public abstract class AbstractItem extends NamedEntityImpl implements Item {
     }
 
     @Override
-    public void showOptions(LtrpPlayer player, Inventory inventory, AbstractDialog parentDialog) {
-        logger.debug("showOptions called. player uid=" + player.getUUID() + " inventory name=" + inventory.getName());
+    public void showOptions(Player player, Inventory inventory, AbstractDialog parentDialog) {
+        logger.debug("showOptions called. player uid=" + ((LtrpPlayer)player).getUUID() + " inventory name=" + inventory.getName());
         ListDialog listDialog = ListDialog.create(player, getEventManager()).build();
         listDialog.setCaption(getName() + " parinktys");
         listDialog.setButtonOk("Pasirinkti");

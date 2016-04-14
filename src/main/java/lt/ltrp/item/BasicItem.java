@@ -1,11 +1,16 @@
 package lt.ltrp.item;
 
+
 import lt.ltrp.data.Color;
-import lt.ltrp.event.item.ItemLocationChangeEvent;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.event.ItemLocationChangeEvent;
 import lt.ltrp.item.event.PlayerDropItemEvent;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.property.Property;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.item.object.Inventory;
+import lt.ltrp.item.object.InventoryEntity;
+import lt.ltrp.player.object.LtrpPlayer;
+
+import lt.ltrp.property.object.Property;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.util.event.EventManager;
 
 import java.util.function.Supplier;
@@ -33,7 +38,7 @@ public class BasicItem extends AbstractItem {
         if(player.getInventory().equals(inventory)) {
             player.getInventory().remove(this);
             player.sendActionMessage("iðmeta daiktà kuris atrodo kaip " + getName());
-            getEventManager().dispatchEvent(new PlayerDropItemEvent(player, this));
+            //getEventManager().dispatchEvent(new PlayerDropItemEvent(player, this));
             return true;
         } else {
             return false;
@@ -64,8 +69,8 @@ public class BasicItem extends AbstractItem {
 
             // Pirmiausia ieðkom nekilnojamam turte, nes kai kuriose jo ruðyse gali bûti viduje transporto priemonë.
             Property property = player.getProperty();
-            if(property != null) {
-                inventory = property.getInventory();
+            if(property != null && property instanceof InventoryEntity) {
+                inventory = ((InventoryEntity)property).getInventory();
             }
 
             if(vehicle != null) {
@@ -117,8 +122,8 @@ public class BasicItem extends AbstractItem {
 
                     // Pirmiausia ieðkom nekilnojamam turte, nes kai kuriose jo ruðyse gali bûti viduje transporto priemonë.
                     Property property = player.getProperty();
-                    if (property != null) {
-                        inv = property.getInventory();
+                    if(property != null && property instanceof InventoryEntity) {
+                        inv = ((InventoryEntity)property).getInventory();
                     }
                     LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
                     if (vehicle != null) {

@@ -1,6 +1,8 @@
 package lt.ltrp.property;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.item.object.InventoryEntity;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.property.object.Property;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -24,6 +26,7 @@ public class PropertyCommands {
         }
         return false;
     }
+
 
 
 }

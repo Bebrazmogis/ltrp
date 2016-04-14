@@ -1,6 +1,6 @@
 package lt.ltrp.dialogmenu;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

@@ -1,9 +1,12 @@
 package lt.ltrp.dao;
 
 import lt.ltrp.DatabasePlugin;
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.dao.impl.*;
 import lt.ltrp.dao.impl.SqlItemDao;
+import lt.ltrp.item.dao.ItemDao;
+import lt.ltrp.player.dao.PlayerDao;
+import lt.ltrp.radio.dao.RadioStationDao;
 import net.gtaun.shoebill.Shoebill;
 
 import javax.sql.DataSource;
@@ -49,7 +52,7 @@ public abstract class DAOFactory {
     public abstract PhoneDao getPhoneDao();
     public abstract ItemDao getItemDao();
     public abstract HouseDao getHouseDao();
-    public abstract JobDao getJobDao();
+    //public abstract JobDao getJobDao();
     public abstract DmvDao getDmvDao();
     public abstract VehicleDao getVehicleDao();
     public abstract RadioStationDao getRadioStationDao();
@@ -63,7 +66,7 @@ class JdbcDAO extends DAOFactory {
     private PhoneDao phoneDao;
     private ItemDao itemDao;
     private HouseDao houseDao;
-    private JobDao jobDao;
+    //private JobDao jobDao;
     private DmvDao dmvDao;
     private VehicleDao vehicleDao;
     private RadioStationDao radioStationDao;
@@ -108,14 +111,13 @@ class JdbcDAO extends DAOFactory {
         System.out.println("File read");
         in.close();
         */
-        this.playerDao = new SqlPlayerDaoImpl(ds);
         this.phoneDao = new SqlPhoneDaoImpl(ds);
-        this.itemDao = new SqlItemDao(ds, LtrpGamemode.get().getEventManager(), phoneDao);
+        this.itemDao = new SqlItemDao(ds, LtrpGamemodeImpl.get().getEventManager(), phoneDao);
         this.houseDao = new SqlHouseDao(ds);
-        this.dmvDao = new FileDmvDaoImpl(LtrpGamemode.get().getDataDir());
+        this.dmvDao = new FileDmvDaoImpl(LtrpGamemodeImpl.get().getDataDir());
         this.vehicleDao = new SqlVehicleDaoImpl(ds);
-        this.jobDao = new MySqlJobDaoImpl(ds, vehicleDao);
-        this.radioStationDao = new SqlRadioStationDao(ds);
+    //    this.jobDao = new MySqlJobDaoImpl(ds, vehicleDao);
+    //    this.radioStationDao = new SqlRadioStationDao(ds);
         this.drugAddictionDao = new MySqlDrugAddictionDaoImpl(ds);
         System.out.println("JDBCDAO initialized");
     }
@@ -147,10 +149,10 @@ class JdbcDAO extends DAOFactory {
         return houseDao;
     }
 
-    @Override
-    public JobDao getJobDao() {
+    //@Override
+   /* public JobDao getJobDao() {
         return jobDao;
-    }
+    }*/
 
     @Override
     public DmvDao getDmvDao() {

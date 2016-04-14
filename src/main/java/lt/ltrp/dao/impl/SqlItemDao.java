@@ -1,13 +1,21 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.InventoryEntity;
-import lt.ltrp.dao.ItemDao;
+
 import lt.ltrp.dao.PhoneDao;
-import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.item.*;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.property.Property;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.item.dao.ItemDao;
+import lt.ltrp.item.object.*;
+import lt.ltrp.item.object.ClothingItem;
+import lt.ltrp.item.object.ConsumableItem;
+import lt.ltrp.item.object.ContainerItem;
+import lt.ltrp.item.object.DurableItem;
+import lt.ltrp.item.object.RadioItem;
+import lt.ltrp.item.object.WeaponItem;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.player.data.LtrpWeaponData;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.property.object.Property;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.constant.WeaponModel;
@@ -202,7 +210,7 @@ public class SqlItemDao implements ItemDao {
     }
 
     @Override
-    public int insert(Item item, InventoryEntity entity) {
+    public int insert(lt.ltrp.item.object.Item item, InventoryEntity entity) {
         String sql = "INSERT INTO items (type, name, type_class, stackable, amount) VALUES (?, ?, ?, ?, ?)";
         String location_table = getLocationTable(entity);
         String column_name = getLocationColumn(entity);
@@ -327,7 +335,7 @@ public class SqlItemDao implements ItemDao {
     }
 
     @Override
-    public void delete(Item item) {
+    public void delete(lt.ltrp.item.object.Item item) {
         logger.debug("delete called UUID:" + item.getUUID());
         // Now, we should actually delete this row from ALL of the tables, all items_  tables, plus location table
         // Instead, we HOPE that foreign keys will take care of it for us
@@ -344,7 +352,7 @@ public class SqlItemDao implements ItemDao {
     }
 
     @Override
-    public void update(Item item) {
+    public void update(lt.ltrp.item.object.Item item) {
         logger.debug("update called item id=" + item.getUUID());
         String sql = "UPDATE items SET type = ?, name = ?, type_class = ?, stackable = ?, amount = ? WHERE id = ?";
         try (
@@ -459,7 +467,7 @@ public class SqlItemDao implements ItemDao {
 
 
     @Override
-    public void update(Item item, InventoryEntity inventoryEntity) {
+    public void update(lt.ltrp.item.object.Item item, InventoryEntity inventoryEntity) {
         logger.debug("update called item id=" + item.getUUID() + " location=" + inventoryEntity.getClass().getName() + " locationid=" + inventoryEntity.getUUID());
         String deleteStmt = "DELETE FROM player_items WHERE item_id = ?";
         String deleteStmt2 = "DELETE FROM property_items WHERE item_id = ?";
@@ -494,8 +502,8 @@ public class SqlItemDao implements ItemDao {
 
 
     @Override
-    public Item[] getItems(InventoryEntity entity) {
-        List<Item> items = new ArrayList<>();
+    public lt.ltrp.item.object.Item[] getItems(InventoryEntity entity) {
+        List<lt.ltrp.item.object.Item> items = new ArrayList<>();
         String tablename = getLocationTable(entity);
         String columnName = getLocationColumn(entity);
         String sql = "SELECT * FROM " + tablename + " " +
@@ -515,21 +523,21 @@ public class SqlItemDao implements ItemDao {
             stmt.setInt(1, entity.getUUID());
             ResultSet r = stmt.executeQuery();
             while(r.next()) {
-                Item item = getItem(r);
+                lt.ltrp.item.object.Item item = getItem(r);
                 // TODO if item null, do something
                 items.add(item);
             }
         } catch(SQLException e) {
             e.printStackTrace();
         }
-        Item[] i = new Item[items.size()];
+        lt.ltrp.item.object.Item[] i = new lt.ltrp.item.object.Item[items.size()];
         items.toArray(i);
         return i;
     }
 
-    private Item getItem(ResultSet r) throws SQLException {
+    private lt.ltrp.item.object.Item getItem(ResultSet r) throws SQLException {
         // TODO review unused variables here after all item implementation are done
-        Item item = null;
+        lt.ltrp.item.object.Item item = null;
         String typeClass = r.getString("type_class");
         int id = r.getInt("items.id");
         String name = r.getString("name");
@@ -581,7 +589,7 @@ public class SqlItemDao implements ItemDao {
                 item = new WeedSeedItem(id, name, eventManager);
                 break;
             case "lt.ltrp.item.RadioItem":
-                item = new RadioItem(id, name, eventManager, frequency);
+                item = new RadioItemImpl(id, name, eventManager, frequency);
                 break;
             case "lt.ltrp.item.MaskItem":
                 item = new MaskItem(id, name, eventManager, model);
@@ -596,7 +604,7 @@ public class SqlItemDao implements ItemDao {
                 item = new MeleeWeaponItem(id, name, eventManager, model);
                 break;
             case "lt.ltrp.item.WeaponItem":
-                item = new WeaponItem(id, name, eventManager, new LtrpWeaponData(WeaponModel.get(weapon_id), ammo, false));
+                item = new WeaponItemImpl(id, name, eventManager, new LtrpWeaponData(WeaponModel.get(weapon_id), ammo, false));
                 break;
             case "lt.ltrp.item.DiceItem":
                 item = new DiceItem(id, name, eventManager);
@@ -608,7 +616,7 @@ public class SqlItemDao implements ItemDao {
                 item = new CigarettesItem(id, name, eventManager, durability);
                 break;
             case "lt.ltrp.item.DurableItem":
-                item = new DurableItem(id, name, eventManager, type, durability, maxDurability, stackable);
+                item = new DurableItemImpl(id, name, eventManager, type, durability, maxDurability, stackable);
                 break;
             case "lt.ltrp.item.ItemPhone":
                 item = new ItemPhone(id, name, eventManager, number, phoneDao.getPhonebook(number));

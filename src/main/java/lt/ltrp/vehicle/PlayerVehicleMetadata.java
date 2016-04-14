@@ -1,5 +1,8 @@
 package lt.ltrp.vehicle;
 
+import lt.ltrp.vehicle.data.VehicleLock;
+import lt.ltrp.vehicle.object.VehicleAlarm;
+
 /**
  * @author Bebras
  *         2016.03.18.

@@ -1,7 +1,8 @@
 package lt.ltrp.vehicle;
 
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerOffer;
+import lt.ltrp.player.data.PlayerOffer;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.vehicle.object.PlayerVehicle;
 import net.gtaun.util.event.EventManager;
 
 /**

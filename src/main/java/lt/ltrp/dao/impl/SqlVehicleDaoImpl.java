@@ -1,9 +1,14 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.common.constant.LtrpVehicleModel;
 import lt.ltrp.dao.VehicleDao;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.vehicle.*;
+import lt.ltrp.vehicle.constant.PlayerVehiclePermission;
+import lt.ltrp.vehicle.data.FuelTank;
+import lt.ltrp.vehicle.data.PlayerVehicleArrest;
+import lt.ltrp.vehicle.data.VehicleLock;
+import lt.ltrp.vehicle.object.*;
 import net.gtaun.shoebill.data.AngledLocation;
 
 import javax.sql.DataSource;
@@ -103,6 +108,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 // alarm
                 VehicleAlarm alarm = null;
                 String alarmClass = r.getString("alarm");
+                /*
                 if(!r.wasNull()) {
                     switch(alarmClass) {
                         case "SimpleAlarm":
@@ -115,7 +121,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                             alarm = new PersonalAlarm(null);
                             break;
                     }
-                }
+                }*/
 
                 data = new PlayerVehicleMetadata(
                         r.getInt("id"),
@@ -136,7 +142,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void setOwner(PlayerVehicle vehicle, LtrpPlayer owner) {
+    public void setOwner(lt.ltrp.vehicle.object.PlayerVehicle vehicle, LtrpPlayer owner) {
         String sql = "UPDATE player_vehicles SET owner_id = ? WHERE id = ?";
         try (
                 Connection con = dataSource.getConnection();
@@ -151,7 +157,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void removePermissions(PlayerVehicle vehicle, int userId) {
+    public void removePermissions(lt.ltrp.vehicle.object.PlayerVehicle vehicle, int userId) {
         String sql = "DELETE FROM player_vehicle_permissions WHERE vehicle_id = ? AND player_id = ?";
         try (
                 Connection con = dataSource.getConnection();
@@ -166,7 +172,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void removePermissions(PlayerVehicle vehicle) {
+    public void removePermissions(lt.ltrp.vehicle.object.PlayerVehicle vehicle) {
         String sql = "DELETE FROM player_vehicle_permissions WHERE vehicle_id = ?";
         try (
                 Connection con = dataSource.getConnection();
@@ -180,7 +186,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void removePermission(PlayerVehicle vehicle, int userId, PlayerVehiclePermission permission) {
+    public void removePermission(lt.ltrp.vehicle.object.PlayerVehicle vehicle, int userId, PlayerVehiclePermission permission) {
         String sql = "DELETE FROM player_vehicle_permissions WHERE player_id = ? AND vehicle_id = ? AND permission = ?";
         try (
                 Connection con = dataSource.getConnection();
@@ -196,12 +202,12 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void addPermission(PlayerVehicle vehicle, LtrpPlayer player, PlayerVehiclePermission permission) {
+    public void addPermission(lt.ltrp.vehicle.object.PlayerVehicle vehicle, LtrpPlayer player, PlayerVehiclePermission permission) {
         addPermission(vehicle, player.getUUID(), permission);
     }
 
     @Override
-    public void addPermission(PlayerVehicle vehicle, int userId, PlayerVehiclePermission permission) {
+    public void addPermission(lt.ltrp.vehicle.object.PlayerVehicle vehicle, int userId, PlayerVehiclePermission permission) {
        addPermission(vehicle.getUUID(), userId, permission);
     }
 
@@ -338,7 +344,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void update(LtrpVehicle vehicle) {
+    public void update(lt.ltrp.vehicle.object.LtrpVehicle vehicle) {
         String vehicleSql = "UPDATE vehicles SET model = ?, x = ?, y = ?, z = ?, angle = ?, license = ?, interior = ?, virtual_world = ?, color1 = ?, " +
                 "color2 = ?, fuel = ?, mileage = ?  WHERE id = ?";
         try (
@@ -366,7 +372,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public int insert(LtrpVehicle vehicle) {
+    public int insert(lt.ltrp.vehicle.object.LtrpVehicle vehicle) {
         int id = insert(
                 vehicle.getModelId(),
                 vehicle.getSpawnLocation(),
@@ -413,7 +419,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void delete(LtrpVehicle vehicle) {
+    public void delete(lt.ltrp.vehicle.object.LtrpVehicle vehicle) {
         String sql = "DELETE FROM vehicles WHERE id = ?";
         try (
                 Connection con = dataSource.getConnection();
@@ -507,8 +513,8 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public PlayerVehicle get(int vehicleId) {
-        PlayerVehicle vehicle= null;
+    public lt.ltrp.vehicle.object.PlayerVehicle get(int vehicleId) {
+        lt.ltrp.vehicle.object.PlayerVehicle vehicle= null;
         String sql = "SELECT player_vehicles.*, vehicles.* FROM player_vehicles LEFT JOIN vehicles ON vehicles.id = player_vehicles.id WHERE player_vehicles.id = ?";
         try (
                 Connection con = dataSource.getConnection();
@@ -518,7 +524,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
             ResultSet r = stmt.executeQuery();
             if(r.next()) {
 
-                vehicle = PlayerVehicle.create(
+                vehicle = PlayerVehicleImpl.create(
                         r.getInt("id"),
                         r.getInt("model"),
                         new AngledLocation(r.getFloat("x"),
@@ -545,7 +551,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                 );
                 // alarm
                 String alarmClass = r.getString("alarm");
-                if(!r.wasNull()) {
+                /*if(!r.wasNull()) {
                     switch(alarmClass) {
                         case "SimpleAlarm":
                             vehicle.setAlarm(new SimpleAlarm(vehicle));
@@ -554,10 +560,10 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
                             vehicle.setAlarm(new PoliceAlertAlarm(vehicle));
                             break;
                         case "PersonalAlarm":
-                            vehicle.setAlarm(new PersonalAlarm(vehicle));
+                            vehicle.setAlarm(new lt.ltrp.vehicle.object.PersonalAlarm(vehicle));
                             break;
                     }
-                }
+                }*/
                 vehicle.setLock(getLock(r));
                 loadPermissions(vehicle);
             }
@@ -567,7 +573,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
         return vehicle;
     }
 
-    private void loadPermissions(PlayerVehicle vehicle) {
+    private void loadPermissions(lt.ltrp.vehicle.object.PlayerVehicle vehicle) {
         String sql = "SELECT * FROM player_vehicle_permissions WHERE vehicle_id = ?";
         try (
                 Connection con = dataSource.getConnection();
@@ -584,7 +590,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void update(PlayerVehicle playerVehicle) {
+    public void update(lt.ltrp.vehicle.object.PlayerVehicle playerVehicle) {
         String sql = "UPDATE player_vehicles SET owner_id = ?, deaths = ?, alarm = ?, lock_name = ?, lock_cracktime = ?, lock_price = ?, insurance = ?," +
                 " doors = ?, panels = ?, lights = ?, tires = ?, health = ? WHERE id = ?";
         try (
@@ -625,7 +631,7 @@ public class  SqlVehicleDaoImpl implements VehicleDao {
     }
 
     @Override
-    public void delete(PlayerVehicle vehicle) {
+    public void delete(lt.ltrp.vehicle.object.PlayerVehicle vehicle) {
         String[] sqls = new String[]{
                 "DELETE FROM player_vehicles WHERE id = ?",
                 "DELETE FROM player_vehicle_permissions WHERE vehicle_id = ?"

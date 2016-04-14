@@ -1,9 +1,9 @@
 package lt.ltrp.item.phone.dialog;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.item.phone.PhoneContact;
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
@@ -68,7 +68,7 @@ public class PhoneContactDialog {
                                     return;
                                 }
                                 contact.setNumber(number);
-                                LtrpGamemode.getDao().getPhoneDao().update(contact);
+                                LtrpGamemodeImpl.getDao().getPhoneDao().update(contact);
                                 p.sendMessage(Color.NEWS, "Kontakto \"" + contact.getName() + "\" numeris atnaujintas. Naujasis numeris " + contact.getName());
                                 changeNumberOption.getCurrentDialog().show();
                             })
@@ -89,7 +89,7 @@ public class PhoneContactDialog {
                                     p.sendErrorMessage("Kontakto vardas negali bûti tuðèias");
                                 } else {
                                     contact.setName(newName);
-                                    LtrpGamemode.getDao().getPhoneDao().update(contact);
+                                    LtrpGamemodeImpl.getDao().getPhoneDao().update(contact);
                                     p.sendMessage(Color.NEWS, "Kontakto vardas atnaujintas. Naujasis vardas \"" + newName + "\"");
                                     changeNameOption.getCurrentDialog().show();
                                 }

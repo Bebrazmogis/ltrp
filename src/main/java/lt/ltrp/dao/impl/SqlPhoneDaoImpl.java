@@ -1,11 +1,11 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.Util.Sql;
 import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.item.ItemPhone;
 import lt.ltrp.item.phone.PhoneBook;
 import lt.ltrp.item.phone.PhoneContact;
 import lt.ltrp.item.phone.PhoneSms;
+import lt.ltrp.util.Sql;
 
 import javax.sql.DataSource;
 import java.sql.*;

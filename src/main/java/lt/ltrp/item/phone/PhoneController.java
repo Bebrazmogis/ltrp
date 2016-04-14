@@ -3,13 +3,14 @@ package lt.ltrp.item.phone;
 import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.data.Color;
 import lt.ltrp.item.ItemPhone;
+import lt.ltrp.item.object.InventoryEntity;
 import lt.ltrp.item.phone.event.PlayerAnswerPhoneEvent;
 import lt.ltrp.item.phone.event.PlayerCallNumberEvent;
 import lt.ltrp.item.phone.event.PlayerEndCallEvent;
 import lt.ltrp.item.phone.event.PlayerSendSmsEvent;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.property.Property;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.property.object.Property;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.event.player.PlayerTextEvent;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
@@ -82,10 +83,10 @@ public class PhoneController {
                                 });
 
                                 Property.get().stream()
-                                        .filter(property -> property.getInventory().contains(contactPhone))
-                                        .forEach(property -> {
-                                            property.sendStateMessage("Kaşkur netoli, girdisi telefono skambëjimas");
-                                        });
+                                        .filter(property -> property instanceof InventoryEntity && ((InventoryEntity) property).getInventory().contains(contactPhone))
+                                                .forEach(property -> {
+                                                    property.sendStateMessage("Kaşkur netoli, girdisi telefono skambëjimas");
+                                                });
                             }
 
                             @Override
@@ -143,10 +144,10 @@ public class PhoneController {
 
                     Property.get()
                             .stream()
-                            .filter(property -> property.getInventory().contains(contactPhone))
-                            .forEach(property -> {
-                                property.sendStateMessage("Kaşkur netoli, suskamba telefonas");
-                            });
+                            .filter(property -> property instanceof InventoryEntity && ((InventoryEntity) property).getInventory().contains(contactPhone))
+                                    .forEach(property -> {
+                                        property.sendStateMessage("Kaşkur netoli, suskamba telefonas");
+                                    });
                 }
             }
         });

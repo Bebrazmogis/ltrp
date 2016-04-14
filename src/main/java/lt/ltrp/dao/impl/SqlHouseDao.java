@@ -1,8 +1,8 @@
 package lt.ltrp.dao.impl;
 
 import lt.ltrp.dao.HouseDao;
-import lt.ltrp.property.House;
-import lt.ltrp.property.HouseWeedSapling;
+import lt.ltrp.property.data.HouseWeedSapling;
+import lt.ltrp.property.object.House;
 import net.gtaun.shoebill.data.Location;
 
 import javax.sql.DataSource;

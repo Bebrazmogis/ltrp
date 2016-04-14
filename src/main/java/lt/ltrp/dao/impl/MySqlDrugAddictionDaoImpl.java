@@ -1,10 +1,10 @@
 package lt.ltrp.dao.impl;
 
 import lt.ltrp.dao.DrugAddictionDao;
-import lt.ltrp.item.drug.DrugItem;
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerAddiction;
-import lt.ltrp.player.PlayerDrugs;
+import lt.ltrp.item.object.drug.DrugItem;
+import lt.ltrp.player.data.PlayerAddiction;
+import lt.ltrp.player.data.PlayerDrugs;
+import lt.ltrp.player.object.LtrpPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
