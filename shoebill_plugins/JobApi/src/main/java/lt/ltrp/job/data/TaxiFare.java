@@ -1,8 +1,8 @@
 package lt.ltrp.job.data;
 
-import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.common.constant.LtrpVehicleModel;
 import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Timer;
 

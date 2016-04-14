@@ -288,7 +288,7 @@ public class ItemCommands {
             player.sendErrorMessage("Jûs neturite racijos!");
         } else {
             RadioItem item = (RadioItem)player.getInventory().getItem(ItemType.Radio);
-            item.sendMessage(player, msg, 5);
+            item.sendMessage(player, msg, 5f);
             return true;
         }
         return true;

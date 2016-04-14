@@ -27,6 +27,11 @@ import java.util.List;
 public class HouseCommands {
 
 
+    private EventManager eventManager;
+
+    public HouseCommands(EventManager eventManager) {
+        this.eventManager = eventManager;
+    }
 
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {

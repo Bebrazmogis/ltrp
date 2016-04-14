@@ -21,6 +21,7 @@ import java.util.*;
  */
 public interface LtrpPlayer extends Player, InventoryEntity {
     public static final int INVALID_USER_ID = 0;
+    public static final float DEFAULT_ACTION_MESSAGE_DISTANCE = 20f;
 
 
     static PlayerDao getPlayerDao() {
@@ -124,6 +125,9 @@ public interface LtrpPlayer extends Player, InventoryEntity {
 
     void setAdminLevel(int adminLevel);
     int getAdminLevel();
+    int getModLevel();
+    void setModLevel(int modLevel);
+    boolean isModerator();
 
     void setLevel(int level);
     int getLevel();

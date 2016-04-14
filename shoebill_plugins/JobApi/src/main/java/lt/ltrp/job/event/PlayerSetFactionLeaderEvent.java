@@ -1,7 +1,8 @@
-package lt.ltrp.job;
+package lt.ltrp.job.event;
 
-import lt.ltrp.player.LtrpPlayer;
+import lt.ltrp.job.object.Faction;
 import lt.ltrp.player.event.PlayerEvent;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

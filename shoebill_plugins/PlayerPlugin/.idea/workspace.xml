@@ -42,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayerPlugin.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PlayerPlugin.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5862069" vertical-offset="0" max-vertical-offset="870">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
+              <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -54,11 +54,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LtrpPlayerImpl.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LtrpPlayerImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22304">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="2.0816803" vertical-offset="7243" max-vertical-offset="22797">
+              <caret line="684" column="65" selection-start-line="684" selection-start-column="34" selection-end-line="684" selection-end-column="65" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ModeratorCommands.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/ModeratorCommands.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="2584">
+              <caret line="42" column="10" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -93,6 +105,7 @@
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdown.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdownImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/ModeratorCommands.java" />
       </list>
     </option>
   </component>
@@ -130,6 +143,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -283,7 +297,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -553,15 +566,16 @@
       <updated>1460052950728</updated>
       <workItem from="1460052953579" duration="11058000" />
       <workItem from="1460101705068" duration="4051000" />
+      <workItem from="1460651378256" duration="1204000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15109000" />
+    <option name="totallyTimeSpent" value="16313000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -625,6 +639,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22797">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="235" max-vertical-offset="1190">
+          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="833">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
@@ -657,9 +699,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="2703">
           <caret line="19" column="7" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -674,7 +713,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0816092" vertical-offset="65" max-vertical-offset="1751">
           <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -690,9 +728,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.2975496" vertical-offset="731" max-vertical-offset="2567">
           <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -700,31 +735,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.118390806" vertical-offset="951" max-vertical-offset="9724">
           <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
-          <folding>
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT id FR..players..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT `pass..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT secre..players..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT skin,..players..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_jailtime..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_crashes..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_crimes..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT vehic..player_vehicle_permissions..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_licenses..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT usern..players..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT id FR..players..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_license_warnings..." />
-            <marker date="1460105330861" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -771,7 +782,7 @@
         <state vertical-scroll-proportion="1.2114942" vertical-offset="0" max-vertical-offset="3009">
           <caret line="64" column="40" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -780,19 +791,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.2735632" vertical-offset="425" max-vertical-offset="2754">
           <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22406">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -801,15 +799,35 @@
         <state vertical-scroll-proportion="0.37689614" vertical-offset="3230" max-vertical-offset="8891">
           <caret line="209" column="27" selection-start-line="209" selection-start-column="27" selection-end-line="209" selection-end-column="27" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5862069" vertical-offset="0" max-vertical-offset="870">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
+          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/ModeratorCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="2584">
+          <caret line="42" column="10" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.0816803" vertical-offset="7243" max-vertical-offset="22797">
+          <caret line="684" column="65" selection-start-line="684" selection-start-column="34" selection-end-line="684" selection-end-column="65" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

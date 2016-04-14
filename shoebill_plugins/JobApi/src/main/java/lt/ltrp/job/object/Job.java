@@ -41,11 +41,11 @@ public interface Job extends NamedEntity {
 
 
     static List<Job> get() {
-        return JobManager.get().getJobs();
+        return JobController.get().getJobs();
     }
 
     static Job get(int id) {
-        return JobManager.get().getJob(id);
+        return JobController.get().getJob(id);
     }
 
 

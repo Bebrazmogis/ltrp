@@ -2,13 +2,11 @@ package lt.ltrp.property;
 
 import lt.ltrp.BankPlugin;
 import lt.ltrp.LtrpGamemodeImpl;
-import lt.ltrp.command.PlayerCommandManager;
 import lt.ltrp.common.constant.Currency;
 import lt.ltrp.dao.HouseDao;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.item.FixedSizeInventory;
 import lt.ltrp.item.object.Inventory;
-import lt.ltrp.item.object.InventoryEntity;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.player.data.SpawnData;
 import lt.ltrp.player.object.LtrpPlayer;

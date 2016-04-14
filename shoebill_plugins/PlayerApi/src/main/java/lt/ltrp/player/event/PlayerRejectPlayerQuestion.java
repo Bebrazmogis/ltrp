@@ -1,17 +1,18 @@
 package lt.ltrp.player.event;
 
-import lt.ltrp.player.LtrpPlayer;
+
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras
  *         2016.04.10.
  */
-public class PlayerAcceptPlayerQuestion extends PlayerEvent {
+public class PlayerRejectPlayerQuestion extends PlayerEvent {
 
     private LtrpPlayer target;
     private String question;
 
-    public PlayerAcceptPlayerQuestion(LtrpPlayer player, LtrpPlayer target, String question) {
+    public PlayerRejectPlayerQuestion(LtrpPlayer player, LtrpPlayer target, String question) {
         super(player);
         this.target = target;
         this.question = question;
@@ -24,5 +25,4 @@ public class PlayerAcceptPlayerQuestion extends PlayerEvent {
     public String getQuestion() {
         return question;
     }
-
 }

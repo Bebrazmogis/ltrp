@@ -6,7 +6,6 @@ import lt.ltrp.dao.DAOFactory;
 import lt.ltrp.dmv.DmvManager;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.item.ItemController;
-import lt.ltrp.job.JobManager;
 import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.plugin.mapandreas.MapAndreas;
 import lt.ltrp.plugin.mapandreas.MapAndreasMode;
@@ -33,7 +32,7 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
     private static DAOFactory dao;
     private static final Logger logger = LoggerFactory.getLogger(LtrpGamemode.class);
     private Timer paydayTimer;
-    private JobManager jobManager;
+    //private JobManager jobManager;
     private VehicleManager vehicleManager;
     private PropertyManager propertyManager;
     private DmvManager dmvManager;

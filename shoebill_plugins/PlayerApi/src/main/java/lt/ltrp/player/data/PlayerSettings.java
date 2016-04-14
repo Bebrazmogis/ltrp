@@ -1,6 +1,8 @@
-package lt.ltrp.player;
+package lt.ltrp.player.data;
 
-import java.util.Properties;
+import lt.ltrp.player.object.LtrpPlayer;
+
+import java.lang.Boolean;import java.lang.Override;import java.lang.String;import java.util.Properties;
 
 /**
  * @author Bebras

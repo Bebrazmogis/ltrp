@@ -1,6 +1,5 @@
 package lt.ltrp.player;
 
-import lt.ltrp.Util.AdminLog;
 import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.event.PlayerAcceptPlayerQuestion;
@@ -13,7 +12,7 @@ import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
-import java.util.HashMap;
+import java.lang.Integer;import java.lang.String;import java.util.HashMap;
 import java.util.Map;
 
 /**

@@ -30,5 +30,21 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.16</version>
         </dependency>
+
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>vehicle-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>player-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>job-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

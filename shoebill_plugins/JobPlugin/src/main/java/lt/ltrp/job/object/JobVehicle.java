@@ -1,16 +1,15 @@
-package lt.ltrp.job;
+package lt.ltrp.job.object;
 
-import lt.ltrp.job.object.Job;
 import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.data.AngledLocation;
-import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.data.Location;import java.lang.String;
 
 /**
  * @author Bebras
  *         2015.12.06.
  */
-public class JobVehicle extends LtrpVehicle {
+public class JobVehicleImpl extends LtrpVehicleImpl implements JobVehicle{
 
     public static JobVehicle getById(int id) {
         for(LtrpVehicle veh : JobVehicle.get()) {

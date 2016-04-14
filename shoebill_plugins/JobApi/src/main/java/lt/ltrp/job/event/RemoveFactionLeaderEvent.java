@@ -1,5 +1,6 @@
-package lt.ltrp.job;
+package lt.ltrp.job.event;
 
+import lt.ltrp.job.object.Faction;
 import net.gtaun.util.event.Event;
 
 /**

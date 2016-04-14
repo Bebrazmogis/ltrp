@@ -17,7 +17,10 @@ public interface RadioItem extends Item {
 
     float getFrequency();
     void setFrequency(float frequency);
-    void sendMessage(LtrpPlayer player, String msg);
+    default void sendMessage(LtrpPlayer player, String msg) {
+        sendMessage(player, msg, LtrpPlayer.DEFAULT_ACTION_MESSAGE_DISTANCE);
+    }
+    void sendMessage(LtrpPlayer player, String message, float distance);
 
 
 }

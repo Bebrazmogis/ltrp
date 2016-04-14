@@ -2,7 +2,6 @@ package lt.ltrp.job.dao;
 
 
 import lt.ltrp.api.LoadingException;
-import lt.ltrp.job.JobVehicle;
 import lt.ltrp.job.data.TrashMissions;
 import lt.ltrp.job.object.*;
 

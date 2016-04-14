@@ -1,7 +1,8 @@
 package lt.ltrp.player.event;
 
-import lt.ltrp.player.LtrpPlayer;
-import lt.ltrp.player.PlayerSettings;
+
+import lt.ltrp.player.data.PlayerSettings;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras
