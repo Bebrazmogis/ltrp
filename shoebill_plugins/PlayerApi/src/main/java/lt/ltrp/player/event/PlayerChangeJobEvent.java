@@ -1,7 +1,8 @@
 package lt.ltrp.player.event;
 
 
-import lt.ltrp.job.Job;
+
+import lt.ltrp.job.object.Job;
 import lt.ltrp.player.object.LtrpPlayer;
 
 /**

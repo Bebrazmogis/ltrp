@@ -1,8 +1,9 @@
 package lt.ltrp.dmv.boat;
 
-import lt.ltrp.InitException;
-import lt.ltrp.LoadingException;
-import lt.ltrp.LtrpGamemode;
+
+import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.api.InitException;
+import lt.ltrp.api.LoadingException;
 import lt.ltrp.dmv.AbstractDmvManager;
 import lt.ltrp.dmv.Dmv;
 import lt.ltrp.dmv.dialog.BoatingTestEndMsgDialog;
@@ -10,7 +11,7 @@ import lt.ltrp.dmv.event.PlayerBoatingTestEnd;
 import lt.ltrp.player.constant.LicenseType;
 import lt.ltrp.player.data.PlayerLicense;
 import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
@@ -33,7 +34,7 @@ public class BoatDmvManager extends AbstractDmvManager {
         this.ongoingBoatingTests = new HashMap<>();
 
         try {
-            dmv = LtrpGamemode.getDao().getDmvDao().getBoatDmv(3);
+            dmv = LtrpGamemodeImpl.getDao().getDmvDao().getBoatDmv(3);
         } catch(LoadingException e) {
             throw new InitException(getClass().getSimpleName() + " could not be initialized", e);
         }
@@ -41,7 +42,7 @@ public class BoatDmvManager extends AbstractDmvManager {
         getPlayerCommandManager().registerCommand("takelesson", new Class[0], (player, params) -> {
             LtrpPlayer p = LtrpPlayer.get(player);
             if (p != null && p.isInAnyVehicle()) {
-                LtrpVehicle vehicle = p.getVehicle();
+                LtrpVehicle vehicle = LtrpVehicle.getByVehicle(p.getVehicle());
                 // If so, then its a dmv vehicle
                 if (vehicle != null && dmv.getVehicles().contains(vehicle)) {
                     if (!p.getLicenses().contains(LicenseType.Ship)) {

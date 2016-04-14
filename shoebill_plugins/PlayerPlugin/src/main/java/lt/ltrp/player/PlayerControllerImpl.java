@@ -3,7 +3,7 @@ package lt.ltrp.player;
 
 
 import lt.ltrp.BankPlugin;
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.player.dao.PlayerDao;
 import lt.ltrp.event.PaydayEvent;
@@ -249,7 +249,7 @@ public class PlayerControllerImpl implements PlayerController {
                int houseTax = (int)House.get().stream().filter(h -> h.getOwnerUserId() == p.getUUID()).count() * LtrpGamemode.getHouseTax();
                int businessTax = (int)Business.get().stream().filter(b -> b.getOwnerUserId() == p.getUUID()).count() * LtrpGamemode.getBusinessTax();
                int garageTax = (int)Garage.get().stream().filter(g -> g.getOwnerUserId() == p.getUUID()).count() * LtrpGamemode.getGarageTax();
-               int vehicleTax = LtrpGamemode.getDao().getVehicleDao().getPlayerVehicleCount(p) * LtrpGamemode.getVehicleTax();
+               int vehicleTax = LtrpGamemodeImpl.getDao().getVehicleDao().getPlayerVehicleCount(p) * LtrpGamemode.getVehicleTax();
 
                if(p.getMinutesOnlineSincePayday() > MINUTES_FOR_PAYDAY) {
                    int paycheck = 0;
@@ -297,7 +297,7 @@ public class PlayerControllerImpl implements PlayerController {
                } else {
                    p.sendErrorMessage("Apgailestaujame, bet atlyginimo už šią valandą negausite, kadangi Jūs nebuvote prisijungęs pakankamai.");
                }
-               LtrpGamemode.getDao().getPlayerDao().update(p);
+               LtrpGamemodeImpl.getDao().getPlayerDao().update(p);
            });
         });
 
@@ -373,14 +373,14 @@ public class PlayerControllerImpl implements PlayerController {
     private void loadDataThreaded(LtrpPlayer player) {
         new Thread(() -> {
             playerDao.loadData(player);
-            Item[] items = LtrpGamemode.getDao().getItemDao().getItems(player);
+            Item[] items = LtrpGamemodeImpl.getDao().getItemDao().getItems(player);
             logger.info("PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUUID());
             player.setInventory(new FixedSizeInventory(managerNode, player.getName() + " kuprinės", player));
             player.getInventory().add(items);
 
            // player.setVehicleMetadata(playerDao.getVehiclePermissions(player));
 
-            PlayerLicenses licenses = LtrpGamemode.getDao().getPlayerDao().get(player);
+            PlayerLicenses licenses = LtrpGamemodeImpl.getDao().getPlayerDao().get(player);
             player.setLicenses(licenses);
             managerNode.dispatchEvent(new PlayerDataLoadEvent(player));
         }).start();

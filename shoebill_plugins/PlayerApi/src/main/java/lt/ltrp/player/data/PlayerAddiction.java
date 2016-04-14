@@ -2,7 +2,7 @@ package lt.ltrp.player.data;
 
 
 
-import lt.ltrp.item.drug.DrugItem;
+import lt.ltrp.item.object.drug.DrugItem;
 import lt.ltrp.player.object.LtrpPlayer;
 
 import java.sql.Timestamp;

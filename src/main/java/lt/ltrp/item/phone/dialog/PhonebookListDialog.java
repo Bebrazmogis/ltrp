@@ -1,6 +1,6 @@
 package lt.ltrp.item.phone.dialog;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.item.phone.PhoneBook;
 import lt.ltrp.item.phone.PhoneContact;
@@ -85,7 +85,7 @@ public class PhonebookListDialog extends ListDialog {
                                     .onClickCancel(AbstractDialog::showParentDialog)
                                     .onClickOk((contactNameDialog, contactName) -> {
                                         if (contactName != null && !contactName.isEmpty()) {
-                                            PhoneContact newContact = LtrpGamemode.getDao().getPhoneDao().add(phonebook.getOwnerNumber(), number, contactName);
+                                            PhoneContact newContact = LtrpGamemodeImpl.getDao().getPhoneDao().add(phonebook.getOwnerNumber(), number, contactName);
                                             phonebook.addContact(newContact);
                                             player.sendMessage(Color.NEWS, "Kontaktas \"" + contactName + "\" pridëtas á telefono kontaktø sàraðà");
                                         } else {

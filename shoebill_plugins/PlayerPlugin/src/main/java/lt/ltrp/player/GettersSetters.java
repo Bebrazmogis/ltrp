@@ -1,7 +1,7 @@
 package lt.ltrp.player;
 
 import lt.ltrp.BankPlugin;
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.dialogmenu.admin.jobvehicle.JobVehicleMenu;
 import lt.ltrp.item.ItemPhone;
 import lt.ltrp.item.ItemType;

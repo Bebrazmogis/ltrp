@@ -1,0 +1,10 @@
+lt\ltrp\api\EntityImpl.class
+lt\ltrp\api\DestroyableEntity.class
+lt\ltrp\api\NamedEntity.class
+lt\ltrp\api\LtrpGamemode.class
+lt\ltrp\api\Entity.class
+lt\ltrp\api\Initializable.class
+lt\ltrp\api\Deniable.class
+lt\ltrp\api\InitException.class
+lt\ltrp\api\NamedEntityImpl.class
+lt\ltrp\api\LoadingException.class

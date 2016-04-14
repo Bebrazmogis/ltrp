@@ -1,6 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.BankController;
+import lt.ltrp.common.dialog.IntegerInputDialog;
 import lt.ltrp.event.BankPlaceDepositEvent;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.player.object.LtrpPlayer;

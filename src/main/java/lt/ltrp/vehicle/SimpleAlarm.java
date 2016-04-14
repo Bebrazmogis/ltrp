@@ -1,5 +1,7 @@
 package lt.ltrp.vehicle;
 
+import lt.ltrp.vehicle.object.PlayerVehicle;
+import lt.ltrp.vehicle.object.VehicleAlarm;
 import net.gtaun.shoebill.object.VehicleParam;
 
 /**
@@ -15,12 +17,12 @@ public class SimpleAlarm implements VehicleAlarm {
     private String name;
     private PlayerVehicle vehicle;
 
-    public SimpleAlarm(String name, PlayerVehicle vehicle) {
+    protected SimpleAlarm(String name, PlayerVehicle vehicle) {
         this.name = name;
         this.vehicle = vehicle;
     }
 
-    public SimpleAlarm(PlayerVehicle vehicle) {
+    protected SimpleAlarm(PlayerVehicle vehicle) {
         this("Paprasta signalizacija", vehicle);
     }
 

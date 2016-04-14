@@ -1,18 +1,15 @@
 package lt.ltrp.player.object;
 
 
-import lt.ltrp.InventoryEntity;
-import lt.ltrp.job.Job;
-import lt.ltrp.job.Rank;
+import lt.ltrp.item.object.InventoryEntity;
 import lt.ltrp.player.PlayerController;
 import lt.ltrp.player.dao.PlayerDao;
 import lt.ltrp.player.data.*;
-import lt.ltrp.property.Property;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.property.object.Property;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import lt.maze.audio.AudioHandle;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.Color;
-import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.object.Player;
 
 import java.util.*;
@@ -120,6 +117,7 @@ public interface LtrpPlayer extends Player, InventoryEntity {
         get().forEach(p -> p.sendMessage(c, s));
     }
 
+    int getUUID();
 
 
     void sendInfoText(String msg);
@@ -156,22 +154,9 @@ public interface LtrpPlayer extends Player, InventoryEntity {
 
     LtrpVehicle getLastUsedVehicle();
     void setLastUsedVehicle(LtrpVehicle vehicle);
-    @Override
-    LtrpVehicle getVehicle();
 
     PlayerCountdown getCountdown();
     void setCountdown(PlayerCountdown countdown);
-
-    void setJob(Job job);
-    void setJobRank(Rank rank);
-    void setJobExperience(int experience);
-    void setJobHours(int hours);
-    void setJobContract(int contract);
-    Job getJob();
-    Rank getJobRank();
-    int getJobExperience();
-    int getJobHours();
-    void addJobExperience(int amount);
     /**
      * Total unclaimed job money
      */

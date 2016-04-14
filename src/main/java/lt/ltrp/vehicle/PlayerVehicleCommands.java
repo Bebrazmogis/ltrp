@@ -1,16 +1,22 @@
 package lt.ltrp.vehicle;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.command.Commands;
-import lt.ltrp.constant.Currency;
+import lt.ltrp.common.constant.Currency;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.shopplugin.VehicleShop;
 import lt.ltrp.shopplugin.VehicleShopPlugin;
 import lt.ltrp.shopplugin.dialog.VehicleShopListDialog;
 import lt.ltrp.util.ErrorCode;
+import lt.ltrp.vehicle.constant.PlayerVehiclePermission;
+import lt.ltrp.vehicle.data.PlayerVehicleArrest;
+import lt.ltrp.vehicle.data.VehicleLock;
 import lt.ltrp.vehicle.dialog.VehicleUserPermissionDialog;
 import lt.ltrp.vehicle.event.*;
+import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.vehicle.object.PlayerVehicle;
+import lt.ltrp.vehicle.object.VehicleAlarm;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.CommandParameter;
@@ -333,7 +339,7 @@ public class PlayerVehicleCommands extends Commands{
             } else if(player.equals(target)) {
                 player.sendErrorMessage("Savo teisiø valdyti negalite.");
             } else {
-                new VehicleUserPermissionDialog(player, playerVehicleManager.getEventManager(), vehicle, target.getUUID())
+                new VehicleUserPermissionDialog(player, playerVehicleManager.getEventManager(), vehicle, target.getUUID(), target.getName())
                         .show();
             }
         }
@@ -354,7 +360,7 @@ public class PlayerVehicleCommands extends Commands{
                 vehicle.getPermissions().keySet().forEach(userId -> {
                     if(userId != player.getUUID()) {
                         items.add(new ListDialogItem(LtrpPlayer.getPlayerDao().getUsername(userId), i -> {
-                            new VehicleUserPermissionDialog(player, playerVehicleManager.getEventManager(), vehicle, userId).show();
+                            new VehicleUserPermissionDialog(player, playerVehicleManager.getEventManager(), vehicle, userId, LtrpGamemodeImpl.getDao().getPlayerDao().getUsername(userId)).show();
                         }));
                     }
                 });
@@ -522,7 +528,7 @@ public class PlayerVehicleCommands extends Commands{
                     } catch(NumberFormatException ignored) {}
                     if(number < 1 || number > player.getVehicleMetadata().size()) {
                         if(player.getVehicleMetadata().containsKey(number)) {
-                            PlayerVehicle vehicle = LtrpGamemode.getDao().getVehicleDao().getPlayerVehicle(player.getVehicleMetadata().get(number).getKey());
+                            PlayerVehicle vehicle = LtrpGamemodeImpl.getDao().getVehicleDao().getPlayerVehicle(player.getVehicleMetadata().get(number).getKey());
                             vehicle.spawn();
                         }
                     } else
@@ -540,7 +546,7 @@ public class PlayerVehicleCommands extends Commands{
                     if(player.getLoadedVehicles().containsKey(vehicle) && player.getLoadedVehicles().get(vehicle).contains(PlayerVehiclePermission.Park)) {
                         if(vehicle.getLocation().distance(vehicle.getSpawnLocation()) <= 10.0f) {
                             vehicle.despawn();
-                            LtrpGamemode.getDao().getVehicleDao().update(vehicle);
+                            LtrpGamemodeImpl.getDao().getVehicleDao().update(vehicle);
                             player.sendMessage(Color.LIGHTRED, "Jûsø tr. priemonë buvo sëkmingai priparkuota. Norëdami gauti raðykite /v get.");
                             player.playSound(1057);
                         } else
@@ -560,7 +566,7 @@ public class PlayerVehicleCommands extends Commands{
                     if(player.getLoadedVehicles().containsKey(vehicle) && player.getLoadedVehicles().get(vehicle).contains(PlayerVehiclePermission.SetParkingSpace)) {
                         if(player.getMoney() >= PARKING_SPACE_PRICE) {
                             vehicle.setSpawnLocation(vehicle.getLocation());
-                            LtrpGamemode.getDao().getVehicleDao().update(vehicle);
+                            LtrpGamemodeImpl.getDao().getVehicleDao().update(vehicle);
                             player.playSound(1057);
                             player.sendMessage(Color.LIGHTRED, "Nauja tr. priemonës parkavimo vieta sëkmingai nustatyta. Dabar naudodami /v get, tr. priemonæ gausite èia.");
                         } else
@@ -665,9 +671,9 @@ public class PlayerVehicleCommands extends Commands{
                     PlayerVehicle vehicle = PlayerVehicle.getById(player.getVehicle().getId());
                     if (vehicle != null && player.getLoadedVehicles().get(vehicle).contains(PlayerVehiclePermission.Register)) {
                         if(vehicle.getLicense() == null) {
-                            String licensePlate = LtrpGamemode.getDao().getVehicleDao().generateLicensePlate();
+                            String licensePlate = LtrpGamemodeImpl.getDao().getVehicleDao().generateLicensePlate();
                             vehicle.setLicense(licensePlate);
-                            LtrpGamemode.getDao().getVehicleDao().update(vehicle);
+                            LtrpGamemodeImpl.getDao().getVehicleDao().update(vehicle);
                             player.sendMessage(Color.PLUM, "Sëkmingai uþregistravote tr. priemonæ Los Santos miesto automobiliø registre, Jûsø tr. priemonës numeriai: " + licensePlate);
                         } else
                             player.sendErrorMessage("Ði transporto priemonë jau áregistruota!");
@@ -714,7 +720,7 @@ public class PlayerVehicleCommands extends Commands{
                                     if(player.getMoney() >= price) {
                                         player.giveMoney(-price);
                                         vehicle.setAlarm(alarm);
-                                        LtrpGamemode.getDao().getVehicleDao().update(vehicle);
+                                        LtrpGamemodeImpl.getDao().getVehicleDao().update(vehicle);
                                         player.sendMessage(Color.SIENNA, "Signalizacija sëkmingai ádiegta!");
                                         return true;
                                     } else
@@ -745,7 +751,7 @@ public class PlayerVehicleCommands extends Commands{
                                     if(player.getMoney() >= lock.getPrice()) {
                                         vehicle.setLock(lock);
                                         player.giveMoney(-lock.getPrice());
-                                        LtrpGamemode.getDao().getVehicleDao().update(vehicle);
+                                        LtrpGamemodeImpl.getDao().getVehicleDao().update(vehicle);
                                         player.sendMessage(Color.SIENNA, "Uþraktas sëkmingai ádiegtas!");
                                         return true;
                                     } else
@@ -767,7 +773,7 @@ public class PlayerVehicleCommands extends Commands{
                         if(player.getMoney() >= price) {
                             vehicle.setInsurance(vehicle.getInsurance()+1);
                             player.giveMoney(-price);
-                            LtrpGamemode.getDao().getVehicleDao().update(vehicle);
+                            LtrpGamemodeImpl.getDao().getVehicleDao().update(vehicle);
                             player.sendMessage(Color.SIENNA, "Draudimo pratæsimas vienieriems metams Jums kainavo $" + price);
                             return true;
                         } else

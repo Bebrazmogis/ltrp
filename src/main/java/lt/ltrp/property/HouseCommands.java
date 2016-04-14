@@ -1,9 +1,13 @@
 package lt.ltrp.property;
 
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.property.constant.HouseUpgradeType;
+import lt.ltrp.property.data.HouseRadio;
+import lt.ltrp.property.data.HouseWeedSapling;
+import lt.ltrp.property.object.House;
 import lt.ltrp.radio.dialog.RadioOptionListDialog;
-import lt.ltrp.item.ItemType;
 import lt.ltrp.item.WeedItem;
 import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -58,7 +62,7 @@ public class HouseCommands {
                         grownSaplings.add(sapling);
                     }
                     house.getWeedSaplings().removeAll(grownSaplings);
-                    grownSaplings.forEach(sapling -> LtrpGamemode.getDao().getHouseDao().updateWeed(sapling));
+                    grownSaplings.forEach(sapling -> LtrpGamemodeImpl.getDao().getHouseDao().updateWeed(sapling));
 
                     WeedItem weed = new WeedItem(eventManager, 1);
                     weed.setAmount(totalYield);

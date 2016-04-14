@@ -1,6 +1,6 @@
 package lt.ltrp.player;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.player.dao.PlayerDao;
 import lt.ltrp.player.event.PlayerLogInEvent;
 import lt.ltrp.player.object.LtrpPlayer;
@@ -25,7 +25,7 @@ public class AuthController {
 
     public AuthController(EventManager manager, LtrpPlayerImpl player) {
         Logger.getLogger(AuthController.class.getSimpleName()).log(Level.INFO, "AuthController :: constructor");
-        PlayerDao dao = LtrpGamemode.getDao().getPlayerDao();
+        PlayerDao dao = LtrpGamemodeImpl.getDao().getPlayerDao();
         Logger.getLogger(AuthController.class.getSimpleName()).log(Level.INFO, "AuthController :: constructor dao got");
 
         player.setPassword(dao.getPassword(player));

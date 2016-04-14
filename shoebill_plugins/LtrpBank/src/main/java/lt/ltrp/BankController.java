@@ -1,6 +1,7 @@
 package lt.ltrp;
 
-import lt.ltrp.constant.Currency;
+import lt.ltrp.api.LtrpGamemode;
+import lt.ltrp.common.constant.Currency;
 import lt.ltrp.dao.BankDao;
 import lt.ltrp.dialog.BankAccountDialog;
 import lt.ltrp.event.*;

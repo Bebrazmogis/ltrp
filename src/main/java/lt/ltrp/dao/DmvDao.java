@@ -1,11 +1,10 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.LoadingException;
+import lt.ltrp.api.LoadingException;
 import lt.ltrp.dmv.*;
 import lt.ltrp.dmv.aircraft.AircraftDmv;
 import lt.ltrp.dmv.boat.BoatDmv;
 import lt.ltrp.dmv.car.CarDmv;
-import lt.ltrp.vehicle.LtrpVehicle;
 
 import java.util.List;
 

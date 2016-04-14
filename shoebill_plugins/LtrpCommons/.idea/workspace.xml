@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5500f3e7-5439-488b-8966-7d088dd6c137" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../ItemApi/src/main/java/lt/ltrp/item/object/WeaponItem.java" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill\gamemodes\LtrpGamemode-1.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\Deniable.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\DestroyableEntity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\Entity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\EntityImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\InitException.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\Initializable.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\InventoryEntity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\InventoryEntityImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\LoadingException.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\NamedEntity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\NamedEntityImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\colorpicker\ColorPicker.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\constant\Currency.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\constant\LtrpVehicleModel.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\constant\WorldArea.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\constant\WorldZone.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dao\ItemDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dao\RadioStationDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dialog\IntegerInputDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\event\item\ItemLocationChangeEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\Inventory.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\Item.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\ItemType.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\drug\event\PlayerUseDrugsEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\event\ItemCreateEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\event\ItemDestroyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\event\ItemEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\event\PlayerDrawWeaponItemEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\event\PlayerDropItemEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\AbstractJobManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\ContractJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\ContractJobRank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\Faction.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\FactionAcceptCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\FactionCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\FactionInviteOffer.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\FactionLeaderCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\FactionRank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\Job.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\JobCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\JobManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\JobProperty.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\Rank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\RoadblockCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\Taxi.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\drugdealer\DrugDealerCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\drugdealer\DrugDealerJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\drugdealer\DrugDealerManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\ColorPalettePlayerOffer.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\MechanicAcceptCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\MechanicCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\MechanicJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\MechanicManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\dialog\HullRepairMsgDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\dialog\RemoveHydraulicsMsgDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\event\PlayerLeaveRepairArea.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\event\RepairSessionEndEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\AbstractRepairSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\EngineRepairSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\FullRepairSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\HullRepairSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\HydraulicInstallSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\HydraulicsRemovalSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\RepaintSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\RepairSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\WheelChangeSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\mechanic\session\WheelRemovalSession.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\medic\MedicCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\medic\MedicJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\medic\MedicManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\DragTimer.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\OfficerJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\PoliceCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\PolicemanManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\Roadblock.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\dialog\ConfirmDelArrestMsgboxDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\dialog\CrimeDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\dialog\CrimeListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\dialog\PoliceGearListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\dialog\PoliceWeaponryDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\policeman\modelpreview\RoadblockModelPreview.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\trashman\TrashManJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\trashman\TrashMission.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\trashman\TrashMissions.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\trashman\TrashmanCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\trashman\TrashmanManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\vehiclethief\VehicleThiefCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\vehiclethief\VehicleThiefJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\job\vehiclethief\VehicleThiefManager.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\HouseRadio.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\HouseUpgradeType.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\HouseWeedSapling.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\HouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerBusinessEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerEnterBusinessEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerEnterGarageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerEnterHouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerEnterPropertyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerExitBusinessEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerExitGarageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerExitHouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerExitPropertyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerGarageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerHouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerPlantWeedEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\PlayerPropertyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\event\WeedGrowEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\radio\AbstractRadio.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\radio\Radio.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\radio\RadioStation.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\radio\dialog\RadioOptionListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\radio\dialog\RadioStationListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\FuelTank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\JobVehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\PlayerVehicleArrest.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\PlayerVehiclePermission.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\VehicleAlarm.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\VehicleLock.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\VehicleRadio.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\dialog\VehiclePermissionListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\dialog\VehicleUserPermissionDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerBuyNewVehicleEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleAddPermissionEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleArrestDeleteEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleArrestEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleBuyAlarmEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleBuyInsuranceEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleBuyLockEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleParkEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleRemovePermissionEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleScrapEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleSellEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleUpdateParkEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\SpeedometerTickEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\TestEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\TestEventImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\VehicleEngineKillEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\event\VehicleEngineStartEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\net\gtaun\shoebill\constant\VehicleModel.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankAccountDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankAccountDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/BankController.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/BankController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankNewDepositDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankNewDepositDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankWireInputDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankWireInputDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/CreateBankAccountMsgDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/CreateBankAccountMsgDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/DepositMoneyInputDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/DepositMoneyInputDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/data/DroppedWeaponData.class" afterPath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/data/DroppedWeaponData.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/object/LtrpPlayer.class" afterPath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/object/LtrpPlayer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/data/PlayerAddiction.class" afterPath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/data/PlayerAddiction.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/event/PlayerChangeJobEvent.class" afterPath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/event/PlayerChangeJobEvent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/dao/PlayerDao.class" afterPath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/dao/PlayerDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/data/PlayerDrugs.class" afterPath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/data/PlayerDrugs.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/object/PlayerInfoBox.class" afterPath="$PROJECT_DIR$/../PlayerApi/target/classes/lt/ltrp/player/object/PlayerInfoBox.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/WithdrawMoneyInputDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/WithdrawMoneyInputDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/bank-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../LtrpBank/target/bank-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/player-api-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../PlayerApi/target/player-api-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/AbstractCheckpointTest.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/AbstractCheckpointTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/AbstractDmvManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/AbstractDmvManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/AbstractItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/AbstractItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/AdminCommands.java" afterPath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/AdminCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/aircraft/AircraftDmv.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/aircraft/AircraftDmv.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/aircraft/AircraftDmvManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/aircraft/AircraftDmvManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/AmphetamineItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/AmphetamineItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/AuthController.java" afterPath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/AuthController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankAccountDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankAccountDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/BankController.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/BankController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankNewDepositDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankNewDepositDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankWireInputDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankWireInputDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/BasicItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/BasicItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/boat/BoatDmv.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/boat/BoatDmv.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/boat/BoatDmvManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/boat/BoatDmvManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/boat/BoatingTest.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/boat/BoatingTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/BoomBoxItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/BoomBoxItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/BuyVehicleOffer.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/BuyVehicleOffer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/car/CarDmv.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/car/CarDmv.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/car/CarDmvManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/car/CarDmvManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/CheckpointDmv.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/CheckpointDmv.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/CigarettesItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/CigarettesItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ClothingItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ClothingItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/CocaineItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/CocaineItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ContainerItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ContainerItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/CreateBankAccountMsgDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/CreateBankAccountMsgDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/DAOFactory.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/DAOFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/DepositMoneyInputDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/DepositMoneyInputDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/DiceItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/DiceItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/Dmv.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/Dmv.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/DmvDao.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/DmvDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/DmvManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/DmvManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/DmvVehicle.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/DmvVehicle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/DrinkItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/DrinkItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/car/DrivingTest.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/car/DrivingTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/data/DroppedWeaponData.java" afterPath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/data/DroppedWeaponData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/drug/DrugController.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/drug/DrugController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/EctazyItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/EctazyItem.java" />
+      <change type="MODIFICATION" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dialog\FactionListDialog.java" afterPath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dialog\FactionListDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/FileDmvDaoImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/FileDmvDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FishingRodItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FishingRodItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FixedSizeInventory.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FixedSizeInventory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/aircraft/FlyingTest.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/aircraft/FlyingTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FuelTankItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FuelTankItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/GeneralCommands.java" afterPath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/GeneralCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/GettersSetters.java" afterPath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/GettersSetters.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/HeroinItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/HeroinItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/HouseAudioItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/HouseAudioItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/HouseCommands.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/HouseCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/HouseDao.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/HouseDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemCommands.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemController.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemPhone.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemPhone.java" />
+      <change type="MODIFICATION" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dao\JobDao.java" afterPath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dao\JobDao.java" />
+      <change type="MODIFICATION" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dialogmenu\admin\jobvehicle\JobVehicleMenu.java" afterPath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dialogmenu\admin\jobvehicle\JobVehicleMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/object/LtrpPlayer.java" afterPath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/object/LtrpPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/MaskItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/MaskItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/MeleeWeaponItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/MeleeWeaponItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/MolotovItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/MolotovItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/Mp3Item.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/Mp3Item.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/MySqlDrugAddictionDaoImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/MySqlDrugAddictionDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PersonalAlarm.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PersonalAlarm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/phone/dialog/PhoneContactDialog.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/phone/dialog/PhoneContactDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/phone/PhoneController.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/phone/PhoneController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/phone/dialog/PhonebookListDialog.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/phone/dialog/PhonebookListDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/data/PlayerAddiction.java" afterPath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/data/PlayerAddiction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/PlayerApi.iml" afterPath="$PROJECT_DIR$/../PlayerApi/PlayerApi.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/event/PlayerChangeJobEvent.java" afterPath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/event/PlayerChangeJobEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/command/PlayerCommandManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/command/PlayerCommandManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/PlayerControllerImpl.java" afterPath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/player/PlayerControllerImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/dao/PlayerDao.java" afterPath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/dao/PlayerDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/data/PlayerDrugs.java" afterPath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/data/PlayerDrugs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/object/PlayerInfoBox.java" afterPath="$PROJECT_DIR$/../PlayerApi/src/main/java/lt/ltrp/player/object/PlayerInfoBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleCommands.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleMetadata.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleMetadata.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PoliceAlertAlarm.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PoliceAlertAlarm.java" />
+      <change type="MODIFICATION" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dialogmenu\PoliceDatabaseMenu.java" afterPath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dialogmenu\PoliceDatabaseMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/PropertyCommands.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/PropertyCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/PropertyManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/PropertyManager.java" />
+      <change type="MODIFICATION" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dialog\RoadblockListDialog.java" afterPath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dialog\RoadblockListDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/SimpleAlarm.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/SimpleAlarm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/SpeedometerTd.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/SpeedometerTd.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlHouseDao.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlHouseDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlItemDao.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlItemDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlRadioStationDao.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlRadioStationDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlVehicleDaoImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlVehicleDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/SuitcaseItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/SuitcaseItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ToolboxItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ToolboxItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/VehicleCommands.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/VehicleCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/VehicleDao.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/VehicleDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/VehicleManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/VehicleManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/WeedItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/WeedItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/WeedSeedItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/WeedSeedItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/WithdrawMoneyInputDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/WithdrawMoneyInputDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/../LtrpBank/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/../PlayerApi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../LtrpBank/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../PlayerApi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../LtrpBank/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../PlayerApi/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pom.xml" afterPath="$PROJECT_DIR$/../../pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/pom.xml" afterPath="$PROJECT_DIR$/../LtrpBank/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/pom.xml" afterPath="$PROJECT_DIR$/../PlayerApi/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AudioPluginWrapper/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../AudioPluginWrapper/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FaderPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../FaderPlugin/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../PlayerApi/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../UtilPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../UtilPlugin/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="F:\AAAA\LTRP\shoebill_plugins\YSFWrapperPlugin\.idea\workspace.xml" afterPath="$PROJECT_DIR$/../YSFWrapperPlugin/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\LtrpGamemode.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/LtrpGamemodeImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\ConsumableItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ConsumableItemImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\DurableItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/DurableItemImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\RadioItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/RadioItemImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\WeaponItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/WeaponItemImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\drug\DrugItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/drug/DrugItemImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\Business.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/BusinessImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\Garage.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/GarageImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\House.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/HouseImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\property\Property.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/PropertyImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\LtrpVehicle.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/LtrpVehicleImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\PlayerVehicle.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleImpl.java" />
+    </list>
+    <ignored path="LtrpCommons.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="LtrpCommons" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5783972" vertical-offset="110" max-vertical-offset="952">
+              <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/lt.ltrp.common/dialog/IntegerInputDialog.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/common/dialog/IntegerInputDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/common/colorpicker/ColorPicker.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/common/constant/Currency.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/common/constant/LtrpVehicleModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/common/constant/WorldArea.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/common/constant/WorldZone.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <OptionsSetting value="true" id="Undo Check Out" />
+    <OptionsSetting value="true" id="Get Latest Version" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LtrpCommons" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.18620038" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="lt.ltrp.common.dialog" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <module name="" />
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="depsClasspath" value="false" />
+      <setting name="passParentEnv" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <setting name="launchBrowser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5500f3e7-5439-488b-8966-7d088dd6c137" name="Default" comment="" />
+      <created>1460539207561</created>
+      <option name="number" value="Default" />
+      <updated>1460539207561</updated>
+      <workItem from="1460539210456" duration="246000" />
+      <workItem from="1460539464653" duration="375000" />
+      <workItem from="1460640481646" duration="1006000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1627000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26918977" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32628062" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="952">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/common/dialog/IntegerInputDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="1717">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#572#573#0" expanded="true" />
+            <element signature="e#621#622#0" expanded="true" />
+            <element signature="e#882#883#0" expanded="true" />
+            <element signature="e#924#925#0" expanded="true" />
+            <element signature="e#1172#1173#0" expanded="true" />
+            <element signature="e#1210#1211#0" expanded="true" />
+            <element signature="e#2251#2252#0" expanded="true" />
+            <element signature="e#2288#2289#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="595">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/common/dialog/IntegerInputDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1734">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#572#573#0" expanded="true" />
+            <element signature="e#621#622#0" expanded="true" />
+            <element signature="e#882#883#0" expanded="true" />
+            <element signature="e#924#925#0" expanded="true" />
+            <element signature="e#1172#1173#0" expanded="true" />
+            <element signature="e#1210#1211#0" expanded="true" />
+            <element signature="e#2251#2252#0" expanded="true" />
+            <element signature="e#2288#2289#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/common/dialog/IntegerInputDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5034843" vertical-offset="0" max-vertical-offset="1853">
+          <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#572#573#0" expanded="true" />
+            <element signature="e#621#622#0" expanded="true" />
+            <element signature="e#882#883#0" expanded="true" />
+            <element signature="e#924#925#0" expanded="true" />
+            <element signature="e#1172#1173#0" expanded="true" />
+            <element signature="e#1210#1211#0" expanded="true" />
+            <element signature="e#2251#2252#0" expanded="true" />
+            <element signature="e#2288#2289#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/common/colorpicker/ColorPicker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2805">
+          <caret line="0" column="33" selection-start-line="0" selection-start-column="33" selection-end-line="0" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/common/constant/Currency.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="574">
+          <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/common/constant/WorldZone.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2369338" vertical-offset="0" max-vertical-offset="6868">
+          <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/common/constant/WorldArea.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29616725" vertical-offset="0" max-vertical-offset="1207">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/common/constant/LtrpVehicleModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2369338" vertical-offset="0" max-vertical-offset="9469">
+          <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5783972" vertical-offset="110" max-vertical-offset="952">
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.18620038" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.18620038" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.6</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>LtrpCommons</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.18620038" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.18620038" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -5,8 +5,8 @@ import lt.ltrp.dmv.CheckpointDmv;
 import lt.ltrp.dmv.DmvCheckpoint;
 import lt.ltrp.dmv.event.PlayerFlyingTestEnd;
 import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
 import lt.ltrp.vehicle.event.SpeedometerTickEvent;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;
 

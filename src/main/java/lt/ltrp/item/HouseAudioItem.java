@@ -1,17 +1,15 @@
 package lt.ltrp.item;
 
 import lt.ltrp.data.Color;
+import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.property.House;
-import lt.ltrp.property.HouseUpgradeType;
-import lt.ltrp.property.Property;
+import lt.ltrp.property.constant.HouseUpgradeType;
+import lt.ltrp.property.object.House;
+import lt.ltrp.property.object.Property;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 /**
  * @author Bebras

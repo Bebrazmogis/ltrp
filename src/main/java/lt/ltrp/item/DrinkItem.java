@@ -1,5 +1,7 @@
 package lt.ltrp.item;
 
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.object.Inventory;
 import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.constant.SpecialAction;
@@ -13,7 +15,7 @@ import net.gtaun.util.event.HandlerPriority;
  * @author Bebras
  *         2015.11.14.
  */
-public class DrinkItem extends ConsumableItem {
+public class DrinkItem extends ConsumableItemImpl {
 
     private SpecialAction specialAction;
     private HandlerEntry keyStateEvent;

@@ -1,19 +1,15 @@
 package lt.ltrp.dmv;
 
-import lt.ltrp.dmv.event.PlayerDrivingTestEndEvent;
 import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
-import lt.ltrp.vehicle.event.SpeedometerTickEvent;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.shoebill.event.player.PlayerStateChangeEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
-import net.gtaun.shoebill.object.Checkpoint;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 /**

@@ -1,21 +1,23 @@
 package lt.ltrp.property;
 
 import lt.ltrp.BankPlugin;
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.command.PlayerCommandManager;
-import lt.ltrp.constant.Currency;
+import lt.ltrp.common.constant.Currency;
 import lt.ltrp.dao.HouseDao;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.item.FixedSizeInventory;
-import lt.ltrp.item.Inventory;
+import lt.ltrp.item.object.Inventory;
+import lt.ltrp.item.object.InventoryEntity;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.player.data.SpawnData;
 import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.property.event.*;
-import lt.ltrp.vehicle.LtrpVehicle;
-import net.gtaun.shoebill.SampObjectFactory;
-import net.gtaun.shoebill.SampObjectStore;
-import net.gtaun.shoebill.Shoebill;
+import lt.ltrp.property.object.Business;
+import lt.ltrp.property.object.Garage;
+import lt.ltrp.property.object.House;
+import lt.ltrp.property.object.Property;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
@@ -68,7 +70,7 @@ public class PropertyManager implements Destroyable {
         });
 
         eventManager.registerHandler(WeedGrowEvent.class, e -> {
-            LtrpGamemode.getDao().getHouseDao().updateWeed(e.getSapling());
+            LtrpGamemodeImpl.getDao().getHouseDao().updateWeed(e.getSapling());
 
             LtrpPlayer owner = LtrpPlayer.get(e.getSapling().getPlantedByUser());
             if(owner != null && e.isFullyGrown()) {
@@ -130,21 +132,22 @@ public class PropertyManager implements Destroyable {
             Inventory inventory = null;
             if(type.equalsIgnoreCase("House")) {
                 House house = House.create((Integer)params[1], params[0] + " " + params[1], entrance, exit, eventManager);
-                inventory = new FixedSizeInventory(eventManager, "Namo " + house.getUid() + " daiktai", house);
-                house.setWeedSaplings(LtrpGamemode.getDao().getHouseDao().getWeed(house));
-
+                inventory = new FixedSizeInventory(eventManager, "Namo " + house.getUid() + " daiktai", (House)house);
+                house.setWeedSaplings(LtrpGamemodeImpl.getDao().getHouseDao().getWeed(house));
+                inventory.add(LtrpGamemodeImpl.getDao().getItemDao().getItems(house));
+                house.setInventory(inventory);
                 property = house;
             } else if(type.equalsIgnoreCase("garagE")) {
-                property = Garage.create((Integer)params[1], params[0] + " " + params[1], entrance, exit, eventManager);
-                inventory = new FixedSizeInventory(eventManager, "Garaþo " + property.getUid() + " daiktai", property);
+                property = Garage.create((Integer) params[1], params[0] + " " + params[1], entrance, exit, eventManager);
+                inventory = new FixedSizeInventory(eventManager, "Garaþo " + property.getUid() + " daiktai", (Garage)property);
+                inventory.add(LtrpGamemodeImpl.getDao().getItemDao().getItems((Garage)property));
+                ((Garage)property).setInventory(inventory);
             } else if(type.equalsIgnoreCase("business")) {
-                property = Business.create((Integer)params[1], params[0] + " " + params[1], entrance, exit, eventManager);
-                inventory = new FixedSizeInventory(eventManager, "Verslo " + property.getUid() + " daiktai", property);
+                property = Business.create((Integer) params[1], params[0] + " " + params[1], entrance, exit, eventManager);
+                //inventory = new FixedSizeInventory(eventManager, "Verslo " + property.getUid() + " daiktai", (InventoryEntity)property);
             } else {
                 return 0;
             }
-            inventory.add(LtrpGamemode.getDao().getItemDao().getItems(property));
-            property.setInventory(inventory);
            return property.getUid();
         }, String.class, Integer.class, Float.class, Float.class, Float.class, Integer.class, Integer.class, Float.class, Float.class, Float.class, Integer.class, Integer.class);
 

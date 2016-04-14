@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.BankController;
-import lt.ltrp.constant.Currency;
+import lt.ltrp.common.constant.Currency;
 import lt.ltrp.event.BankAccountCreateEvent;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.player.object.LtrpPlayer;

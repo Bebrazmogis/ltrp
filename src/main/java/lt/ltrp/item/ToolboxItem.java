@@ -1,5 +1,6 @@
 package lt.ltrp.item;
 
+import lt.ltrp.item.constant.ItemType;
 import net.gtaun.util.event.EventManager;
 
 /**

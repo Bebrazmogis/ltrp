@@ -1,6 +1,6 @@
 package lt.ltrp.player;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.data.PlayerLicense;

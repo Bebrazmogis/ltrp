@@ -1,27 +1,23 @@
 package lt.ltrp.item;
 
-import lt.ltrp.item.drug.DrugItem;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.drug.DrugItemImpl;
+import lt.ltrp.item.object.Inventory;
 import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import lt.maze.ysf.YSFPlugin;
 import lt.maze.ysf.object.YSFPlayer;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.data.Velocity;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.object.World;
-import net.gtaun.util.event.Event;
 import net.gtaun.util.event.EventManager;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * @author Bebras
  *         2015.12.05.
  */
-public class WeedItem extends DrugItem {
+public class WeedItem extends DrugItemImpl {
 
     private Timer drugTimer;
 

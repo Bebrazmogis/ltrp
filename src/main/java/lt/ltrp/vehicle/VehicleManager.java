@@ -1,16 +1,19 @@
 package lt.ltrp.vehicle;
 
-import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.common.constant.LtrpVehicleModel;
 import lt.ltrp.dao.VehicleDao;
-import lt.ltrp.item.Item;
-import lt.ltrp.item.ItemType;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.object.Item;
 import lt.ltrp.player.constant.LicenseType;
 import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.shopplugin.VehicleShopPlugin;
 import lt.ltrp.util.Factorial;
+import lt.ltrp.vehicle.data.FuelTank;
 import lt.ltrp.vehicle.event.SpeedometerTickEvent;
 import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
 import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
+import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.vehicle.object.PlayerVehicle;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerKey;
@@ -82,7 +85,7 @@ public class VehicleManager {
         eventManager.registerHandler(PlayerStateChangeEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             if(player != null) {
-                LtrpVehicle vehicle = player.getVehicle();
+                LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
                 PlayerState newState = e.getPlayer().getState();
                 PlayerState oldState = e.getOldState();
                 if(vehicle != null) {
@@ -92,7 +95,7 @@ public class VehicleManager {
                     }
                 }
                 if(newState == PlayerState.DRIVER) {
-                    player.getInfoBox().showSpeedometer(player.getVehicle());
+                    player.getInfoBox().showSpeedometer(LtrpVehicle.getByVehicle(player.getVehicle()));
                 }
 
                 if(oldState == PlayerState.DRIVER) {
@@ -141,7 +144,7 @@ public class VehicleManager {
         eventManager.registerHandler(PlayerKeyStateChangeEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer().getId());
             if(player != null && player.getKeyState().isKeyPressed(PlayerKey.FIRE) && !e.getOldState().isKeyPressed(PlayerKey.FIRE)) {
-                LtrpVehicle vehicle = player.getVehicle();
+                LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
                 if(vehicle != null && LtrpVehicleModel.isMotorVehicle(vehicle.getModelId())) {
                     if(vehicle.getState().getEngine() != VehicleParam.PARAM_ON) {
                         if(!vehicleEngineTimers.containsKey(vehicle)) {

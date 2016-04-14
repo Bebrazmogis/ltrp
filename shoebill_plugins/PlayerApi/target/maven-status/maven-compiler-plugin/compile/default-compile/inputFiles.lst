@@ -12,6 +12,7 @@ f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\data\Player
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\util\AdminLog.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\data\PlayerAddiction.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\data\PlayerCrime.java
+f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\dao\PlayerDao.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\event\PlayerDataLoadEvent.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\data\Animation.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\data\JailData.java
@@ -21,6 +22,7 @@ f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\data\Player
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\data\SpawnData.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\constant\LicenseType.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\object\PlayerInfoBox.java
+f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\PlayerController.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\event\PlayerEvent.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\event\PlayerUnJailEvent.java
 f:\aaaa\ltrp\shoebill_plugins\playerapi\src\main\java\lt\ltrp\player\data\LtrpWeaponData.java

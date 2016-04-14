@@ -4,7 +4,6 @@ package lt.ltrp.player.dao;
 import javafx.util.Pair;
 import lt.ltrp.player.data.*;
 import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.PlayerVehiclePermission;
 import net.gtaun.shoebill.object.Player;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public interface PlayerDao {
     void insert(JailData data);
     void insertCrime(PlayerCrime crime);
     List<PlayerCrime> getCrimes(LtrpPlayer player);
-    Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player);
+    //Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player);
 
     void updateLicenses(PlayerLicenses licenses);
     void updateLicense(PlayerLicense license);

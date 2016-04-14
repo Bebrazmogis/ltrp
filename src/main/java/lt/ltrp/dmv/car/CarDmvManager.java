@@ -1,9 +1,9 @@
 package lt.ltrp.dmv.car;
 
-import lt.ltrp.InitException;
-import lt.ltrp.LoadingException;
-import lt.ltrp.LtrpGamemode;
-import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.api.InitException;
+import lt.ltrp.api.LoadingException;
+import lt.ltrp.common.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
 import lt.ltrp.dmv.*;
 import lt.ltrp.dmv.dialog.DrivingTestEndMsgDialog;
@@ -14,7 +14,7 @@ import lt.ltrp.player.constant.LicenseType;
 import lt.ltrp.player.data.PlayerLicense;
 import lt.ltrp.player.data.PlayerLicenses;
 import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
@@ -37,7 +37,7 @@ public class CarDmvManager extends AbstractDmvManager {
         this.ongoingTests = new HashMap<>();
 
         try {
-            dmv = LtrpGamemode.getDao().getDmvDao().getCarDmv(1);
+            dmv = LtrpGamemodeImpl.getDao().getDmvDao().getCarDmv(1);
         } catch(LoadingException e) {
             throw new InitException("CarDmvManager could not be initialized", e);
         }
@@ -91,7 +91,7 @@ public class CarDmvManager extends AbstractDmvManager {
 
         getPlayerCommandManager().registerCommand("takelesson", new Class[0], (player, params) -> {
             LtrpPlayer p = LtrpPlayer.get(player);
-            LtrpVehicle vehicle = p.getVehicle();
+            LtrpVehicle vehicle = LtrpVehicle.getByVehicle(p.getVehicle());
             if (p.getLocation().distance(dmv.getLocation()) < 10f) {
                 if (!p.getLicenses().contains(LicenseType.Car)) {
                     if (p.getMoney() >= dmv.getQuestionTestPrice()) {

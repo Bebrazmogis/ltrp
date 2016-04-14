@@ -53,9 +53,25 @@
         </dependency>
         <dependency>
             <groupId>lt.ltrp</groupId>
-            <artifactId>LtrpGamemode</artifactId>
+            <artifactId>item-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>vehicle-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>property-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>job-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
     <build>

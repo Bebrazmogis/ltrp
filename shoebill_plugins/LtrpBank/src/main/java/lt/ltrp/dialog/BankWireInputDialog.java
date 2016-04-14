@@ -1,5 +1,6 @@
 package lt.ltrp.dialog;
 
+import lt.ltrp.common.dialog.IntegerInputDialog;
 import lt.ltrp.event.BankWireTransferEvent;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.player.object.LtrpPlayer;

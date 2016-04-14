@@ -1,14 +1,13 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.LoadingException;
-import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.api.LoadingException;
+import lt.ltrp.common.constant.LtrpVehicleModel;
 import lt.ltrp.dao.DmvDao;
 import lt.ltrp.dmv.*;
 import lt.ltrp.dmv.aircraft.AircraftDmv;
 import lt.ltrp.dmv.boat.BoatDmv;
 import lt.ltrp.dmv.car.CarDmv;
-import lt.ltrp.vehicle.FuelTank;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.vehicle.data.FuelTank;
 import net.gtaun.shoebill.constant.RaceCheckpointType;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Radius;

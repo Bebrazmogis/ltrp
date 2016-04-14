@@ -2,6 +2,8 @@ package lt.ltrp.vehicle;
 
 import lt.ltrp.data.Color;
 import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.vehicle.PoliceAlertAlarm;
+import lt.ltrp.vehicle.object.PlayerVehicle;
 
 /**
  * @author Bebras
@@ -9,11 +11,11 @@ import lt.ltrp.player.object.LtrpPlayer;
  */
 public class PersonalAlarm extends PoliceAlertAlarm {
 
-    public PersonalAlarm(String name, PlayerVehicle vehicle) {
+    protected PersonalAlarm(String name, PlayerVehicle vehicle) {
         super(name, vehicle);
     }
 
-    public PersonalAlarm(PlayerVehicle vehicle) {
+    protected PersonalAlarm(PlayerVehicle vehicle) {
         this("Pro. Signalizacija su GPS, policijos ir asmeniniu praneðikliu", vehicle);
     }
 

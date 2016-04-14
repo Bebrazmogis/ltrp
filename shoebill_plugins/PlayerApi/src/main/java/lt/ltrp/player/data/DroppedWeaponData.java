@@ -1,6 +1,5 @@
 package lt.ltrp.player.data;
 
-import lt.ltrp.plugin.mapandreas.MapAndreas;
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.constant.WeaponModel;
@@ -42,7 +41,9 @@ public class DroppedWeaponData extends LtrpWeaponData implements Destroyable{
         super(type, ammo, job);
         this.dropDate = new GregorianCalendar().getTime();
         new Thread(() -> {
-            float z = MapAndreas.FindZ(location.getX(), location.getY());
+            //float z = MapAndreas.FindZ(location.getX(), location.getY());
+            float z = 0f;
+            // TODO
             this.location = new Location(location.getX(), location.getY(), z);
             Shoebill.get().runOnSampThread(() -> {
                 this.object = DynamicObject.create(type.getModelId(), this.location, new Vector3D());

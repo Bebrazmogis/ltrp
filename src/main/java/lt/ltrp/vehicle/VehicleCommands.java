@@ -1,12 +1,14 @@
 package lt.ltrp.vehicle;
 
 import lt.ltrp.command.Commands;
-import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.common.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
-import lt.ltrp.radio.Radio;
+import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.radio.dialog.RadioOptionListDialog;
-import lt.ltrp.item.ItemType;
 import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.radio.object.Radio;
+import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.vehicle.object.PlayerVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -93,7 +95,7 @@ public class VehicleCommands extends Commands {
     @CommandHelp("Uþdaro/atidaro automobilio kapotà")
     public boolean bonnet(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        LtrpVehicle vehicle = player.getVehicle();
+        LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
         if(vehicle != null) {
             if(player.getState() == PlayerState.DRIVER) {
                 VehicleParam state = vehicle.getState();
@@ -118,7 +120,7 @@ public class VehicleCommands extends Commands {
     @CommandHelp("Uþdaro/atidaro automobilio langus")
     public boolean windows(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        LtrpVehicle vehicle = player.getVehicle();
+        LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
         if(vehicle != null) {
             if(LtrpVehicleModel.HasWindows(vehicle.getModelId())) {
                 VehicleState windows = vehicle.getWindows();
@@ -185,7 +187,7 @@ public class VehicleCommands extends Commands {
     @CommandHelp("Uþsega/atesga suagos dirþus")
     public boolean seatbelt(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        LtrpVehicle vehicle = player.getVehicle();
+        LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
         if(vehicle != null) {
             if(player.getVehicleSeat() == 0) {
                 if(!player.isSeatbelt()) {
@@ -206,7 +208,7 @@ public class VehicleCommands extends Commands {
     @CommandHelp("Nustato/paðalina maksimalø automobilio greitá")
     public boolean maxSpeed(Player p, @CommandParameter(name = "Maksimalus greitis")Float speed) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        LtrpVehicle vehicle = player.getVehicle();
+        LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
         if(vehicle == null) {
             player.sendErrorMessage("Jûs neesate transporto priemonëje!");
         } else if(speed == null) {

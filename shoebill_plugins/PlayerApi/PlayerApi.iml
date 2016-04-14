@@ -23,17 +23,10 @@
     <orderEntry type="library" name="Maven: jacksum:jacksum:1.0" level="project" />
     <orderEntry type="library" name="Maven: lt.maze:streamer:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j13:1.0.1" level="project" />
-    <orderEntry type="library" name="Maven: lt.ltrp:LtrpGamemode:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.37" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.13" level="project" />
-    <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.4.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.4.1" level="project" />
-    <orderEntry type="library" name="Maven: lt.ltrp:bank:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: lt.ltrp:npc-manager:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: lt.ltrp:vehicle-shop:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: lt.maze:ysf:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: lt.maze:fader:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: lt.maze:shoebill-event-logger:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:item-api:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:ltrp-api:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:vehicle-api:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:property-api:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:job-api:1.0-SNAPSHOT" level="project" />
   </component>
 </module>

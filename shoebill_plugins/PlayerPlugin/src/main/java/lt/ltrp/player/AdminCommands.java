@@ -1,6 +1,6 @@
 package lt.ltrp.player;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.command.CommandParam;
 import lt.ltrp.data.Color;
@@ -206,7 +206,7 @@ public class AdminCommands {
         if(p2 == null) {
             p.sendMessage(Color.LIGHTRED, "Tokio þaidëjo nëra.");
         } else {
-            LtrpGamemode.getDao().getPlayerDao().setFactionManager(p2);
+            LtrpGamemodeImpl.getDao().getPlayerDao().setFactionManager(p2);
             p2.setFactionManager(true);
 
             LtrpPlayer.sendAdminMessage("Administratorius " + p.getName() + " suteikë þaidëjui " + p2.getName() + " frakcijø priþiûrëtojo rangà.");
@@ -239,7 +239,7 @@ public class AdminCommands {
                             if(leader != null) {
                                 message += leader.getName() + "(ID:" + leader.getId() + ")\n";
                             } else {
-                                message += LtrpGamemode.getDao().getPlayerDao().getUsername(leaderId) + "\n";
+                                message += LtrpGamemodeImpl.getDao().getPlayerDao().getUsername(leaderId) + "\n";
                             }
                         }
 
@@ -269,7 +269,7 @@ public class AdminCommands {
     @CommandHelp("Paðalina pasirinktos frakcijos lyderá, nesvarbu prisijungæs jis ar ne")
     public boolean removeLeader(Player p, String username) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        int userId = LtrpGamemode.getDao().getPlayerDao().getUserId(username);
+        int userId = LtrpGamemodeImpl.getDao().getPlayerDao().getUserId(username);
         if(userId == LtrpPlayer.INVALID_USER_ID) {
             player.sendErrorMessage("Tokio vartotojo nëra!");
         } else if(!jobManager.isJobLeader(userId)) {
@@ -288,7 +288,7 @@ public class AdminCommands {
                             jobManager.removeFactionLeader(f, userId);
                             LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " paðalino frakcijos " + f.getName() + " lyderá " + username + " ið pareigø.");
                             f.sendMessage(Color.NEWS, "Lyderis " + username + " buvo paðalintas ið pareigø.");
-                            LtrpGamemode.getDao().getPlayerDao().removeJob(userId);
+                            LtrpGamemodeImpl.getDao().getPlayerDao().removeJob(userId);
                         })
                         .build().show();
             }

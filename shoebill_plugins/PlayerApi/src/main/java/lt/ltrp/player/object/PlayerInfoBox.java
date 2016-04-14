@@ -1,8 +1,9 @@
 package lt.ltrp.player.object;
 
-import lt.ltrp.item.RadioItem;
-import lt.ltrp.job.Taxi;
-import lt.ltrp.vehicle.LtrpVehicle;
+
+import lt.ltrp.item.object.RadioItem;
+import lt.ltrp.job.data.TaxiFare;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.object.Destroyable;
 
 /**
@@ -17,7 +18,7 @@ public interface PlayerInfoBox extends Destroyable {
     void setCountDown(Integer seconds);
     void setCountDown(String caption, Integer seconds);
     void setJailTime(Integer seconds);
-    void setTaxiFare(Taxi trip);
+    void setTaxiFare(TaxiFare trip);
     void update();
 
 

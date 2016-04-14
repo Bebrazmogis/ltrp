@@ -1,5 +1,7 @@
 package lt.ltrp.item;
 
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.object.Inventory;
 import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.constant.SpecialAction;
@@ -8,16 +10,11 @@ import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 /**
  * @author Bebras
  *         2015.11.29.
  */
-public class CigarettesItem extends DurableItem {
+public class CigarettesItem extends DurableItemImpl {
 
     private static final int MAX_CIGARETTES = 20;
 

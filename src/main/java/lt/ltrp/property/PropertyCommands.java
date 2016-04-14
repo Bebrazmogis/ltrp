@@ -1,6 +1,8 @@
 package lt.ltrp.property;
 
+import lt.ltrp.item.object.InventoryEntity;
 import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.property.object.Property;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -31,8 +33,8 @@ public class PropertyCommands {
     public boolean ninv(LtrpPlayer player) {
         Property property = player.getProperty();
         if(property != null ) {
-            if(property.isOwner(player)) {
-                property.getInventory().show(player);
+            if(property.isOwner(player) && property instanceof InventoryEntity) {
+                ((InventoryEntity)property).getInventory().show(player);
             } else {
                 player.sendErrorMessage("Jûs neesate savininkas.");
             }

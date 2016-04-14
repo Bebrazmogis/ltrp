@@ -1,17 +1,22 @@
 package lt.ltrp.vehicle;
 
-import lt.ltrp.LtrpGamemode;
-import lt.ltrp.constant.Currency;
-import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.common.constant.Currency;
+import lt.ltrp.common.constant.LtrpVehicleModel;
 import lt.ltrp.dao.VehicleDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.item.Item;
+import lt.ltrp.item.object.Item;
 import lt.ltrp.player.event.PlayerDataLoadEvent;
 import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.shopplugin.ShopVehicle;
 import lt.ltrp.shopplugin.VehicleShop;
 import lt.ltrp.shopplugin.VehicleShopPlugin;
+import lt.ltrp.vehicle.constant.PlayerVehiclePermission;
+import lt.ltrp.vehicle.data.PlayerVehicleArrest;
+import lt.ltrp.vehicle.data.VehicleLock;
 import lt.ltrp.vehicle.event.*;
+import lt.ltrp.vehicle.object.PlayerVehicle;
+import lt.ltrp.vehicle.object.VehicleAlarm;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.CommandHandler;
@@ -35,7 +40,7 @@ import java.util.stream.Collectors;
 public class PlayerVehicleManager {
 
     protected static final Collection<PlayerVehicle> playerVehiclesList = new ArrayList<>();
-    private static final Logger logger = LtrpGamemode.get().getLogger();
+    private static final Logger logger = LtrpGamemodeImpl.get().getLogger();
     private static final int INSURANCE_BASE_PRICE = 800;
     private static final int SCRAP_BASE_PRICE = 200;
 
@@ -183,7 +188,7 @@ public class PlayerVehicleManager {
         });
 
         eventManager.registerHandler(PlayerVehicleParkEvent.class, e -> {
-           //vehicleDao.update(e.getVehicle());
+           vehicleDao.update(e.getVehicle());
             e.getVehicle().destroy();
         });
 
@@ -255,7 +260,7 @@ public class PlayerVehicleManager {
 
     public PlayerVehicle loadVehicle(int uid) {
         PlayerVehicle vehicle = vehicleDao.get(uid);
-        Item[] items = LtrpGamemode.getDao().getItemDao().getItems(vehicle);
+        Item[] items = LtrpGamemodeImpl.getDao().getItemDao().getItems(vehicle);
         vehicle.getInventory().add(items);
         logger.info("PlayerVehicle " + uid + " loaded.");
         playerVehiclesList.add(vehicle);

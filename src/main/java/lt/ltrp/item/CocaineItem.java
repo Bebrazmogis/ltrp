@@ -1,6 +1,8 @@
 package lt.ltrp.item;
 
-import lt.ltrp.item.drug.DrugItem;
+import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.drug.DrugItemImpl;
+import lt.ltrp.item.object.Inventory;
 import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.ysf.YSFPlugin;
 import lt.maze.ysf.object.YSFPlayer;
@@ -12,7 +14,7 @@ import net.gtaun.util.event.EventManager;
  * @author Bebras
  *         2015.12.03.
  */
-public class CocaineItem extends DrugItem {
+public class CocaineItem extends DrugItemImpl {
 
     private Timer drugTimer;
 
