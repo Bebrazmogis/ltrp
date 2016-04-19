@@ -2177,8 +2177,6 @@ BizOwnerMenu::WareBusinessPriceChange(playerid, errorstr[] = "")
 }
 
 
-
-
 StopBusinessBuyingCargo(index, cargoid)
 {
     new query[160];
@@ -2254,6 +2252,7 @@ stock OnPlayerEnterBiz(playerid,biz)
 
 */
 
+/*
 CMD:cargoprice(playerid,params[])
 {
     new price,
@@ -2305,7 +2304,7 @@ CMD:cargoprice(playerid,params[])
 
         averagePrice /= sellerCount;
 
-        // Jei kaina maþesnë uþ vidurká
+        // Jei kaina maþesnisesnë uþ vidurká
         if(price < averagePrice)
         {
             format(string, sizeof(string), "Klaida, minimali kaina yra %d.", averagePrice);
@@ -2352,7 +2351,8 @@ CMD:cargoprice(playerid,params[])
     return 1;
 }
 
-
+*/
+/*
 CMD:biz(playerid)
 {
     new string[ 512 ],
@@ -2409,8 +2409,8 @@ CMD:biz(playerid)
     ShowPlayerDialog(playerid, DIALOG_BIS_OWNER_MENU_MAIN, DIALOG_STYLE_LIST, "Biznio meniu",string, "Rinktis", "Iðjungti");
     return 1;
 }
-
-
+*/
+/*
 CMD:buy(playerid, params[])
 {
     new bizIndex = GetPlayerBusinessIndex(playerid);
@@ -2474,16 +2474,6 @@ CMD:buy(playerid, params[])
         {
             ShowClothesShopDialog(playerid);
         }
-        /*
-        case BarberShop:
-        {
-            new models[ 3 ];
-            models[0] = 19516;
-            models[1] = 19518;
-            models[2] = 19274;
-            ShowModelSelectionMenuEx(playerid, models, 3, "Perukai", 115);
-        }
-        */
         default: SendClientMessage(playerid, COLOR_LIGHTRED, "Ðis verslas nieko neparduoda.");
     }
     return 1;
@@ -2556,6 +2546,7 @@ CMD:sellbiz(playerid, params[])
     OfferID[ giveplayerid ][ 2 ] = bizIndex;
     return 1;
 }
+*/
 
 /*
 
