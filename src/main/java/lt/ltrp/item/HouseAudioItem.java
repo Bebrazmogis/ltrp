@@ -1,11 +1,11 @@
 package lt.ltrp.item;
 
-import lt.ltrp.data.Color;
+import lt.ltrp.common.data.Color;
 import lt.ltrp.item.constant.ItemType;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.property.constant.HouseUpgradeType;
-import lt.ltrp.property.object.House;
-import lt.ltrp.property.object.Property;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.constant.HouseUpgradeType;
+import lt.ltrp.object.House;
+import lt.ltrp.object.Property;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 

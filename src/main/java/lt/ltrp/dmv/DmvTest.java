@@ -1,7 +1,7 @@
 package lt.ltrp.dmv;
 
 
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 
 public interface DmvTest {
 

@@ -1,18 +1,15 @@
 package lt.ltrp;
 
 
-import lt.ltrp.api.LtrpGamemode;
+import lt.ltrp.LtrpGamemode;
+import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.dao.DAOFactory;
 import lt.ltrp.dmv.DmvManager;
-import lt.ltrp.event.PaydayEvent;
-import lt.ltrp.item.ItemController;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.plugin.mapandreas.MapAndreas;
 import lt.ltrp.plugin.mapandreas.MapAndreasMode;
-import lt.ltrp.property.PropertyManager;
-import lt.ltrp.shopplugin.VehicleShop;
-import lt.ltrp.shopplugin.VehicleShopPlugin;
-import lt.ltrp.vehicle.VehicleManager;
+import lt.ltrp.PropertyController;
+import lt.ltrp.VehicleController;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.player.PlayerClickMapEvent;
@@ -33,28 +30,11 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
     private static final Logger logger = LoggerFactory.getLogger(LtrpGamemode.class);
     private Timer paydayTimer;
     //private JobManager jobManager;
-    private VehicleManager vehicleManager;
-    private PropertyManager propertyManager;
+    private VehicleController vehicleManager;
+    private PropertyController propertyManager;
     private DmvManager dmvManager;
-    private ItemController itemController;
+   // private ItemController itemController;
 
-    public static final Location GYM_LOCATION = new Location(770.3773f, -70.6785f, 1000.7243f);
-
-    public static int getHouseTax() {
-        return 0;
-    }
-
-    public static int getBusinessTax() {
-        return 0;
-    }
-
-    public static int getGarageTax() {
-        return 0;
-    }
-
-    public static int getVehicleTax() {
-        return 0;
-    }
 
     @Override
     protected void onEnable() throws Throwable {
@@ -81,10 +61,10 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
         BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
 
         try {
-            itemController = new ItemController(eventManager, dao.getItemDao());
-            vehicleManager = new VehicleManager(eventManager, getDao().getVehicleDao());
+            //itemController = new ItemController(eventManager, dao.getItemDao());
+            vehicleManager = new VehicleControllerImpl(eventManager, VehicleController.get().getDao());
             //jobManager = new JobManager(eventManager, getDao().getJobDao(), vehicleManager);
-            propertyManager = new PropertyManager(eventManager, dao.getHouseDao(), bankPlugin);
+            propertyManager = new PropertyManager(eventManager, PropertyController.get().getHouseDao(), bankPlugin);
             dmvManager = new DmvManager(eventManager);
         } catch(Exception e) {
             e.printStackTrace();

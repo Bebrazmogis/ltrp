@@ -3,15 +3,17 @@ package lt.ltrp.item;
 import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.dao.ItemDao;
+import lt.ltrp.item.dao.PhoneDao;
 import lt.ltrp.item.drug.DrugController;
 import lt.ltrp.item.event.*;
 import lt.ltrp.item.object.Inventory;
 import lt.ltrp.item.object.InventoryEntity;
 import lt.ltrp.item.object.Item;
+import lt.ltrp.item.object.WeedSeedItem;
 import lt.ltrp.item.object.drug.DrugItem;
 import lt.ltrp.item.phone.PhoneController;
 import lt.ltrp.player.data.LtrpWeaponData;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
@@ -29,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author Bebras
  *         2015.11.14.
  */
-public class ItemController {
+public class ItemControllerImpl implements ItemController {
 
     private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
     
@@ -39,13 +41,13 @@ public class ItemController {
     private DrugController drugController;
     private PhoneController phoneController;
 
-    public ItemController(EventManager eventManager, ItemDao itemDao) {
+    public ItemControllerImpl(EventManager eventManager, ItemDao itemDao) {
         this.itemDao = itemDao;
         this.eventManager = eventManager.createChildNode();
 
 
         drugController = new DrugController(eventManager, LtrpGamemodeImpl.getDao().getDrugAddictionDao());
-        phoneController = new PhoneController(eventManager, LtrpGamemodeImpl.getDao().getPhoneDao());
+        //phoneController = new PhoneController(eventManager, LtrpGamemodeImpl.getDao().getPhoneDao());
 
         PlayerCommandManager commandManager = new PlayerCommandManager(eventManager);
         System.out.println("ItemController registering commands");
@@ -150,8 +152,8 @@ public class ItemController {
                     item = new MaskItem("Kaukë", eventManager,(Integer)params[4]);
                     break;
                 case Phone:
-                    int number = LtrpGamemodeImpl.getDao().getPhoneDao().generateNumber();
-                    item = new ItemPhone(eventManager, number);
+                    int number = ItemController.get().getPhoneDao().generateNumber();
+                    item = new ItemPhoneImpl(eventManager, number);
                     break;
                 case Cigarettes:
                     item = new CigarettesItem(eventManager);
@@ -252,4 +254,23 @@ public class ItemController {
 
     }
 
+    @Override
+    public WeedSeedItem createWeedSeed(EventManager eventManager) {
+        return null;
+    }
+
+    @Override
+    public Inventory createInventory(EventManager eventManager, InventoryEntity inventoryEntity, String s, int i) {
+        return null;
+    }
+
+    @Override
+    public ItemDao getItemDao() {
+        return null;
+    }
+
+    @Override
+    public PhoneDao getPhoneDao() {
+        return null;
+    }
 }

@@ -1,9 +1,9 @@
 package lt.ltrp.item;
 
-import lt.ltrp.data.Color;
+import lt.ltrp.common.data.Color;
 import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.object.RadioItem;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package lt.ltrp.dmv;
 
-import lt.ltrp.vehicle.LtrpVehicleImpl;
-import lt.ltrp.vehicle.data.FuelTank;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.LtrpVehicleImpl;
+import lt.ltrp.data.FuelTank;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.object.Vehicle;
 

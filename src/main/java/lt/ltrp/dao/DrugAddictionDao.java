@@ -2,7 +2,7 @@ package lt.ltrp.dao;
 
 import lt.ltrp.player.data.PlayerAddiction;
 import lt.ltrp.player.data.PlayerDrugs;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 
 /**
  * @author Bebras

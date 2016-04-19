@@ -1,10 +1,10 @@
 package lt.ltrp;
 
 import lt.ltrp.common.constant.LtrpVehicleModel;
-import lt.ltrp.data.Color;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.data.FuelTank;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.common.data.Color;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.data.FuelTank;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.constant.TextDrawFont;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.PlayerTextdraw;

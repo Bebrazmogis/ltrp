@@ -3,10 +3,10 @@ package lt.ltrp.dmv.car;
 
 import lt.ltrp.dmv.AbstractCheckpointTest;
 import lt.ltrp.dmv.event.PlayerDrivingTestEndEvent;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.event.SpeedometerTickEvent;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.event.SpeedometerTickEvent;
 
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;

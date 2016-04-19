@@ -1,6 +1,6 @@
 package lt.ltrp.object;
 
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;

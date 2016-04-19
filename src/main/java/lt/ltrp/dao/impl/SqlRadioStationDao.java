@@ -1,6 +1,6 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.api.LoadingException;
+import lt.ltrp.LoadingException;
 import lt.ltrp.radio.dao.RadioStationDao;
 import lt.ltrp.radio.object.RadioStation;
 

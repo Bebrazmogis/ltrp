@@ -1,6 +1,6 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.api.LoadingException;
+import lt.ltrp.LoadingException;
 import lt.ltrp.dmv.*;
 import lt.ltrp.dmv.aircraft.AircraftDmv;
 import lt.ltrp.dmv.boat.BoatDmv;

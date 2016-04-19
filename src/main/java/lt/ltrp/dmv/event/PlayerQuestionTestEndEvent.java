@@ -3,7 +3,7 @@ package lt.ltrp.dmv.event;
 import lt.ltrp.dmv.Dmv;
 import lt.ltrp.dmv.DmvTest;
 import lt.ltrp.dmv.QuestionTest;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 
 /**
  * @author Bebras

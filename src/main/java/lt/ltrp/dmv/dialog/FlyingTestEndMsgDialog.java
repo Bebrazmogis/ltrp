@@ -2,7 +2,7 @@ package lt.ltrp.dmv.dialog;
 
 
 import lt.ltrp.dmv.aircraft.FlyingTest;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 

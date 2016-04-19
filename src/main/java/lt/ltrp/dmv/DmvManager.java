@@ -1,18 +1,22 @@
 package lt.ltrp.dmv;
 
 import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.common.data.Color;
+import lt.ltrp.constant.LicenseType;
 import lt.ltrp.dao.DmvDao;
-import lt.ltrp.data.Color;
 import lt.ltrp.dmv.aircraft.AircraftDmvManager;
 import lt.ltrp.dmv.boat.BoatDmvManager;
 import lt.ltrp.dmv.car.CarDmvManager;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.event.VehicleEngineKillEvent;
-import lt.ltrp.vehicle.event.VehicleEngineStartEvent;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.event.VehicleEngineKillEvent;
+import lt.ltrp.event.VehicleEngineStartEvent;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
+import net.gtaun.shoebill.constant.VehicleModel;
+import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
+import net.gtaun.shoebill.event.vehicle.VehicleEnterEvent;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
@@ -67,6 +71,26 @@ public class DmvManager implements Destroyable {
                    e.deny();
                }
            }
+        });
+
+        eventManager.registerHandler(VehicleEnterEvent.class, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            LtrpVehicle vehicle = LtrpVehicle.getByVehicle(e.getVehicle());
+            if(player != null && vehicle != null) {
+                VehicleModel.VehicleType type = VehicleModel.getType(vehicle.getModelId());
+                // If it's an aicraft but the player isn't licensed to use one
+                if (type == VehicleModel.VehicleType.AIRCRAFT && !player.getLicenses().contains(LicenseType.Aircraft)) {
+                    Location location = player.getLocation();
+                    location.setZ(location.getZ() + 1f);
+                    player.setLocation(location);
+                    player.sendErrorMessage("Jûs neturite teisës valdyti arba nemokate valdyti lëktuvo.");
+                } else if(type == VehicleModel.VehicleType.BOAT && !player.getLicenses().contains(LicenseType.Ship)) {
+                    Location location = player.getLocation();
+                    location.setZ(location.getZ() + 1f);
+                    player.setLocation(location);
+                    player.sendErrorMessage("Jûs neturite teisës valdyti arba nemokate valdyti laivo.");
+                }
+            }
         });
 
         commandManager = new PlayerCommandManager(eventManager);

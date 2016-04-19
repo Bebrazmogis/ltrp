@@ -1,9 +1,9 @@
 package lt.ltrp.item;
 
-import lt.ltrp.data.Color;
+import lt.ltrp.common.data.Color;
 import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.object.Inventory;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.util.event.EventManager;

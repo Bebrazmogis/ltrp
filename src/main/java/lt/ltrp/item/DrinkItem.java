@@ -2,7 +2,7 @@ package lt.ltrp.item;
 
 import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.object.Inventory;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.data.Color;

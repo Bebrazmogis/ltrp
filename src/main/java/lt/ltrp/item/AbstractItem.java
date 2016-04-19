@@ -1,14 +1,13 @@
 package lt.ltrp.item;
 
 
-
-import lt.ltrp.api.NamedEntityImpl;
-import lt.ltrp.data.Color;
+import lt.ltrp.NamedEntityImpl;
+import lt.ltrp.common.data.Color;
 import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.event.ItemDestroyEvent;
 import lt.ltrp.item.object.Inventory;
 import lt.ltrp.item.object.Item;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;

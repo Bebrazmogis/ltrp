@@ -1,6 +1,6 @@
 package lt.ltrp.dmv;
 
-import lt.ltrp.player.constant.LicenseType;
+import lt.ltrp.constant.LicenseType;
 import net.gtaun.shoebill.data.Location;
 
 import java.util.List;

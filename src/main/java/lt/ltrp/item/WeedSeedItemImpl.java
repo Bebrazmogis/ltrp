@@ -1,14 +1,13 @@
 package lt.ltrp.item;
 
-import lt.ltrp.data.Color;
+import lt.ltrp.common.data.Color;
 import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.object.Inventory;
-import lt.ltrp.player.object.LtrpPlayer;
-
-import lt.ltrp.property.data.HouseWeedSapling;
-import lt.ltrp.property.event.PlayerPlantWeedEvent;
-import lt.ltrp.property.object.House;
-import lt.ltrp.property.object.Property;
+import lt.ltrp.item.object.WeedSeedItem;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.data.HouseWeedSapling;
+import lt.ltrp.object.House;
+import lt.ltrp.object.Property;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
@@ -16,15 +15,15 @@ import net.gtaun.util.event.EventManager;
  * @author Bebras
  *         2015.12.03.
  */
-public class WeedSeedItem extends BasicItem {
+public class WeedSeedItemImpl extends BasicItem implements WeedSeedItem {
 
 
 
-    public WeedSeedItem(EventManager eventManager) {
+    public WeedSeedItemImpl(EventManager eventManager) {
         this(0, "Þolës sëklos", eventManager);
     }
 
-    public WeedSeedItem(int id, String name, EventManager eventManager) {
+    public WeedSeedItemImpl(int id, String name, EventManager eventManager) {
         super(id, name, eventManager, ItemType.WeedSeed, true);
     }
 

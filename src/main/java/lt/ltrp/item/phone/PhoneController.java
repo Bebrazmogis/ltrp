@@ -1,23 +1,28 @@
 package lt.ltrp.item.phone;
 
-import lt.ltrp.dao.PhoneDao;
-import lt.ltrp.data.Color;
-import lt.ltrp.item.ItemPhone;
+import lt.ltrp.common.data.Color;
+import lt.ltrp.item.ItemPhoneImpl;
+import lt.ltrp.item.dao.PhoneDao;
+import lt.ltrp.item.data.PhoneCall;
+import lt.ltrp.item.data.PhoneSms;
+import lt.ltrp.item.event.PlayerAnswerPhoneEvent;
+import lt.ltrp.item.event.PlayerCallNumberEvent;
+import lt.ltrp.item.event.PlayerEndCallEvent;
+import lt.ltrp.item.event.PlayerSendSmsEvent;
 import lt.ltrp.item.object.InventoryEntity;
-import lt.ltrp.item.phone.event.PlayerAnswerPhoneEvent;
-import lt.ltrp.item.phone.event.PlayerCallNumberEvent;
-import lt.ltrp.item.phone.event.PlayerEndCallEvent;
-import lt.ltrp.item.phone.event.PlayerSendSmsEvent;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.property.object.Property;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.item.object.ItemPhone;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.Property;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.event.player.PlayerTextEvent;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Bebras
@@ -54,7 +59,7 @@ public class PhoneController {
             int number = e.getPhoneNumber();
 
             if (!isSpecialPhoneNumber(number)) {
-                ItemPhone contactPhone = ItemPhone.get(number);
+                ItemPhone contactPhone = ItemPhoneImpl.get(number);
                 if (contactPhone != null) {
                     if(!contactPhone.isBusy()) {
                         player.sendMessage("Numeris uþimtas, praðome pabandyti vëliau!");
@@ -120,7 +125,7 @@ public class PhoneController {
             String text = e.getText();
             if(!isSpecialPhoneNumber(number)) {
                 player.sendMessage(Color.SMS_SENT, "SMS:" + text);
-                ItemPhone contactPhone = ItemPhone.get(number);
+                ItemPhone contactPhone = ItemPhoneImpl.get(number);
                 if(contactPhone != null) {
                     // Now we can start searching for its location
                     for(LtrpPlayer p : LtrpPlayer.get()) {

@@ -1,21 +1,17 @@
 package lt.ltrp.dao.impl;
 
 
-import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.item.*;
-import lt.ltrp.item.dao.ItemDao;
-import lt.ltrp.item.object.*;
-import lt.ltrp.item.object.ClothingItem;
-import lt.ltrp.item.object.ConsumableItem;
-import lt.ltrp.item.object.ContainerItem;
-import lt.ltrp.item.object.DurableItem;
-import lt.ltrp.item.object.RadioItem;
-import lt.ltrp.item.object.WeaponItem;
 import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.dao.ItemDao;
+import lt.ltrp.item.dao.PhoneDao;
+import lt.ltrp.item.object.ClothingItem;
+import lt.ltrp.item.object.*;
+import lt.ltrp.item.object.ContainerItem;
 import lt.ltrp.player.data.LtrpWeaponData;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.property.object.Property;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.Property;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.constant.WeaponModel;
@@ -586,7 +582,7 @@ public class SqlItemDao implements ItemDao {
                 item = new FuelTankItem(id, name, eventManager, items, size);
                 break;
             case "lt.ltrp.item.WeedSeedItem":
-                item = new WeedSeedItem(id, name, eventManager);
+                item = new WeedSeedItemImpl(id, name, eventManager);
                 break;
             case "lt.ltrp.item.RadioItem":
                 item = new RadioItemImpl(id, name, eventManager, frequency);
@@ -619,7 +615,7 @@ public class SqlItemDao implements ItemDao {
                 item = new DurableItemImpl(id, name, eventManager, type, durability, maxDurability, stackable);
                 break;
             case "lt.ltrp.item.ItemPhone":
-                item = new ItemPhone(id, name, eventManager, number, phoneDao.getPhonebook(number));
+                item = new ItemPhoneImpl(id, name, eventManager, number, phoneDao.getPhonebook(number));
                 break;
             case "lt.ltrp.item.Mp3Item":
                 item = new Mp3Item(id, name, eventManager);

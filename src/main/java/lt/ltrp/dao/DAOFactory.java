@@ -4,6 +4,7 @@ import lt.ltrp.DatabasePlugin;
 import lt.ltrp.LtrpGamemodeImpl;
 import lt.ltrp.dao.impl.*;
 import lt.ltrp.dao.impl.SqlItemDao;
+import lt.ltrp.item.ItemController;
 import lt.ltrp.item.dao.ItemDao;
 import lt.ltrp.player.dao.PlayerDao;
 import lt.ltrp.radio.dao.RadioStationDao;
@@ -49,12 +50,12 @@ public abstract class DAOFactory {
     public abstract Connection getConnection() throws SQLException;
 
     public abstract PlayerDao getPlayerDao();
-    public abstract PhoneDao getPhoneDao();
+   // public abstract PhoneDao getPhoneDao();
     public abstract ItemDao getItemDao();
-    public abstract HouseDao getHouseDao();
+  //  public abstract HouseDao getHouseDao();
     //public abstract JobDao getJobDao();
     public abstract DmvDao getDmvDao();
-    public abstract VehicleDao getVehicleDao();
+   // public abstract VehicleDao getVehicleDao();
     public abstract RadioStationDao getRadioStationDao();
     public abstract DrugAddictionDao getDrugAddictionDao();
 }
@@ -63,12 +64,12 @@ class JdbcDAO extends DAOFactory {
 
     private DataSource ds;
     private PlayerDao playerDao;
-    private PhoneDao phoneDao;
+  //  private PhoneDao phoneDao;
     private ItemDao itemDao;
-    private HouseDao houseDao;
+  //  private HouseDao houseDao;
     //private JobDao jobDao;
     private DmvDao dmvDao;
-    private VehicleDao vehicleDao;
+  //  private VehicleDao vehicleDao;
     private RadioStationDao radioStationDao;
     private DrugAddictionDao drugAddictionDao;
 
@@ -111,11 +112,11 @@ class JdbcDAO extends DAOFactory {
         System.out.println("File read");
         in.close();
         */
-        this.phoneDao = new SqlPhoneDaoImpl(ds);
-        this.itemDao = new SqlItemDao(ds, LtrpGamemodeImpl.get().getEventManager(), phoneDao);
-        this.houseDao = new SqlHouseDao(ds);
+    //    this.phoneDao = new SqlPhoneDaoImpl(ds);
+        this.itemDao = new SqlItemDao(ds, LtrpGamemodeImpl.get().getEventManager(), ItemController.get().getPhoneDao());
+      //  this.houseDao = new SqlHouseDao(ds);
         this.dmvDao = new FileDmvDaoImpl(LtrpGamemodeImpl.get().getDataDir());
-        this.vehicleDao = new SqlVehicleDaoImpl(ds);
+      //  this.vehicleDao = new SqlVehicleDaoImpl(ds);
     //    this.jobDao = new MySqlJobDaoImpl(ds, vehicleDao);
     //    this.radioStationDao = new SqlRadioStationDao(ds);
         this.drugAddictionDao = new MySqlDrugAddictionDaoImpl(ds);
@@ -134,20 +135,20 @@ class JdbcDAO extends DAOFactory {
         return playerDao;
     }
 
-    @Override
-    public PhoneDao getPhoneDao() {
+    //@Override
+    /*public PhoneDao getPhoneDao() {
         return phoneDao;
-    }
+    }*/
 
     @Override
     public ItemDao getItemDao() {
         return itemDao;
     }
 
-    @Override
+    /*@Override
     public HouseDao getHouseDao() {
         return houseDao;
-    }
+    }*/
 
     //@Override
    /* public JobDao getJobDao() {
@@ -159,10 +160,10 @@ class JdbcDAO extends DAOFactory {
         return dmvDao;
     }
 
-    @Override
+   /* @Override
     public VehicleDao getVehicleDao() {
         return vehicleDao;
-    }
+    }*/
 
     @Override
     public RadioStationDao getRadioStationDao() {

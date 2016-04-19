@@ -1,18 +1,18 @@
 package lt.ltrp.dmv.aircraft;
 
 import lt.ltrp.LtrpGamemodeImpl;
-import lt.ltrp.api.InitException;
-import lt.ltrp.api.LoadingException;
-import lt.ltrp.data.Color;
+import lt.ltrp.InitException;
+import lt.ltrp.LoadingException;
+import lt.ltrp.common.data.Color;
 import lt.ltrp.dmv.AbstractDmvManager;
 import lt.ltrp.dmv.Dmv;
 import lt.ltrp.dmv.DmvTest;
 import lt.ltrp.dmv.dialog.FlyingTestEndMsgDialog;
 import lt.ltrp.dmv.event.PlayerFlyingTestEnd;
-import lt.ltrp.player.constant.LicenseType;
+import lt.ltrp.constant.LicenseType;
 import lt.ltrp.player.data.PlayerLicense;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 

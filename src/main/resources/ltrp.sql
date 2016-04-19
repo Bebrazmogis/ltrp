@@ -20,14 +20,14 @@ CREATE TABLE players
   money INT DEFAULT 320 NOT NULL,
   deaths INT DEFAULT 0 NOT NULL,
   wanted_level INT DEFAULT 0 NOT NULL,
-  job_id INT NULL,
-  job_rank INT NULL,
+  #job_id INT NULL,
+  #job_rank INT NULL,
   leader INT DEFAULT 0 NOT NULL,
   member INT DEFAULT 0 NOT NULL,
   pJobCar INT DEFAULT 0 NOT NULL,
   rank INT DEFAULT 0 NOT NULL,
   skin INT DEFAULT 212 NOT NULL,
-  job_contract TINYINT DEFAULT 0 NOT NULL,
+  #job_contract TINYINT DEFAULT 0 NOT NULL,
   phonenumber INT DEFAULT 0 NOT NULL,
   House INT DEFAULT 0 NOT NULL,
   CarLic INT DEFAULT 0 NOT NULL,
@@ -83,9 +83,10 @@ CREATE TABLE players
   Hunger TINYINT UNSIGNED DEFAULT 0 NOT NULL,
   total_paycheck INT UNSIGNED NOT NULL ,
   PRIMARY KEY (id),
-  FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE SET NULL,
-  FOREIGN KEY (job_rank) REFERENCES job_ranks(id) ON DELETE SET NULL
+  #FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE SET NULL,
+  #FOREIGN KEY (job_rank) REFERENCES job_ranks(id) ON DELETE SET NULL
 )  ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
 
 CREATE TABLE IF NOT EXISTS player_job_levels
 (
@@ -613,3 +614,55 @@ CREATE TABLE IF NOT EXISTS garbageman_mission_garbage (
   FOREIGN KEY (mission_id) REFERENCES garbageman_missions(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
+
+CREATE TABLE IF NOT EXISTS properties (
+  id INT AUTO_INCREMENT NOT NULL,
+  owner INT NULL,
+  name VARCHAR(100) NOT NULL,
+  price INT NOT NULL,
+  entrance_x REAL NOT NULL,
+  entrance_y REAL NOT NULL,
+  entrance_z REAL NOT NULL,
+  entrance_interior INT NOT NULL,
+  entrance_virtual INT NOT NULL,
+  exit_x REAL NOT NULL,
+  exit_y REAL NOT NULL,
+  exit_z REAL NOT NULL,
+  exit_interior INT NOT NULL,
+  exit_virtual INT NOT NULL,
+  locked TINYINT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (owner) REFERENCES players(id) ON DELETE SET NULL
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS businesses
+(
+  id INT NOT NULL,
+  entrance_price INT NOT NULL,
+  money INT NOT NULL,
+  type SMALLINT NOT NULL,
+  resources INT NOT NULL,
+  pickup_model SMALLINT UNSIGNED NOT NULL,
+  commodity_limit SMALLINT UNSIGNED NOT NULL,
+  resources_price INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id) REFERENCES properties(id) ON DELETE CASCADE
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS businesses_commodities
+(
+  business_id INT NOT NULL,
+  no INT NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  item_type INT NULL,
+  PRIMARY KEY (business_id, no),
+  FOREIGN KEY (business_id) REFERENCES businesses(id) ON DELETE CASCADE
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS businesses_available_commodities
+(
+  business_type INT NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  item_type INT NULL,
+  PRIMARY KEY (business_type)
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;

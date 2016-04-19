@@ -1,60 +1,45 @@
 package lt.ltrp.item;
 
-import lt.ltrp.LtrpGamemodeImpl;
-import lt.ltrp.dao.PhoneDao;
-import lt.ltrp.data.Color;
+import lt.ltrp.common.data.Color;
 import lt.ltrp.item.constant.ItemType;
+import lt.ltrp.item.dao.PhoneDao;
+import lt.ltrp.item.data.PhoneBook;
+import lt.ltrp.item.data.PhoneCall;
+import lt.ltrp.item.data.PhoneSms;
+import lt.ltrp.item.dialog.PhonebookListDialog;
+import lt.ltrp.item.event.PlayerCallNumberEvent;
+import lt.ltrp.item.event.PlayerSendSmsEvent;
 import lt.ltrp.item.object.Inventory;
-import lt.ltrp.item.phone.PhoneBook;
-import lt.ltrp.item.phone.PhoneCall;
-import lt.ltrp.item.phone.PhoneSms;
-import lt.ltrp.item.phone.event.PlayerCallNumberEvent;
-import lt.ltrp.item.phone.event.PlayerSendSmsEvent;
-import lt.ltrp.item.phone.dialog.PhonebookListDialog;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.item.object.ItemPhone;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.shoebill.common.dialog.PageListDialog;
 import net.gtaun.util.event.EventManager;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Bebras
  *         2015.11.29.
  */
-public class ItemPhone extends BasicItem {
+public class ItemPhoneImpl extends BasicItem implements ItemPhone {
 
-    public static final int NUMBER_MIN = 86000000;
-    public static final int NUMBER_MAX = 87000000;
 
-    private static List<WeakReference<ItemPhone>> phones = new ArrayList<>();
+    private static List<ItemPhoneImpl> phones = new ArrayList<>();
 
-    public static Collection<ItemPhone> get() {
-        Collection<ItemPhone> c = new ArrayList<>();
-        for(WeakReference<ItemPhone> phone : phones) {
-            if(phone.get() != null) {
-                c.add(phone.get());
-            } else {
-                phones.remove(phone);
-            }
-        }
-        return c;
+    public static List<ItemPhone> get() {
+        ArrayList<ItemPhone> p = new ArrayList<>();
+        phones.forEach(ph -> p.add((ItemPhone)ph));
+        return p;
     }
 
     public static ItemPhone get(int phoennumber) {
-        for(WeakReference<ItemPhone> ref : phones) {
-            if(ref.get() == null) {
-                phones.remove(ref);
-            } else if(ref.get().phonenumber == phoennumber) {
-                return ref.get();
-            }
-        }
-        return null;
+        Optional<ItemPhoneImpl> op = phones.stream().filter(p -> p.phonenumber == phoennumber).findFirst();
+        return op.isPresent() ? op.get() : null;
     }
 
 
@@ -63,9 +48,9 @@ public class ItemPhone extends BasicItem {
     private PhoneCall phonecall;
     private boolean busy;
 
-    public ItemPhone(int id, String name, EventManager eventManager, int phonenumber, PhoneBook phonebook) {
+    public ItemPhoneImpl(int id, String name, EventManager eventManager, int phonenumber, PhoneBook phonebook) {
         super(id, name, eventManager, ItemType.Phone, false);
-        phones.add(new WeakReference<ItemPhone>(this));
+        phones.add(this);
         this.phonenumber = phonenumber;
         if(phonebook == null) {
             this.phonebook = new PhoneBook(phonenumber);
@@ -74,10 +59,14 @@ public class ItemPhone extends BasicItem {
         }
     }
 
-    public ItemPhone(EventManager eventManager, int phonenumber) {
+    public ItemPhoneImpl(EventManager eventManager, int phonenumber) {
         this(0, Integer.toString(phonenumber), eventManager, phonenumber, null);
     }
 
+    @Override
+    public void destroy() {
+        phones.remove(this);
+    }
 
     public PhoneCall getPhonecall() {
         return phonecall;
@@ -109,7 +98,7 @@ public class ItemPhone extends BasicItem {
 
     @ItemUsageOption(name = "Perþiûrëti gautas SMS")
     public boolean showSmsInbox(LtrpPlayer player, Inventory inventory) {
-        PhoneDao phoneDao = LtrpGamemodeImpl.getDao().getPhoneDao();
+        PhoneDao phoneDao = ItemController.get().getPhoneDao();
         if(phoneDao != null) {
             PhoneSms[] sms = phoneDao.getSmsByRecipient(this.phonenumber);
             showSmsManagement(player, sms, inventory);
@@ -120,7 +109,7 @@ public class ItemPhone extends BasicItem {
 
     @ItemUsageOption(name = "Perþiûrëti iðsiøstas SMS")
     public boolean showSmsOutbox(LtrpPlayer player, Inventory inventory) {
-        PhoneDao phoneDao = LtrpGamemodeImpl.getDao().getPhoneDao();
+        PhoneDao phoneDao = ItemController.get().getPhoneDao();
         if(phoneDao != null) {
             PhoneSms[] sms = phoneDao.getSmsBySender(this.phonenumber);
             showSmsManagement(player, sms, inventory);
@@ -143,7 +132,7 @@ public class ItemPhone extends BasicItem {
         });
 
         dialog.setDeleteHandler((d, contact) -> {
-            LtrpGamemodeImpl.getDao().getPhoneDao().remove(contact);
+            ItemController.get().getPhoneDao().remove(contact);
             phonebook.remove(contact);
             player.sendMessage(Color.NEWS, "Kontaktas " + contact.getName() + " paðalintas");
         });

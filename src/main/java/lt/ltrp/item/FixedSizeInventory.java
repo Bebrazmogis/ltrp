@@ -1,12 +1,12 @@
 package lt.ltrp.item;
 
-import lt.ltrp.data.Color;
+import lt.ltrp.common.data.Color;
 import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.object.Inventory;
 import lt.ltrp.item.object.InventoryEntity;
 import lt.ltrp.item.object.Item;
 import lt.ltrp.item.object.WeaponItem;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.constant.WeaponModel;
@@ -14,6 +14,7 @@ import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 

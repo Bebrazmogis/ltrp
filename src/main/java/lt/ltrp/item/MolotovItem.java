@@ -4,7 +4,7 @@ import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.object.Inventory;
 import lt.ltrp.item.object.Item;
 import lt.ltrp.object.Fire;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.plugin.mapandreas.MapAndreas;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.data.AngledLocation;

@@ -1,6 +1,6 @@
 package lt.ltrp.item.drug;
 
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 
 /**
  * @author Bebras

@@ -1,6 +1,6 @@
 package lt.ltrp.plugin.streamer.event.player;
 
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.plugin.streamer.DynamicSampObject;
 import lt.ltrp.plugin.streamer.PlayerEditDynamicObjectResponse;
 import net.gtaun.shoebill.data.Vector3D;

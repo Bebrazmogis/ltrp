@@ -1,6 +1,6 @@
 package lt.ltrp.command;
 
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.object.Player;
 
 /**

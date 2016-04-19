@@ -1,7 +1,7 @@
 package lt.ltrp.dmv;
 
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.shoebill.event.player.PlayerStateChangeEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;

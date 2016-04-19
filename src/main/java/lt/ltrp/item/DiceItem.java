@@ -1,7 +1,7 @@
 package lt.ltrp.item;
 
 import lt.ltrp.item.constant.ItemType;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;
 

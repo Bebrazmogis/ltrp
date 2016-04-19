@@ -1,8 +1,8 @@
 package lt.ltrp.dmv;
 
 
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.util.event.EventManager;

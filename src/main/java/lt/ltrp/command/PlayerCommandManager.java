@@ -1,17 +1,17 @@
 package lt.ltrp.command;
 
-import lt.ltrp.data.Color;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.common.data.Color;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CustomCommandHandler;
+import net.gtaun.shoebill.common.command.PlayerCommandManager.UsageMessageSupplier;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.util.event.EventManager;
-import net.gtaun.shoebill.common.command.PlayerCommandManager.UsageMessageSupplier;
 import net.gtaun.util.event.HandlerPriority;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;

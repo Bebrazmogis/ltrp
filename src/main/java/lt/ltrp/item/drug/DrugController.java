@@ -1,7 +1,7 @@
 package lt.ltrp.item.drug;
 
-import lt.ltrp.dao.DrugAddictionDao;
 import lt.ltrp.event.PaydayEvent;
+import lt.ltrp.dao.DrugAddictionDao;
 import lt.ltrp.item.AmphetamineItem;
 import lt.ltrp.item.EctazyItem;
 import lt.ltrp.item.HeroinItem;
@@ -11,7 +11,7 @@ import lt.ltrp.item.object.drug.DrugItem;
 import lt.ltrp.player.data.PlayerAddiction;
 import lt.ltrp.player.data.PlayerDrugs;
 import lt.ltrp.player.event.PlayerDataLoadEvent;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;

@@ -2,8 +2,8 @@ package lt.ltrp.item;
 
 import lt.ltrp.item.constant.ItemType;
 import lt.ltrp.item.object.Inventory;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.object.LtrpVehicle;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.util.event.EventManager;
 
 /**
