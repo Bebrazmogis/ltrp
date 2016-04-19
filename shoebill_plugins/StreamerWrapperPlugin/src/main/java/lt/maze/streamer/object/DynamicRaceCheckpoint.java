@@ -2,6 +2,7 @@ package lt.maze.streamer.object;
 
 import lt.maze.streamer.Constants;
 import lt.maze.streamer.Functions;
+import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.constant.RaceCheckpointType;
 import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.data.Vector3D;
@@ -16,12 +17,12 @@ import java.util.Optional;
  * @author Bebras
  *         2016.02.16.
  */
-public class DynamicRaceCheckpoint extends DynamicCheckpoint {
+public class DynamicRaceCheckpoint extends AbstractCheckpoint {
 
     private static final Collection<DynamicRaceCheckpoint> raceCheckpoints = new ArrayList<>();
 
 
-    public static Collection<DynamicRaceCheckpoint> getRace() {
+    public static Collection<DynamicRaceCheckpoint> get() {
         return raceCheckpoints;
     }
 
@@ -55,7 +56,7 @@ public class DynamicRaceCheckpoint extends DynamicCheckpoint {
 
 
     private DynamicRaceCheckpoint(int id) {
-        super(id);
+        super(id, StreamerType.RaceCheckpoint);
     }
 
     @Override
@@ -76,7 +77,7 @@ public class DynamicRaceCheckpoint extends DynamicCheckpoint {
 
     @Override
     public void destroy() {
-        setDestroyed(true);
+        super.destroy();
         Functions.DestroyDynamicRaceCP(getId());
         raceCheckpoints.remove(this);
     }

@@ -1,7 +1,9 @@
 package lt.maze.streamer.object;
 
 import lt.maze.streamer.Functions;
+import lt.maze.streamer.constant.StreamerAreaType;
 import lt.maze.streamer.constant.StreamerObjectType;
+import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Vehicle;
@@ -13,23 +15,20 @@ import java.util.stream.Collectors;
  * @author Bebras
  *         2016.02.16.
  */
-public abstract class AbstractDynamicArea implements DynamicArea {
+public abstract class AbstractDynamicArea extends AbstractStreamerItem implements DynamicArea {
 
-    private int id;
-    private boolean destroyed;
+    private StreamerAreaType areaType;
 
-    protected AbstractDynamicArea(int id) {
-        this.id = id;
+    protected AbstractDynamicArea(int id,StreamerAreaType areaType) {
+        super(id, StreamerType.Area);
+        this.areaType = areaType;
         areas.add(this);
     }
 
-    public int getId() {
-        return id;
-    }
 
     @Override
     public void toggle(Player p, boolean toggle) {
-        Functions.TogglePlayerDynamicArea(p.getId(), id, toggle ? 1 : 0);
+        Functions.TogglePlayerDynamicArea(p.getId(), getId(), toggle ? 1 : 0);
     }
 
     @Override
@@ -68,14 +67,15 @@ public abstract class AbstractDynamicArea implements DynamicArea {
     }
 
     @Override
+    public StreamerAreaType getAreaType() {
+        return areaType;
+    }
+
+    @Override
     public void destroy() {
-        destroyed = true;
+        super.destroy();
         areas.remove(this);
         Functions.DestroyDynamicArea(getId());
     }
 
-    @Override
-    public boolean isDestroyed() {
-        return destroyed;
-    }
 }

@@ -29,11 +29,7 @@ public class DynamicCircle extends AbstractDynamicArea {
     }
 
     private DynamicCircle(int id) {
-        super(id);
+        super(id, StreamerAreaType.Circle);
     }
 
-    @Override
-    public StreamerAreaType getType() {
-        return StreamerAreaType.Circle;
-    }
 }

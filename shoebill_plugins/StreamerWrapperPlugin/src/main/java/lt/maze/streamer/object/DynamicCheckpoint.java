@@ -2,6 +2,7 @@ package lt.maze.streamer.object;
 
 import lt.maze.streamer.Constants;
 import lt.maze.streamer.Functions;
+import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
@@ -15,7 +16,7 @@ import java.util.Optional;
  * @author Bebras
  *         2016.02.16.
  */
-public class DynamicCheckpoint implements StreamerItem {
+public class DynamicCheckpoint extends AbstractCheckpoint implements StreamerItem {
 
     private static Collection<DynamicCheckpoint> checkpoints = new ArrayList<>();
 
@@ -58,42 +59,35 @@ public class DynamicCheckpoint implements StreamerItem {
         return create(radius.x, radius.y, radius.z, radius.radius);
     }
 
-    private int id;
-    private boolean destroyed;
+
 
     protected DynamicCheckpoint(int id) {
-        this.id = id;
+        super(id, StreamerType.Checkpoint);
     }
 
-    public int getId() {
-        return id;
-    }
 
+
+    @Override
     public boolean isValid() {
         return Functions.IsValidDynamicCP(getId()) == 1;
     }
 
+    @Override
     public void toggle(Player p, boolean toggle) {
         Functions.TogglePlayerDynamicCP(p.getId(), getId(), toggle ? 1 : 0);
     }
 
+    @Override
     public boolean isInCp(Player p) {
         return Functions.IsPlayerInDynamicCP(p.getId(), getId()) == 1;
     }
 
-    protected void setDestroyed(boolean set) {
-        this.destroyed = set;
-    }
 
     @Override
     public void destroy() {
-        this.destroyed = true;
+        super.destroy();
         Functions.DestroyDynamicCP(getId());
         checkpoints.remove(this);
     }
 
-    @Override
-    public boolean isDestroyed() {
-        return destroyed;
-    }
 }

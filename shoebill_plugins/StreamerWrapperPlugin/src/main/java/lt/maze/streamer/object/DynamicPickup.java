@@ -2,6 +2,7 @@ package lt.maze.streamer.object;
 
 import lt.maze.streamer.Constants;
 import lt.maze.streamer.Functions;
+import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
@@ -15,7 +16,7 @@ import java.util.Optional;
  * @author Bebras
  *         2016.02.16.
  */
-public class DynamicPickup implements StreamerItem {
+public class DynamicPickup extends AbstractStreamerItem implements StreamerItem {
 
     private static final Collection<DynamicPickup> pickups = new ArrayList<>();
 
@@ -51,16 +52,10 @@ public class DynamicPickup implements StreamerItem {
         return create(modelId, type, location.x, location.y, location.z, location.worldId, location.interiorId, null, streamDistance);
     }
 
-    private int id;
-    private boolean destroyed;
-
     public DynamicPickup(int id) {
-        this.id = id;
+        super(id, StreamerType.Pickup);
     }
 
-    public int getId() {
-        return id;
-    }
 
     public boolean isValid() {
         return Functions.IsValidDynamicPickup(getId()) == 1;
@@ -68,13 +63,9 @@ public class DynamicPickup implements StreamerItem {
 
     @Override
     public void destroy() {
-        destroyed = true;
+        super.destroy();
         Functions.DestroyDynamicPickup(getId());
         pickups.remove(this);
     }
 
-    @Override
-    public boolean isDestroyed() {
-        return destroyed;
-    }
 }

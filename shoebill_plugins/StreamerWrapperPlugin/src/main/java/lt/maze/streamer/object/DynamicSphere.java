@@ -38,7 +38,7 @@ public class DynamicSphere extends AbstractDynamicArea {
     private Radius radius;
 
     private DynamicSphere(int id, Radius radius) {
-        super(id);
+        super(id, StreamerAreaType.Sphere);
         this.radius = radius;
     }
 
@@ -46,8 +46,5 @@ public class DynamicSphere extends AbstractDynamicArea {
         return radius;
     }
 
-    @Override
-    public StreamerAreaType getType() {
-        return StreamerAreaType.Sphere;
-    }
+
 }

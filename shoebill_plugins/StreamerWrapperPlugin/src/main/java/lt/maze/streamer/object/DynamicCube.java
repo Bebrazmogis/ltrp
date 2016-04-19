@@ -50,11 +50,7 @@ public class DynamicCube extends AbstractDynamicArea {
     }
 
     private DynamicCube(int id) {
-        super(id);
+        super(id, StreamerAreaType.Cuboid);
     }
 
-    @Override
-    public StreamerAreaType getType() {
-        return StreamerAreaType.Cuboid;
-    }
 }

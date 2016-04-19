@@ -7,7 +7,7 @@ import net.gtaun.shoebill.object.Player;
  * @author Bebras
  *         2016.02.16.
  */
-public class PlayerLeaveDynamicRaceCheckpointEvent extends PlayerLeaveDynamicCheckpointEvent {
+public class PlayerLeaveDynamicRaceCheckpointEvent extends AbstractPlayerCheckpointEvent {
 
     public PlayerLeaveDynamicRaceCheckpointEvent(Player player, DynamicRaceCheckpoint cp) {
         super(player, cp);

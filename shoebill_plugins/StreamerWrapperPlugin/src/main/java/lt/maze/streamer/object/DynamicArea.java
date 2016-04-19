@@ -51,7 +51,7 @@ public interface DynamicArea extends StreamerItem {
      * This type corresponds to the STREAMER_AREA_TYPE constant. See {@link lt.maze.streamer.Constants} for a list
      * @return the area type
      */
-    StreamerAreaType getType();
+    StreamerAreaType getAreaType();
 
 
     static Collection<DynamicArea> get() {

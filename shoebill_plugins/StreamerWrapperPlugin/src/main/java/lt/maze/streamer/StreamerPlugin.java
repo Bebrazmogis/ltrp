@@ -217,9 +217,6 @@ public class StreamerPlugin extends Plugin {
         return null;
     }
 
-    public boolean isItemVisible(Player p, StreamerType type, StreamerItem item) {
-        return Functions.Streamer_IsItemVisible(p.getId(), type.getValue(), item.getId()) == 1;
-    }
 
     public void destroyAllVisibleItems(Player p, StreamerType type, boolean serverwide) {
         Functions.Streamer_DestroyAllVisibleItems(p.getId(), type.getValue(), serverwide ? 1 : 0);

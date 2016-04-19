@@ -30,11 +30,8 @@ public class DynamicCylinder extends AbstractDynamicArea {
     }
 
     private DynamicCylinder(int id) {
-        super(id);
+        super(id, StreamerAreaType.Cylinder);
     }
 
-    @Override
-    public StreamerAreaType getType() {
-        return StreamerAreaType.Cylinder;
-    }
+
 }

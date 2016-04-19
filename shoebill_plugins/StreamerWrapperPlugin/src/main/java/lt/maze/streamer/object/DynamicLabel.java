@@ -2,6 +2,7 @@ package lt.maze.streamer.object;
 
 import lt.maze.streamer.Constants;
 import lt.maze.streamer.Functions;
+import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.amx.types.ReferenceString;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
@@ -18,7 +19,7 @@ import java.util.Optional;
  * @author Bebras
  *         2016.02.16.
  */
-public class DynamicLabel implements StreamerItem {
+public class DynamicLabel extends AbstractStreamerItem implements StreamerItem {
 
     private static final Collection<DynamicLabel> labels = new ArrayList<>();
 
@@ -72,15 +73,11 @@ public class DynamicLabel implements StreamerItem {
         return create(text, color, position, 20f);
     }
 
-    private int id;
-    private boolean destroyed;
+
+
 
     private DynamicLabel(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
+        super(id, StreamerType.Label);
     }
 
     public boolean isValid() {
@@ -99,13 +96,10 @@ public class DynamicLabel implements StreamerItem {
 
     @Override
     public void destroy() {
-        destroyed = true;
+        super.destroy();
         labels.remove(this);
         Functions.DestroyDynamic3DTextLabel(getId());
     }
 
-    @Override
-    public boolean isDestroyed() {
-        return destroyed;
-    }
+
 }

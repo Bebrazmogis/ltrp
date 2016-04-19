@@ -34,11 +34,8 @@ class DynamicRectangle extends AbstractDynamicArea {
     }
 
     private DynamicRectangle(int id) {
-        super(id);
+        super(id, StreamerAreaType.Rectangle);
     }
 
-    @Override
-    public StreamerAreaType getType() {
-        return StreamerAreaType.Rectangle;
-    }
+
 }

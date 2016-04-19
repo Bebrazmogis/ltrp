@@ -1,6 +1,8 @@
 package lt.maze.streamer.object;
 
+import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.object.Destroyable;
+import net.gtaun.shoebill.object.Player;
 
 /**
  * @author Bebras
@@ -13,5 +15,6 @@ public interface StreamerItem extends Destroyable {
      * @return
      */
     int getId();
-
+    boolean isVisible(Player p);
+    StreamerType getType();
 }

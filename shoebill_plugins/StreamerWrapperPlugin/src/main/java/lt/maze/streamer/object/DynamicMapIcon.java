@@ -2,6 +2,7 @@ package lt.maze.streamer.object;
 
 import lt.maze.streamer.Constants;
 import lt.maze.streamer.Functions;
+import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.constant.MapIconStyle;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Vector3D;
@@ -16,7 +17,7 @@ import java.util.Optional;
  * @author Bebras
  *         2016.02.16.
  */
-public class DynamicMapIcon implements StreamerItem {
+public class DynamicMapIcon extends AbstractStreamerItem implements StreamerItem {
 
     private static Collection<DynamicMapIcon> mapIcons = new ArrayList<>();
 
@@ -48,15 +49,10 @@ public class DynamicMapIcon implements StreamerItem {
         return create(position.x, position.y, position.z, type, color);
     }
 
-    private int id;
-    private boolean destroyed;
+
 
     private DynamicMapIcon(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
+        super(id, StreamerType.MapIcon);
     }
 
 
@@ -66,13 +62,9 @@ public class DynamicMapIcon implements StreamerItem {
 
     @Override
     public void destroy() {
-        destroyed = true;
+        super.destroy();
         Functions.DestroyDynamicMapIcon(getId());
         mapIcons.remove(this);
     }
 
-    @Override
-    public boolean isDestroyed() {
-        return destroyed;
-    }
 }

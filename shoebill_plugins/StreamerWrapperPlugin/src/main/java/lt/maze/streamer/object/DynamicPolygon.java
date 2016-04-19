@@ -41,14 +41,10 @@ public class DynamicPolygon extends AbstractDynamicArea {
     private float[] points;
 
     private DynamicPolygon(int id, float[] points) {
-        super(id);
+        super(id, StreamerAreaType.Polygon);
         this.points = points;
     }
 
-    @Override
-    public StreamerAreaType getType() {
-        return StreamerAreaType.Cuboid;
-    }
 
     public float[] getPoints() {
         return points;

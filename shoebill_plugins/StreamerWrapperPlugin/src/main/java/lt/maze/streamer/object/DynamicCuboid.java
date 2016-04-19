@@ -32,11 +32,8 @@ public class DynamicCuboid extends AbstractDynamicArea {
     }
 
     private DynamicCuboid(int id) {
-        super(id);
+        super(id, StreamerAreaType.Cuboid);
     }
 
-    @Override
-    public StreamerAreaType getType() {
-        return StreamerAreaType.Cuboid;
-    }
+
 }
