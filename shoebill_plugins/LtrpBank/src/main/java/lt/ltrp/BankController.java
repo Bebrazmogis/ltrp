@@ -1,12 +1,11 @@
 package lt.ltrp;
 
-import lt.ltrp.api.LtrpGamemode;
-import lt.ltrp.common.constant.Currency;
+import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.BankDao;
 import lt.ltrp.dialog.BankAccountDialog;
 import lt.ltrp.event.*;
+import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.player.BankAccount;
-import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.streamer.event.PlayerDynamicPickupEvent;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;

@@ -1,7 +1,7 @@
 package lt.ltrp.event;
 
 import lt.ltrp.player.BankAccount;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.event.player.PlayerEvent;
 import net.gtaun.shoebill.object.Player;
 
