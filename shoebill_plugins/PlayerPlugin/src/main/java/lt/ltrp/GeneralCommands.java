@@ -1,14 +1,13 @@
-package lt.ltrp.player;
+package lt.ltrp;
 
-import lt.ltrp.LtrpGamemodeImpl;
-import lt.ltrp.command.CommandParam;
+
 import lt.ltrp.data.Color;
-import lt.ltrp.player.data.PlayerLicense;
-import lt.ltrp.player.dialog.FightStyleDialog;
-import lt.ltrp.player.dialog.PlayerSettingsListDialog;
-import lt.ltrp.player.event.PlayerAskQuestionEvent;
-import lt.ltrp.player.event.PlayerSendPrivateMessageEvent;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.data.PlayerLicense;
+import lt.ltrp.dialog.FightStyleDialog;
+import lt.ltrp.dialog.PlayerSettingsListDialog;
+import lt.ltrp.event.player.PlayerAskQuestionEvent;
+import lt.ltrp.event.player.PlayerSendPrivateMessageEvent;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -90,10 +89,10 @@ public class GeneralCommands {
     @Command
     @CommandHelp("Leidþia iðmokti naujus kovos stilius")
     public boolean learnfight(LtrpPlayer player) {
-        if(player.getLocation().distance(LtrpGamemode.GYM_LOCATION) > 10f) {
+        if(player.getLocation().distance(PlayerController.GYM_LOCATION) > 10f) {
             player.sendErrorMessage("Jûs turite bûti sporto salëje!");
         } else {
-            FightStyleDialog.create(player, LtrpGamemode.get().getEventManager()).show();
+            FightStyleDialog.create(player, eventManager).show();
         }
         return true;
     }
@@ -185,7 +184,7 @@ public class GeneralCommands {
         if(onlineMods.size() > 0) {
             p.sendMessage(Color.MODERATOR, "|_________________PRISIJUNGÆ MODERATORIAI_________________|");
             onlineMods.forEach(m -> {
-                if(AdminController.getOndutyModerators().contains(m))
+                if(AdminController.get().getModeratorsOnDuty().contains(m))
                     p.sendMessage(Color.GREEN, String.format("Moderatorius %s (%s) ájungæs budinèio moderatoriaus rëþimà.", p.getName(), p.getForumName()));
                 else
                     p.sendMessage(Color.LIGHTRED, String.format("Moderatorius %s (%s) iðjungæs budinèio moderatoriaus rëþimà.", p.getName(), p.getForumName()));

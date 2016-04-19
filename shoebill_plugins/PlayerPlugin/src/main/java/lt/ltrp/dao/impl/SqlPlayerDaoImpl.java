@@ -1,13 +1,12 @@
-package lt.ltrp.player.dao.impl;
+package lt.ltrp.dao.impl;
 
 
 import javafx.util.Pair;
-import lt.ltrp.job.Job;
-import lt.ltrp.player.constant.LicenseType;
-import lt.ltrp.player.dao.PlayerDao;
-import lt.ltrp.player.data.*;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.vehicle.PlayerVehiclePermission;
+import lt.ltrp.constant.LicenseType;
+import lt.ltrp.dao.PlayerDao;
+import lt.ltrp.data.*;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.constant.PlayerVehiclePermission;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.WeaponData;
@@ -16,10 +15,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Date;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,10 +78,15 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         boolean loaded = false;
         String sql = "SELECT " +
                 "secret_question, secret_answer, admin_level, mod_level, players.level, players.job_id, money, hours_online, box_style, age, " +
+                "respect, deaths, hunger, total_paycheck, minutes_online_since_payday, forum_name " +
+                "FROM players " +
+                " WHERE players.id = ? LIMIT 1";
+        /*String sql = "SELECT " +
+                "secret_question, secret_answer, admin_level, mod_level, players.level, players.job_id, money, hours_online, box_style, age, " +
                 "respect, deaths, hunger, total_paycheck, job_contract, minutes_online_since_payday, forum_name " +
                 ", player_job_levels.level AS job_level, player_job_levels.hours AS job_hours, player_job_levels.xp AS job_xp " +
                 "FROM players LEFT JOIN player_job_levels ON players.id = player_job_levels.player_id AND players.job_id = player_job_levels.job_id" +
-                " WHERE players.id = ? LIMIT 1";
+                " WHERE players.id = ? LIMIT 1";*/
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
@@ -95,7 +97,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setAdminLevel(result.getInt("admin_level"));
                 player.setLevel(result.getInt("level"));
                 player.setMoney(result.getInt("money"));
-                player.setJob(Job.get(result.getInt("job_id")));
+                //player.setJob(Job.get(result.getInt("job_id")));
                 player.setSecretQuestion(result.getString("secret_question"));
                 player.setSecretAnswer(result.getString("secret_answer"));
                 player.setOnlineHours(result.getInt("hours_online"));
@@ -105,17 +107,17 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setDeaths(result.getInt("deaths"));
                 player.setHunger(result.getInt("hunger"));
                 player.setTotalPaycheck(result.getInt("total_paycheck"));
-                player.setJobContract(result.getInt("job_contract"));
+               // player.setJobContract(result.getInt("job_contract"));
                 player.setMinutesOnlineSincePayday(result.getInt("minutes_online_since_payday"));
                 player.setModLevel(result.getInt("mod_level"));
                 player.setForumName(result.getString("forum_name"));
 
-                int jobLevel = result.getInt("job_level");
+                /*int jobLevel = result.getInt("job_level");
                 if(!result.wasNull()) {
                    // player.setJobLevel(jobLevel);
                     player.setJobHours(result.getInt("job_hours"));
                     player.setJobExperience(result.getInt("job_xp"));
-                }
+                }*/
                 loadSettings(player, connection);
                 loaded = true;
             }
@@ -343,7 +345,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return crimes;
     }
 
-    @Override
+    //@Override
     public Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player) {
         Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> permissions = new HashMap<>();
         String sql = "SELECT vehicle_id, permission FROM player_vehicle_permissions WHERE player_id = ?";

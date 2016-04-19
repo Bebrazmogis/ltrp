@@ -1,26 +1,21 @@
-package lt.ltrp.player;
+package lt.ltrp.object.impl;
 
 import lt.ltrp.InventoryEntityImpl;
-import lt.ltrp.job.ContractJob;
-import lt.ltrp.job.ContractJobRank;
-import lt.ltrp.job.Job;
-import lt.ltrp.job.Rank;
-import lt.ltrp.player.data.*;
-import lt.ltrp.player.data.Animation;
-import lt.ltrp.player.event.PlayerChangeJobEvent;
-import lt.ltrp.player.event.PlayerJailEvent;
-import lt.ltrp.player.event.PlayerUnJailEvent;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.player.object.PlayerCountdown;
-import lt.ltrp.player.object.PlayerInfoBox;
-import lt.ltrp.property.Property;
+import lt.ltrp.data.Animation;
+import lt.ltrp.data.*;
+import lt.ltrp.event.job.PlayerChangeJobEvent;
+import lt.ltrp.event.player.PlayerActionMessageEvent;
+import lt.ltrp.event.player.PlayerJailEvent;
+import lt.ltrp.event.player.PlayerStateMessageEvent;
+import lt.ltrp.event.player.PlayerUnJailEvent;
+import lt.ltrp.object.*;
 import lt.ltrp.util.PawnFunc;
-import lt.ltrp.vehicle.LtrpVehicle;
 import lt.maze.audio.AudioHandle;
 import lt.maze.audio.AudioPlugin;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.*;
+import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.exception.AlreadyExistException;
 import net.gtaun.shoebill.exception.IllegalLengthException;
 import net.gtaun.shoebill.object.*;
@@ -29,7 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Bebras
@@ -134,7 +132,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public static void sendModMessage(String s) {
         get().stream()
                 .filter(p -> (p.isModerator() || p.isAdmin()) && !p.getSettings().isModChatDisabled())
-                .forEach(p -> p.sendMessage(lt.ltrp.data.Color.MODERATOR, s));
+                .forEach(p -> p.sendMessage(lt.ltrp.common.data.Color.MODERATOR, s));
     }
 
     public static void sendGlobalMessage(String s) {
@@ -172,7 +170,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     /**
      * Basically this has one ue: to check if the user is allowed to get payday
-     * If this is larger or equal to {@link lt.ltrp.player.PlayerController#MINUTES_FOR_PAYDAY} he will get payday
+     * If this is larger or equal to {@link lt.ltrp.PlayerController#MINUTES_FOR_PAYDAY} he will get payday
      */
     private int minutesOnlineSincePayday;
 
@@ -824,7 +822,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     @Override
     public Color getColor() {
-        return player.getColor();
+        return (lt.ltrp.data.Color)player.getColor();
     }
 
     @Override
@@ -1056,6 +1054,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public void setColor(Color color) {
         player.setColor(color);
     }
+
 
     @Override
     public void setHealth(float v) {

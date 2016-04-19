@@ -1,13 +1,12 @@
-package lt.ltrp.player;
+package lt.ltrp;
 
-import lt.ltrp.LtrpGamemodeImpl;
-import lt.ltrp.player.dao.PlayerDao;
-import lt.ltrp.player.event.PlayerLogInEvent;
-import lt.ltrp.player.object.LtrpPlayer;
+
+import lt.ltrp.dao.PlayerDao;
+import lt.ltrp.event.player.PlayerLogInEvent;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.impl.LtrpPlayerImpl;
 import lt.ltrp.util.Whirlpool;
 import net.gtaun.shoebill.common.dialog.InputDialog;
-import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
-import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
 import java.util.logging.Level;
@@ -23,12 +22,11 @@ public class AuthController {
 
     private int failedLoginAttempts;
 
-    public AuthController(EventManager manager, LtrpPlayerImpl player) {
+    public AuthController(EventManager manager, LtrpPlayerImpl player, PlayerDao playerDao) {
         Logger.getLogger(AuthController.class.getSimpleName()).log(Level.INFO, "AuthController :: constructor");
-        PlayerDao dao = LtrpGamemodeImpl.getDao().getPlayerDao();
         Logger.getLogger(AuthController.class.getSimpleName()).log(Level.INFO, "AuthController :: constructor dao got");
 
-        player.setPassword(dao.getPassword(player));
+        player.setPassword(playerDao.getPassword(player));
         Logger.getLogger(AuthController.class.getSimpleName()).log(Level.INFO, "AuthController :: constructor player password set");
 
         // Check if player is banned

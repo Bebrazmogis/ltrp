@@ -1,7 +1,7 @@
-package lt.ltrp.player;
+package lt.ltrp.object.impl;
 
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.player.object.PlayerCountdown;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.PlayerCountdown;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Timer;
 

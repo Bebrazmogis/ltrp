@@ -1,12 +1,15 @@
-package lt.ltrp.player;
+package lt.ltrp;
 
-import lt.ltrp.LtrpGamemode;
-import lt.ltrp.Util.AdminLog;
 import lt.ltrp.data.Color;
-import lt.ltrp.event.player.*;
+import lt.ltrp.event.player.PlayerAcceptPlayerQuestion;
+import lt.ltrp.event.player.PlayerAskQuestionEvent;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
-import lt.ltrp.player.PlayerController;import lt.ltrp.player.event.*;
-import lt.ltrp.player.event.PlayerAcceptPlayerQuestion;import lt.ltrp.player.event.PlayerAskQuestionEvent;import lt.ltrp.player.event.PlayerDataLoadEvent;import lt.ltrp.player.event.PlayerRejectPlayerQuestion;import lt.ltrp.player.event.PlayerToggleAdminDutyEvent;import lt.ltrp.player.event.PlayerToggleModDutyEvent;import lt.maze.streamer.object.DynamicLabel;
+import lt.ltrp.event.player.PlayerRejectPlayerQuestion;
+import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
+import lt.ltrp.event.player.PlayerToggleModDutyEvent;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.util.AdminLog;
+import lt.maze.streamer.object.DynamicLabel;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.data.Location;
@@ -27,7 +30,7 @@ import java.util.Map;
  * @author Bebras
  *         2016.04.10.
  */
-public class AdminController implements Destroyable {
+public class AdminControllerImpl implements AdminController, Destroyable {
 
     private static AdminController instance;
 
@@ -39,7 +42,7 @@ public class AdminController implements Destroyable {
     private Map<LtrpPlayer, Instant> adminDutyStartInstants;
     private boolean destroyed;
 
-    public AdminController(EventManager eventManager, PlayerCommandManager commandManager) {
+    public AdminControllerImpl(EventManager eventManager, PlayerCommandManager commandManager) {
         instance = this;
         this.eventManagerNode = eventManager.createChildNode();
         this.moderatorsOnDuty = new ArrayList<>();
@@ -111,7 +114,7 @@ public class AdminController implements Destroyable {
     private void endAdminWatch(LtrpPlayer player) {
         player.setHealth(100f);
         player.setArmour(0f);
-        player.setColor(PlayerController.DEFAULT_PLAYER_COLOR);
+        player.setColor(LtrpPlayer.DEFAULT_PLAYER_COLOR);
         player.getAttach().getSlotByBone(PlayerAttachBone.NECK).remove();
         Instant startInstant = adminDutyStartInstants.get(player);
         Duration dutyDuration = Duration.between(startInstant, Instant.now());
@@ -149,7 +152,7 @@ public class AdminController implements Destroyable {
     }
 
     public Collection<LtrpPlayer> getModeratorsOnDuty() {
-        return instance.moderatorsOnDuty;
+        return moderatorsOnDuty;
     }
 
     public static Collection<LtrpPlayer> getOndutyModerators() {

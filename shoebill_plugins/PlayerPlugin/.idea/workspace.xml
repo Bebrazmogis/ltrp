@@ -32,45 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
+      <file leaf-file-name="PlayerPlugin.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="235" max-vertical-offset="1190">
-              <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayerPlugin.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
-              <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LtrpPlayerImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.0816803" vertical-offset="7243" max-vertical-offset="22797">
-              <caret line="684" column="65" selection-start-line="684" selection-start-column="34" selection-end-line="684" selection-end-column="65" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModeratorCommands.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/ModeratorCommands.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="2584">
-              <caret line="42" column="10" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.08188153" vertical-offset="514" max-vertical-offset="1241">
+              <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,24 +54,44 @@
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/event/PlayerOfferExpireEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/event/PlayerLogInEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/event/PlayerDataLoadEvent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerJailController.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/event/PlayerEvent.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/event/PlayerChangeJobEvent.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerInfoBox.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/SpawnController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AuthController.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/dao/impl/SqlPlayerDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/GeneralCommands.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/GettersSetters.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdown.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdownImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/ModeratorCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/GeneralCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AuthController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/dialog/FightStyleDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/GettersSetters.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/dao/impl/SqlPlayerDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerInfoBoxImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/SpawnController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerJailController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdownImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/object/impl/PlayerControllerImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerControllerImpl.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/SpawnController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/AuthController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerInfoBoxImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/LtrpPlayerImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/GettersSetters.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/ModeratorCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/AdminCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/AdminControllerImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerPlugin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/GeneralCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/LtrpPlayerImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/PlayerInfoBoxImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerControllerImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerJailController.java" />
       </list>
     </option>
   </component>
@@ -143,8 +129,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -163,15 +149,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: lt.ltrp:database:1.0-SNAPSHOT" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="database-1.0-SNAPSHOT.jar" />
+              <option name="myItemId" value="PlayerPlugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -181,15 +159,51 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+              <option name="myItemId" value="PlayerPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: lt.ltrp:database:1.0-SNAPSHOT" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayerPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="database-1.0-SNAPSHOT.jar" />
+              <option name="myItemId" value="PlayerPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayerPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PlayerPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -206,36 +220,24 @@
               <option name="myItemId" value="PlayerPlugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayerPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayerPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayerPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayerPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -261,33 +263,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayerPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PlayerPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="player" />
+              <option name="myItemId" value="ltrp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -310,6 +286,11 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="lt.ltrp" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -566,16 +547,18 @@
       <updated>1460052950728</updated>
       <workItem from="1460052953579" duration="11058000" />
       <workItem from="1460101705068" duration="4051000" />
-      <workItem from="1460651378256" duration="1204000" />
+      <workItem from="1460651378256" duration="6341000" />
+      <workItem from="1460794463070" duration="5385000" />
+      <workItem from="1461054504436" duration="1921000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16313000" />
+    <option name="totallyTimeSpent" value="28756000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -583,11 +566,11 @@
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3264865" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32962137" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26918977" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -624,11 +607,78 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1007" max-vertical-offset="1683">
+          <caret line="91" column="12" selection-start-line="91" selection-start-column="12" selection-end-line="91" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10404">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT id FR..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT `pass..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT secre..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_settings..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT skin,..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_jailtime..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_crashes..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_crimes..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT vehic..player_vehicle_permissions..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_licenses..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT usern..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT id FR..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_license_warnings..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="14" max-vertical-offset="1088">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerControllerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6936">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="235" max-vertical-offset="1190">
@@ -637,7 +687,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -647,7 +697,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/LtrpPlayerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="22797">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -665,7 +715,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="833">
           <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
@@ -675,7 +725,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerControllerImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerControllerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="609" max-vertical-offset="7157">
           <caret line="44" column="19" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="19" />
@@ -685,7 +735,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/LtrpPlayerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="29852">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -695,10 +745,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdownImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/PlayerCountdownImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="2703">
           <caret line="19" column="7" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -709,125 +760,187 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerJailController.java">
+    <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_05/src.zip!/java/lang/StringBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0816092" vertical-offset="65" max-vertical-offset="1751">
-          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="692" max-vertical-offset="6936">
+          <caret line="75" column="19" selection-start-line="75" selection-start-column="19" selection-end-line="75" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/dialog/FightStyleDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6169844" vertical-offset="358" max-vertical-offset="1190">
+          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="235" max-vertical-offset="1190">
-          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="463" max-vertical-offset="1530">
+          <caret line="45" column="21" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/SpawnController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/SqlPlayerDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.2975496" vertical-offset="731" max-vertical-offset="2567">
-          <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/dao/impl/SqlPlayerDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.118390806" vertical-offset="951" max-vertical-offset="9724">
-          <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/AuthController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1333333" vertical-offset="0" max-vertical-offset="1394">
-          <caret line="58" column="46" selection-start-line="58" selection-start-column="46" selection-end-line="58" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="268" max-vertical-offset="10370">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT id FR..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT `pass..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT secre..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_settings..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT skin,..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_jailtime..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_crashes..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_crimes..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT vehic..player_vehicle_permissions..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_licenses..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT usern..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT id FR..players..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..player_license_warnings..." />
+            <marker date="1461056230690" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/GeneralCommands.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/LtrpPlayerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33563218" vertical-offset="405" max-vertical-offset="1734">
-          <caret line="53" column="26" selection-start-line="53" selection-start-column="26" selection-end-line="53" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/GettersSetters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3908046" vertical-offset="6681" max-vertical-offset="8500">
-          <caret line="413" column="48" selection-start-line="413" selection-start-column="48" selection-end-line="413" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerControllerImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5114943" vertical-offset="354" max-vertical-offset="7395">
-          <caret line="47" column="31" selection-start-line="47" selection-start-column="31" selection-end-line="47" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="8721" max-vertical-offset="22780">
+          <caret line="686" column="32" selection-start-line="686" selection-start-column="32" selection-end-line="686" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerInfoBoxImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/PlayerCountdownImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2114942" vertical-offset="0" max-vertical-offset="3009">
-          <caret line="64" column="40" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2754">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerCountdownImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/PlayerInfoBoxImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.2735632" vertical-offset="425" max-vertical-offset="2754">
-          <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/AdminCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37689614" vertical-offset="3230" max-vertical-offset="8891">
-          <caret line="209" column="27" selection-start-line="209" selection-start-column="27" selection-end-line="209" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/PlayerPlugin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
-          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="115" max-vertical-offset="3026">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/ModeratorCommands.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/AdminCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="2584">
-          <caret line="42" column="10" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="9554">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/player/LtrpPlayerImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/AdminControllerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.0816803" vertical-offset="7243" max-vertical-offset="22797">
-          <caret line="684" column="65" selection-start-line="684" selection-start-column="34" selection-end-line="684" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="2669">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/AuthController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="392" max-vertical-offset="1360">
+          <caret line="48" column="53" selection-start-line="48" selection-start-column="53" selection-end-line="48" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/GeneralCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="336" max-vertical-offset="3417">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/ModeratorCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="183" max-vertical-offset="2601">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/GettersSetters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="81" max-vertical-offset="8568">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerControllerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="472" max-vertical-offset="6715">
+          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/SpawnController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="2567">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerJailController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05923345" vertical-offset="0" max-vertical-offset="1802">
+          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/PlayerPlugin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08188153" vertical-offset="514" max-vertical-offset="1241">
+          <caret line="33" column="34" selection-start-line="33" selection-start-column="34" selection-end-line="33" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

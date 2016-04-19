@@ -26,5 +26,8 @@
         <module name="PlayerPlugin" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="PlayerPlugin" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

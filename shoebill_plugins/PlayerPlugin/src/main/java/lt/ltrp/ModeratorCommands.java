@@ -1,10 +1,11 @@
-package lt.ltrp.player;
+package lt.ltrp;
 
-import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
-import lt.ltrp.player.event.PlayerAcceptPlayerQuestion;
-import lt.ltrp.player.event.PlayerRejectPlayerQuestion;
-import lt.ltrp.player.event.PlayerToggleModDutyEvent;
+import lt.ltrp.event.player.PlayerAcceptPlayerQuestion;
+import lt.ltrp.event.player.PlayerRejectPlayerQuestion;
+import lt.ltrp.event.player.PlayerToggleModDutyEvent;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.util.AdminLog;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -19,7 +20,7 @@ import java.util.Map;
  * @author Bebras
  *         2016.04.10.
  */
-public class ModeratorCommands extends Commands {
+public class ModeratorCommands {
 
     private HashMap<String, Integer> commandLevels;
 

@@ -1,27 +1,20 @@
-package lt.ltrp.player;
+package lt.ltrp;
 
 
-
-import lt.ltrp.BankPlugin;
-import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.data.LtrpWorld;
 import lt.ltrp.constant.Currency;
-import lt.ltrp.player.dao.PlayerDao;
+import lt.ltrp.data.Taxes;
+import lt.ltrp.dao.PlayerDao;
+import lt.ltrp.data.Animation;
+import lt.ltrp.data.JobData;
+import lt.ltrp.data.PlayerLicenses;
 import lt.ltrp.event.PaydayEvent;
-import lt.ltrp.item.FixedSizeInventory;
-import lt.ltrp.item.Item;
-import lt.ltrp.job.*;
-import lt.ltrp.player.data.Animation;
-import lt.ltrp.player.data.PlayerLicenses;
-import lt.ltrp.player.event.PlayerDataLoadEvent;
-import lt.ltrp.player.event.PlayerLogInEvent;
-import lt.ltrp.player.event.PlayerOfferExpireEvent;
-import lt.ltrp.player.event.PlayerSpawnSetUpEvent;
-import lt.ltrp.player.object.PlayerCountdown;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.property.Business;
-import lt.ltrp.property.Garage;
-import lt.ltrp.property.House;
+import lt.ltrp.event.player.*;
+import lt.ltrp.object.*;
+import lt.ltrp.object.impl.LtrpPlayerImpl;
+import lt.ltrp.player.BankAccount;
 import lt.ltrp.util.PawnFunc;
+import lt.ltrp.util.PlayerLog;
 import lt.maze.streamer.StreamerPlugin;
 import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.Shoebill;
@@ -36,7 +29,6 @@ import net.gtaun.shoebill.event.amx.AmxUnloadEvent;
 import net.gtaun.shoebill.event.player.*;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.PlayerWeaponSkill;
-import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
@@ -58,12 +50,11 @@ public class PlayerControllerImpl implements PlayerController {
     private Map<LtrpPlayer, Boolean> spawnsSetUp = new HashMap<>();
     private List<LtrpPlayer> firstSpawns = new ArrayList<>();
     private Timer javaMinuteTimer;
-    private PlayerCommandManager playerCommandManager;
     private PlayerJailController playerJailController;
-    private AdminController adminController;
     private PlayerLog playerLog;
+    private boolean destroyed;
 
-    public PlayerControllerImpl(EventManager manager, JobManager jobManager, PlayerDao playerDao) {
+    public PlayerControllerImpl(EventManager manager, PlayerDao playerDao, PlayerCommandManager playerCommandManager) {
         Instance.instance = this;
         this.playerList = new ArrayList<>();
         this.playerDao = playerDao;
@@ -71,12 +62,9 @@ public class PlayerControllerImpl implements PlayerController {
         managerNode = manager.createChildNode();
 
         this.playerLog = new PlayerLog(managerNode);
-        playerCommandManager = new PlayerCommandManager(managerNode);
-        playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
-        replaceTypeParsers();
+
         playerCommandManager.registerCommands(new GeneralCommands(managerNode));
 
-        adminController = new AdminController(managerNode, playerCommandManager);
 
         managerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.HIGHEST, e -> {
             logger.info("PlayerConnectEvent received: " + e.getPlayer().getName());
@@ -95,7 +83,7 @@ public class PlayerControllerImpl implements PlayerController {
                 player.setColor(Color.WHITE); // Make the users radar blip invisible
 
                 // Authentication
-                new AuthController(managerNode, player);
+                new AuthController(managerNode, player, playerDao);
             } else {
 
                 e.getPlayer().kick();
@@ -230,29 +218,18 @@ public class PlayerControllerImpl implements PlayerController {
                if(Player.get(p.getId()) == null)
                    playerList.remove(p);
 
-               int houseTax = (int)House.get().stream().filter(h -> h.getOwnerUserId() == p.getUUID()).count() * LtrpGamemode.getHouseTax();
-               int businessTax = (int)Business.get().stream().filter(b -> b.getOwnerUserId() == p.getUUID()).count() * LtrpGamemode.getBusinessTax();
-               int garageTax = (int)Garage.get().stream().filter(g -> g.getOwnerUserId() == p.getUUID()).count() * LtrpGamemode.getGarageTax();
-               int vehicleTax = LtrpGamemodeImpl.getDao().getVehicleDao().getPlayerVehicleCount(p) * LtrpGamemode.getVehicleTax();
+               Taxes taxes = LtrpWorld.get().getTaxes();
+               int houseTax = (int) House.get().stream().filter(h -> h.getOwnerUserId() == p.getUUID()).count() * taxes.getHouseTax();
+               int businessTax = (int) Business.get().stream().filter(b -> b.getOwnerUserId() == p.getUUID()).count() * taxes.getBusinessTax();
+               int garageTax = (int) Garage.get().stream().filter(g -> g.getOwnerUserId() == p.getUUID()).count() * taxes.getGarageTax();
+               int vehicleTax = VehicleController.get().getDao().getPlayerVehicleCount(p) * taxes.getVehicleTax();
 
                if(p.getMinutesOnlineSincePayday() > MINUTES_FOR_PAYDAY) {
                    int paycheck = 0;
 
-                   if (p.getJob() != null) {
-                       paycheck = p.getJobRank().getSalary();
-                       p.setJobHours(p.getJobHours() + 1);
-                       if(p.getJob() instanceof ContractJob) {
-                           p.setJobContract(p.getJobContract() - 1);
-                       }
-                       if (p.getJob() instanceof ContractJob && p.getJobRank() instanceof ContractJobRank) {
-                           ContractJobRank nextRank = (ContractJobRank) p.getJob().getRank(p.getJobRank().getNumber() + 1);
-                           // If the user doesn't have the highest rank yet
-                           if (nextRank != null) {
-                               if (nextRank.getXpNeeded() <= p.getJobExperience()) {
-                                   p.setJobRank(nextRank);
-                               }
-                           }
-                       }
+                   JobData jobData = JobController.get().getJobData(p);
+                   if (jobData != null) {
+                       paycheck = jobData.getJobRank().getSalary();
                    } else {
                        paycheck = 100;
                    }
@@ -281,7 +258,7 @@ public class PlayerControllerImpl implements PlayerController {
                } else {
                    p.sendErrorMessage("Apgailestaujame, bet atlyginimo už šią valandą negausite, kadangi Jūs nebuvote prisijungęs pakankamai.");
                }
-               LtrpGamemodeImpl.getDao().getPlayerDao().update(p);
+               playerDao.update(p);
            });
         });
 
@@ -361,14 +338,14 @@ public class PlayerControllerImpl implements PlayerController {
     private void loadDataThreaded(LtrpPlayer player) {
         new Thread(() -> {
             playerDao.loadData(player);
-            Item[] items = LtrpGamemodeImpl.getDao().getItemDao().getItems(player);
-            logger.info("PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUUID());
-            player.setInventory(new FixedSizeInventory(managerNode, player.getName() + " kuprinės", player));
-            player.getInventory().add(items);
+            //Item[] items = LtrpGamemodeImpl.getDao().getItemDao().getItems(player);
+            //logger.info("PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUUID());
+            player.setInventory(Inventory.create(managerNode, player, player.getName() + " kuprinės", 20));
+            //player.getInventory().add(items);
 
            // player.setVehicleMetadata(playerDao.getVehiclePermissions(player));
 
-            PlayerLicenses licenses = LtrpGamemodeImpl.getDao().getPlayerDao().get(player);
+            PlayerLicenses licenses = playerDao.get(player);
             player.setLicenses(licenses);
             managerNode.dispatchEvent(new PlayerDataLoadEvent(player));
         }).start();
@@ -398,49 +375,13 @@ public class PlayerControllerImpl implements PlayerController {
         managerNode.cancelAll();
         managerNode.destroy();
         javaMinuteTimer.cancel();
-        playerCommandManager.destroy();
         playerJailController.destroy();
-        adminController.destroy();
+        destroyed = true;
     }
 
-    private static void replaceTypeParsers() {
-        PlayerCommandManager.replaceTypeParser(LtrpPlayer.class, s -> {
-            int id = Player.INVALID_ID;
-            try {
-                id = Integer.parseInt(s);
-            } catch(NumberFormatException e) {
-                return null;
-            }
-            return LtrpPlayer.get(id);
-        });
-        PlayerCommandManager.replaceTypeParser(Vehicle.class, s -> {
-            int id = Vehicle.INVALID_ID;
-            try {
-                id = Integer.parseInt(s);
-            } catch(NumberFormatException e) {
-                return null;
-            }
-            return Vehicle.get(id);
-        });
-        PlayerCommandManager.replaceTypeParser(ContractJob.class, s -> {
-            int id = ContractJob.INVALID_ID;
-            try {
-                id = Integer.parseInt(s);
-            } catch(NumberFormatException e) {
-                return null;
-            }
-            return JobManager.getContractJob(id);
-        });
-
-        PlayerCommandManager.replaceTypeParser(Faction.class, s -> {
-            int id = Faction.INVALID_ID;
-            try {
-                id = Integer.parseInt(s);
-            } catch(NumberFormatException e) {
-                return null;
-            }
-            return JobManager.getFaction(id);
-        });
+    @Override
+    public boolean isDestroyed() {
+        return destroyed;
     }
 
     @Override

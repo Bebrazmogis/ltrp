@@ -1,13 +1,14 @@
-package lt.ltrp.player;
+package lt.ltrp.object.impl;
+
 
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
-import lt.ltrp.item.RadioItem;
-import lt.ltrp.job.Taxi;
-import lt.ltrp.player.object.LtrpPlayer;
-import lt.ltrp.player.object.PlayerInfoBox;
-import lt.ltrp.vehicle.FuelTank;
-import lt.ltrp.vehicle.LtrpVehicle;
+import lt.ltrp.object.RadioItem;
+import lt.ltrp.data.TaxiFare;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.PlayerInfoBox;
+import lt.ltrp.data.FuelTank;
+import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.constant.TextDrawFont;
 import net.gtaun.shoebill.object.PlayerTextdraw;
 
@@ -25,7 +26,7 @@ public class PlayerInfoBoxImpl implements PlayerInfoBox {
     private RadioItem radioItem;
     private LtrpVehicle vehicle;
     private Integer jailSeconds, countdownSeconds;
-    private Taxi taxiTrip;
+    private TaxiFare taxiTrip;
     private String countdownCaption;
 
 
@@ -71,7 +72,7 @@ public class PlayerInfoBoxImpl implements PlayerInfoBox {
         update();
     }
 
-    public void setTaxiFare(Taxi trip) {
+    public void setTaxiFare(TaxiFare trip) {
         this.taxiTrip = trip;
         update();
     }
@@ -106,7 +107,7 @@ public class PlayerInfoBoxImpl implements PlayerInfoBox {
                 infoText.append("~n~~w~Degalai: " + color + "" + bars.toString());
 
                 if(vehicle.getTaxi() != null) {
-                    Taxi taxi = vehicle.getTaxi();
+                    TaxiFare taxi = vehicle.getTaxi();
                     if(player.equals(taxi.getDriver())) {
                         infoText.append("~~b~___Taksometras___");
                         int count = 0;

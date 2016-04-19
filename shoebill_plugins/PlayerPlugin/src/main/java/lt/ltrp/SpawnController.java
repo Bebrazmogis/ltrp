@@ -1,15 +1,15 @@
-package lt.ltrp.player;
+package lt.ltrp;
 
-import lt.ltrp.player.data.CrashData;
-import lt.ltrp.player.data.JailData;
-import lt.ltrp.player.data.SpawnData;
-import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.data.CrashData;
+import lt.ltrp.data.JailData;
+import lt.ltrp.data.SpawnData;
+import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.util.PawnFunc;
-import lt.ltrp.player.dao.PlayerDao;
+import lt.ltrp.dao.PlayerDao;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.data.Location;
-import lt.ltrp.player.event.PlayerSpawnSetUpEvent;
+import lt.ltrp.event.player.PlayerSpawnSetUpEvent;
 import net.gtaun.shoebill.event.player.PlayerSpawnEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;

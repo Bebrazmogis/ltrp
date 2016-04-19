@@ -1,9 +1,11 @@
-package lt.ltrp.player;
+package lt.ltrp;
 
 import lt.ltrp.data.Color;
-import lt.ltrp.player.dao.PlayerDao;
-import lt.ltrp.player.event.PlayerJailEvent;
-import lt.ltrp.player.event.PlayerUnJailEvent;
+import lt.ltrp.dao.PlayerDao;
+import lt.ltrp.data.JailData;
+import lt.ltrp.event.player.PlayerJailEvent;
+import lt.ltrp.event.player.PlayerUnJailEvent;
+import lt.ltrp.object.LtrpPlayer;
 import lt.maze.streamer.event.PlayerLeaveDynamicAreaEvent;
 import lt.maze.streamer.object.DynamicArea;
 import lt.maze.streamer.object.DynamicSphere;
