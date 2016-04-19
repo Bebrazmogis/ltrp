@@ -26,5 +26,8 @@
         <module name="JobPlugin" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="JobPlugin" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

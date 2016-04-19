@@ -1,7 +1,842 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7034c151-9b05-4ffc-8e48-681189c2d510" name="Default" comment="" />
+    <list default="true" id="7034c151-9b05-4ffc-8e48-681189c2d510" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractFaction.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractJob.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/DrugDealerJobImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/JobVehicleImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/LtrpWorld.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/MechanicJobImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/MedicFactionImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/PoliceFactionImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/Taxes.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/TrashManJobImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Builder/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Builder/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Builder/.idea/copyright/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Builder/.idea/scopes/scope_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../Builder/.idea/vcs.xml" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__com_mchange_c3p0_0_9_5_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__com_mchange_mchange_commons_java_0_2_10.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__jacksum_jacksum_1_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__log4j_log4j_1_2_17.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_LtrpGamemode_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_bank_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_database_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_job_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_ltrp_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_ltrp_common_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_npc_manager_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_player_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_property_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_radio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_util_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_vehicle_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_ltrp_vehicle_shop_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_maze_audio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_maze_fader_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_maze_shoebill_event_logger_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_maze_streamer_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__lt_maze_ysf_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__mysql_mysql_connector_java_5_1_37.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__net_gtaun_shoebill_common_1_3_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_api_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_core_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__org_slf4j_slf4j_api_1_7_16.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j12_1_7_13.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j13_1_0_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\ItemApi.iml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\InventoryEntityImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\constant\ItemType.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\dao\ItemDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\event\ItemCreateEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\event\ItemDestroyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\event\ItemEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\event\ItemLocationChangeEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\event\PlayerDrawWeaponItemEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\event\PlayerDropItemEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\event\PlayerUseDrugsEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\ClothingItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\ConsumableItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\ContainerItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\DurableItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\Inventory.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\InventoryEntity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\Item.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\RadioItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\WeaponItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\src\main\java\lt\ltrp\item\object\drug\DrugItem.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\InventoryEntityImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\constant\ItemType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\dao\ItemDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\event\ItemCreateEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\event\ItemDestroyEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\event\ItemEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\event\ItemLocationChangeEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\event\PlayerDrawWeaponItemEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\event\PlayerDropItemEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\event\PlayerUseDrugsEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\ClothingItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\ConsumableItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\ContainerItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\DurableItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\Inventory.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\InventoryEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\Item.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\RadioItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\WeaponItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\classes\lt\ltrp\item\object\drug\DrugItem.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\item-api-1.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\maven-archiver\pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ItemApi\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__com_mchange_c3p0_0_9_5_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__com_mchange_mchange_commons_java_0_2_10.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__jacksum_jacksum_1_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__log4j_log4j_1_2_17.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_LtrpGamemode_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_bank_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_database_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_item_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_ltrp_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_ltrp_common_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_npc_manager_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_player_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_property_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_radio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_util_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_vehicle_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_ltrp_vehicle_shop_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_maze_audio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_maze_fader_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_maze_shoebill_event_logger_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_maze_streamer_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__lt_maze_ysf_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__mysql_mysql_connector_java_5_1_37.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__net_gtaun_shoebill_common_1_3_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_api_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_core_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__org_slf4j_slf4j_api_1_7_16.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j12_1_7_13.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j13_1_0_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\JobApi.iml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\JobController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\dao\JobDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\data\TaxiFare.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\data\TrashMission.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\data\TrashMissions.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\event\PlayerSetFactionLeaderEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\event\RemoveFactionLeaderEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\ContractJobRank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\DrugDealerJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\Faction.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\FactionRank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\Job.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\JobVehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\MechanicJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\MedicJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\OfficerJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\Rank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\TrashManJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\src\main\java\lt\ltrp\job\object\VehicleThiefJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\target\classes\lt\ltrp\job\data\TaxiFare.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\target\classes\lt\ltrp\job\object\Job.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\target\classes\lt\ltrp\job\object\Rank.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\target\job-api-1.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\target\maven-archiver\pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobApi\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\Faction.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\dialog\FactionListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\dialog\JobListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\dialog\JobRankDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\dialog\JobVehicleMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\drugdealer\DrugDealerJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\MechanicJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\medic\MedicJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\object\JobVehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\OfficerJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\trashman\TrashManJob.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\Deniable.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\EntityImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\InitException.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\LoadingException.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\LtrpGamemode.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\NamedEntity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\NamedEntityImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\colorpicker\ColorPicker.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\dialog\IntegerInputDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\dialog\dialogmenu\DialogMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\dialog\dialogmenu\PlayerDialogMenu.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\object\DestroyableEntity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\object\Entity.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\api\object\Initializable.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\Deniable.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\DestroyableEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\Entity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\EntityImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\InitException.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\Initializable.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\LoadingException.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\LtrpGamemode.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\NamedEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\classes\lt\ltrp\api\NamedEntityImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__com_mchange_c3p0_0_9_5_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__com_mchange_mchange_commons_java_0_2_10.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__jacksum_jacksum_1_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_ltrp_database_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_ltrp_item_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_ltrp_job_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_ltrp_ltrp_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_ltrp_player_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_ltrp_property_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_ltrp_radio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_ltrp_util_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_ltrp_vehicle_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_maze_audio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__lt_maze_streamer_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__net_gtaun_shoebill_common_1_3_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__org_slf4j_slf4j_api_1_7_16.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\libraries\Maven__org_slf4j_slf4j_log4j13_1_0_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\LtrpCommons.iml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\src\main\java\net\gtaun\shoebill\constant\VehicleModel.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\colorpicker\ColorPicker$ColorPickHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\colorpicker\ColorPicker.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\constant\Currency.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\constant\LtrpVehicleModel.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\constant\WorldArea.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\constant\WorldZone.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\dialog\IntegerInputDialog$1.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\dialog\IntegerInputDialog$AbstractIntegerInputDialogBuilder.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\dialog\IntegerInputDialog$ClickOkHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\dialog\IntegerInputDialog$InputErrorHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\dialog\IntegerInputDialog$IntegerInputDialogBuilder.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\lt\ltrp\common\dialog\IntegerInputDialog.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\net\gtaun\shoebill\constant\VehicleModel$VehicleModelData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\net\gtaun\shoebill\constant\VehicleModel$VehicleType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\classes\net\gtaun\shoebill\constant\VehicleModel.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\ltrp-common-1.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\maven-archiver\pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__com_mchange_c3p0_0_9_5_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__com_mchange_mchange_commons_java_0_2_10.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__jacksum_jacksum_1_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__log4j_log4j_1_2_17.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_LtrpGamemode_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_bank_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_database_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_item_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_job_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_ltrp_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_npc_manager_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_property_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_util_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_vehicle_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_ltrp_vehicle_shop_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_maze_audio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_maze_fader_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_maze_shoebill_event_logger_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_maze_streamer_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__lt_maze_ysf_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__mysql_mysql_connector_java_5_1_37.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__net_gtaun_shoebill_common_1_3_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_api_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_core_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__org_slf4j_slf4j_api_1_7_16.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j12_1_7_13.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j13_1_0_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\PlayerApi.iml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\AdminController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\PlayerController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\constant\LicenseType.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\dao\PlayerDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\Animation.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\CrashData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\DroppedWeaponData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\JailData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\LicenseWarning.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\LtrpWeaponData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\PlayerAddiction.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\PlayerCrime.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\PlayerDrugs.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\PlayerLicense.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\PlayerLicenses.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\PlayerOffer.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\PlayerSettings.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\data\SpawnData.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\dialog\PlayerSettingsListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerAcceptPlayerQuestion.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerActionMessageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerAskQuestionEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerChangeJobEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerDataLoadEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerEditSettingsEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerJailEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerLogInEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerOfferExpireEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerRejectPlayerQuestion.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerSendPrivateMessageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerSpawnSetUpEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerStateMessageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerToggleAdminDutyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerToggleModDutyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\event\PlayerUnJailEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\object\LtrpPlayer.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\object\PlayerCountdown.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\object\PlayerInfoBox.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\util\AdminLog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\src\main\java\lt\ltrp\player\util\PlayerLog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\PlayerController$Instance.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\PlayerController.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\constant\LicenseType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\dao\PlayerDao.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\Animation.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\CrashData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\DroppedWeaponData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\JailData$JailType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\JailData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\LicenseWarning.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\LtrpWeaponData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\PlayerAddiction.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\PlayerCrime.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\PlayerDrugs.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\PlayerLicense.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\PlayerLicenses.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\PlayerOffer.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\SpawnData$SpawnType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\data\SpawnData.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\event\PlayerChangeJobEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\event\PlayerDataLoadEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\event\PlayerEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\event\PlayerJailEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\event\PlayerLogInEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\event\PlayerOfferExpireEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\event\PlayerSpawnSetUpEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\event\PlayerUnJailEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\object\LtrpPlayer.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\object\PlayerCountdown$PlayerCountdownCallback.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\object\PlayerCountdown.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\object\PlayerInfoBox.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\classes\lt\ltrp\player\util\AdminLog.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\maven-archiver\pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerApi\target\player-api-1.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\.idea\libraries\Maven__log4j_log4j_1_2_17.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\.idea\libraries\Maven__lt_ltrp_LtrpGamemode_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\.idea\libraries\Maven__lt_ltrp_npc_manager_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\.idea\libraries\Maven__lt_maze_fader_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\.idea\libraries\Maven__lt_maze_ysf_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\.idea\libraries\Maven__mysql_mysql_connector_java_5_1_37.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\.idea\libraries\Maven__org_apache_logging_log4j_log4j_api_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\.idea\libraries\Maven__org_apache_logging_log4j_log4j_core_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\.idea\libraries\Maven__org_slf4j_slf4j_log4j12_1_7_13.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\AdminCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\AdminController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\AuthController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\GeneralCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\GettersSetters.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\LtrpPlayerImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\ModeratorCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\PlayerControllerImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\PlayerCountdownImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\PlayerInfoBoxImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\PlayerJailController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\PlayerPlugin.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\SpawnController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\dao\impl\SqlPlayerDaoImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\player\dialog\FightStyleDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__com_mchange_c3p0_0_9_5_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__com_mchange_mchange_commons_java_0_2_10.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__jacksum_jacksum_1_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__log4j_log4j_1_2_17.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_LtrpGamemode_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_bank_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_database_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_item_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_job_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_ltrp_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_ltrp_common_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_npc_manager_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_player_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_radio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_util_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_vehicle_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_ltrp_vehicle_shop_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_maze_audio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_maze_fader_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_maze_shoebill_event_logger_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_maze_streamer_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__lt_maze_ysf_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__mysql_mysql_connector_java_5_1_37.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__net_gtaun_shoebill_common_1_3_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_api_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_core_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__org_slf4j_slf4j_api_1_7_16.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j12_1_7_13.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j13_1_0_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\PropertyApi.iml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\PropertyController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\constant\HouseUpgradeType.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\data\HouseRadio.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\data\HouseWeedSapling.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\HouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerBusinessEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerEnterBusinessEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerEnterGarageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerEnterHouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerEnterPropertyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerExitBusinessEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerExitGarageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerExitHouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerExitPropertyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerGarageEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerHouseEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerPlantWeedEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\PlayerPropertyEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\event\WeedGrowEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\object\Business.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\object\Garage.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\object\House.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\src\main\java\lt\ltrp\property\object\Property.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\PropertyController$Instance.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\PropertyController.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\constant\HouseUpgradeType.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\data\HouseRadio.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\data\HouseWeedSapling$GrowthStage.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\data\HouseWeedSapling.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\HouseEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerBusinessEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerEnterBusinessEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerEnterGarageEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerEnterHouseEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerEnterPropertyEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerExitBusinessEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerExitGarageEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerExitHouseEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerExitPropertyEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerGarageEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerHouseEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerPlantWeedEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\PlayerPropertyEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\event\WeedGrowEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\object\Business.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\object\Garage.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\object\House.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\classes\lt\ltrp\property\object\Property.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\maven-archiver\pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PropertyApi\target\property-api-1.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\RadioPlugin\src\main\java\lt\ltrp\radio\dao\RadioStationDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\RadioPlugin\src\main\java\lt\ltrp\radio\dialog\RadioOptionListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\RadioPlugin\src\main\java\lt\ltrp\radio\dialog\RadioStationListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\RadioPlugin\src\main\java\lt\ltrp\radio\object\AbstractRadio.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\RadioPlugin\src\main\java\lt\ltrp\radio\object\Radio.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\RadioPlugin\src\main\java\lt\ltrp\radio\object\RadioStation.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\libraries\Maven__com_mchange_c3p0_0_9_5_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\libraries\Maven__com_mchange_mchange_commons_java_0_2_10.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\libraries\Maven__jacksum_jacksum_1_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\libraries\Maven__lt_ltrp_database_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\libraries\Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\libraries\Maven__net_gtaun_shoebill_common_1_3_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\libraries\Maven__org_slf4j_slf4j_api_1_7_16.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\UtilPlugin.iml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\classes\lt\ltrp\util\ErrorCode.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\classes\lt\ltrp\util\Factorial.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\classes\lt\ltrp\util\PawnFunc.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\classes\lt\ltrp\util\Skin.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\classes\lt\ltrp\util\Sql.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\classes\lt\ltrp\util\StringUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\classes\lt\ltrp\util\Whirlpool.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\maven-archiver\pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\target\util-1.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\copyright\profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__com_mchange_c3p0_0_9_5_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__com_mchange_mchange_commons_java_0_2_10.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__jacksum_jacksum_1_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__log4j_log4j_1_2_17.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_LtrpGamemode_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_bank_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_database_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_item_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_job_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_ltrp_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_ltrp_common_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_npc_manager_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_player_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_property_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_radio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_util_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_ltrp_vehicle_shop_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_maze_audio_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_maze_fader_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_maze_shoebill_event_logger_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_maze_streamer_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__lt_maze_ysf_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__mysql_mysql_connector_java_5_1_37.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__net_gtaun_shoebill_common_1_3_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_api_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__org_apache_logging_log4j_log4j_core_2_4_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__org_slf4j_slf4j_api_1_7_16.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j12_1_7_13.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\libraries\Maven__org_slf4j_slf4j_log4j13_1_0_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\uiDesigner.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\VehicleApi.iml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\pom.xml" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\VehicleController.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\constant\PlayerVehiclePermission.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\data\FuelTank.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\data\PlayerVehicleArrest.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\data\VehicleLock.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\data\VehicleRadio.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\dialog\VehiclePermissionListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\dialog\VehicleUserPermissionDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerBuyNewVehicleEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleAddPermissionEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleArrestDeleteEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleArrestEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleBuyAlarmEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleBuyInsuranceEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleBuyLockEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleParkEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleRemovePermissionEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleScrapEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleSellEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\PlayerVehicleUpdateParkEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\SpeedometerTickEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\TestEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\TestEventImpl.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\VehicleEngineKillEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\event\VehicleEngineStartEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\object\LtrpVehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\object\PlayerVehicle.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\src\main\java\lt\ltrp\vehicle\object\VehicleAlarm.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\VehicleController$Instance.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\VehicleController.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\constant\PlayerVehiclePermission.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\data\FuelTank.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\data\PlayerVehicleArrest.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\data\VehicleLock.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\data\VehicleRadio.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\dialog\VehiclePermissionListDialog$AbstractVehiclePermissionListDialogBuilder.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\dialog\VehiclePermissionListDialog$SelectPermissionHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\dialog\VehiclePermissionListDialog$VehiclePermissionListDialogBuilder.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\dialog\VehiclePermissionListDialog.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\dialog\VehicleUserPermissionDialog.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerBuyNewVehicleEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleAddPermissionEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleArrestDeleteEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleArrestEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleBuyAlarmEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleBuyInsuranceEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleBuyLockEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleParkEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleRemovePermissionEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleScrapEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleSellEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\PlayerVehicleUpdateParkEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\SpeedometerTickEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\TestEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\TestEventImpl.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\VehicleEngineKillEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\event\VehicleEngineStartEvent.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\object\LtrpVehicle.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\object\PlayerVehicle.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\classes\lt\ltrp\vehicle\object\VehicleAlarm.class" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\maven-archiver\pom.properties" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleApi\target\vehicle-api-1.0-SNAPSHOT.jar" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\ModelPreview.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dao\HouseDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dao\PhoneDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\dao\VehicleDao.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\event\PaydayEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\PhoneBook.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\PhoneCall.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\PhoneContact.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\PhoneSms.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\dialog\PhoneContactDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\dialog\PhonebookListDialog.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\event\PlayerAnswerPhoneEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\event\PlayerCallNumberEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\event\PlayerEndCallEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\phone\event\PlayerSendSmsEvent.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\BuyVehicleOffer.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\PlayerVehicleMetadata.java" afterPath="" />
+      <change type="DELETED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\vehicle\VehicleCrime.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankAccountCreateEvent.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankAccountCreateEvent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankAccountDepositMoney.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankAccountDepositMoney.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankAccountDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankAccountDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankAccountWithdrawMoney.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankAccountWithdrawMoney.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/BankController.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/BankController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dao/BankDao.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dao/BankDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankNewDepositDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankNewDepositDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankPlaceDepositEvent.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankPlaceDepositEvent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankTakeDepositEvent.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankTakeDepositEvent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankWireInputDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankWireInputDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankWireTransferEvent.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/BankWireTransferEvent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/CreateBankAccountMsgDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/CreateBankAccountMsgDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/DepositMoneyInputDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/DepositMoneyInputDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/gamemodes/LtrpGamemode-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/gamemodes/LtrpGamemode-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dao/MySqlBankDao.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dao/MySqlBankDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/PlayerTakePaycheckEvent.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/event/PlayerTakePaycheckEvent.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/WithdrawMoneyInputDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/WithdrawMoneyInputDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/bank-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../LtrpBank/target/bank-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/target/ltrp-api-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../LtrpApi/target/ltrp-api-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/AbstractItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/AbstractItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/aircraft/AircraftDmvManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/aircraft/AircraftDmvManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankAccountCreateEvent.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankAccountCreateEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankAccountDepositMoney.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankAccountDepositMoney.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankAccountDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankAccountDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankAccountWithdrawMoney.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankAccountWithdrawMoney.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/BankController.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/BankController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dao/BankDao.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dao/BankDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankNewDepositDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankNewDepositDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankPlaceDepositEvent.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankPlaceDepositEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankTakeDepositEvent.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankTakeDepositEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankWireInputDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/BankWireInputDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankWireTransferEvent.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/BankWireTransferEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/BasicItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/BasicItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/car/CarDmvManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/car/CarDmvManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ClothingItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ClothingItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/CreateBankAccountMsgDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/CreateBankAccountMsgDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/DAOFactory.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/DAOFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/DepositMoneyInputDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/DepositMoneyInputDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/DmvManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dmv/DmvManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/drug/DrugController.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/drug/DrugController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../StreamerWrapperPlugin/src/main/java/lt/maze/streamer/object/DynamicLabel.java" afterPath="$PROJECT_DIR$/../StreamerWrapperPlugin/src/main/java/lt/maze/streamer/object/DynamicLabel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/drug/FadeEffect.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/drug/FadeEffect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FishingRodItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FishingRodItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FixedSizeInventory.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/FixedSizeInventory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/HouseAudioItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/HouseAudioItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/HouseCommands.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/HouseCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemCommands.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JobPlugin.iml" afterPath="$PROJECT_DIR$/JobPlugin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/LtrpApi.iml" afterPath="$PROJECT_DIR$/../LtrpApi/LtrpApi.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/LtrpGamemodeImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/LtrpGamemodeImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/LtrpVehicleImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/LtrpVehicleImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/Mp3Item.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/Mp3Item.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dao/MySqlBankDao.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dao/MySqlBankDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PersonalAlarm.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PersonalAlarm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/phone/PhoneController.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/phone/PhoneController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/command/PlayerCommandManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/command/PlayerCommandManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/PlayerPlugin.iml" afterPath="$PROJECT_DIR$/../PlayerPlugin/PlayerPlugin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/PlayerTakePaycheckEvent.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/event/PlayerTakePaycheckEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleCommands.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PlayerVehicleManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PoliceAlertAlarm.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/PoliceAlertAlarm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/PropertyImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/PropertyImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/PropertyManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/property/PropertyManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/RadioItemImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/RadioItemImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/SpeedometerTd.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/SpeedometerTd.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlHouseDao.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlHouseDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlItemDao.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlItemDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlPhoneDaoImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlPhoneDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlVehicleDaoImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/dao/impl/SqlVehicleDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/VehicleCommands.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/VehicleCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/VehicleManager.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/vehicle/VehicleManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/WithdrawMoneyInputDialog.java" afterPath="$PROJECT_DIR$/../LtrpBank/src/main/java/lt/ltrp/dialog/WithdrawMoneyInputDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../PlayerPlugin/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/../LtrpApi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../LtrpApi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/resources/ltrp.sql" afterPath="$PROJECT_DIR$/../../src/main/resources/ltrp.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../LtrpApi/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../LtrpBank/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pom.xml" afterPath="$PROJECT_DIR$/../../pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/pom.xml" afterPath="$PROJECT_DIR$/../LtrpApi/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/pom.xml" afterPath="$PROJECT_DIR$/../LtrpBank/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/pom.xml" afterPath="$PROJECT_DIR$/../PlayerPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/resources.yml" afterPath="$PROJECT_DIR$/../../shoebill/resources.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/../PlayerPlugin/.idea/sqldialects.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../LtrpApi/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../PlayerPlugin/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../RadioPlugin/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\AbstractJobManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractJobManager.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\ContractJob.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractContractJob.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\ContractJobRank.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/ContractJobRankImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\FactionAcceptCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/FactionAcceptCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\FactionCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/FactionCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\FactionInviteOffer.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/FactionInviteOffer.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\FactionLeaderCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/FactionLeaderCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\FactionRank.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/FactionRankImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\JobCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/JobCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\JobManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/JobManager.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\JobProperty.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/JobProperty.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\RoadblockCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/RoadblockCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\dao\impl\FileJobDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/FileJobDaoImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\dao\impl\MySqlJobDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobDaoImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\drugdealer\DrugDealerCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/drugdealer/DrugDealerCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\drugdealer\DrugDealerManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/drugdealer/DrugDealerManager.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\ColorPalettePlayerOffer.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/ColorPalettePlayerOffer.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\MechanicAcceptCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/MechanicAcceptCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\MechanicCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/MechanicCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\MechanicManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/MechanicManager.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\dialog\HullRepairMsgDialog.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/dialog/HullRepairMsgDialog.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\dialog\RemoveHydraulicsMsgDialog.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/dialog/RemoveHydraulicsMsgDialog.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\event\PlayerLeaveRepairArea.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/event/PlayerLeaveRepairArea.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\event\RepairSessionEndEvent.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/event/RepairSessionEndEvent.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\AbstractRepairSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/AbstractRepairSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\EngineRepairSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/EngineRepairSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\FullRepairSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/FullRepairSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\HullRepairSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/HullRepairSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\HydraulicInstallSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/HydraulicInstallSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\HydraulicsRemovalSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/HydraulicsRemovalSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\RepaintSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/RepaintSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\RepairSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/RepairSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\WheelChangeSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/WheelChangeSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\mechanic\session\WheelRemovalSession.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/WheelRemovalSession.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\medic\MedicCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/medic/MedicCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\medic\MedicManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/medic/MedicManager.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\DragTimer.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/DragTimer.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\PoliceCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/PoliceCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\PolicemanManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/PolicemanManager.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\Roadblock.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/Roadblock.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\dialog\ConfirmDelArrestMsgboxDialog.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/ConfirmDelArrestMsgboxDialog.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\dialog\CrimeDialog.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/CrimeDialog.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\dialog\CrimeListDialog.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/CrimeListDialog.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\dialog\PoliceDatabaseMenu.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/PoliceDatabaseMenu.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\dialog\PoliceGearListDialog.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/PoliceGearListDialog.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\dialog\PoliceWeaponryDialog.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/PoliceWeaponryDialog.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\dialog\RoadblockDialog.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/RoadblockDialog.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\dialog\RoadblockListDialog.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/RoadblockListDialog.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\policeman\modelpreview\RoadblockModelPreview.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/modelpreview/RoadblockModelPreview.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\trashman\TrashmanCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/trashman/TrashmanCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\trashman\TrashmanManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/trashman/TrashmanManager.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\vehiclethief\VehicleThiefCommands.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehiclethief/VehicleThiefCommands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\vehiclethief\VehicleThiefJob.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/VehicleThiefJobImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\JobPlugin\src\main\java\lt\ltrp\job\vehiclethief\VehicleThiefManager.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/vehiclethief/VehicleThiefManager.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\src\main\java\lt\ltrp\common\constant\Currency.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/constant/Currency.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\src\main\java\lt\ltrp\common\constant\LtrpVehicleModel.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/constant/LtrpVehicleModel.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\src\main\java\lt\ltrp\common\constant\WorldArea.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/constant/WorldArea.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\src\main\java\lt\ltrp\common\constant\WorldZone.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/constant/WorldZone.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\src\main\java\lt\ltrp\util\ErrorCode.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/ErrorCode.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\src\main\java\lt\ltrp\util\Factorial.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/Factorial.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\src\main\java\lt\ltrp\util\PawnFunc.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/PawnFunc.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\src\main\java\lt\ltrp\util\Skin.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/Skin.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\src\main\java\lt\ltrp\util\Sql.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/Sql.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\src\main\java\lt\ltrp\util\StringUtils.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/StringUtils.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\UtilPlugin\src\main\java\lt\ltrp\util\Whirlpool.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/Whirlpool.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\command\Commands.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/command/Commands.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\data\Color.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/Color.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\data\NamedLocation.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/NamedLocation.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\ItemController.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemControllerImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\ItemPhone.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/ItemPhoneImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\item\WeedSeedItem.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/item/WeedSeedItemImpl.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\modelpreview\BasicModelPreview.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/modelpreview/BasicModelPreview.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\modelpreview\ModelPreview.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/modelpreview/ModelPreview.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\modelpreview\SkinModelPreview.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/modelpreview/SkinModelPreview.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\modelpreview\event\ModelPreviewCancelEvent.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/modelpreview/event/ModelPreviewCancelEvent.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\modelpreview\event\ModelPreviewEvent.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/modelpreview/event/ModelPreviewEvent.java" />
+      <change type="MOVED" beforePath="F:\AAAA\LTRP\src\main\java\lt\ltrp\modelpreview\event\ModelPreviewSelectModelEvent.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/modelpreview/event/ModelPreviewSelectModelEvent.java" />
+    </list>
     <ignored path="JobPlugin.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -26,101 +861,65 @@
     <favorites_list name="JobPlugin" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="65" max-vertical-offset="935">
-              <caret line="47" column="21" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Faction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/job/Faction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1105" max-vertical-offset="2074">
-              <caret line="90" column="13" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#843#844#0" expanded="false" />
-                <element signature="e#871#872#0" expanded="false" />
-                <element signature="e#911#912#0" expanded="false" />
-                <element signature="e#943#944#0" expanded="false" />
-                <element signature="e#1008#1009#0" expanded="false" />
-                <element signature="e#1039#1040#0" expanded="false" />
-                <element signature="e#1117#1118#0" expanded="false" />
-                <element signature="e#1157#1158#0" expanded="false" />
-                <element signature="e#1459#1460#0" expanded="false" />
-                <element signature="e#1496#1497#0" expanded="false" />
-                <element signature="e#1543#1544#0" expanded="false" />
-                <element signature="e#1575#1576#0" expanded="false" />
-                <element signature="e#1622#1623#0" expanded="false" />
-                <element signature="e#1662#1663#0" expanded="false" />
-                <element signature="e#1726#1727#0" expanded="false" />
-                <element signature="e#1763#1764#0" expanded="false" />
-                <element signature="e#1813#1814#0" expanded="false" />
-                <element signature="e#1837#1838#0" expanded="false" />
-                <element signature="e#1971#1972#0" expanded="false" />
-                <element signature="e#2041#2042#0" expanded="false" />
-                <element signature="e#2317#2318#0" expanded="false" />
-                <element signature="e#2342#2343#0" expanded="false" />
-                <element signature="e#2387#2388#0" expanded="false" />
-                <element signature="e#2414#2415#0" expanded="false" />
-                <element signature="e#2465#2466#0" expanded="false" />
-                <element signature="e#2496#2497#0" expanded="false" />
-                <element signature="e#2555#2556#0" expanded="false" />
-                <element signature="e#2590#2591#0" expanded="false" />
-                <element signature="e#2653#2654#0" expanded="false" />
-                <element signature="e#2681#2682#0" expanded="false" />
-                <element signature="e#2734#2735#0" expanded="false" />
-                <element signature="e#2768#2769#0" expanded="false" />
-                <element signature="e#2821#2822#0" expanded="false" />
-                <element signature="e#2905#2906#0" expanded="false" />
-                <element signature="e#3198#3199#0" expanded="false" />
-                <element signature="e#3258#3259#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JobVehicle.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/JobVehicle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1343">
-              <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContractJobRank.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/job/ContractJobRank.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.81149423" vertical-offset="8" max-vertical-offset="901">
-              <caret line="56" column="1" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
-              <folding>
-                <element signature="e#452#453#0" expanded="true" />
-                <element signature="e#488#489#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/JobVehicle.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/Faction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashMissions.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/trashman/TrashMission.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/medic/MedicFactionImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/MechanicJobImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/MechanicManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/AbstractRepairSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/event/PlayerLeaveRepairArea.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/EngineRepairSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/HydraulicInstallSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/HullRepairSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/FullRepairSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/HydraulicsRemovalSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/RepaintSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/RepairSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/WheelChangeSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/session/WheelRemovalSession.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/dialog/RemoveHydraulicsMsgDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/dialog/HullRepairMsgDialog.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/MechanicCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/drugdealer/DrugDealerJobImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/drugdealer/DrugDealerManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/vehiclethief/VehicleThiefCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/drugdealer/DrugDealerCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/FactionLeaderCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/FactionCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/FactionAcceptCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/MechanicAcceptCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/dialog/PoliceDatabaseMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/PoliceCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/DrugDealerJobImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/MechanicJobImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/MedicFactionImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/PoliceFactionImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/TrashManJobImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/VehicleThiefJobImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/dao/impl/MySqlJobDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/JobCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/DragTimer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/dao/impl/FileJobDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/JobManager.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/JobVehicle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/FactionAcceptCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractContractJob.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractJob.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/FactionInviteOffer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehiclethief/VehicleThiefManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/MechanicManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/drugdealer/DrugDealerCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/object/JobVehicleImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/JobManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/PoliceCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/PoliceDatabaseMenu.java" />
       </list>
     </option>
   </component>
@@ -133,7 +932,7 @@
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -158,6 +957,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -165,6 +965,10 @@
               <option name="myItemId" value="JobPlugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -187,24 +991,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -223,14 +1009,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="job" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -256,11 +1034,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="job" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trashman" />
+              <option name="myItemId" value="ltrp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -286,21 +1060,50 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="job" />
+              <option name="myItemId" value="ltrp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="object" />
+              <option name="myItemId" value="policeman" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="JobVehicle.java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="policeman" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dialog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -313,6 +1116,8 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -570,11 +1375,36 @@
       <workItem from="1460490708615" duration="2370000" />
       <workItem from="1460643210374" duration="1689000" />
       <workItem from="1460650713017" duration="1465000" />
+      <workItem from="1460656565876" duration="8853000" />
+      <workItem from="1460722198948" duration="6776000" />
+      <workItem from="1460792592793" duration="396000" />
+      <workItem from="1460794458441" duration="3080000" />
+      <workItem from="1461056583186" duration="598000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5524000" />
+    <option name="totallyTimeSpent" value="25227000" />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
@@ -582,20 +1412,21 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3264865" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32628062" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32850778" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26918977" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -606,7 +1437,6 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32628062" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -627,163 +1457,466 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractFaction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="663">
-          <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.15632184" vertical-offset="0" max-vertical-offset="1462">
+          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/job/Faction.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/JobCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1105" max-vertical-offset="2074">
-          <caret line="90" column="13" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#843#844#0" expanded="false" />
-            <element signature="e#871#872#0" expanded="false" />
-            <element signature="e#911#912#0" expanded="false" />
-            <element signature="e#943#944#0" expanded="false" />
-            <element signature="e#1008#1009#0" expanded="false" />
-            <element signature="e#1039#1040#0" expanded="false" />
-            <element signature="e#1117#1118#0" expanded="false" />
-            <element signature="e#1157#1158#0" expanded="false" />
-            <element signature="e#1459#1460#0" expanded="false" />
-            <element signature="e#1496#1497#0" expanded="false" />
-            <element signature="e#1543#1544#0" expanded="false" />
-            <element signature="e#1575#1576#0" expanded="false" />
-            <element signature="e#1622#1623#0" expanded="false" />
-            <element signature="e#1662#1663#0" expanded="false" />
-            <element signature="e#1726#1727#0" expanded="false" />
-            <element signature="e#1763#1764#0" expanded="false" />
-            <element signature="e#1813#1814#0" expanded="false" />
-            <element signature="e#1837#1838#0" expanded="false" />
-            <element signature="e#1971#1972#0" expanded="false" />
-            <element signature="e#2041#2042#0" expanded="false" />
-            <element signature="e#2317#2318#0" expanded="false" />
-            <element signature="e#2342#2343#0" expanded="false" />
-            <element signature="e#2387#2388#0" expanded="false" />
-            <element signature="e#2414#2415#0" expanded="false" />
-            <element signature="e#2465#2466#0" expanded="false" />
-            <element signature="e#2496#2497#0" expanded="false" />
-            <element signature="e#2555#2556#0" expanded="false" />
-            <element signature="e#2590#2591#0" expanded="false" />
-            <element signature="e#2653#2654#0" expanded="false" />
-            <element signature="e#2681#2682#0" expanded="false" />
-            <element signature="e#2734#2735#0" expanded="false" />
-            <element signature="e#2768#2769#0" expanded="false" />
-            <element signature="e#2821#2822#0" expanded="false" />
-            <element signature="e#2905#2906#0" expanded="false" />
-            <element signature="e#3198#3199#0" expanded="false" />
-            <element signature="e#3258#3259#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/job/ContractJobRank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#452#453#0" expanded="true" />
-            <element signature="e#488#489#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.15632184" vertical-offset="0" max-vertical-offset="870">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/job/FactionRank.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractContractJob.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31264368" vertical-offset="0" max-vertical-offset="870">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/job/Faction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="507" max-vertical-offset="2193">
-          <caret line="90" column="13" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#843#844#0" expanded="false" />
-            <element signature="e#871#872#0" expanded="false" />
-            <element signature="e#911#912#0" expanded="false" />
-            <element signature="e#943#944#0" expanded="false" />
-            <element signature="e#1008#1009#0" expanded="false" />
-            <element signature="e#1039#1040#0" expanded="false" />
-            <element signature="e#1117#1118#0" expanded="false" />
-            <element signature="e#1157#1158#0" expanded="false" />
-            <element signature="e#1459#1460#0" expanded="false" />
-            <element signature="e#1496#1497#0" expanded="false" />
-            <element signature="e#1543#1544#0" expanded="false" />
-            <element signature="e#1575#1576#0" expanded="false" />
-            <element signature="e#1622#1623#0" expanded="false" />
-            <element signature="e#1662#1663#0" expanded="false" />
-            <element signature="e#1726#1727#0" expanded="false" />
-            <element signature="e#1763#1764#0" expanded="false" />
-            <element signature="e#1813#1814#0" expanded="false" />
-            <element signature="e#1837#1838#0" expanded="false" />
-            <element signature="e#1971#1972#0" expanded="false" />
-            <element signature="e#2041#2042#0" expanded="false" />
-            <element signature="e#2317#2318#0" expanded="false" />
-            <element signature="e#2342#2343#0" expanded="false" />
-            <element signature="e#2387#2388#0" expanded="false" />
-            <element signature="e#2414#2415#0" expanded="false" />
-            <element signature="e#2465#2466#0" expanded="false" />
-            <element signature="e#2496#2497#0" expanded="false" />
-            <element signature="e#2555#2556#0" expanded="false" />
-            <element signature="e#2590#2591#0" expanded="false" />
-            <element signature="e#2653#2654#0" expanded="false" />
-            <element signature="e#2681#2682#0" expanded="false" />
-            <element signature="e#2734#2735#0" expanded="false" />
-            <element signature="e#2768#2769#0" expanded="false" />
-            <element signature="e#2821#2822#0" expanded="false" />
-            <element signature="e#2905#2906#0" expanded="false" />
-            <element signature="e#3198#3199#0" expanded="false" />
-            <element signature="e#3258#3259#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/JobVehicle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1343">
-          <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.21494253" vertical-offset="0" max-vertical-offset="1751">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/vehiclethief/VehicleThiefCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="65" max-vertical-offset="935">
-          <caret line="47" column="21" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.3325554" vertical-offset="123" max-vertical-offset="1853">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/vehiclethief/VehicleThiefManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21494253" vertical-offset="0" max-vertical-offset="1445">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/job/ContractJobRank.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/trashman/TrashmanCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81149423" vertical-offset="8" max-vertical-offset="901">
-          <caret line="56" column="1" selection-start-line="56" selection-start-column="1" selection-end-line="56" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2108">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/trashman/TrashmanManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3451">
+          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/Roadblock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1071">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/PolicemanManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1887">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/DragTimer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1156">
+          <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
           <folding>
-            <element signature="e#452#453#0" expanded="true" />
-            <element signature="e#488#489#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/modelpreview/RoadblockModelPreview.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2873">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/ConfirmDelArrestMsgboxDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/CrimeDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/CrimeListDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/PoliceGearListDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1088">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/RoadblockDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/PoliceWeaponryDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/RoadblockListDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/DrugDealerJobImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
+          <caret line="17" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
+          <folding>
+            <element signature="e#431#432#0" expanded="true" />
+            <element signature="e#496#497#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/MechanicJobImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
+          <caret line="34" column="64" selection-start-line="34" selection-start-column="64" selection-end-line="34" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/MedicFactionImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
+          <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+          <folding>
+            <element signature="e#554#555#0" expanded="true" />
+            <element signature="e#607#608#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/PoliceFactionImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+          <folding>
+            <element signature="e#557#558#0" expanded="true" />
+            <element signature="e#611#612#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/TrashManJobImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+          <caret line="28" column="61" selection-start-line="28" selection-start-column="61" selection-end-line="28" selection-end-column="61" />
+          <folding>
+            <element signature="e#981#982#0" expanded="true" />
+            <element signature="e#1049#1050#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/VehicleThiefJobImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="1513">
+          <caret line="22" column="55" selection-start-line="22" selection-start-column="55" selection-end-line="22" selection-end-column="55" />
+          <folding>
+            <element signature="e#564#565#0" expanded="true" />
+            <element signature="e#626#627#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/medic/MedicManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1037">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/medic/MedicCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1598">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/dialog/HullRepairMsgDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="82" max-vertical-offset="952">
+          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/dialog/RemoveHydraulicsMsgDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/event/PlayerLeaveRepairArea.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/event/RepairSessionEndEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/EngineRepairSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/AbstractRepairSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2057">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/FullRepairSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/HullRepairSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/HydraulicInstallSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/HydraulicsRemovalSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/RepaintSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/ColorPalettePlayerOffer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/MechanicCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5491">
+          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/MechanicManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="2312">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/drugdealer/DrugDealerManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/drugdealer/DrugDealerCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1292">
+          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/FileJobDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10489">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17852975" vertical-offset="0" max-vertical-offset="7021">
+          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+          <folding>
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="SELECT jobs...jobs..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="SELECT playe..players..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="SELECT vehic..job_vehicles..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="UPDATE job_v..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="SELECT job_r..job_ranks..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1461057043611" expanded="true" signature="-1:-1" placeholder="SELECT garba..garbageman_missions..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/MechanicAcceptCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15632184" vertical-offset="0" max-vertical-offset="870">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/WheelChangeSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15632184" vertical-offset="0" max-vertical-offset="870">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/mechanic/session/RepairSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15632184" vertical-offset="0" max-vertical-offset="870">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/JobVehicleImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6443">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4098#4099#0" expanded="true" />
+            <element signature="e#4131#4132#0" expanded="true" />
+            <element signature="e#4198#4199#0" expanded="true" />
+            <element signature="e#4242#4243#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/JobManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.70689654" vertical-offset="6508" max-vertical-offset="7803">
+          <caret line="423" column="38" selection-start-line="423" selection-start-column="38" selection-end-line="423" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#18651#18652#0" expanded="true" />
+            <element signature="e#18680#18681#0" expanded="true" />
+            <element signature="e#18744#18745#0" expanded="true" />
+            <element signature="e#18793#18794#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/PoliceCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.119217" vertical-offset="1224" max-vertical-offset="11526">
+          <caret line="35" column="53" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/PoliceDatabaseMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12099644" vertical-offset="0" max-vertical-offset="6018">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding>
+            <marker date="1461057093476" expanded="true" signature="-1:-1" placeholder="SELECT id, u..players..." />
+            <marker date="1461057093476" expanded="true" signature="-1:-1" placeholder="UPDATE playe..." />
+            <marker date="1461057093476" expanded="true" signature="-1:-1" placeholder="SELECT id, u..players..." />
+            <marker date="1461057093476" expanded="true" signature="-1:-1" placeholder="SELECT playe..player_jailtime..." />
           </folding>
         </state>
       </provider>
