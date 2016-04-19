@@ -1,11 +1,1 @@
-lt\ltrp\radio\dialog\RadioOptionListDialog$SetVolumeHandler.class
-lt\ltrp\radio\dialog\RadioOptionListDialog$SelectRadioStationHandler.class
-lt\ltrp\radio\dao\RadioStationDao.class
-lt\ltrp\radio\dialog\RadioStationListDialog$ClickOkHandler.class
-lt\ltrp\radio\dialog\RadioOptionListDialog.class
-lt\ltrp\radio\RadioController.class
-lt\ltrp\radio\dialog\RadioOptionListDialog$TurnRadioOffHandler.class
-lt\ltrp\radio\object\RadioStation.class
-lt\ltrp\radio\dialog\RadioStationListDialog.class
-lt\ltrp\radio\object\AbstractRadio.class
-lt\ltrp\radio\object\Radio.class
+lt\ltrp\RadioPlugin.class
