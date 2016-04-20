@@ -3,6 +3,7 @@ package lt.ltrp;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.JobData;
 import lt.ltrp.dialog.FactionListDialog;
+import lt.ltrp.dialog.property.BusinessAvailableCommodityManagementDialog;
 import lt.ltrp.event.player.PlayerSetFactionLeaderEvent;
 import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
 import lt.ltrp.event.player.RemoveFactionLeaderEvent;
@@ -24,9 +25,9 @@ import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.shoebill.object.VehicleDamage;
 import net.gtaun.util.event.EventManager;
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Bebras
@@ -55,6 +56,7 @@ public class AdminCommands {
         adminLevels.put("makeleader", 4);
         adminLevels.put("removeleader", 4);
         adminLevels.put("auninvite", 4);
+        adminLevels.put("bizitems", 4);
 
         adminLevels.put("giveitem", 6);
         adminLevels.put("fly", 6);
@@ -319,7 +321,7 @@ public class AdminCommands {
 
         return true;
     }
-
+/*
     @Command
     @CommandHelp("Suteikia nurodytà daiktà nurodytam þaidëjui")
     public boolean giveitem(Player player, LtrpPlayer p2, String itemClass, String args) {
@@ -345,7 +347,7 @@ public class AdminCommands {
         }
         return true;
     }
-
+*/
 
     @Command
     @CommandHelp("Atstato visas nenaudojamas kontraktinio darbo transporto priemones á atsiradimo vietà")
@@ -554,5 +556,14 @@ public class AdminCommands {
         }
         return true;
     }
+
+    @Command
+    @CommandHelp("Atidaro verslø prekiø valdymo GUI")
+    public boolean bizItems(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        BusinessAvailableCommodityManagementDialog.create(player, eventManager);
+        return true;
+    }
+
 }
 
