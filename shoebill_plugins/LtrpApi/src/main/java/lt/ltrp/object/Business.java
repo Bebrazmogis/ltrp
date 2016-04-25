@@ -50,6 +50,10 @@ public interface Business extends Property {
         return null;
     }
 
+    static Business getClosest(Location location) {
+        return getClosest(location, Float.MAX_VALUE);
+    }
+
     static Business create(int id, String name, BusinessType type, int ownerUserId, int pickupModelId, int price, Location entrance, Location exit, Color labelColor,
                            int money, int resources, int commodityLimit, EventManager eventManager) {
         return PropertyController.get().createBusiness(id, name, type, ownerUserId, pickupModelId, price, entrance, exit, labelColor, money, resources, commodityLimit, eventManager);

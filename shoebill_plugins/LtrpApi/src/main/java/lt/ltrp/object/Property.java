@@ -26,6 +26,20 @@ public interface Property extends NamedEntity, Destroyable {
         return op.isPresent() ? op.get() : null;
     }
 
+    static Property getClosest(Location location, float maxDistance) {
+        Optional<Property> op = get().stream().min((b1, b2) -> {
+            return Float.compare(Math.min(b1.getEntrance().distance(location), b1.getExit().distance(location)),
+                    Math.min(b2.getEntrance().distance(location), b2.getExit().distance(location)));
+        });
+        if(op.isPresent()) {
+            float distance = op.get().getEntrance().distance(location);
+            if(distance <= maxDistance) {
+                return op.get();
+            }
+        }
+        return null;
+    }
+
     int getOwner();
     void setOwner(int ownerUserId);
     Location getExit();

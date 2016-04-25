@@ -7,13 +7,32 @@ package lt.ltrp.constant;
 public enum  HouseUpgradeType {
 
 
-    Refrigerator(1),
-    Radio(2);
+    Refrigerator(1, "Ðaldytuvas"),
+    Radio(2, "Radijas");
 
-    public int id;
+    private int id;
+    private String name;
 
-    HouseUpgradeType(int id) {
+    HouseUpgradeType(int id, String name) {
         this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static HouseUpgradeType get(int id) {
+        for(HouseUpgradeType h : values()) {
+            if(h.id == id) {
+                return h;
+            }
+        }
+        return null;
     }
 
 }

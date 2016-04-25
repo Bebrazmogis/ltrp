@@ -1,0 +1,23 @@
+package lt.ltrp.event.property;
+
+import lt.ltrp.data.BusinessCommodity;
+import lt.ltrp.object.LtrpPlayer;
+import net.gtaun.shoebill.event.player.PlayerEvent;
+
+/**
+ * @author Bebras
+ *         2016.04.19.
+ */
+public class SelectCommodityEvent extends PlayerEvent {
+
+    private BusinessCommodity commodity;
+
+    public SelectCommodityEvent(LtrpPlayer player, BusinessCommodity commodity) {
+        super(player);
+        this.commodity = commodity;
+    }
+
+    public BusinessCommodity getCommodity() {
+        return commodity;
+    }
+}
