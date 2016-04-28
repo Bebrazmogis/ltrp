@@ -2,6 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.constant.WorldZone;
 import lt.ltrp.dao.JobDao;
+import lt.ltrp.dao.impl.MySqlJobDaoImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.JobData;
 import lt.ltrp.drugdealer.DrugDealerManager;
@@ -14,13 +15,14 @@ import lt.ltrp.object.*;
 import lt.ltrp.policeman.PolicemanManager;
 import lt.ltrp.trashman.TrashmanManager;
 import lt.ltrp.util.StringUtils;
-import lt.ltrp.hief.VehicleThiefManager;
+import lt.ltrp.vehiclethief.VehicleThiefManager;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.event.player.PlayerTextEvent;
-import net.gtaun.shoebill.object.Destroyable;
+import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
+import net.gtaun.shoebill.resource.Plugin;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerPriority;
 import org.apache.commons.lang3.tuple.MutablePair;
@@ -35,7 +37,7 @@ import java.util.*;
  * @author Bebras
  *         2015.12.06.
  */
-public class JobManager implements JobController, Destroyable {
+public class JobManager extends Plugin implements JobController {
 
     private static final Logger logger = LoggerFactory.getLogger(JobManager.class);
 /*
@@ -94,233 +96,223 @@ public class JobManager implements JobController, Destroyable {
 
     private Map<LtrpPlayer, Pair<ItemPhone, Integer>> playerEmergencyCalls;
 
-
-    public JobManager(EventManager eventManager, JobDao jobDao) throws LoadingException {
+    @Override
+    protected void onEnable() throws Throwable {
         Instance.instance = this;
-        this.jobDao = jobDao;
-        this.eventManager = eventManager;
+        this.eventManager = getEventManager();
         this.playerEmergencyCalls = new HashMap<>();
         addTypeParsers();
 
-        trashmanManager = new TrashmanManager(eventManager, JobId.TrashMan.id);
-        vehicleThiefManager = new VehicleThiefManager(eventManager, JobId.VehicleThief.id);
-        policemanManager = new PolicemanManager(eventManager, JobId.Officer.id);
-        mechanicManager = new MechanicManager(eventManager, JobId.Mechanic.id);
-        drugDealerManager = new DrugDealerManager(eventManager, JobId.DrugDealer.id);
-        medicManager = new MedicManager(eventManager, JobId.Medic.id);
+        eventManager.registerHandler(ResourceEnableEvent.class, ee -> {
+            if(ee.getResource().getClass().equals(DatabasePlugin.class)) {
+                this.jobDao = new MySqlJobDaoImpl(((DatabasePlugin)ee.getResource()).getDataSource(), eventManager);
+
+                trashmanManager = new TrashmanManager(eventManager, JobId.TrashMan.id);
+                vehicleThiefManager = new VehicleThiefManager(eventManager, JobId.VehicleThief.id);
+                policemanManager = new PolicemanManager(eventManager, JobId.Officer.id);
+                mechanicManager = new MechanicManager(eventManager, JobId.Mechanic.id);
+                drugDealerManager = new DrugDealerManager(eventManager, JobId.DrugDealer.id);
+                medicManager = new MedicManager(eventManager, JobId.Medic.id);
 
 
-        PlayerCommandManager playerCommandManager = new PlayerCommandManager(eventManager);
-        playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
-        playerCommandManager.registerCommands(new FactionLeaderCommands(eventManager, this));
+                PlayerCommandManager playerCommandManager = new PlayerCommandManager(eventManager);
+                playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
+                playerCommandManager.registerCommands(new FactionLeaderCommands(eventManager, this));
 
-        CommandGroup group = new CommandGroup();
-        group.registerCommands(new FactionAcceptCommands());
-        playerCommandManager.registerChildGroup(group, "accept");
+                CommandGroup group = new CommandGroup();
+                group.registerCommands(new FactionAcceptCommands());
+                playerCommandManager.registerChildGroup(group, "accept");
 
-        playerCommandManager.registerCommand("takejob", new Class[0], (p, params) -> {
-            LtrpPlayer player = LtrpPlayer.get(p);
-            if(getJob(player) != null) {
-                player.sendErrorMessage("Jûs jau turite darbà.");
-            } else {
-                Optional<ContractJob> contractJobOptional = getContractJobs().stream()
-                        .filter(j -> j instanceof ContractJob && j.getLocation().distance(player.getLocation()) < 10f).findFirst();
-                if(!contractJobOptional.isPresent()){
-                    player.sendErrorMessage("Ðià komandà galite naudoti tik prie darbovieèiø.");
-                } else {
-                    Job job = contractJobOptional.get();
-                    setJob(player, job);
-                    player.sendMessage(Color.NEWS, "* Jûs ásidarbinote, jeigu reikia daugiau pagalbos raðykite /help.");
-                    LtrpPlayer.getPlayerDao().update(player);
-                }
-            }
-            return true;
-        }, null, null, null, null);
-
-        playerCommandManager.registerCommand("jobtest", new Class[0], (p, params) -> {
-            LtrpPlayer player = LtrpPlayer.get(p);
-            player.sendMessage(Color.SILVER, "Darbø skaièius: " + getJobs().size());
-            for(Job job : getJobs()) {
-                player.sendMessage(Color.CADETBLUE, String.format("[%d]%s. Class:%s Rank count: %d Vehicle count: %d",
-                        job.getUUID(),
-                        job.getName(),
-                        job.getClass().getSimpleName(),
-                        job.getRanks() == null ? -1 : job.getRanks().size(),
-                        job.getVehicles() == null ? -1 : job.getVehicles().size()));
-                int propertyCount = 0;
-                String propString = "";
-                for(Field f : job.getClass().getFields()) {
-                    if(f.isAnnotationPresent(JobProperty.class)) {
-                        propertyCount++;
-                        try {
-                            propString += f.getName() + ":" + f.get(job);
-                        } catch(IllegalAccessException e) {
-                            propString += f.getName() + " unaccessible";
+                playerCommandManager.registerCommand("takejob", new Class[0], (p, params) -> {
+                    LtrpPlayer player = LtrpPlayer.get(p);
+                    if(getJob(player) != null) {
+                        player.sendErrorMessage("Jûs jau turite darbà.");
+                    } else {
+                        Optional<ContractJob> contractJobOptional = getContractJobs().stream()
+                                .filter(j -> j instanceof ContractJob && j.getLocation().distance(player.getLocation()) < 10f).findFirst();
+                        if(!contractJobOptional.isPresent()){
+                            player.sendErrorMessage("Ðià komandà galite naudoti tik prie darbovieèiø.");
+                        } else {
+                            Job job = contractJobOptional.get();
+                            setJob(player, job);
+                            player.sendMessage(Color.NEWS, "* Jûs ásidarbinote, jeigu reikia daugiau pagalbos raðykite /help.");
+                            LtrpPlayer.getPlayerDao().update(player);
                         }
                     }
-                }
-                if(propertyCount > 0)
-                    player.sendMessage(Color.ROYALBLUE, String.format("Properties: %d. %s", propertyCount, propString));
-            }
-            return true;
-        }, null, null, null, null);
-
-
-
-
-        playerCommandManager.registerCommand("givemejob", new Class[]{Integer.class}, (p, params) -> {
-            LtrpPlayer player = LtrpPlayer.get(p);
-            for(Object o : params) {
-                System.out.println(o);
-                p.sendMessage(Color.LIGHTYELLOW, o.toString());
-            }
-            if(params.size() == 0) {
-                player.sendErrorMessage("NO SHIT");
-            } else {
-                int jobid = (Integer)params.poll();
-                Job job = Job.get(jobid);
-                if(job == null) {
-                    player.sendErrorMessage("YO, nëra toki odarbo");
-                } else {
-                    setJob(player, job);
-                    p.sendMessage(Color.CRIMSON, "Tavo naujas darbas :" + job.getName() + " id: " + job.getUUID());
-                }
-                return true;
-            }
-            return false;
-        }, null, null, null, null);
-
-        playerCommandManager.registerCommand("givemerank", new Class[]{Integer.class}, (player, params) -> {
-            LtrpPlayer p = LtrpPlayer.get(player);
-            if(getJob(p) == null) {
-                p.sendErrorMessage("you got no job son");
-            } else if(params.size() < 1) {
-                p.sendErrorMessage("learn to use kiddo");
-            } else {
-                int rankid = (Integer)params.poll();
-                Rank rank = getJob(p).getRank(rankid);
-                if(rank == null) {
-                    p.sendErrorMessage("No such rank.");
-                } else {
-                    setRank(p, rank);
-                    p.sendMessage(Color.LIGHTGREEN, "gz kid, new rank: "+ rank.getName() + " Numb: "+ rank.getNumber());
                     return true;
-                }
-            }
-            return false;
-        }, null, null, null, null);
+                }, null, null, null, null);
 
-
-        eventManager.registerHandler(PlayerCallNumberEvent.class, e -> {
-            if(e.getPhoneNumber() == 911) {
-                playerEmergencyCalls.put(e.getPlayer(), new MutablePair<>(e.getCallerPhone(), 0));
-                e.getPlayer().setSpecialAction(SpecialAction.USE_CELLPHONE);
-                e.getPlayer().sendMessage(Color.WHITE, "INFORMACIJA: Naudokite T, kad kalbëtumëte á telefonà. (/h)angup kad padëtumëte rageli.");
-                e.getPlayer().sendMessage(Color.LIGHTGREY, "PAGALBOS LINIJA: Su kuo jus sujungti? Policija, medikais? Ar su abu?");
-                e.getCallerPhone().setBusy(true);
-            }
-        });
-
-        eventManager.registerHandler(PlayerTextEvent.class, HandlerPriority.HIGH, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            String text = e.getText();
-            if(playerEmergencyCalls.containsKey(player)) {
-                WorldZone zone = WorldZone.get(player.getLocation());
-                int phonenumber = playerEmergencyCalls.get(player).getLeft().getPhonenumber();
-                switch(playerEmergencyCalls.get(player).getRight()) {
-                    case 0:
-                        if(StringUtils.equalsIgnoreLtCharsAndCase(text, "medikais")) {
-                            player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: tuojaus sujungsime Jus su policijos departamentu.");
-                            player.sendMessage(Color.LIGHTGREY, "LOS SANTOS POLICIJOS DEPARTAMENTAS: Los Santos policija klauso, koks Jûsø praneðimas ir vieta?");
-                            playerEmergencyCalls.get(player).setValue(1);
-                        } else if(StringUtils.equalsIgnoreLtCharsAndCase(text, "policija")) {
-                            player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: tuojaus sujungsime Jus su ligonine ar kita medicinos ástaiga.");
-                            player.sendMessage(Color.LIGHTGREY, "LOS SANTOS ligoninë: Los Santos ligoninë klauso, apibûdinkite kas nutiko ir kur nutiko.");
-                            playerEmergencyCalls.get(player).setValue(2);
-                        } else if(StringUtils.equalsIgnoreLtCharsAndCase(text, "abu")) {
-                            player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: tuojaus sujungsime su bendros pagalbos centru.");
-                            player.sendMessage(Color.LIGHTGREY, "LOS SANTOS bendra pagalbos linija: apibûdinkite savo ávyki, bei ávykio vietà.");
-                            playerEmergencyCalls.get(player).setValue(3);
-                        } else {
-                            player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: Atleiskite, bet að nesuprantu su kuo Jûs reikia sujungti: Policija ar medikais?");
-                        }
-                        break;
-                    case 1:
-                        player.sendMessage(Color.WHITE, "LOS SANTOS LIGONINË: Jûsø praneðimas uþfiksuotas ir praneðtas mûsø medikams.");
-                        player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti, medikai jau atvyksta");
-                        MedicFaction.get().sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
-                        MedicFaction.get().sendMessage(Color.WHITE, "| ávyki praneðë | " + phonenumber + ", nustatyta vieta: " + zone.getName());
-                        MedicFaction.get().sendMessage(Color.WHITE, "| ávykio praneðimas | " + text);
-                        player.setSpecialAction(SpecialAction.NONE);
-                        playerEmergencyCalls.remove(player);
-                        break;
-                    case 2:
-                        player.sendMessage(Color.WHITE, "LOS SANTOS POLICIJOS DEPARTAMENTAS: Jûsø praneðimas uþfiksuotas ir praneðtas pareigûnams.");
-                        player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie incidentà, pasistengsime Jums padëti.");
-                        PoliceFaction.get().sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
-                        PoliceFaction.get().sendMessage(Color.POLICE, "| ávykis: " + text);
-                        player.setSpecialAction(SpecialAction.NONE);
-                        playerEmergencyCalls.remove(player);
-                        break;
-                    case 3:
-                        player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija Jûsø ávykis buvo praneðtas visiems departamentams.");
-                        player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti.");
-                        MedicFaction.get().sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
-                        PoliceFaction.get().sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
-                        String s = String.format("| ávyki praneðë | %d, nustatyta vieta: %s", phonenumber, zone.getName());
-                        MedicFaction.get().sendMessage(Color.WHITE, s);
-                        PoliceFaction.get().sendMessage(Color.POLICE, s);
-                        s = String.format("| ávykio praneðimas | %s", text);
-                        MedicFaction.get().sendMessage(Color.WHITE, s);
-                        PoliceFaction.get().sendMessage(Color.POLICE, s);
-                        player.setSpecialAction(SpecialAction.NONE);
-                        playerEmergencyCalls.remove(player);
-                        break;
-                }
-            }
-        });
-
-        eventManager.registerHandler(PaydayEvent.class, e -> {
-            LtrpPlayer.get().forEach(p -> {
-                JobData jobData = getJobData(p);
-                jobData.addHours(1);
-                if(jobData instanceof ContractJob) {
-                    if(jobData.getRemainingContract() > 0)
-                        jobData.setRemainingContract(jobData.getRemainingContract() - 1);
-                    if(jobData.getJobRank() instanceof ContractJobRank) {
-                        ContractJobRank nextRank = (ContractJobRank) jobData.getJob().getRank(jobData.getJobRank().getNumber() + 1);
-                        // If the user doesn't have the highest rank yet
-                        if (nextRank != null) {
-                            if (nextRank.getXpNeeded() <= jobData.getXp()) {
-                                jobData.setJobRank(nextRank);
-                                p.sendGameText(1, 1000, "Naujas rangas: " + StringUtils.replaceLtChars(nextRank.getName()));
+                playerCommandManager.registerCommand("jobtest", new Class[0], (p, params) -> {
+                    LtrpPlayer player = LtrpPlayer.get(p);
+                    player.sendMessage(Color.SILVER, "Darbø skaièius: " + getJobs().size());
+                    for(Job job : getJobs()) {
+                        player.sendMessage(Color.CADETBLUE, String.format("[%d]%s. Class:%s Rank count: %d Vehicle count: %d",
+                                job.getUUID(),
+                                job.getName(),
+                                job.getClass().getSimpleName(),
+                                job.getRanks() == null ? -1 : job.getRanks().size(),
+                                job.getVehicles() == null ? -1 : job.getVehicles().size()));
+                        int propertyCount = 0;
+                        String propString = "";
+                        for(Field f : job.getClass().getFields()) {
+                            if(f.isAnnotationPresent(JobProperty.class)) {
+                                propertyCount++;
+                                try {
+                                    propString += f.getName() + ":" + f.get(job);
+                                } catch(IllegalAccessException e) {
+                                    propString += f.getName() + " unaccessible";
+                                }
                             }
                         }
+                        if(propertyCount > 0)
+                            player.sendMessage(Color.ROYALBLUE, String.format("Properties: %d. %s", propertyCount, propString));
                     }
+                    return true;
+                }, null, null, null, null);
 
-                }
-            });
+
+
+
+                playerCommandManager.registerCommand("givemejob", new Class[]{Integer.class}, (p, params) -> {
+                    LtrpPlayer player = LtrpPlayer.get(p);
+                    for(Object o : params) {
+                        System.out.println(o);
+                        p.sendMessage(Color.LIGHTYELLOW, o.toString());
+                    }
+                    if(params.size() == 0) {
+                        player.sendErrorMessage("NO SHIT");
+                    } else {
+                        int jobid = (Integer)params.poll();
+                        Job job = Job.get(jobid);
+                        if(job == null) {
+                            player.sendErrorMessage("YO, nëra toki odarbo");
+                        } else {
+                            setJob(player, job);
+                            p.sendMessage(Color.CRIMSON, "Tavo naujas darbas :" + job.getName() + " id: " + job.getUUID());
+                        }
+                        return true;
+                    }
+                    return false;
+                }, null, null, null, null);
+
+                playerCommandManager.registerCommand("givemerank", new Class[]{Integer.class}, (player, params) -> {
+                    LtrpPlayer p = LtrpPlayer.get(player);
+                    if(getJob(p) == null) {
+                        p.sendErrorMessage("you got no job son");
+                    } else if(params.size() < 1) {
+                        p.sendErrorMessage("learn to use kiddo");
+                    } else {
+                        int rankid = (Integer)params.poll();
+                        Rank rank = getJob(p).getRank(rankid);
+                        if(rank == null) {
+                            p.sendErrorMessage("No such rank.");
+                        } else {
+                            setRank(p, rank);
+                            p.sendMessage(Color.LIGHTGREEN, "gz kid, new rank: "+ rank.getName() + " Numb: "+ rank.getNumber());
+                            return true;
+                        }
+                    }
+                    return false;
+                }, null, null, null, null);
+
+
+                eventManager.registerHandler(PlayerCallNumberEvent.class, e -> {
+                    if(e.getPhoneNumber() == 911) {
+                        playerEmergencyCalls.put(e.getPlayer(), new MutablePair<>(e.getCallerPhone(), 0));
+                        e.getPlayer().setSpecialAction(SpecialAction.USE_CELLPHONE);
+                        e.getPlayer().sendMessage(Color.WHITE, "INFORMACIJA: Naudokite T, kad kalbëtumëte á telefonà. (/h)angup kad padëtumëte rageli.");
+                        e.getPlayer().sendMessage(Color.LIGHTGREY, "PAGALBOS LINIJA: Su kuo jus sujungti? Policija, medikais? Ar su abu?");
+                        e.getCallerPhone().setBusy(true);
+                    }
+                });
+
+                eventManager.registerHandler(PlayerTextEvent.class, HandlerPriority.HIGH, e -> {
+                    LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+                    String text = e.getText();
+                    if(playerEmergencyCalls.containsKey(player)) {
+                        WorldZone zone = WorldZone.get(player.getLocation());
+                        int phonenumber = playerEmergencyCalls.get(player).getLeft().getPhonenumber();
+                        switch(playerEmergencyCalls.get(player).getRight()) {
+                            case 0:
+                                if(StringUtils.equalsIgnoreLtCharsAndCase(text, "medikais")) {
+                                    player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: tuojaus sujungsime Jus su policijos departamentu.");
+                                    player.sendMessage(Color.LIGHTGREY, "LOS SANTOS POLICIJOS DEPARTAMENTAS: Los Santos policija klauso, koks Jûsø praneðimas ir vieta?");
+                                    playerEmergencyCalls.get(player).setValue(1);
+                                } else if(StringUtils.equalsIgnoreLtCharsAndCase(text, "policija")) {
+                                    player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: tuojaus sujungsime Jus su ligonine ar kita medicinos ástaiga.");
+                                    player.sendMessage(Color.LIGHTGREY, "LOS SANTOS ligoninë: Los Santos ligoninë klauso, apibûdinkite kas nutiko ir kur nutiko.");
+                                    playerEmergencyCalls.get(player).setValue(2);
+                                } else if(StringUtils.equalsIgnoreLtCharsAndCase(text, "abu")) {
+                                    player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: tuojaus sujungsime su bendros pagalbos centru.");
+                                    player.sendMessage(Color.LIGHTGREY, "LOS SANTOS bendra pagalbos linija: apibûdinkite savo ávyki, bei ávykio vietà.");
+                                    playerEmergencyCalls.get(player).setValue(3);
+                                } else {
+                                    player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija: Atleiskite, bet að nesuprantu su kuo Jûs reikia sujungti: Policija ar medikais?");
+                                }
+                                break;
+                            case 1:
+                                player.sendMessage(Color.WHITE, "LOS SANTOS LIGONINË: Jûsø praneðimas uþfiksuotas ir praneðtas mûsø medikams.");
+                                player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti, medikai jau atvyksta");
+                                MedicFaction.get().sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
+                                MedicFaction.get().sendMessage(Color.WHITE, "| ávyki praneðë | " + phonenumber + ", nustatyta vieta: " + zone.getName());
+                                MedicFaction.get().sendMessage(Color.WHITE, "| ávykio praneðimas | " + text);
+                                player.setSpecialAction(SpecialAction.NONE);
+                                playerEmergencyCalls.remove(player);
+                                break;
+                            case 2:
+                                player.sendMessage(Color.WHITE, "LOS SANTOS POLICIJOS DEPARTAMENTAS: Jûsø praneðimas uþfiksuotas ir praneðtas pareigûnams.");
+                                player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie incidentà, pasistengsime Jums padëti.");
+                                PoliceFaction.get().sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
+                                PoliceFaction.get().sendMessage(Color.POLICE, "| ávykis: " + text);
+                                player.setSpecialAction(SpecialAction.NONE);
+                                playerEmergencyCalls.remove(player);
+                                break;
+                            case 3:
+                                player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija Jûsø ávykis buvo praneðtas visiems departamentams.");
+                                player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti.");
+                                MedicFaction.get().sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
+                                PoliceFaction.get().sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
+                                String s = String.format("| ávyki praneðë | %d, nustatyta vieta: %s", phonenumber, zone.getName());
+                                MedicFaction.get().sendMessage(Color.WHITE, s);
+                                PoliceFaction.get().sendMessage(Color.POLICE, s);
+                                s = String.format("| ávykio praneðimas | %s", text);
+                                MedicFaction.get().sendMessage(Color.WHITE, s);
+                                PoliceFaction.get().sendMessage(Color.POLICE, s);
+                                player.setSpecialAction(SpecialAction.NONE);
+                                playerEmergencyCalls.remove(player);
+                                break;
+                        }
+                    }
+                });
+
+                eventManager.registerHandler(PaydayEvent.class, e -> {
+                    LtrpPlayer.get().forEach(p -> {
+                        JobData jobData = getJobData(p);
+                        jobData.addHours(1);
+                        if(jobData instanceof ContractJob) {
+                            if(jobData.getRemainingContract() > 0)
+                                jobData.setRemainingContract(jobData.getRemainingContract() - 1);
+                            if(jobData.getJobRank() instanceof ContractJobRank) {
+                                ContractJobRank nextRank = (ContractJobRank) jobData.getJob().getRank(jobData.getJobRank().getNumber() + 1);
+                                // If the user doesn't have the highest rank yet
+                                if (nextRank != null) {
+                                    if (nextRank.getXpNeeded() <= jobData.getXp()) {
+                                        jobData.setJobRank(nextRank);
+                                        p.sendGameText(1, 1000, "Naujas rangas: " + StringUtils.replaceLtChars(nextRank.getName()));
+                                    }
+                                }
+                            }
+
+                        }
+                    });
+                });
+
+                logger.info("Job manager initialized");
+            }
         });
-
-        logger.info("Job manager initialized");
     }
+    
 
-
-    @Override
-    public void destroy() {
-        destroyed = true;
-        trashmanManager.destroy();
-        vehicleThiefManager.destroy();
-        policemanManager.destroy();
-        mechanicManager.destroy();
-        drugDealerManager.destroy();
-        medicManager.destroy();
-    }
-
-    @Override
-    public boolean isDestroyed() {
-        return destroyed;
-    }
 
     @Override
     public List<Job> getJobs() {
@@ -437,6 +429,19 @@ public class JobManager implements JobController, Destroyable {
         });
         PlayerCommandManager.replaceTypeParser(Faction.class, s -> getFaction(Integer.parseInt(s)));
         PlayerCommandManager.replaceTypeParser(ContractJob.class, s -> getContractJob(Integer.parseInt(s)));
+    }
+
+
+
+    @Override
+    protected void onDisable() throws Throwable {
+        destroyed = true;
+        trashmanManager.destroy();
+        vehicleThiefManager.destroy();
+        policemanManager.destroy();
+        mechanicManager.destroy();
+        drugDealerManager.destroy();
+        medicManager.destroy();
     }
 
 
