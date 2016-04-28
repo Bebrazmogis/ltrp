@@ -82,7 +82,7 @@ CREATE TABLE players
   ISP VARCHAR(128) DEFAULT '' NOT NULL,
   Hunger TINYINT UNSIGNED DEFAULT 0 NOT NULL,
   total_paycheck INT UNSIGNED NOT NULL ,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id)
   #FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE SET NULL,
   #FOREIGN KEY (job_rank) REFERENCES job_ranks(id) ON DELETE SET NULL
 )  ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
@@ -200,32 +200,6 @@ CREATE TABLE IF NOT EXISTS logs_player_event (
   FOREIGN KEY (user_id) REFERENCES players(id) ON DELETE SET NULL
 ) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
-CREATE TABLE IF NOT EXISTS items
-(
-  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  name VARCHAR(100) NOT NULL,
-  class_name VARCHAR(100) NOT NULL,
-  location_class VARCHAR(16) NOT NULL DEFAULT 'player',
-  location_id INT NOT NULL,
-  type INT NOT NULL,
-  stackable TINYINT NOT NULL DEFAULT '0',
-  amount SMALLINT UNSIGNED NOT NULL DEFAULT '1',
-  doses_left INT NULL,
-  weapon_model TINYINT NULL,
-  ammo SMALLINT NULL,
-  model_id INT NULL,
-  bone TINYINT UNSIGNED NULL,
-  anim_lib VARCHAR(30) NULL,
-  anim_name VARCHAR(60) NULL,
-  dmg_increase FLOAT NULL,
-  phonenumber INT NULL UNIQUE,
-  durability INT NULL,
-  max_durability INT NULL,
-  items INT NULL,
-  size INT NULL,
-  special_action TINYINT NULL
-) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
-
 
 CREATE TABLE IF NOT EXISTS phone_sms (
   id INT AUTO_INCREMENT NOT NULL,
@@ -274,6 +248,13 @@ CREATE TABLE IF NOT EXISTS vehicle_items (
   vehicle_id INT NOT NULL,
   FOREIGN KEY (item_id) REFERENCES items(id),
   FOREIGN KEY (vehicle_id) REFERENCES vehicles(id)
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS property_items (
+  item_id INT NOT NULL,
+  property_id INT NOT NULL,
+  FOREIGN KEY (item_id) REFERENCES items(id),
+  FOREIGN KEY (property_id) REFERENCES properties(id)
 )ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
 
 
@@ -347,25 +328,6 @@ CREATE TABLE IF NOT EXISTS items_radio
   PRIMARY KEY (item_id),
   FOREIGN KEY (item_id) REFERENCES items(id)
 )ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
-
-CREATE TABLE house_weed
-(
-  id INT NOT NULL AUTO_INCREMENT,
-  house_id INT NOT NULL,
-  x REAL NOT NULL,
-  y REAL NOT NULL,
-  z REAL NOT NULL,
-  plant_timestamp INT NOT NULL,
-  planted_by INT NOT NULL,
-  growth_timestamp INT DEFAULT 0 NOT NULL,
-  growth_stage TINYINT UNSIGNED DEFAULT 0 NOT NULL,
-  harvested_by INT NULL,
-  yield TINYINT UNSIGNED NULL,
-  PRIMARY KEY(id),
-  INDEX(planted_by),
-  INDEX(harvested_by)
-) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
-
 
 CREATE TABLE IF NOT EXISTS player_crimes
 (
@@ -625,15 +587,82 @@ CREATE TABLE IF NOT EXISTS properties (
   entrance_z REAL NOT NULL,
   entrance_interior INT NOT NULL,
   entrance_virtual INT NOT NULL,
-  exit_x REAL NOT NULL,
-  exit_y REAL NOT NULL,
-  exit_z REAL NOT NULL,
-  exit_interior INT NOT NULL,
-  exit_virtual INT NOT NULL,
+  exit_x REAL NULL,
+  exit_y REAL NULL,
+  exit_z REAL NULL,
+  exit_interior INT NULL,
+  exit_virtual INT NULL,
   locked TINYINT NOT NULL,
+  label_color INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (owner) REFERENCES players(id) ON DELETE SET NULL
 )ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE IF NOT EXISTS houses (
+  id INT NOT NULL,
+  money INT NOT NULL,
+  rent_price INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id) REFERENCES properties(id) ON DELETE CASCADE
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+CREATE TABLE house_weed
+(
+  id INT NOT NULL AUTO_INCREMENT,
+  house_id INT NOT NULL,
+  x REAL NOT NULL,
+  y REAL NOT NULL,
+  z REAL NOT NULL,
+  plant_timestamp INT NOT NULL,
+  planted_by INT NOT NULL,
+  growth_timestamp INT DEFAULT 0 NOT NULL,
+  growth_stage TINYINT UNSIGNED DEFAULT 0 NOT NULL,
+  harvested_by INT NULL,
+  yield TINYINT UNSIGNED NULL,
+  PRIMARY KEY(id),
+  INDEX(planted_by),
+  INDEX(harvested_by),
+  FOREIGN KEY (house_id) REFERENCES houses(id) ON DELETE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+
+CREATE TABLE IF NOT EXISTS house_upgrades (
+  house_id INT NOT NULL,
+  upgrade_id TINYINT NOT NULL,
+  PRIMARY KEY (house_id, upgrade_id),
+  FOREIGN KEY (house_id) REFERENCES houses(id) ON DELETE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+
+CREATE TABLE IF NOT EXISTS garages (
+  id INT NOT NULL,
+  vehicle_entrance_x FLOAT NOT NULL,
+  vehicle_entrance_y FLOAT NOT NULL,
+  vehicle_entrance_z FLOAT NOT NULL,
+  vehicle_entrance_interior INT NOT NULL,
+  vehicle_entrance_virtual INT NOT NULL,
+  vehicle_entrance_angle FLOAT NOT NULL,
+  vehicle_exit_x FLOAT NOT NULL,
+  vehicle_exit_y FLOAT NOT NULL,
+  vehicle_exit_z FLOAT NOT NULL,
+  vehicle_exit_interior INT NOT NULL,
+  vehicle_exit_virtual INT NOT NULL,
+  vehicle_exit_angle FLOAT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id) REFERENCES properties(id) ON DELETE CASCADE
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
+
+
+CREATE TABLE IF NOT EXISTS businesses_available_commodities
+(
+  id INT NOT NULL,
+  business_type INT NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  item_type INT NULL,
+  PRIMARY KEY (id)
+)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
+
 
 CREATE TABLE IF NOT EXISTS businesses
 (
@@ -652,17 +681,10 @@ CREATE TABLE IF NOT EXISTS businesses
 CREATE TABLE IF NOT EXISTS businesses_commodities
 (
   business_id INT NOT NULL,
+  commodity_id INT NOT NULL,
   no INT NOT NULL,
-  name VARCHAR(100) NOT NULL,
-  item_type INT NULL,
+  price INT NOT NULL,
   PRIMARY KEY (business_id, no),
-  FOREIGN KEY (business_id) REFERENCES businesses(id) ON DELETE CASCADE
-)ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
-
-CREATE TABLE IF NOT EXISTS businesses_available_commodities
-(
-  business_type INT NOT NULL,
-  name VARCHAR(100) NOT NULL,
-  item_type INT NULL,
-  PRIMARY KEY (business_type)
+  FOREIGN KEY (business_id) REFERENCES businesses(id) ON DELETE CASCADE,
+  FOREIGN KEY (commodity_id) REFERENCES businesses_available_commodities(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=cp1257 COLLATE=cp1257_bin;
