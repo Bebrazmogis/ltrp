@@ -30,7 +30,7 @@ public class BusinessNameInputDialog {
                         player.sendErrorMessage("Tekstas per trumpas!");
                         d.show();
                     } else {
-                        String parsed = StringUtils.parseTextColors(i);
+                        String parsed = StringUtils.parseTextColors(i) + "{FFFFFF}";
                         business.setName(parsed);
                         eventManager.dispatchEvent(new BusinessNameChangeEvent(business, player, parsed));
                     }
