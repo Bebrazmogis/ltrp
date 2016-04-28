@@ -4,6 +4,7 @@ import lt.ltrp.PropertyController;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.data.BusinessCommodity;
 import lt.ltrp.dialog.property.BusinessCommodityListDialog;
+import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
@@ -19,10 +20,11 @@ import java.util.Optional;
 public interface Business extends Property {
 
     static final int DEFAULT_PICKUP_MODEL = 1239;
-    static final Color DEFAULT_HOUSE_LABEL_COLOR = Color.WHITE;
+    static final Color DEFAULT_BUSINESS_LABEL_COLOR = Color.WHITE;
     static final int DEFAULT_RESOURCES = 1000;
     static final int DEFAULT_COMMODITY_LIMIT = 20;
     static final int MIN_NAME_LENGTH = 20;
+    static final int MAX_RESOURCES = 2000;
 
     static Collection<Business> get() {
         return PropertyController.get().getBusinesses();
@@ -38,8 +40,19 @@ public interface Business extends Property {
 
     static Business getClosest(Location location, float maxDistance) {
         Optional<Business> op = get().stream().min((b1, b2) -> {
-            return Float.compare(Math.min(b1.getEntrance().distance(location), b1.getExit().distance(location)),
-                    Math.min(b2.getEntrance().distance(location), b2.getExit().distance(location)));
+            if(b1.getExit() == null && b2.getExit() != null) {
+                return Float.compare(b1.getEntrance().distance(location),
+                        Math.min(b2.getEntrance().distance(location), b2.getExit().distance(location)));
+            }
+            else if(b2.getExit() == null && b1.getExit() != null)
+                return Float.compare(Math.min(b1.getEntrance().distance(location), b1.getExit().distance(location)),
+                        b2.getEntrance().distance(location));
+            else if(b1.getExit() == null && b2.getExit() == null)
+                return Float.compare(b1.getEntrance().distance(location),
+                        b2.getEntrance().distance(location));
+            else
+                return Float.compare(Math.min(b1.getEntrance().distance(location), b1.getExit().distance(location)),
+                        Math.min(b2.getEntrance().distance(location), b2.getExit().distance(location)));
         });
         if(op.isPresent()) {
             float distance = op.get().getEntrance().distance(location);
@@ -60,7 +73,11 @@ public interface Business extends Property {
     }
 
     static Business create(int id, BusinessType type, Location entrance, Location exit, int price, EventManager eventManager1) {
-        return create(id, "", type, LtrpPlayer.INVALID_USER_ID, DEFAULT_PICKUP_MODEL, price, entrance, exit, DEFAULT_HOUSE_LABEL_COLOR, 0, DEFAULT_RESOURCES, DEFAULT_COMMODITY_LIMIT, eventManager1);
+        return create(id, "", type, LtrpPlayer.INVALID_USER_ID, DEFAULT_PICKUP_MODEL, price, entrance, exit, DEFAULT_BUSINESS_LABEL_COLOR, 0, DEFAULT_RESOURCES, DEFAULT_COMMODITY_LIMIT, eventManager1);
+    }
+
+    static Business create(String name, Location entrance, Location exit, int price, EventManager eventManager) {
+        return create(0, name, BusinessType.None, LtrpPlayer.INVALID_USER_ID, DEFAULT_PICKUP_MODEL, price, entrance, exit, DEFAULT_BUSINESS_LABEL_COLOR, 0, DEFAULT_RESOURCES, DEFAULT_COMMODITY_LIMIT, eventManager);
     }
 
     static List<BusinessCommodity> getAvailableCommodities(BusinessType type) {
@@ -70,13 +87,29 @@ public interface Business extends Property {
     int getMoney();
     void addMoney(int amount);
     BusinessType getBusinessType();
+    void setBusinessType(BusinessType type);
     List<BusinessCommodity> getCommodities();
     void addCommodity(int index, BusinessCommodity commodity);
     void addCommodity(BusinessCommodity commodity);
     void removeCommodity(BusinessCommodity commodity);
     void removeCommodity(int index);
+
+    /**
+     * Not to be confused with resources
+     * @return returns the amount of commodities(wares) this business sells
+     */
     int getCommodityCount();
+
+    /**
+     *
+     * @return returns the maximum amount of commodities(wares) this business can sell at a time
+     */
     int getCommodityLimit();
+
+    /**
+     * Current stock of "resources", previously known as "products"
+     * @return current resource stock
+     */
     int getResources();
     void setResources(int amount);
     int getEntrancePrice();
@@ -88,6 +121,8 @@ public interface Business extends Property {
 
     void showCommodities(LtrpPlayer player);
     void showCommodities(LtrpPlayer player, BusinessCommodityListDialog.SelectCommodityHandler selectCommodityHandler);
+
+    DynamicPickup getPickup();
 
 
 

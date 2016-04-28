@@ -2,6 +2,7 @@ package lt.ltrp.object;
 
 import lt.ltrp.NamedEntity;
 import lt.ltrp.PropertyController;
+import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
 
@@ -40,6 +41,7 @@ public interface Property extends NamedEntity, Destroyable {
         return null;
     }
 
+    boolean isOwned();
     int getOwner();
     void setOwner(int ownerUserId);
     Location getExit();
@@ -53,6 +55,7 @@ public interface Property extends NamedEntity, Destroyable {
     void setLocked(boolean set);
     int getPrice();
     void setPrice(int price);
+    Color getLabelColor();
 
 
 }
