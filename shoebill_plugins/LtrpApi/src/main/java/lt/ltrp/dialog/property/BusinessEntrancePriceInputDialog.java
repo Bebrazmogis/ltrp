@@ -2,7 +2,7 @@ package lt.ltrp.dialog.property;
 
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dialog.IntegerInputDialog;
-import lt.ltrp.event.property.BusinessEntrancePriceChangeEvent;
+import lt.ltrp.event.property.BusinessEditEvent;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
@@ -28,7 +28,7 @@ public class BusinessEntrancePriceInputDialog {
                         d.show();
                     else {
                         business.setEntrancePrice(i);
-                        eventManager.dispatchEvent(new BusinessEntrancePriceChangeEvent(business, player, i));
+                        eventManager.dispatchEvent(new BusinessEditEvent(business, player));
                     }
                 })
                 .build();
