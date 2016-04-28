@@ -3,6 +3,7 @@ package lt.ltrp.util;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * @author Bebras
@@ -33,12 +34,13 @@ public class StringUtils {
         ltToLatinChar.put('Ø', 'U');
         ltToLatinChar.put('Þ', 'Z');
 
-        colorsToRGB.put("{RAUDONA", "{FF0000}");
-        colorsToRGB.put("{ZALIA", "{00FF00}");
-        colorsToRGB.put("[GELTONA", "{FFFF00}");
-        colorsToRGB.put("{MELYNA", "{0000FF}");
+        colorsToRGB.put("{RAUDONA}", "{FF0000}");
+        colorsToRGB.put("{ZALIA}", "{00FF00}");
+        colorsToRGB.put("[GELTONA}", "{FFFF00}");
+        colorsToRGB.put("{MELYNA}", "{0000FF}");
         colorsToRGB.put("{ZYDRA}", "{00FFFF}");
         colorsToRGB.put("{VIOLETINE}", "{FF00FF}");
+        colorsToRGB.put("{GELTONA}", "{FFFF00}");
     }
 
 
@@ -84,7 +86,8 @@ public class StringUtils {
     public static String parseTextColors(String text) {
         for(Iterator<String> it = colorsToRGB.keySet().iterator();  it.hasNext();) {
             String key = it.next();
-            text = text.replaceAll(key, colorsToRGB.get(key));
+            System.out.println("Searching for: "+  Pattern.quote(key) + " replacing with:" + colorsToRGB.get(key));
+            text = text.replaceAll(Pattern.quote(key), colorsToRGB.get(key));
         }
         return text;
     }
