@@ -1,5 +1,6 @@
 package lt.ltrp.object.impl;
 
+import lt.ltrp.GameTextStyleManager;
 import lt.ltrp.InventoryEntityImpl;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.*;
@@ -909,8 +910,10 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
             if(vehicle instanceof LtrpVehicle) {
                 return (LtrpVehicle) vehicle;
             } else {
-                logger.error("An instance of Vehicle found. IG ID:" + vehicle.getId() + " Location:" + vehicle.getLocation());
-                return LtrpVehicle.getByVehicle(vehicle);
+                LtrpVehicle v = LtrpVehicle.getByVehicle(vehicle);
+                if(v == null)
+                    logger.error("An instance of Vehicle found without a LtrpVehicle wrapper. IG ID:" + vehicle.getId() + " Location:" + vehicle.getLocation());
+                return v;
             }
         }
         return null;
@@ -1103,7 +1106,11 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     @Override
     public void setVehicle(Vehicle vehicle, int i) {
-        player.setVehicle(vehicle, i);
+        LtrpVehicle v = LtrpVehicle.getByVehicle(vehicle);
+        if(v != null)
+            setVehicle(v, i);
+        else
+            player.setVehicle(vehicle, i);
     }
 
     public void setVehicle(LtrpVehicle vehicle, int i) {
@@ -1211,8 +1218,11 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     @Override
-    public void sendGameText(int i, int i1, String s) {
-        player.sendGameText(i, i1, s);
+    public void sendGameText(int time, int style, String s) {
+        if(style > 6)
+            GameTextStyleManager.sendGameText(this, s, style, time);
+        else
+            player.sendGameText(time, style, s);
     }
 
     @Override
