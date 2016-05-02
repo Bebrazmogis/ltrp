@@ -10,8 +10,8 @@ import lt.ltrp.dao.impl.MySqlBusinessDaoImpl;
 import lt.ltrp.dao.impl.MySqlGarageDaoImpl;
 import lt.ltrp.dao.impl.MySqlHouseDaoImpl;
 import lt.ltrp.dao.impl.MySqlPropertyDaoImpl;
-import lt.ltrp.data.BusinessCommodity;
 import lt.ltrp.data.SpawnData;
+import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.event.player.PlayerSpawnLocationChangeEvent;
 import lt.ltrp.event.property.*;
@@ -20,6 +20,7 @@ import lt.ltrp.object.impl.BusinessImpl;
 import lt.ltrp.object.impl.GarageImpl;
 import lt.ltrp.object.impl.HouseImpl;
 import lt.ltrp.player.BankAccount;
+import lt.ltrp.util.StringUtils;
 import lt.maze.streamer.event.PlayerDynamicPickupEvent;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxInstance;
@@ -227,13 +228,32 @@ public class PropertyPlugin extends Plugin implements PropertyController {
 
 
         eventManagerNode.registerHandler(PlayerDynamicPickupEvent.class, e -> {
-            Optional<Business> opB = Business.get().stream().filter(b -> b.getPickup().equals(e.getPickup())).findFirst();
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            Optional<Business> opB = Business.get().stream().filter(b -> b.getPickup() != null && b.getPickup().equals(e.getPickup())).findFirst();
             if(opB.isPresent()) {
                 Business b = opB.get();
-                e.getPlayer().sendMessage(Color.PALEGOLDENROD, String.format("%s~n~~w~Savininkas: ~g~%s~n~ ~w~Mokestis: ~g~ %d ~n~~p~ Noredami ieiti - Rasykite /enter",
-                        b.getName(), PlayerController.get().getUsernameByUUID(b.getOwner()), b.getEntrancePrice()));
+                String name = StringUtils.limit(StringUtils.replaceLtChars(StringUtils.stripColors(b.getName())), 40, "..");
+                String msg = String.format("%s~n~~w~Savininkas: ~g~%s~n~ ~w~Mokestis: ~g~ %d ~n~~p~ Noredami ieiti - Rasykite /enter",
+                        name, PlayerController.get().getUsernameByUUID(b.getOwner()), b.getEntrancePrice());
+                player.sendGameText(6000, 7, msg);
+                // TODO rasi alternatyva ivietoj gameText. Su ilgaisp avadinimais blogai
             }
         });
+
+        //commodities
+        eventManagerNode.registerHandler(BusinessCommodityAddEvent.class, e -> {
+            businessDao.insert(e.getCommodity());
+        });
+
+        eventManagerNode.registerHandler(BusinessCommodityRemoveEvent.class, e -> {
+            businessDao.remove(e.getCommodity());
+        });
+
+        eventManagerNode.registerHandler(BusinessCommodityPriceUpdateEvent.class, e -> {
+            businessDao.update(e.getCommodity());
+        });
+
+
 
         logger.debug("Property plugin loaded");
     }
@@ -297,7 +317,7 @@ public class PropertyPlugin extends Plugin implements PropertyController {
 
             return 1;
         }, String.class, Integer.class);
-
+/*
         // OnPlayerEnterHouse(playerid, housesqlid);
         amx.registerFunction("OnPlayerEnterHouse", params -> {
             LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
@@ -364,6 +384,7 @@ public class PropertyPlugin extends Plugin implements PropertyController {
             }
             return 1;
         }, Integer.class, Integer.class);
+        */
     }
 
 
