@@ -2,7 +2,7 @@ package lt.ltrp.object.impl;
 
 
 import lt.ltrp.constant.BusinessType;
-import lt.ltrp.data.BusinessCommodity;
+import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.dialog.property.BusinessCommodityListDialog;
 import lt.ltrp.event.property.BusinessDestroyEvent;
 import lt.ltrp.object.Business;
@@ -59,7 +59,7 @@ public class BusinessImpl extends PropertyImpl implements Business {
         if(getOwner() != LtrpPlayer.INVALID_USER_ID)  {
             pickup = DynamicPickup.create(getPickupModelId(), 1, getEntrance());
             if(Shoebill.get().getResourceManager().getPlugin(StreamerPlugin.class) != null)
-                LtrpPlayer.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Pickup));
+                LtrpPlayer.get().stream().filter(pickup::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Pickup));
         } else {
             String text = String.format("%s\nPardavimo kaina: %d$\n¡sigijimui - /buybiz", getName(), getPrice());
             entranceLabel = DynamicLabel.create(text, getLabelColor(), getEntrance());
