@@ -3,10 +3,13 @@ package lt.ltrp;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.ShopBusinessCommodity;
 import lt.ltrp.dialog.property.BusinessManagementDialog;
 import lt.ltrp.event.property.BusinessDoorLockToggleEvent;
-import lt.ltrp.object.*;
+import lt.ltrp.event.property.PlayerEnterBusinessEvent;
+import lt.ltrp.event.property.PlayerExitBusinessEvent;
+import lt.ltrp.object.Business;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.Property;
 import lt.ltrp.object.impl.BusinessImpl;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -45,14 +48,24 @@ public class BusinessCommands {
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
         Property property = player.getProperty();
-        if(property != null) {
-            if(insideCommands.contains(cmd.toLowerCase()) && !(player.getProperty() instanceof Business)) {
-                player.sendErrorMessage("Ðià komandà galite naudoti tik bûdami verslo viduje!");
-            } else {
-                Business closestBiz = Business.getClosest(player.getLocation(), 5f);
-                if(ownerCommands.contains(cmd.toLowerCase()) && !property.isOwner(player))
+        Business closestBiz = Business.getClosest(player.getLocation(), 5f);
+        if((property != null && property instanceof Business) || closestBiz != null) {
+            if(insideCommands.contains(cmd.toLowerCase())) {
+                if(property != null)
+                    return true;
+                else
+                    player.sendErrorMessage("Ðià komandà galite naudoti tik bûdami verslo viduje!");
+            }
+
+            if(ownerCommands.contains(cmd.toLowerCase())) {
+                if((property != null && property.isOwner(player)) || (closestBiz != null && closestBiz.isOwner(player))) {
+                    return true;
+                } else
                     player.sendErrorMessage("Ðià komandà gali naudoti tik verslo savininkas!");
             }
+            else
+                return true;
+
         }
         return false;
     }
@@ -97,25 +110,30 @@ public class BusinessCommands {
     @CommandHelp("Atidaro parduodamø verslo prekiø sàraðà")
     public boolean buy(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        Business business = Business.getClosest(player.getLocation(), 5f);
+        Property property = player.getProperty();
+        Business business = property != null && property instanceof Business ? (Business)property : null;
         if(business == null)
             return false;
 
         if(business.getCommodityCount() != 0 && business.getBusinessType() != BusinessType.None) {
-            business.showCommodities(player, (pp, commodity) -> {
+            business.showCommodities(player, (d, pp, commodity) -> {
                 if(commodity == null || commodity.getPrice() > player.getMoney()) {
                     player.sendErrorMessage("Jums neuþtenka pinigø ðiai prekei, " + commodity.getName() + " kainauoja " + Currency.SYMBOL + commodity.getPrice());
                 } else {
+                    /*
                     if(commodity instanceof ShopBusinessCommodity) {
                         if(player.getInventory().isFull()) {
                             player.sendErrorMessage("Jûsø inventorius pilnas!");
                         } else {
-                            Item item = Item.create(((ShopBusinessCommodity)commodity).getItemType(), eventManager);
+                            ShopBusinessCommodity bc = (ShopBusinessCommodity)commodity;
+                            Item item = Item.create(bc.getItemType(), bc.getName(), player, eventManager);
                             player.getInventory().add(item);
                         }
                     } else {
-                        // TODO  alllllllll the tipes
+
                     }
+                    */
+                    commodity.onBuy(player);
                     player.sendMessage(Color.BUSINESS, "Nusipirkote " + commodity.getName() + ", prekë kainavo " + Currency.SYMBOL + commodity.getPrice());
                     business.setResources(business.getResources()-1);
                     int vat = LtrpWorld.get().getTaxes().getVAT(commodity.getPrice());
@@ -159,9 +177,9 @@ public class BusinessCommands {
         else {
             business.setLocked(!business.isLocked());
             if(business.isLocked())
-                player.sendGameText(8000, 1, "Verslas~r~uzrakintas");
+                player.sendGameText(8000, 1, "Verslas~r~ uzrakintas");
             else
-                player.sendGameText(8000, 1, "Verslas~g~atrakintas");
+                player.sendGameText(8000, 1, "Verslas~g~ atrakintas");
             eventManager.dispatchEvent(new BusinessDoorLockToggleEvent(business, player, business.isLocked()));
         }
         return true;
@@ -171,14 +189,16 @@ public class BusinessCommands {
     public boolean enter(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
         Business business = Business.getClosest(p.getLocation(), 8f);
-        if(business == null && player.getProperty() instanceof Business)
-            business = (Business) player.getProperty();
         if(business == null)
             return false;
         if(business.isLocked())
             player.sendErrorMessage("Verslas uþrakintas");
+        else if(business.getExit() == null)
+            player.sendErrorMessage("Verslas dar neárengtas!");
         else if(!player.isInAnyVehicle()){
             player.setLocation(business.getExit());
+            player.setProperty(business);
+            eventManager.dispatchEvent(new PlayerEnterBusinessEvent(business, player));
         }
         return true;
     }
@@ -186,15 +206,18 @@ public class BusinessCommands {
     @Command
     public boolean exit(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        Business business = Business.getClosest(p.getLocation(), 8f);
-        if(business == null && player.getProperty() instanceof Business)
-            business = (Business) player.getProperty();
+        Business business = null;
+        if(player.getProperty() != null && player.getProperty() instanceof Business)
+            business = (Business)player.getProperty();
         if(business == null)
             return false;
+
         if(business.isLocked())
             player.sendErrorMessage("Verslas uþrakintas");
         else if(!player.isInAnyVehicle()){
             player.setLocation(business.getEntrance());
+            player.setProperty(null);
+            eventManager.dispatchEvent(new PlayerExitBusinessEvent(business, player));
         }
         return true;
     }
