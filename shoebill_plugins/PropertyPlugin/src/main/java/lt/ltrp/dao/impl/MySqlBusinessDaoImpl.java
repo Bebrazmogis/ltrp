@@ -4,11 +4,14 @@ import lt.ltrp.constant.BusinessType;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.dao.BusinessDao;
 import lt.ltrp.dao.PropertyDao;
-import lt.ltrp.data.BusinessCommodity;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.ShopBusinessCommodity;
+import lt.ltrp.data.property.business.commodity.BusinessCommodity;
+import lt.ltrp.data.property.business.commodity.BusinessCommodityDrink;
+import lt.ltrp.data.property.business.commodity.BusinessCommodityFood;
+import lt.ltrp.data.property.business.commodity.BusinessCommodityItem;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;
+import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
@@ -102,7 +105,9 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
             stmt.setInt(1, i);
             ResultSet r = stmt.executeQuery();
             if(r.next()) {
-                return resultToBusiness(r);
+                Business b = resultToBusiness(r);
+                get(b).forEach(b::addCommodity);
+                return b;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,8 +123,10 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
             ResultSet r = stmt.executeQuery();
-            while(r.next())
-                resultToBusiness(r);
+            while(r.next()) {
+                Business b = resultToBusiness(r);
+                get(b).forEach(b::addCommodity);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -128,7 +135,9 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
     @Override
     public List<BusinessCommodity> get(Business business) {
         List<BusinessCommodity> list = new ArrayList<>();
-        String sql = "SELECT * FROM businesses_commodities WHERE business_id = ? ORDER BY `no` ASC";
+        String sql = "SELECT businesses_commodities.*, businesses_available_commodities.* FROM businesses_commodities " +
+                "LEFT JOIN businesses_available_commodities ON businesses_available_commodities.id = businesses_commodities.commodity_id " +
+                "WHERE business_id = ? ORDER BY `no` ASC";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
@@ -157,14 +166,26 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
                 stmt.setInt(4, businessCommodity.getUUID());
 
             } else {
-                sql = "UPDATE businesses_available_commodities SET `name` = ?, `item_type` = ? WHERE id = ?";
+                sql = "UPDATE businesses_available_commodities SET `name` = ?, `item_type` = ?, health_addition = ?, special_action = ?, drunk_level_per_sip = ? WHERE id = ?";
                 stmt = con.prepareStatement(sql);
                 stmt.setString(1, businessCommodity.getName());
-                if(businessCommodity instanceof ShopBusinessCommodity)
-                    stmt.setInt(2, ((ShopBusinessCommodity) businessCommodity).getItemType().id);
+                if(businessCommodity instanceof BusinessCommodityItem)
+                    stmt.setInt(2, ((BusinessCommodityItem) businessCommodity).getItemType().id);
                 else
                     stmt.setNull(2, Types.INTEGER);
-                stmt.setInt(3, businessCommodity.getUUID());
+                if(businessCommodity instanceof BusinessCommodityDrink) {
+                    stmt.setInt(3, ((BusinessCommodityDrink) businessCommodity).getAction().getValue());
+                    stmt.setInt(4, ((BusinessCommodityDrink) businessCommodity).getDrunkLevelPerSip());
+                } else {
+                    stmt.setNull(3, Types.INTEGER);
+                    stmt.setNull(4, Types.INTEGER);
+                }
+                if(businessCommodity instanceof BusinessCommodityFood)
+                    stmt.setFloat(5, ((BusinessCommodityFood) businessCommodity).getHealth());
+                else
+                    stmt.setNull(5, Types.FLOAT);
+
+                stmt.setInt(6,  businessCommodity.getUUID());
             }
             stmt.execute();
         }catch (SQLException e) {
@@ -213,6 +234,32 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
 
     @Override
     public void insert(BusinessType businessType, BusinessCommodity businessCommodity) {
+        if(businessCommodity instanceof BusinessCommodityItem)
+            insert(businessType, (BusinessCommodityItem)businessCommodity);
+        else if(businessCommodity instanceof BusinessCommodityDrink)
+            insert(businessType, (BusinessCommodityDrink)businessCommodity);
+        else if(businessCommodity instanceof BusinessCommodityFood)
+            insert(businessType, (BusinessCommodityFood)businessCommodity);
+        else {
+            String sql = "INSERT INTO businesses_available_commodities (business_type, `name`) VALUES (?, ?)";
+            try (
+                    Connection con = dataSource.getConnection();
+                    PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ) {
+                stmt.setInt(1, businessType.getId());
+                stmt.setString(2, businessCommodity.getName());
+                stmt.execute();
+                ResultSet r = stmt.getGeneratedKeys();
+                if(r.next())
+                    businessCommodity.setUUID(r.getInt(1));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    private void insert(BusinessType businessType, BusinessCommodityItem businessCommodity) {
         String sql = "INSERT INTO businesses_available_commodities (business_type, `name`, item_type) VALUES (?, ?, ?)";
         try (
                 Connection con = dataSource.getConnection();
@@ -220,10 +267,44 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
         ) {
             stmt.setInt(1, businessType.getId());
             stmt.setString(2, businessCommodity.getName());
-            if(businessCommodity instanceof ShopBusinessCommodity)
-                stmt.setInt(3, ((ShopBusinessCommodity) businessCommodity).getItemType().id);
-            else
-                stmt.setNull(3, Types.INTEGER);
+            stmt.setInt(3, businessCommodity.getItemType().id);
+            stmt.execute();
+            ResultSet r = stmt.getGeneratedKeys();
+            if(r.next())
+                businessCommodity.setUUID(r.getInt(1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void insert(BusinessType businessType, BusinessCommodityDrink businessCommodity) {
+        String sql = "INSERT INTO businesses_available_commodities (business_type, `name`, special_action, drunk_level_per_sip) VALUES (?, ?, ?, ?)";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ) {
+            stmt.setInt(1, businessType.getId());
+            stmt.setString(2, businessCommodity.getName());
+            stmt.setInt(3, businessCommodity.getAction().getValue());
+            stmt.setInt(4, businessCommodity.getDrunkLevelPerSip());
+            stmt.execute();
+            ResultSet r = stmt.getGeneratedKeys();
+            if(r.next())
+                businessCommodity.setUUID(r.getInt(1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void insert(BusinessType businessType, BusinessCommodityFood businessCommodity) {
+        String sql = "INSERT INTO businesses_available_commodities (business_type, `name`, health_addition) VALUES (?, ?, ?)";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ) {
+            stmt.setInt(1, businessType.getId());
+            stmt.setString(2, businessCommodity.getName());
+            stmt.setFloat(3, businessCommodity.getHealth());
             stmt.execute();
             ResultSet r = stmt.getGeneratedKeys();
             if(r.next())
@@ -251,11 +332,12 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
     @Override
     public List<BusinessCommodity> get(BusinessType businessType) {
         List<BusinessCommodity> list = new ArrayList<>();
-        String sql = "SELECT * FROM businesses_available_commodities";
+        String sql = "SELECT * FROM businesses_available_commodities WHERE business_type = ?";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
+            stmt.setInt(1, businessType.getId());
             ResultSet r = stmt.executeQuery();
             while(r.next())
                 list.add(resultToCommodity(r));
@@ -294,24 +376,42 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
         int uuid = r.getInt("id");
         String name = r.getString("name");
         int type = r.getInt("item_type");
-        if(r.wasNull())
-            commodity = new BusinessCommodity(uuid, name);
+        if(!r.wasNull()) {
+            commodity = new BusinessCommodityItem(uuid, name, ItemType.getById(type), eventManager);
+        }
+        float health = r.getFloat("health_addition");
+        if(!r.wasNull()) {
+            commodity = new BusinessCommodityFood(uuid, name, health);
+        }
+        int specialActionId = r.getInt("special_action");
+        int drunkLevelPerSip = r.getInt("drunk_level_per_sip");
+        if(!r.wasNull())
+            commodity = new BusinessCommodityDrink(uuid, name, SpecialAction.get(specialActionId), drunkLevelPerSip, eventManager);
         else
-            commodity = new ShopBusinessCommodity(uuid, name, ItemType.getById(type));
+            commodity = new BusinessCommodity(uuid, name);
         return commodity;
     }
 
     private BusinessCommodity resultToCommodity(Business business, ResultSet r) throws SQLException {
         BusinessCommodity commodity;
         int uuid = r.getInt("id");
+        int price = r.getInt("price");
+        int number = r.getInt("no");
         String name = r.getString("name");
-        int price=  r.getInt("price");
-        int number = r.getInt("number");
         int type = r.getInt("item_type");
-        if(r.wasNull())
-            commodity = new BusinessCommodity(uuid, business, name, price, number);
+        if(!r.wasNull()) {
+            commodity = new BusinessCommodityItem(uuid, business, name, price, number, ItemType.getById(type), eventManager);
+        }
+        float health = r.getFloat("health_addition");
+        if(!r.wasNull()) {
+            commodity = new BusinessCommodityFood(uuid, business, name, price, number, health);
+        }
+        int specialActionId = r.getInt("special_action");
+        int drunkLevelPerSip = r.getInt("drunk_level_per_sip");
+        if(!r.wasNull())
+            commodity = new BusinessCommodityDrink(uuid, business, name, price, number, SpecialAction.get(specialActionId), drunkLevelPerSip, eventManager);
         else
-            commodity = new ShopBusinessCommodity(uuid, business, name, price, number, ItemType.getById(type));
+            commodity = new BusinessCommodity(uuid, business, name, price, number);
         return commodity;
     }
 }
