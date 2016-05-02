@@ -6,8 +6,8 @@ import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -39,6 +39,16 @@ public interface Property extends NamedEntity, Destroyable {
             }
         }
         return null;
+    }
+
+    static List<Property> getByDistance(Location location) {
+        List<Property> list = get().stream().collect(Collectors.toList());
+        Collections.sort(list, (p1, p2) -> {
+            float dist1 = Math.min(p1.getEntrance().distance(location), p1.getExit() != null ? p1.getExit().distance(location) : Float.POSITIVE_INFINITY);
+            float dist2 = Math.min(p2.getEntrance().distance(location), p2.getExit() != null ? p2.getExit().distance(location) : Float.POSITIVE_INFINITY);
+            return Float.compare(dist1, dist2);
+        });
+        return list;
     }
 
     boolean isOwned();

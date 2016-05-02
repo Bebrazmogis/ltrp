@@ -1,13 +1,18 @@
-package lt.ltrp.data;
+package lt.ltrp.data.property.business.commodity;
 
 import lt.ltrp.EntityImpl;
 import lt.ltrp.object.Business;
+import lt.ltrp.object.LtrpPlayer;
 
 /**
  * @author Bebras
  *         2016.04.19.
+ *
+ *         This class represents a business commodity
+ *         Even though the name suggests it belongs to a {@link lt.ltrp.object.Business} that's not neccesarily the case, it can also represent an available commodity for businesses to choose
+ *         It should never be directly assigned to a business, {@link BusinessCommodity#clone} method should be used instead
  */
-public class BusinessCommodity extends EntityImpl {
+public class BusinessCommodity extends EntityImpl implements Cloneable {
 
     private Business business;
     private String name;
@@ -67,7 +72,15 @@ public class BusinessCommodity extends EntityImpl {
         this.price = price;
     }
 
-    //public abstract void onBuy(LtrpPlayer player);
+    public boolean onBuy(LtrpPlayer player) {
+        return true;
+    }
+
+
+    @Override
+    public BusinessCommodity clone() {
+        return new BusinessCommodity(getUUID(), business, name, price, number);
+    }
 
     @Override
     public boolean equals(Object o) {

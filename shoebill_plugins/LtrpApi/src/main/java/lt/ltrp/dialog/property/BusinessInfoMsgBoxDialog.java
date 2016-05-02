@@ -2,7 +2,7 @@ package lt.ltrp.dialog.property;
 
 import lt.ltrp.PlayerController;
 import lt.ltrp.constant.Currency;
-import lt.ltrp.data.BusinessCommodity;
+import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;

@@ -1,9 +1,10 @@
 package lt.ltrp.dialog.property;
 
 import lt.ltrp.constant.Currency;
-import lt.ltrp.data.BusinessCommodity;
+import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.event.property.SelectCommodityEvent;
 import lt.ltrp.object.LtrpPlayer;
+import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.TabListDialog;
 import net.gtaun.shoebill.common.dialog.TabListDialogItem;
@@ -37,7 +38,7 @@ public class BusinessCommodityListDialog {
                 .buttonOk("Pirkti")
                 .buttonCancel("Uþdaryti")
                 .onClickOk((d, i) -> {
-                    if(handler != null) handler.onSelectCommodity(player, (BusinessCommodity)i.getData());
+                    if(handler != null) handler.onSelectCommodity(d, player, (BusinessCommodity)i.getData());
                     eventManager.dispatchEvent(new SelectCommodityEvent(player, (BusinessCommodity)i.getData()));
                 })
                 .build();
@@ -45,7 +46,7 @@ public class BusinessCommodityListDialog {
 
     @FunctionalInterface
     public interface SelectCommodityHandler {
-        void onSelectCommodity(LtrpPlayer player, BusinessCommodity commodity);
+        void onSelectCommodity(ListDialog dialog, LtrpPlayer player, BusinessCommodity commodity);
     }
 
 }

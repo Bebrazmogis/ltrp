@@ -2,7 +2,7 @@ package lt.ltrp.object;
 
 import lt.ltrp.PropertyController;
 import lt.ltrp.constant.BusinessType;
-import lt.ltrp.data.BusinessCommodity;
+import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.dialog.property.BusinessCommodityListDialog;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
@@ -39,6 +39,17 @@ public interface Business extends Property {
     }
 
     static Business getClosest(Location location, float maxDistance) {
+        Business closest = null;
+        float min = maxDistance;
+        for (Business b : get()) {
+            float distance = Math.min(b.getEntrance().distance(location), b.getExit() != null ? b.getExit().distance(location) : Float.POSITIVE_INFINITY);
+            if(distance <= min) {
+                closest = b;
+                min = distance;
+            }
+        }
+        return closest;
+        /*
         Optional<Business> op = get().stream().min((b1, b2) -> {
             if(b1.getExit() == null && b2.getExit() != null) {
                 return Float.compare(b1.getEntrance().distance(location),
@@ -60,7 +71,9 @@ public interface Business extends Property {
                 return op.get();
             }
         }
+
         return null;
+        */
     }
 
     static Business getClosest(Location location) {

@@ -2,9 +2,12 @@ package lt.ltrp.dialog.property;
 
 import lt.ltrp.PropertyController;
 import lt.ltrp.constant.ItemType;
-import lt.ltrp.data.BusinessCommodity;
+import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.ShopBusinessCommodity;
+import lt.ltrp.data.property.business.commodity.BusinessCommodityDrink;
+import lt.ltrp.data.property.business.commodity.BusinessCommodityFood;
+import lt.ltrp.data.property.business.commodity.BusinessCommodityItem;
+import lt.ltrp.dialog.IntegerInputDialog;
 import lt.ltrp.dialog.item.ItemTypeListDialog;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;
@@ -12,6 +15,7 @@ import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
+import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
@@ -34,7 +38,7 @@ public class BusinessAvailableCommodityManagementDialog {
                     .onClickCancel(AbstractDialog::showParentDialog)
                     .item("Paðalinti prekæ ið pardavimo", () -> commodityList.size() > 0, i -> {
                         // We let the user to select a commodity from available ones
-                        AbstractDialog dialog = BusinessCommodityListDialog.create(player, eventManager, commodityList, (dd, c) -> {
+                        AbstractDialog dialog = BusinessCommodityListDialog.create(player, eventManager, commodityList, (dd, p, c) -> {
                             // Remove the commodity from available list
                             PropertyController.get().getBusinessDao().remove(t, c);
                             // Remove that commodity from businesses that sell it
@@ -69,12 +73,52 @@ public class BusinessAvailableCommodityManagementDialog {
                                                     if (name.isEmpty())
                                                         dddd.show();
                                                     else {
-                                                        ShopBusinessCommodity commodity = new ShopBusinessCommodity(0, name, type);
+                                                        BusinessCommodityItem commodity = new BusinessCommodityItem(0, name, type, eventManager);
                                                         PropertyController.get().getBusinessDao().insert(t, commodity);
                                                         player.sendMessage(Color.BUSINESS, "Prekë " + commodity.getName() + " pridëta");
                                                     }
                                                 })
                                                 .onClickCancel(AbstractDialog::showParentDialog)
+                                                .build()
+                                                .show();
+                                    }).show();
+                                })
+                                .item("Prekë - Gërimas", ii -> {
+                                    BusinessCommodityNameInputDialog.create(player, eventManager, ii.getCurrentDialog(), (nameDialog, name) -> {
+                                        ListDialog.create(player, eventManager)
+                                                .caption("Pasirinkite efektà, rodomà ásigijus prekæ")
+                                                .item(SpecialAction.DRINK_BEER, "Alus", null)
+                                                .item(SpecialAction.DRINK_SPRUNK, "Sprunk", null)
+                                                .item(SpecialAction.DRINK_WINE, "Vynas", null)
+                                                .buttonOk("Pasirinkti")
+                                                .buttonCancel("Atgal")
+                                                .onClickCancel(dd -> ii.getCurrentDialog().show())
+                                                .onClickOk((actionDialog, item) -> {
+                                                    SpecialAction action = (SpecialAction) item.getData();
+                                                    BusinessCommodityDrink commodityDrink = new BusinessCommodityDrink(0, name, action, 5000, eventManager);
+                                                    PropertyController.get().getBusinessDao().insert(t, commodityDrink);
+                                                    player.sendMessage(Color.BUSINESS, "Prekë pridëta sëkmingai");
+                                                    ii.getCurrentDialog().show();
+                                                })
+                                                .build()
+                                                .show();
+                                    }).show();
+                                })
+                                .item("Prekë - Maistas", ii -> {
+                                    BusinessCommodityNameInputDialog.create(player, eventManager, ii.getCurrentDialog(), (nameDialog, name) -> {
+                                        IntegerInputDialog.create(player, eventManager)
+                                                .caption(nameDialog.getCaption() + " 2")
+                                                .message("Áveskite skaièiø, kiek þaidëjui bus pridëta gyvybiø suvalgius ðià prekæ.")
+                                                .line("Skaièius neturëtø bûti didesnis uþ 100 ar maþesnis uþ 1.")
+                                                .buttonOk("Kurit")
+                                                .buttonCancel("Atgal")
+                                                .onClickCancel(dd -> ii.getCurrentDialog().show())
+                                                .onClickOk((hpDialog, hp) -> {
+                                                    BusinessCommodityFood commodity = new BusinessCommodityFood(0, name, hp);
+                                                    PropertyController.get().getBusinessDao().insert(t, commodity);
+                                                    player.sendMessage(Color.BUSINESS, "Prekë " + commodity.getName() + " pridëta");
+                                                    ii.getCurrentDialog().show();
+                                                })
                                                 .build()
                                                 .show();
                                     }).show();
@@ -89,7 +133,7 @@ public class BusinessAvailableCommodityManagementDialog {
                                                 if (name.isEmpty())
                                                     dddd.show();
                                                 else {
-                                                    PropertyController.get().getBusinessDao().insert(new BusinessCommodity(0, name));
+                                                    PropertyController.get().getBusinessDao().insert(t, new BusinessCommodity(0, name));
                                                     player.sendMessage(Color.BUSINESS, "Prekë " + name + " sukurta");
                                                 }
                                             })
@@ -97,7 +141,7 @@ public class BusinessAvailableCommodityManagementDialog {
                                             .build()
                                             .show();
                                 })
-                                .item("Psgalba", ii -> {
+                                .item("Pagalba", ii -> {
                                     MsgboxDialog.create(player, eventManager)
                                             .caption("Daiktø kûrimo pagalba")
                                             .buttonOk("Gerai")
@@ -107,6 +151,10 @@ public class BusinessAvailableCommodityManagementDialog {
                                             .line("\n")
                                             .line("\t• Prekë be funkcionalumo - tai prekë kuri neturi jokio poveiki þaidëjui ,iðskyrus tai kad bus nuimami pinigai")
                                             .line("\t• Visa prekës prasmë, kurti RP galimybes")
+                                            .line("\n")
+                                            .line("\t•Prekë - Gërimas - tai prekë kurià þaidëjas nusipirkæs rankoje turës gërimà, o paspaudæs pelës klaviðà iðgers")
+                                            .line("\n")
+                                            .line("\t•Prekë - Maistas - tai prekë kuri gydo þaidëjà, jà suvalgius þaidëjas atgaus pasirinktà kieká gyvybiø")
                                             .parentDialog(ii.getCurrentDialog())
                                             .onClickOk(AbstractDialog::showParentDialog)
                                             .build()
@@ -116,8 +164,8 @@ public class BusinessAvailableCommodityManagementDialog {
                                 .show();
 
                     })
-                    .item("Keisti esamos prekæs pavadinimà", () -> commodityList.size() > 0, i -> {
-                        AbstractDialog dialog = BusinessCommodityListDialog.create(player, eventManager, commodityList, (dd, c) -> {
+                    .item("Keisti esamos prekës pavadinimà", () -> commodityList.size() > 0, i -> {
+                        AbstractDialog dialog = BusinessCommodityListDialog.create(player, eventManager, commodityList, (dd, p, c) -> {
                             InputDialog.create(player, eventManager)
                                     .caption("Prekës " + c.getName() + " pavadinimo keitimas")
                                     .message("Dabartinis prekës pavadinimas yra \"" + c.getName() + "\"\n" +
