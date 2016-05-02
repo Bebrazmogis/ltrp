@@ -4,6 +4,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.dao.ItemDao;
 import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.object.*;
+import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.util.event.EventManager;
 
 /**
@@ -16,6 +17,8 @@ public interface ItemController {
 
     WeedItem createWeed(EventManager eventManager, int doses);
 
+
+
     class Instance {
         static ItemController instance;
     }
@@ -26,6 +29,8 @@ public interface ItemController {
 
     Inventory createInventory(EventManager eventManager, InventoryEntity owner, String name, int size);
     Item createItem(ItemType type, InventoryEntity owner, EventManager eventManager);
+    Item createItem(ItemType type, String name, InventoryEntity entity, EventManager eventManager);
+    Item createItem(ItemType type, String name, SpecialAction specialAction, InventoryEntity entity, EventManager eventManager);
 
     ItemDao getItemDao();
     PhoneDao getPhoneDao();

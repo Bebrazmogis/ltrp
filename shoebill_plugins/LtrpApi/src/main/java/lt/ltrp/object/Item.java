@@ -4,6 +4,7 @@ import lt.ltrp.ItemController;
 import lt.ltrp.NamedEntity;
 import lt.ltrp.constant.ItemType;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
+import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
@@ -22,6 +23,14 @@ public interface Item extends NamedEntity, Destroyable {
 
     public static Item create(ItemType type, InventoryEntity entity, EventManager eventManager) {
         return ItemController.get().createItem(type, entity, eventManager);
+    }
+
+    public static Item create(ItemType type, String name, InventoryEntity entity, EventManager eventManager) {
+        return ItemController.get().createItem(type, name, entity, eventManager);
+    }
+
+    public static Item create(ItemType type, String name, SpecialAction specialAction, InventoryEntity entity, EventManager eventManager) {
+        return ItemController.get().createItem(type, name, specialAction, entity, eventManager);
     }
 
     public static Item create(ItemType type, EventManager eventManager) {
