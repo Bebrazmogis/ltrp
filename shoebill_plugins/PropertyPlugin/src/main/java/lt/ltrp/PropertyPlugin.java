@@ -101,10 +101,13 @@ public class PropertyPlugin extends Plugin implements PropertyController {
         }).start();
 
         PlayerCommandManager commandManager = new PlayerCommandManager(eventManagerNode);
+        HouseCommands houseCommands = new HouseCommands(eventManagerNode);
         CommandGroup acceptGroup = new CommandGroup();
         acceptGroup.registerCommands(new PropertyAcceptCommands(eventManagerNode));
+        HouseUpgradeCommands houseUpgradeCommands = new HouseUpgradeCommands(eventManagerNode);
+        commandManager.registerChildGroup(houseUpgradeCommands.getGroup(), "hu");
         commandManager.registerChildGroup(acceptGroup, "accept");
-        commandManager.registerCommands(new HouseCommands(eventManagerNode));
+        commandManager.registerCommands(houseCommands);
         commandManager.registerCommands(new BusinessCommands(eventManagerNode));
         commandManager.registerCommands(new GarageCommands(eventManagerNode));
         commandManager.registerCommands(new PropertyCommands(eventManagerNode));
