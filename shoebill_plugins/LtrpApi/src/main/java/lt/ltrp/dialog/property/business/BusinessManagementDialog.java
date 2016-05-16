@@ -1,4 +1,4 @@
-package lt.ltrp.dialog.property;
+package lt.ltrp.dialog.property.business;
 
 import lt.ltrp.data.Color;
 import lt.ltrp.event.property.BusinessDoorLockToggleEvent;

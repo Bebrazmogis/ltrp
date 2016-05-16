@@ -1,4 +1,4 @@
-package lt.ltrp.dialog.property;
+package lt.ltrp.dialog.property.business;
 
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
