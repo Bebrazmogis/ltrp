@@ -66,6 +66,9 @@ public interface Property extends NamedEntity, Destroyable {
     int getPrice();
     void setPrice(int price);
     Color getLabelColor();
+    void setLabelColor(Color color);
+    int getPickupModelId();
+    void setPickupModelId(int modelId);
 
 
 }

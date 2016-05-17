@@ -3,7 +3,7 @@ package lt.ltrp.object;
 import lt.ltrp.PropertyController;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
-import lt.ltrp.dialog.property.BusinessCommodityListDialog;
+import lt.ltrp.dialog.property.business.BusinessCommodityListDialog;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
@@ -129,8 +129,6 @@ public interface Business extends Property {
     void setEntrancePrice(int entrancePrice);
     int getResourcePrice();
     void setResourcePrice(int price);
-    void setPickupModelId(int modelId);
-    int getPickupModelId();
 
     void showCommodities(LtrpPlayer player);
     void showCommodities(LtrpPlayer player, BusinessCommodityListDialog.SelectCommodityHandler selectCommodityHandler);
