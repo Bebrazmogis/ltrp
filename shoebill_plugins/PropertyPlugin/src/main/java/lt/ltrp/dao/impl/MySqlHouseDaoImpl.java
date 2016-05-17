@@ -130,7 +130,7 @@ public class MySqlHouseDaoImpl implements HouseDao {
                 Connection con = ds.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
-            propertyDao.update(house);
+            propertyDao.insert(house);
             stmt.setInt(1, house.getUUID());
             stmt.setInt(2, house.getMoney());
             stmt.setInt(3, house.getRentPrice());
@@ -150,7 +150,10 @@ public class MySqlHouseDaoImpl implements HouseDao {
             stmt.setInt(1, i);
             ResultSet r = stmt.executeQuery();
             if(r.next()) {
-                return resultToHouse(r);
+                House h = resultToHouse(r);
+                h.setWeedSaplings(getWeed(h));
+                h.getUpgrades().forEach(h::addUpgrade);
+                return h;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -165,7 +168,7 @@ public class MySqlHouseDaoImpl implements HouseDao {
                 Connection con = ds.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
-            propertyDao.insert(house);
+            propertyDao.update(house);
             stmt.setInt(1, house.getMoney());
             stmt.setInt(2, house.getRentPrice());
             stmt.setInt(3, house.getUUID());
@@ -257,6 +260,24 @@ public class MySqlHouseDaoImpl implements HouseDao {
         return upgrades;
     }
 
+    @Override
+    public void read() {
+        String sql = "SELECT houses.*, properties.* FROM houses LEFT JOIN properties ON houses.id = properties.id";
+        try (
+                Connection con = ds.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            ResultSet r = stmt.executeQuery();
+            while(r.next()) {
+                House h = resultToHouse(r);
+                h.setWeedSaplings(getWeed(h));
+                h.getUpgrades().forEach(h::addUpgrade);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private House resultToHouse(ResultSet r) throws SQLException {
         Location exit = null;
         float x = r.getFloat("exit_x");
@@ -278,4 +299,5 @@ public class MySqlHouseDaoImpl implements HouseDao {
                 r.getInt("rent_price"),
                 eventManager);
     }
+
 }
