@@ -61,6 +61,11 @@ public abstract class PropertyImpl extends NamedEntityImpl implements Property {
     }
 
     @Override
+    public void setLabelColor(Color color) {
+        this.labelColor = color;
+    }
+
+    @Override
     public int getPrice() {
         return price;
     }
