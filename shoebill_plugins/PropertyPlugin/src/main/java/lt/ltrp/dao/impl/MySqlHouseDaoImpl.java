@@ -49,7 +49,7 @@ public class MySqlHouseDaoImpl implements HouseDao {
                 sapling.setPlantTimestamp(result.getLong("plant_timestamp"));
                 sapling.setPlantedByUser(result.getInt("planted_by"));
                 sapling.setGrowthTimestamp(result.getLong("growth_timestamp"));
-                sapling.setStage(result.getInt("stage"));
+                sapling.setStage(HouseWeedSapling.GrowthStage.values()[result.getInt("stage")]);
                 sapling.setYield(result.getInt("yield"));
                 weed.add(sapling);
             }
@@ -74,7 +74,7 @@ public class MySqlHouseDaoImpl implements HouseDao {
             stmt.setLong(5, sapling.getPlantTimestamp());
             stmt.setInt(6, sapling.getPlantedByUser());
             stmt.setLong(7, sapling.getGrowthTimestamp());
-            stmt.setInt(8, sapling.getStage());
+            stmt.setInt(8, sapling.getStage().ordinal());
             stmt.setInt(9, sapling.getHarvestedByUser());
             stmt.setInt(10, sapling.getYield());
             stmt.setInt(11, sapling.getId());
@@ -98,12 +98,26 @@ public class MySqlHouseDaoImpl implements HouseDao {
             stmt.setLong(5, sapling.getPlantTimestamp());
             stmt.setInt(6, sapling.getPlantedByUser());
             stmt.setLong(7, sapling.getGrowthTimestamp());
-            stmt.setInt(8, sapling.getStage());
+            stmt.setInt(8, sapling.getStage().ordinal());
             stmt.setInt(9, sapling.getYield());
             ResultSet result = stmt.executeQuery();
             if(result.next()) {
                 sapling.setId(result.getInt(1));
             }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void remove(HouseWeedSapling houseWeedSapling) {
+        String sql = "DELETE FROM house_weed WHERE id = ?";
+        try (
+                Connection con = ds.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ) {
+            stmt.setInt(1, houseWeedSapling.getId());
+            stmt.execute();
         } catch(SQLException e) {
             e.printStackTrace();
         }
