@@ -4,6 +4,7 @@ import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.HouseRadio;
 import lt.ltrp.data.HouseWeedSapling;
+import lt.ltrp.event.property.house.HouseDestroyEvent;
 import lt.ltrp.object.House;
 import lt.ltrp.object.Inventory;
 import lt.ltrp.object.LtrpPlayer;
@@ -121,9 +122,15 @@ public class HouseImpl extends InventoryPropertyImpl implements House {
             pickup = DynamicPickup.create(getPickupModelId(), 1, getEntrance());
             LtrpPlayer.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Pickup));
         } else {
-            String text = String.format("Parduodamas namas\nPardavimo kaina: %d$\\nÁsigijimui - /buyhouse",  getPrice());
+            String text = String.format("Parduodamas namas\nPardavimo kaina: %d$\nÁsigijimui - /buyhouse",  getPrice());
             entranceLabel = DynamicLabel.create(text, getLabelColor(), getEntrance());
             LtrpPlayer.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Label));
         }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        eventManager.dispatchEvent(new HouseDestroyEvent(this));
     }
 }
