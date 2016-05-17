@@ -23,8 +23,8 @@ public class MySqlPropertyDaoImpl implements PropertyDao {
 
     @Override
     public void insert(Property property) {
-        String sql = "INSERT INTO properties (`owner`, `name`, price, entrance_x, entrance_y, entrance_z, entrance_interior, entrance_virtual, exit_x, exit_y, exit_z, exit_interior, exit_virtual, locked, label_color)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO properties (`owner`, `name`, price, entrance_x, entrance_y, entrance_z, entrance_interior, entrance_virtual, exit_x, exit_y, exit_z, exit_interior, exit_virtual, locked, label_color, pickup_model)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -55,6 +55,7 @@ public class MySqlPropertyDaoImpl implements PropertyDao {
             }
             stmt.setBoolean(14, property.isLocked());
             stmt.setInt(15, property.getLabelColor().getValue());
+            stmt.setInt(16, property.getPickupModelId());
             stmt.execute();
             ResultSet r = stmt.getGeneratedKeys();
             if(r.next())
@@ -68,7 +69,7 @@ public class MySqlPropertyDaoImpl implements PropertyDao {
     public void update(Property property) {
         String sql = "UPDATE properties SET `owner` = ?, `name` = ?, price = ?, entrance_x = ?, entrance_y = ?, entrance_z = ?, " +
                 "entrance_interior = ?, entrance_virtual = ?, exit_x = ?, exit_y = ?, exit_z = ?, exit_interior = ?, " +
-                "exit_virtual = ?, locked = ?,  label_color = ? WHERE id = ?";
+                "exit_virtual = ?, locked = ?,  label_color = ?, pickup_model = ? WHERE id = ?";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
@@ -99,7 +100,8 @@ public class MySqlPropertyDaoImpl implements PropertyDao {
             }
             stmt.setBoolean(14, property.isLocked());
             stmt.setInt(15, property.getLabelColor().getValue());
-            stmt.setInt(16, property.getUUID());
+            stmt.setInt(16, property.getPickupModelId());
+            stmt.setInt(17, property.getUUID());
             stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();

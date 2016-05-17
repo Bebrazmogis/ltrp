@@ -38,7 +38,7 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
 
     @Override
     public void update(Business business) {
-        String sql = "UPDATE businesses SET entrance_price = ?, money = ?, type = ?, resources = ?, pickup_model = ?, commodity_limit = ?, resources_price = ? WHERE id = ?";
+        String sql = "UPDATE businesses SET entrance_price = ?, money = ?, type = ?, resources = ?, commodity_limit = ?, resources_price = ? WHERE id = ?";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
@@ -48,10 +48,9 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
             stmt.setInt(2, business.getMoney());
             stmt.setInt(3, business.getBusinessType().getId());
             stmt.setInt(4, business.getResources());
-            stmt.setInt(5, business.getPickupModelId());
-            stmt.setInt(6, business.getCommodityLimit());
-            stmt.setInt(7, business.getResourcePrice());
-            stmt.setInt(8, business.getUUID());
+            stmt.setInt(5, business.getCommodityLimit());
+            stmt.setInt(6, business.getResourcePrice());
+            stmt.setInt(7, business.getUUID());
             stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,7 +59,7 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
 
     @Override
     public void insert(Business business) {
-        String sql = "INSERT INTO businesses (id, entrance_price, money, type, resources, pickup_model, commodity_limit, resources_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO businesses (id, entrance_price, money, type, resources, commodity_limit, resources_price) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
@@ -71,9 +70,8 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
             stmt.setInt(3, business.getMoney());
             stmt.setInt(4, business.getBusinessType().getId());
             stmt.setInt(5, business.getResources());
-            stmt.setInt(6, business.getPickupModelId());
-            stmt.setInt(7, business.getCommodityLimit());
-            stmt.setInt(8, business.getResourcePrice());
+            stmt.setInt(6, business.getCommodityLimit());
+            stmt.setInt(7, business.getResourcePrice());
             stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -372,7 +370,7 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
     }
 
     private BusinessCommodity resultToCommodity(ResultSet r) throws SQLException {
-        BusinessCommodity commodity;
+        BusinessCommodity commodity = null;
         int uuid = r.getInt("id");
         String name = r.getString("name");
         int type = r.getInt("item_type");
@@ -387,13 +385,13 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
         int drunkLevelPerSip = r.getInt("drunk_level_per_sip");
         if(!r.wasNull())
             commodity = new BusinessCommodityDrink(uuid, name, SpecialAction.get(specialActionId), drunkLevelPerSip, eventManager);
-        else
+        if(commodity == null)
             commodity = new BusinessCommodity(uuid, name);
         return commodity;
     }
 
     private BusinessCommodity resultToCommodity(Business business, ResultSet r) throws SQLException {
-        BusinessCommodity commodity;
+        BusinessCommodity commodity = null;
         int uuid = r.getInt("id");
         int price = r.getInt("price");
         int number = r.getInt("no");
@@ -410,7 +408,8 @@ public class MySqlBusinessDaoImpl implements BusinessDao {
         int drunkLevelPerSip = r.getInt("drunk_level_per_sip");
         if(!r.wasNull())
             commodity = new BusinessCommodityDrink(uuid, business, name, price, number, SpecialAction.get(specialActionId), drunkLevelPerSip, eventManager);
-        else
+
+        if(commodity == null)
             commodity = new BusinessCommodity(uuid, business, name, price, number);
         return commodity;
     }
