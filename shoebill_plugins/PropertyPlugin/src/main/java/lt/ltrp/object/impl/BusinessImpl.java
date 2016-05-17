@@ -61,7 +61,7 @@ public class BusinessImpl extends PropertyImpl implements Business {
             if(Shoebill.get().getResourceManager().getPlugin(StreamerPlugin.class) != null)
                 LtrpPlayer.get().stream().filter(pickup::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Pickup));
         } else {
-            String text = String.format("%s\nPardavimo kaina: %d$\nÁsigijimui - /buybiz", getName(), getPrice());
+            String text = String.format("%s{" + getLabelColor().toRgbHexString() + "}\nPardavimo kaina: %d$\nÁsigijimui - /buybiz", getName(), getPrice());
             entranceLabel = DynamicLabel.create(text, getLabelColor(), getEntrance());
             if(Shoebill.get().getResourceManager().getPlugin(StreamerPlugin.class) != null)
                 LtrpPlayer.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Label));
