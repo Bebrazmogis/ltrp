@@ -3,7 +3,7 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
-import lt.ltrp.dialog.property.BusinessCommodityListDialog;
+import lt.ltrp.dialog.property.business.BusinessCommodityListDialog;
 import lt.ltrp.event.property.BusinessDestroyEvent;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;

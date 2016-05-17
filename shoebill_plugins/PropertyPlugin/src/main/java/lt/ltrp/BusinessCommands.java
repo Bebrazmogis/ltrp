@@ -3,7 +3,7 @@ package lt.ltrp;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Color;
-import lt.ltrp.dialog.property.BusinessManagementDialog;
+import lt.ltrp.dialog.property.business.BusinessManagementDialog;
 import lt.ltrp.event.property.BusinessDoorLockToggleEvent;
 import lt.ltrp.event.property.PlayerEnterBusinessEvent;
 import lt.ltrp.event.property.PlayerExitBusinessEvent;
@@ -133,7 +133,8 @@ public class BusinessCommands {
 
                     }
                     */
-                    commodity.onBuy(player);
+                    boolean success = commodity.onBuy(player);
+                    player.sendDebug(success, commodity);
                     player.sendMessage(Color.BUSINESS, "Nusipirkote " + commodity.getName() + ", prekë kainavo " + Currency.SYMBOL + commodity.getPrice());
                     business.setResources(business.getResources()-1);
                     int vat = LtrpWorld.get().getTaxes().getVAT(commodity.getPrice());
