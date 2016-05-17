@@ -1,4 +1,4 @@
-package lt.ltrp;
+package lt.ltrp.command;
 
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.BuyBusinessOffer;

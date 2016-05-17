@@ -1,5 +1,7 @@
-package lt.ltrp;
+package lt.ltrp.command;
 
+import lt.ltrp.PlayerController;
+import lt.ltrp.PropertyController;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.constant.ItemType;
@@ -86,8 +88,9 @@ public class HouseOwnerCommands {
                         totalYield += sapling.getYield();
                         sapling.setHarvestedByUser(player.getUUID());
                         grownSaplings.add(sapling);
+                        sapling.destroy();
                     }
-                    house.getWeedSaplings().removeAll(grownSaplings);
+                    //house.getWeedSaplings().removeAll(grownSaplings);
                     grownSaplings.forEach(sapling -> PropertyController.get().getHouseDao().updateWeed(sapling));
 
 

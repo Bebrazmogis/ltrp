@@ -1,6 +1,7 @@
-package lt.ltrp;
+package lt.ltrp.command;
 
 
+import lt.ltrp.LtrpWorld;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.BuyGarageOffer;
 import lt.ltrp.data.Color;

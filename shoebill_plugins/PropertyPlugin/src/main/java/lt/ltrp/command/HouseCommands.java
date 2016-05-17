@@ -1,11 +1,14 @@
-package lt.ltrp;
+package lt.ltrp.command;
 
 
-import lt.ltrp.command.Commands;
+import lt.ltrp.LtrpWorld;
+import lt.ltrp.PropertyController;
+import lt.ltrp.constant.Currency;
 import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.SpawnData;
 import lt.ltrp.event.player.PlayerSpawnLocationChangeEvent;
+import lt.ltrp.event.property.house.HouseBuyEvent;
 import lt.ltrp.event.property.house.HouseLockToggleEvent;
 import lt.ltrp.event.property.house.HouseRentEvent;
 import lt.ltrp.event.property.house.HouseRentStopEvent;
@@ -48,7 +51,7 @@ public class HouseCommands {
     @CommandHelp("houseHelp")
     public boolean houseHelp(Player p) {
         p.sendMessage(lt.ltrp.data.Color.GREEN, "|__________________NAMO VALDYMO INFORMACIJA__________________|");
-        p.sendMessage(lt.ltrp.data.Color.LIGHTGREY,"  /hinv /cuteed /hradio ");
+        p.sendMessage(lt.ltrp.data.Color.LIGHTGREY,"  /hinv /cutweed /hradio ");
         p.sendMessage(lt.ltrp.data.Color.WHITE,"NAMO BANKAS: /housewithdraw /housedeposit /houseinfo");
         p.sendMessage(lt.ltrp.data.Color.LIGHTGREY,"PATOBULINIMAI: /eat /hradio /hu");
         p.sendMessage(lt.ltrp.data.Color.WHITE,"NUOSAVYBE: /buyhouse /sellhouse");
@@ -148,7 +151,7 @@ public class HouseCommands {
             house = (House) player.getProperty();
         if(house == null)
             return false;
-        if(house.isLocked())
+        if(house.isLocked() || house.getExit() == null)
             player.sendErrorMessage("Namas uþrakintas");
         else if(!player.isInAnyVehicle()){
             player.setLocation(house.getExit());
@@ -168,6 +171,26 @@ public class HouseCommands {
             player.sendErrorMessage("Namas uþrakintas");
         else if(!player.isInAnyVehicle()){
             player.setLocation(house.getEntrance());
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Nuperka namà")
+    public boolean buyHouse(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        House house = House.getClosest(player.getLocation(), 5f);
+        if(house == null || house.getOwner() != LtrpPlayer.INVALID_USER_ID) {
+            player.sendErrorMessage("Prie jûsø nëra jokio namo arba jis neparduodamas");
+        } else if(house.getPrice() > player.getMoney())
+            player.sendErrorMessage("Jums neuþtenka pinigø ásigyti ðá namà");
+        else {
+            int price = house.getPrice();
+            house.setOwner(player.getUUID());
+            player.giveMoney(-price);
+            LtrpWorld.get().addMoney(price);
+            player.sendMessage("Sëkmingai ásigijote namà uþ " + Currency.SYMBOL + price + ".");
+            eventManager.dispatchEvent(new HouseBuyEvent(house, null, player));
         }
         return true;
     }

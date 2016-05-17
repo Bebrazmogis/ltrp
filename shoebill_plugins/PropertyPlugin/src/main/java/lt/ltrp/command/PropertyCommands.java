@@ -1,11 +1,11 @@
-package lt.ltrp;
+package lt.ltrp.command;
 
+import lt.ltrp.LtrpWorld;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.BuyBusinessOffer;
 import lt.ltrp.data.BuyHouseOffer;
 import lt.ltrp.data.Color;
 import lt.ltrp.event.property.BusinessBuyEvent;
-import lt.ltrp.event.property.house.HouseBuyEvent;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.House;
 import lt.ltrp.object.LtrpPlayer;
@@ -34,7 +34,7 @@ public class PropertyCommands {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(player != null) {
             // TODO do this properly
-            if(player.getProperty() != null || Business.getClosest(player.getLocation(), 10f) != null) {
+            if(player.getProperty() != null || Property.getClosest(player.getLocation(), 10f) != null) {
                 System.out.println("PropertyCommands :: beforeChcek. Cmd " + cmd + " returning true");
                 return true;
             }
@@ -158,25 +158,6 @@ public class PropertyCommands {
         return true;
     }
 
-    @Command
-    @CommandHelp("Nuperka namà")
-    public boolean buyHouse(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        House house = House.getClosest(player.getLocation(), 5f);
-        if(house == null || house.getOwner() != LtrpPlayer.INVALID_USER_ID) {
-            player.sendErrorMessage("Prie jûsø nëra jokio namo arba jis neparduodamas");
-        } else if(house.getPrice() > player.getMoney())
-            player.sendErrorMessage("Jums neuþtenka pinigø ásigyti ðá namà");
-        else {
-            int price = house.getPrice();
-            house.setOwner(player.getUUID());
-            player.giveMoney(-price);
-            LtrpWorld.get().addMoney(price);
-            player.sendMessage("Sëkmingai ásigijote namà uþ " + Currency.SYMBOL + price + ".");
-            eventManager.dispatchEvent(new HouseBuyEvent(house, null, player));
-        }
-        return true;
-    }
 
     // TODO cmd:clothes
     // TODO cmd:furniture
