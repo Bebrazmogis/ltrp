@@ -33,11 +33,14 @@ public interface HouseDao {
      */
     void insertWeed(HouseWeedSapling sapling);
 
+    void remove(HouseWeedSapling weedSapling);
+
     void insert(House house);
     House get(int uuid);
     void update(House house);
     void remove(House house);
     List<House> get();
+    void read();
 
     void insert(House house, HouseUpgradeType houseUpgradeType);
     void remove(House house, HouseUpgradeType houseUpgradeType);
