@@ -85,7 +85,7 @@ public class VehicleThiefJobImpl extends AbstractContractJob implements VehicleT
         for(LtrpVehicle vehicle : LtrpVehicle.get()) {
             if(!(vehicle instanceof PlayerVehicle))
                 continue;
-            if (models.contains(vehicle.getModelId())) {
+            if (!models.contains(vehicle.getModelId())) {
                 models.add(vehicle.getModelId());
             }
         }
