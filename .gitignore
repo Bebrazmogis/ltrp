@@ -24,3 +24,8 @@ shoebill_plugins/**/target/**
 **/target
 shoebill/repository/**
 shoebill/bootstrap/**
+builder.err
+builder.out
+crashinfo.txt
+*.jar
+!/*.jar

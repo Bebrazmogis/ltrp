@@ -1,7 +1,7 @@
 package lt.ltrp;
 
-import lt.ltrp.common.constant.LtrpVehicleModel;
-import lt.ltrp.common.data.Color;
+import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.data.Color;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.data.FuelTank;
 import lt.ltrp.object.LtrpVehicle;

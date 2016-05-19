@@ -1509,7 +1509,7 @@ timer WeedGrowTime[grow_time](grow_time, houseindex, weedindex)
 
 
 */
-
+/*
 CMD:housewithdraw(playerid, params[])
 {
     new house_index = GetPlayerHouseIndex(playerid, true),
@@ -1588,6 +1588,7 @@ CMD:houseinfo(playerid)
     SendClientMessage(playerid, GRAD, string );
     return 1;
 }
+*/
 
 /*
 CMD:hinv(playerid, params[])
@@ -1629,7 +1630,7 @@ CMD:hradio(playerid)
     SetPVarInt(playerid, "HouseIndex", house_index);
     ShowPlayerDialog(playerid, DIALOG_HOUSE_RADIO, DIALOG_STYLE_LIST,"Garso sistema", string, "Rinktis", "Atsaukti");
     return 1;
-}*/
+}
 
 CMD:tenantry(playerid, params[])
 {
@@ -1661,6 +1662,7 @@ CMD:tenantry(playerid, params[])
     cache_delete(result);
     return 1;
 }
+
 CMD:evict(playerid, params[])
 {
     new house_index = GetPlayerHouseIndex(playerid, true),
@@ -1813,6 +1815,7 @@ CMD:buyhouse(playerid, params[])
     return 1;
 }
 
+
 CMD:setrent(playerid, params[])
 {
     new house_index = GetPlayerHouseIndex(playerid, true),
@@ -1927,7 +1930,7 @@ CMD:sellhouse(playerid, params[])
     return 1;
 }
 
-/*
+
 CMD:cutweed(playerid)
 {
     //if(pInfo[ playerid ][ pJob ] != JOB_DRUGS)
@@ -1964,8 +1967,7 @@ CMD:cutweed(playerid)
     GivePlayerItem(playerid, ITEM_WEED, yield);
     return 1;
 }
-*/
-/*
+
 CMD:cutdownweed(playerid)
 {
     if(!UsePDCMD(playerid))

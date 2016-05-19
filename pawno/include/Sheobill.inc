@@ -60,6 +60,60 @@ ShowJobVehManagementDialog(playerid)
 	#endif
 }
 
+
+/*
+forward StopAcceptingCargo(businessuuid, type);
+public StopAcceptingCargo(businessuuid, type)
+{
+    StopBusinessBuyingCargo(GetBusinessIndex(businessuuid), GetBusinessCargo(type));
+}
+
+forward GetMinCommodityPrice(businessuuid, type);
+public GetMinCommodityPrice(businessuuid, type)
+{
+    new averagePrice, sellerCount,bizCargo = GetBusinessCargo(type);
+    foreach(CommodityIterator, i)
+        if(Commodities[ i ][ CargoId ] == bizCargo && Commodities[ i ][ SellBuyStatus ] == Selling)
+        {
+            sellerCount++;
+            averagePrice += Commodities[ i ][ Price ];
+        }
+
+    // Tikimes kad taip nebus
+    if(!sellerCount)
+    {
+        ErrorLog(" sellerCount is:%d. Commodity name:%s", sellerCount, GetCargoName(bizCargo));
+        return 1;
+    }
+
+    averagePrice /= sellerCount;
+    return averagePrice - averagePrice / 100 * 20;
+}
+
+forward GetMaxCommodityPrice(businessuuid, type);
+public GetMaxCommodityPrice(businessuuid, type)
+{
+    new averagePrice, sellerCount, bizCargo = GetBusinessCargo(type);
+    foreach(CommodityIterator, i)
+        if(Commodities[ i ][ CargoId ] == bizCargo && Commodities[ i ][ SellBuyStatus ] == Selling)
+        {
+            sellerCount++;
+            averagePrice += Commodities[ i ][ Price ];
+        }
+
+     // Tikimes kad taip nebus
+    if(!sellerCount)
+    {
+        ErrorLog(" sellerCount is:%d. Commodity name:%s", sellerCount, GetCargoName(bizCargo));
+        return 1;
+    }
+
+
+    averagePrice /= sellerCount;
+    return averagePrice + averagePrice / 100 * 20;
+}
+*/
+
 /*
 
 OnPlayerEnterHouse(playerid, housesqlid)

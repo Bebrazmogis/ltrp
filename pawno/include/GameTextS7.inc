@@ -51,7 +51,7 @@ public OnPlayerConnect(playerid)
 	#if defined GameTextEx_OnPlayerConnect
 		GameTextEx_OnPlayerConnect(playerid);
 	#endif
-	GameTextTD[playerid] = CreatePlayerTextDraw(playerid, 320.000, 175.0, "Type 3");
+	GameTextTD[playerid] = CreatePlayerTextDraw(playerid, 320.000, 175.0, "Type 7");
 	PlayerTextDrawLetterSize(playerid, GameTextTD[playerid], 0.5, 1.5);
 	PlayerTextDrawAlignment(playerid, GameTextTD[playerid], 2);
 	PlayerTextDrawSetOutline(playerid, GameTextTD[playerid], 1);

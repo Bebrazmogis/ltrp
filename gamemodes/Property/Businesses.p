@@ -2607,18 +2607,18 @@ enum E_BUSINESS_INDEX_USAGE
 stock BusinessManagementDialog.ShowMain(playerid)
 {
     ShowPlayerDialog(playerid, DIALOG_BMENU_MAIN, DIALOG_STYLE_LIST,"Bizniø meniu",
-        "- Kurti naujà \n\
-        - Keisti kaina\n\
-        - Paðalinti savininkà\n\
-        - Paðalinti\n\
-        - Perkelti áëjimà pagal ID\n\
+        //"- Kurti naujà \n\
+        //- Keisti kaina\n\
+        //- Paðalinti savininkà\n\
+        //- Paðalinti\n\
+       // - Perkelti áëjimà pagal ID\n\
         - Þiûrëti interjerus\n\
-        - Keisti iðëjimà pagal biznio ID\n\
-        - Verslo informacija\n\
-        - Keisti tipà\n\
-        - Keisti pickup modelá\n\
-        - Keisti prekiø kieká\n\
-        - Iðtrinti ir kompensuoti visus biznius",
+        //- Keisti iðëjimà pagal biznio ID\n\
+        //- Verslo informacija\n\
+        //- Keisti tipà\n\
+        //- Keisti pickup modelá\n\
+        //- Keisti prekiø kieká\n\
+        //- Iðtrinti ir kompensuoti visus biznius", // NEVER
         "Rinktis", "Atðaukti" );
     return 1;
 }

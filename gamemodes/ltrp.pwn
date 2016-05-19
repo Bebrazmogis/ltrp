@@ -836,10 +836,10 @@ new Fire[MAX_FIRE][fires];*/
 //#include "Job_TaxiDriver"
 #include "Property\Interiors"
 #include "Property\Furniture"
-#include "Property\_General"
-#include "Property\Businesses"
-#include "Property\Houses"
-#include "Property\Garages"
+//#include "Property\_General"
+//#include "Property\Businesses"
+//#include "Property\Houses"
+//#include "Property\Garages"
 #include "Player\Functions"
 //#include "Player\Inventory"
 #include "Player\Attachments"
@@ -3724,7 +3724,7 @@ public OnPlayerConnect(playerid)
     PlayerTextDrawColor           ( playerid, InfoText[ playerid ], 0xffffffff );
     PlayerTextDrawSetProportional ( playerid, InfoText[ playerid ], 1 );
     PlayerTextDrawSetShadow       ( playerid, InfoText[ playerid ], 0 );
-
+/*
     // Tr. priemonës greitis, degalai ir kita.
     Greitis[ playerid ] = CreatePlayerTextDraw( playerid, 535.0, 350.0, "_" );
     PlayerTextDrawFont            ( playerid, Greitis[ playerid ], 2 );
@@ -3733,7 +3733,7 @@ public OnPlayerConnect(playerid)
     PlayerTextDrawUseBox          ( playerid, Greitis[ playerid ], 1 );
     PlayerTextDrawBoxColor        ( playerid, Greitis[ playerid ], 0x00000044 );
     PlayerTextDrawSetOutline      ( playerid, Greitis[ playerid ], 0 );
-
+*/
     
     RemoveBuildingForPlayer(playerid, 5156, 2838.0391, -2423.8828, 10.9609, 0.25);
     RemoveBuildingForPlayer(playerid, 5159, 2838.0313, -2371.9531, 7.2969, 0.25);
@@ -3915,7 +3915,7 @@ public OnPlayerDisconnect(playerid, reason)
     ProxDetector(20.0, playerid, string,COLOR_FADE1,COLOR_FADE2,COLOR_FADE3,COLOR_FADE4,COLOR_FADE5);
     if(AdminDuty[playerid] == true)
     {
-        cmd_aduty(playerid);
+//        cmd_aduty(playerid);
         Delete3DTextLabel(AdminON[playerid]);
         AdminDuty[playerid] = false;
     }
@@ -4213,7 +4213,7 @@ public OnPlayerText(playerid, text[])
         if (PlayerToPlayer(5.0, playerid, TalkingLive[playerid]))
         {
             format(string,179, "[SAN NEWS] Tiesioginis interviø su %s: %s", GetName( playerid ), text );
-            SendNEWS(COLOR_GREEN,string);
+//            SendNEWS(COLOR_GREEN,string);
             return false;
         }
         else
@@ -4434,6 +4434,7 @@ CMD:bizhelp(playerid)
     SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________" );	
     return 1;
 }
+/*
 CMD:househelp(playerid)
 {
     SendClientMessage(playerid,COLOR_GREEN,"|__________________NAMO VALDYMO INFORMACIJA__________________|");
@@ -4455,6 +4456,7 @@ CMD:househelp(playerid)
     SendClientMessage( playerid, COLOR_GREEN, "__________________________________________________________________" );	
     return 1;
 }
+*/
 /*
 CMD:setunit( playerid, params[ ] )
 {
@@ -5925,7 +5927,7 @@ CMD:checkalco( playerid, params[ ] )
     return 1;
 }
 */
-
+/*
 CMD:ad( playerid, params[ ] )
 {
     if(!Data_IsPlayerInRangeOfCoords(playerid, 10.0, "advertisement_center")) 
@@ -5960,7 +5962,7 @@ CMD:ad( playerid, params[ ] )
 
     LastPlayerAd[ playerid ] = gettime();
     return 1;
-}
+}*/
 
 CMD:lastad( playerid, params[ ] )
 {
@@ -6371,6 +6373,7 @@ CMD:levelup(playerid,params[])
     SendClientMessage(playerid, COLOR_NEWS, string);
     return 1;
 }
+/*
 CMD:o( playerid, params[ ] )
 {
     new string[ 256 ];
@@ -6394,6 +6397,8 @@ CMD:ao( playerid, params[ ] )
     }
     return 1;
 }
+*/
+/*
 CMD:ado( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 1)
@@ -6407,6 +6412,7 @@ CMD:ado( playerid, params[ ] )
     }
     return 1;
 }
+*/
 CMD:a( playerid, params[ ] )
 {
     if(GetPlayerAdminLevel(playerid) > 0 )
@@ -7337,7 +7343,7 @@ CMD:cargo(playerid, params[])
             index = i;
             break;
         }
-        new bizindex;
+/*        new bizindex;
         if((bizindex = GetPlayerBusinessIndex(playerid)) != -1)
         {
             if(IsBusinessAcceptingCargo(bizindex, cargoid) && cargoid)
@@ -7345,7 +7351,7 @@ CMD:cargo(playerid, params[])
                 sellToBusines = true;
             }
         }
-
+*/
         if(IsPlayerInRangeOfCargoShip(playerid,4.0))
             sellToShip = true;
 
@@ -7369,7 +7375,7 @@ CMD:cargo(playerid, params[])
                     price = GetCommoditySellPrice(GetIndustryCargoIndex(index,cargoid));
                 AddCargoToIndustry(index, cargoid);
             }
-            else if(sellToBusines)
+         /*   else if(sellToBusines)
             {
                 price = Commodities[ GetBusinessCargoIndex(index, cargoid) ][ Price ];
                 if(price > bInfo[ index ][ bBank ])
@@ -7391,6 +7397,7 @@ CMD:cargo(playerid, params[])
                 if(bInfo[ index ][ bProducts ] >= MAX_BUSINESS_PRODUCTS)
                     StopBusinessBuyingCargo(index, cargoid);
             }
+            */
             else if(sellToShip)
             {
                 if(ShipInfo[ Status ] != Docked)
@@ -7434,8 +7441,8 @@ CMD:cargo(playerid, params[])
                 {
                     if(!VehicleCargo[ vehicleid ][ i ][ Amount ])
                         continue;
-                    if(sellToBusines && !IsBusinessAcceptingCargo(index, VehicleCargo[ vehicleid ][ i ][ CargoId ]))
-                        continue;
+//                    if(sellToBusines && !IsBusinessAcceptingCargo(index, VehicleCargo[ vehicleid ][ i ][ CargoId ]))
+ //                       continue;
                     else if(sellToIndustry && !IsIndustryAcceptingCargo(index, VehicleCargo[ vehicleid ][ i ][ CargoId ] ))
                         continue;
                     else if(sellToShip && !IsShipAcceptingCargo(VehicleCargo[ vehicleid ][ i ][ CargoId ]))
@@ -8845,7 +8852,7 @@ CMD:makemoderator( playerid, params[ ] )
     }
     return 1;
 }
-
+/*
 CMD:togooc( playerid, params[] )
 {
     #pragma unused params
@@ -8915,7 +8922,7 @@ CMD:tognews(playerid, params[ ] )
     }
     return 1;
 }
-
+*/
 CMD:buysex( playerid, params[ ] )
 {
     #pragma unused params
@@ -9201,7 +9208,7 @@ public OnPlayerCommandPerformed(playerid, cmdtext[ ], success)
     if ( AfkCheck[ playerid ] != 0 )
         AfkCheck[ playerid ] = 0;
 
-    return true;
+    return success;
 }
 
 forward SpecLabelDissapear(playerid);
@@ -12929,6 +12936,7 @@ CMD:gotonowhere(playerid)
     SendClientMessage(playerid, COLOR_NEWS, "Sëkmingai persikëlëte kaþkur.");
     return 1;
 }
+/*
 CMD:gotohouse(playerid, params[])
 {
     if(GetPlayerAdminLevel(playerid) < 4)
@@ -12949,6 +12957,8 @@ CMD:gotohouse(playerid, params[])
     }
     return 1;
 }
+*/
+/*
 CMD:gotobiz(playerid, params[])
 {
     if(GetPlayerAdminLevel(playerid) < 4)
@@ -13024,7 +13034,7 @@ CMD:gotogarage(playerid, params[])
     format(string, sizeof(string), "Sëkmingai nusikëlëte prie garaþo kurio ID %d", index);
     SendClientMessage(playerid, COLOR_NEWS, string);
     return 1;
-}
+}*/
 
 CMD:serverstats(playerid)
 {
@@ -13599,6 +13609,7 @@ CMD:afrisk(playerid, params[])
     return 1;
 }
 */
+/*
 CMD:aproperty( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 1 )
@@ -13661,6 +13672,7 @@ CMD:aproperty( playerid, params[ ] )
     }
     return 1;
 }
+*/
 CMD:ahelp( playerid, params[ ] )
 {
     if( GetPlayerAdminLevel(playerid) >= 1 )
@@ -15655,12 +15667,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 case 0:
                 {
-                    HouseManagementDialog.ShowMain(playerid);
+             //       HouseManagementDialog.ShowMain(playerid);
                     return 1;
                 }
                 case 1:
                 {
-                    BusinessManagementDialog.ShowMain(playerid);
+            //        BusinessManagementDialog.ShowMain(playerid);
                     return 1;
                 }
                 case 2:
@@ -15705,7 +15717,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 
                 case 7:
                 {
-                    GarageManagementDialog.ShowMain(playerid);
+//                    GarageManagementDialog.ShowMain(playerid);
                 }
                 case 8:
                     return TruckerJob:ShowPlayerDialog(playerid, ActionList);
@@ -17394,6 +17406,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+    /*
     else if ( dialogid == 94 )
     {
         if ( response == 1 )
@@ -17413,6 +17426,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         return 1;
     }
+    */
     else if(dialogid == 98)
     {
         if(response == 1)
@@ -17602,14 +17616,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     if(!Commodities[ i ][ IsBusinessCommodity ])
                         continue;
 
-                    index = GetBusinessIndex(Commodities[ i ][ IndustryId ]);
+                    /*index = GetBusinessIndex(Commodities[ i ][ IndustryId ]);
                     if(index == -1)
                         ErrorLog("Invalid commodity business ID. Id of that business:%d", Commodities[ i ][ IndustryId ]);
                     else 
                     {
                         format(str, sizeof(str), "%s%d. %s\n", str, GetBusinessID(index), GetBusinessName(index));
                         count++;
-                    }
+                    }*/
                 }
 
 				if(!count)
@@ -17727,7 +17741,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     }
 
     // Sarasas verslu. Reikia rodyt ju info.
-    if(dialogid == DIALOG_TPDA_BUSINESS)
+    /*if(dialogid == DIALOG_TPDA_BUSINESS)
     {
         if(!response) 
             return 1;
@@ -17769,7 +17783,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         SetPVarInt(playerid, "Business", index);
         ShowPlayerDialog( playerid, DIALOG_INDUSTRY_INFO, DIALOG_STYLE_MSGBOX, bInfo[ index ][ bName ], str, "Paþymëti", "Atgal" );
         return 1;
-    }   
+    }   */
 
     // Jei pasirinko OK, tiesiog nustatyt CP.
     if(dialogid == DIALOG_INDUSTRY_INFO)
@@ -17788,7 +17802,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         else
         {
             listitem = GetPVarInt(playerid, "Business");
-            SetPlayerCheckPointEx( playerid, CHECKPOINT_CAR, bInfo[ listitem ][ bEnter ][ 0 ], bInfo[ listitem ][ bEnter ][ 1 ], bInfo[ listitem ][ bEnter ][ 2 ], 6.0 );
+            //SetPlayerCheckPointEx( playerid, CHECKPOINT_CAR, bInfo[ listitem ][ bEnter ][ 0 ], bInfo[ listitem ][ bEnter ][ 1 ], bInfo[ listitem ][ bEnter ][ 2 ], 6.0 );
         }
         return 1;
     }
@@ -18003,6 +18017,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			// Iðimam viskà ið transporto priemoëns.
 			RemoveCargoFromVehicle(vehicleid, cargoid, boughtamount);
 		}
+        /*
 		else if(sellToBusines)
 		{
             new commodityIndex = GetBusinessCargoIndex(index, cargoid);
@@ -18066,7 +18081,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         break;
                     }
             }
-		}
+		}*/
 		
 		if(sellToShip)
 		{
@@ -21222,6 +21237,7 @@ stock strrest(const string[], index)
     result[index - offset] = EOS;
     return result;
 }
+/*
 stock SendOOC(color,string[])
 {
     foreach(Player,playerid)
@@ -21242,6 +21258,7 @@ stock SendNEWS(color,string[])
     }
     return 1;
 }
+*/
 stock IsKeyJustDown(key, newkeys, oldkeys) { if((newkeys & key) && !(oldkeys & key)) return 1; return 0; }
 
 stock SendChatMessage(playerid,color,text[])
@@ -21399,7 +21416,7 @@ stock SendAdminWarningMessage(const format[], va_args<>)
 
 stock SendAdminMessagePlayer( playerid, color, text[ ] )
 {
-    if ( GetPlayerAdminLevel(playerid) >= 1 && TogChat[ playerid ][ 3 ] == true )
+    if ( GetPlayerAdminLevel(playerid) >= 1) //&& TogChat[ playerid ][ 3 ] == true )
     {
         if(strlen(text) > 120)
         {
@@ -21421,11 +21438,13 @@ stock SendAdminMessagePlayer( playerid, color, text[ ] )
     }
     return 1;
 }
+
+
 stock SendAdminMessage(color, text[])
 {
     foreach(Player,i)
     {
-        if(GetPlayerAdminLevel(i) >= 1 && TogChat[i][3] == true)
+        if(GetPlayerAdminLevel(i) >= 1)// && TogChat[i][3] == true)
         {
             SendAdminMessagePlayer(i, color, text);
             //SendChatMessage(i, color, string);
@@ -21433,6 +21452,7 @@ stock SendAdminMessage(color, text[])
     }
     return 1;
 }
+
 stock SendRadioMessage(chanel, slot, color, string[])
 {
     foreach(Player,i)
@@ -22068,7 +22088,7 @@ stock BoxEnd(loser)
     {
         new string[126];
         format(string, 126, "[SAN NEWS] Bokso varþybos baigësi, laimëjo %s priëð %s.",GetName(winer),GetName(loser));
-        SendNEWS(COLOR_NEWS,string);
+//        SendNEWS(COLOR_NEWS,string);
         Boxing[loser] = false;
         Boxing[winer] = false;
 

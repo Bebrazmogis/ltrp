@@ -229,22 +229,22 @@ CREATE TABLE IF NOT EXISTS items
 CREATE TABLE IF NOT EXISTS player_items (
   item_id INT NOT NULL,
   player_id INT NOT NULL,
-  FOREIGN KEY (item_id) REFERENCES items(id),
-  FOREIGN KEY (player_id) REFERENCES players(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+  FOREIGN KEY (player_id) REFERENCES players(id)  ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS vehicle_items (
   item_id INT NOT NULL,
   vehicle_id INT NOT NULL,
-  FOREIGN KEY (item_id) REFERENCES items(id),
-  FOREIGN KEY (vehicle_id) REFERENCES vehicles(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ) ON DELETE CASCADE,
+  FOREIGN KEY (vehicle_id) REFERENCES vehicles(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS property_items (
   item_id INT NOT NULL,
   property_id INT NOT NULL,
-  FOREIGN KEY (item_id) REFERENCES items(id),
-  FOREIGN KEY (property_id) REFERENCES properties(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+  FOREIGN KEY (property_id) REFERENCES properties(id)) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -255,7 +255,7 @@ CREATE TABLE IF NOT EXISTS items_durable
   durability INT NOT NULL DEFAULT '0',
   max_durability INT NOT NULL DEFAULT '0',
   PRIMARY KEY(item_id),
-  FOREIGN KEY (item_id) REFERENCES items(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS items_container
   items INT NOT NULL DEFAULT '0',
   size INT NOT NULL DEFAULT '0',
   PRIMARY KEY(item_id),
-  FOREIGN KEY (item_id) REFERENCES items(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS items_clothing
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS items_clothing
   bone TINYINT UNSIGNED NOT NULL DEFAULT  '0',
   worn BOOLEAN NOT NULL DEFAULT '0',
   PRIMARY KEY (item_id),
-  FOREIGN KEY (item_id) REFERENCES items(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS items_weapon
@@ -284,7 +284,7 @@ CREATE TABLE IF NOT EXISTS items_weapon
   weapon_id TINYINT NOT NULL DEFAULT '0',
   ammo SMALLINT UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (item_id),
-  FOREIGN KEY (item_id) REFERENCES items(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS items_consumable
@@ -292,7 +292,7 @@ CREATE TABLE IF NOT EXISTS items_consumable
   item_id INT NOT NULL,
   doses INT NOT NULL DEFAULT '0',
   PRIMARY KEY (item_id),
-  FOREIGN KEY (item_id) REFERENCES items(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS items_drink
@@ -300,7 +300,7 @@ CREATE TABLE IF NOT EXISTS items_drink
   item_id INT NOT NULL,
   special_action TINYINT UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (item_id),
-  FOREIGN KEY (item_id) REFERENCES items(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS items_phone
@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS items_phone
   item_id INT NOT NULL,
   number INT NOT NULL DEFAULT '86000000',
   PRIMARY KEY (item_id),
-  FOREIGN KEY (item_id) REFERENCES items(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS items_radio
@@ -316,7 +316,7 @@ CREATE TABLE IF NOT EXISTS items_radio
   item_id INT NOT NULL,
   frequency FLOAT NOT NULL DEFAULT '0.0',
   PRIMARY KEY (item_id),
-  FOREIGN KEY (item_id) REFERENCES items(id)
+  FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS player_crimes
@@ -584,6 +584,7 @@ CREATE TABLE IF NOT EXISTS properties (
   exit_virtual INT NULL,
   locked TINYINT NOT NULL,
   label_color INT NOT NULL,
+  pickup_model SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (owner) REFERENCES players(id) ON DELETE SET NULL
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -632,27 +633,30 @@ CREATE TABLE IF NOT EXISTS garages (
   vehicle_entrance_interior INT NOT NULL,
   vehicle_entrance_virtual INT NOT NULL,
   vehicle_entrance_angle FLOAT NOT NULL,
-  vehicle_exit_x FLOAT NOT NULL,
-  vehicle_exit_y FLOAT NOT NULL,
-  vehicle_exit_z FLOAT NOT NULL,
-  vehicle_exit_interior INT NOT NULL,
-  vehicle_exit_virtual INT NOT NULL,
-  vehicle_exit_angle FLOAT NOT NULL,
+  vehicle_exit_x FLOAT NULL,
+  vehicle_exit_y FLOAT NULL,
+  vehicle_exit_z FLOAT NULL,
+  vehicle_exit_interior INT NULL,
+  vehicle_exit_virtual INT NULL,
+  vehicle_exit_angle FLOAT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (id) REFERENCES properties(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
 
-CREATE TABLE IF NOT EXISTS businesses_available_commodities
+
+CREATE TABLE businesses_available_commodities
 (
-  id INT NOT NULL,
+  id INT AUTO_INCREMENT NOT NULL,
   business_type INT NOT NULL,
   name VARCHAR(100) NOT NULL,
   item_type INT NULL,
-  PRIMARY KEY (id)
-)ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
+  health_addition FLOAT NULL,
+  special_action TINYINT UNSIGNED NULL,
+  drunk_level_per_sip INT NULL,
+  PRIMARY KEY(id)
+);
 
 CREATE TABLE IF NOT EXISTS businesses
 (
@@ -661,7 +665,6 @@ CREATE TABLE IF NOT EXISTS businesses
   money INT NOT NULL,
   type SMALLINT NOT NULL,
   resources INT NOT NULL,
-  pickup_model SMALLINT UNSIGNED NOT NULL,
   commodity_limit SMALLINT UNSIGNED NOT NULL,
   resources_price INT NOT NULL,
   PRIMARY KEY (id),

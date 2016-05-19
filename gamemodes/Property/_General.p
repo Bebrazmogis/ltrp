@@ -1048,6 +1048,7 @@ CMD:clothes(playerid)
     return 1;
 }
 
+/*
 CMD:enter(playerid)
 {
     #if defined property_cmd_enter
@@ -1075,12 +1076,12 @@ CMD:enter(playerid)
         SetPlayerInterior(playerid, GetInteriorInteriorId(GetHouseInteriorID(index)));
         SetPlayerVirtualWorld(playerid,GetHouseVirtualWorld(index));
         CallShoebillFunction("OnPlayerEnterHouse", playerid, GetHouseID(index));
-/*        if(Audio_IsClientConnected(playerid))
+   if(Audio_IsClientConnected(playerid))
         {
             if(IsHouseRadioTurnedOn(index))
                 SetPlayerRadio(playerid, GetHouseRadioStation(index));
         }
-        */
+        
         return 1;
     }
 
@@ -1269,8 +1270,8 @@ CMD:exit(playerid)
     forward property_cmd_exit(playerid);
 #endif
 
-
-
+*/
+/*
 CMD:ds(playerid, params[])
 {
     new string[ 256 ],
@@ -1354,6 +1355,8 @@ CMD:ds(playerid, params[])
     }
     return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate prie jokiø durø.");
 }
+*/
+/*
 CMD:knock(playerid)
 {
     new string[ 126 ],
@@ -1403,6 +1406,7 @@ CMD:knock(playerid)
     }
     return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate prie jokiø durø. ");
 }
+*/
 
 CMD:lock(playerid)
 {

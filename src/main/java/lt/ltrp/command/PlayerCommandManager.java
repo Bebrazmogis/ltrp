@@ -1,6 +1,7 @@
 package lt.ltrp.command;
 
-import lt.ltrp.common.data.Color;
+
+import lt.ltrp.data.Color;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;

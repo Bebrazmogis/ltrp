@@ -1,13 +1,6 @@
 package lt.ltrp.dao;
 
 import lt.ltrp.DatabasePlugin;
-import lt.ltrp.LtrpGamemodeImpl;
-import lt.ltrp.dao.impl.*;
-import lt.ltrp.dao.impl.SqlItemDao;
-import lt.ltrp.item.ItemController;
-import lt.ltrp.item.dao.ItemDao;
-import lt.ltrp.player.dao.PlayerDao;
-import lt.ltrp.radio.dao.RadioStationDao;
 import net.gtaun.shoebill.Shoebill;
 
 import javax.sql.DataSource;
@@ -113,13 +106,13 @@ class JdbcDAO extends DAOFactory {
         in.close();
         */
     //    this.phoneDao = new SqlPhoneDaoImpl(ds);
-        this.itemDao = new SqlItemDao(ds, LtrpGamemodeImpl.get().getEventManager(), ItemController.get().getPhoneDao());
+   //     this.itemDao = new SqlItemDao(ds, LtrpGamemodeImpl.get().getEventManager(), ItemController.get().getPhoneDao());
       //  this.houseDao = new SqlHouseDao(ds);
-        this.dmvDao = new FileDmvDaoImpl(LtrpGamemodeImpl.get().getDataDir());
+     //   this.dmvDao = new FileDmvDaoImpl(LtrpGamemodeImpl.get().getDataDir());
       //  this.vehicleDao = new SqlVehicleDaoImpl(ds);
     //    this.jobDao = new MySqlJobDaoImpl(ds, vehicleDao);
     //    this.radioStationDao = new SqlRadioStationDao(ds);
-        this.drugAddictionDao = new MySqlDrugAddictionDaoImpl(ds);
+        //this.drugAddictionDao = new MySqlDrugAddictionDaoImpl(ds);
         System.out.println("JDBCDAO initialized");
     }
 

@@ -1109,7 +1109,7 @@ stock DeleteGarageFurniture(garageindex, furnitureindex)
 
 
 */
-
+/*
 
 CMD:garagehelp(playerid)
 {
@@ -1188,7 +1188,7 @@ CMD:sellgarage(playerid, params[])
     OfferID[giveplayerid][7] = garageIndex;
     return 1;
 }
-
+*/
 /*
 
 CMD:ginv(playerid)

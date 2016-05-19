@@ -1,18 +1,9 @@
 package lt.ltrp;
 
 
-import lt.ltrp.LtrpGamemode;
-import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.dao.DAOFactory;
-import lt.ltrp.dmv.DmvManager;
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.plugin.mapandreas.MapAndreas;
-import lt.ltrp.plugin.mapandreas.MapAndreasMode;
-import lt.ltrp.PropertyController;
-import lt.ltrp.VehicleController;
+import lt.ltrp.event.PaydayEvent;
 import net.gtaun.shoebill.Shoebill;
-import net.gtaun.shoebill.data.Location;
-import net.gtaun.shoebill.event.player.PlayerClickMapEvent;
 import net.gtaun.shoebill.object.Server;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.object.World;
@@ -30,22 +21,22 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
     private static final Logger logger = LoggerFactory.getLogger(LtrpGamemode.class);
     private Timer paydayTimer;
     //private JobManager jobManager;
-    private VehicleController vehicleManager;
-    private PropertyController propertyManager;
-    private DmvManager dmvManager;
+    //private VehicleController vehicleManager;
+   // private PropertyController propertyManager;
+  //  private DmvManager dmvManager;
    // private ItemController itemController;
 
 
     @Override
     protected void onEnable() throws Throwable {
 
-        MapAndreas.Init(MapAndreasMode.Full);
+       // MapAndreas.Init(MapAndreasMode.Full);
 
         Server.get().setGamemodeText(NameShort + " " + Version);
         Server.get().setServerCodepage(1257);
         Server.get().setHostname(Name);
 
-        getEventManager().registerHandler(PlayerClickMapEvent.class, e -> {
+      /*  getEventManager().registerHandler(PlayerClickMapEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             if (player != null && player.getAdminLevel() > 0) {
                 float z = MapAndreas.FindZ(e.getPosition().getX(), e.getPosition().getY());
@@ -53,19 +44,20 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
                 player.setLocation(new Location(e.getPosition().getX(), e.getPosition().getY(), z+ 0.5f));
             }
         });
+        */
 
         schedulePaydayTimer();
         logger.debug("DATA DIR: " + Shoebill.get().getResourceManager().getGamemode().getDataDir().getAbsolutePath());
         EventManager eventManager = getEventManager();
 
-        BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
+//        BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
 
         try {
             //itemController = new ItemController(eventManager, dao.getItemDao());
-            vehicleManager = new VehicleControllerImpl(eventManager, VehicleController.get().getDao());
+            //vehicleManager = new VehicleControllerImpl(eventManager, VehicleController.get().getDao());
             //jobManager = new JobManager(eventManager, getDao().getJobDao(), vehicleManager);
-            propertyManager = new PropertyManager(eventManager, PropertyController.get().getHouseDao(), bankPlugin);
-            dmvManager = new DmvManager(eventManager);
+            //propertyManager = new PropertyManager(eventManager, PropertyController.get().getHouseDao(), bankPlugin);
+          //  dmvManager = new DmvManager(eventManager);
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -95,9 +87,9 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
     protected void onDisable() throws Throwable {
         //jobManager.destroy();
         paydayTimer.destroy();
-        vehicleManager.destroy();
-        propertyManager.destroy();
-        dmvManager.destroy();
+      //  vehicleManager.destroy();
+        //propertyManager.destroy();
+      //  dmvManager.destroy();
     }
 
     public static DAOFactory getDao() {
