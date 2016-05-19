@@ -13,7 +13,8 @@ import java.util.Collection;
  */
 public interface Garage extends Property, InventoryEntity {
 
-    static final Color DEFAULT_HOUSE_LABEL_COLOR = Color.WHITE;
+    static final Color DEFAULT_GARAGE_LABEL_COLOR = Color.WHITE;
+    static final int DEFAULT_PICKUP_MODEL = 19522;
     static final int MIN_NAME_LENGTH = 5;
 
     static Collection<Garage> get() {
@@ -45,7 +46,7 @@ public interface Garage extends Property, InventoryEntity {
     }
 
     static Garage create(int id, Location entrance, Location exit, AngledLocation vehicleEntrance, AngledLocation vehicleExit, int price) {
-        return create(id, "", LtrpPlayer.INVALID_USER_ID, -1, price, entrance, exit, vehicleEntrance, vehicleExit, DEFAULT_HOUSE_LABEL_COLOR);
+        return create(id, "", LtrpPlayer.INVALID_USER_ID, DEFAULT_PICKUP_MODEL, price, entrance, exit, vehicleEntrance, vehicleExit, DEFAULT_GARAGE_LABEL_COLOR);
     }
 
     void setVehicle(LtrpVehicle vehicle);

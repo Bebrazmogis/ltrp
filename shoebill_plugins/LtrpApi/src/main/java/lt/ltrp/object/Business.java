@@ -1,13 +1,12 @@
 package lt.ltrp.object;
 
-import lt.ltrp.PropertyController;
+import lt.ltrp.BusinessController;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
-import lt.ltrp.dialog.property.business.BusinessCommodityListDialog;
+import lt.ltrp.dialog.BusinessCommodityListDialog;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
-import net.gtaun.util.event.EventManager;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,7 +26,7 @@ public interface Business extends Property {
     static final int MAX_RESOURCES = 2000;
 
     static Collection<Business> get() {
-        return PropertyController.get().getBusinesses();
+        return BusinessController.get().getBusinesses();
     }
 
     static Business get(int id) {
@@ -39,41 +38,11 @@ public interface Business extends Property {
     }
 
     static Business getClosest(Location location, float maxDistance) {
-        Business closest = null;
-        float min = maxDistance;
-        for (Business b : get()) {
-            float distance = Math.min(b.getEntrance().distance(location), b.getExit() != null ? b.getExit().distance(location) : Float.POSITIVE_INFINITY);
-            if(distance <= min) {
-                closest = b;
-                min = distance;
-            }
-        }
-        return closest;
-        /*
-        Optional<Business> op = get().stream().min((b1, b2) -> {
-            if(b1.getExit() == null && b2.getExit() != null) {
-                return Float.compare(b1.getEntrance().distance(location),
-                        Math.min(b2.getEntrance().distance(location), b2.getExit().distance(location)));
-            }
-            else if(b2.getExit() == null && b1.getExit() != null)
-                return Float.compare(Math.min(b1.getEntrance().distance(location), b1.getExit().distance(location)),
-                        b2.getEntrance().distance(location));
-            else if(b1.getExit() == null && b2.getExit() == null)
-                return Float.compare(b1.getEntrance().distance(location),
-                        b2.getEntrance().distance(location));
-            else
-                return Float.compare(Math.min(b1.getEntrance().distance(location), b1.getExit().distance(location)),
-                        Math.min(b2.getEntrance().distance(location), b2.getExit().distance(location)));
-        });
-        if(op.isPresent()) {
-            float distance = op.get().getEntrance().distance(location);
-            if(distance <= maxDistance) {
-                return op.get();
-            }
-        }
+        return BusinessController.get().getClosest(location, maxDistance);
+    }
 
-        return null;
-        */
+    static Business get(LtrpPlayer player) {
+        return BusinessController.get().get(player);
     }
 
     static Business getClosest(Location location) {
@@ -81,20 +50,20 @@ public interface Business extends Property {
     }
 
     static Business create(int id, String name, BusinessType type, int ownerUserId, int pickupModelId, int price, Location entrance, Location exit, Color labelColor,
-                           int money, int resources, int commodityLimit, EventManager eventManager) {
-        return PropertyController.get().createBusiness(id, name, type, ownerUserId, pickupModelId, price, entrance, exit, labelColor, money, resources, commodityLimit, eventManager);
+                           int money, int resources, int commodityLimit) {
+        return BusinessController.get().createBusiness(id, name, type, ownerUserId, pickupModelId, price, entrance, exit, labelColor, money, resources, commodityLimit);
     }
 
-    static Business create(int id, BusinessType type, Location entrance, Location exit, int price, EventManager eventManager1) {
-        return create(id, "", type, LtrpPlayer.INVALID_USER_ID, DEFAULT_PICKUP_MODEL, price, entrance, exit, DEFAULT_BUSINESS_LABEL_COLOR, 0, DEFAULT_RESOURCES, DEFAULT_COMMODITY_LIMIT, eventManager1);
+    static Business create(int id, BusinessType type, Location entrance, Location exit, int price) {
+        return create(id, "", type, LtrpPlayer.INVALID_USER_ID, DEFAULT_PICKUP_MODEL, price, entrance, exit, DEFAULT_BUSINESS_LABEL_COLOR, 0, DEFAULT_RESOURCES, DEFAULT_COMMODITY_LIMIT);
     }
 
-    static Business create(String name, Location entrance, Location exit, int price, EventManager eventManager) {
-        return create(0, name, BusinessType.None, LtrpPlayer.INVALID_USER_ID, DEFAULT_PICKUP_MODEL, price, entrance, exit, DEFAULT_BUSINESS_LABEL_COLOR, 0, DEFAULT_RESOURCES, DEFAULT_COMMODITY_LIMIT, eventManager);
+    static Business create(String name, Location entrance, Location exit, int price) {
+        return create(0, name, BusinessType.None, LtrpPlayer.INVALID_USER_ID, DEFAULT_PICKUP_MODEL, price, entrance, exit, DEFAULT_BUSINESS_LABEL_COLOR, 0, DEFAULT_RESOURCES, DEFAULT_COMMODITY_LIMIT);
     }
 
     static List<BusinessCommodity> getAvailableCommodities(BusinessType type) {
-        return PropertyController.get().getAvailableCommodities(type);
+        return BusinessController.get().getAvailableCommodities(type);
     }
 
     int getMoney();

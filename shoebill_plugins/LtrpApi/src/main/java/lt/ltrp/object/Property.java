@@ -2,6 +2,7 @@ package lt.ltrp.object;
 
 import lt.ltrp.NamedEntity;
 import lt.ltrp.PropertyController;
+import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
@@ -25,6 +26,10 @@ public interface Property extends NamedEntity, Destroyable {
                 .filter(b -> b.getUUID() == id)
                 .findFirst();
         return op.isPresent() ? op.get() : null;
+    }
+
+    static Property get(LtrpPlayer player) {
+        return PropertyController.get().get(player);
     }
 
     static Property getClosest(Location location, float maxDistance) {
@@ -69,6 +74,6 @@ public interface Property extends NamedEntity, Destroyable {
     void setLabelColor(Color color);
     int getPickupModelId();
     void setPickupModelId(int modelId);
-
+    DynamicPickup getPickup();
 
 }
