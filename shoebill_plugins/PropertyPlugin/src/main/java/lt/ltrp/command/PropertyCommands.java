@@ -128,7 +128,5 @@ public class PropertyCommands {
         return true;
     }
 
-
-    // TODO cmd:clothes
     // TODO cmd:furniture
 }
