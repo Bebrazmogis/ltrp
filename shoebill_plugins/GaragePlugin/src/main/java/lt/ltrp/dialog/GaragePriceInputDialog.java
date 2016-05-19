@@ -1,5 +1,6 @@
 package lt.ltrp.dialog;
 
+import lt.ltrp.GarageController;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.event.property.garage.GarageEditEvent;
 import lt.ltrp.object.Garage;
@@ -29,6 +30,7 @@ public class GaragePriceInputDialog {
                     else {
                         garage.setPrice(i);
                         eventManager.dispatchEvent(new GarageEditEvent(garage, player));
+                        GarageController.get().getDao().update(garage);
                     }
                 })
                 .build();

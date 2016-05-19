@@ -1,10 +1,8 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.object.Garage;
-import lt.ltrp.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
-import net.gtaun.shoebill.common.dialog.DialogTextSupplier;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.util.event.EventManager;
 
@@ -44,13 +42,12 @@ public class GarageUUIDInputDialog extends InputDialog {
     public void onClickOk(String text) {
         try {
             int val = Integer.parseInt(text);
-            House h = House.get(val);
+            Garage h = Garage.get(val);
             if(h == null) {
                 if(inputErrorHandler != null) inputErrorHandler.onInputError(this, text);
             }
             else {
-                if(handler != null)
-                    handler.onClickOk(this, h);
+                if(handler != null) handler.onClickOk(this, h);
             }
         } catch(java.lang.NumberFormatException e) {
             if(inputErrorHandler != null)
@@ -60,7 +57,7 @@ public class GarageUUIDInputDialog extends InputDialog {
 
     @FunctionalInterface
     public interface ClickOkHandler {
-        void onClickOk(GarageUUIDInputDialog dialog, House house);
+        void onClickOk(GarageUUIDInputDialog dialog, Garage house);
     }
 
     @FunctionalInterface
@@ -79,15 +76,7 @@ public class GarageUUIDInputDialog extends InputDialog {
             super(dialog);
         }
 
-        public DialogBuilderType message(String message) {
-            dialog.setMessage(message);
-            return (DialogBuilderType) this;
-        }
 
-        public DialogBuilderType message(DialogTextSupplier messageSupplier) {
-            dialog.setMessage(messageSupplier);
-            return (DialogBuilderType) this;
-        }
 
         public DialogBuilderType onInputError(InputErrorHandler handler1) {
             dialog.setInputErrorHandler(handler1);
@@ -99,10 +88,6 @@ public class GarageUUIDInputDialog extends InputDialog {
             return (DialogBuilderType) this;
         }
 
-        public DialogBuilderType line(String line) {
-            dialog.addLine(line);
-            return (DialogBuilderType) this;
-        }
     }
 
     public static class GarageUUIDInputDialogBuilder extends AbstractGarageUUIDInputDialogBuilder<GarageUUIDInputDialog, GarageUUIDInputDialogBuilder> {

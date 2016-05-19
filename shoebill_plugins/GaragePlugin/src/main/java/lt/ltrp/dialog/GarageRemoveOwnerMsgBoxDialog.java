@@ -1,5 +1,6 @@
 package lt.ltrp.dialog;
 
+import lt.ltrp.GarageController;
 import lt.ltrp.PlayerController;
 import lt.ltrp.event.property.garage.GarageEditEvent;
 import lt.ltrp.object.Garage;
@@ -28,6 +29,7 @@ public class GarageRemoveOwnerMsgBoxDialog {
                 .onClickOk(d -> {
                     garage.setOwner(LtrpPlayer.INVALID_USER_ID);
                     eventManager.dispatchEvent(new GarageEditEvent(garage, player));
+                    GarageController.get().getDao().update(garage);
                     parent.show();
                 })
                 .build();

@@ -39,19 +39,20 @@ public class AdminGarageManagementDialog {
                 }, i -> {
                     Garage garage = Garage.getClosest(player.getLocation(), MAX_DISTANCE);
                     if(garage != null)
-                        GarageManagementOptionDialog.create(player, eventManager, i.getCurrentDialog(), Garage.get(player)).show();
+                        GarageManagementOptionDialog.create(player, eventManager, i.getCurrentDialog(), garage).show();
                     else
                         i.getCurrentDialog().show();
                 })
                 .item("Ávesti garaþo ID", i -> {
                     showUUIDDialog(player, eventManager, i.getCurrentDialog(), (d, garage) -> {
-                        GarageManagementOptionDialog.create(player, eventManager, i.getCurrentDialog(), Garage.get(player)).show();
+                        player.sendDebug(garage);
+                        GarageManagementOptionDialog.create(player, eventManager, i.getCurrentDialog(), garage).show();
                     });
                 })
                 .item("{FF6E62}Kurti naujà garaþà", i -> {
                     Garage garage = Garage.create(0, player.getLocation(), null, player.getLocation(), null, 0);
                     eventManager.dispatchEvent(new GarageCreateEvent(garage));
-                    GarageManagementOptionDialog.create(player, eventManager, i.getCurrentDialog(), Garage.get(player)).show();
+                    GarageManagementOptionDialog.create(player, eventManager, i.getCurrentDialog(), garage).show();
                 })
                 .item("Statistika", i -> {
                     showStats(player, eventManager, i.getCurrentDialog());

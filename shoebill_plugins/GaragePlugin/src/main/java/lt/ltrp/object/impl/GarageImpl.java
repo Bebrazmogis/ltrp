@@ -9,7 +9,6 @@ import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @author Bebras
@@ -31,18 +30,9 @@ public class GarageImpl extends InventoryPropertyImpl implements Garage{
 
 
     public GarageImpl(int id, Location entrance, Location exit, AngledLocation vehicleEntrance, AngledLocation vehicleExit, int price, EventManager eventManager1) {
-        this(id, "", LtrpPlayer.INVALID_USER_ID, 0, price, entrance, exit, vehicleEntrance, vehicleExit, Garage.DEFAULT_HOUSE_LABEL_COLOR, eventManager1);
+        this(id, "", LtrpPlayer.INVALID_USER_ID, DEFAULT_PICKUP_MODEL, price, entrance, exit, vehicleEntrance, vehicleExit, Garage.DEFAULT_GARAGE_LABEL_COLOR, eventManager1);
     }
 
-    @Override
-    public void setPickupModelId(int pickupModelId) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public int getPickupModelId() {
-        throw new NotImplementedException();
-    }
 
     @Override
     protected void update() {
@@ -51,7 +41,7 @@ public class GarageImpl extends InventoryPropertyImpl implements Garage{
             entranceLabel = null;
         }
         String text;
-        if(getOwner() != LtrpPlayer.INVALID_USER_ID)  {
+        if(!isOwned())  {
             text = String.format("{FFFFFF}Ðis garaþas yra parduodamas\nPardavimo kainà: {FFBB00}%d\n{FFFFFF}Norëdami pirkti raðykite {FFBB00}/buygarage", getPrice());
         } else {
             text = String.format("{FFBB00}Garaþas\nNorëdami áeiti raðykite /enter");

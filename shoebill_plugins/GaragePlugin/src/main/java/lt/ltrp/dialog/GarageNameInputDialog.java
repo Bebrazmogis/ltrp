@@ -1,5 +1,6 @@
 package lt.ltrp.dialog;
 
+import lt.ltrp.GarageController;
 import lt.ltrp.event.property.garage.GarageEditEvent;
 import lt.ltrp.object.Garage;
 import lt.ltrp.object.LtrpPlayer;
@@ -33,6 +34,7 @@ public class GarageNameInputDialog {
                         String parsed = StringUtils.parseTextColors(i);
                         garage.setName(parsed);
                         eventManager.dispatchEvent(new GarageEditEvent(garage, player));
+                        GarageController.get().getDao().update(garage);
                     }
                 })
                 .build();

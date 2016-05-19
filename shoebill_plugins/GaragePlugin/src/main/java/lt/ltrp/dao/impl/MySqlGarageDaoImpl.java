@@ -1,7 +1,6 @@
 package lt.ltrp.dao.impl;
 
 import lt.ltrp.dao.GarageDao;
-import lt.ltrp.dao.MySqlPropertyDaoImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.object.Garage;
 import lt.ltrp.object.LtrpPlayer;
@@ -11,10 +10,7 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -49,7 +45,22 @@ public class MySqlGarageDaoImpl extends MySqlPropertyDaoImpl implements GarageDa
             stmt.setFloat(3, en.z);
             stmt.setInt(4, en.interiorId);
             stmt.setInt(5, en.worldId);
-            stmt.setFloat(6, ex.angle);
+            stmt.setFloat(6, en.angle);
+            if(ex != null) {
+                stmt.setFloat(7, ex.x);
+                stmt.setFloat(8, ex.y);
+                stmt.setFloat(9, ex.z);
+                stmt.setInt(10, ex.interiorId);
+                stmt.setInt(11, ex.worldId);
+                stmt.setFloat(12, ex.angle);
+            } else {
+                stmt.setNull(7, Types.FLOAT);
+                stmt.setNull(8, Types.FLOAT);
+                stmt.setNull(9, Types.FLOAT);
+                stmt.setNull(10, Types.INTEGER);
+                stmt.setNull(11, Types.INTEGER);
+                stmt.setNull(12, Types.FLOAT);
+            }
             stmt.setFloat(7, ex.x);
             stmt.setFloat(8, ex.y);
             stmt.setFloat(9, ex.z);
@@ -81,13 +92,22 @@ public class MySqlGarageDaoImpl extends MySqlPropertyDaoImpl implements GarageDa
             stmt.setFloat(4, en.z);
             stmt.setInt(5, en.interiorId);
             stmt.setInt(6, en.worldId);
-            stmt.setFloat(7, ex.angle);
-            stmt.setFloat(8, ex.x);
-            stmt.setFloat(9, ex.y);
-            stmt.setFloat(10, ex.z);
-            stmt.setInt(11, ex.interiorId);
-            stmt.setInt(12, ex.worldId);
-            stmt.setFloat(13, ex.angle);
+            stmt.setFloat(7, en.angle);
+            if(ex != null) {
+                stmt.setFloat(8, ex.x);
+                stmt.setFloat(9, ex.y);
+                stmt.setFloat(10, ex.z);
+                stmt.setInt(11, ex.interiorId);
+                stmt.setInt(12, ex.worldId);
+                stmt.setFloat(13, ex.angle);
+            } else {
+                stmt.setNull(8, Types.FLOAT);
+                stmt.setNull(9, Types.FLOAT);
+                stmt.setNull(10, Types.FLOAT);
+                stmt.setNull(11, Types.INTEGER);
+                stmt.setNull(12, Types.INTEGER);
+                stmt.setNull(13, Types.FLOAT);
+            }
             stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -135,7 +155,7 @@ public class MySqlGarageDaoImpl extends MySqlPropertyDaoImpl implements GarageDa
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
             ResultSet resultSet = stmt.executeQuery();
-            if(resultSet.next())
+            while(resultSet.next())
                 garages.add(resultToGarage(resultSet));
         } catch (SQLException e) {
             e.printStackTrace();

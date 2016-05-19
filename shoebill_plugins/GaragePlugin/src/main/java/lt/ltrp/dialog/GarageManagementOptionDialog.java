@@ -1,6 +1,7 @@
 package lt.ltrp.dialog;
 
 
+import lt.ltrp.GarageController;
 import lt.ltrp.event.property.garage.GarageEditEvent;
 import lt.ltrp.object.Garage;
 import lt.ltrp.object.LtrpPlayer;
@@ -32,21 +33,25 @@ public class GarageManagementOptionDialog {
                 .item("Perkelti garaþo áëjima á mano pozicijà", i -> {
                     garage.setEntrance(player.getLocation());
                     eventManager.dispatchEvent(new GarageEditEvent(garage, player));
+                    GarageController.get().getDao().update(garage);
                 })
                 .item("Perkelti garaþo iðëjimà á mano pozicijà", i -> {
                     Location loc = player.getLocation();
                     loc.setWorldId(garage.getUUID());
                     garage.setExit(loc);
                     eventManager.dispatchEvent(new GarageEditEvent(garage, player));
+                    GarageController.get().getDao().update(garage);
                 })
                 .item("Perkelti garaþo automobilio áëjimà á mano pozicijà", i -> {
                     garage.setVehicleEntrance(player.getLocation());
                     eventManager.dispatchEvent(new GarageEditEvent(garage, player));
+                    GarageController.get().getDao().update(garage);
                 })
                 .item("Perkelti garaþo automobilio iðëjimà á manjo pozicijà", i -> {
                     AngledLocation loc = player.getLocation();
                     loc.setWorldId(garage.getUUID());
                     garage.setVehicleExit(loc);
+                    GarageController.get().getDao().update(garage);
                     eventManager.dispatchEvent(new GarageEditEvent(garage, player));
                 })
                 .item("Paðalinti savininkà", garage::isOwned, i -> {

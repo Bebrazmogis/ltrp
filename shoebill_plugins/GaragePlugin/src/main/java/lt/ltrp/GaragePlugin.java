@@ -5,6 +5,7 @@ import lt.ltrp.command.GarageOwnerCommands;
 import lt.ltrp.dao.GarageDao;
 import lt.ltrp.dao.impl.MySqlGarageDaoImpl;
 import lt.ltrp.dialog.AdminGarageManagementDialog;
+import lt.ltrp.event.property.garage.GarageBuyEvent;
 import lt.ltrp.event.property.garage.GarageDestroyEvent;
 import lt.ltrp.object.Garage;
 import lt.ltrp.object.LtrpPlayer;
@@ -13,7 +14,7 @@ import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
-import net.gtaun.shoebill.event.resource.ResourceLoadEvent;
+import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.resource.Plugin;
 import net.gtaun.shoebill.resource.Resource;
 import net.gtaun.shoebill.resource.ResourceManager;
@@ -24,6 +25,7 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author Bebras
@@ -43,7 +45,7 @@ public class GaragePlugin extends Plugin implements GarageController {
         eventManagerNode = getEventManager().createChildNode();
         garageCollection = new ArrayList<>();
 
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayList<>();
+        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
         dependencies.add(DatabasePlugin.class);
         dependencies.add(ItemPlugin.class);
         dependencies.add(PropertyPlugin.class);
@@ -51,17 +53,21 @@ public class GaragePlugin extends Plugin implements GarageController {
         for(Class<? extends Plugin> clazz : dependencies) {
             if(ResourceManager.get().getPlugin(clazz) == null)
                 missing++;
+            else
+                dependencies.remove(clazz);
         }
         if(missing > 0) {
-            eventManagerNode.registerHandler(ResourceLoadEvent.class, e -> {
+            eventManagerNode.registerHandler(ResourceEnableEvent.class, e -> {
                 Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains((Plugin) r)) {
-                    dependencies.remove((Plugin)r);
+                logger.debug("R:" + r);
+                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
+                    dependencies.remove(r.getClass());
+                    logger.debug("Removing r");
                     if(dependencies.size() == 0)
                         load();
                 }
             });
-        }
+        } else load();
     }
 
     private void load() {
@@ -87,6 +93,10 @@ public class GaragePlugin extends Plugin implements GarageController {
     private void addEventHandlers() {
         eventManagerNode.registerHandler(GarageDestroyEvent.class, HandlerPriority.HIGHEST, e -> {
             garageCollection.remove(e.getProperty());
+        });
+
+        eventManagerNode.registerHandler(GarageBuyEvent.class, HandlerPriority.HIGHEST, e -> {
+            garageDao.update(e.getProperty());
         });
     }
 
@@ -129,8 +139,7 @@ public class GaragePlugin extends Plugin implements GarageController {
         if(g != null) return g;
 
         Optional<Garage> op = getGarages().stream().min((b1, b2) -> {
-            return Float.compare(Math.min(b1.getEntrance().distance(location), b1.getExit().distance(location)),
-                    Math.min(b2.getEntrance().distance(location), b2.getExit().distance(location)));
+            return Float.compare(b1.getEntrance().distance(location), b2.getEntrance().distance(location));
         });
         if(op.isPresent()) {
             float distance = op.get().getEntrance().distance(location);

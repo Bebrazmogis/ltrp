@@ -53,9 +53,9 @@ public class GarageCommands {
 
 
     @Command
-    public boolean enter(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        Garage garage = Garage.getClosest(p.getLocation(), 8f);
+    public boolean enter(Player pp) {
+        LtrpPlayer player = LtrpPlayer.get(pp);
+        Garage garage = Garage.getClosest(player.getLocation(), 8f);
         if(garage == null)
             return false;
         if(garage.isLocked())
@@ -65,39 +65,48 @@ public class GarageCommands {
         else if(garage.getVehicle() != null)
             player.sendErrorMessage("Garaþe jau stovi maðina, antra netilps!");
         else {
-            LtrpVehicle vehicle = null;
             if(!player.isInAnyVehicle()) {
                 player.setLocation(garage.getExit());
+                eventManager.dispatchEvent(new PlayerEnterGarageEvent(garage, player, null));
             } else {
-                vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
+                LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
                 garage.setVehicle(vehicle);
                 vehicle.setLocation(garage.getVehicleExit());
+                LtrpPlayer.get().stream().filter(p -> p.isInVehicle(vehicle)).forEach(p -> {
+                    p.setInterior(garage.getVehicleExit().getInteriorId());
+                    p.setWorld(garage.getVehicleExit().getWorldId());
+                });
+                eventManager.dispatchEvent(new PlayerEnterGarageEvent(garage, player, vehicle));
             }
-            eventManager.dispatchEvent(new PlayerEnterGarageEvent(garage, player, vehicle));
         }
         return true;
     }
 
 
     @Command
-    public boolean exit(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        Garage garage = Garage.getClosest(p.getLocation(), 8f);
+    public boolean exit(Player pp) {
+        LtrpPlayer player = LtrpPlayer.get(pp);
+        Garage garage = Garage.getClosest(pp.getLocation(), 8f);
         if(garage == null)
             return false;
         if(garage.isLocked())
             player.sendErrorMessage("Garaþas uþrakintas");
+        if(Garage.get(player) == null)
+            player.sendErrorMessage("Jûs neesate garaþe!");
         else {
-            LtrpVehicle vehicle = null;
             if(player.isInAnyVehicle()) {
-                vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
+                LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
                 garage.setVehicle(null);
                 vehicle.setLocation(garage.getVehicleEntrance());
-                //vehicle.setInterior(garage.getVehicleEntrance().getInteriorId());
+                LtrpPlayer.get().stream().filter(p -> p.isInVehicle(vehicle)).forEach(p -> {
+                    p.setInterior(garage.getVehicleEntrance().getInteriorId());
+                    p.setWorld(garage.getVehicleEntrance().getWorldId());
+                });
+                eventManager.dispatchEvent(new PlayerExitGarageEvent(garage, player, vehicle));
             } else {
                 player.setLocation(garage.getEntrance());
+                eventManager.dispatchEvent(new PlayerExitGarageEvent(garage, player, null));
             }
-            eventManager.dispatchEvent(new PlayerExitGarageEvent(garage, player, vehicle));
         }
         return true;
     }
