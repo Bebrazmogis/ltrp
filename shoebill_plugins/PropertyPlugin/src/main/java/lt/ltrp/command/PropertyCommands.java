@@ -3,14 +3,11 @@ package lt.ltrp.command;
 import lt.ltrp.LtrpWorld;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.BuyBusinessOffer;
-import lt.ltrp.data.BuyHouseOffer;
 import lt.ltrp.data.Color;
 import lt.ltrp.event.property.BusinessBuyEvent;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.Property;
-import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;
@@ -28,12 +25,12 @@ public class PropertyCommands {
     public PropertyCommands(EventManager eventManager) {
         this.eventManager = eventManager;
     }
-
+/*
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(player != null) {
-            // TODO do this properly
+
             if(player.getProperty() != null || Property.getClosest(player.getLocation(), 10f) != null) {
                 System.out.println("PropertyCommands :: beforeChcek. Cmd " + cmd + " returning true");
                 return true;
@@ -41,7 +38,7 @@ public class PropertyCommands {
         }
         return false;
     }
-
+*/
 
 
     @Command
@@ -99,11 +96,11 @@ public class PropertyCommands {
         if(property != null) {
             LtrpPlayer.get()
                     .stream()
-                    .filter(p -> p.getProperty().equals(property) || Property.getClosest(p.getLocation(), 15f) != null)
+                    .filter(p -> Property.get(p).equals(property) || Property.getClosest(p.getLocation(), 15f) != null)
                     .forEach(p -> {
                         String inMsg = String.format("%s ðaukia á duris: %s", player.getCharName(), text);
                         String outMsg = String.format("%s ðaukia pro duris: %s", player.getCharName(), text);
-                        if (p.getProperty() != null)
+                        if (Property.get(p) != null)
                             p.sendMessage(Color.WHITE, inMsg);
                         else
                             p.sendMessage(Color.WHITE, outMsg);
@@ -120,40 +117,13 @@ public class PropertyCommands {
         if(property != null) {
             LtrpPlayer.get()
                     .stream()
-                    .filter(p -> p.getProperty().equals(property) || Property.getClosest(p.getLocation(), 15f) != null)
+                    .filter(p -> Property.get(p).equals(property) || Property.getClosest(p.getLocation(), 15f) != null)
                     .forEach(p -> {
-                        if(p.getProperty().equals(property))
+                        if(Property.get(p).equals(property))
                             property.sendActionMessage("Kaþkas beldþiasi á duris");
                         else
                             player.sendActionMessage("pasibeldþia á duris");
                     });
-        }
-        return true;
-    }
-
-    @Command
-    @CommandHelp("Pasiûlo kitam þaidëjui pirkti jûsø namà")
-    public boolean sellHouse(Player p, @CommandParameter(name = "ÞaidëjoID/Dalis vardo")LtrpPlayer target,
-                             @CommandParameter(name = "Verslo kaina")int price) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        House house = House.getClosest(player.getLocation(), 8f);
-        if(target == null) {
-            return false;
-        } else if(house == null || !house.isOwner(player))
-            player.sendErrorMessage("Jûs nestovite prie namo arba jis jums nepriklauso!");
-        else if(player.getDistanceToPlayer(target) > 10f)
-            player.sendErrorMessage("Þaidëjas yra per toli!");
-        else if(price < 0)
-            player.sendErrorMessage("Kaina negali bûti neigiama!");
-        else if(player.getIp().equals(target.getIp()))
-            player.sendErrorMessage("Negalite parduoti namo savo vartotojui.");
-        else if(target.containsOffer(BuyHouseOffer.class))
-            player.sendErrorMessage("Ðiam þaidëjui jau kaþkas siûlo pirkti verslà, palaukite.");
-        else {
-            BuyHouseOffer offer = new BuyHouseOffer(target, player, house, price, eventManager);
-            target.getOffers().add(offer);
-            player.sendMessage(Color.BUSINESS, "Pasiûlymas pirkti jûsø namà uþ " + price + Currency.SYMBOL + " " + target.getName() + " iðsiøstas");
-            target.sendMessage(Color.BUSINESS, "Þaidëjas " + player.getName() + " siûlo jums pirkti jo namà uþ " + price + Currency.SYMBOL + ". Raðykite /accept huose norëdami já pirkti.");
         }
         return true;
     }
