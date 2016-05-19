@@ -46,6 +46,7 @@ public class GaragePlugin extends Plugin implements GarageController {
         final Collection<Class<? extends Plugin>> dependencies = new ArrayList<>();
         dependencies.add(DatabasePlugin.class);
         dependencies.add(ItemPlugin.class);
+        dependencies.add(PropertyPlugin.class);
         int missing = 0;
         for(Class<? extends Plugin> clazz : dependencies) {
             if(ResourceManager.get().getPlugin(clazz) == null)

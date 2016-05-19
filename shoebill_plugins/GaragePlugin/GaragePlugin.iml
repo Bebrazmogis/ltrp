@@ -31,5 +31,7 @@
     <orderEntry type="library" name="Maven: lt.maze:fader:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: lt.maze:ysf:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: lt.maze:mapandreas:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:property:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:bank:1.0-SNAPSHOT" level="project" />
   </component>
 </module>
