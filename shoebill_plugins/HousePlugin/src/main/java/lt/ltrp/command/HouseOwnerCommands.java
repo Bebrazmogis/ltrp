@@ -5,13 +5,11 @@ import lt.ltrp.PlayerController;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.constant.ItemType;
-import lt.ltrp.data.Color;
-import lt.ltrp.data.HouseRadio;
-import lt.ltrp.data.HouseWeedSapling;
-import lt.ltrp.data.SpawnData;
+import lt.ltrp.data.*;
 import lt.ltrp.dialog.radio.RadioOptionListDialog;
 import lt.ltrp.event.player.PlayerSpawnLocationChangeEvent;
 import lt.ltrp.event.property.house.HouseEditEvent;
+import lt.ltrp.event.property.house.HouseLockToggleEvent;
 import lt.ltrp.event.property.house.HouseMoneyEvent;
 import lt.ltrp.object.House;
 import lt.ltrp.object.LtrpPlayer;
@@ -20,6 +18,7 @@ import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;
+import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
@@ -275,4 +274,60 @@ public class HouseOwnerCommands {
         }
         return true;
     }
+
+    @Command
+    public boolean lock(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Location loc = player.getLocation();
+        House house = House.getClosest(p.getLocation(), 8f);
+        if(house == null)
+            return false;
+        if(house.getOwner() != player.getUUID())
+            player.sendErrorMessage("Namas jums nepriklauso!");
+        else if(house.getEntrance().distance(loc) > 3f && house.getExit() != null && house.getExit().distance(loc) > 3f)
+            player.sendErrorMessage("Jûs per toli nuo durø!");
+        else {
+            house.setLocked(!house.isLocked());
+            player.sendActionMessage("ákiða raktà á durø spynà, nestipriai já pasuka");
+            if(house.isLocked()) {
+                house.sendActionMessage("durys uþsirakina");
+                player.sendGameText(8000, 1, "Namas ~r~uzrakintas");
+            }
+            else {
+                house.sendActionMessage("durys atsirakina");
+                player.sendGameText(8000, 1, "Namas ~g~atrakintas");
+            }
+            eventManager.dispatchEvent(new HouseLockToggleEvent(house, player, house.isLocked()));
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pasiûlo kitam þaidëjui pirkti jûsø namà")
+    public boolean sellHouse(Player p, @CommandParameter(name = "ÞaidëjoID/Dalis vardo")LtrpPlayer target,
+                             @CommandParameter(name = "Verslo kaina")int price) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        House house = House.getClosest(player.getLocation(), 8f);
+        if(target == null) {
+            return false;
+        } else if(house == null || !house.isOwner(player))
+            player.sendErrorMessage("Jûs nestovite prie namo arba jis jums nepriklauso!");
+        else if(player.getDistanceToPlayer(target) > 10f)
+            player.sendErrorMessage("Þaidëjas yra per toli!");
+        else if(price < 0)
+            player.sendErrorMessage("Kaina negali bûti neigiama!");
+        else if(player.getIp().equals(target.getIp()))
+            player.sendErrorMessage("Negalite parduoti namo savo vartotojui.");
+        else if(target.containsOffer(BuyHouseOffer.class))
+            player.sendErrorMessage("Ðiam þaidëjui jau kaþkas siûlo pirkti verslà, palaukite.");
+        else {
+            BuyHouseOffer offer = new BuyHouseOffer(target, player, house, price, eventManager);
+            target.getOffers().add(offer);
+            player.sendMessage(Color.HOUSE, "Pasiûlymas pirkti jûsø namà uþ " + price + Currency.SYMBOL + " " + target.getName() + " iðsiøstas");
+            target.sendMessage(Color.HOUSE, "Þaidëjas " + player.getName() + " siûlo jums pirkti jo namà uþ " + price + Currency.SYMBOL + ". Raðykite /accept huose norëdami já pirkti.");
+        }
+        return true;
+    }
+
+
 }

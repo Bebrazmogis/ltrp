@@ -12,7 +12,6 @@ import lt.ltrp.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
-import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
@@ -115,32 +114,6 @@ public class HouseCommands {
     }
 
 
-    @Command
-    public boolean lock(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        Location loc = player.getLocation();
-        House house = House.getClosest(p.getLocation(), 8f);
-        if(house == null)
-            return false;
-        if(house.getOwner() != player.getUUID())
-            player.sendErrorMessage("Namas jums nepriklauso!");
-        else if(house.getEntrance().distance(loc) > 3f && house.getExit() != null && house.getExit().distance(loc) > 3f)
-            player.sendErrorMessage("Jûs per toli nuo durø!");
-        else {
-            house.setLocked(!house.isLocked());
-            player.sendActionMessage("ákiða raktà á durø spynà, nestipriai já pasuka");
-            if(house.isLocked()) {
-                house.sendActionMessage("durys uþsirakina");
-                player.sendGameText(8000, 1, "Namas ~r~uzrakintas");
-            }
-            else {
-                house.sendActionMessage("durys atsirakina");
-                player.sendGameText(8000, 1, "Namas ~g~atrakintas");
-            }
-            eventManager.dispatchEvent(new HouseLockToggleEvent(house, player, house.isLocked()));
-        }
-        return true;
-    }
 
     @Command
     public boolean enter(Player p) {
