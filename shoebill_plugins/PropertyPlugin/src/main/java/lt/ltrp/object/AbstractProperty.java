@@ -1,9 +1,7 @@
-package lt.ltrp.object.impl;
+package lt.ltrp.object;
 
 import lt.ltrp.NamedEntityImpl;
 import lt.ltrp.event.property.PropertyDestroyEvent;
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.Property;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
@@ -14,7 +12,7 @@ import net.gtaun.util.event.EventManager;
  * @author Bebras
  *         2015.11.29.
  */
-public abstract class PropertyImpl extends NamedEntityImpl implements Property {
+public abstract class AbstractProperty extends NamedEntityImpl implements Property {
 
     private int ownerUserId;
     private int pickupModelId;
@@ -28,7 +26,7 @@ public abstract class PropertyImpl extends NamedEntityImpl implements Property {
     protected EventManager eventManager;
 
 
-    public PropertyImpl(int id, String name, int ownerUserId, int pickupModelId, int price, Location entrance, Location exit, Color labelColor, EventManager eventManager) {
+    public AbstractProperty(int id, String name, int ownerUserId, int pickupModelId, int price, Location entrance, Location exit, Color labelColor, EventManager eventManager) {
         super(id, name);
         this.ownerUserId = ownerUserId;
         this.pickupModelId = pickupModelId;
@@ -91,6 +89,11 @@ public abstract class PropertyImpl extends NamedEntityImpl implements Property {
         update();
     }
 
+    @Override
+    public DynamicPickup getPickup() {
+        return pickup;
+    }
+
     public void setColor(Color color) {
         labelColor = color;
         update();
@@ -124,13 +127,13 @@ public abstract class PropertyImpl extends NamedEntityImpl implements Property {
     }
 
     public void sendActionMessage(String s) {
-        LtrpPlayer.get().stream().filter(p -> p.getProperty().equals(this)).forEach(p -> {
+        LtrpPlayer.get().stream().filter(p -> Property.get(p).equals(this)).forEach(p -> {
             p.sendMessage(lt.ltrp.data.Color.ACTION, "* " + this.getName() + " " + s);
         });
     }
 
     public void sendStateMessage(String s) {
-        LtrpPlayer.get().stream().filter(p -> p.getProperty().equals(this)).forEach(p -> {
+        LtrpPlayer.get().stream().filter(p -> Property.get(p).equals(this)).forEach(p -> {
             p.sendMessage(lt.ltrp.data.Color.ACTION, "* " + s + " ((" + this.getName() + "))");
         });
     }
