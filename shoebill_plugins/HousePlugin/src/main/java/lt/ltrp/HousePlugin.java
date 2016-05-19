@@ -54,16 +54,24 @@ public class HousePlugin extends Plugin implements HouseController {
         houseCollection = new ArrayList<>();
         node = getEventManager().createChildNode();
 
-        if(ResourceManager.get().getPlugin(DatabasePlugin.class) != null)  {
-            load();
-        } else {
+        final Collection<Class<? extends Plugin>> dependencies = new ArrayList<>();
+        dependencies.add(DatabasePlugin.class);
+        dependencies.add(PropertyPlugin.class);
+        int missing = 0;
+        for(Class<? extends Plugin> clazz : dependencies) {
+            if(ResourceManager.get().getPlugin(clazz) == null)
+                missing++;
+        }
+        if(missing > 0) {
             node.registerHandler(ResourceEnableEvent.class, e -> {
                 Resource r = e.getResource();
-                if(r.getClass().equals(DatabasePlugin.class)) {
-                    load();
+                if (r instanceof Plugin && dependencies.contains((Plugin) r)) {
+                    dependencies.remove((Plugin) r);
+                    if (dependencies.size() == 0)
+                        load();
                 }
             });
-        }
+        } else load();
     }
 
     private void load() {

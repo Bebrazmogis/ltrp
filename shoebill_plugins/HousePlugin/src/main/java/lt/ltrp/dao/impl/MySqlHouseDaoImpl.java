@@ -2,7 +2,6 @@ package lt.ltrp.dao.impl;
 
 import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.dao.HouseDao;
-import lt.ltrp.dao.MySqlPropertyDaoImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.HouseWeedSapling;
 import lt.ltrp.data.SpawnData;
@@ -289,7 +288,7 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
 
     private List<Integer> getTenants(House house, Connection connection) throws SQLException {
         List<Integer> tenants = new ArrayList<>();
-        String sql = "SELECT id FROM playes WHERE spawn_type = ? AND spawn_ui = ?";
+        String sql = "SELECT id FROM players WHERE spawn_type = ? AND spawn_ui = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, SpawnData.SpawnType.House.ordinal());
             stmt.setInt(2, house.getUUID());
