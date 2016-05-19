@@ -5,6 +5,7 @@ import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.data.HouseWeedSapling;
 import lt.ltrp.object.House;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,25 +26,23 @@ public interface HouseDao {
      * Updates sapling data
      * @param sapling
      */
-    void updateWeed(HouseWeedSapling sapling);
+    void update(HouseWeedSapling sapling);
 
     /**
      * Insert a new sapling
      * @param sapling
      */
-    void insertWeed(HouseWeedSapling sapling);
+    void insert(HouseWeedSapling sapling);
 
     void remove(HouseWeedSapling weedSapling);
 
     void insert(House house);
-    House get(int uuid);
     void update(House house);
     void remove(House house);
-    List<House> get();
-    void read();
+    House get(int uuid);
+    Collection<House> get();
 
     void insert(House house, HouseUpgradeType houseUpgradeType);
     void remove(House house, HouseUpgradeType houseUpgradeType);
     List<HouseUpgradeType> get(House house);
-
 }
