@@ -177,7 +177,7 @@ public class HouseCommands {
             SkinModelPreview.create(player, eventManager, (pv, i) -> {
                 player.setSkin(i);
                 player.sendActionMessage("persirengiia drabuşius");
-            });
+            }).show();
         }
         return true;
     }
