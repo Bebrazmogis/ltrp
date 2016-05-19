@@ -20,4 +20,7 @@ gamemodes/.idea/**
 .idea/**
 shoebill_plugins/**/.idea
 shoebill_plugins/**/target/**
+/**/**.iml
 **/target
+shoebill/repository/**
+shoebill/bootstrap/**
