@@ -1,0 +1,7 @@
+class: lt.maze.mapandreas.MapAndreas
+name: MapAndreas Wrapper Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: A wrapper of SAMP MapAndreas plugin

@@ -28,5 +28,6 @@
     <orderEntry type="library" name="Maven: lt.ltrp:database:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.10" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:property:1.0-SNAPSHOT" level="project" />
   </component>
 </module>

@@ -1,0 +1,7 @@
+authors: Bebras
+version: 1.0-SNAPSHOT
+class: lt.maze.ysf.YSFPlugin
+name: YSF plugin wrapper
+buildNumber: 0
+buildDate: Unknown
+description: YSF JAva wrapper
