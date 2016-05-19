@@ -29,3 +29,4 @@ builder.out
 crashinfo.txt
 *.jar
 !/*.jar
+*.amx
