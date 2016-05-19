@@ -1,17 +1,16 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.dao.PropertyDao;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.dao.PropertyDao;import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.Property;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.lang.IllegalArgumentException;import java.lang.Override;import java.lang.String;import java.sql.*;import java.sql.Connection;import java.sql.PreparedStatement;import java.sql.ResultSet;import java.sql.SQLException;import java.sql.Statement;import java.sql.Types;
 
 /**
  * @author Bebras
  *         2016.04.19.
  */
-public class MySqlPropertyDaoImpl implements PropertyDao {
+public abstract class MySqlPropertyDaoImpl implements PropertyDao {
 
     private DataSource dataSource;
 
@@ -19,6 +18,10 @@ public class MySqlPropertyDaoImpl implements PropertyDao {
         this.dataSource = dataSource;
         if(dataSource == null)
             throw new IllegalArgumentException("Datasource cannot be null");
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
     }
 
     @Override
@@ -84,13 +87,13 @@ public class MySqlPropertyDaoImpl implements PropertyDao {
             stmt.setFloat(5, property.getEntrance().y);
             stmt.setFloat(6, property.getEntrance().z);
             stmt.setInt(7, property.getEntrance().getInteriorId());
-            stmt.setInt(8, property.getEntrance().getInteriorId());
+            stmt.setInt(8, property.getEntrance().getWorldId());
             if(property.getExit() != null) {
                 stmt.setFloat(9, property.getExit().x);
                 stmt.setFloat(10, property.getExit().y);
                 stmt.setFloat(11, property.getExit().z);
                 stmt.setInt(12, property.getExit().getInteriorId());
-                stmt.setInt(13, property.getExit().getInteriorId());
+                stmt.setInt(13, property.getExit().getWorldId());
             } else {
                 stmt.setNull(9, Types.FLOAT);
                 stmt.setNull(10, Types.FLOAT);
