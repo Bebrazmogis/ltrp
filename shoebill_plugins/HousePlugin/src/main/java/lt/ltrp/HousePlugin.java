@@ -35,6 +35,7 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author Bebras
@@ -54,20 +55,24 @@ public class HousePlugin extends Plugin implements HouseController {
         houseCollection = new ArrayList<>();
         node = getEventManager().createChildNode();
 
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayList<>();
+        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
         dependencies.add(DatabasePlugin.class);
         dependencies.add(PropertyPlugin.class);
         int missing = 0;
         for(Class<? extends Plugin> clazz : dependencies) {
             if(ResourceManager.get().getPlugin(clazz) == null)
                 missing++;
+            else
+                dependencies.remove(clazz);
         }
         if(missing > 0) {
             node.registerHandler(ResourceEnableEvent.class, e -> {
                 Resource r = e.getResource();
-                if (r instanceof Plugin && dependencies.contains((Plugin) r)) {
-                    dependencies.remove((Plugin) r);
-                    if (dependencies.size() == 0)
+                logger.debug("R:" + r);
+                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
+                    dependencies.remove(r.getClass());
+                    logger.debug("Removing r");
+                    if(dependencies.size() == 0)
                         load();
                 }
             });
