@@ -3,7 +3,6 @@ package lt.ltrp;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.JobData;
 import lt.ltrp.dialog.FactionListDialog;
-import lt.ltrp.dialog.property.BusinessAvailableCommodityManagementDialog;
 import lt.ltrp.event.player.PlayerSetFactionLeaderEvent;
 import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
 import lt.ltrp.event.player.RemoveFactionLeaderEvent;
@@ -57,6 +56,9 @@ public class AdminCommands {
         adminLevels.put("removeleader", 4);
         adminLevels.put("auninvite", 4);
         adminLevels.put("bizitems", 4);
+        adminLevels.put("abiz", 4);
+        adminLevels.put("ahou", 4);
+        adminLevels.put("agarage", 4);
 
         adminLevels.put("giveitem", 6);
         adminLevels.put("fly", 6);
@@ -561,9 +563,33 @@ public class AdminCommands {
     @CommandHelp("Atidaro verslø prekiø valdymo GUI")
     public boolean bizItems(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        BusinessAvailableCommodityManagementDialog.create(player, eventManager);
+        BusinessController.get().showAvailableCommodityDialog(player);
         return true;
     }
 
+    @Command
+    public boolean abiz(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        BusinessController.get().showManagementDialog(player);
+        return true;
+    }
+
+    @Command
+    public boolean ahou(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        HouseController.get().showManagementDialog(player);
+        return true;
+    }
+
+    @Command
+    public boolean agarage(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        GarageController.get().showManagementDialog(player);
+        return true;
+    }
+
+    // TODO aProperty
+    // TODO cmd:ado
+    // TOOD cmd:ao
 }
 

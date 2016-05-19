@@ -12,7 +12,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: net.gtaun:shoebill-api:1.2-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.1" level="project" />
+    <orderEntry type="library" name="Maven: net.gtaun:util-event:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.10" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.16" level="project" />
   </component>
 </module>

@@ -52,12 +52,14 @@ public class PlayerVehicleCommands extends Commands {
             new VehicleLock("Titaninis spynos uþraktas", 480, 1600),
             new VehicleLock("Titaninis spynos uþraktas su el. rakteliu ", 600, 2100)
     };
-    protected static final Pair<VehicleAlarm, Integer>[] ALARMS = new Pair[]{
-            new ImmutablePair<VehicleAlarm, Integer>(VehicleAlarm.get(null, 1), 400),
-            new ImmutablePair<VehicleAlarm, Integer>(VehicleAlarm.get(null, 2), 2100),
-            new ImmutablePair<VehicleAlarm, Integer>(VehicleAlarm.get(null, 3), 4000)
+    //protected static final Pair<VehicleAlarm, Integer>[] ALARMS = new Pair[3];
+    protected static final List<Pair<VehicleAlarm, Integer>> ALARMS = new ArrayList<>();
 
-    };
+    static {
+        ALARMS.add(new ImmutablePair<>(VehicleAlarm.get(null, 1), 400));
+        ALARMS.add(new ImmutablePair<>(VehicleAlarm.get(null, 2), 2100));
+        ALARMS.add(new ImmutablePair<>(VehicleAlarm.get(null, 3), 4000));
+    }
 
     private PlayerVehicleManager playerVehicleManager;
 
@@ -463,18 +465,18 @@ public class PlayerVehicleCommands extends Commands {
             player.sendErrorMessage("Ðià komandà galite naudoti tik bûdamas transporto priemonëje!");
         } else if(!vehicle.getPermissions(player.getUUID()).contains(PlayerVehiclePermission.Upgrade)) {
             player.sendErrorMessage("Jûs neturite teisës to daryti!");
-        } else if(index < 0 || index >= ALARMS.length) {
-            player.sendErrorMessage("Galimi numeriai 1 - " + ALARMS.length);
-        } else if(player.getMoney() < ALARMS[index].getValue()) {
+        } else if(index < 0 || index >= ALARMS.size()) {
+            player.sendErrorMessage("Galimi numeriai 1 - " + ALARMS.size());
+        } else if(player.getMoney() < ALARMS.get(index).getValue()) {
             player.sendErrorMessage("Jums neuþtenka pinigø ðiai signalizacijai!");
-        } else if(vehicle.getAlarm() != null && vehicle.getAlarm().getLevel() > ALARMS[index].getKey().getLevel()) {
+        } else if(vehicle.getAlarm() != null && vehicle.getAlarm().getLevel() > ALARMS.get(index).getKey().getLevel()) {
             player.sendErrorMessage("Ðiame automobilyje jau yra aukðtesnio lygio signalizacija!");
         } else {
-            VehicleAlarm alarm = ALARMS[index].getKey();
-            player.giveMoney(-ALARMS[index].getValue());
+            VehicleAlarm alarm = ALARMS.get(index).getKey();
+            player.giveMoney(-ALARMS.get(index).getValue());
             vehicle.setAlarm(alarm);
             playerVehicleManager.getEventManager().dispatchEvent(new PlayerVehicleBuyAlarmEvent(player, vehicle, alarm));
-            player.sendMessage("Á jûsø automobilá sëkmingai ádiegta \"" + alarm.getName() + "\" signalizacija. Ji kainavo " + Currency.SYMBOL + ALARMS[index].getValue());
+            player.sendMessage("Á jûsø automobilá sëkmingai ádiegta \"" + alarm.getName() + "\" signalizacija. Ji kainavo " + Currency.SYMBOL + ALARMS.get(index).getValue());
         }
         return true;
     }

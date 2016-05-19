@@ -1,20 +1,19 @@
 package lt.ltrp.car;
 
-import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.AbstractDmvManager;
+import lt.ltrp.DmvController;
 import lt.ltrp.InitException;
 import lt.ltrp.LoadingException;
-import lt.ltrp.common.constant.LtrpVehicleModel;
-import lt.ltrp.common.data.Color;
-import lt.ltrp.dmv.*;
+import lt.ltrp.constant.LicenseType;
+import lt.ltrp.constant.LtrpVehicleModel;
+import lt.ltrp.data.Color;
+import lt.ltrp.data.PlayerLicense;
+import lt.ltrp.data.PlayerLicenses;
 import lt.ltrp.dialog.DrivingTestEndMsgDialog;
 import lt.ltrp.dialog.QuestionTestEndMsgDialog;
 import lt.ltrp.event.PlayerDrivingTestEndEvent;
 import lt.ltrp.event.PlayerQuestionTestEndEvent;
-import lt.ltrp.constant.LicenseType;
-import lt.ltrp.player.data.PlayerLicense;
-import lt.ltrp.player.data.PlayerLicenses;
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.object.*;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
@@ -22,6 +21,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * @author Bebras
@@ -37,7 +37,7 @@ public class CarDmvManager extends AbstractDmvManager {
         this.ongoingTests = new HashMap<>();
 
         try {
-            dmv = LtrpGamemodeImpl.getDao().getDmvDao().getCarDmv(1);
+            dmv = DmvController.get().getDao().getCarDmv(1);
         } catch(LoadingException e) {
             throw new InitException("CarDmvManager could not be initialized", e);
         }

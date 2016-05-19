@@ -67,7 +67,7 @@ public class BasicItem extends AbstractItem {
             Inventory inventory = null;
 
             // Pirmiausia ieðkom nekilnojamam turte, nes kai kuriose jo ruðyse gali bûti viduje transporto priemonë.
-            Property property = player.getProperty();
+            Property property = Property.get(player);
             if(property != null && property instanceof InventoryEntity) {
                 inventory = ((InventoryEntity)property).getInventory();
             }
@@ -128,7 +128,7 @@ public class BasicItem extends AbstractItem {
                     Inventory inv = null;
 
                     // Pirmiausia ieðkom nekilnojamam turte, nes kai kuriose jo ruðyse gali bûti viduje transporto priemonë.
-                    Property property = player.getProperty();
+                    Property property = Property.get(player);
                     if(property != null && property instanceof InventoryEntity) {
                         inv = ((InventoryEntity)property).getInventory();
                     }

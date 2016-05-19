@@ -1,9 +1,10 @@
 package lt.ltrp.dao;
 
 import lt.ltrp.constant.BusinessType;
-import lt.ltrp.data.BusinessCommodity;
+import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.object.Business;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public interface BusinessDao {
     void insert(Business business);
     void remove(Business business);
     Business get(int uuid);
-    void read();
+    Collection<Business> get();
 
     List<BusinessCommodity> get(Business business);
     void update(BusinessCommodity commodity);

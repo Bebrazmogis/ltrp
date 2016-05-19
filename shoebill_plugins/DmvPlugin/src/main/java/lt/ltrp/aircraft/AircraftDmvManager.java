@@ -1,18 +1,15 @@
 package lt.ltrp.aircraft;
 
-import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.AbstractDmvManager;
+import lt.ltrp.DmvController;
 import lt.ltrp.InitException;
 import lt.ltrp.LoadingException;
-import lt.ltrp.common.data.Color;
-import lt.ltrp.dmv.AbstractDmvManager;
-import lt.ltrp.dmv.Dmv;
-import lt.ltrp.dmv.DmvTest;
+import lt.ltrp.constant.LicenseType;
+import lt.ltrp.data.Color;
+import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.dialog.FlyingTestEndMsgDialog;
 import lt.ltrp.event.PlayerFlyingTestEnd;
-import lt.ltrp.constant.LicenseType;
-import lt.ltrp.player.data.PlayerLicense;
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.object.*;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
@@ -35,7 +32,7 @@ public class AircraftDmvManager extends AbstractDmvManager {
         this.ongoingPlayerFlyingTestMap = new HashMap<>();
 
         try {
-            this.dmv = LtrpGamemodeImpl.getDao().getDmvDao().getAircraftDmv(2);
+            this.dmv = DmvController.get().getDao().getAircraftDmv(2);
         } catch(LoadingException e) {
             throw new InitException(getClass().getSimpleName() + " could not be initialized", e);
         }

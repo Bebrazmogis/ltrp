@@ -65,6 +65,7 @@ public class GameTextStyleManager {
 
         this.eventManagerNode.registerHandler(PlayerConnectEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            System.out.println("Player:" + player);
             if(!textdrawStyles.containsKey(player)) {
                 textdrawStyles.put(player, new ArrayList<>());
             }
@@ -73,7 +74,8 @@ public class GameTextStyleManager {
 
         this.eventManagerNode.registerHandler(PlayerDisconnectEvent.class, e-> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            textdrawStyles.get(player).forEach(Destroyable::destroy);
+            if(player != null)
+                textdrawStyles.get(player).forEach(Destroyable::destroy);
         });
     }
 

@@ -8,8 +8,16 @@ import lt.ltrp.object.Property;
  * @author Bebras
  *         2015.11.29.
  */
-public class PlayerEnterPropertyEvent extends PlayerPropertyEvent {
-    public PlayerEnterPropertyEvent(LtrpPlayer player, Property property) {
-        super(player, property);
+public class PlayerEnterPropertyEvent extends PropertyEvent {
+
+    private LtrpPlayer player;
+
+    public PlayerEnterPropertyEvent(Property property, LtrpPlayer player) {
+        super(property);
+        this.player = player;
+    }
+
+    public LtrpPlayer getPlayer() {
+        return player;
     }
 }

@@ -1,6 +1,7 @@
 package lt.ltrp;
 
 
+import lt.ltrp.object.Dmv;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;

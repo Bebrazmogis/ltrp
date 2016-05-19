@@ -249,10 +249,11 @@ public class Functions {
 		functions.put("GetColCount", instance.getNative("GetColCount", ReturnType.INTEGER));
 		functions.put("GetColSphereRadius", instance.getNative("GetColSphereRadius", ReturnType.FLOAT));
 		functions.put("GetColSphereOffset", instance.getNative("GetColSphereOffset", ReturnType.INTEGER));
-        functions.keySet()
+     /*   functions.keySet()
                 .stream()
                 .filter(functions::containsKey)
                 .forEach(functions::remove);
+                */
         YSFPlugin.getInstance().getLogger().debug("Registered " + functions.size() + " functions");
 	}
 

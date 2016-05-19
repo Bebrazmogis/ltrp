@@ -12,6 +12,7 @@ import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.resource.Plugin;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Bebras
@@ -33,6 +34,8 @@ public class YSFPlugin extends Plugin {
     public void onEnable() throws Throwable {
         instance = this;
         logger = getLogger();
+        if(logger == null)
+            logger = LoggerFactory.getLogger(getClass());
 
         EventManager eventManager = getEventManager();
         this.playerLifecycleHolder = new PlayerLifecycleHolder(eventManager);

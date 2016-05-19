@@ -128,8 +128,12 @@ public class HouseWeedSapling implements Destroyable{
         this.growthTimestamp = growthTimestamp;
     }
 
-    public void setStage(int stage) {
-        this.stage = GrowthStage.values()[stage];
+    public GrowthStage getStage() {
+        return stage;
+    }
+
+    public void setStage(GrowthStage stage) {
+        this.stage = stage;
     }
 
     public void setYield(int yield) {
@@ -158,9 +162,6 @@ public class HouseWeedSapling implements Destroyable{
         return growthTimestamp;
     }
 
-    public int getStage() {
-        return stage.ordinal();
-    }
 
     public int getPlantedByUser() {
         return plantedByUser;
@@ -190,21 +191,23 @@ public class HouseWeedSapling implements Destroyable{
         return destroyed;
     }
 
-    private enum GrowthStage {
+    public enum GrowthStage {
 
 
-        Seed(0, 30),
-        Tiny(19839, 60),
-        Small(19838, 60),
-        Normal(19837, 60),
-        Grown(19473, 0);
+        Seed(0, 30, "Sëkla"),
+        Tiny(19839, 60, "Labai Maþas"),
+        Small(19838, 60, "Maþas"),
+        Normal(19837, 60, "Vidutinis"),
+        Grown(19473, 0, "Uþaugæs");
 
         private int modelId;
         private int duration;
+        private String name;
 
-        GrowthStage(int modelid, int growthduration) {
+        GrowthStage(int modelid, int growthduration, String name) {
             this.modelId = modelid;
             this.duration = growthduration;
+            this.name = name;
         }
 
         public int getModelId() {
@@ -217,6 +220,10 @@ public class HouseWeedSapling implements Destroyable{
 
         public GrowthStage next() {
             return values()[ordinal()+1];
+        }
+
+        public String getName() {
+            return name;
         }
     }
 

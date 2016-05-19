@@ -5,11 +5,15 @@ import lt.ltrp.dao.impl.SqlPlayerDaoImpl;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
+import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.resource.Plugin;
-import net.gtaun.util.event.EventManager;
+import net.gtaun.shoebill.resource.Resource;
+import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
+
+import javax.sql.DataSource;
 
 /**
  * @author Bebras
@@ -23,6 +27,8 @@ public class PlayerPlugin extends Plugin{
     private PlayerControllerImpl playerController;
     private AdminController adminController;
     private PlayerCommandManager playerCommandManager;
+    private GameTextStyleManager gameTextStyleManager;
+    private EventManagerNode eventManagerNode;
 
 
     @Override
@@ -31,13 +37,27 @@ public class PlayerPlugin extends Plugin{
         logger = getLogger();
         replaceTypeParsers();
 
-        EventManager eventManager = getEventManager();
-        playerCommandManager = new PlayerCommandManager(eventManager);
-        PlayerDao playerDao = new SqlPlayerDaoImpl(Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class).getDataSource());
-        playerController = new PlayerControllerImpl(eventManager, playerDao, playerCommandManager);
-        adminController = new AdminControllerImpl(eventManager, playerCommandManager);
-        playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
+        eventManagerNode = getEventManager().createChildNode();
+        if(Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class) != null) {
+            load();
+        } else {
+            eventManagerNode.registerHandler(ResourceEnableEvent.class, e -> {
+                Resource resource = e.getResource();
+                if(resource.getClass().equals(DatabasePlugin.class)) {
+                    load();
+                }
+            });
+        }
+    }
 
+    private void load() {
+        DataSource dataSource = Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class).getDataSource();
+        playerCommandManager = new PlayerCommandManager(eventManagerNode);
+        PlayerDao playerDao = new SqlPlayerDaoImpl(dataSource);
+        playerController = new PlayerControllerImpl(eventManagerNode, playerDao, playerCommandManager);
+        adminController = new AdminControllerImpl(eventManagerNode, playerCommandManager);
+        playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
+        this.gameTextStyleManager = new GameTextStyleManager(eventManagerNode);
 
         logger.info("Player plugin loaded");
     }
@@ -48,7 +68,7 @@ public class PlayerPlugin extends Plugin{
         playerController.destroy();
         adminController.destroy();
         playerCommandManager.destroy();
-
+        gameTextStyleManager.destroy();
         logger.info("Player plugin shutting down...");
     }
 

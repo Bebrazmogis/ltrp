@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -11,5 +11,21 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: net.gtaun:shoebill-api:1.2-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: net.gtaun:shoebill-common:1.3-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: net.gtaun:util-event:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:ltrp-api:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.maze:streamer:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j13:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: lt.maze:audio:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:vehicle-shop:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:database:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.1" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.10" level="project" />
+    <orderEntry type="library" name="Maven: jacksum:jacksum:1.0" level="project" />
+    <orderEntry type="library" name="Maven: lt.maze:fader:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.16" level="project" />
+    <orderEntry type="library" name="Maven: lt.maze:ysf:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.maze:mapandreas:1.0-SNAPSHOT" level="project" />
   </component>
 </module>

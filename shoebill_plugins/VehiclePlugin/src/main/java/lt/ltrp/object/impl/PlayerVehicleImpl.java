@@ -155,9 +155,7 @@ public class PlayerVehicleImpl extends LtrpVehicleImpl implements PlayerVehicle{
 
     @Override
     public void destroy() {
-        if(getVehicleObject() != null) {
-            super.destroy();
-        }
+        super.destroy();
     }
 
     @Override

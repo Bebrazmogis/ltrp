@@ -107,6 +107,7 @@ public class LtrpVehicleImpl extends InventoryEntityImpl implements LtrpVehicle 
     }
 
     public int getSpeed() {
+        if(isDestroyed()) return 0;
         //floatround( floatsqroot( x*x + y*y + z*z ) * 170 );
         return Math.round(getVelocity().speed3d() * SPEED_MAGIC_NUMBER);
     }

@@ -1,16 +1,14 @@
 package lt.ltrp.aircraft;
 
-import lt.ltrp.dmv.AbstractCheckpointTest;
-import lt.ltrp.dmv.CheckpointDmv;
-import lt.ltrp.dmv.DmvCheckpoint;
+import lt.ltrp.data.dmv.DmvCheckpoint;
 import lt.ltrp.event.PlayerFlyingTestEnd;
+import lt.ltrp.event.vehicle.SpeedometerTickEvent;
+import lt.ltrp.object.AbstractCheckpointTest;
+import lt.ltrp.object.CheckpointDmv;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.event.SpeedometerTickEvent;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;
-
-import java.util.Optional;
 
 /**
  * @author Bebras

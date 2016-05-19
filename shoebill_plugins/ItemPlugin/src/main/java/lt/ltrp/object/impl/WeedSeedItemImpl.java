@@ -29,9 +29,8 @@ public class WeedSeedItemImpl extends BasicItem implements WeedSeedItem {
 
     @ItemUsageOption(name = "Sodinti")
     public boolean plant(LtrpPlayer player, Inventory inventory) {
-        Property property = player.getProperty();
-        if(property instanceof House) {
-            House house = (House)property;
+        House house = House.get(player);
+        if(house != null) {
             if(house.getOwner() == player.getUUID()) {
                 Location location = player.getLocation();
                 location.setZ(location.getZ()-1.1f);

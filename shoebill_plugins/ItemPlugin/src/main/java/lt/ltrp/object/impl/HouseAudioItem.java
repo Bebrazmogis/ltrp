@@ -5,7 +5,6 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
 import lt.ltrp.object.House;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.Property;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
@@ -29,9 +28,8 @@ public class HouseAudioItem extends BasicItem {
 
     @ItemUsageOption(name = "Ádiegti á namus")
     public boolean installToHouse(LtrpPlayer player) {
-        Property property = player.getProperty();
-        if(property != null && property instanceof House) {
-            House house = (House)property;
+        House house = House.get(player);
+        if(house != null) {
             if(!house.isUpgradeInstalled(HouseUpgradeType.Radio)) {
                 MsgboxDialog.create(player, getEventManager())
                         .caption("Patvirtinimas")

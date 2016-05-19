@@ -1,6 +1,7 @@
 package lt.ltrp;
 
 import lt.ltrp.data.FuelTank;
+import lt.ltrp.event.DmvVehicleDestroyEvent;
 import lt.ltrp.object.Dmv;
 import lt.ltrp.object.DmvVehicle;
 import lt.ltrp.object.impl.LtrpVehicleImpl;
@@ -18,10 +19,12 @@ public class DmvVehicleImpl extends LtrpVehicleImpl implements DmvVehicle {
     }
 
     private Dmv dmv;
+    private EventManager eventManager;
 
-    private DmvVehicleImpl(Dmv dmv, int id, int modelId, AngledLocation location, int color1, int color2, float mileage, EventManager eventManager) {
+    public DmvVehicleImpl(Dmv dmv, int id, int modelId, AngledLocation location, int color1, int color2, float mileage, EventManager eventManager) {
         super(id, modelId, location, color1, color2, new FuelTank(1000f, 1000f), generateLicense(dmv, modelId), mileage, eventManager);
         this.dmv = dmv;
+        this.eventManager = eventManager;
     }
 
     public Dmv getDmv() {
@@ -30,6 +33,18 @@ public class DmvVehicleImpl extends LtrpVehicleImpl implements DmvVehicle {
 
     public void setDmv(Dmv dmv) {
         this.dmv = dmv;
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        eventManager.dispatchEvent(new DmvVehicleDestroyEvent(this));
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        destroy();
+        super.finalize();
     }
 
 }

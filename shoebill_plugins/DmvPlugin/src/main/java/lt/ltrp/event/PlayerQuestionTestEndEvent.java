@@ -1,9 +1,9 @@
 package lt.ltrp.event;
 
-import lt.ltrp.dmv.Dmv;
-import lt.ltrp.dmv.DmvTest;
-import lt.ltrp.dmv.QuestionTest;
+
+import lt.ltrp.object.Dmv;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.QuestionTest;
 
 /**
  * @author Bebras

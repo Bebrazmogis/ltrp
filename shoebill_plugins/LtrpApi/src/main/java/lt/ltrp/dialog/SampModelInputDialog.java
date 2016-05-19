@@ -11,6 +11,9 @@ public class SampModelInputDialog extends IntegerInputDialog {
 
     public SampModelInputDialog(LtrpPlayer player, EventManager parentEventManager) {
         super(player, parentEventManager);
+        this.setCaption("SAMP modelio ávedimas");
+        this.setButtonOk("Gerai");
+        this.setButtonCancel("Atðaukti");
     }
 
     @Override

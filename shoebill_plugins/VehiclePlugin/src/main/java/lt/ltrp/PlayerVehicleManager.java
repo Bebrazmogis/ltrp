@@ -11,7 +11,6 @@ import lt.ltrp.object.Item;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PlayerVehicle;
 import lt.ltrp.object.VehicleAlarm;
-import lt.ltrp.object.impl.PlayerVehicleImpl;
 import lt.ltrp.shopplugin.ShopVehicle;
 import lt.ltrp.shopplugin.VehicleShop;
 import lt.ltrp.shopplugin.VehicleShopPlugin;
@@ -19,7 +18,6 @@ import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.CommandHandler;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
-import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.destroyable.DestroyEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
@@ -128,6 +126,8 @@ public class PlayerVehicleManager implements PlayerVehicleController {
                 // If the vehicle did not have insurance, it we set it's health low #28
                 if(vehicle.getInsurance() == 0) {
                     vehicle.setHealth(300f + new Random().nextFloat() * 10);
+                } else {
+                    vehicle.setHealth(1000f);
                 }
                 vehicle.setDeaths(vehicle.getDeaths() + 1);
                 vehicle.setInterior(vehicle.getInsurance() - 1);
@@ -385,19 +385,10 @@ public class PlayerVehicleManager implements PlayerVehicleController {
         return playerVehicles.get(player);
     }
 
-    @Override
-    public PlayerVehicle  createVehicle(int id, int modelId, AngledLocation location, int color1, int color2, int ownerId,
-                                                   int deaths, FuelTank fueltank, float mileage, String license, int insurance, VehicleAlarm alarm,
-                                                   VehicleLock lock, int doors, int panels, int lights, int tires, float health, EventManager eventManager) {
-        PlayerVehicle vehicle = new PlayerVehicleImpl(id, modelId, location, color1, color2, ownerId, deaths, fueltank, mileage, license, insurance, alarm, lock, doors, panels, lights, tires, health, eventManager);
-        playerVehiclesList.add(vehicle);
-        return vehicle;
-    }
-
-
     public EventManager getEventManager() {
         return eventManager;
     }
+
 
     public VehicleShopPlugin getShopPlugin() {
         return Shoebill.get().getResourceManager().getPlugin(VehicleShopPlugin.class);

@@ -194,4 +194,12 @@ public class GeneralCommands {
         }
         return true;
     }
+
+    // TODO setspawn
+    // TODO cmd:togooc
+    // TODO cmd:togpm
+    // TODO cmd:togadmin
+    // TODO cmd:tognews
+    // TODO cmd:o
+    // TODO cmd:ad
 }

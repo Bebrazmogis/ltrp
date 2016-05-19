@@ -10,10 +10,8 @@ import lt.ltrp.event.player.PlayerJailEvent;
 import lt.ltrp.event.player.PlayerStateMessageEvent;
 import lt.ltrp.event.player.PlayerUnJailEvent;
 import lt.ltrp.object.*;
-import lt.ltrp.util.PawnFunc;
 import lt.maze.audio.AudioHandle;
 import lt.maze.audio.AudioPlugin;
-import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.*;
 import net.gtaun.shoebill.data.Color;
@@ -160,10 +158,19 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     private Rank jobRank;
     private PlayerInfoBox infoBox;
     private PlayerLicenses licenses;
-    private boolean seatbelt, masked, cuffed;
+    private boolean seatbelt, masked, cuffed, isDestroyed;
     private int jobExperience, jobHours, boxStyle, age, respect, deaths, hunger;
     private PlayerSettings settings;
     private EventManager eventManager;
+    /**
+     * Textdraw used to display messages
+     */
+    private PlayerTextdraw infoTextTextdraw;
+    /**
+     * Timer used to hide {@link lt.ltrp.object.impl.LtrpPlayerImpl#infoTextTextdraw} messages
+     */
+    private Timer infoTextTimer;
+
     /**
      * Paydays a user spent online
      */
@@ -413,13 +420,32 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         this.infoBox = infoBox;
     }
 
-    public void sendInfoText(String s) {
-        AmxCallable ShowInfoText = PawnFunc.getPublicMethod("ShowInfoText");
-        if(ShowInfoText != null) {
-            ShowInfoText.call(this.getId(), s, 2500);
-        } else {
-            player.sendMessage(Color.PALEGOLDENROD, "[INFOTEXT]" + s);
+    public void sendInfoText(String s, int seconds) {
+        // "lazy" loading
+        if(infoTextTextdraw == null) {
+            infoTextTextdraw = PlayerTextdraw.create(this, 13, 150, "_");
+            infoTextTextdraw.setUseBox(true);
+            infoTextTextdraw.setBoxColor(new lt.ltrp.data.Color(0x00000066));
+            infoTextTextdraw.setTextSize(158f, 91f);
+            infoTextTextdraw.setBackgroundColor(new Color(0x000000ff));
+            infoTextTextdraw.setFont(TextDrawFont.FONT2);
+            infoTextTextdraw.setLetterSize(0.36f, 1.5f);
+            infoTextTextdraw.setColor(new Color(0xffffffff));
+            infoTextTextdraw.setProportional(true);
+            infoTextTextdraw.setShadowSize(0);
         }
+        // Jei praeitas tekstas dar rodomas, nuÞudom timerá
+        if(infoTextTimer != null && infoTextTimer.isRunning())
+            infoTextTimer.stop();
+
+        infoTextTextdraw.setText(s);
+        infoTextTextdraw.show();
+        infoTextTimer = Timer.create(seconds * 1000, 1, (i) -> {
+            infoTextTextdraw.hide();
+            infoTextTimer.destroy();
+            infoTextTimer = null;
+        });
+        infoTextTimer.start();
     }
 
     public Job getJob() {
@@ -705,6 +731,22 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
                 p.sendMessage(color, s);
             }
         }
+    }
+
+    @Override
+    public void sendDebug(Color color, String s) {
+        player.sendMessage(color, "[DEBUG]" + s);
+    }
+
+    @Override
+    public void sendDebug(String s) {
+        sendDebug(Color.LIGHTGREEN, s);
+    }
+
+    @Override
+    public void sendDebug(Object... objects) {
+        for(int i = 0; i < objects.length; i++)
+            sendDebug(objects[i] == null ? "null" : objects[i].getClass().getSimpleName() + ":" +objects[i].toString());
     }
 
     public float getDistanceToPlayer(LtrpPlayer player) {
@@ -1862,5 +1904,22 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     @Override
     public Actor getTargetActor() {
         return player.getTargetActor();
+    }
+
+    @Override
+    public void destroy() {
+        isDestroyed = true;
+        if(infoTextTextdraw != null) infoTextTextdraw.destroy();
+        if(infoTextTimer != null) infoTextTimer.destroy();
+        if(countdown != null) countdown.destroy();
+        if(infoBox != null) infoBox.destroy();
+        if(audioHandle != null) audioHandle.destroy();
+        if(offers != null) offers.clear();
+
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return isDestroyed;
     }
 }

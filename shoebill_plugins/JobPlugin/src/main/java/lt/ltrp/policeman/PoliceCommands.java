@@ -1,14 +1,13 @@
 package lt.ltrp.policeman;
 
 
+import lt.ltrp.*;
 import lt.ltrp.command.Commands;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
 import lt.ltrp.modelpreview.SkinModelPreview;
-import lt.ltrp.ItemController;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.object.Item;
-import lt.ltrp.JobController;
 import lt.ltrp.data.JobData;
 import lt.ltrp.object.JobVehicle;
 import lt.ltrp.object.PoliceFaction;
@@ -18,12 +17,10 @@ import lt.ltrp.data.PlayerCrime;
 import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.policeman.dialog.*;
-import lt.ltrp.PropertyController;
 import lt.ltrp.data.HouseWeedSapling;
 import lt.ltrp.object.House;
 import lt.ltrp.util.PawnFunc;
 import lt.ltrp.util.StringUtils;
-import lt.ltrp.PlayerVehicleController;
 import lt.ltrp.data.PlayerVehicleArrest;
 import lt.ltrp.data.PlayerVehicleMetadata;
 import lt.ltrp.event.vehicle.PlayerVehicleArrestDeleteEvent;
@@ -173,10 +170,10 @@ public class PoliceCommands extends Commands {
     @CommandHelp("Sunaikina name esanèià marihuana")
     public boolean cutDownWeed(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        if(player.getProperty() == null || !(player.getProperty() instanceof House)) {
+        House house = House.get(player);
+        if(house == null) {
             player.sendErrorMessage("J8s ne name!");
         } else {
-            House house = (House)player.getProperty();
             List<HouseWeedSapling> closestWeed = house.getWeedSaplings().stream().filter(weed -> weed.getLocation().distance(player.getLocation()) < 10.0f).collect(Collectors.toList());
             if(house.getWeedSaplings().size() == 0 || closestWeed.size() == 0) {
                 player.sendActionMessage("apsidairo po namus...");
@@ -184,7 +181,7 @@ public class PoliceCommands extends Commands {
             } else  {
                 closestWeed.forEach(w -> {
                     w.destroy();
-                    PropertyController.get().getHouseDao().updateWeed(w);
+                    HouseController.get().getHouseDao().update(w);
                 });
                 player.sendActionMessage("Pareigûnas " + player.getCharName() + " sunaikina " + closestWeed.size() + " marihuanos augalus.");
                 return true;

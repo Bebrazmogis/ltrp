@@ -1,7 +1,7 @@
 package lt.ltrp.event;
 
 import lt.ltrp.boat.BoatingTest;
-import lt.ltrp.dmv.Dmv;
+import lt.ltrp.object.Dmv;
 import lt.ltrp.object.LtrpPlayer;
 
 /**

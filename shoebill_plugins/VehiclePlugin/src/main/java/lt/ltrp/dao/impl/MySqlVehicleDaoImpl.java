@@ -27,6 +27,8 @@ public class MySqlVehicleDaoImpl implements VehicleDao {
 
     public MySqlVehicleDaoImpl(DataSource ds, EventManager eventManager) {
         this.dataSource = ds;
+        if(ds == null)
+            throw new IllegalArgumentException("Datasource cannot be null");
         this.eventManager = eventManager;
     }
 

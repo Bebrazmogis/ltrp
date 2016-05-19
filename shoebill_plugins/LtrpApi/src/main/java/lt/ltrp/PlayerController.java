@@ -28,6 +28,7 @@ public interface PlayerController extends Destroyable {
 
     Collection<LtrpPlayer> getPlayers();
     PlayerDao getPlayerDao();
+    String getUsernameByUUID(int uuid);
 
 
 }

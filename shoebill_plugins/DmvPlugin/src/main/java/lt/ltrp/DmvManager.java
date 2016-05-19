@@ -1,28 +1,32 @@
 package lt.ltrp;
 
-import lt.ltrp.data.Color;
-import lt.ltrp.constant.LicenseType;
-import lt.ltrp.dao.DmvDao;
 import lt.ltrp.aircraft.AircraftDmvManager;
 import lt.ltrp.boat.BoatDmvManager;
 import lt.ltrp.car.CarDmvManager;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.constant.LicenseType;
+import lt.ltrp.dao.DmvDao;
+import lt.ltrp.dao.impl.FileDmvDaoImpl;
+import lt.ltrp.data.Color;
+import lt.ltrp.event.DmvVehicleDestroyEvent;
 import lt.ltrp.event.vehicle.VehicleEngineKillEvent;
 import lt.ltrp.event.vehicle.VehicleEngineStartEvent;
-import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.object.*;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.VehicleModel;
+import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleEnterEvent;
-import net.gtaun.shoebill.object.Destroyable;
+import net.gtaun.shoebill.resource.Plugin;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,28 +34,28 @@ import java.util.Map;
  * @author Bebras
  *         2015.12.13.
  */
-public class DmvManager implements Destroyable {
+public class DmvManager extends Plugin implements DmvController {
 
     private static final Logger logger = LoggerFactory.getLogger(DmvManager.class);
 
     private EventManagerNode eventManager;
     private PlayerCommandManager commandManager;
-    private boolean destroyed;
-
+    private Collection<DmvVehicle> dmvVehicles;
+    private DmvDao dmvDao;
     private Map<LtrpPlayer, DmvTest> playerTests;
 
-
-    public DmvManager(EventManager eventManager1) {
+    @Override
+    protected void onEnable() throws Throwable {
+        Instance.instance = this;
         this.playerTests = new HashMap<>();
-        eventManager = eventManager1.createChildNode();
+        this.dmvVehicles = new ArrayList<>();
+        eventManager = getEventManager().createChildNode();
 
-        DmvDao dmvDao = LtrpGamemodeImpl.getDao().getDmvDao();
+        dmvDao = new FileDmvDaoImpl(getDataDir(), eventManager);
         CarDmvManager carDmvManager = new CarDmvManager(eventManager);
         BoatDmvManager boatDmvManager = new BoatDmvManager(eventManager);
         AircraftDmvManager aircraftDmvManager = new AircraftDmvManager(eventManager);
-
         AbstractDmvManager[] dmvManagers = new AbstractDmvManager[]{ carDmvManager, boatDmvManager, aircraftDmvManager };
-
 
         eventManager.registerHandler(VehicleEngineStartEvent.class, e -> {
             for(AbstractDmvManager manager : dmvManagers) {
@@ -63,13 +67,13 @@ public class DmvManager implements Destroyable {
         });
 
         eventManager.registerHandler(VehicleEngineKillEvent.class, e -> {
-           for(AbstractDmvManager manager : dmvManagers) {
-               // Vehicle engine cannot be turned off during a test
-               if(manager.getDmv().getVehicles().contains(e.getVehicle()) && manager.isInTest(e.getVehicle())) {
-                   e.getPlayer().sendMessage(Color.DMV, "Testo metu negalima gesinti variklio!");
-                   e.deny();
-               }
-           }
+            for(AbstractDmvManager manager : dmvManagers) {
+                // Vehicle engine cannot be turned off during a test
+                if(manager.getDmv().getVehicles().contains(e.getVehicle()) && manager.isInTest(e.getVehicle())) {
+                    e.getPlayer().sendMessage(Color.DMV, "Testo metu negalima gesinti variklio!");
+                    e.deny();
+                }
+            }
         });
 
         eventManager.registerHandler(VehicleEnterEvent.class, e -> {
@@ -125,28 +129,35 @@ public class DmvManager implements Destroyable {
             }, Integer.class);
         });
 
+        eventManager.registerHandler(DmvVehicleDestroyEvent.class, e -> {
+            dmvVehicles.remove(e.getVehicle());
+        });
+
         logger.info("Dmv manager initialized with " + dmvManagers.length + " dmvs");
     }
 
-
-    protected EventManager getEventManager() {
-        return eventManager;
-    }
-
-    public boolean isDmvVehicle(LtrpVehicle vehicle) {
-        return vehicle instanceof DmvVehicle;
-    }
-
     @Override
-    public void destroy() {
-        destroyed = true;
+    protected void onDisable() throws Throwable {
         eventManager.cancelAll();
         commandManager.destroy();
         playerTests.forEach((p, v) -> v.stop());
     }
 
+
+    public boolean isDmvVehicle(LtrpVehicle vehicle) {
+        return vehicle instanceof DmvVehicle;
+    }
+
+
     @Override
-    public boolean isDestroyed() {
-        return destroyed;
+    public DmvVehicle createVehicle(Dmv dmv, int i, int i1, AngledLocation angledLocation, int i2, int i3, float v, EventManager eventManager) {
+        DmvVehicleImpl impl = new DmvVehicleImpl(dmv, i, i1, angledLocation, i2, i3, v, eventManager);
+        dmvVehicles.add(impl);
+        return impl;
+    }
+
+    @Override
+    public DmvDao getDao() {
+        return dmvDao;
     }
 }

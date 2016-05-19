@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/DmvDao.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/dmv/DmvCheckpoint.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/dmv/DmvQuestion.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/dmv/DmvRaceCheckpoint.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/BusinessCommodityListDialog.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/AbstractCheckpointTest.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/CheckpointDmv.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/Dmv.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/DmvTest.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/QuestionDmv.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/../PropertyPlugin/src/main/java/lt/ltrp/dao/impl/MySqlPropertyDaoImpl.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/../PropertyPlugin/src/main/java/lt/ltrp/object/AbstractProperty.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/../PropertyPlugin/src/main/java/lt/ltrp/object/InventoryPropertyImpl.java" charset="windows-1257" />
+  </component>
 </project>

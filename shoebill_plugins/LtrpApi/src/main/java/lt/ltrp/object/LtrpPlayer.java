@@ -7,6 +7,7 @@ import lt.ltrp.data.*;
 import lt.maze.audio.AudioHandle;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.Color;
+import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Player;
 
 import java.util.*;
@@ -16,10 +17,11 @@ import java.util.*;
  * @author Bebras
  *         2016.04.07.
  */
-public interface LtrpPlayer extends Player, InventoryEntity {
+public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     public static final int INVALID_USER_ID = 0;
     public static final float DEFAULT_ACTION_MESSAGE_DISTANCE = 20f;
     public static final Color DEFAULT_PLAYER_COLOR = new Color(0xFFFFFF00);
+    public static final int DEFAULT_INFOTEXT_DURATION = 60;
 
 
     static PlayerDao getPlayerDao() {
@@ -131,7 +133,10 @@ public interface LtrpPlayer extends Player, InventoryEntity {
     PlayerSettings getSettings();
     void setSettings(PlayerSettings settings);
 
-    void sendInfoText(String msg);
+    default void sendInfoText(String msg)  {
+        sendInfoText(msg, DEFAULT_INFOTEXT_DURATION);
+    }
+    void sendInfoText(String msg, int seconds);
 
     void setAdminLevel(int adminLevel);
     int getAdminLevel();
@@ -155,9 +160,6 @@ public interface LtrpPlayer extends Player, InventoryEntity {
     void setJailData(JailData jailData);
     void jail(JailData jailData);
     void unjail();
-
-    Property getProperty();
-    void setProperty(Property property);
 
     LtrpWeaponData[] getWeapons();
     boolean ownsWeapon(WeaponModel model);
@@ -258,6 +260,9 @@ public interface LtrpPlayer extends Player, InventoryEntity {
         sendMessage(Color.WHITE, s, distance);
     }
     void sendMessage(Color color, String s, float distance);
+    void sendDebug(Color color, String message);
+    void sendDebug(String message);
+    void sendDebug(Object... objects);
 
 
     float getDistanceToPlayer(LtrpPlayer player);

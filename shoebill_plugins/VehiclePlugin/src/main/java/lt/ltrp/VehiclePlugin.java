@@ -5,16 +5,15 @@ import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.dao.VehicleDao;
 import lt.ltrp.dao.impl.MySqlVehicleDaoImpl;
 import lt.ltrp.data.FuelTank;
+import lt.ltrp.data.VehicleLock;
 import lt.ltrp.event.vehicle.SpeedometerTickEvent;
 import lt.ltrp.event.vehicle.VehicleDestroyEvent;
 import lt.ltrp.event.vehicle.VehicleEngineKillEvent;
 import lt.ltrp.event.vehicle.VehicleEngineStartEvent;
 import lt.ltrp.object.*;
-import lt.ltrp.object.impl.LtrpVehicleImpl;
-import lt.ltrp.object.impl.PersonalAlarm;
-import lt.ltrp.object.impl.PoliceAlertAlarm;
-import lt.ltrp.object.impl.SimpleAlarm;
+import lt.ltrp.object.impl.*;
 import lt.ltrp.util.Factorial;
+import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.constant.PlayerState;
@@ -23,12 +22,13 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Velocity;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
 import net.gtaun.shoebill.event.player.PlayerStateChangeEvent;
-import net.gtaun.shoebill.event.resource.ResourceLoadEvent;
+import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.shoebill.resource.Plugin;
+import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
@@ -57,27 +57,46 @@ public class VehiclePlugin extends Plugin implements VehicleController {
 
 
     @Override
-    protected void onEnable() throws Throwable {
+    public void onEnable() throws Throwable {
+        Instance.instance = this;
         this.vehicles = new ArrayList<>();
         this.maxSpeeds = new HashMap<>();
         this.random = new Random();
-        this.eventManager = getEventManager().createChildNode();
         this.vehicleEngineTimers = new HashMap<>();
-        eventManager.registerHandler(ResourceLoadEvent.class, e -> {
-            if(e.getResource().getClass().equals(DatabasePlugin.class)) {
-                this.vehicleDao = new MySqlVehicleDaoImpl((((DatabasePlugin)e.getResource())).getDataSource(), eventManager);
-                PlayerCommandManager commandManager = new PlayerCommandManager(eventManager);
-                this.playerVehicleManager = new PlayerVehicleManager(eventManager, vehicleDao, commandManager);
-                commandManager.registerCommands(new VehicleCommands(maxSpeeds, eventManager));
-                commandManager.installCommandHandler(HandlerPriority.NORMAL);
 
-                replaceCommandTypeParsers();
-                createTimers();
-                addEventHandlers();
-                logger.info("Vehicle manager initialized");
-            }
-        });
+        if(getEventManager() == null)
+            logger.error("How can it be null?");
+        this.eventManager = getEventManager().createChildNode();
+        if(Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class) != null) {
+            System.out.println("Database plugin is loaded...");
+            load();
+        } else {
+            eventManager.registerHandler(ResourceEnableEvent.class, e -> {
+                if(e.getResource().getClass().equals(DatabasePlugin.class)) {
+                    load();
+                }
+            });
+        }
+
     }
+
+
+    private void load() {
+
+        this.vehicleDao = new MySqlVehicleDaoImpl(Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
+        PlayerCommandManager commandManager = new PlayerCommandManager(eventManager);
+        this.playerVehicleManager = new PlayerVehicleManager(eventManager, vehicleDao, commandManager);
+        commandManager.registerCommands(new VehicleCommands(maxSpeeds, eventManager));
+        commandManager.installCommandHandler(HandlerPriority.NORMAL);
+
+        replaceCommandTypeParsers();
+        createTimers();
+        addEventHandlers();
+
+        logger.info("Vehicle manager initialized");
+
+    }
+
     private void replaceCommandTypeParsers() {
         PlayerCommandManager.replaceTypeParser(LtrpVehicle.class, s -> {
             return LtrpVehicle.getById(Integer.parseInt(s));
@@ -86,7 +105,10 @@ public class VehiclePlugin extends Plugin implements VehicleController {
 
     private void addEventHandlers() {
         eventManager.registerHandler(VehicleDestroyEvent.class, e -> {
-            vehicleDao.update(e.getVehicle());
+            LtrpVehicle v = e.getVehicle();
+            vehicleDao.update(v);
+            vehicles.remove(v);
+
         });
         eventManager.registerHandler(VehicleDeathEvent.class, e -> {
             LtrpVehicle vehicle = LtrpVehicle.getByVehicle(e.getVehicle());
@@ -109,6 +131,8 @@ public class VehiclePlugin extends Plugin implements VehicleController {
                     if(newState == PlayerState.DRIVER) {
                         vehicle.setDriver(player);
                         player.setLastUsedVehicle(vehicle);
+                    } else if(oldState == PlayerState.DRIVER) {
+                        player.getLastUsedVehicle().setDriver(null);
                     }
                 }
                 if(newState == PlayerState.DRIVER) {
@@ -116,7 +140,6 @@ public class VehiclePlugin extends Plugin implements VehicleController {
                 }
 
                 if(oldState == PlayerState.DRIVER) {
-                    player.getLastUsedVehicle().setDriver(null);
                     player.getInfoBox().hideSpeedometer();
                 }
                 if(newState == PlayerState.ONFOOT) {
@@ -128,7 +151,7 @@ public class VehiclePlugin extends Plugin implements VehicleController {
             }
         });
         eventManager.registerHandler(PlayerKeyStateChangeEvent.class, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer().getId());
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             if(player != null && player.getKeyState().isKeyPressed(PlayerKey.FIRE) && !e.getOldState().isKeyPressed(PlayerKey.FIRE)) {
                 LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
                 if(vehicle != null && LtrpVehicleModel.isMotorVehicle(vehicle.getModelId())) {
@@ -232,7 +255,8 @@ public class VehiclePlugin extends Plugin implements VehicleController {
     }
 
     @Override
-    protected void onDisable() throws Throwable {
+    public void onDisable() throws Throwable {
+        logger.debug("onDisable");
         timer.stop();
         timer.destroy();
         fuelUseTimer.stop();
@@ -254,7 +278,7 @@ public class VehiclePlugin extends Plugin implements VehicleController {
 
     @Override
     public LtrpVehicle getByVehicle(Vehicle vehicle) {
-        Optional<LtrpVehicle> op = vehicles.stream().filter(v -> ((LtrpVehicleImpl) v).getVehicleObject().equals(vehicle)).findFirst();
+        Optional<LtrpVehicle> op = vehicles.stream().filter(v -> ((LtrpVehicleImpl) v).getVehicleObject().equals(vehicle) || vehicle.equals(v)).findFirst();
         return op.isPresent() ? op.get() : null;
     }
 
@@ -294,6 +318,7 @@ public class VehiclePlugin extends Plugin implements VehicleController {
     public LtrpVehicle createVehicle(int id, int modelId, AngledLocation location, int color1, int color2, String license, float mileage) {
         float tankSize = LtrpVehicleModel.getFuelTankSize(modelId);
         LtrpVehicle vehicle = createVehicle(id, modelId, location, color1, color2, new FuelTank(tankSize, tankSize), license, mileage);
+        vehicles.add(vehicle);
         return vehicle;
     }
 
@@ -304,6 +329,21 @@ public class VehiclePlugin extends Plugin implements VehicleController {
         return impl;
     }
 
+    @Override
+    public PlayerVehicle createVehicle(int id, int modelId, AngledLocation location, int color1, int color2, int ownerId,
+                                        int deaths, FuelTank fueltank, float mileage, String license, int insurance, VehicleAlarm alarm,
+                                        VehicleLock lock, int doors, int panels, int lights, int tires, float health, EventManager eventManager) {
+        PlayerVehicle vehicle = new PlayerVehicleImpl(id, modelId, location, color1, color2, ownerId, deaths, fueltank, mileage, license, insurance, alarm, lock, doors, panels, lights, tires, health, eventManager);
+        vehicles.add(vehicle);
+        PlayerVehicleManager.playerVehiclesList.add(vehicle);
+        return vehicle;
+    }
+
+
+    /*public EventManager getEventManager() {
+        return eventManager;
+    }
+*/
     @Override
     public VehicleDao getDao() {
         return vehicleDao;

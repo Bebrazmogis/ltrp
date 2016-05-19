@@ -1,13 +1,9 @@
 package lt.ltrp;
 
 
-import lt.ltrp.data.LtrpWorld;
 import lt.ltrp.constant.Currency;
-import lt.ltrp.data.Taxes;
 import lt.ltrp.dao.PlayerDao;
-import lt.ltrp.data.Animation;
-import lt.ltrp.data.JobData;
-import lt.ltrp.data.PlayerLicenses;
+import lt.ltrp.data.*;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.event.player.*;
 import lt.ltrp.object.*;
@@ -27,7 +23,9 @@ import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.amx.AmxUnloadEvent;
 import net.gtaun.shoebill.event.player.*;
+import net.gtaun.shoebill.event.player.PlayerConnectEvent;
 import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.object.PlayerAttach;
 import net.gtaun.shoebill.object.PlayerWeaponSkill;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
@@ -44,7 +42,7 @@ public class PlayerControllerImpl implements PlayerController {
 
     private EventManagerNode managerNode;
     private PlayerDao playerDao;
-    private Collection<LtrpPlayer> playerList;
+    private static Collection<LtrpPlayer> playerList = new ArrayList<>();
     private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
 
     private Map<LtrpPlayer, Boolean> spawnsSetUp = new HashMap<>();
@@ -56,7 +54,6 @@ public class PlayerControllerImpl implements PlayerController {
 
     public PlayerControllerImpl(EventManager manager, PlayerDao playerDao, PlayerCommandManager playerCommandManager) {
         Instance.instance = this;
-        this.playerList = new ArrayList<>();
         this.playerDao = playerDao;
         this.playerJailController = new PlayerJailController(manager, playerDao);
         managerNode = manager.createChildNode();
@@ -85,8 +82,8 @@ public class PlayerControllerImpl implements PlayerController {
                 // Authentication
                 new AuthController(managerNode, player, playerDao);
             } else {
-
                 e.getPlayer().kick();
+                e.interrupt(); // Nobody else should do anything
             }
 
         });
@@ -127,6 +124,10 @@ public class PlayerControllerImpl implements PlayerController {
                 spawnsSetUp.remove(p);
             }
             playerList.remove(p);
+
+            for(PlayerAttach.PlayerAttachSlot s : p.getAttach().getSlots())
+                if(s.isUsed()) s.remove();
+            p.destroy();
         });
 
         managerNode.registerHandler(PlayerRequestClassEvent.class, e -> {
@@ -219,9 +220,9 @@ public class PlayerControllerImpl implements PlayerController {
                    playerList.remove(p);
 
                Taxes taxes = LtrpWorld.get().getTaxes();
-               int houseTax = (int) House.get().stream().filter(h -> h.getOwnerUserId() == p.getUUID()).count() * taxes.getHouseTax();
-               int businessTax = (int) Business.get().stream().filter(b -> b.getOwnerUserId() == p.getUUID()).count() * taxes.getBusinessTax();
-               int garageTax = (int) Garage.get().stream().filter(g -> g.getOwnerUserId() == p.getUUID()).count() * taxes.getGarageTax();
+               int houseTax = (int) House.get().stream().filter(h -> h.getOwner() == p.getUUID()).count() * taxes.getHouseTax();
+               int businessTax = (int) Business.get().stream().filter(b -> b.getOwner() == p.getUUID()).count() * taxes.getBusinessTax();
+               int garageTax = (int) Garage.get().stream().filter(g -> g.getOwner() == p.getUUID()).count() * taxes.getGarageTax();
                int vehicleTax = VehicleController.get().getDao().getPlayerVehicleCount(p) * taxes.getVehicleTax();
 
                if(p.getMinutesOnlineSincePayday() > MINUTES_FOR_PAYDAY) {
@@ -275,6 +276,13 @@ public class PlayerControllerImpl implements PlayerController {
             playerDao.update(e.getSettings());
         });
 
+        managerNode.registerHandler(PlayerSpawnLocationChangeEvent.class, e -> {
+            LtrpPlayer player = e.getPlayer();
+            SpawnData spawnData = e.getSpawnData();
+            player.setSpawnData(spawnData);
+            playerDao.update(player, spawnData);
+        });
+
         javaMinuteTimer = new Timer("Java minute timer");
         javaMinuteTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -297,7 +305,7 @@ public class PlayerControllerImpl implements PlayerController {
         logger.info("PlayerController :: addPawnFunctions. Called.");
         managerNode.registerHandler(AmxLoadEvent.class, e-> {
             e.getAmxInstance().registerFunction("updatePlayerInfoText", params -> {
-                LtrpPlayer player = LtrpPlayer.get((Integer)params[0]);
+                LtrpPlayer player = LtrpPlayer.get(Player.get((Integer) params[0]));
                 if(player != null && player.getInfoBox() != null) {
                     player.getInfoBox().update();
                 }
@@ -305,7 +313,7 @@ public class PlayerControllerImpl implements PlayerController {
             }, Integer.class);
 
             e.getAmxInstance().registerFunction("isPlayerLoggedIn", params -> {
-                LtrpPlayer player = LtrpPlayer.get((Integer) params[0]);
+                LtrpPlayer player = LtrpPlayer.get(Player.get((Integer) params[0]));
                 if (player != null) {
                     return player.isLoggedIn() ? 1 : 0;
                 }
@@ -313,7 +321,7 @@ public class PlayerControllerImpl implements PlayerController {
             }, Integer.class);
 
             e.getAmxInstance().registerFunction("saveAccount", params -> {
-                LtrpPlayer player = LtrpPlayer.get((Integer) params[0]);
+                LtrpPlayer player = LtrpPlayer.get(Player.get((Integer) params[0]));
                 if (player != null) {
                     playerDao.update(player);
                 }
@@ -338,10 +346,10 @@ public class PlayerControllerImpl implements PlayerController {
     private void loadDataThreaded(LtrpPlayer player) {
         new Thread(() -> {
             playerDao.loadData(player);
-            //Item[] items = LtrpGamemodeImpl.getDao().getItemDao().getItems(player);
+            Item[] items = ItemController.get().getItemDao().getItems(player);
             //logger.info("PlayerController :: PlayerLoginEvent :: " + items.length + " loaded for user id " + player.getUUID());
             player.setInventory(Inventory.create(managerNode, player, player.getName() + " kuprinės", 20));
-            //player.getInventory().add(items);
+            player.getInventory().add(items);
 
            // player.setVehicleMetadata(playerDao.getVehiclePermissions(player));
 
@@ -392,5 +400,11 @@ public class PlayerControllerImpl implements PlayerController {
     @Override
     public PlayerDao getPlayerDao() {
         return playerDao;
+    }
+
+    @Override
+    public String getUsernameByUUID(int i) {
+        Optional<LtrpPlayer>opP = LtrpPlayer.get().stream().filter(p -> p.getUUID() == i).findFirst();
+        return opP.isPresent() ? opP.get().getName() : playerDao.getUsername(i);
     }
 }

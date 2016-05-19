@@ -18,6 +18,10 @@ public class PlayerPropertyEvent extends PlayerEvent {
         this.property = property;
     }
 
+    @Override
+    public LtrpPlayer getPlayer() {
+        return (LtrpPlayer)super.getPlayer();
+    }
 
     public Property getProperty() {
         return property;

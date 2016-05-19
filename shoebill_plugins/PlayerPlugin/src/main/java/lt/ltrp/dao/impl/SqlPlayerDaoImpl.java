@@ -3,22 +3,23 @@ package lt.ltrp.dao.impl;
 
 import javafx.util.Pair;
 import lt.ltrp.constant.LicenseType;
+import lt.ltrp.constant.PlayerVehiclePermission;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.constant.PlayerVehiclePermission;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.object.Player;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  * @author Bebras
@@ -27,25 +28,32 @@ import java.util.logging.Logger;
 
 public class SqlPlayerDaoImpl implements PlayerDao {
 
+    private static final Logger logger = LoggerFactory.getLogger(SqlPlayerDaoImpl.class);
+
     private DataSource dataSource;
 
-    public SqlPlayerDaoImpl(DataSource ds) {
+    public SqlPlayerDaoImpl( DataSource ds) {
+        if(ds == null)
+            throw new IllegalArgumentException("Datasource cannot be null");
         this.dataSource = ds;
     }
 
 
     @Override
     public int getUserId(Player player) {
-        Logger.getLogger(this.getClass().getSimpleName()).log(Level.INFO, "SqlPlayerDaoImpl :: getUserId for player " + player.getName());
+        logger.info("SqlPlayerDaoImpl :: getUserId for player " + player.getName());
         int userid = LtrpPlayer.INVALID_USER_ID;
+        logger.debug("Thats it :/");
         String sql = "SELECT id FROM players WHERE username = ?";
+        logger.debug("Creating connection");
         try (Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql);
             ) {
+            logger.debug("Formatting statement");
             stmt.setString(1, player.getName());
             ResultSet result = stmt.executeQuery();
             if(result.next()) {
-                Logger.getLogger(this.getClass().getSimpleName()).log(Level.INFO, "SqlPlayerDaoImpl :: getUserId userid is " + result.getInt("id"));
+                logger.debug("SqlPlayerDaoImpl :: getUserId userid is " + result.getInt("id"));
                 userid = result.getInt("id");
             }
         } catch(SQLException e) {
@@ -174,6 +182,28 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     }
 
     @Override
+    public void update(LtrpPlayer player, SpawnData spawnData) {
+        update(player.getUUID(), spawnData);
+    }
+
+    @Override
+    public void update(int i, SpawnData spawnData) {
+        String sql = "UPDATE players SET skin = ?, spawn_type = ?, spawn_ui = ? WHERE id = ?";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, spawnData.getSkin());
+            stmt.setInt(2, spawnData.getType().ordinal());
+            stmt.setInt(3, spawnData.getId());
+            stmt.setInt(4, i);
+            stmt.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
+/*
+    @Override
     public void setSpawnData(LtrpPlayer player) {
         String sql = "UPDATE players SET skin = ?, spawn_type = ?, spawn_ui = ? WHERE id = ?";
         try (
@@ -190,7 +220,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
     }
-
+*/
     @Override
     public JailData getJailData(LtrpPlayer player) {
         JailData data = null;

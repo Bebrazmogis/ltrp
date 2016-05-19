@@ -6,6 +6,7 @@ import lt.ltrp.shopplugin.dao.MySqlVehicleShopVehicleDao;
 import lt.ltrp.shopplugin.dao.VehicleShopDao;
 import lt.ltrp.shopplugin.dao.VehicleShopVehicleDao;
 import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.event.resource.ResourceLoadEvent;
 import net.gtaun.shoebill.resource.Plugin;
 import org.slf4j.Logger;
 
@@ -36,10 +37,24 @@ public class VehicleShopPlugin extends Plugin {
         logger = getLogger();
 
         DatabasePlugin db = Plugin.get(DatabasePlugin.class);
+        if(db.getDataSource() != null) {
+            load(db);
+        } else {
+            getEventManager().registerHandler(ResourceLoadEvent.class, e -> {
+                load((DatabasePlugin)e.getResource());
+            });
+        }
+    }
+
+    private void load(DatabasePlugin db) {
         parseTables(db.getDataSource());
         VehicleShopDao vehicleShopDao = new MySqlVehicleShopDao(db.getDataSource());
         VehicleShopVehicleDao vehicleShopVehicleDao = new MySqlVehicleShopVehicleDao(db.getDataSource());
         shopManager = new VehicleShopManager(getEventManager(), vehicleShopDao, vehicleShopVehicleDao);
+        if(logger != null)
+            logger.info("VehicleShop plugin loaded");
+        else
+            System.err.println("Vehicle shop plugin could not find logger");
     }
 
 

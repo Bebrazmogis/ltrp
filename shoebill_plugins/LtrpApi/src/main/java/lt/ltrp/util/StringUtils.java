@@ -58,9 +58,9 @@ public class StringUtils {
     }
 
     public static String replaceLtChars(String s) {
-        String retS = "";
+        String retS = s;
         for(Character character : ltToLatinChar.keySet()) {
-            retS = s.replace(character, ltToLatinChar.get(character));
+            retS = retS.replace(character, ltToLatinChar.get(character));
         }
         return retS;
     }
@@ -101,4 +101,20 @@ public class StringUtils {
         return text.replaceAll("\\{", "\\\\\\\\{");
     }
 
+    /**
+     * Strips all SAMP color codes
+     * @param text
+     * @return
+     */
+    public static String stripColors(String text) {
+        return text.replaceAll("(\\{\\p{XDigit}{6}\\})|~[a-z]~", "");
+    }
+
+    public static String limit(String text, int len, String suffix) {
+        return text.length() + suffix.length() > len ? text.substring(0, len) + suffix : text;
+    }
+
+    public static String limit(String text, int len) {
+        return limit(text, len, "");
+    }
 }

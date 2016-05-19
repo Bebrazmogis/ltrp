@@ -1,8 +1,8 @@
 package lt.ltrp.data;
 
 
-import lt.ltrp.event.property.PlayerEnterHouseEvent;
-import lt.ltrp.event.property.PlayerExitHouseEvent;
+import lt.ltrp.event.property.house.PlayerEnterHouseEvent;
+import lt.ltrp.event.property.house.PlayerExitHouseEvent;
 import lt.ltrp.object.AbstractRadio;
 import lt.ltrp.object.House;
 import lt.ltrp.object.LtrpPlayer;
@@ -35,7 +35,7 @@ public class HouseRadio extends AbstractRadio {
         if(radioStation != null) {
             LtrpPlayer.get()
                     .stream()
-                    .filter(p -> house.equals(p.getProperty()))
+                    .filter(p -> house.equals(House.get(p)))
                     .forEach(p -> p.playAudioStream(radioStation.getUrl()));
         }
         super.play(radioStation);
@@ -45,7 +45,7 @@ public class HouseRadio extends AbstractRadio {
     public void setVolume(int vol) {
         LtrpPlayer.get()
                 .stream()
-                .filter(p -> house.equals(p.getProperty()))
+                .filter(p -> house.equals(House.get(p)))
                 .forEach(p -> p.setVolume(vol));
         super.setVolume(vol);
     }
@@ -54,7 +54,7 @@ public class HouseRadio extends AbstractRadio {
     public void stop() {
         LtrpPlayer.get()
                 .stream()
-                .filter(p -> house.equals(p.getProperty()))
+                .filter(p -> house.equals(House.get(p)))
                 .forEach(LtrpPlayer::stopAudioStream);
         super.stop();
     }

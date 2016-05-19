@@ -1,15 +1,16 @@
 package lt.ltrp.boat;
 
 
-import lt.ltrp.LtrpGamemodeImpl;
+import lt.ltrp.AbstractDmvManager;
+import lt.ltrp.DmvController;
 import lt.ltrp.InitException;
 import lt.ltrp.LoadingException;
-import lt.ltrp.dmv.AbstractDmvManager;
-import lt.ltrp.dmv.Dmv;
+import lt.ltrp.constant.LicenseType;
+import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.dialog.BoatingTestEndMsgDialog;
 import lt.ltrp.event.PlayerBoatingTestEnd;
-import lt.ltrp.constant.LicenseType;
-import lt.ltrp.player.data.PlayerLicense;
+import lt.ltrp.object.BoatDmv;
+import lt.ltrp.object.Dmv;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
@@ -34,7 +35,7 @@ public class BoatDmvManager extends AbstractDmvManager {
         this.ongoingBoatingTests = new HashMap<>();
 
         try {
-            dmv = LtrpGamemodeImpl.getDao().getDmvDao().getBoatDmv(3);
+            dmv = DmvController.get().getDao().getBoatDmv(3);
         } catch(LoadingException e) {
             throw new InitException(getClass().getSimpleName() + " could not be initialized", e);
         }
