@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author Bebras
@@ -47,16 +48,28 @@ public class BusinessPlugin extends Plugin implements BusinessController {
         businessCollection = new ArrayList<>();
         node = getEventManager().createChildNode();
 
-        if(ResourceManager.get().getPlugin(DatabasePlugin.class) != null)  {
-            load();
-        } else {
+        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
+        dependencies.add(DatabasePlugin.class);
+        dependencies.add(PropertyPlugin.class);
+        int missing = 0;
+        for(Class<? extends Plugin> clazz : dependencies) {
+            if(ResourceManager.get().getPlugin(clazz) == null)
+                missing++;
+            else
+                dependencies.remove(clazz);
+        }
+        if(missing > 0) {
             node.registerHandler(ResourceEnableEvent.class, e -> {
                 Resource r = e.getResource();
-                if(r.getClass().equals(DatabasePlugin.class)) {
-                    load();
+                logger.debug("R:" + r);
+                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
+                    dependencies.remove(r.getClass());
+                    logger.debug("Removing r");
+                    if(dependencies.size() == 0)
+                        load();
                 }
             });
-        }
+        } else load();
     }
     private void load() {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);

@@ -3,7 +3,6 @@ package lt.ltrp.dao.impl;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.dao.BusinessDao;
-import lt.ltrp.dao.MySqlPropertyDaoImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.data.property.business.commodity.BusinessCommodityDrink;
