@@ -8,6 +8,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.data.SpawnData;
 import lt.ltrp.event.player.PlayerSpawnLocationChangeEvent;
 import lt.ltrp.event.property.house.*;
+import lt.ltrp.modelpreview.SkinModelPreview;
 import lt.ltrp.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
@@ -161,6 +162,22 @@ public class HouseCommands {
             LtrpWorld.get().addMoney(price);
             player.sendMessage("Sëkmingai ásigijote namà uş " + Currency.SYMBOL + price + ".");
             eventManager.dispatchEvent(new HouseBuyEvent(house, null, player));
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidşia persirengti drabuşius bûnant namuose")
+    public boolean clothes(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        House house = House.get(player);
+        if(house == null)
+            return false;
+        else {
+            SkinModelPreview.create(player, eventManager, (pv, i) -> {
+                player.setSkin(i);
+                player.sendActionMessage("persirengiia drabuşius");
+            });
         }
         return true;
     }
