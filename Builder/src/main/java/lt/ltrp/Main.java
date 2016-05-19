@@ -98,41 +98,85 @@ public class Main {
                     System.out.println(groupId + ":" + artifactId + " not found");
             }
         } else if(args[0].equalsIgnoreCase("build")) {
-            ProjectData data = dataFile.readProjectData();
-            System.out.println("Found " + data.size() + " projects");
             ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-            mapper.enable(JsonParser.Feature.ALLOW_COMMENTS);
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-          //mapper.enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES);
-          //mapper.disable(JsonGenerator.Feature.QUOTE_FIELD_NAMES);
-          //mapper.disable(JsonGenerator.Feature.QUOTE_NON_NUMERIC_NUMBERS);
-            File resourcesFile = new File(appPath + File.separator + "shoebill" + File.separator + "resources.yml");
-            if(!resourcesFile.exists())
-                System.out.println("Resources file not found");
-            else {
-                try {
-                    ResourcesModel resources = mapper.readValue(resourcesFile, ResourcesModel.class);
-                    System.out.println("resources:" + resources);
-                    resources.getPlugins().clear();
-                    data.getData().forEach(project -> {
+            if(args.length == 3) {
+                ProjectData data = dataFile.readProjectData();
+                String groupId = args[1];
+                String artifactId = args[2];
+                if(data.contains(groupId, artifactId)) {
+                    Project project = data.get(groupId, artifactId);
+                    try {
+                        File resourcesFile = new File(appPath + File.separator + "shoebill" + File.separator + "resources.yml");
+                        if(!resourcesFile.exists()) {
+                            System.out.println("Resources file not found");
+                            return;
+                        }
+                        ResourcesModel resources = mapper.readValue(resourcesFile, ResourcesModel.class);
+                        String pluginLine = project.getArtifactId() + "-" + project.getVersion();
+                        resources.getPlugins().remove(pluginLine);
                         System.out.println("Building " + project.getType() + " " + project.getGroupId() + ":" + project.getArtifactId() + "...");
                         try {
-                            buildProject(project.getPath());
+                            buildProject(appPath, project.getPath());
                             moveProject(project, appPath);
-                            resources.getPlugins().add(project.getArtifactId() + "-" + project.getVersion());
+                            if(!project.getType().equalsIgnoreCase("gm"))
+                                resources.getPlugins().add(pluginLine);
+                            else
+                                resources.setGamemode(pluginLine);
                         } catch (IOException e) {
                             e.printStackTrace();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                    });
-                    mapper.writeValue(resourcesFile, resources);
-                    System.out.println("Finished building!");
-                } catch (IOException e) {
-                    e.printStackTrace();
+                        mapper.writeValue(resourcesFile, resources);
+                        System.out.println("Finished building!");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else
+                    System.out.println(groupId + ":" + artifactId + " not found");
+            } else if(args.length == 1) {
+                ProjectData data = dataFile.readProjectData();
+                System.out.println("Found " + data.size() + " projects");
+                mapper.enable(JsonParser.Feature.ALLOW_COMMENTS);
+                mapper.enable(SerializationFeature.INDENT_OUTPUT);
+                //mapper.enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES);
+                //mapper.disable(JsonGenerator.Feature.QUOTE_FIELD_NAMES);
+                //mapper.disable(JsonGenerator.Feature.QUOTE_NON_NUMERIC_NUMBERS);
+                File resourcesFile = new File(appPath + File.separator + "shoebill" + File.separator + "resources.yml");
+                if(!resourcesFile.exists())
+                    System.out.println("Resources file not found");
+                else {
+                    try {
+                        ResourcesModel resources = mapper.readValue(resourcesFile, ResourcesModel.class);
+                        System.out.println("resources:" + resources);
+                        resources.getPlugins().clear();
+                        data.getData().forEach(project -> {
+                            System.out.println("Building " + project.getType() + " " + project.getGroupId() + ":" + project.getArtifactId() + "...");
+                            try {
+                                buildProject(appPath, project.getPath());
+                                moveProject(project, appPath);
+                                if(!project.getType().equalsIgnoreCase("gm"))
+                                    resources.getPlugins().add(project.getArtifactId() + "-" + project.getVersion());
+                                else
+                                    resources.setGamemode(project.getArtifactId() + "-" + project.getVersion());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        mapper.writeValue(resourcesFile, resources);
+                        System.out.println("Finished building!");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+            } else {
+                System.out.println("USAGE " + APP_NAME + "build [options]");
+                System.out.println("\tOPTIONS:");
+                System.out.println("\t\tgroupId artifactId");
+                return;
             }
-
         } else if(args[0].equalsIgnoreCase("test")) {
             File resources = new File(appPath + File.separator + "shoebill" + File.separator + "resources.yml");
             if(resources.exists()) {
@@ -154,12 +198,14 @@ public class Main {
         }
     }
 
-    private static void buildProject(Path pathToPom) throws IOException, InterruptedException {
+    private static void buildProject(String appPath, Path pathToPom) throws IOException, InterruptedException {
         String cmd = String.format("%s%cbin%cmvn.cmd",
                 System.getenv("M2_HOME"), File.separatorChar, File.separatorChar);
         String params = String.format("-f%s", pathToPom);
         ProcessBuilder builder = new ProcessBuilder(cmd, params, "-e");
         builder.redirectErrorStream(true);
+        //builder.redirectError(new File(appPath, "builder.err"));
+        //builder.redirectOutput(new File(appPath, "builder.out"));
         Process proc = builder.start();
         MavenOutputReader outputReader = new MavenOutputReader(proc.getInputStream());
         MavenErrorReader errorReader = new MavenErrorReader(proc.getErrorStream());

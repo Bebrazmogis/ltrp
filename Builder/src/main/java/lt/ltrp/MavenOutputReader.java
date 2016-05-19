@@ -32,7 +32,7 @@ public class MavenOutputReader extends Thread {
                     if(line == null) {
                         interrupt();
                     } else {
-                        System.out.println("OUT:" + line);
+                        //System.out.println("OUT:" + line);
                         if(line.contains("BUILD SUCCESS")) {
                             success = true;
                             interrupt();
