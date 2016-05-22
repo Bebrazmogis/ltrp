@@ -20,6 +20,7 @@ lt\ltrp\event\vehicle\VehicleEngineStartEvent.class
 lt\ltrp\data\HouseRadio.class
 lt\ltrp\VehicleController.class
 lt\ltrp\dialog\BusinessCommodityListDialog$SelectCommodityHandler.class
+lt\ltrp\data\BanData.class
 lt\ltrp\event\property\house\HouseMoneyEvent.class
 lt\ltrp\object\ItemPhone.class
 lt\ltrp\event\player\PlayerActionMessageEvent.class
@@ -34,7 +35,6 @@ lt\ltrp\dialog\IntegerInputDialog$ClickOkHandler.class
 lt\ltrp\event\item\PlayerDropItemEvent.class
 lt\ltrp\event\property\BusinessCommodityAddEvent.class
 lt\ltrp\object\Item.class
-lt\ltrp\event\player\PlayerSpawnLocationChangeEvent.class
 lt\ltrp\event\property\BusinessCreateEvent.class
 lt\ltrp\object\MechanicJob$Instance.class
 lt\ltrp\event\property\PropertyEvent.class
@@ -76,7 +76,6 @@ lt\ltrp\DmvController.class
 lt\ltrp\object\ContractJob.class
 lt\ltrp\constant\BusinessType.class
 lt\ltrp\event\property\BusinessEntrancePriceChangeEvent.class
-lt\ltrp\data\SpawnData.class
 lt\ltrp\dialog\PhonebookListDialog$CallContactHandler.class
 lt\ltrp\LtrpWorld.class
 lt\ltrp\dialog\FactionListDialog$FactionListDialogBuilder.class
@@ -197,7 +196,6 @@ lt\ltrp\data\JailData.class
 lt\ltrp\object\Inventory.class
 lt\ltrp\object\RadioItem.class
 lt\ltrp\dialog\IntegerInputDialog$InputErrorHandler.class
-lt\ltrp\event\player\PlayerSpawnSetUpEvent.class
 lt\ltrp\data\Color.class
 lt\ltrp\object\LtrpPlayer.class
 lt\ltrp\object\Radio.class
@@ -311,7 +309,6 @@ lt\ltrp\object\LtrpVehicle.class
 lt\ltrp\event\player\PlayerAskQuestionEvent.class
 lt\ltrp\event\vehicle\VehicleEvent.class
 lt\ltrp\event\property\house\HouseCreateEvent.class
-lt\ltrp\data\SpawnData$SpawnType.class
 lt\ltrp\event\property\house\HouseEvent.class
 lt\ltrp\object\TrashManJob$Instance.class
 lt\ltrp\data\FuelTank.class

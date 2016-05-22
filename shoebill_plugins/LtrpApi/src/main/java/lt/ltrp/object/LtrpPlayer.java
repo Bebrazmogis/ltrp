@@ -22,6 +22,7 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     public static final float DEFAULT_ACTION_MESSAGE_DISTANCE = 20f;
     public static final Color DEFAULT_PLAYER_COLOR = new Color(0xFFFFFF00);
     public static final int DEFAULT_INFOTEXT_DURATION = 60;
+    public static final int MAX_LOGIN_TRIES = 3;
 
 
     static PlayerDao getPlayerDao() {
@@ -156,10 +157,7 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     String getSecretQuestion();
     void setSecretQuestion(String secretQuestion);
 
-    JailData getJailData();
-    void setJailData(JailData jailData);
-    void jail(JailData jailData);
-    void unjail();
+    boolean isInJail();
 
     LtrpWeaponData[] getWeapons();
     boolean ownsWeapon(WeaponModel model);
@@ -227,9 +225,6 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
 
     int getHunger();
     void setHunger(int hunger);
-
-    void setSpawnData(SpawnData spawnData);
-    SpawnData getSpawnData();
 
     AudioHandle getAudioHandle();
     void setVolume(int volume);

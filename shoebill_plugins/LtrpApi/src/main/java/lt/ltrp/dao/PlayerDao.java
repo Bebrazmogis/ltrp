@@ -18,15 +18,11 @@ public interface PlayerDao {
     public String getPassword(LtrpPlayer player);
     public boolean loadData(LtrpPlayer player);
     public boolean update(LtrpPlayer player);
-    public JailData getJailData(LtrpPlayer player);
     public CrashData getCrashData(LtrpPlayer player);
     public boolean remove(LtrpPlayer player, CrashData data);
-    public boolean remove(LtrpPlayer player, JailData jailData);
     public boolean setFactionManager(LtrpPlayer player);
-    void insert(JailData data);
     void insertCrime(PlayerCrime crime);
     List<PlayerCrime> getCrimes(LtrpPlayer player);
-    //Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player);
 
     void update(PlayerSettings settings);
 
@@ -41,11 +37,4 @@ public interface PlayerDao {
     void removeJob(int userId);
     public String getUsername(int userId);
     public int getUserId(String username);
-
-    // Spawn data
-    SpawnData getSpawnData(LtrpPlayer player);
-    default void update(LtrpPlayer player, SpawnData spawnData) {
-        update(player.getUUID(), spawnData);
-    }
-    void update(int uuid, SpawnData spawnData);
 }
