@@ -23,10 +23,10 @@ import java.util.Optional;
  */
 public class FactionLeaderCommands extends Commands {
 
-    private JobManager jobManager;
+    private JobPlugin jobManager;
     private EventManager eventManager;
 
-    public FactionLeaderCommands(EventManager eventManager, JobManager jobManager) {
+    public FactionLeaderCommands(EventManager eventManager, JobPlugin jobManager) {
         this.eventManager = eventManager;
         this.jobManager = jobManager;
     }

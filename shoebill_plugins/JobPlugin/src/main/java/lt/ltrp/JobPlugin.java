@@ -37,9 +37,9 @@ import java.util.*;
  * @author Bebras
  *         2015.12.06.
  */
-public class JobManager extends Plugin implements JobController {
+public class JobPlugin extends Plugin implements JobController {
 
-    private static final Logger logger = LoggerFactory.getLogger(JobManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(JobPlugin.class);
 /*
     public static List<Job> get() {
         List<Job> jobs = new ArrayList<>();
