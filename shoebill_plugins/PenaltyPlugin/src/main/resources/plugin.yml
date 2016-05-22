@@ -1,0 +1,7 @@
+class: lt.ltrp.PenaltyPlugin
+name: LTRP Penalty Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: This plugin provides persistence and functionality for bans(both timed and permanent), warns and jail(both ic and ooc)
