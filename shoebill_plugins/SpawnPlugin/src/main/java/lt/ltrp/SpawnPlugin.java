@@ -103,6 +103,7 @@ public class SpawnPlugin extends Plugin{
                 node.dispatchEvent(new PlayerRequestSpawnEvent(player, spawnData));
                 // This SHOULD be called after all handler function for PlayerRequestSpawnEvent
                 node.dispatchEvent(new PlayerSpawnSetUpEvent(player));
+                player.spawn();
             }
         });
     }
