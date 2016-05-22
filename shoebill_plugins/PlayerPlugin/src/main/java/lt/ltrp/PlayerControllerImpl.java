@@ -3,11 +3,16 @@ package lt.ltrp;
 
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.PlayerDao;
-import lt.ltrp.data.*;
+import lt.ltrp.data.Animation;
+import lt.ltrp.data.JobData;
+import lt.ltrp.data.PlayerLicenses;
+import lt.ltrp.data.Taxes;
 import lt.ltrp.event.PaydayEvent;
-import lt.ltrp.event.player.*;
+import lt.ltrp.event.player.PlayerDataLoadEvent;
+import lt.ltrp.event.player.PlayerEditSettingsEvent;
+import lt.ltrp.event.player.PlayerLogInEvent;
+import lt.ltrp.event.player.PlayerOfferExpireEvent;
 import lt.ltrp.object.*;
-import lt.ltrp.object.impl.LtrpPlayerImpl;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.util.PawnFunc;
 import lt.ltrp.util.PlayerLog;
@@ -23,7 +28,6 @@ import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.event.amx.AmxLoadEvent;
 import net.gtaun.shoebill.event.amx.AmxUnloadEvent;
 import net.gtaun.shoebill.event.player.*;
-import net.gtaun.shoebill.event.player.PlayerConnectEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.PlayerAttach;
 import net.gtaun.shoebill.object.PlayerWeaponSkill;
@@ -42,20 +46,17 @@ public class PlayerControllerImpl implements PlayerController {
 
     private EventManagerNode managerNode;
     private PlayerDao playerDao;
-    private static Collection<LtrpPlayer> playerList = new ArrayList<>();
+    public static Collection<LtrpPlayer> playerList = new ArrayList<>();
     private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
 
-    private Map<LtrpPlayer, Boolean> spawnsSetUp = new HashMap<>();
     private List<LtrpPlayer> firstSpawns = new ArrayList<>();
     private Timer javaMinuteTimer;
-    private PlayerJailController playerJailController;
     private PlayerLog playerLog;
     private boolean destroyed;
 
     public PlayerControllerImpl(EventManager manager, PlayerDao playerDao, PlayerCommandManager playerCommandManager) {
         Instance.instance = this;
         this.playerDao = playerDao;
-        this.playerJailController = new PlayerJailController(manager, playerDao);
         managerNode = manager.createChildNode();
 
         this.playerLog = new PlayerLog(managerNode);
@@ -63,53 +64,26 @@ public class PlayerControllerImpl implements PlayerController {
         playerCommandManager.registerCommands(new GeneralCommands(managerNode));
 
 
-        managerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.HIGHEST, e -> {
+        managerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.NORMAL, e -> {
             logger.info("PlayerConnectEvent received: " + e.getPlayer().getName());
             if(e.getPlayer().isNpc()) {
                 return;
             }
-            int uuid = playerDao.getUserId(e.getPlayer());
-            if(uuid != LtrpPlayer.INVALID_USER_ID) {
-                LtrpPlayerImpl player = new LtrpPlayerImpl(e.getPlayer(), uuid, managerNode);
+                LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
                 playerList.add(player);
-                SpawnController spawn = new SpawnController(managerNode, player, playerDao);
-                spawn.run();
 
                 // Various options and settings
-
                 player.setColor(Color.WHITE); // Make the users radar blip invisible
-
-                // Authentication
-                new AuthController(managerNode, player, playerDao);
-            } else {
-                e.getPlayer().kick();
-                e.interrupt(); // Nobody else should do anything
-            }
-
-        });
-
-        managerNode.registerHandler(PlayerSpawnSetUpEvent.class, e -> {
-            logger.info("PlayerSpawnSetupEvent received");
-            LtrpPlayer player = e.getPlayer();
-            firstSpawns.add(player);
-            if(player.isLoggedIn()) {
-                spawnPlayer(player);
-                loadDataThreaded(player);
-            } else {
-                spawnsSetUp.put(e.getPlayer(), true);
-
-            }
         });
 
         managerNode.registerHandler(PlayerLogInEvent.class, e -> {
             logger.info("PlayerLogInEvent received");
             LtrpPlayer player = e.getPlayer();
             player.sendMessage("{FFFFFF}Sveikiname sugrįžus, Jūs prisijungėte su veikėju " + player.getName() + ". Sėkmės serveryje!");
-            // If the users' spawn is already set up
-            if(spawnsSetUp.containsKey(player) && spawnsSetUp.get(player)) {
-                spawnPlayer(player);
-                loadDataThreaded(player);
-            }
+
+            player.sendGameText(5000, 1, "~w~Sveikas ~n~~h~~g~" + player.getName());
+            loadDataThreaded(player);
+
             // Legacy code for Pawn loading.
             AmxCallable onPlayerLoginPawn = PawnFunc.getPublicMethod("getPublicMethod");
             if(onPlayerLoginPawn != null) {
@@ -120,9 +94,6 @@ public class PlayerControllerImpl implements PlayerController {
         managerNode.registerHandler(PlayerDisconnectEvent.class, HandlerPriority.BOTTOM, e -> {
             logger.info("PlayerDisconnectEvent received");
             LtrpPlayer p = LtrpPlayer.get(e.getPlayer());
-            if(spawnsSetUp.containsKey(p)) {
-                spawnsSetUp.remove(p);
-            }
             playerList.remove(p);
 
             for(PlayerAttach.PlayerAttachSlot s : p.getAttach().getSlots())
@@ -276,13 +247,6 @@ public class PlayerControllerImpl implements PlayerController {
             playerDao.update(e.getSettings());
         });
 
-        managerNode.registerHandler(PlayerSpawnLocationChangeEvent.class, e -> {
-            LtrpPlayer player = e.getPlayer();
-            SpawnData spawnData = e.getSpawnData();
-            player.setSpawnData(spawnData);
-            playerDao.update(player, spawnData);
-        });
-
         javaMinuteTimer = new Timer("Java minute timer");
         javaMinuteTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -295,10 +259,6 @@ public class PlayerControllerImpl implements PlayerController {
 
     }
 
-    private void spawnPlayer(LtrpPlayer player) {
-        player.spawn();
-        player.sendGameText(5000, 1, "~w~Sveikas ~n~~h~~g~" + player.getName());
-    }
 
 
     private void addPawnFunctions() {
@@ -383,7 +343,6 @@ public class PlayerControllerImpl implements PlayerController {
         managerNode.cancelAll();
         managerNode.destroy();
         javaMinuteTimer.cancel();
-        playerJailController.destroy();
         destroyed = true;
     }
 

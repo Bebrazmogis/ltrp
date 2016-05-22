@@ -28,6 +28,7 @@
     <orderEntry type="library" name="Maven: lt.maze:streamer:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j13:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: lt.ltrp:bank:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:penalty:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: lt.maze:shoebill-event-logger:1.0-SNAPSHOT" level="project" />
   </component>
 </module>

@@ -457,24 +457,6 @@ public class GettersSetters {
         }, Integer.class);
 
 
-        amx.registerFunction("getPlayerSpawnType", params-> {
-           LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
-            if(p != null) {
-                return p.getSpawnData().getType().ordinal();
-            }
-            return -1;
-        }, Integer.class);
-
-
-        amx.registerFunction("getPlayerSpawnUi", params-> {
-           LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
-            if(p != null) {
-                return p.getSpawnData().getId();
-            }
-            return -1;
-        }, Integer.class);
-
-
         amx.registerFunction("getPlayerHunger", params-> {
            LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
             if(p != null) {

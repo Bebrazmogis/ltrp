@@ -7,9 +7,7 @@ import lt.ltrp.constant.PlayerVehiclePermission;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
 import lt.ltrp.object.LtrpPlayer;
-import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.Location;
-import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.object.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -151,7 +149,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     public boolean update(LtrpPlayer player) {
         throw new NotImplementedException();
     }
-
+/*
     @Override
     public SpawnData getSpawnData(LtrpPlayer player) {
         SpawnData spawnData = null;
@@ -202,6 +200,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
     }
+    */
 /*
     @Override
     public void setSpawnData(LtrpPlayer player) {
@@ -221,6 +220,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 */
+    /*
     @Override
     public JailData getJailData(LtrpPlayer player) {
         JailData data = null;
@@ -242,7 +242,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
         return data;
     }
-
+*/
     @Override
     public CrashData getCrashData(LtrpPlayer player) {
         CrashData crashData = null;
@@ -283,7 +283,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             return false;
         }
     }
-
+/*
     @Override
     public boolean remove(LtrpPlayer player, JailData jailData) {
         String sql = "DELETE FROM player_jailtime WHERE player_id = ?";
@@ -298,7 +298,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             return false;
         }
     }
-
+*/
     @Override
     public boolean setFactionManager(LtrpPlayer player) {
         String sql = "UPDATE players SET faction_manager = 1 WHERE id = ?";
@@ -313,7 +313,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             return false;
         }
     }
-
+/*
     @Override
     public void insert(JailData data) {
         String sql = "INSERT INTO player_jailtime (player_id, remaining_time, type, jailer_name, jail_date) VALUES (?, ?, ?, ?, ?)";
@@ -331,7 +331,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
     }
-
+*/
     @Override
     public void insertCrime(PlayerCrime crime) {
         String sql = "INSERT INTO player_crimes (`name`, crime, reporter, `date`) VALUES(?, ?, ?, ?)";

@@ -25,7 +25,6 @@ public class PlayerPlugin extends Plugin{
     private static PlayerPlugin instance;
 
     private PlayerControllerImpl playerController;
-    private AdminController adminController;
     private PlayerCommandManager playerCommandManager;
     private GameTextStyleManager gameTextStyleManager;
     private EventManagerNode eventManagerNode;
@@ -55,7 +54,6 @@ public class PlayerPlugin extends Plugin{
         playerCommandManager = new PlayerCommandManager(eventManagerNode);
         PlayerDao playerDao = new SqlPlayerDaoImpl(dataSource);
         playerController = new PlayerControllerImpl(eventManagerNode, playerDao, playerCommandManager);
-        adminController = new AdminControllerImpl(eventManagerNode, playerCommandManager);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
         this.gameTextStyleManager = new GameTextStyleManager(eventManagerNode);
 
@@ -66,7 +64,6 @@ public class PlayerPlugin extends Plugin{
     public void onDisable() throws Throwable {
         instance = null;
         playerController.destroy();
-        adminController.destroy();
         playerCommandManager.destroy();
         gameTextStyleManager.destroy();
         logger.info("Player plugin shutting down...");
