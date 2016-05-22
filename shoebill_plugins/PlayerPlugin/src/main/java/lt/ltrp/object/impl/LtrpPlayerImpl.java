@@ -2,13 +2,13 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.GameTextStyleManager;
 import lt.ltrp.InventoryEntityImpl;
+import lt.ltrp.PenaltyPlugin;
+import lt.ltrp.PlayerControllerImpl;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.*;
 import lt.ltrp.event.job.PlayerChangeJobEvent;
 import lt.ltrp.event.player.PlayerActionMessageEvent;
-import lt.ltrp.event.player.PlayerJailEvent;
 import lt.ltrp.event.player.PlayerStateMessageEvent;
-import lt.ltrp.event.player.PlayerUnJailEvent;
 import lt.ltrp.object.*;
 import lt.maze.audio.AudioHandle;
 import lt.maze.audio.AudioPlugin;
@@ -18,6 +18,7 @@ import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.exception.AlreadyExistException;
 import net.gtaun.shoebill.exception.IllegalLengthException;
 import net.gtaun.shoebill.object.*;
+import net.gtaun.shoebill.resource.ResourceManager;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,7 +150,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     private String password, secretAnswer, secretQuestion;
     private String forumName;
-    private JailData jailData;
     private Property property;
     private LtrpWeaponData[] weapons;
     private LtrpVehicle lastUsedVehicle;
@@ -190,7 +190,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
      * The user may have a contract binding him to a job, this hold the hours left on his contract
      */
     private int jobContract;
-    private SpawnData spawnData;
     private AudioHandle audioHandle;
     /**
      * Not necessarily all existing player vehicles, just the ones that are currently loaded( or not spawned)
@@ -215,6 +214,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         this.offers = new ArrayList<>();
         this.eventManager = manager;
         logger.debug("Creating instance of LtrpPlayer. Player object id " +player.getId());
+        PlayerControllerImpl.playerList.add(this);
     }
 
     public int getUserId() {
@@ -357,28 +357,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         LtrpPlayer.get().forEach(p -> this.showNameTagForPlayer(p, masked));
     }
 
-    public JailData getJailData() {
-        return jailData;
-    }
-
-    public void setJailData(JailData data) {
-        this.jailData = data;
-    }
-
-    public void unjail() {
-        eventManager.dispatchEvent(new PlayerUnJailEvent(this, jailData));
-        this.jailData = null;
-    }
-
-    public void jail(JailData data) {
-        this.jailData = data;
-        eventManager.dispatchEvent(new PlayerJailEvent(this, jailData));
-    }
-
-
-    public void jail(JailData.JailType type, int time, LtrpPlayer jailer) {
-        this.jail(new JailData(0, this, type, time, jailer.getName()));
-    }
 /*
     public Map<PlayerVehicle, List<PlayerVehiclePermission>> getLoadedVehicles() {
         return loadedVehicles;
@@ -553,14 +531,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         }
     }
 
-    public SpawnData getSpawnData() {
-        return spawnData;
-    }
-
-    public void setSpawnData(SpawnData spawnData) {
-        this.spawnData = spawnData;
-    }
-
     public String getSecretAnswer() {
         return secretAnswer;
     }
@@ -575,6 +545,15 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     public void setSecretQuestion(String secretQuestion) {
         this.secretQuestion = secretQuestion;
+    }
+
+    @Override
+    public boolean isInJail() {
+        PenaltyPlugin plugin = ResourceManager.get().getPlugin(PenaltyPlugin.class);
+        if(plugin != null) {
+            return plugin.getJailData(this) != null;
+        } else logger.error("Missing PEnaltyPlugin");
+        return false;
     }
 
     @Override
