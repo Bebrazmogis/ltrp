@@ -199,6 +199,9 @@ public class PenaltyPlugin extends Plugin {
         });
     }
 
+    /**
+     *
+     */
     private void scheduleTimers() {
         this.jailTimeTimer = Timer.create(60000, -1, i -> {
             LtrpPlayer.get()
@@ -217,6 +220,13 @@ public class PenaltyPlugin extends Plugin {
         this.jailTimeTimer.start();
     }
 
+    /**
+     * Places a player in jail
+     * @param player player to be jailed
+     * @param jailType jailType value
+     * @param minutes duration of jail in minutes
+     * @param jailedBy the user responsible for this jail entry
+     */
     public void jail(LtrpPlayer player, JailData.JailType jailType, int minutes, LtrpPlayer jailedBy) {
         JailData jailData = new JailData(0, player, jailType, minutes * 60, minutes * 60, jailedBy.getUUID(), new Date(new java.util.Date().getTime()));
         switch(jailType) {
@@ -231,6 +241,10 @@ public class PenaltyPlugin extends Plugin {
         node.dispatchEvent(new PlayerJailEvent(player, jailData));
     }
 
+    /**
+     * Frees a player from jail
+     * @param player player to be freed
+     */
     public void unJail(LtrpPlayer player) {
         JailData jailData = getJailData(player);
         if(jailData != null) {
@@ -240,30 +254,74 @@ public class PenaltyPlugin extends Plugin {
         }
     }
 
+    /**
+     *
+     * @param player player
+     * @return Returns the {@link lt.ltrp.data.JailData} object associated with the player
+     */
     public JailData getJailData(LtrpPlayer player) {
         return jailDao.get(player);
     }
 
+    /**
+     * Bans a player temporarily, the ban is based on players username.
+     * @param player player to be banned
+     * @param reason reason for this ban
+     * @param hours duration of this ban in hours
+     * @param bannedBy admin that banned this user, may be null
+     */
     public void banPlayer(LtrpPlayer player, String reason, int hours, LtrpPlayer bannedBy) {
         ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason, hours,  new Date(Instant.now().toEpochMilli()), null));
     }
 
+    /**
+     * Bans a player permanently without recording admin. The ban is based on players username
+     * Should be used for automatic bans such as anti-cheat.
+     * @param player player to ban
+     * @param reason reason for this ban
+     */
     public void banPlayer(LtrpPlayer player, String reason) {
         banPlayer(player, reason, null);
     }
 
+    /**
+     * Bans a player permanently. The ban is based on players username
+     * @param player player to ban
+     * @param reason reason for the ban
+     * @param bannedBy the administrator who initiated the ban
+     */
     public void banPlayer(LtrpPlayer player, String reason, LtrpPlayer bannedBy) {
         ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason,  new Date(Instant.now().toEpochMilli()), null));
     }
 
+    /**
+     * Bans a player for some amount of time. This method includes an IP ban
+     * @param player player to be banned(and his IP)
+     * @param reason reason for the ban
+     * @param hours duration of the ban(in hours)
+     * @param bannedBy the administrator that initiated this ban
+     */
     public void banIp(LtrpPlayer player, String reason, int hours, LtrpPlayer bannedBy) {
         ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason, player.getIp(), hours, new Date(Instant.now().toEpochMilli()), null));
     }
 
+    /**
+     *  Bans a player permanently. This method includes an IP ban
+     * @param player player to be banned(and his IP)
+     * @param reason reason for the ban
+     * @param bannedBy the administrator that initiated this ban
+     */
     public void banIp(LtrpPlayer player, String reason, LtrpPlayer bannedBy) {
         ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason, player.getIp(), new Date(Instant.now().toEpochMilli()), null));
     }
 
+    /**
+     * Bans a player permanently without an administrator.
+     * Ban is based on IP and username.
+     * Should only be used for automatic bans.
+     * @param player player to be banned(and his IP)
+     * @param reason reason for this ban
+     */
     public void banIp(LtrpPlayer player, String reason) {
         banIp(player, reason, null);
     }
@@ -274,6 +332,10 @@ public class PenaltyPlugin extends Plugin {
         node.dispatchEvent(new PlayerBanEvent(player, banData));
     }
 
+    /**
+     * Unbans an IP address.
+     * @param ip address to be unbanned
+     */
     public void unBan(String ip) {
         BanData banData = banDao.getByIp(ip);
         if(banData != null) {
@@ -282,6 +344,10 @@ public class PenaltyPlugin extends Plugin {
         }
     }
 
+    /**
+     * Unbans a user by his UUID
+     * @param userId UUID
+     */
     public void unBan(int userId) {
         BanData banData = banDao.getByUser(userId);
         if(banData != null) {
@@ -289,10 +355,21 @@ public class PenaltyPlugin extends Plugin {
         }
     }
 
+    /**
+     *
+     * @param player the banned player
+     * @return returns the {@link lt.ltrp.data.BanData} object associated with the current ban, null if the player is not banned
+     */
     public BanData getBanData(LtrpPlayer player) {
         return banDao.getByUserOrIp(player.getUUID(), player.getIp());
     }
 
+    /**
+     * Adds a warning to a player. If he has {@link lt.ltrp.PenaltyPlugin#MAX_WARNS} or more warnings he is automatically banned.
+     * @param player player to warn
+     * @param reason reason
+     * @param warnedBy administrator that initiated this warning
+     */
     public void warn(LtrpPlayer player, String reason, LtrpPlayer warnedBy) {
         WarnData warnData = new WarnData(player.getUUID(), warnedBy.getUUID(), reason, new Date(Instant.now().toEpochMilli()));
         warnDao.insert(warnData);
@@ -302,7 +379,12 @@ public class PenaltyPlugin extends Plugin {
         }
     }
 
-    private int getWarnCount(LtrpPlayer player) {
+    /**
+     *
+     * @param player player
+     * @return Returns the warning count for a user
+     */
+    public int getWarnCount(LtrpPlayer player) {
         return warnDao.getCount(player.getUUID());
     }
 
