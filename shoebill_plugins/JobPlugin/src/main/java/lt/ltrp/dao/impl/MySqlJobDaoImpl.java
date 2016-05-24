@@ -109,7 +109,7 @@ public abstract class MySqlJobDaoImpl implements JobDao {
                                 f.setFloat(job, Float.parseFloat(properties.getProperty(name)));
                             } else if(f.getType().equals(Location.class)) {
                                 Location location = new Location(Float.parseFloat(properties.getProperty(name + "_x")),
-                                        Float.parseFloat(properties.getProperty(name + "_Y")),
+                                        Float.parseFloat(properties.getProperty(name + "_y")),
                                         Float.parseFloat(properties.getProperty(name + "_z")),
                                         Integer.parseInt(properties.getProperty(name + "_interior", "0")),
                                         Integer.parseInt(properties.getProperty(name + "_world", "0")));

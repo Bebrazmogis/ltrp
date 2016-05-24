@@ -91,7 +91,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../gamemodes/ltrp.pwn" afterPath="$PROJECT_DIR$/../../gamemodes/ltrp.pwn" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/resources/ltrp.sql" afterPath="$PROJECT_DIR$/../../src/main/resources/ltrp.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../modules.ini" afterPath="$PROJECT_DIR$/../../modules.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AudioPluginWrapper/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../AudioPluginWrapper/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DatabaseManager/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../DatabaseManager/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FaderPlugin/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../FaderPlugin/target/maven-archiver/pom.properties" />
@@ -196,16 +195,16 @@
       <file leaf-file-name="MySqlJobDaoImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35589266" vertical-offset="1531" max-vertical-offset="6256">
-              <caret line="112" column="33" selection-start-line="112" selection-start-column="33" selection-end-line="112" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.57409567" vertical-offset="1344" max-vertical-offset="6256">
+              <caret line="112" column="37" selection-start-line="112" selection-start-column="37" selection-end-line="112" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1464116964219" expanded="true" signature="1697:2077" placeholder="SELECT jobs...jobs..." />
-                <marker date="1464116964219" expanded="true" signature="9945:10104" placeholder="SELECT job_r..job_ranks..." />
-                <marker date="1464116964219" expanded="true" signature="11131:11199" placeholder="INSERT INTO ..." />
-                <marker date="1464116964219" expanded="true" signature="11232:11303" placeholder="INSERT INTO ..." />
-                <marker date="1464116964219" expanded="true" signature="12233:12282" placeholder="DELETE FROM ..." />
-                <marker date="1464116964219" expanded="true" signature="13887:13919" placeholder="SELECT id FR..jobs..." />
+                <marker date="1464117804501" expanded="true" signature="1697:2077" placeholder="SELECT jobs...jobs..." />
+                <marker date="1464117804501" expanded="true" signature="9945:10104" placeholder="SELECT job_r..job_ranks..." />
+                <marker date="1464117804501" expanded="true" signature="11131:11199" placeholder="INSERT INTO ..." />
+                <marker date="1464117804501" expanded="true" signature="11232:11303" placeholder="INSERT INTO ..." />
+                <marker date="1464117804501" expanded="true" signature="12233:12282" placeholder="DELETE FROM ..." />
+                <marker date="1464117804501" expanded="true" signature="13887:13919" placeholder="SELECT id FR..jobs..." />
               </folding>
             </state>
           </provider>
@@ -842,7 +841,7 @@
       <workItem from="1463946384873" duration="215000" />
       <workItem from="1463949576406" duration="2290000" />
       <workItem from="1463990624268" duration="4451000" />
-      <workItem from="1464086099443" duration="21375000" />
+      <workItem from="1464086099443" duration="22215000" />
     </task>
     <task id="LOCAL-00001" summary="Darbų plugin'as lauks kol pasikraus DB prieš ką nors darydamas">
       <created>1461853819047</created>
@@ -896,7 +895,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55325000" />
+    <option name="totallyTimeSpent" value="56165000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1427,16 +1426,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35589266" vertical-offset="1531" max-vertical-offset="6256">
-          <caret line="112" column="33" selection-start-line="112" selection-start-column="33" selection-end-line="112" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.57409567" vertical-offset="1344" max-vertical-offset="6256">
+          <caret line="112" column="37" selection-start-line="112" selection-start-column="37" selection-end-line="112" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1464116964219" expanded="true" signature="1697:2077" placeholder="SELECT jobs...jobs..." />
-            <marker date="1464116964219" expanded="true" signature="9945:10104" placeholder="SELECT job_r..job_ranks..." />
-            <marker date="1464116964219" expanded="true" signature="11131:11199" placeholder="INSERT INTO ..." />
-            <marker date="1464116964219" expanded="true" signature="11232:11303" placeholder="INSERT INTO ..." />
-            <marker date="1464116964219" expanded="true" signature="12233:12282" placeholder="DELETE FROM ..." />
-            <marker date="1464116964219" expanded="true" signature="13887:13919" placeholder="SELECT id FR..jobs..." />
+            <marker date="1464117804501" expanded="true" signature="1697:2077" placeholder="SELECT jobs...jobs..." />
+            <marker date="1464117804501" expanded="true" signature="9945:10104" placeholder="SELECT job_r..job_ranks..." />
+            <marker date="1464117804501" expanded="true" signature="11131:11199" placeholder="INSERT INTO ..." />
+            <marker date="1464117804501" expanded="true" signature="11232:11303" placeholder="INSERT INTO ..." />
+            <marker date="1464117804501" expanded="true" signature="12233:12282" placeholder="DELETE FROM ..." />
+            <marker date="1464117804501" expanded="true" signature="13887:13919" placeholder="SELECT id FR..jobs..." />
           </folding>
         </state>
       </provider>
