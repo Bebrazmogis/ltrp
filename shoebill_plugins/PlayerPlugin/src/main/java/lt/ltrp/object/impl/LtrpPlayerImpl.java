@@ -187,6 +187,10 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
      */
     private int totalPaycheck;
     /**
+     * This paydays paycheck
+     */
+    private int currentPaycheck;
+    /**
      * The user may have a contract binding him to a job, this hold the hours left on his contract
      */
     private int jobContract;
@@ -317,6 +321,18 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     public void setOnlineHours(int onlineHours) {
         this.onlineHours = onlineHours;
+    }
+
+    public int getCurrentPaycheck() {
+        return currentPaycheck;
+    }
+
+    public void setCurrentPaycheck(int currentPaycheck) {
+        this.currentPaycheck = currentPaycheck;
+    }
+
+    public void addCurrentPaycheck(int amount) {
+        setCurrentPaycheck(getCurrentPaycheck() + amount);
     }
 
     public void addTotalPaycheck(int amount) {
