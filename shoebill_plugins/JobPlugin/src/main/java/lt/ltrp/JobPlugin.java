@@ -1,8 +1,10 @@
 package lt.ltrp;
 
 import lt.ltrp.constant.WorldZone;
+import lt.ltrp.dao.FactionDao;
 import lt.ltrp.dao.JobVehicleDao;
 import lt.ltrp.dao.PlayerJobDao;
+import lt.ltrp.dao.impl.MySqlFactionDaoImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.event.PaydayEvent;
@@ -83,6 +85,7 @@ public class JobPlugin extends Plugin implements JobController {
    // private EventManager eventManager = LtrpGamemode.get().getEventManager().createChildNode();
     private EventManagerNode eventManager;
     private PlayerJobDao playerJobDao;
+    private FactionDao factionDao;
     private Map<LtrpPlayer, Pair<ItemPhone, Integer>> playerEmergencyCalls;
 
     @Override
@@ -117,6 +120,7 @@ public class JobPlugin extends Plugin implements JobController {
     
     private void load() {
         eventManager.cancelAll();
+        factionDao = new MySqlFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, eventManager);
         addEventHandlers();
         addCommands();
         logger.info(getDescription().getName() + " loaded");
@@ -417,6 +421,11 @@ public class JobPlugin extends Plugin implements JobController {
     @Override
     public JobVehicleDao getVehicleDao() {
         return null;
+    }
+
+    @Override
+    public FactionDao getFactionDao() {
+        return factionDao;
     }
 
     @Override

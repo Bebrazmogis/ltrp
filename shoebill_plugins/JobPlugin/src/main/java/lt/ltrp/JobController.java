@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import lt.ltrp.dao.FactionDao;
 import lt.ltrp.dao.JobVehicleDao;
 import lt.ltrp.dao.PlayerJobDao;
 import lt.ltrp.data.PlayerJobData;
@@ -41,6 +42,7 @@ public interface JobController {
     JobVehicle createVehicle(int id, Job job, int modelId, AngledLocation location, int color1, int color2, Rank requiredRank, String license, float mileage);
     PlayerJobDao getDao();
     JobVehicleDao getVehicleDao();
+    FactionDao getFactionDao();
     default boolean isLeader(LtrpPlayer player) {
         return isLeader(player.getUUID());
     }

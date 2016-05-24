@@ -20,7 +20,7 @@ import java.util.TreeSet;
  * @author Bebras
  *         2016.05.23.
  */
-public abstract class MySqlFactionDaoImpl extends MySqlJobDaoImpl implements FactionDao {
+public class MySqlFactionDaoImpl extends MySqlJobDaoImpl implements FactionDao {
 
 
     public MySqlFactionDaoImpl(DataSource dataSource, JobVehicleDao vehicleDao, EventManager eventManager) {
