@@ -75,6 +75,9 @@ public class DynamicObject extends AbstractStreamerItem implements StreamerItem 
         this.interiorId = interiorid;
     }
 
+    public int getModelId() {
+        return modelId;
+    }
 
     public DynamicObjectMoveHandler getHandler() {
         return handler;
