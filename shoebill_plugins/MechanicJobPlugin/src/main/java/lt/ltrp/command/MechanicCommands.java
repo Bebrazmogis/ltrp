@@ -1,19 +1,19 @@
 package lt.ltrp.command;
 
 
+import lt.ltrp.JobController;
 import lt.ltrp.MechanicJobPlugin;
 import lt.ltrp.colorpicker.ColorPicker;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Color;
-import lt.ltrp.JobController;
-import lt.ltrp.data.JobData;
 import lt.ltrp.data.ColorPalettePlayerOffer;
+import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.dialog.HullRepairMsgDialog;
 import lt.ltrp.dialog.RemoveHydraulicsMsgDialog;
-import lt.ltrp.session.*;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.util.StringUtils;
 import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.session.*;
+import lt.ltrp.util.StringUtils;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -54,7 +54,7 @@ public class MechanicCommands {
     public boolean beforeCheck(Player p, String cmd, String params) {
         logger.debug("beforeCheck " + cmd + " params" + params);
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         if(jobData.getJob().equals(mechanicPlugin.getJob())) {
 
             return true;
