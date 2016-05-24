@@ -1,11 +1,11 @@
 package lt.ltrp;
 
 import lt.ltrp.command.Commands;
-import lt.ltrp.data.JobData;
+import lt.ltrp.data.PlayerJobData;
+import lt.ltrp.data.Roadblock;
+import lt.ltrp.dialog.RoadblockListDialog;
+import lt.ltrp.modelpreview.RoadblockModelPreview;
 import lt.ltrp.object.Job;
-import lt.ltrp.policeman.Roadblock;
-import lt.ltrp.policeman.dialog.RoadblockListDialog;
-import lt.ltrp.policeman.modelpreview.RoadblockModelPreview;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -34,7 +34,7 @@ public class RoadblockCommands extends Commands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         if(player.isAdmin() || jobData.getJob().equals(job)) {
             return true;
         } else {

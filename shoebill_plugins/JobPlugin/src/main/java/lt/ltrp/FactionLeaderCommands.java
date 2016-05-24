@@ -2,7 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.JobData;
+import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.dialog.JobRankDialog;
 import lt.ltrp.object.Faction;
 import lt.ltrp.object.LtrpPlayer;
@@ -66,7 +66,7 @@ public class FactionLeaderCommands extends Commands {
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
         } else {
-            JobData jobData = JobController.get().getJobData(target);
+            PlayerJobData jobData = JobController.get().getJobData(target);
             if(jobData.getJob() == null || !jobData.getJob().equals(JobController.get().getJobData(player).getJob())) {
                 player.sendErrorMessage(target.getCharName() + " jums nedirba.");
             } else {
@@ -84,8 +84,8 @@ public class FactionLeaderCommands extends Commands {
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
         } else {
-            JobData targetJobData = JobController.get().getJobData(target);
-            JobData playerJobData = JobController.get().getJobData(target);
+            PlayerJobData targetJobData = JobController.get().getJobData(target);
+            PlayerJobData playerJobData = JobController.get().getJobData(target);
             if(targetJobData.getJob() == null || !targetJobData.getJob().equals(playerJobData.getJob())) {
                 player.sendErrorMessage(target.getCharName() + " jums nedirba.");
             } else {

@@ -7,8 +7,10 @@ import lt.ltrp.JobProperty;
 import lt.ltrp.LoadingException;
 import lt.ltrp.dao.JobDao;
 import lt.ltrp.dao.JobVehicleDao;
-import lt.ltrp.data.JobData;
-import lt.ltrp.object.*;
+import lt.ltrp.object.ContractJobRank;
+import lt.ltrp.object.Faction;
+import lt.ltrp.object.Job;
+import lt.ltrp.object.Rank;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
@@ -20,7 +22,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Properties;
+import java.util.TreeSet;
 
 /**
  * @author Bebras
@@ -201,7 +205,7 @@ public abstract class MySqlJobDaoImpl implements JobDao {
             e.printStackTrace();
         }
     }
-*/
+*//*
     @Override
     public Map<String, Rank> getEmployeeList(Job job) {
         Map<String, Rank> ranks = new HashMap<>();
@@ -234,7 +238,7 @@ public abstract class MySqlJobDaoImpl implements JobDao {
         return ranks;
     }
 
-
+*/
     @Override
     public Collection<Rank> getRanks(Job job) throws LoadingException {
         // In this case it is sorted by the number, although this is not guaranteed
@@ -334,25 +338,6 @@ public abstract class MySqlJobDaoImpl implements JobDao {
         return trashMissions;
     }
 */
-    @Override
-    public void update(JobData jobData) {
-
-    }
-
-    @Override
-    public void remove(JobData jobData) {
-
-    }
-
-    @Override
-    public void insert(JobData jobData) {
-
-    }
-
-    @Override
-    public JobData get(LtrpPlayer ltrpPlayer) {
-        return null;
-    }
 
     @Override
     public boolean isValid(int jobId) {

@@ -1,19 +1,14 @@
 package lt.ltrp;
 
 import lt.ltrp.constant.WorldZone;
-import lt.ltrp.dao.JobDao;
 import lt.ltrp.dao.JobVehicleDao;
+import lt.ltrp.dao.PlayerJobDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.JobData;
-import lt.ltrp.drugdealer.DrugDealerManager;
+import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.event.PaydayEvent;
-import lt.ltrp.event.job.PlayerChangeJobEvent;
+import lt.ltrp.event.PlayerChangeJobEvent;
 import lt.ltrp.event.player.PlayerCallNumberEvent;
-import lt.ltrp.mechanic.MechanicManager;
-import lt.ltrp.medic.MedicManager;
 import lt.ltrp.object.*;
-import lt.ltrp.policeman.PolicemanManager;
-import lt.ltrp.trashman.TrashmanManager;
 import lt.ltrp.util.StringUtils;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -86,15 +81,8 @@ public class JobPlugin extends Plugin implements JobController {
     }*/
 
    // private EventManager eventManager = LtrpGamemode.get().getEventManager().createChildNode();
-    private boolean destroyed;
-    private TrashmanManager trashmanManager;
-    private PolicemanManager policemanManager;
-    private MechanicManager mechanicManager;
-    private DrugDealerManager drugDealerManager;
-    private MedicManager medicManager;
-    private JobDao jobDao;
     private EventManagerNode eventManager;
-
+    private PlayerJobDao playerJobDao;
     private Map<LtrpPlayer, Pair<ItemPhone, Integer>> playerEmergencyCalls;
 
     @Override
@@ -117,10 +105,8 @@ public class JobPlugin extends Plugin implements JobController {
         if(missing > 0) {
             eventManager.registerHandler(ResourceEnableEvent.class, e -> {
                 Resource r = e.getResource();
-                logger.debug("R:" + r);
                 if(r instanceof Plugin && dependencies.contains(r.getClass())) {
                     dependencies.remove(r.getClass());
-                    logger.debug("Removing r");
                     if(dependencies.size() == 0)
                         load();
                 }
@@ -131,17 +117,9 @@ public class JobPlugin extends Plugin implements JobController {
     
     private void load() {
         eventManager.cancelAll();
-
-        /*
-        trashmanManager = new TrashmanManager(eventManager, JobId.TrashMan.id);
-        policemanManager = new PolicemanManager(eventManager, JobId.Officer.id);
-        mechanicManager = new MechanicManager(eventManager, JobId.Mechanic.id);
-        drugDealerManager = new DrugDealerManager(eventManager, JobId.DrugDealer.id);
-        medicManager = new MedicManager(eventManager, JobId.Medic.id);
-         */
-
         addEventHandlers();
         addCommands();
+        logger.info(getDescription().getName() + " loaded");
     }
 
     private void addCommands() {
@@ -263,6 +241,8 @@ public class JobPlugin extends Plugin implements JobController {
             if(playerEmergencyCalls.containsKey(player)) {
                 WorldZone zone = WorldZone.get(player.getLocation());
                 int phonenumber = playerEmergencyCalls.get(player).getLeft().getPhonenumber();
+                Job medicJob = Job.get(JobId.Medic.id);
+                Job officerJob = Job.get(JobId.Officer.id);
                 switch(playerEmergencyCalls.get(player).getRight()) {
                     case 0:
                         if(StringUtils.equalsIgnoreLtCharsAndCase(text, "medikais")) {
@@ -284,31 +264,31 @@ public class JobPlugin extends Plugin implements JobController {
                     case 1:
                         player.sendMessage(Color.WHITE, "LOS SANTOS LIGONINË: Jûsø praneðimas uþfiksuotas ir praneðtas mûsø medikams.");
                         player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti, medikai jau atvyksta");
-                        MedicFaction.get().sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
-                        MedicFaction.get().sendMessage(Color.WHITE, "| ávyki praneðë | " + phonenumber + ", nustatyta vieta: " + zone.getName());
-                        MedicFaction.get().sendMessage(Color.WHITE, "| ávykio praneðimas | " + text);
+                        medicJob.sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
+                        medicJob.sendMessage(Color.WHITE, "| ávyki praneðë | " + phonenumber + ", nustatyta vieta: " + zone.getName());
+                        medicJob.sendMessage(Color.WHITE, "| ávykio praneðimas | " + text);
                         player.setSpecialAction(SpecialAction.NONE);
                         playerEmergencyCalls.remove(player);
                         break;
                     case 2:
                         player.sendMessage(Color.WHITE, "LOS SANTOS POLICIJOS DEPARTAMENTAS: Jûsø praneðimas uþfiksuotas ir praneðtas pareigûnams.");
                         player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie incidentà, pasistengsime Jums padëti.");
-                        PoliceFaction.get().sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
-                        PoliceFaction.get().sendMessage(Color.POLICE, "| ávykis: " + text);
+                        officerJob.sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
+                        officerJob.sendMessage(Color.POLICE, "| ávykis: " + text);
                         player.setSpecialAction(SpecialAction.NONE);
                         playerEmergencyCalls.remove(player);
                         break;
                     case 3:
                         player.sendMessage(Color.WHITE, "LOS SANTOS pagalbos linija Jûsø ávykis buvo praneðtas visiems departamentams.");
                         player.sendMessage(Color.LIGHTGREY, "Aèiø Jums, kad praneðëte apie insidentà, pasistengsime Jums padëti.");
-                        MedicFaction.get().sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
-                        PoliceFaction.get().sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
+                        medicJob.sendMessage(Color.WHITE, "|________________Gautas praneðimas apie ávyki________________|");
+                        officerJob.sendMessage(Color.POLICE, "|________________Gautas praneðimas apie ávyki________________|");
                         String s = String.format("| ávyki praneðë | %d, nustatyta vieta: %s", phonenumber, zone.getName());
-                        MedicFaction.get().sendMessage(Color.WHITE, s);
-                        PoliceFaction.get().sendMessage(Color.POLICE, s);
+                        medicJob.sendMessage(Color.WHITE, s);
+                        officerJob.sendMessage(Color.POLICE, s);
                         s = String.format("| ávykio praneðimas | %s", text);
-                        MedicFaction.get().sendMessage(Color.WHITE, s);
-                        PoliceFaction.get().sendMessage(Color.POLICE, s);
+                        medicJob.sendMessage(Color.WHITE, s);
+                        officerJob.sendMessage(Color.POLICE, s);
                         player.setSpecialAction(SpecialAction.NONE);
                         playerEmergencyCalls.remove(player);
                         break;
@@ -318,17 +298,17 @@ public class JobPlugin extends Plugin implements JobController {
 
         eventManager.registerHandler(PaydayEvent.class, e -> {
             LtrpPlayer.get().forEach(p -> {
-                JobData jobData = getJobData(p);
-                jobData.addHours(1);
-                if(jobData instanceof ContractJob) {
-                    if(jobData.getRemainingContract() > 0)
-                        jobData.setRemainingContract(jobData.getRemainingContract() - 1);
-                    if(jobData.getJobRank() instanceof ContractJobRank) {
-                        ContractJobRank nextRank = (ContractJobRank) jobData.getJob().getRank(jobData.getJobRank().getNumber() + 1);
+                PlayerJobData PlayerJobData = getJobData(p);
+                PlayerJobData.addHours(1);
+                if(PlayerJobData instanceof ContractJob) {
+                    if(PlayerJobData.getRemainingContract() > 0)
+                        PlayerJobData.setRemainingContract(PlayerJobData.getRemainingContract() - 1);
+                    if(PlayerJobData.getJobRank() instanceof ContractJobRank) {
+                        ContractJobRank nextRank = (ContractJobRank) PlayerJobData.getJob().getRank(PlayerJobData.getJobRank().getNumber() + 1);
                         // If the user doesn't have the highest rank yet
                         if (nextRank != null) {
-                            if (nextRank.getXpNeeded() <= jobData.getXp()) {
-                                jobData.setJobRank(nextRank);
+                            if (nextRank.getXpNeeded() <= PlayerJobData.getXp()) {
+                                PlayerJobData.setJobRank(nextRank);
                                 p.sendGameText(1, 1000, "Naujas rangas: " + StringUtils.replaceLtChars(nextRank.getName()));
                             }
                         }
@@ -380,22 +360,22 @@ public class JobPlugin extends Plugin implements JobController {
 
     @Override
     public Job getJob(LtrpPlayer ltrpPlayer) {
-        JobData data = getJobData(ltrpPlayer);
+        PlayerJobData data = getJobData(ltrpPlayer);
         return data != null ? data.getJob() : null;
     }
 
     @Override
     public Faction getFaction(LtrpPlayer ltrpPlayer) {
-        JobData data = getJobData(ltrpPlayer);
+        PlayerJobData data = getJobData(ltrpPlayer);
         return data != null && data.getJob() instanceof Faction ? (Faction)data.getJob() : null;
     }
 
     @Override
     public ContractJob getContractJob(LtrpPlayer ltrpPlayer) {
-        JobData data = getJobData(ltrpPlayer);
+        PlayerJobData data = getJobData(ltrpPlayer);
         return data != null && data.getJob() instanceof ContractJob ? (ContractJob)data.getJob() : null;
     }
-
+    
     @Override
     public void setJob(LtrpPlayer player, Job job) {
         setJob(player, job, job.getRanks().stream().min((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber())).get());
@@ -404,23 +384,23 @@ public class JobPlugin extends Plugin implements JobController {
     @Override
     public void setJob(LtrpPlayer player, Job job, Rank rank) {
         Job oldJob = getJob(player);
-        JobData jobData = new JobData(player, job, rank);
+        PlayerJobData PlayerJobData = new PlayerJobData(player, job, rank);
         if(oldJob == null) {
-            jobDao.insert(jobData);
+            playerJobDao.insert(PlayerJobData);
         } else if(job == null) {
-            jobDao.remove(jobData);
+            playerJobDao.remove(PlayerJobData);
         } else {
-            jobDao.update(jobData);
+            playerJobDao.update(PlayerJobData);
         }
         eventManager.dispatchEvent(new PlayerChangeJobEvent(player, oldJob, job));
     }
 
     @Override
     public void setRank(LtrpPlayer ltrpPlayer, Rank rank) {
-        JobData data = getJobData(ltrpPlayer);
+        PlayerJobData data = getJobData(ltrpPlayer);
         if(data != null) {
             data.setJobRank(rank);
-            jobDao.update(data);
+            playerJobDao.update(data);
         }
     }
 
@@ -430,8 +410,8 @@ public class JobPlugin extends Plugin implements JobController {
     }
 
     @Override
-    public JobDao getDao() {
-        return jobDao;
+    public PlayerJobDao getDao() {
+        return playerJobDao;
     }
 
     @Override
@@ -450,9 +430,9 @@ public class JobPlugin extends Plugin implements JobController {
     }
 
     @Override
-    public JobData getJobData(LtrpPlayer player) {
+    public PlayerJobData getJobData(LtrpPlayer player) {
         // TODO caching MAY be implemented here, if needed
-        return jobDao.get(player);
+        return playerJobDao.get(player);
     }
 
     private void addTypeParsers() {
@@ -465,14 +445,10 @@ public class JobPlugin extends Plugin implements JobController {
 
 
 
+
     @Override
     protected void onDisable() throws Throwable {
-        destroyed = true;
-        trashmanManager.destroy();
-        policemanManager.destroy();
-        mechanicManager.destroy();
-        drugDealerManager.destroy();
-        medicManager.destroy();
+
     }
 
 

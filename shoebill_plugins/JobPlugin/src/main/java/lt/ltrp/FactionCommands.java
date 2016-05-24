@@ -2,11 +2,11 @@ package lt.ltrp;
 
 import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.JobData;
+import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.object.Faction;
 import lt.ltrp.object.Job;
-import lt.ltrp.object.Rank;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.Rank;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.object.Player;
@@ -29,7 +29,7 @@ public class FactionCommands extends Commands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         Job job = jobData.getJob();
         if(job != null && job instanceof Faction) {
             return true;
