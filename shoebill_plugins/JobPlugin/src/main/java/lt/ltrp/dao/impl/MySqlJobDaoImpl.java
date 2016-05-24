@@ -102,15 +102,24 @@ public abstract class MySqlJobDaoImpl implements JobDao {
                                 f.setInt(job, Integer.parseInt(properties.getProperty(name)));
                             } else if(f.getType().getName().equals("float")) {
                                 f.setFloat(job, Float.parseFloat(properties.getProperty(name)));
+                            } else if(f.getType().equals(Location.class)) {
+                                Location location = new Location(Float.parseFloat(properties.getProperty(name + "_x")),
+                                        Float.parseFloat(properties.getProperty(name + "_Y")),
+                                        Float.parseFloat(properties.getProperty(name + "_z")),
+                                        Integer.parseInt(properties.getProperty(name + "_interior")),
+                                        Integer.parseInt(properties.getProperty(name + "_world")));
+                                f.set(job, location);
                             } else {
                                 f.set(job, properties.getProperty(name));
                             }
-
                         } catch(IllegalAccessException e) {
                             throw new LoadingException("Could not access field " + f.getName() + " from " + job.getClass(), e);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
                         }
                     } else {
-                        throw new LoadingException("Missing property " + name + " from " + job.getClass());
+                        logger.warn("Job "+  job.getUUID() + " (" + job.getName() + ") property " + name + " missing.");
+                        //throw new LoadingException("Missing property " + name + " from " + job.getClass());
                     }
                 }
             }
