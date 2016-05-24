@@ -1,21 +1,20 @@
 package lt.ltrp.command;
 
-import lt.ltrp.command.Commands;
+import lt.ltrp.JobController;
+import lt.ltrp.VehicleController;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.NamedLocation;
-import lt.ltrp.JobController;
-import lt.ltrp.data.JobData;
-import lt.ltrp.object.VehicleThiefJob;
+import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.VehicleController;
 import lt.ltrp.object.PlayerVehicle;
+import lt.ltrp.object.VehicleThiefJob;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Timer;
 
-import java.lang.String;import java.util.HashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -35,7 +34,7 @@ public class VehicleThiefCommands extends Commands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         if(jobData.getJob().equals(job)) {
             return true;
         } else
@@ -47,7 +46,7 @@ public class VehicleThiefCommands extends Commands {
     @Command
     public boolean sellCar(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         if(!playerVehicleSellDelay.containsKey(player)) {
             if(player.getVehicle() != null) {
                 PlayerVehicle vehicle = PlayerVehicle.getByVehicle(player.getVehicle());
