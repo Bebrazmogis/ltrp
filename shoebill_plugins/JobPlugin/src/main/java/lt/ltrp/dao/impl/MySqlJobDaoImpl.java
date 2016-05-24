@@ -100,7 +100,8 @@ public abstract class MySqlJobDaoImpl implements JobDao {
                 if(f.isAnnotationPresent(JobProperty.class)) {
                     JobProperty jobProperty = f.getAnnotation(JobProperty.class);
                     String name = jobProperty.value();
-                    if(properties.containsKey(name)) {
+                    // || dirty fix to allow specifying only the prefix
+                    if(properties.containsKey(name) || properties.stringPropertyNames().stream().filter(s -> s.startsWith(name + "_")).findFirst().isPresent()) {
                         try {
                             if(f.getType().getName().equals("int")) {
                                 f.setInt(job, Integer.parseInt(properties.getProperty(name)));

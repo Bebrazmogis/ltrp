@@ -1,4 +1,4 @@
-class: lt.ltrp.JobManager
+class: lt.ltrp.JobPlugin
 name: Job Plugin
 version: 1.0-SNAPSHOT
 buildNumber: 0
