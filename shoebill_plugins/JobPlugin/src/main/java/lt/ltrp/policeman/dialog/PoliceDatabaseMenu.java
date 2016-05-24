@@ -1,15 +1,11 @@
 package lt.ltrp.policeman.dialog;
 
 import lt.ltrp.DatabasePlugin;
-import lt.ltrp.data.Color;
-import lt.ltrp.dialog.dialogmenu.PlayerDialogMenu;
 import lt.ltrp.JobController;
-import lt.ltrp.data.JobData;
-import lt.ltrp.data.JailData;
-import lt.ltrp.data.PlayerCrime;
-import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.VehicleController;
-import lt.ltrp.data.VehicleCrime;
+import lt.ltrp.data.*;
+import lt.ltrp.dialog.dialogmenu.PlayerDialogMenu;
+import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.dialog.*;
 import net.gtaun.util.event.EventManager;
@@ -142,7 +138,7 @@ public class PoliceDatabaseMenu extends PlayerDialogMenu {
                             JailData data = prisoners.get(prisonerName);
                             TabListDialogItem prisonerDialogItem = new TabListDialogItem();
                             prisonerDialogItem.setItemText(String.format("%s\t%d\t%s",
-                                    prisonerName, data.getTime() / 60, data.getJailer()));
+                                    prisonerName, data.getRemainingTime() / 60, data.getJailer()));
                         }
                         prisonerListDialog.show();
                     }
@@ -209,7 +205,8 @@ public class PoliceDatabaseMenu extends PlayerDialogMenu {
                                                     jobData.getJob().sendMessage(Color.POLICE, String.format("[LSPD] Tr. priemonë, kurios valstybiniai numeriai %s buvo átrauka pareigûno %s á áskaita.", suspectPlate, player.getName()));
                                                     jobData.getJob().sendMessage(Color.POLICE, "[LSPD] Nurodyta áskaitos prieþastis: " +  suspectReason);
                                                     item.getCurrentDialog().show();
-                                                    VehicleController.get().getDao().insertCrime(new VehicleCrime(suspectPlate, player.getCharName(), suspectReason, 0));
+                                                    // TODO
+                                                    //VehicleController.get().getDao().insertCrime(new VehicleCrime(suspectPlate, player.getCharName(), suspectReason, 0));
                                                 } else {
                                                     player.sendErrorMessage("Netinkama prieþastis");
                                                     suspectDialog2.show();
@@ -325,7 +322,7 @@ public class PoliceDatabaseMenu extends PlayerDialogMenu {
             ResultSet result = stmt.executeQuery();
             while(result.next()) {
                 String username = result.getString("username");
-                JailData data = new JailData(result.getInt("id"), null, JailData.JailType.InCharacter, result.getInt("remaining_time"), result.getString("jailer_name"));
+                JailData data = new JailData(result.getInt("id"), null, JailData.JailType.InCharacter, result.getInt("remaining_time"), result.getInt("total_time"), result.getInt("jailer_name"), result.getDate("date"));
                 prisoners.put(username, data);
             }
         } catch(SQLException e) {

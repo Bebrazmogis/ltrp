@@ -2,7 +2,6 @@ package lt.ltrp.drugdealer;
 
 import lt.ltrp.AbstractJobManager;
 import lt.ltrp.LoadingException;
-import lt.ltrp.JobController;
 import lt.ltrp.object.DrugDealerJob;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.util.event.EventManager;
@@ -22,7 +21,7 @@ public class DrugDealerManager extends AbstractJobManager {
         super(eventManager);
         this.id = id;
 
-        this.job = JobController.get().getDao().getDrugDealerJob(id);
+        //this.job = JobController.get().getDao().getDrugDealerJob(id);
 
         this.playerCommandManager = new PlayerCommandManager(eventManagerNode);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);

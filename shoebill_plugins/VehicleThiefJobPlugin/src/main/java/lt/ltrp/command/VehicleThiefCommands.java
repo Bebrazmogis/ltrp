@@ -1,4 +1,4 @@
-package lt.ltrp.vehiclethief;
+package lt.ltrp.command;
 
 import lt.ltrp.command.Commands;
 import lt.ltrp.data.Color;
@@ -15,7 +15,7 @@ import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Timer;
 
-import java.util.HashMap;
+import java.lang.String;import java.util.HashMap;
 import java.util.Map;
 
 /**

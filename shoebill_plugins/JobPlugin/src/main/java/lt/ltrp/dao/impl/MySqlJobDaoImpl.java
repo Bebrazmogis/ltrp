@@ -1,19 +1,14 @@
 package lt.ltrp.dao.impl;
 
 
+import lt.ltrp.ContractJobRankImpl;
 import lt.ltrp.FactionRankImpl;
 import lt.ltrp.JobProperty;
 import lt.ltrp.LoadingException;
-import lt.ltrp.ContractJobRankImpl;
 import lt.ltrp.dao.JobDao;
+import lt.ltrp.dao.JobVehicleDao;
 import lt.ltrp.data.JobData;
-import lt.ltrp.data.TrashMission;
-import lt.ltrp.data.TrashMissions;
 import lt.ltrp.object.*;
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.VehicleController;
-import lt.ltrp.dao.VehicleDao;
-import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
@@ -31,22 +26,35 @@ import java.util.*;
  * @author Bebras
  *         2016.03.01.
  */
-public class MySqlJobDaoImpl implements JobDao {
+public abstract class MySqlJobDaoImpl implements JobDao {
 
     private static final Logger logger = LoggerFactory.getLogger(MySqlJobDaoImpl.class);
 
     private DataSource dataSource;
-    private VehicleDao vehicleDao;
     private EventManager eventManager;
+    private JobVehicleDao jobVehicleDao;
 
 
-    public MySqlJobDaoImpl(DataSource dataSource, EventManager eventManager) {
+    public MySqlJobDaoImpl(DataSource dataSource, JobVehicleDao jobVehicleDao, EventManager eventManager) {
         this.dataSource = dataSource;
-        this.vehicleDao = VehicleController.get().getDao();
         this.eventManager = eventManager;
+        if(jobVehicleDao == null) {
+            this.jobVehicleDao = new MySqlJobVehicleDao(dataSource, eventManager);
+        }
+        else {
+            this.jobVehicleDao = jobVehicleDao;
+        }
     }
 
-    private void loadJob(Job job) throws LoadingException {
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
+    }
+
+    protected void load(Job job) throws LoadingException {
         String sql = "SELECT " +
                 "jobs.*, " +
                 "job_properties.key, job_properties.value, " +
@@ -66,7 +74,7 @@ public class MySqlJobDaoImpl implements JobDao {
                 job.setName(result.getString("name"));
                 job.setLocation(new Location(result.getFloat("x"), result.getFloat("y"), result.getFloat("z"), result.getInt("interior"), result.getInt("virtual_world")));
                 job.setBasePaycheck(result.getInt("paycheck"));
-                job.setVehicles(getVehicles(job));
+                job.setVehicles(jobVehicleDao.get(job));
                 job.setRanks(getRanks(job));
                 String key = result.getString("key"),
                         value = result.getString("value");
@@ -111,7 +119,7 @@ public class MySqlJobDaoImpl implements JobDao {
         }
     }
 
-    @Override
+    /*@Override
     public DrugDealerJob getDrugDealerJob(int id) throws LoadingException {
         DrugDealerJob job = new DrugDealerJobImpl(id, eventManager);
         loadJob(job);
@@ -145,14 +153,16 @@ public class MySqlJobDaoImpl implements JobDao {
         loadJob(job);
         return job;
     }
-
+    */
+/*
     @Override
     public VehicleThiefJob getVehicleThiefJob(int id) throws LoadingException {
         VehicleThiefJob job = new VehicleThiefJobImpl(id, eventManager);
         loadJob(job);
         return job;
-    }
+    }*/
 
+    /*
     @Override
     public void addLeader(Faction faction, int userid) {
         String sql = "INSERT INTO job_leaders (job_id, player_id) VALUES (?, ?) ";
@@ -182,7 +192,7 @@ public class MySqlJobDaoImpl implements JobDao {
             e.printStackTrace();
         }
     }
-
+*/
     @Override
     public Map<String, Rank> getEmployeeList(Job job) {
         Map<String, Rank> ranks = new HashMap<>();
@@ -215,101 +225,6 @@ public class MySqlJobDaoImpl implements JobDao {
         return ranks;
     }
 
-    @Override
-    public Collection<JobVehicle> getVehicles(Job job) throws LoadingException{
-        String sql = "SELECT vehicles.*, job_ranks.id AS rank_id, job_ranks.name, job_ranks.salary, job_ranks_contract.xp_needed FROM job_vehicles " +
-                "LEFT JOIN vehicles ON vehicles.id = job_vehicles.id " +
-                "LEFT JOIN job_ranks ON job_ranks.id = job_vehicles.rank_id " +
-                "LEFT JOIN job_ranks_contract ON job_ranks.id = job_ranks_contract.id " +
-                "WHERE job_vehicles.job_id = ?";
-        Collection<JobVehicle> vehicles = new ArrayList<>();
-        try (
-                Connection con = dataSource.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, job.getUUID());
-            ResultSet result = stmt.executeQuery();
-            while(result.next()) {
-                Rank rank;
-                if(job instanceof ContractJob)
-                    rank = new ContractJobRankImpl(result.getInt("rank_id"), result.getInt("hours_needed"), result.getString("name"), result.getInt("salary"));
-                else
-                    rank = new FactionRankImpl(result.getInt("rank_id"), result.getString("name"), result.getInt("salary"));
-                JobVehicle vehicle = JobVehicle.create(
-                        result.getInt("id"),
-                        job,
-                        result.getInt("model"),
-                        new AngledLocation(result.getFloat("x"),
-                                result.getFloat("y"),
-                                result.getFloat("z"),
-                                result.getInt("interior"),
-                                result.getInt("virtual_world"),
-                                result.getFloat("angle")
-                        ),
-                        result.getInt("color1"),
-                        result.getInt("color2"),
-                        rank,
-                        result.getString("license"),
-                        result.getFloat("mileage")
-                );
-                vehicles.add(vehicle);
-            }
-        } catch(SQLException e) {
-            throw new LoadingException("Could not job " + job.getUUID() + " vehicles", e);
-        }
-        return vehicles;
-    }
-
-    @Override
-    public void insertVehicle(JobVehicle vehicle) {
-        String jobVehicleSql = "INSERT INTO job_vehicles (id, job_id, rank_id) VALUES (?, ?, ?)";
-        try (
-                Connection con = dataSource.getConnection();
-                PreparedStatement jobVehicleStmt = con.prepareStatement(jobVehicleSql);
-        ) {
-            vehicleDao.insert(vehicle);
-            jobVehicleStmt.setInt(1, vehicle.getUUID());
-            jobVehicleStmt.setInt(2, vehicle.getJob().getUUID());
-            jobVehicleStmt.setInt(3, vehicle.getRequiredRank().getNumber());
-            jobVehicleStmt.execute();
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void removeVehicle(JobVehicle vehicle) {
-        vehicleDao.delete(vehicle);
-       /* String sql = "DELETE FROM vehicles WHERE id = ?";
-        try (
-                Connection con = dataSource.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql)
-        ) {
-            stmt.setInt(1, vehicle.getUniqueId());
-            stmt.execute();
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }*/
-    }
-
-    @Override
-    public void updateVehicle(JobVehicle vehicle) {
-        String jobVehicleSql = "UPDATE job_vehicles SET job_id = ?, rank_id = ? WHERE id = ?";
-         try (
-                Connection con = dataSource.getConnection();
-
-                PreparedStatement jobVehicleStmt = con.prepareStatement(jobVehicleSql);
-        ) {
-             vehicleDao.update(vehicle);
-             jobVehicleStmt.setInt(1, vehicle.getJob().getUUID());
-             jobVehicleStmt.setInt(2, vehicle.getRequiredRank().getNumber());
-             jobVehicleStmt.setInt(3, vehicle.getUUID());
-             jobVehicleStmt.execute();
-
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public Collection<Rank> getRanks(Job job) throws LoadingException {
@@ -383,7 +298,7 @@ public class MySqlJobDaoImpl implements JobDao {
             e.printStackTrace();
         }
     }
-
+/*
     @Override
     public TrashMissions getTrashMissions() {
         TrashMissions trashMissions = new TrashMissions();
@@ -409,7 +324,7 @@ public class MySqlJobDaoImpl implements JobDao {
         }
         return trashMissions;
     }
-
+*/
     @Override
     public void update(JobData jobData) {
 
@@ -428,6 +343,29 @@ public class MySqlJobDaoImpl implements JobDao {
     @Override
     public JobData get(LtrpPlayer ltrpPlayer) {
         return null;
+    }
+
+    @Override
+    public boolean isValid(int jobId) {
+        String sql = "SELECT id FROM jobs WHERE id = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, jobId);
+            ResultSet r = stmt.executeQuery();
+            if(r.next()) {
+                return true;
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public void update(Job job) {
+
     }
 
 }

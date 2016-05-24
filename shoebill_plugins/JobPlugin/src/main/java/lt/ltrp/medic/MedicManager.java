@@ -3,10 +3,9 @@ package lt.ltrp.medic;
 
 import lt.ltrp.AbstractJobManager;
 import lt.ltrp.LoadingException;
-import lt.ltrp.JobController;
 import lt.ltrp.RoadblockCommands;
-import lt.ltrp.object.MedicFaction;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.MedicFaction;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.util.event.EventManager;
@@ -29,7 +28,7 @@ public class MedicManager extends AbstractJobManager {
     public MedicManager(EventManager eventManager, int id) throws LoadingException {
         super(eventManager);
         this.medicsOnDuty = new ArrayList<>();
-        this.job = JobController.get().getDao().getMedicJob(id);
+       // this.job = JobController.get().getDao().getMedicJob(id);
 
         this.eventManagerNode.registerHandler(PlayerDisconnectEvent.class, e -> {
             LtrpPlayer p = LtrpPlayer.get(e.getPlayer());

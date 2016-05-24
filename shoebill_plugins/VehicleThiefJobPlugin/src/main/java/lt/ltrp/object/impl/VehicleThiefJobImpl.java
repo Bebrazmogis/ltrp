@@ -1,11 +1,11 @@
-package lt.ltrp.object;
+package lt.ltrp.object.impl;
 
 import lt.ltrp.AbstractContractJob;
 import lt.ltrp.data.NamedLocation;
-import net.gtaun.shoebill.data.Location;
+import lt.ltrp.object.LtrpVehicle;import lt.ltrp.object.PlayerVehicle;import lt.ltrp.object.VehicleThiefJob;import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
-import java.util.*;
+import java.lang.Integer;import java.lang.String;import java.lang.System;import java.util.*;import java.util.ArrayList;import java.util.HashMap;import java.util.List;import java.util.Map;import java.util.Random;
 
 /**
  * @author Bebras
@@ -27,7 +27,6 @@ public class VehicleThiefJobImpl extends AbstractContractJob implements VehicleT
         super(id, name, location, basePaycheck, eventManager, contractLength, maxPaycheck, minPaycheck);
         this.vehicleBuyPoints = new HashMap<>();
         this.random = new Random();
-        Instance.instance = this;
     }
 
     public void addBuyPoint(NamedLocation location, int model) {

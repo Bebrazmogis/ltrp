@@ -2,14 +2,13 @@ package lt.ltrp.mechanic;
 
 import lt.ltrp.AbstractJobManager;
 import lt.ltrp.LoadingException;
-import lt.ltrp.JobController;
+import lt.ltrp.event.vehicle.VehicleEngineStartEvent;
 import lt.ltrp.mechanic.event.PlayerLeaveRepairArea;
 import lt.ltrp.mechanic.event.RepairSessionEndEvent;
 import lt.ltrp.mechanic.session.AbstractRepairSession;
-import lt.ltrp.object.MechanicJob;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.event.vehicle.VehicleEngineStartEvent;
 import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.object.MechanicJob;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.object.Timer;
@@ -63,7 +62,7 @@ public class MechanicManager extends AbstractJobManager {
         this.playerTargetOffers = new HashMap<>();
         this.offerTimers = new HashMap<>();
 
-        this.job = JobController.get().getDao().getMechanicJob(id);
+        //this.job = JobController.get().getDao().getMechanicJob(id);
 
         CommandGroup group = new CommandGroup();
         group.registerCommands(new MechanicAcceptCommands(eventManagerNode));

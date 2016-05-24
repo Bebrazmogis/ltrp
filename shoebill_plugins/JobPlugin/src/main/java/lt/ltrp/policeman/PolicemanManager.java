@@ -2,13 +2,10 @@ package lt.ltrp.policeman;
 
 import lt.ltrp.AbstractJobManager;
 import lt.ltrp.LoadingException;
-
-import lt.ltrp.JobController;
 import lt.ltrp.RoadblockCommands;
-import lt.ltrp.object.Job;
 import lt.ltrp.object.JobVehicle;
-import lt.ltrp.object.PoliceFaction;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.PoliceFaction;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -41,7 +38,7 @@ public class PolicemanManager extends AbstractJobManager {
         this.dragTimers = new HashMap<>();
         this.playersOnDuty = new ArrayList<>();
 
-        this.job = JobController.get().getDao().getOfficerJob(id);
+        //this.job = JobController.get().getDao().getOfficerJob(id);
 
         commandManager = new PlayerCommandManager(eventManager);
 

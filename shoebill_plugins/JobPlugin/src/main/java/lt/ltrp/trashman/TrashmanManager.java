@@ -48,8 +48,8 @@ public class TrashmanManager extends AbstractJobManager {
     public TrashmanManager(EventManager eventManager, int id) throws LoadingException {
         super(eventManager);
         JobDao jobDao = JobController.get().getDao();
-        job = jobDao.getTrashmanJob(id);
-        this.trashMissions = jobDao.getTrashMissions();
+        //job = jobDao.getTrashmanJob(id);
+        //this.trashMissions = jobDao.getTrashMissions();
         this.playerTrashMissions = new HashMap<>();
         this.vehicleTrashCounts = new HashMap<>();
         this.commandManager = new PlayerCommandManager(eventManagerNode);
