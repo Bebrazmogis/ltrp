@@ -1,6 +1,7 @@
 package lt.ltrp;
 
 
+import lt.ltrp.dao.PlayerVehicleDao;
 import lt.ltrp.dao.VehicleDao;
 import lt.ltrp.data.FuelTank;
 import lt.ltrp.data.VehicleLock;
@@ -40,6 +41,7 @@ public interface VehicleController {
     }
 
     VehicleDao getDao();
+    PlayerVehicleDao getPlayerVehicleDao();
 
     class Instance
     {

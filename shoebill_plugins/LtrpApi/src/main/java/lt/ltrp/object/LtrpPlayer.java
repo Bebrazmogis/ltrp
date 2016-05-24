@@ -178,9 +178,15 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     void setTotalPaycheck(int value);
     void addTotalPaycheck(int amount);
     /**
+     * Current(current paydays) paycheck
+     */
+    void setCurrentPaycheck(int amount);
+    int getCurrentPaycheck();
+    void addCurrentPaycheck(int amount);
+    /**
      * The user may have a contract binding him to a job, this returns the hours left on his contract
      */
-    int getJobContract();
+    //int getJobContract();
 
     /**
      * Paydays a user spent online
@@ -266,6 +272,17 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     LtrpPlayer[] getClosestPlayers(float maxdistance);
     void applyAnimation(Animation animation);
     void applyAnimation(String animlib, String anim, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, int time, boolean forsesync);
+
+    /**
+     *
+     * @param animLib
+     * @param animname
+     * @param speed
+     * @param loop
+     * @param lockX
+     * @param lockY
+     * @param freeze
+     */
     void applyAnimation(String animLib, String animname, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze);
     boolean isAudioConnected();
 
