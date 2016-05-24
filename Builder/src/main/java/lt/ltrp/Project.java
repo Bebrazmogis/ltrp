@@ -41,4 +41,17 @@ public class Project {
     public Path getPath() {
         return path;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Project && groupId.equals(((Project) obj).getGroupId()) && artifactId.equals(((Project) obj).getArtifactId());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 31;
+        hash += 112 * (artifactId != null ? artifactId.hashCode() : 0);
+        hash += 112 * (groupId != null ? groupId.hashCode() : 0);
+        return hash;
+    }
 }

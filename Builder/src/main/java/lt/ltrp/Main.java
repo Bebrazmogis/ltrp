@@ -114,9 +114,10 @@ public class Main {
                         ResourcesModel resources = mapper.readValue(resourcesFile, ResourcesModel.class);
                         String pluginLine = project.getArtifactId() + "-" + project.getVersion();
                         resources.getPlugins().remove(pluginLine);
-                        System.out.println("Building " + project.getType() + " " + project.getGroupId() + ":" + project.getArtifactId() + "...");
+                        System.out.print("Building " + project.getType() + " " + project.getGroupId() + ":" + project.getArtifactId() + "...");
                         try {
-                            buildProject(appPath, project.getPath());
+                            boolean success = buildProject(appPath, project.getPath(), true);
+                            System.out.println("... " + (success ? "success" : "failure"));
                             moveProject(project, appPath);
                             if(!project.getType().equalsIgnoreCase("gm"))
                                 resources.getPlugins().add(pluginLine);
@@ -147,13 +148,16 @@ public class Main {
                     System.out.println("Resources file not found");
                 else {
                     try {
+                        int succeeded = 0, failed = 0;
                         ResourcesModel resources = mapper.readValue(resourcesFile, ResourcesModel.class);
-                        System.out.println("resources:" + resources);
                         resources.getPlugins().clear();
-                        data.getData().forEach(project -> {
-                            System.out.println("Building " + project.getType() + " " + project.getGroupId() + ":" + project.getArtifactId() + "...");
+                        for(Project project : data.getData()) {
+                            System.out.print("Building " + project.getType() + " " + project.getGroupId() + ":" + project.getArtifactId() + "...");
                             try {
-                                buildProject(appPath, project.getPath());
+                                boolean success = buildProject(appPath, project.getPath(), false);
+                                if(success) succeeded++;
+                                else failed++;
+                                System.out.println("... " + (success ? "success" : "failure"));
                                 moveProject(project, appPath);
                                 if(!project.getType().equalsIgnoreCase("gm"))
                                     resources.getPlugins().add(project.getArtifactId() + "-" + project.getVersion());
@@ -164,8 +168,9 @@ public class Main {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                        });
+                        }
                         mapper.writeValue(resourcesFile, resources);
+                        System.out.println("Total: " + data.getData().size() + " Failed:" + failed);
                         System.out.println("Finished building!");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -198,24 +203,34 @@ public class Main {
         }
     }
 
-    private static void buildProject(String appPath, Path pathToPom) throws IOException, InterruptedException {
+    private static boolean buildProject(String appPath, Path pathToPom, boolean printOutput) throws IOException, InterruptedException {
         String cmd = String.format("%s%cbin%cmvn.cmd",
                 System.getenv("M2_HOME"), File.separatorChar, File.separatorChar);
         String params = String.format("-f%s", pathToPom);
         ProcessBuilder builder = new ProcessBuilder(cmd, params, "-e");
-        builder.redirectErrorStream(true);
+        if(printOutput) {
+            builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+            builder.redirectError(ProcessBuilder.Redirect.INHERIT);
+        } else {
+            builder.redirectErrorStream(true);
+        }
         //builder.redirectError(new File(appPath, "builder.err"));
         //builder.redirectOutput(new File(appPath, "builder.out"));
         Process proc = builder.start();
-        MavenOutputReader outputReader = new MavenOutputReader(proc.getInputStream());
-        MavenErrorReader errorReader = new MavenErrorReader(proc.getErrorStream());
-        outputReader.start();
-        errorReader.start();
-        proc.waitFor();
-        outputReader.interrupt();
-        errorReader.interrupt();
-        errorReader.getErrors().forEach(s -> System.out.println("ERROR:" + s));
-        System.out.println("... " + (outputReader.isSuccess() ? "success" : "failure"));
+        int result;
+        if(printOutput)
+            result = proc.waitFor();
+        else {
+            MavenOutputReader outputReader = new MavenOutputReader(proc.getInputStream());
+            MavenErrorReader errorReader = new MavenErrorReader(proc.getErrorStream());
+            outputReader.start();
+            errorReader.start();
+            result = proc.waitFor();
+            outputReader.interrupt();
+            errorReader.interrupt();
+            errorReader.getErrors().forEach(s -> System.out.println("ERROR:" + s));
+        }
+        return result == 0;
     }
 
     private static void moveProject(Project project, String projectRoot) throws IOException, InterruptedException {
