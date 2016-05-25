@@ -829,7 +829,7 @@ new Fire[MAX_FIRE][fires];*/
 
 #include "BugReporting"
 
-#include "Items"
+//#include "Items"
 //#include "Phones"
 
 //#include "FishingSystem"
@@ -842,7 +842,7 @@ new Fire[MAX_FIRE][fires];*/
 //#include "Property\Garages"
 #include "Player\Functions"
 //#include "Player\Inventory"
-#include "Player\Attachments"
+//#include "Player\Attachments"
 //#include "Player\Phone"
 //#include "Vehicles\vPhone"
 //#include "Bank"
@@ -1918,6 +1918,7 @@ stock SavePayDay( idx )
     return string;
 }
 */
+/*
 stock UnPackTrunk(veh,trunkinfo[])
 {
     sscanf( trunkinfo, "p</>dddddddddddddddddddddddddddddddddddddddddddddddd",
@@ -1985,6 +1986,7 @@ stock PackTrunk( vehicleid )
     }
     return string;
 }
+
 stock SaveCar(carid)
 {
     if ( cInfo[ carid ][ cOwner ] == 0 ) return 1;
@@ -2085,7 +2087,7 @@ stock ShowVehicleFines( giveplayerid, playerid )
     ShowPlayerDialog(giveplayerid,168,DIALOG_STYLE_LIST,"Fine list",string,"Detaliau","Atgal");
     return 1;
 }
-
+*/
 stock ShowTrunk( playerid, veh )
 {
     new string[ 1028 ];
@@ -3297,7 +3299,7 @@ stock LoadServer( )
     // Turi bûti PO to kai uþkrautos IR prekës IR industrijos.
     foreach(IndustryIterator, i)
         UpdateIndustryInfo(i);
-    LoadVehicleShops();
+    //LoadVehicleShops();
     return 1;
 }
 public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
@@ -3331,13 +3333,14 @@ public OnPlayerEditAttachedObject( playerid, response, index, modelid, boneid,
     format(string, 128, "%dScaleZ", modelid );
     SetPVarFloat ( playerid, string, fScaleZ );
 
-    if(response == EDIT_RESPONSE_FINAL)
+    /*if(response == EDIT_RESPONSE_FINAL)
     {
         if(IsItemWearable(GetItemIdFromModel(modelid)))
            AddPlayerAttachedItem(playerid,GetItemIdFromModel(modelid),boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
         else 
             SetPlayerAttachedObject(playerid,index,modelid,boneid,fOffsetX,fOffsetY,fOffsetZ,fRotX,fRotY,fRotZ,fScaleX,fScaleY,fScaleZ);
     }
+    */
     return 1;
 }
 /*
@@ -3383,7 +3386,7 @@ public OnGameModeInit()
 	SetTimer("IndustryUpdate", 60*60*1000, true);
 	SetTimer("CargoShipDeparture",CARGOSHIP_DOCKED_INTERVAL, false);
 	ShipInfo[ LastDepartureTimestamp ] = gettime();
-    mysql_tquery(DbHandle, "UPDATE vehicles SET cVehID = 0 WHERE cVehID > 0");
+    //mysql_tquery(DbHandle, "UPDATE vehicles SET cVehID = 0 WHERE cVehID > 0");
 //=============================[ Pagr. Serverio nustatymai ]================================
     ShowPlayerMarkers(0);
     AllowInteriorWeapons(1);
@@ -3429,19 +3432,19 @@ public OnGameModeInit()
     UpdateJacker( 1, 0 );
     UpdateJacker( 2, 2 );*/
     //=============================[ Serverio darbø 3D label ]================================
-    for ( new i = 0; i < MAX_JOBS; i++ )
-    {
-        new mini[ 130 ];
-        format( mini, 126, "{33AA11}%s\n{FFFFFF}Darbo kontraktas: {FFBB00}%d {FFFFFF}atlyginimai\n{FFBB00}/takejob", pJobs[ i ][ Name ], pJobs[ i ][ Contr ] );
-        CreateDynamic3DTextLabel( mini, COLOR_WHITE, pJobs[ i ][ Job_x ], pJobs[ i ][ Job_y ], pJobs[ i ][ Job_z ], 15, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
-    }
-    
-    CreateDynamicCP(748.0026, 257.0667, 27.0859, 2.0, -1, -1, -1, 6.0 );
-    CreateDynamicCP(-279.4338, 2722.4390, 62.4920, 2.0, -1, -1, -1, 6.0 );
-	CreateDynamicCP(1803.4606,-1520.4922,5700.4302, 2.0, -1, -1, -1, 3.0 );
+    //for ( new i = 0; i < MAX_JOBS; i++ )
+    //{
+    //    new mini[ 130 ];
+    //    format( mini, 126, "{33AA11}%s\n{FFFFFF}Darbo kontraktas: {FFBB00}%d {FFFFFF}atlyginimai\n{FFBB00}/takejob", pJobs[ i ][ Name ], pJobs[ i ][ Contr ] );
+    //    CreateDynamic3DTextLabel( mini, COLOR_WHITE, pJobs[ i ][ Job_x ], pJobs[ i ][ Job_y ], pJobs[ i ][ Job_z ], 15, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
+    //}
+    //
+    //CreateDynamicCP(748.0026, 257.0667, 27.0859, 2.0, -1, -1, -1, 6.0 );
+    //CreateDynamicCP(-279.4338, 2722.4390, 62.4920, 2.0, -1, -1, -1, 6.0 );
+	//CreateDynamicCP(1803.4606,-1520.4922,5700.4302, 2.0, -1, -1, -1, 3.0 );
     
     //=============================[ Pickup'ai ]================================
-    Pickups[ 1 ] = CreateDynamicPickup(1240, 2, 1810.2020,-1583.3362,5703.9175); // Gyvybiø atsistatymø pickup kalëjime
+   // Pickups[ 1 ] = CreateDynamicPickup(1240, 2, 1810.2020,-1583.3362,5703.9175); // Gyvybiø atsistatymø pickup kalëjime
 
     //------------------------[ 3DTextLabeliai. Uþraðai, áëjimai. ]------------------------------------------
 	//CreateDynamic3DTextLabel("Los Santos License Center\nTeorijos ir praktikos egzaminai\n{FFFFFF}/license",COLOR_NEWS, 1491.0953,1306.8651,1093.2891 ,7.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0);
@@ -3847,7 +3850,7 @@ stock NullPlayerInfo( playerid )
 	VehicleLoadTime[ playerid ] = 0;
 
     IsFillingFuel[ playerid ] = false;
-
+/*
     for(new i = 0; i < sizeof(PlayerWornItems[]); i++)
         PlayerWornItems[ playerid ][ i ] = -1;
 
@@ -3860,7 +3863,7 @@ stock NullPlayerInfo( playerid )
     for(new i = 0; i < 10; i++) 
         if(IsPlayerAttachedObjectSlotUsed(playerid, i))
             RemovePlayerAttachedObject(playerid, i);
-
+*/
     PlayerSpectatedPlayer[ playerid ] = INVALID_PLAYER_ID;
     ShowACTestMsg[ playerid ] = true;
 
@@ -4171,7 +4174,7 @@ public OnVehicleDeath(vehicleid, killerid)
             cInfo[ vehicleid ][ cTuning     ] = 0;
             cInfo[ vehicleid ][ cWheels     ] = 0;
             cInfo[ vehicleid ][ cHidraulik     ] = 0;
-            SaveCar       ( vehicleid );
+            //SaveCar       ( vehicleid );
             DestroyVehicle( vehicleid );
         }
         if(IsPlayerConnected(carowner))
@@ -6686,6 +6689,7 @@ CMD:arrestcar( playerid, params[ ] )
     return 1;
 }
 */
+/*
 stock checkArrestedCar( playerid, car, mode = 1 )
 {
     new string[ 126 ], bool:arrested = false, Cache:result; 
@@ -6725,6 +6729,7 @@ stock checkArrestedCar( playerid, car, mode = 1 )
     cache_delete(result);
     return arrested;
 }
+*/
 /*
 CMD:fopen( playerid, params[ ] )
 {
@@ -8627,7 +8632,7 @@ CMD:bail( playerid, params[ ] )
         Cache:result;
 
     format( string, 256, "SELECT * FROM `tickets` WHERE `name` = '%s' AND `paid` = 0", GetPlayerNameEx(playerid) );
-    result = mysql_query(DbHandle,  string );
+    //result = mysql_query(DbHandle,  string );
     rows = cache_get_row_count();
 
     cache_delete(result);
@@ -10019,6 +10024,7 @@ CMD:addwheels( playerid, params[ ] )
     return 1;
 }
 */
+/*
 CMD:fix( playerid, params[ ] )
 {
     new
@@ -10053,6 +10059,7 @@ CMD:fix( playerid, params[ ] )
     }
     return 1;
 }
+*/
 CMD:anims( playerid, params[ ] )
 {
     SendClientMessage(playerid,COLOR_GREEN,"________________________ Animacijos ________________________");
@@ -11380,6 +11387,7 @@ CMD:kickall( playerid, params [ ] )
     }
     return 1;
 }
+/*
 CMD:kick( playerid, params [ ] )
 {
     new
@@ -11402,6 +11410,7 @@ CMD:kick( playerid, params [ ] )
     }
     return 1;
 }
+*/
 /*
 CMD:reconnectnpc(playerid, params[])
 {
@@ -11433,7 +11442,7 @@ timer NpcReconnectDelay[1000](adminid, npcname[], len)
     SendClientMessage(adminid, COLOR_LIGHTRED, string);
 }*/
 
-
+/*
 CMD:ban( playerid, params [ ] )
 {
     new
@@ -11505,6 +11514,7 @@ CMD:warn( playerid, params [ ] )
     }
     return 1;
 }
+*/
 /*
 CMD:whipe( playerid, params [ ] )
 {
@@ -12216,6 +12226,7 @@ CMD:serverguns( playerid, params [ ] )
     return 1;
 }
 */
+/*
 CMD:checkgun( playerid, params [ ] )
 {
     if( GetPlayerAdminLevel(playerid) >= 3 )
@@ -12461,6 +12472,7 @@ CMD:checkgun( playerid, params [ ] )
     }
     return 1;
 }
+*/
 /*
 CMD:makeleader(playerid, params[])
 {
@@ -12856,6 +12868,7 @@ CMD:masked( playerid, params[ ] )
     }
     return 1;
 }
+/*
 CMD:are( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 1 )
@@ -12912,6 +12925,7 @@ CMD:dre( playerid, params[ ] )
     }
     return 1;
 }
+*/
 CMD:gotonowhere(playerid)
 {
     if(!GetPlayerAdminLevel(playerid) && !IsPlayerAdmin(playerid))
@@ -13035,7 +13049,7 @@ CMD:gotogarage(playerid, params[])
     SendClientMessage(playerid, COLOR_NEWS, string);
     return 1;
 }*/
-
+/*
 CMD:serverstats(playerid)
 {
     if(!IsPlayerAdmin(playerid) && GetPlayerAdminLevel(playerid) < 4)
@@ -13091,7 +13105,7 @@ CMD:serverstats(playerid)
     );
     ShowPlayerDialog(playerid, 9999, DIALOG_STYLE_MSGBOX, "Info", string, "Gerai", "");
     return 1;
-}
+}*/
 
 CMD:setweather( playerid, params[ ] )
 {
@@ -13106,7 +13120,7 @@ CMD:setweather( playerid, params[ ] )
     }
     return 1;
 }
-
+/*
 CMD:dtc( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 2 )
@@ -13144,7 +13158,7 @@ CMD:dtc( playerid, params[ ] )
             SendClientMessage( playerid, COLOR_WHITE, "Jûs turite stovëti/bûti ðalia tr. priemonës norëdami já  atstatyti á pradinà vietà .");
     }
     return 1;
-}
+}*/
 CMD:rtc( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 1 )
@@ -13448,6 +13462,7 @@ CMD:check( playerid, params[ ] )
     }
     return 1;
 }
+/*
 CMD:lockacc( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 1 )
@@ -13469,6 +13484,7 @@ CMD:lockacc( playerid, params[ ] )
     }
     return 1;
 }
+*/
 CMD:setint( playerid, params[ ] )
 {
     if(GetPlayerAdminLevel(playerid) >= 1)
@@ -13827,7 +13843,7 @@ stock GetVehicleDriver(vehicleid)
             return i;
     return INVALID_PLAYER_ID;
 }
-
+/*
 stock GetVehicleOwnerName( id )
 {
     new name[MAX_PLAYER_NAME+1],
@@ -13839,6 +13855,7 @@ stock GetVehicleOwnerName( id )
     cache_delete(result);
     return name;
 }
+*/
 stock AcesToSVehicle( vehicleid, playerid )
 {
     printf("AcesToSVehicle(%d, %d). Player faction:%d Vehicle faction:%d Vehicle Rank:%d",
@@ -15304,6 +15321,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     printf("[debug] OnDialogResponse(%s, %d, %d, %d, %s)", GetName(playerid), dialogid, response, listitem, inputtext);
     new string[4096];
+    /*
     if(dialogid == 5)
     {
         new veh = GetPlayerVehicleID( playerid );
@@ -15339,7 +15357,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         else return 1;
     }
-    else if(dialogid == 6)
+    */
+    if(dialogid == 6)
     {
         if(response == 1)
         {
@@ -15438,6 +15457,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             }
         }
     }
+    /*
     else if(dialogid == DIALOG_VEHICLE_SHOP)
     {
         if(!response)   
@@ -15517,6 +15537,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         SaveAccount( playerid );
         return 1;
     }
+    */
     else if(dialogid == 7)
     {
         if(response == 1)
@@ -16163,6 +16184,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
     }
     */
+    /*
     else if( dialogid == 149 )
     {
         if(!response)
@@ -16185,6 +16207,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         cache_delete(result);
     }
+    */
     /*
     else if ( dialogid == 150 )
     {
@@ -16616,6 +16639,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
     }
     */
+    /*
     else if(dialogid == DIALOG_VEHICLE_SHOPS_LIST)
     {
         if(!response)
@@ -16892,6 +16916,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         SendClientMessage(playerid, COLOR_NEWS, "Turgus sëkmingai sukurtas.");
         return 1;
     }
+    */
     /*
     else if ( dialogid == 67 )
     {
@@ -19185,7 +19210,7 @@ FUNKCIJA:Vote( )
     Votes[ 1 ] = 0;
     return 1;
 }
-
+/*
 stock MySQL_Check_Account( playerid )
 {
     new string[ 90 ],
@@ -19253,7 +19278,7 @@ FUNKCIJA:MySQL_Load_Player(extraid, password[])
     }
     cache_delete(result);
     return true;
-}
+}*/
 
 ShowPlayerLoginDialog(playerid, errorstr[] = "")
 {
@@ -21737,6 +21762,7 @@ stock TimeEnd(playerid,tipas)
                 TogglePlayerControllable(playerid,true);
             return true;
         }
+        /*
         case 2:
         {
             if ( GetPlayerMoney(playerid) < 450 )
@@ -21829,6 +21855,7 @@ stock TimeEnd(playerid,tipas)
             TogglePlayerControllable(playerid,true);
             return true;
         }
+        */
         case 5:
         {
             veh = GetPVarInt( playerid, "CAR_JACK" );
@@ -23041,7 +23068,7 @@ FUNKCIJA:HideInfoText( playerid )
     InfoTextTimer[ playerid ] = -1;
     return 1;
 }
-
+/*
 stock Jail(kas[],playerid,time, kodel[])
 {
     new string[ 216 ],
@@ -23076,6 +23103,7 @@ stock Jail(kas[],playerid,time, kodel[])
     SaveAccount( playerid );
     return 1;
 }
+*/
 stock NearPhone( playerid )
 {
     if( GetPVarInt ( playerid, "NearPhone" ) )
@@ -23322,6 +23350,7 @@ stock PlayerFaction( playerid )
     return 0;
 }
 */
+/*
 stock savePlayerNotes( playerid, slot )
 {
     new string[ 126 ],
@@ -23355,6 +23384,7 @@ stock savePlayerNotes( playerid, slot )
     cache_delete(result);
     return 1;
 }
+*/
 /*
 stock LoadGarbage()
 {
@@ -23516,6 +23546,7 @@ stock LoadCommodities()
 	cache_delete(result);
     printf("Serveryje yra %d parduodamu/perkamu prekiu.",commodityCount);
 }
+/*
 stock LoadVehicleShops()
 {
     new buffer[128], shopCount = 0, ticks = GetTickCount(), Cache:result;
@@ -23613,6 +23644,7 @@ stock loadPlayerNotes( playerid )
     cache_delete(r);
     return 1;
 }
+*/
 stock nullVehicle( vehicleid )
 {
     Engine[ vehicleid ] = false;
