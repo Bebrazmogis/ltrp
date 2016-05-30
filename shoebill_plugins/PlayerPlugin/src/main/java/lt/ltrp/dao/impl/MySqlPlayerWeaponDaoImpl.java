@@ -76,4 +76,20 @@ public class MySqlPlayerWeaponDaoImpl implements PlayerWeaponDao {
         }
         return data.toArray(new LtrpWeaponData[0]);
     }
+
+    @Override
+    public void update(LtrpWeaponData weaponData) {
+        String sql = "UPDATE player_wielded_weapons SET weapon_id = ?, ammo = ? WHERE id = ?";
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, weaponData.getModel().getId());
+            stmt.setInt(2, weaponData.ammo);
+            stmt.setInt(3, weaponData.getUUID());
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

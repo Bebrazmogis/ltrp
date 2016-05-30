@@ -13,5 +13,6 @@ public interface PlayerWeaponDao {
     int insert(LtrpPlayer player, LtrpWeaponData weapon);
     void remove(LtrpWeaponData weaponData);
     LtrpWeaponData[] get(LtrpPlayer player);
+    void update(LtrpWeaponData weaponData);
 
 }
