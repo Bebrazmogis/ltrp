@@ -1,12 +1,8 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.GameTextStyleManager;
-import lt.ltrp.InventoryEntityImpl;
-import lt.ltrp.PenaltyPlugin;
-import lt.ltrp.PlayerControllerImpl;
+import lt.ltrp.*;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.*;
-import lt.ltrp.event.job.PlayerChangeJobEvent;
 import lt.ltrp.event.player.PlayerActionMessageEvent;
 import lt.ltrp.event.player.PlayerStateMessageEvent;
 import lt.ltrp.object.*;
@@ -154,12 +150,13 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     private LtrpWeaponData[] weapons;
     private LtrpVehicle lastUsedVehicle;
     private PlayerCountdown countdown;
-    private Job job;
-    private Rank jobRank;
+    //private Job job;
+    //private Rank jobRank;
     private PlayerInfoBox infoBox;
     private PlayerLicenses licenses;
     private boolean seatbelt, masked, cuffed, isDestroyed;
-    private int jobExperience, jobHours, boxStyle, age, respect, deaths, hunger;
+    //private int jobExperience, jobHours;
+    private int boxStyle, age, respect, deaths, hunger;
     private PlayerSettings settings;
     private EventManager eventManager;
     /**
@@ -193,7 +190,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     /**
      * The user may have a contract binding him to a job, this hold the hours left on his contract
      */
-    private int jobContract;
+    //private int jobContract;
     private AudioHandle audioHandle;
     /**
      * Not necessarily all existing player vehicles, just the ones that are currently loaded( or not spawned)
@@ -281,7 +278,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         }
     }
 
-    public void addJobExperience(int amount) {
+    /*public void addJobExperience(int amount) {
         setJobExperience(getJobExperience() + amount);
     }
 
@@ -297,7 +294,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
                 setJobRank(rank);
             }
         }
-    }
+    }*/
 
     public int getMinutesOnlineSincePayday() {
         return minutesOnlineSincePayday;
@@ -306,7 +303,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public void setMinutesOnlineSincePayday(int minutesOnlineSincePayday) {
         this.minutesOnlineSincePayday = minutesOnlineSincePayday;
     }
-
+/*
     public int getJobContract() {
         return jobContract;
     }
@@ -314,7 +311,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public void setJobContract(int jobContract) {
         this.jobContract = jobContract;
     }
-
+*/
     public int getOnlineHours() {
         return onlineHours;
     }
@@ -346,14 +343,14 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public void setTotalPaycheck(int totalPaycheck) {
         this.totalPaycheck = totalPaycheck;
     }
-
+/*
     public int getJobHours() {
         return jobHours;
     }
 
     public void setJobHours(int jobHours) {
         this.jobHours = jobHours;
-    }
+    }*/
 
 
     public boolean isSeatbelt() {
@@ -441,7 +438,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         });
         infoTextTimer.start();
     }
-
+/*
     public Job getJob() {
         return job;
     }
@@ -458,7 +455,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     public void setJobRank(Rank jobRank) {
         this.jobRank = jobRank;
-    }
+    }*/
 
     public boolean getSeatbelt() {
         return seatbelt;
@@ -474,12 +471,38 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     private void addWeapon(LtrpWeaponData weaponData) {
+        // Alright, first we try to add ammo to an existing weapon
         for(int i = 0; i < weapons.length; i++) {
-            if(weapons[i] == null) {
-                weapons[i] = weaponData;
-                break;
+            // If the weapon models match we add the ammo and the actual weapon
+            if(weapons[i] != null && weapons[i].getModel() == weaponData.getModel()) {
+                weapons[i].ammo += weaponData.ammo;
+                player.giveWeapon(weaponData);
+                // If they are both non-job weapons, we update the storage record
+                if(!weapons[i].isJob() && !weaponData.isJob()) {
+                    new Thread(() -> {
+                        PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().update(weaponData);
+                    }).start();
+                    // If only the new weapon is non-job, we insert a new record
+                } else if(!weaponData.isJob()) {
+                    new Thread(() -> {
+                        PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().insert(this, weaponData);
+                    }).start();
+                }
+                return;
             }
         }
+        // If we couldn't add the weapon to an existent slot, we look for a new one
+        for(int i = 0; i < weapons.length; i++) {
+            if(weapons[i] == null || weapons[i].getAmmo() == 0) {
+                weapons[i] = weaponData;
+                player.giveWeapon(weaponData);
+                new Thread(() -> {
+                    PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().insert(this, weaponData);
+                }).start();
+                return;
+            }
+        }
+        logger.error("Could not add player weapon.");
     }
 
     private void addWeapon(WeaponData weaponData) {
@@ -507,6 +530,9 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     // public method for removing weapons
     public void removeWeapon(LtrpWeaponData weaponData) {
+        new Thread(() -> {
+            PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().remove(weaponData);
+        }).start();
         LtrpWeaponData[] newWeapons = new LtrpWeaponData[13];
         int newWeaponCount = 0;
         for(int i = 0; i < weapons.length; i++) {
@@ -1465,21 +1491,32 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         return (LtrpWeaponData)player.getWeaponData(i);
     }
 
+    public LtrpWeaponData getWeaponData(WeaponModel model) {
+        for(int i = 0; i < weapons.length; i++) {
+            if(weapons[i] != null && weapons[i].model == model) {
+                return weapons[i];
+            }
+        }
+        return null;
+    }
+
     @Override
     public void giveWeapon(WeaponModel weaponModel, int i) {
-        player.giveWeapon(weaponModel, i);
+        // addWeapon will also give the REAL weapon
+        //player.giveWeapon(weaponModel, i);
         addWeapon(weaponModel, i);
     }
 
     public void giveWeapon(LtrpWeaponData weaponData) {
         logger.debug("giveWeapon LtrpWeaponData called. Model:"+ weaponData.getModel() + " ammo:" + weaponData.getAmmo());
-        player.giveWeapon(weaponData);
+        // addWeapon will also give the REAL weapon
+        //player.giveWeapon(weaponData);
         addWeapon(weaponData);
     }
 
     @Override
     public void giveWeapon(WeaponData weaponData) {
-        player.giveWeapon(weaponData);
+        addWeapon(weaponData);
     }
 
     @Override

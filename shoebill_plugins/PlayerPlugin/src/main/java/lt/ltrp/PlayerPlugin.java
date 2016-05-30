@@ -1,6 +1,8 @@
 package lt.ltrp;
 
 import lt.ltrp.dao.PlayerDao;
+import lt.ltrp.dao.PlayerWeaponDao;
+import lt.ltrp.dao.impl.MySqlPlayerWeaponDaoImpl;
 import lt.ltrp.dao.impl.SqlPlayerDaoImpl;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.Shoebill;
@@ -28,6 +30,7 @@ public class PlayerPlugin extends Plugin{
     private PlayerCommandManager playerCommandManager;
     private GameTextStyleManager gameTextStyleManager;
     private EventManagerNode eventManagerNode;
+    private PlayerWeaponDao playerWeaponDao;
 
 
     @Override
@@ -51,6 +54,7 @@ public class PlayerPlugin extends Plugin{
 
     private void load() {
         DataSource dataSource = Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class).getDataSource();
+        this.playerWeaponDao = new MySqlPlayerWeaponDaoImpl(dataSource);
         playerCommandManager = new PlayerCommandManager(eventManagerNode);
         PlayerDao playerDao = new SqlPlayerDaoImpl(dataSource);
         playerController = new PlayerControllerImpl(eventManagerNode, playerDao, playerCommandManager);
@@ -81,4 +85,7 @@ public class PlayerPlugin extends Plugin{
         });
     }
 
+    public PlayerWeaponDao getPlayerWeaponDao() {
+        return playerWeaponDao;
+    }
 }

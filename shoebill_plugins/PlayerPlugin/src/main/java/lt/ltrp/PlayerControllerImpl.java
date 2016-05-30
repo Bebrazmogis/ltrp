@@ -3,10 +3,7 @@ package lt.ltrp;
 
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.PlayerDao;
-import lt.ltrp.data.Animation;
-import lt.ltrp.data.JobData;
-import lt.ltrp.data.PlayerLicenses;
-import lt.ltrp.data.Taxes;
+import lt.ltrp.data.*;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerEditSettingsEvent;
@@ -21,6 +18,7 @@ import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
+import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.constant.WeaponSkill;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Color;
@@ -194,12 +192,12 @@ public class PlayerControllerImpl implements PlayerController {
                int houseTax = (int) House.get().stream().filter(h -> h.getOwner() == p.getUUID()).count() * taxes.getHouseTax();
                int businessTax = (int) Business.get().stream().filter(b -> b.getOwner() == p.getUUID()).count() * taxes.getBusinessTax();
                int garageTax = (int) Garage.get().stream().filter(g -> g.getOwner() == p.getUUID()).count() * taxes.getGarageTax();
-               int vehicleTax = VehicleController.get().getDao().getPlayerVehicleCount(p) * taxes.getVehicleTax();
+               int vehicleTax = VehicleController.get().getPlayerVehicleDao().getPlayerVehicleCount(p) * taxes.getVehicleTax();
 
                if(p.getMinutesOnlineSincePayday() > MINUTES_FOR_PAYDAY) {
                    int paycheck = 0;
 
-                   JobData jobData = JobController.get().getJobData(p);
+                   PlayerJobData jobData = JobController.get().getJobData(p);
                    if (jobData != null) {
                        paycheck = jobData.getJobRank().getSalary();
                    } else {
@@ -234,6 +232,22 @@ public class PlayerControllerImpl implements PlayerController {
            });
         });
 
+        managerNode.registerHandler(PlayerWeaponShotEvent.class, HandlerPriority.HIGHEST, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            WeaponModel weaponModel = e.getWeapon();
+            LtrpWeaponData weaponData = player.getWeaponData(weaponModel);
+            if(weaponData != null) {
+                weaponData.setAmmo(player.getArmedWeaponAmmo());
+            }
+
+            new Thread(() -> {
+                if(weaponData.getAmmo() > 0) {
+                    PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().update(weaponData);
+                } else {
+                    PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().remove(weaponData);
+                }
+            }).start();
+        });
 
         managerNode.registerHandler(PlayerOfferExpireEvent.class, HandlerPriority.BOTTOM, e -> {
             e.getPlayer().getOffers().remove(e.getOffer());
