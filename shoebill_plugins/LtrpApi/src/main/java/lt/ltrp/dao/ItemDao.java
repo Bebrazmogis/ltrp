@@ -3,6 +3,8 @@ package lt.ltrp.dao;
 
 import lt.ltrp.object.InventoryEntity;
 import lt.ltrp.object.Item;
+import lt.ltrp.object.WeaponItem;
+import net.gtaun.shoebill.constant.WeaponModel;
 
 /**
  * @author Bebras
@@ -51,6 +53,21 @@ public interface ItemDao {
      * @return a list of the entities items
      */
     Item[] getItems(InventoryEntity entity);
+
+    /**
+     *
+     * @param locationType location type class
+     * @return Returns all the weapon data
+     */
+    WeaponItem[] getWeaponItems(Class<? extends InventoryEntity> locationType);
+
+    /**
+     * Loads all the weapons with the specified model ID
+     * @param weaponModel model
+     * @param locationType location type class
+     * @return an array of weapon items
+     */
+    WeaponItem[] getWeaponItems(WeaponModel weaponModel, Class<? extends InventoryEntity> locationType);
 }
 
 
