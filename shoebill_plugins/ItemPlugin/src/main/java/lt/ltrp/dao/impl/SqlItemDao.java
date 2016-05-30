@@ -191,12 +191,34 @@ public class SqlItemDao implements ItemDao {
         return null;
     }
 
+    private String getLocationTable(Class<? extends InventoryEntity> locationClass) {
+        if(locationClass.isAssignableFrom(LtrpPlayer.class)) {
+            return "player_items";
+        } else if(locationClass.isAssignableFrom(Property.class)) {
+            return "property_items";
+        } else if(locationClass.isAssignableFrom(LtrpVehicle.class)) {
+            return "vehicle_items";
+        }
+        return null;
+    }
+
     private String getLocationColumn(InventoryEntity entity) {
         if(entity instanceof  LtrpPlayer) {
             return "player_id";
         } else if(entity instanceof Property) {
             return "property_id";
         } else if(entity instanceof LtrpVehicle) {
+            return "vehicle_id";
+        }
+        return null;
+    }
+
+    private String getLocationColumn(Class<? extends InventoryEntity> locationClass) {
+        if(locationClass.isAssignableFrom(LtrpPlayer.class)) {
+            return "player_id";
+        } else if(locationClass.isAssignableFrom(Property.class)) {
+            return "property_id";
+        } else if(locationClass.isAssignableFrom(LtrpVehicle.class)) {
             return "vehicle_id";
         }
         return null;
@@ -539,6 +561,55 @@ public class SqlItemDao implements ItemDao {
             e.printStackTrace();
         }
         Item[] i = new Item[items.size()];
+        items.toArray(i);
+        return i;
+    }
+
+    @Override
+    public WeaponItem[] getWeaponItems(Class<? extends InventoryEntity> aClass) {
+        List<WeaponItem> items = new ArrayList<>();
+        String tablename = getLocationTable(aClass);
+        String sql = "SELECT * FROM " + tablename + " " +
+                "LEFT JOIN items ON items.id = " + tablename + ".item_id " +
+                "LEFT JOIN items_weapon ON items.id = items_weapon.item_id";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            ResultSet r = stmt.executeQuery();
+            while(r.next()) {
+                Item item = getItem(r);
+                items.add((WeaponItem)item);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        WeaponItem[] i = new WeaponItem[items.size()];
+        items.toArray(i);
+        return i;
+    }
+
+    @Override
+    public WeaponItem[] getWeaponItems(WeaponModel weaponModel, Class<? extends InventoryEntity> aClass) {
+        List<WeaponItem> items = new ArrayList<>();
+        String tablename = getLocationTable(aClass);
+        String sql = "SELECT * FROM " + tablename + " " +
+                "LEFT JOIN items ON items.id = " + tablename + ".item_id " +
+                "LEFT JOIN items_weapon ON items.id = items_weapon.item_id WHERE items_weapon.weapon_id = ?";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, weaponModel.getId());
+            ResultSet r = stmt.executeQuery();
+            while(r.next()) {
+                Item item = getItem(r);
+                items.add((WeaponItem)item);
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        WeaponItem[] i = new WeaponItem[items.size()];
         items.toArray(i);
         return i;
     }
