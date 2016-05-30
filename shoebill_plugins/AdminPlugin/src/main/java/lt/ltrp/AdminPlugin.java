@@ -1,11 +1,14 @@
 package lt.ltrp;
 
 import lt.ltrp.command.AdminCommands;
+import lt.ltrp.command.ModeratorCommands;
 import lt.ltrp.command.PlayerReportCommands;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerQuestion;
 import lt.ltrp.data.PlayerReport;
-import lt.ltrp.event.player.*;
+import lt.ltrp.event.player.PlayerDataLoadEvent;
+import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
+import lt.ltrp.event.player.PlayerToggleModDutyEvent;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.util.AdminLog;
 import lt.maze.streamer.object.DynamicLabel;

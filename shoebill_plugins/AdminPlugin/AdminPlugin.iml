@@ -34,5 +34,9 @@
     <orderEntry type="library" name="Maven: lt.ltrp:job:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.0" level="project" />
     <orderEntry type="library" name="Maven: lt.ltrp:vehicle:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:item:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.maze:fader:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.maze:ysf:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.maze:mapandreas:1.0-SNAPSHOT" level="project" />
   </component>
 </module>

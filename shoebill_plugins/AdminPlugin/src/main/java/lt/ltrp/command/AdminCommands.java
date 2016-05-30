@@ -8,6 +8,7 @@ import lt.ltrp.data.PlayerReport;
 import lt.ltrp.dialog.FactionListDialog;
 import lt.ltrp.dialog.PlayerReportListDialog;
 import lt.ltrp.dialog.ServerStatsMsgBoxDialog;
+import lt.ltrp.dialog.ServerWeaponListDialog;
 import lt.ltrp.event.PlayerSetFactionLeaderEvent;
 import lt.ltrp.event.RemoveFactionLeaderEvent;
 import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
@@ -66,6 +67,7 @@ public class AdminCommands {
         adminLevels.put("ipban", 2);
 
         adminLevels.put("checkgun", 3);
+        adminLevels.put("serverwweapons", 3);
 
         adminLevels.put("makefactionmanager", 4);
         adminLevels.put("makeleader", 4);
@@ -137,7 +139,7 @@ public class AdminCommands {
         if(p.getAdminLevel() >= 2)
             p.sendMessage(Color.WHITE, "[AdmLvl 2] /dtc /gotocar /mute/rac /ipban");
         if(p.getAdminLevel() >= 3)
-            p.sendMessage(Color.WHITE, "[AdmLvl 3] /sethp /setarmour /forcelogout /hideadmins /serverguns /checkgun /kickall ");
+            p.sendMessage(Color.WHITE, "[AdmLvl 3] /sethp /setarmour /forcelogout /hideadmins /serverwweapons /checkgun /kickall ");
         if(p.getAdminLevel() >= 4)
         {
             p.sendMessage(Color.WHITE, "[AdmLvl 4] /auninvite /givemoney /giveweapon /amenu /intmenu");
@@ -316,6 +318,15 @@ public class AdminCommands {
                 AdminLog.log(player, "Uþblokavo " + target.getUUID() + " vartotojo IP " + target.getIp() + " visam laikui. Prieþastis: " + reason);
             }
         }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia perþiûrët visus serveryje esanèius ne darbinius ginklus")
+    public boolean serverWeapons(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        ServerWeaponListDialog.create(player, eventManager)
+                .show();
         return true;
     }
 
