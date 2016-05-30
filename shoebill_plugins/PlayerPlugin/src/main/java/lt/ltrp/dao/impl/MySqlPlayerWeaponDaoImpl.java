@@ -23,6 +23,24 @@ public class MySqlPlayerWeaponDaoImpl implements PlayerWeaponDao {
     }
 
     @Override
+    public LtrpWeaponData[] get() {
+        ArrayList<LtrpWeaponData> data = new ArrayList<>();
+        String sql = "SELECT * FROM player_wielded_weapons WHERE deleted_at IS NULL";
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            ResultSet r = stmt.executeQuery();
+            while(r.next()) {
+                data.add(new LtrpWeaponData(r.getInt("id"), WeaponModel.get(r.getInt("weapon_id")), r.getInt("ammo"), false));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return data.toArray(new LtrpWeaponData[0]);
+    }
+
+    @Override
     public int insert(LtrpPlayer player, LtrpWeaponData weapon) {
         String sql = "INSERT INTO player_wielded_weapons (player_id, weapon_id, ammo, created_at) VALUES (?, ?, ?, ?)";
         try(

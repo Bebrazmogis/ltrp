@@ -9,7 +9,7 @@ import lt.ltrp.object.LtrpPlayer;
  */
 public interface PlayerWeaponDao {
 
-
+    LtrpWeaponData[] get();
     int insert(LtrpPlayer player, LtrpWeaponData weapon);
     void remove(LtrpWeaponData weaponData);
     LtrpWeaponData[] get(LtrpPlayer player);
