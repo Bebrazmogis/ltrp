@@ -1,11 +1,14 @@
-package lt.ltrp;
+package lt.ltrp.command;
 
-import lt.ltrp.command.Commands;
+import lt.ltrp.JobPlugin;
+import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerJobData;
+import lt.ltrp.object.Faction;
 import lt.ltrp.object.JobGate;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
+import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.object.Player;
 
 import java.util.Optional;
@@ -76,4 +79,22 @@ public class JobCommands extends Commands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Leidþia iðeiti ið darbo")
+    public boolean leaveJob(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PlayerJobData jobData = jobPlugin.getJobData(player);
+        if(jobData == null)
+            player.sendErrorMessage("Jûs neturite darbo.");
+        else if(jobData instanceof Faction)
+            player.sendErrorMessage("Kad iðeitumëte ið frakcijos, naudokite /leavefaction");
+        else if(jobData.getRemainingContract() > 0)
+            player.sendErrorMessage("Jûsø kontraktas dar nesibaigë. Jums dar liko " + jobData.getRemainingContract() + " valandos.");
+        else {
+            JobPlugin.get(JobPlugin.class).setJob(player, null);
+            player.removeJobWeapons();
+            player.sendMessage(Color.NEWS, "Palikote savo darbovietæ, sëkmës!");
+        }
+        return true;
+    }
 }
