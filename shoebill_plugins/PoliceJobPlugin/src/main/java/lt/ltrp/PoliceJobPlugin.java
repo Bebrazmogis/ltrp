@@ -1,12 +1,12 @@
 package lt.ltrp;
 
+import lt.ltrp.command.CivilianCommands;
 import lt.ltrp.command.PoliceCommands;
 import lt.ltrp.dao.PoliceFactionDao;
 import lt.ltrp.dao.impl.MySqlPoliceFactionImpl;
 import lt.ltrp.object.JobVehicle;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PoliceFaction;
-import lt.ltrp.policeman.DragTimer;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -97,6 +97,7 @@ public class PoliceJobPlugin extends Plugin {
 
         commandManager.registerCommands(new PoliceCommands(commandManager, policeFaction, eventManager, unitLabels, policeSirens, dragTimers));
         commandManager.registerCommands(new RoadblockCommands(policeFaction, eventManager));
+        commandManager.registerCommands(new CivilianCommands());
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
     }
 
@@ -152,6 +153,10 @@ public class PoliceJobPlugin extends Plugin {
             playersOnDuty.add(player);
         else
             playersOnDuty.remove(player);
+    }
+
+    public PoliceFaction getPoliceFaction() {
+        return policeFaction;
     }
 
     @Override
