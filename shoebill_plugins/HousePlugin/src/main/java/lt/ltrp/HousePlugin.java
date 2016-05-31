@@ -2,6 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.command.HouseCommands;
 import lt.ltrp.command.HouseOwnerCommands;
+import lt.ltrp.command.HouseSetSpawnCommand;
 import lt.ltrp.command.HouseUpgradeCommands;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.HouseDao;
@@ -10,7 +11,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.data.SpawnData;
 import lt.ltrp.dialog.AdminHouseManagementListDialog;
 import lt.ltrp.event.PaydayEvent;
-import lt.ltrp.event.player.PlayerSpawnLocationChangeEvent;
+import lt.ltrp.event.PlayerSpawnLocationChangeEvent;
 import lt.ltrp.event.property.HouseEvent;
 import lt.ltrp.event.property.PlayerPlantWeedEvent;
 import lt.ltrp.event.property.WeedGrowEvent;
@@ -95,6 +96,8 @@ public class HousePlugin extends Plugin implements HouseController {
         CommandGroup group = new HouseUpgradeCommands(node).getGroup();
         playerCommandManager.registerChildGroup(group, "hu");
 
+        SpawnPlugin.get(SpawnPlugin.class).getSetSpawnCommandGroup().registerCommands(new HouseSetSpawnCommand());
+
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
 
     }
@@ -115,13 +118,14 @@ public class HousePlugin extends Plugin implements HouseController {
         node.registerHandler(PaydayEvent.class, e -> {
             BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
             if(bankPlugin != null) {
-                LtrpPlayer.get().stream().filter(p -> p.getSpawnData().getType() == SpawnData.SpawnType.House).forEach(p -> {
-                    House house = House.get(p.getSpawnData().getId());
-                    if(house != null) {
+                LtrpPlayer.get().stream().filter(p -> SpawnPlugin.get(SpawnPlugin.class).getSpawnData(p).getType() == SpawnData.SpawnType.House).forEach(p -> {
+                    SpawnData spawnData = SpawnPlugin.get(SpawnPlugin.class).getSpawnData(p);
+                    House house = House.get(spawnData.getId());
+                    if (house != null) {
                         int rent = house.getRentPrice();
                         BankAccount account = bankPlugin.getBankController().getAccount(p);
-                        if(account.getMoney() >= rent) {
-                            account.addMoney(- rent);
+                        if (account.getMoney() >= rent) {
+                            account.addMoney(-rent);
                             bankPlugin.getBankController().update(account);
                             house.addMoney(rent);
                             p.sendMessage(net.gtaun.shoebill.data.Color.WHITE, String.format("| Mokestis uþ nuomà: %d%c |", rent, Currency.SYMBOL));
@@ -131,7 +135,7 @@ public class HousePlugin extends Plugin implements HouseController {
                         }
 
                     } else {
-                        logger.error("Player " + p.getUUID() + " lives in an unexistent house " + p.getSpawnData().getId());
+                        logger.error("Player " + p.getUUID() + " lives in an inexistent house " + spawnData.getId());
                     }
                 });
             } else {
