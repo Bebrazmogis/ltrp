@@ -37,11 +37,13 @@ public abstract class MySqlJobDaoImpl implements JobDao {
     private DataSource dataSource;
     private EventManager eventManager;
     private JobVehicleDao jobVehicleDao;
+    private MySqlJobGateDaoImpl jobGateDao;
 
 
-    public MySqlJobDaoImpl(DataSource dataSource, JobVehicleDao jobVehicleDao, EventManager eventManager) {
+    public MySqlJobDaoImpl(DataSource dataSource, JobVehicleDao jobVehicleDao, MySqlJobGateDaoImpl mySqlJobGateDao, EventManager eventManager) {
         this.dataSource = dataSource;
         this.eventManager = eventManager;
+        this.jobGateDao = mySqlJobGateDao;
         if(jobVehicleDao == null) {
             this.jobVehicleDao = new MySqlJobVehicleDao(dataSource, eventManager);
         }
@@ -79,6 +81,7 @@ public abstract class MySqlJobDaoImpl implements JobDao {
                 job.setLocation(new Location(result.getFloat("x"), result.getFloat("y"), result.getFloat("z"), result.getInt("interior"), result.getInt("virtual_world")));
                 job.setBasePaycheck(result.getInt("paycheck"));
                 job.setVehicles(jobVehicleDao.get(job));
+                job.setGates(jobGateDao.get(job));
                 job.setRanks(getRanks(job));
                 String key = result.getString("key"),
                         value = result.getString("value");
