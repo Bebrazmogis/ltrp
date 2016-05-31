@@ -25,6 +25,8 @@ public interface Job extends NamedEntity {
     void addVehicle(JobVehicle vehicle);
     int getBasePaycheck();
     void setBasePaycheck(int paycheck);
+    List<JobGate> getGates();
+    void setGates(List<JobGate> gates);
 
     /**
      * Checks if a player is at a workplace
