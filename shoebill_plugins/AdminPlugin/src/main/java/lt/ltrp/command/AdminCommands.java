@@ -1,6 +1,7 @@
 package lt.ltrp.command;
 
 import lt.ltrp.*;
+import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.JailData;
 import lt.ltrp.data.PlayerJobData;
@@ -79,6 +80,11 @@ public class AdminCommands {
         adminLevels.put("ahou", 4);
         adminLevels.put("agarage", 4);
         adminLevels.put("serverstats", 4);
+        adminLevels.put("biztax", 4);
+        adminLevels.put("cartax", 4);
+        adminLevels.put("housetax", 4);
+        adminLevels.put("garagetax", 4);
+        adminLevels.put("vattax", 4);
 
         adminLevels.put("giveitem", 6);
         adminLevels.put("fly", 6);
@@ -145,7 +151,7 @@ public class AdminCommands {
         {
             p.sendMessage(Color.WHITE, "[AdmLvl 4] /auninvite /givemoney /giveweapon /amenu /intmenu");
             p.sendMessage(Color.WHITE, "[AdmLvl 4] /makeleader /setstat /setstatcar /gotohouse /gotobiz");
-            p.sendMessage(Color.WHITE, "[AdmLvl 4] /makeadmin /makemoderator /cartax /housetax /biztax");
+            p.sendMessage(Color.WHITE, "[AdmLvl 4] /makeadmin /makemoderator /cartax /housetax /biztax /vehicletax /vattax");
             p.sendMessage(Color.WHITE, "[AdmLvl 4] /makefactinomanager  /giveitem ");
         }
         return true;
@@ -825,8 +831,85 @@ public class AdminCommands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Pakeièia mokestá uþ vienà verslà")
+    public boolean bizTax(Player p, @CommandParameter(name = "Naujas verslo mokestis")int tax) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(tax < 0)
+            player.sendErrorMessage("Mokestis negali bûti maþesnis uþ 0.");
+        else {
+            LtrpWorld.get().getTaxes().setBusinessTax(tax);
+            LtrpPlayer.sendAdminMessage(player.getName() + " pakeitë verslø mokestá á " + tax + Currency.SYMBOL);
+            LtrpGamemodeImpl.getGamemode(LtrpGamemodeImpl.class).getDao().save(LtrpWorld.get());
+            AdminLog.log(player, "Changed business tax to " + tax);
+        }
+        return true;
+    }
+
+
+    @Command
+    @CommandHelp("Pakeièia mokestá uþ vienà garaþà")
+    public boolean garageTax(Player p, @CommandParameter(name = "Naujas garaþo mokestis")int tax) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(tax < 0)
+            player.sendErrorMessage("Mokestis negali bûti maþesnis uþ 0.");
+        else {
+            LtrpWorld.get().getTaxes().setGarageTax(tax);
+            LtrpPlayer.sendAdminMessage(player.getName() + " pakeitë garaþø mokestá á " + tax + Currency.SYMBOL);
+            LtrpGamemodeImpl.getGamemode(LtrpGamemodeImpl.class).getDao().save(LtrpWorld.get());
+            AdminLog.log(player, "Changed garage tax to " + tax);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pakeièia mokestá uþ vienà namà")
+    public boolean houseTax(Player p, @CommandParameter(name = "Naujas namø mokestis")int tax) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(tax < 0)
+            player.sendErrorMessage("Mokestis negali bûti maþesnis uþ 0.");
+        else {
+            LtrpWorld.get().getTaxes().setHouseTax(tax);
+            LtrpPlayer.sendAdminMessage(player.getName() + " pakeitë namø mokestá á " + tax + Currency.SYMBOL);
+            LtrpGamemodeImpl.getGamemode(LtrpGamemodeImpl.class).getDao().save(LtrpWorld.get());
+            AdminLog.log(player, "Changed house tax to " + tax);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pakeièia mokestá uþ vienà transporto priemonæ")
+    public boolean carTax(Player p, @CommandParameter(name = "Naujas namø mokestis")int tax) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(tax < 0)
+            player.sendErrorMessage("Mokestis negali bûti maþesnis uþ 0.");
+        else {
+            LtrpWorld.get().getTaxes().setVehicleTax(tax);
+            LtrpPlayer.sendAdminMessage(player.getName() + " pakeitë transporto priemoniø mokestá á " + tax + Currency.SYMBOL);
+            LtrpGamemodeImpl.getGamemode(LtrpGamemodeImpl.class).getDao().save(LtrpWorld.get());
+            AdminLog.log(player, "Changed vehicle tax to " + tax);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pakeièia PVM mokesèio dydá")
+    public boolean vatTax(Player p, @CommandParameter(name = "Naujas PVM mokestis")int tax) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(tax < 0)
+            player.sendErrorMessage("Mokestis negali bûti maþesnis uþ 0.");
+        else {
+            LtrpWorld.get().getTaxes().setVAT(tax);
+            LtrpPlayer.sendAdminMessage(player.getName() + " pakeitë PVM mokestá á " + tax + Currency.SYMBOL);
+            LtrpGamemodeImpl.getGamemode(LtrpGamemodeImpl.class).getDao().save(LtrpWorld.get());
+            AdminLog.log(player, "Changed VAT tax to " + tax);
+        }
+        return true;
+    }
+
+
     // TODO aProperty
     // TODO cmd:ado
-    // TOOD cmd:ao
+    // TODO cmd:ao
 }
 
