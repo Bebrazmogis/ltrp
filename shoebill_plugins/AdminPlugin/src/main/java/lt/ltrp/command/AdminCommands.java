@@ -24,6 +24,7 @@ import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.shoebill.constant.SpecialAction;
+import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Vehicle;
@@ -318,6 +319,19 @@ public class AdminCommands {
                 AdminLog.log(player, "Uþblokavo " + target.getUUID() + " vartotojo IP " + target.getIp() + " visam laikui. Prieþastis: " + reason);
             }
         }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia perþiûrëti visus serveryje esanèius tam tikro modelio ginklus")
+    public boolean checkGun(Player p, @CommandParameter(name = "Ginklo modelio ID")int modelId) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        WeaponModel weaponModel = WeaponModel.get(modelId);
+        if(weaponModel == null)
+            return false;
+
+        ServerWeaponListDialog.create(player, eventManager, weaponModel)
+                .show();
         return true;
     }
 
