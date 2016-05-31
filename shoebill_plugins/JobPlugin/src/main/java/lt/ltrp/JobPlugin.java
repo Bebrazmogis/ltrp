@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import lt.ltrp.command.SetSpawnCommands;
 import lt.ltrp.constant.WorldZone;
 import lt.ltrp.dao.FactionDao;
 import lt.ltrp.dao.JobVehicleDao;
@@ -130,6 +131,8 @@ public class JobPlugin extends Plugin implements JobController {
         PlayerCommandManager playerCommandManager = new PlayerCommandManager(eventManager);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
         playerCommandManager.registerCommands(new FactionLeaderCommands(eventManager, this));
+
+        SpawnPlugin.get(SpawnPlugin.class).getSetSpawnCommandGroup().registerCommands(new SetSpawnCommands());
 
         CommandGroup group = new CommandGroup();
         group.registerCommands(new FactionAcceptCommands());
