@@ -23,11 +23,15 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j13:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: lt.maze:audio:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: lt.ltrp:vehicle-shop:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: lt.ltrp:database:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
-    <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.10" level="project" />
     <orderEntry type="library" name="Maven: jacksum:jacksum:1.0" level="project" />
     <orderEntry type="library" name="Maven: lt.ltrp:property:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: lt.ltrp:bank:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:spawn:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:database:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:c3p0:0.9.5.2" level="project" />
+    <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.10" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:job:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:penalty:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:vehicle:1.0-SNAPSHOT" level="project" />
   </component>
 </module>

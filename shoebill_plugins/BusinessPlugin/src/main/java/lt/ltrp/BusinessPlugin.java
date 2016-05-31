@@ -1,6 +1,7 @@
 package lt.ltrp;
 
 import lt.ltrp.command.BusinessCommands;
+import lt.ltrp.command.BusinessSetSpawnCommand;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.dao.BusinessDao;
 import lt.ltrp.dao.impl.MySqlBusinessDaoImpl;
@@ -85,6 +86,7 @@ public class BusinessPlugin extends Plugin implements BusinessController {
         PlayerCommandManager playerCommandManager = new PlayerCommandManager(node);
         playerCommandManager.registerCommands(new BusinessCommands(node));
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
+        SpawnPlugin.get(SpawnPlugin.class).getSetSpawnCommandGroup().registerCommands(new BusinessSetSpawnCommand());
     }
 
     private void addEventHandlers() {
