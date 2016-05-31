@@ -160,6 +160,7 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     boolean isInJail();
 
     LtrpWeaponData[] getWeapons();
+    LtrpWeaponData getWeaponData(WeaponModel weaponModel);
     boolean ownsWeapon(WeaponModel model);
     void removeWeapon(LtrpWeaponData weaponData);
     void removeJobWeapons();
@@ -251,6 +252,8 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     <T extends PlayerOffer> T getOffer(Class<T> type);
 
     String getCharName();
+    String getFirstName();
+    String getLastName();
 
     void sendErrorMessage(String message);
     void sendActionMessage(String message, float distance);

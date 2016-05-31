@@ -3,7 +3,6 @@ package lt.ltrp;
 import lt.ltrp.object.LtrpPlayer;
 
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * @author Bebras
@@ -21,7 +20,6 @@ public interface AdminController {
     }
 
     Collection<LtrpPlayer> getAdminsOnDuty();
-    Map<LtrpPlayer, String> getPendingPlayerQuestions();
     Collection<LtrpPlayer> getModeratorsOnDuty();
 
 }

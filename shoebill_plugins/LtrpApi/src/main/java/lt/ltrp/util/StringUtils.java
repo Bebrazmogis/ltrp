@@ -117,4 +117,19 @@ public class StringUtils {
     public static String limit(String text, int len) {
         return limit(text, len, "");
     }
+
+
+    public static String addLineBreaks(String text, int lineLength) {
+        StringBuilder builder = new StringBuilder();
+        String[] words = text.split(" ");
+        int len = 0;
+        for(String s : words) {
+            if((len += s.length()) > lineLength) {
+                len = 0;
+                builder.append("\n");
+            }
+            builder.append(s);
+        }
+        return builder.toString();
+    }
 }

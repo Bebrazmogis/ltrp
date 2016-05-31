@@ -2,6 +2,8 @@ package lt.ltrp.util;
 
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
+import net.gtaun.shoebill.data.AngledLocation;
+import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.PlayerAttach;
 
 import java.util.HashMap;
@@ -31,5 +33,14 @@ public final class PlayerUtils {
         }
         return player.getAttach().getSlot(9);
     }
+
+
+    public static Location getInFront(LtrpPlayer player, float distance) {
+        AngledLocation loc = player.getLocation().clone();
+        loc.x += (distance * Math.sin(Math.toRadians(-loc.angle + 180)));
+        loc.y += (distance * Math.cos(Math.toRadians(-loc.angle + 180)));
+        return loc;
+    }
+
 
 }

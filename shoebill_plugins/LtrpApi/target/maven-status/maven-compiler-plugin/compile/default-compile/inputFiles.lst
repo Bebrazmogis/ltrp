@@ -1,5 +1,3 @@
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleArrestEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleBuyAlarmEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\PlayerCountdown.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\house\HouseRentEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\item\ItemDestroyEvent.java
@@ -17,7 +15,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\PlayerDrugs.jav
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\WeaponItem.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\modelpreview\ModelPreview.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\PropertyController.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\PlayerVehicleMetadata.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\constant\ItemType.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\radio\RadioStationListDialog.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\util\PlayerUtils.java
@@ -27,7 +24,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\InventoryEnti
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\util\PawnFunc.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\SampModelInputDialog.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\VehicleLock.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerAcceptPlayerQuestion.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\AbstractCheckpointTest.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\PlayerLicense.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerDataLoadEvent.java
@@ -48,8 +44,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\property\busine
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\BuyHouseOffer.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\drug\DrugItem.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\constant\WorldArea.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleBuyLockEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\VehicleUserPermissionDialog.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\net\gtaun\shoebill\constant\VehicleModel.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\PlayerLicenses.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\LicenseWarning.java
@@ -60,8 +54,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerA
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\BusinessCommodityAddEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\util\VehicleUtils.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\DestroyableEntity.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\constant\PlayerVehiclePermission.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\BuyVehicleOffer.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\BusinessNameChangeEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\util\Whirlpool.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\NamedLocation.java
@@ -82,7 +74,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\House.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dao\GarageDao.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\Animation.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\BusinessBuyEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleParkEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\RadioStation.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\house\PlayerEnterHouseEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\PlayerCrime.java
@@ -107,11 +98,9 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\ClothingItem.
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\util\ItemUsageOption.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerConnectEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\house\HouseEditEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\PlayerVehicleArrest.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\house\HouseCreateEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\LoadingException.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerUseDrugsEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleUpdateParkEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\Taxes.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerSendPrivateMessageEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\HexIntegerInputDialog.java
@@ -141,7 +130,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerC
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\DrinkItem.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerEndCallEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\PlayerAddiction.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleScrapEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\constant\BusinessType.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\Color.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\house\HouseRentStopEvent.java
@@ -150,7 +138,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\property\busine
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\BoatDmv.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\util\Skin.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerToggleAdminDutyEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\PaydayEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\SelectCommodityEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\util\PlayerLog.java
@@ -158,8 +145,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\EntityImpl.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\PhoneContactDialog.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\BusinessDestroyEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\Inventory.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dao\PlayerVehicleDao.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleArrestDeleteEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\VehicleController.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\VehicleEngineKillEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\CrashData.java
@@ -185,7 +170,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\house
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dao\BusinessDao.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\VehicleRadio.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\PlayerPlantWeedEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleRemovePermissionEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\TestEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\modelpreview\event\ModelPreviewCancelEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\PlayerHouseEvent.java
@@ -196,7 +180,6 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\garag
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\BusinessDoorLockToggleEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\modelpreview\SkinModelPreview.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\garage\PlayerExitGarageEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\PlayerVehicleController.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\BusinessCommodityListDialog.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerOfferExpireEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\dialogmenu\PlayerDialogMenu.java
@@ -210,14 +193,11 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\property\busine
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\Initializable.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerStateMessageEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\garage\GarageBuyEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleSellEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\WeedSeedItem.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerRejectPlayerQuestion.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\ItemPhone.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\PlayerExitPropertyEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\BuyGarageOffer.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\WeedGrowEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\PlayerVehicle.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\item\ItemTypeListDialog.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\ConsumableItem.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\house\HouseMoneyEvent.java
@@ -232,14 +212,10 @@ F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\constant\LicenseType
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\data\TaxiFare.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\TestEventImpl.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\PlayerController.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\VehiclePermissionListDialog.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\constant\Currency.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\object\VehicleAlarm.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\house\HouseUpdateEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleBuyInsuranceEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\dialog\FightStyleDialog.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\PlayerGarageEvent.java
-F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\vehicle\PlayerVehicleAddPermissionEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\item\PlayerDropItemEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\property\BusinessCommodityRemoveEvent.java
 F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerToggleModDutyEvent.java
