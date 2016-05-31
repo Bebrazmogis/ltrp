@@ -6,12 +6,11 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.constant.LicenseType;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.*;
+import lt.ltrp.dialog.*;
 import lt.ltrp.event.vehicle.PlayerVehicleArrestDeleteEvent;
 import lt.ltrp.event.vehicle.PlayerVehicleArrestEvent;
 import lt.ltrp.modelpreview.SkinModelPreview;
 import lt.ltrp.object.*;
-import lt.ltrp.policeman.DragTimer;
-import lt.ltrp.policeman.dialog.*;
 import lt.ltrp.util.PawnFunc;
 import lt.ltrp.util.StringUtils;
 import lt.maze.streamer.object.DynamicLabel;
@@ -69,6 +68,7 @@ public class PoliceCommands extends Commands {
         commandToRankNumber.put("arrestcar", 1);
         commandToRankNumber.put("delarrestcar", 1);
         commandToRankNumber.put("vest", 1);
+        commandToRankNumber.put("jobid", 1);
 
         commandToRankNumber.put("wepstore", 2);
 
@@ -113,7 +113,7 @@ public class PoliceCommands extends Commands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         if(jobData.getJob().equals(job)) {
             if(commandToRankNumber.containsKey(cmd)) {
                 if(jobData.getJobRank().getNumber() >= commandToRankNumber.get(cmd)) {
@@ -154,6 +154,23 @@ public class PoliceCommands extends Commands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Parodo jûsû pareigûno paþymëjimà kitam þaidëjui")
+    public boolean jobId(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            return false;
+        if(player.getLocation().distance(target.getLocation()) > 10f)
+            player.sendErrorMessage(target.getName() + " yra per toli kad galëtumëte parodyti jam savo paþymëjimà.");
+        else {
+            PlayerJobData jobData = JobPlugin.get(JobPlugin.class).getJobData(target);
+            target.sendMessage(Color.GREEN, "|______________LOS SANTOS DEPARTAMENTAS______________|");
+            target.sendMessage(Color.GREEN, "|______________  PAREIGðªNO PAþYMëJIMAS ______________|");
+            target.sendMessage(Color.WHITE, String.format("Pareigøno vardas: %s     Pavardë: %s", target.getFirstName(), target.getLastName()));
+            target.sendMessage(Color.WHITE, String.format("Pareigøno pareigos/rangas: %s     Amþius: %d", jobData.getJobRank().getName(), target.getAge()));
+        }
+        return true;
+    }
 
     @Command
     @CommandHelp("Sunaikina name esanèià marihuana")
@@ -378,7 +395,7 @@ public class PoliceCommands extends Commands {
     @CommandHelp("Leidþia pradëti/baigti tempti surakintà þaidëjà")
     public boolean drag(Player p, LtrpPlayer target) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
         } else if(player.getDistanceToPlayer(target) > 10f) {
@@ -407,7 +424,7 @@ public class PoliceCommands extends Commands {
     @CommandHelp("Leidþia iðsikviesti pagalbà")
     public boolean backup(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         if(backupRequests.keySet().contains(player)) {
             for(LtrpPlayer backup : backupRequests.get(player)) {
                 backup.getCheckpoint().disable(player);
