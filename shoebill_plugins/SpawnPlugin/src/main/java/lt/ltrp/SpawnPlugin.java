@@ -1,12 +1,17 @@
 package lt.ltrp;
 
+import lt.ltrp.command.SpawnCommands;
 import lt.ltrp.dao.SpawnDao;
 import lt.ltrp.dao.impl.MySqlSpawnDaoImpl;
+import lt.ltrp.data.Color;
 import lt.ltrp.data.SpawnData;
 import lt.ltrp.event.PlayerRequestSpawnEvent;
 import lt.ltrp.event.PlayerSpawnLocationChangeEvent;
 import lt.ltrp.event.PlayerSpawnSetUpEvent;
 import lt.ltrp.object.*;
+import net.gtaun.shoebill.common.command.CommandEntry;
+import net.gtaun.shoebill.common.command.CommandGroup;
+import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
@@ -21,6 +26,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -33,6 +39,8 @@ public class SpawnPlugin extends Plugin{
     private EventManagerNode node;
     private SpawnDao spawnDao;
     private Map<LtrpPlayer, SpawnData> playerSpawnData;
+    private CommandGroup setSpawnCommandGroup;
+    private PlayerCommandManager playerCommandManager;
 
     @Override
     protected void onEnable() throws Throwable {
@@ -65,6 +73,20 @@ public class SpawnPlugin extends Plugin{
     private void load() {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
         spawnDao = new MySqlSpawnDaoImpl(databasePlugin.getDataSource());
+
+        this.playerCommandManager = new PlayerCommandManager(node);
+        this.setSpawnCommandGroup = new CommandGroup();
+        this.setSpawnCommandGroup.registerCommands(new SpawnCommands());
+        this.setSpawnCommandGroup.setNotFoundHandler((p, g, c) -> {
+            p.sendMessage(Color.LIGHTRED, "|________VEIKËJO ATSIRADIMO VIETA PRISIJUNGUS________|");
+            p.sendMessage(Color.LIGHTRED, "Atsiradimo vietà taip pat galite redaguoti vartotojo valdymo pulte: ltrp.lt");
+            p.sendMessage(Color.WHITE, "KOMANDOS NAUDOJIMAS: /setspawn [VIETA]");
+            p.sendMessage(Color.WHITE, "VIETOS: " + g.getCommands().stream().map(CommandEntry::getCommand).collect(Collectors.joining(",")));
+            p.sendMessage(Color.LIGHTRED, "_______________________________");
+            return true;
+        });
+        this.playerCommandManager.registerChildGroup(setSpawnCommandGroup, "setspawn");
+
 
         node.registerHandler(PlayerConnectEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
@@ -113,8 +135,13 @@ public class SpawnPlugin extends Plugin{
         node.cancelAll();
         playerSpawnData.clear();
         playerSpawnData = null;
+        playerCommandManager.uninstallAllHandlers();
+        playerCommandManager.destroy();
     }
 
+    public CommandGroup getSetSpawnCommandGroup() {
+        return setSpawnCommandGroup;
+    }
 
     public SpawnData getSpawnData(LtrpPlayer player) {
         return playerSpawnData.get(player);
