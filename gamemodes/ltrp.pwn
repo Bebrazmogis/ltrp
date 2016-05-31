@@ -31,27 +31,27 @@
 native IsValidVehicle(vehicleid);
 native WP_Hash(buffer[], len, const str[]);
 native CallShoebillFunction(name[], {Float,_}:...);
-#include <mSelection>
+//#include <mSelection>
 //#define  TIMER_FIX_TIMER_SLOTS          512
 //#include <timerfix>
 //#include <a_http>
 #include <foreach>
 #include <a_mysql>
 //#include <audio>
-#include <sscanf2>
+#include <sscanf2> 
 #include <streamer>
-#include <lookup>
+//#include <lookup>
 #include <zcmd>
-#include <airbreak>
-#include <GameTextS7.inc>
-#include <fader>
-#include <OnPlayerFirstSpawn>
-#include <mysql_pause_player>
+//#include <airbreak>
+//#include <GameTextS7.inc>
+//#include <fader>
+//#include <OnPlayerFirstSpawn>
+//#include <mysql_pause_player>
 #include <mapandreas>
 #include <Sheobill>
 #include <crashdetect>
 #include <filemanager>
-#include <Cards>
+//#include <Cards>
 
 #include <YSI\y_dialog>
 #include <YSI\y_malloc>
@@ -509,10 +509,6 @@ new
     Text3D:AdminON[MAX_PLAYERS],
     bool:AdminDuty[MAX_PLAYERS] = { false, ... },
     TalkingLive[MAX_PLAYERS],
-    Biudzetas,
-    cartax,
-    biztax,
-    housetax,
     Ruko[MAX_PLAYERS],
     Laikas[MAX_PLAYERS],
     LaikoTipas[MAX_PLAYERS],
@@ -821,11 +817,11 @@ enum fires
 new Fire[MAX_FIRE][fires];*/
 
 
-#include "Player\Weapons" // Yra AC dalykø
-#include "Tabula\TAC.pwn" // AntiCheatas
+//#include "Player\Weapons" // Yra AC dalykø
+//#include "Tabula\TAC.pwn" // AntiCheatas
 
 
-#include "Coordinates"
+//#include "Coordinates"
 
 #include "BugReporting"
 
@@ -834,20 +830,20 @@ new Fire[MAX_FIRE][fires];*/
 
 //#include "FishingSystem"
 //#include "Job_TaxiDriver"
-#include "Property\Interiors"
-#include "Property\Furniture"
+//#include "Property\Interiors"
+//#include "Property\Furniture"
 //#include "Property\_General"
 //#include "Property\Businesses"
 //#include "Property\Houses"
 //#include "Property\Garages"
-#include "Player\Functions"
+//#include "Player\Functions"
 //#include "Player\Inventory"
 //#include "Player\Attachments"
 //#include "Player\Phone"
 //#include "Vehicles\vPhone"
 //#include "Bank"
-#include "Graffiti"
-#include "Entrances"
+//#include "Graffiti"
+//#include "Entrances"
 //#include "Gambling/Blackjack"
 
 
@@ -1780,314 +1776,7 @@ stock UnLoadFactions()
     return 1;
 }*/
 
-stock LoadMisc()
-{
-    new Cache:result;
 
-    result = mysql_query(DbHandle, "SELECT `biudzetas`,`cartax`,`housetax`,`biztax` FROM `misc`");
-
-    Biudzetas = cache_get_field_content_int(0, "biudzetas");
-    cartax = cache_get_field_content_int(0, "cartax");
-    housetax = cache_get_field_content_int(0, "housetax");
-    biztax = cache_get_field_content_int(0, "biztax");
-    printf("Los Santos miesto biudþetas siekia: %d SAD",Biudzetas);
-    printf("Tr. priemoniø mokestis: %d SAD, Namø mokestis: %d SAD, Verslø mokestis %d SAD",cartax, housetax, biztax);
-    cache_delete(result);
-    return 1;
-}
-
-stock SaveMisc()
-{
-    new string[80];
-    MySQLCheckConnection();
-
-    format(string,80,"UPDATE `misc` SET `biudzetas`=%d,`cartax`=%d,`housetax`=%d,`biztax`=%d",Biudzetas,cartax,housetax,biztax);
-    mysql_query(DbHandle, string, false);
-    return 1;
-}
-/*
-stock SaveFactions(i)
-{
-    new string[1024],
-        rangas[ 14 ][ 128 ];
-    MySQLCheckConnection();
-    if(i == 0)
-    {
-        foreach(Faction,f)
-        {
-            mysql_real_escape_string(fInfo[f][fName],rangas[0]);
-            mysql_real_escape_string(fInfo[f][fRank1],rangas[1]);
-            mysql_real_escape_string(fInfo[f][fRank2],rangas[2]);
-            mysql_real_escape_string(fInfo[f][fRank3],rangas[3]);
-            mysql_real_escape_string(fInfo[f][fRank4],rangas[4]);
-            mysql_real_escape_string(fInfo[f][fRank5],rangas[5]);
-            mysql_real_escape_string(fInfo[f][fRank6],rangas[6]);
-            mysql_real_escape_string(fInfo[f][fRank7],rangas[7]);
-            mysql_real_escape_string(fInfo[f][fRank8],rangas[8]);
-            mysql_real_escape_string(fInfo[f][fRank9],rangas[9]);
-            mysql_real_escape_string(fInfo[f][fRank10],rangas[10]);
-            mysql_real_escape_string(fInfo[f][fRank11],rangas[11]);
-            mysql_real_escape_string(fInfo[f][fRank12],rangas[12]);
-            mysql_real_escape_string(fInfo[f][fRank13],rangas[13]);
-            format(string,sizeof(string),"UPDATE `factions` SET `fName`='%s',`fSpawn1`='%f',`fSpawn2`='%f',`fSpawn3`='%f',`fSpawn4`='%f'\
-            ,`fRank1`='%s',`fRank2`='%s',`fRank3`='%s',`fRank4`='%s',`fRank5`='%s',`fRank6`='%s',`fRank7`='%s',`fRank8`='%s',`\
-            fInt`=%d,`fBank`=%d,`fLeader`='%s',`fMatsPriv`=%d,`fRank9`='%s',`fRank10`='%s',`fRank11`='%s',`fRank12`='%s',`fRank13`='%s' WHERE `id`=%d",
-            rangas[0],
-            fInfo[f][fSpawn][0],
-            fInfo[f][fSpawn][1],
-            fInfo[f][fSpawn][2],
-            fInfo[f][fSpawn][3],
-            rangas[1],
-            rangas[2],
-            rangas[3],
-            rangas[4],
-            rangas[5],
-            rangas[6],
-            rangas[7],
-            rangas[8],
-            fInfo[f][fInt],
-            fInfo[f][fBank],
-            fInfo[f][fLeader],
-            fInfo[f][fMatsPriv],
-            rangas[9],
-            rangas[10],
-            rangas[11],
-            rangas[12],
-            rangas[13],
-            fInfo[f][fID]);
-            mysql_query(DbHandle, string, false);
-        }
-        return 1;
-    }
-    else
-    {
-        mysql_real_escape_string(fInfo[i][fName],rangas[0]);
-        mysql_real_escape_string(fInfo[i][fRank1],rangas[1]);
-        mysql_real_escape_string(fInfo[i][fRank2],rangas[2]);
-        mysql_real_escape_string(fInfo[i][fRank3],rangas[3]);
-        mysql_real_escape_string(fInfo[i][fRank4],rangas[4]);
-        mysql_real_escape_string(fInfo[i][fRank5],rangas[5]);
-        mysql_real_escape_string(fInfo[i][fRank6],rangas[6]);
-        mysql_real_escape_string(fInfo[i][fRank7],rangas[7]);
-        mysql_real_escape_string(fInfo[i][fRank8],rangas[8]);
-        mysql_real_escape_string(fInfo[i][fRank9],rangas[9]);
-        mysql_real_escape_string(fInfo[i][fRank10],rangas[10]);
-        mysql_real_escape_string(fInfo[i][fRank11],rangas[11]);
-        mysql_real_escape_string(fInfo[i][fRank12],rangas[12]);
-        mysql_real_escape_string(fInfo[i][fRank13],rangas[13]);
-        format(string,sizeof(string),"UPDATE `factions` SET `fName`='%s',`fSpawn1`='%f',`fSpawn2`='%f',`fSpawn3`='%f',`fSpawn4`='%f'\
-        ,`fRank1`='%s',`fRank2`='%s',`fRank3`='%s',`fRank4`='%s',`fRank5`='%s',`fRank6`='%s',`fRank7`='%s',`fRank8`='%s',`\
-        fInt`=%d,`fBank`=%d,`fLeader`='%s',`fMatsPriv`=%d,`fRank9`='%s',`fRank10`='%s',`fRank11`='%s',`fRank12`='%s',`fRank13`='%s' WHERE `id`=%d",
-        rangas[0],
-        fInfo[i][fSpawn][0],
-        fInfo[i][fSpawn][1],
-        fInfo[i][fSpawn][2],
-        fInfo[i][fSpawn][3],
-        rangas[1],
-        rangas[2],
-        rangas[3],
-        rangas[4],
-        rangas[5],
-        rangas[6],
-        rangas[7],
-        rangas[8],
-        fInfo[i][fInt],
-        fInfo[i][fBank],
-        fInfo[i][fLeader],
-        fInfo[i][fMatsPriv],
-        rangas[9],
-        rangas[10],
-        rangas[11],
-        rangas[12],
-        rangas[13],
-        fInfo[i][fID]);
-        mysql_query(DbHandle, string, false);
-        return 1;
-    }
-}
-*/
-/*
-stock SavePayDay( idx )
-{
-    new string[ 200 ];
-    for( new slot = 1; slot < MAX_FACTION_RANKS; slot ++)
-        format( string, 180, "%s%d/", string, fInfo[ idx ][ fPayDay ][ slot ]);
-
-    format( string, 200, "UPDATE `factions` SET fPayDay='%s' WHERE id=%d",string, fInfo[ idx ][ fID ] );
-    mysql_query(DbHandle,  string, false);
-    return string;
-}
-*/
-/*
-stock UnPackTrunk(veh,trunkinfo[])
-{
-    sscanf( trunkinfo, "p</>dddddddddddddddddddddddddddddddddddddddddddddddd",
-    cInfo[ veh ][ cTrunkWeapon ][ 0 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 0 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 0 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 0 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 1 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 1 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 1 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 1 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 2 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 2 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 2 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 2 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 3 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 3 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 3 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 3 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 4 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 4 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 4 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 4 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 5 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 5 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 5 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 5 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 6 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 6 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 6 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 6 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 7 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 7 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 7 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 7 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 8 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 8 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 8 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 8 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 9 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 9 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 9 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 9 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 10 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 10 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 10 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 10 ],
-    cInfo[ veh ][ cTrunkWeapon ][ 11 ],
-    cInfo[ veh ][ cTrunkAmmo   ][ 11 ],
-    cInfo[ veh ][ cTrunkItemContent   ][ 11 ],
-    cInfo[ veh ][ cTrunkItemDurability   ][ 11 ]);
-
-    return 1;
-}
-stock PackTrunk( vehicleid )
-{
-    new string[ 512 ];
-    for(new i = 0; i < MAX_TRUNK_SLOTS; i++)
-    {
-        format(string, sizeof(string ),"%s%d/%d/%d/%d/",string,
-        cInfo[ vehicleid ][ cTrunkWeapon ][ i ],
-        cInfo[ vehicleid ][ cTrunkAmmo   ][ i ],
-        cInfo[ vehicleid ][ cTrunkItemContent ][ i ],
-        cInfo[ vehicleid ][ cTrunkItemDurability ][ i ]);
-    }
-    return string;
-}
-
-stock SaveCar(carid)
-{
-    if ( cInfo[ carid ][ cOwner ] == 0 ) return 1;
-    new string[ 1400 ];
-
-    format(string,sizeof(string),"UPDATE `vehicles` SET `cName`='%s',`cOwner`=%d,`cModel`=%d,`cSpawn1`='%f',`cSpawn2`='%f',\
-    `cSpawn3`='%f',`cAngle`='%f',`cColor1`=%d,`cColor2`=%d,`cFuel`=%d,`cNumbers`='%s',`cFaction`=%d,`cWheels`=%d,`c\
-    Tuning`=%d,`cInsurance`=%d,`cDuzimai`=%d,`cLockType`=%d,`cAlarm`=%d,`cTrunk`='%s',`cTicket`=%d,`cHid\
-    raulik`=%d,`cCrimes`=%d,`cVehID`=%d,cDamage='%s',cKM='%f',cVW=%d WHERE `id`=%d",
-    cInfo[ carid ][ cName      ],
-    cInfo[ carid ][ cOwner     ],
-    cInfo[ carid ][ cModel     ],
-    cInfo[ carid ][ cSpawn     ][0],
-    cInfo[ carid ][ cSpawn     ][1],
-    cInfo[ carid ][ cSpawn     ][2],
-    cInfo[ carid ][ cSpawn     ][3],
-    cInfo[ carid ][ cColor     ][0],
-    cInfo[ carid ][ cColor     ][1],
-    cInfo[ carid ][ cFuel      ],
-    cInfo[ carid ][ cNumbers   ],
-    cInfo[ carid ][ cFaction   ],
-    cInfo[ carid ][ cWheels    ],
-    cInfo[ carid ][ cTuning    ],
-    cInfo[ carid ][ cInsurance ],
-    cInfo[ carid ][ cDuzimai   ],
-    cInfo[ carid ][ cLockType  ],
-    cInfo[ carid ][ cAlarm     ],
-    PackTrunk( carid       ),
-    cInfo[ carid ][ cTicket    ],
-    cInfo[ carid ][ cHidraulik ],
-    cInfo[ carid ][ cCrimes    ],
-    cInfo[ carid ][ cVehID     ],
-    cInfo[ carid ][ cDamage    ],
-    cInfo[ carid ][ cKM        ],
-    cInfo[ carid ][ cVirtWorld ],
-    cInfo[ carid ][ cID        ]);
-    mysql_query(DbHandle, string, false);
-
-//    SaveVehicleFish(carid);
-    return 1;
-}
-stock SaveSVehicle(vehid)
-{
-    new string[ 256 ];
-
-
-    mysql_format(DbHandle, string, sizeof(string), "UPDATE `scars` SET `sModel`= %d,`sCar_x`='%f',`sCar_y`='%f',`sCar_z`='%f',`sCar_a`='%f',`sColor1`=%d,`sColor2`=%d,`sFaction`=%d,`sRang`=%d,`sJob`=%d WHERE `sID`=%d",
-    sVehicles[ vehid ][ Model       ],
-    sVehicles[ vehid ][ SpawnX       ],
-    sVehicles[ vehid ][ SpawnY      ],
-    sVehicles[ vehid ][ SpawnZ       ],
-    sVehicles[ vehid ][ SpawnA       ],
-    sVehicles[ vehid ][ Color1      ],
-    sVehicles[ vehid ][ Color2      ],
-    sVehicles[ vehid ][ Faction     ],
-    sVehicles[ vehid ][ Rang        ],
-    sVehicles[ vehid ][ Job         ],
-    sVehicles[ vehid ][ Id          ]);
-
-    if(mysql_pquery(DbHandle,  string))
-        return 1;
-    return 0;
-}
-
-stock SaveVehicleEx( masina, mode[], count)// Only for Interator
-{
-    if ( cInfo[ masina ][ cOwner ] == 0 ) return 0;
-    new string[ 126 ];
-    format( string, 126, "UPDATE `vehicles` SET `%s`=%d WHERE `id`=%d", mode, count, cInfo[ masina ][ cID ]);
-    mysql_query(DbHandle,  string, false);
-    return 1;
-}
-
-stock ShowVehicleFines( giveplayerid, playerid )
-{
-    new
-        string[ 1024 ],
-        rows,
-        etc[ 3 ][ 128 ],
-        kaina,
-        Cache:result;
-
-    format( string, 256, "SELECT `id`,`crime`,`price` FROM `cartickets` WHERE `numbers` = '%s' AND `paid` = 0 LIMIT 7", cInfo[ playerid ][ cNumbers ] );
-    result = mysql_query(DbHandle,  string );
-    rows = cache_get_row_count();
-
-    for(new i = 0; i < rows; i++)
-    {
-        rows = cache_get_field_content_int(i, "id");
-        cache_get_field_content(i, "crime", etc[ 0 ]);
-        kaina = cache_get_field_content_int(i, "price");
-        format( string, sizeof( string ),"%sFine #%d [$%d] uþ '%s'\n", string, rows, kaina, etc[ 0 ] );
-    }
-
-    cache_delete(result);
-    SetPVarInt(giveplayerid, "Listitem", rows);
-    tmpinteger[ giveplayerid ] = playerid;
-    ShowPlayerDialog(giveplayerid,168,DIALOG_STYLE_LIST,"Fine list",string,"Detaliau","Atgal");
-    return 1;
-}
-*/
 stock ShowTrunk( playerid, veh )
 {
     new string[ 1028 ];
@@ -3287,7 +2976,7 @@ stock UpdateJacker( spot, vehs1 )
 stock LoadServer( )
 {
     //LoadFactions();
-    LoadMisc();
+    //LoadMisc();
 //  LoadTax();
     //LoadFuelInfo();
    // LoadSEnter();
@@ -3396,7 +3085,7 @@ public OnGameModeInit()
     ShowNameTags(1);
     ManualVehicleEngineAndLights();
     NullRoadBlocks( );
-    skinlist = LoadModelSelectionMenu("skins.txt");
+//    skinlist = LoadModelSelectionMenu("skins.txt");
 //=============================[ Liftas ]================================
     ResetElevatorQueue();
     Elevator_Initialize();
@@ -3551,7 +3240,7 @@ AntiDeAMX() {
     #pragma unused a
 }
 
-public OnPlayerAirbreak(playerid)
+/*public OnPlayerAirbreak(playerid)
 {
     if( GetPlayerAdminLevel(playerid) >= 5 )
         return true;
@@ -3560,9 +3249,10 @@ public OnPlayerAirbreak(playerid)
         KickPlayer( "AC", playerid, "AirBreak tr. priemonëje." );
     else
         KickPlayer( "AC", playerid, "AirBreak vaikðtant/bëgiojant" );
+        
     return 1;
 }
-
+*/
 public OnGameModeExit()
 {
     #if defined DEBUG
@@ -4653,35 +4343,7 @@ stock IsPlayerInRangeOfDynamicObject(playerid, Float:distance, objectid)
 }
 
 
-CMD:leavejob( playerid, params[ ])
-{
-    #pragma unused params
-    new string[ 126 ];
-    if ( pInfo[ playerid ][ pJob ] == 0) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite palikti darbo, kurio neturite. Jûs jau bedarbis." );
-    if ( pInfo[ playerid ][ pJobContr ] > 0 && pInfo[ playerid ][ pDonator ] == 0)
-    {
-        format           ( string, 126,"{FF6347}Jûs negalite palikti savo darbovietës neatidirbæ nustatyo darbo kontrakto.",pInfo[playerid][pJobContr]);
-        SendChatMessage( playerid, GRAD, string);
-        return 1;
-    }
-    pInfo[ playerid ][ pJob      ] = JOB_NONE;
-    pInfo[ playerid ][ pJobLevel ] = 0;
-    pInfo[ playerid ][ pJobSkill ] = 0;
-    pInfo[ playerid ][ pJobHours ] = 0;
-    SendClientMessage(playerid, COLOR_WHITE, " Sveikiname, Jûs sëkmingai iðëjote ið savo darbovietos.");
-    return 1;
-}
-CMD:leavefaction(playerid)
-{
-    pInfo[playerid][pLead   ] = 0;
-    pInfo[playerid][pMember ] = 0;
-    pInfo[playerid][pRank   ] = 0;
-    pInfo[playerid][pSpawn  ] = DefaultSpawn;
-    RemovePlayerJobWeapons(playerid);
-    SaveAccount(playerid);
-    SendClientMessage(playerid, COLOR_WHITE, " Sveikiname, Jûs sëkmingai iðëjote ið savo darbovietos.");
-    return 1;
-}
+
 
 /*
 CMD:prescribe( playerid, params [ ] )
@@ -5041,6 +4703,7 @@ CMD:buyseeds( playerid, params[ ] )
     SendClientMessage( playerid, COLOR_WHITE, " Sëkmingai nusipirkote 10 þolës augalo sëklø, kurios kainavo 200$.");
     return 1;
 }*/
+/*
 CMD:pay( playerid, params[ ] )
 {
     new giveplayerid,
@@ -5085,6 +4748,7 @@ CMD:pay( playerid, params[ ] )
     SaveAccount      ( giveplayerid );
     return 1;
 }
+*/
 /*
 CMD:buymats( playerid, params[ ] )
 {
@@ -5438,27 +5102,7 @@ CMD:jobid( playerid, params[ ] )
     return 1;
 }
 */
-CMD:takemoney( playerid, params[ ] )
-{
-    new
-        giveplayerid,
-        mony,
-        string[ 126 ];
-        
-    if(pInfo[playerid][pLead] != 6) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, negalite naudotis ðiuo veiksmu nebødavo miesto meru.");
-    if(sscanf( params, "ud", giveplayerid, mony)) return SendClientMessage( playerid , COLOR_LIGHTRED, "Teisingas komandos naudojimas: /takemoney [3 LYGIO ADMINISTRATORIAUS ID][SUMA]. Didþiausia suma, kurià galite nuiimti - 50.000$");
-    if(!IsPlayerConnected(giveplayerid))  return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-    if(mony < 0 || mony > 50000) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nuimdami pinigus turite nurodyti sumà, kuri bøti didesnë nei 1$, bei maþesnë uþ 50,000$.");
-    if(!PlayerToPlayer(2.0,playerid,giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðalia Jûsø nëra reikiamo Administratoriaus.");
-    if(GetPlayerAdminLevel(giveplayerid) < 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, ðalia stovinèio Administratoriaus lygis yra per maþas ðiai komandai.");
-    if(mony > Biudzetas) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, frakcijos biudþete nëra nurodytos sumos.");
-    GivePlayerMoney(playerid,mony);
-    Biudzetas -= mony;
-    format(string,126,"AdmWarn: Los Santos meras (%s) ið miesto biudþeto iðëmë: %d$.",GetName(playerid),mony);
-    SendAdminMessage(COLOR_ADM,string);
-    SaveMisc();
-    return 1;
-}
+
 /*
 CMD:takefmoney( playerid, params[ ] )
 {
@@ -6617,119 +6261,7 @@ stock checkVehicleByNumbers( numbers[ ] )
     }
     return INVALID_VEHICLE_ID;
 }
-/*
-CMD:delarrestcar( playerid, params[ ] )
-{
-    if ( !UsePDCMD( playerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente.");
-    new id,
-        id2,
-        string[ 128 ];
-        
-    if ( sscanf( params, "ud", id, id2 ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /delarrestcar [playerid] [ ID ] (pasako þaidëjas ið /v list )" );
-    else if ( !IsPlayerConnected( id ) )      return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-    else if ( id2 > 20 ) return 1;
-    else if ( !checkArrestedCar( id, pInfo[ id ][ pCar ][ id2 ] ) ) return 1;
-    else
-    {
-        format     ( string, 126, "DELETE FROM arrestedcars WHERE cMySql = %d", pInfo[ id ][ pCar ][ id2 ] );
-        mysql_query(DbHandle,  string, false);
-        format     ( string, 126, "UPDATE vehicles SET cCrimes = 0 WHERE id = %d", pInfo[ id ][ pCar ][ id2 ]);
-        mysql_query(DbHandle,  string, false);
-        format         ( string, 126, "[LSPD] Policijos pareigûnas %s nutraukë areðtà tr. priemonei", GetPlayerNameEx( playerid ) );
-        SendTeamMessage( 1, COLOR_POLICE, string );
-    }
-    return 1;
-}
-*/
-/*
-CMD:arrestcar( playerid, params[ ] )
-{
-    #pragma unused params
-    if ( !UsePDCMD( playerid ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente.");
 
-    new car = GetNearestVehicle( playerid, 10.0 );
-    if ( car == INVALID_VEHICLE_ID || cInfo[ car ][ cOwner ] == 0 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: áalia jûsø nerasta automobiliø");
-
-    if (!Data_IsPlayerInRangeOfCoords(playerid, 40.0, "job_police_confiscated_garage"))
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Perspëjimas: Jûs nesate prië policijos konfiskuotu automobiliu garaþø.");
-
-    GetVehiclePos   ( car, cInfo[ car ][ cSpawn ][ 0 ], cInfo[ car ][ cSpawn ][ 1 ], cInfo[ car ][ cSpawn ][ 2 ]);
-    GetVehicleZAngle( car, cInfo[ car ][ cSpawn ][ 3 ]);
-
-    cInfo[ car ][ cCrimes    ] = 0;
-    cInfo[ car ][ cTicket    ] = 0;
-    cInfo[ car ][ cVehID     ] = 0;
-    cInfo[ car ][ cVirtWorld ] = GetVehicleVirtualWorld( car );
-
-    new string[ 126 ],
-        name  [ 24  ];
-
-    GetPlayerName( playerid, name, 24 );
-
-    format     ( string, 126, "INSERT INTO arrestedcars (numbers,who,bauda,cMySql) VALUES ('%s','%s',%d,%d)", cInfo[ car ][ cNumbers ], name, cInfo[ car ][ cTicket ], cInfo[ car ][ cID ] );
-    mysql_query(DbHandle,  string, false);
-
-    format         ( string, 126, "[LSPD] Policijos pareigûnas %s areðtavo automobilá, kurio numeriai: %s.", name, cInfo[ car ][ cNumbers ] );
-    SendTeamMessage( 1, COLOR_POLICE, string );
-
-    new carowner = GetCarOwner( car );
-    if ( IsPlayerConnected( carowner ) )
-    {
-        pInfo[ carowner ][ pCarGet ] --;
-        format           ( string, 126, "[LSPD] Policijos pareigûnas %s areðtavo Jûsø automobilá, kurio numeriai: %s.", name, cInfo[ car ][ cNumbers ] );
-        SendClientMessage( carowner, COLOR_POLICE, string );
-    }
-    SaveCar       ( car );
-
-    DestroyVehicle( car );
-    nullVehicle   ( car );
-    return 1;
-}
-*/
-/*
-stock checkArrestedCar( playerid, car, mode = 1 )
-{
-    new string[ 126 ], bool:arrested = false, Cache:result; 
-
-    format     ( string, 126, "SELECT * FROM arrestedcars WHERE cMySql = %d", car );
-    result = mysql_query(DbHandle,  string );
-    if ( cache_get_row_count( ) > 0  )
-    {
-        if( mode == 1 )
-        {
-            new id,
-                numbers[ 24 ],
-                who    [ 24 ],
-                bauda,
-                When   [ 54 ];
-
-            id = cache_get_field_content_int(0, "id");
-            cache_get_field_content(0, "numbers", numbers);
-            cache_get_field_content(0, "who", who);
-            bauda = cache_get_field_content_int(0, "bauda");
-            cache_get_field_content(0, "Time", When); 
-
-            SendClientMessage( playerid, COLOR_LIGHTRED, "_______________ Tr. Priemonës areðto blankas _______________");
-            format           ( string, 126, "| Areðtavo: %s", who );
-            SendClientMessage( playerid, COLOR_WHITE, string );
-            format           ( string, 126, "| Numeriai: %s", numbers );
-            SendClientMessage( playerid, COLOR_WHITE, string );
-            format           ( string, 126, "| Bauda: %d", bauda );
-            SendClientMessage( playerid, COLOR_WHITE, string );
-            format           ( string, 126, "| áraðo numeris: %d", id );
-            SendClientMessage( playerid, COLOR_WHITE, string );
-            format           ( string, 126, "| Areðtavimo data: %s", When );
-            SendClientMessage( playerid, COLOR_WHITE, string );
-        }
-        arrested =  true;
-    }
-    cache_delete(result);
-    return arrested;
-}
-*/
 /*
 CMD:fopen( playerid, params[ ] )
 {
@@ -7915,7 +7447,7 @@ CMD:auttazer( playerid, params[ ] )
         return 1;
     }
 }*/
-
+/*
 CMD:weapon(playerid, params[])
 {
     if(isnull(params))
@@ -8004,7 +7536,7 @@ CMD:weapon(playerid, params[])
     else 
         goto weapon_help;
     return 1;
-}
+}*/
 
 
 CMD:savings( playerid, params[ ] )
@@ -8620,6 +8152,7 @@ CMD:mdc( playerid, params[] )
     return 1;
 }
 */
+/*
 CMD:bail( playerid, params[ ] )
 {
     if(!Data_IsPlayerInRangeOfCoords(playerid, 30.0, "prison_bail_spot"))
@@ -8651,6 +8184,7 @@ CMD:bail( playerid, params[ ] )
     DeletePVar(playerid, "BailTime");
     return 1;
 }
+*/
 /*
 CMD:prison( playerid, params[ ] )
 {
@@ -9058,84 +8592,7 @@ CMD:vehiclefines( playerid, params[ ] )
     }
     return 1;
 }
-
-CMD:vehiclefine( playerid, params[ ] )
-{
-    if ( PlayerFaction( playerid ) != 1)
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite atlikti ðio veiksmo nedirbdami policijos departamente.");
-    new time,
-        giveplayerid,
-        string[ 256 ],
-        reason[ 128 ];
-    if ( sscanf( params, "dds[128]", giveplayerid, time, reason ) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /vehiclefine [vehicle id][bauda][prieþastis]" );
-    if ( !doesVehicleExist(giveplayerid) )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas tr. priemonës ID nëra galimas." );
-    if ( time < 1 || time > 5000 )
-        return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, iðraðomos baudos suma gali bûti tarp 1$ ir 5000$");
-    if ( cInfo[ giveplayerid ][ cOwner ] < 1 )
-        return 1;
-        
-    format(string, 256, "INSERT INTO `cartickets` (numbers,crime,reporter,price) VALUES ('%s','%s','%s','%d')",cInfo[ giveplayerid ][ cNumbers ],reason,GetName(playerid),time);
-    mysql_pquery(DbHandle, string);
-        
-    SendClientMessage( playerid, COLOR_POLICE, "[LSPD] Sëkmingai iðraðëtæ baudos lapelá ðiai tr. priemonei." );
-    return 1;
-}
 */
-stock DeclineOffer( playerid )
-{
-    SendClientMessage( GetPVarInt( playerid, "OFFER_ID" ), GRAD, " ** Jis atmetë jûsø pasiûlimá . " );
-    DeletePVar( playerid, "OFFER_ID" );
-    DeletePVar( playerid, "OFFER_COAST" );
-    DeletePVar( playerid, "OFFER_TYPE" );
-    return 1;
-}
-
-stock AcceptOffer( playerid )
-{
-    new giveplayerid = GetPVarInt( playerid, "OFFER_ID" ),
-        type = GetPVarInt( playerid, "OFFER_TYPE" ),
-        money = GetPVarInt( playerid, "OFFER_COAST" ),
-        //tmp = GetPVarInt( playerid, "OFFER_TMP" ),
-        string[ 126 ];
-
-    if ( money > GetPlayerMoney(playerid) )
-        return DeclineOffer( playerid );
-
-    switch( type )
-    {
-        case 1:
-        {
-            GivePlayerJobWeapon ( giveplayerid, 41, 500 );
-            SetPVarInt       ( giveplayerid, "OFFER2_ID", playerid );
-            SetPVarInt       ( giveplayerid, "OFFER2_COAST", money );
-            SetPVarInt       ( giveplayerid, "MECHANIC", 1 );
-
-            format           ( string, 126, "%s priëmë jûsø pasiûlimá . ", GetPlayerNameEx( playerid ) );
-            SendClientMessage( giveplayerid, COLOR_WHITE, string );
-            SendClientMessage( giveplayerid, COLOR_WHITE, "Atsistokite prie jo automobilio, ir purskite is jo i automobili. " );
-
-            format      ( string, 126, "* %s priëme pasiûlimá  ið %s" ,GetPlayerNameEx( playerid ), GetPlayerNameEx( giveplayerid ) );
-            ProxDetector( 15.0, playerid, string, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE, COLOR_PURPLE );
-            return 1;
-        }
-    }
-    return 1;
-}
-
-stock OfferFor( playerid, giveplayerid, text[], money, type, tmp = -1 )
-{
-    new string[ 126 ];
-    format( string, 126, "%s %s\nJeigu sutinkate spauskite Taip. ",GetPlayerNameEx( giveplayerid ), text );
-    ShowPlayerDialog( playerid, 103, DIALOG_STYLE_MSGBOX, "PASIûLIMAS", string, "Taip", "Ne");
-
-    SetPVarInt( playerid, "OFFER_ID", giveplayerid );
-    SetPVarInt( playerid, "OFFER_TYPE", type );
-    SetPVarInt( playerid, "OFFER_COAST", money );
-    SetPVarInt( playerid, "OFFER_TMP", tmp );
-    return 1;
-}
 
 
 CMD:tognames( playerid, params[ ] )
@@ -11156,6 +10613,7 @@ CMD:talkstyle(playerid, params[])
     pInfo[ playerid ][ pTalkStyle ] = talkstyle;
     return 1;
 }
+/*
 CMD:cartax( playerid, params[ ] )
 {
     if ( GetPlayerAdminLevel(playerid) >= 4 )
@@ -11213,6 +10671,7 @@ CMD:housetax( playerid, params[ ] )
     }
     return 1;
 }
+*/
 CMD:pos(playerid)
 {
     if(!IsPlayerAdmin(playerid) && !GetPlayerAdminLevel(playerid))
@@ -11387,30 +10846,7 @@ CMD:kickall( playerid, params [ ] )
     }
     return 1;
 }
-/*
-CMD:kick( playerid, params [ ] )
-{
-    new
-        giveplayerid,
-        gMessage[ 64 ];
-        
-    if ( GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        if ( sscanf( params, "us[64]", giveplayerid, gMessage ) )
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /kick [þaidëjo id][preiþastis]");
-        if(IsPlayerNPC(giveplayerid)) 
-            return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite uþdaryti ðio veikëjo, kadangi tai serverio dirbtinis þaidëjas (BOT)");
-        if(!IsPlayerConnected(giveplayerid))    
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-        if (strfind(gMessage, "'", true ) != -1) 
-            return 1;
-        mysql_real_escape_string(gMessage,gMessage);
-        KickPlayer( GetName(playerid), giveplayerid, gMessage );
-        return 1;
-    }
-    return 1;
-}
-*/
+
 /*
 CMD:reconnectnpc(playerid, params[])
 {
@@ -11442,79 +10878,6 @@ timer NpcReconnectDelay[1000](adminid, npcname[], len)
     SendClientMessage(adminid, COLOR_LIGHTRED, string);
 }*/
 
-/*
-CMD:ban( playerid, params [ ] )
-{
-    new
-        giveplayerid,
-        gMessage[ 64 ];
-        
-    if ( GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        if ( sscanf( params, "us[64]", giveplayerid, gMessage ) )
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /ban [þaidëjo id][preiþastis]");
-        if(IsPlayerNPC(giveplayerid)) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite uþdaryti ðio veikëjo, kadangi tai serverio dirbtinis þaidëjas (BOT)");
-        if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid,GRAD,"þaidëjas norimu ID neprisijungæs!");
-        if ( strfind( gMessage, "'", true ) != -1 ) return 1;
-        mysql_real_escape_string(gMessage,gMessage);
-        BanPlayer(GetName(playerid),giveplayerid,gMessage);
-        return 1;
-    }
-    return 1;
-}
-CMD:jail( playerid, params [ ] )
-{
-    new
-        giveplayerid,
-        time,
-        gMessage[ 128 ];
-        
-    if ( GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        if ( sscanf( params, "uds[128]", giveplayerid, time, gMessage ) )
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /jail [þaidëjo id][minutës][prieþastis]");
-        if(IsPlayerNPC(giveplayerid)) return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, negalite uþdaryti ðio veikëjo, kadangi tai serverio dirbtinis þaidëjas (BOT)");
-        if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid,GRAD,"þaidëjas norimu ID neprisijungæs!");
-        if( time > 9999 ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Perspëjimas: Nejailink þmogaus daugiau nei 9999.");
-        if ( strfind( gMessage, "'", true ) != -1 ) return 1;
-        mysql_real_escape_string(gMessage,gMessage);
-        Jail( GetName(playerid), giveplayerid, time, gMessage );
-        return 1;
-    }
-    return 1;
-}
-CMD:warn( playerid, params [ ] )
-{
-    if ( GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        new giveplayerid,
-            string[ 256 ],
-            reason[ 256 ];
-
-        if ( sscanf( params, "ds[256]", giveplayerid, reason ) )
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /warn [þaidëjo id][prieþastis]");
-        if ( strfind( reason, "'", true ) != -1 ) return 1;
-        format(string, sizeof(string), "Administratorius %s áspëjo þaidëja %s, prieþastis: %s", GetName( playerid ), GetName(giveplayerid),reason);
-        SendClientMessageToAll(COLOR_LIGHTRED, string);
-        mysql_real_escape_string( reason, reason );
-
-        pInfo[giveplayerid][pWarn] ++;
-        
-        format(string,sizeof(string), "INSERT INTO `nuobaudos` (Kas, Ka, Kam, Priezastis) VALUES('%d', 'áspëjo', '%d', '%s')", pInfo[ playerid ][ pMySQLID ], pInfo[ giveplayerid ][ pMySQLID ], reason);
-        mysql_query(DbHandle, string, false);
-        
-        format( string,sizeof(string), "INSERT INTO warns (id,admin,reason) VALUES (%d,'%s','%s')", pInfo[ giveplayerid ][ pMySQLID ], GetName( playerid ), reason );
-        mysql_query(DbHandle,  string, false);
-
-        if(pInfo[giveplayerid][pWarn] >= 3)
-        {
-            pInfo[ giveplayerid ][ pWarn ] = 0;
-            BanPlayer("áspëjimø sistema",giveplayerid,"3 áspëjimai");
-        }
-    }
-    return 1;
-}
-*/
 /*
 CMD:whipe( playerid, params [ ] )
 {
@@ -11998,481 +11361,7 @@ CMD:whipe( playerid, params [ ] )
     }
     return 1;
 }*/
-/*
-CMD:serverguns( playerid, params [ ] )
-{
-    if( GetPlayerAdminLevel(playerid) >= 3 )
-    {
-        #pragma unused params
-        new
-            string[ 256 ],
-            inv[ 256 ],
-            inv2[ MAX_HOUSETRUNK_SLOTS ][ 2 ],
-            inv3[ 47 ],
-            id, Cache:result;
 
-        result = mysql_query(DbHandle,  "SELECT `cModel`,`cTrunk` FROM `vehicles`" );
-        
-        for(new j = 0; j < cache_get_row_count(); j++)
-        {
-            id = cache_get_field_content_int(j, "cModel");
-            cache_get_field_content(j, "cTrunk", inv);
-            sscanf( inv, "p</>dddddddddddddddddddddddd",
-                inv2[ 0 ][ 0 ],
-                inv2[ 0 ][ 1 ],
-                inv2[ 1 ][ 0 ],
-                inv2[ 1 ][ 1 ],
-                inv2[ 2 ][ 0 ],
-                inv2[ 2 ][ 1 ],
-                inv2[ 3 ][ 0 ],
-                inv2[ 3 ][ 1 ],
-                inv2[ 4 ][ 0 ],
-                inv2[ 4 ][ 1 ],
-                inv2[ 5 ][ 0 ],
-                inv2[ 5 ][ 1 ],
-                inv2[ 6 ][ 0 ],
-                inv2[ 6 ][ 1 ],
-                inv2[ 7 ][ 0 ],
-                inv2[ 7 ][ 1 ],
-                inv2[ 8 ][ 0 ],
-                inv2[ 8 ][ 1 ],
-                inv2[ 9 ][ 0 ],
-                inv2[ 9 ][ 1 ],
-                inv2[ 10 ][ 0 ],
-                inv2[ 10 ][ 1 ],
-                inv2[ 11 ][ 0 ],
-                inv2[ 11 ][ 1 ]);
-            for(new i = 0; i < GetVehicleTrunkSlots( id ); i++)
-            {
-                if( inv2[ i ][ 0 ] < 51 && inv2[ i ][ 0 ] > 0 )
-                    inv3[ inv2[ i ][ 0 ] ]++;
-            }
-        }
-        cache_delete(result);
-
-        result = mysql_query(DbHandle,  "SELECT `id`, `Inventory` FROM `garazai`" );
-        
-        for(new j = 0; j < cache_get_row_count(); j++)
-        {
-            id = cache_get_field_content_int(j, "id");
-            cache_get_field_content(j, "Inventory", inv);
-            sscanf( inv, "p</>dddddddddddddddddddd",
-                inv2[ 0 ][ 0 ],
-                inv2[ 0 ][ 1 ],
-                inv2[ 1 ][ 0 ],
-                inv2[ 1 ][ 1 ],
-                inv2[ 2 ][ 0 ],
-                inv2[ 2 ][ 1 ],
-                inv2[ 3 ][ 0 ],
-                inv2[ 3 ][ 1 ],
-                inv2[ 4 ][ 0 ],
-                inv2[ 4 ][ 1 ],
-                inv2[ 5 ][ 0 ],
-                inv2[ 5 ][ 1 ],
-                inv2[ 6 ][ 0 ],
-                inv2[ 6 ][ 1 ],
-                inv2[ 7 ][ 0 ],
-                inv2[ 7 ][ 1 ],
-                inv2[ 8 ][ 0 ],
-                inv2[ 8 ][ 1 ],
-                inv2[ 9 ][ 0 ],
-                inv2[ 9 ][ 1 ]);
-            for(new i = 0; i < MAX_GARAGETRUNK_SLOTS; i++)
-            {
-                if( inv2[ i ][ 0 ] < 51 && inv2[ i ][ 0 ] > 0 )
-                    inv3[ inv2[ i ][ 0 ] ]++;
-            }
-        }
-        cache_delete(result);
-
-        result = mysql_query(DbHandle,  "SELECT `Inventory` FROM `houses`" );
-        
-        for(new j = 0; j < cache_get_row_count(); j++)
-        {
-            cache_get_row(j, 0, inv);
-            sscanf( inv, "p</>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-                    inv2[ 0 ][ 0 ],
-                    inv2[ 0 ][ 1 ],
-                    inv2[ 1 ][ 0 ],
-                    inv2[ 1 ][ 1 ],
-                    inv2[ 2 ][ 0 ],
-                    inv2[ 2 ][ 1 ],
-                    inv2[ 3 ][ 0 ],
-                    inv2[ 3 ][ 1 ],
-                    inv2[ 4 ][ 0 ],
-                    inv2[ 4 ][ 1 ],
-                    inv2[ 5 ][ 0 ],
-                    inv2[ 5 ][ 1 ],
-                    inv2[ 6 ][ 0 ],
-                    inv2[ 6 ][ 1 ],
-                    inv2[ 7 ][ 0 ],
-                    inv2[ 7 ][ 1 ],
-                    inv2[ 8 ][ 0 ],
-                    inv2[ 8 ][ 1 ],
-                    inv2[ 9 ][ 0 ],
-                    inv2[ 9 ][ 1 ],
-                    inv2[ 10 ][ 0 ],
-                    inv2[ 10 ][ 1 ],
-                    inv2[ 11 ][ 0 ],
-                    inv2[ 11 ][ 1 ],
-                    inv2[ 12 ][ 0 ],
-                    inv2[ 12 ][ 1 ],
-                    inv2[ 13 ][ 0 ],
-                    inv2[ 13 ][ 1 ],
-                    inv2[ 14 ][ 0 ],
-                    inv2[ 14 ][ 1 ],
-                    inv2[ 15 ][ 0 ],
-                    inv2[ 15 ][ 1 ],
-                    inv2[ 16 ][ 0 ],
-                    inv2[ 16 ][ 1 ],
-                    inv2[ 17 ][ 0 ],
-                    inv2[ 17 ][ 1 ],
-                    inv2[ 18 ][ 0 ],
-                    inv2[ 18 ][ 1 ],
-                    inv2[ 19 ][ 0 ],
-                    inv2[ 19 ][ 1 ],
-                    inv2[ 20 ][ 0 ],
-                    inv2[ 20 ][ 1 ],
-                    inv2[ 21 ][ 0 ],
-                    inv2[ 21 ][ 1 ],
-                    inv2[ 22 ][ 0 ],
-                    inv2[ 22 ][ 1 ],
-                    inv2[ 23 ][ 0 ],
-                    inv2[ 23 ][ 1 ],
-                    inv2[ 24 ][ 0 ],
-                    inv2[ 24 ][ 1 ],
-                    inv2[ 25 ][ 0 ],
-                    inv2[ 25 ][ 1 ],
-                    inv2[ 26 ][ 0 ],
-                    inv2[ 26 ][ 1 ],
-                    inv2[ 27 ][ 0 ],
-                    inv2[ 27 ][ 1 ],
-                    inv2[ 28 ][ 0 ],
-                    inv2[ 28 ][ 1 ],
-                    inv2[ 29 ][ 0 ],
-                    inv2[ 29 ][ 1 ]);
-            for(new i = 0; i < MAX_HOUSETRUNK_SLOTS; i++)
-            {
-                if( inv2[ i ][ 0 ] < 51 && inv2[ i ][ 0 ] > 0 )
-                    inv3[ inv2[ i ][ 0 ] ]++;
-            }
-        }
-        cache_delete(result);
-
-        result = mysql_query(DbHandle,  "SELECT `Inventory` FROM `players` WHERE `Member` != 2" );
-        
-        for(new j = 0; j < cache_get_row_count(); j++)
-        {
-            cache_get_field_content(j, "Inventory", inv);
-            sscanf( inv, "p</>dddddddddddddddd",
-                inv2[ 0 ][ 0 ],
-                inv2[ 0 ][ 1 ],
-                inv2[ 1 ][ 0 ],
-                inv2[ 1 ][ 1 ],
-                inv2[ 2 ][ 0 ],
-                inv2[ 2 ][ 1 ],
-                inv2[ 3 ][ 0 ],
-                inv2[ 3 ][ 1 ],
-                inv2[ 4 ][ 0 ],
-                inv2[ 4 ][ 1 ],
-                inv2[ 5 ][ 0 ],
-                inv2[ 5 ][ 1 ],
-                inv2[ 6 ][ 0 ],
-                inv2[ 6 ][ 1 ],
-                inv2[ 7 ][ 0 ],
-                inv2[ 7 ][ 1 ]);
-            for(new i = 0; i < INVENTORY_SLOTS; i++)
-            {
-                if( inv2[ i ][ 0 ] < 51 && inv2[ i ][ 0 ] > 0 )
-                    inv3[ inv2[ i ][ 0 ] ]++;
-            }
-        }
-        cache_delete(result);
-
-        result = mysql_query(DbHandle,  "SELECT `Weapons` FROM `players` WHERE `Member` != 2" );
-        
-        for(new j = 0; j < cache_get_row_count(); j++)
-        {
-            cache_get_field_content(j, "Weapons", inv);
-            sscanf( inv, "p</>dddddddd",
-                inv2[ 0 ][ 0 ],
-                inv2[ 0 ][ 1 ],
-                inv2[ 1 ][ 0 ],
-                inv2[ 1 ][ 1 ],
-                inv2[ 2 ][ 0 ],
-                inv2[ 2 ][ 1 ],
-                inv2[ 3 ][ 0 ],
-                inv2[ 3 ][ 1 ]);
-            for(new i = 0; i < MAX_SAVED_WEAPONS; i++)
-            {
-                if( inv2[ i ][ 0 ] < 51 && inv2[ i ][ 0 ] > 0 )
-                    inv3[ inv2[ i ][ 0 ] ]++;
-            }
-        }
-        cache_delete(result);
-
-        SendClientMessage( playerid, COLOR_GREEN2, "________________________Serverio ginklai________________________");
-        new gunname[32];
-        for(new i = 16; i < 44; i++)
-        {
-            if( inv3[ i ] > 0 )
-            {
-                GetWeaponName(i,gunname,sizeof(gunname));
-                format(string, 256, "%s - %d", gunname, inv3[ i ]);
-                SendClientMessage( playerid, COLOR_WHITE, string);
-            }
-        }
-    }
-    return 1;
-}
-*/
-/*
-CMD:checkgun( playerid, params [ ] )
-{
-    if( GetPlayerAdminLevel(playerid) >= 3 )
-    {
-        #pragma unused params
-        new
-            query[ 128 ],
-            string[ 256 ],
-            inv[ 256 ],
-            inv2[ MAX_HOUSETRUNK_SLOTS ][ 2 ],
-            name[ MAX_PLAYER_NAME+1 ],
-            name2,
-            inv3,
-            id,
-            id2;
-
-        if ( sscanf( params, "d", id ) )
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /checkgun [ginklo ID]");
-
-        if( id < 1 || id == 19 || id == 20 || id == 21 || id > 43 )
-            return SendClientMessage( playerid, COLOR_WHITE, "Neleistinas ginklas ! ");
-            
-        new Cache:result = mysql_query(DbHandle,  "SELECT `cModel`,`id`,`cTrunk` FROM `vehicles`" );
-        
-        for(new j =0; j < cache_get_row_count(); j++)
-        {
-            new bool:found;
-            id2 = cache_get_field_content_int(j, "cModel");
-            name2 = cache_get_field_content_int(j, "id");
-            cache_get_field_content(j, "cTrunk", inv);
-            sscanf( inv, "p</>dddddddddddddddddddddddd",
-                inv2[ 0 ][ 0 ],
-                inv2[ 0 ][ 1 ],
-                inv2[ 1 ][ 0 ],
-                inv2[ 1 ][ 1 ],
-                inv2[ 2 ][ 0 ],
-                inv2[ 2 ][ 1 ],
-                inv2[ 3 ][ 0 ],
-                inv2[ 3 ][ 1 ],
-                inv2[ 4 ][ 0 ],
-                inv2[ 4 ][ 1 ],
-                inv2[ 5 ][ 0 ],
-                inv2[ 5 ][ 1 ],
-                inv2[ 6 ][ 0 ],
-                inv2[ 6 ][ 1 ],
-                inv2[ 7 ][ 0 ],
-                inv2[ 7 ][ 1 ],
-                inv2[ 8 ][ 0 ],
-                inv2[ 8 ][ 1 ],
-                inv2[ 9 ][ 0 ],
-                inv2[ 9 ][ 1 ],
-                inv2[ 10 ][ 0 ],
-                inv2[ 10 ][ 1 ],
-                inv2[ 11 ][ 0 ],
-                inv2[ 11 ][ 1 ]);
-            for(new i = 0; i < GetVehicleTrunkSlots( id2 ); i++)
-            {
-                if( inv2[ i ][ 0 ] == id )
-                {
-                    found = true;
-                    inv3++;
-                }
-            }
-            if( found )
-            {
-                found = false;
-                foreach(Vehicles,car)
-                {
-                    if( cInfo[ car ][ cID ] == name2 )
-                    {
-                        format(query, sizeof(query), "Ginklo savininko maðinos ID: %d", car );
-                        SendClientMessage(playerid, COLOR_GREY, query);
-                        found = true;
-                        break;
-                    }
-                }
-                if( !found )
-                {
-                    format(query, sizeof(query), "Ginklo savininko maðinos SQL ID: %d", name2 );
-                    SendClientMessage(playerid, COLOR_GREY, query);
-                }
-            }
-        }
-        cache_delete(result);
-
-        result = mysql_query(DbHandle,  "SELECT `hID`,`Inventory` FROM `houses`" );
-        
-        for(new j = 0; j <cache_get_row_count(); j++)
-        {
-            new bool:found;
-            name2 = cache_get_field_content_int(j, "hID");
-            cache_get_field_content(j, "Inventory", inv);
-
-            sscanf( inv, "p</>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-                    inv2[ 0 ][ 0 ],
-                    inv2[ 0 ][ 1 ],
-                    inv2[ 1 ][ 0 ],
-                    inv2[ 1 ][ 1 ],
-                    inv2[ 2 ][ 0 ],
-                    inv2[ 2 ][ 1 ],
-                    inv2[ 3 ][ 0 ],
-                    inv2[ 3 ][ 1 ],
-                    inv2[ 4 ][ 0 ],
-                    inv2[ 4 ][ 1 ],
-                    inv2[ 5 ][ 0 ],
-                    inv2[ 5 ][ 1 ],
-                    inv2[ 6 ][ 0 ],
-                    inv2[ 6 ][ 1 ],
-                    inv2[ 7 ][ 0 ],
-                    inv2[ 7 ][ 1 ],
-                    inv2[ 8 ][ 0 ],
-                    inv2[ 8 ][ 1 ],
-                    inv2[ 9 ][ 0 ],
-                    inv2[ 9 ][ 1 ],
-                    inv2[ 10 ][ 0 ],
-                    inv2[ 10 ][ 1 ],
-                    inv2[ 11 ][ 0 ],
-                    inv2[ 11 ][ 1 ],
-                    inv2[ 12 ][ 0 ],
-                    inv2[ 12 ][ 1 ],
-                    inv2[ 13 ][ 0 ],
-                    inv2[ 13 ][ 1 ],
-                    inv2[ 14 ][ 0 ],
-                    inv2[ 14 ][ 1 ],
-                    inv2[ 15 ][ 0 ],
-                    inv2[ 15 ][ 1 ],
-                    inv2[ 16 ][ 0 ],
-                    inv2[ 16 ][ 1 ],
-                    inv2[ 17 ][ 0 ],
-                    inv2[ 17 ][ 1 ],
-                    inv2[ 18 ][ 0 ],
-                    inv2[ 18 ][ 1 ],
-                    inv2[ 19 ][ 0 ],
-                    inv2[ 19 ][ 1 ],
-                    inv2[ 20 ][ 0 ],
-                    inv2[ 20 ][ 1 ],
-                    inv2[ 21 ][ 0 ],
-                    inv2[ 21 ][ 1 ],
-                    inv2[ 22 ][ 0 ],
-                    inv2[ 22 ][ 1 ],
-                    inv2[ 23 ][ 0 ],
-                    inv2[ 23 ][ 1 ],
-                    inv2[ 24 ][ 0 ],
-                    inv2[ 24 ][ 1 ],
-                    inv2[ 25 ][ 0 ],
-                    inv2[ 25 ][ 1 ],
-                    inv2[ 26 ][ 0 ],
-                    inv2[ 26 ][ 1 ],
-                    inv2[ 27 ][ 0 ],
-                    inv2[ 27 ][ 1 ],
-                    inv2[ 28 ][ 0 ],
-                    inv2[ 28 ][ 1 ],
-                    inv2[ 29 ][ 0 ],
-                    inv2[ 29 ][ 1 ]);
-            for(new i = 0; i < MAX_HOUSETRUNK_SLOTS; i++)
-            {
-                if( inv2[ i ][ 0 ] == id )
-                {
-                    found = true;
-                    inv3++;
-                }
-            }
-            if( found )
-            {
-                format(query, sizeof(query), "Ginklo savininko namo ID: %d", name2 );
-                SendClientMessage(playerid, COLOR_GREY, query);
-            }
-        }
-        cache_delete(result);
-
-        result = mysql_query(DbHandle,  "SELECT `Name`,`Inventory` FROM `players` WHERE `Member` != 2" );
-        
-        for(new k = 0; k < cache_get_row_count(); k++)
-        {
-            new bool:found;
-            cache_get_field_content(k, "Name", name);
-            cache_get_field_content(k, "Inventory", inv);
-            sscanf( inv, "p</>dddddddddddd",
-                inv2[ 0 ][ 0 ],
-                inv2[ 0 ][ 1 ],
-                inv2[ 1 ][ 0 ],
-                inv2[ 1 ][ 1 ],
-                inv2[ 2 ][ 0 ],
-                inv2[ 2 ][ 1 ],
-                inv2[ 3 ][ 0 ],
-                inv2[ 3 ][ 1 ],
-                inv2[ 4 ][ 0 ],
-                inv2[ 4 ][ 1 ],
-                inv2[ 5 ][ 0 ],
-                inv2[ 5 ][ 1 ]);
-            for(new i = 0; i < INVENTORY_SLOTS; i++)
-            {
-                if( inv2[ i ][ 0 ] == id )
-                {
-                    found = true;
-                    inv3++;
-                }
-            }
-            if( found )
-            {
-                format(query, sizeof(query), "Ginklo savininkas (Inventorius): %s", name );
-                SendClientMessage(playerid, COLOR_GREY, query);
-            }
-        }
-        cache_delete(result);
-
-        result = mysql_query(DbHandle,  "SELECT `Name`,`Weapons` FROM `players` WHERE `Member` != 2" );
-        
-        for(new j = 0; j <cache_get_row_count(); j++)
-        {
-            new bool:found;
-            cache_get_field_content(j, "Name", name);
-            cache_get_field_content(j, "Weapons", inv);
-            sscanf( inv, "p</>dddddddd",
-                inv2[ 0 ][ 0 ],
-                inv2[ 0 ][ 1 ],
-                inv2[ 1 ][ 0 ],
-                inv2[ 1 ][ 1 ],
-                inv2[ 2 ][ 0 ],
-                inv2[ 2 ][ 1 ],
-                inv2[ 3 ][ 0 ],
-                inv2[ 3 ][ 1 ]);
-            for(new i = 0; i < MAX_SAVED_WEAPONS; i++)
-            {
-                if( inv2[ i ][ 0 ] == id )
-                {
-                    found = true;
-                    inv3++;
-                }
-            }
-            if( found )
-            {
-                format(query, sizeof(query), "Ginklo savininkas (Rankos): %s", name );
-                SendClientMessage(playerid, COLOR_GREY, query);
-            }
-        }
-        cache_delete(result);
-        SendClientMessage( playerid, COLOR_GREEN2, "________________________Serverio ginklai________________________");
-        new gunname[32];
-        GetWeaponName(id,gunname,sizeof(gunname));
-        format(string, 256, "%s - %d", gunname, inv3);
-        SendClientMessage( playerid, COLOR_WHITE, string);
-    }
-    return 1;
-}
-*/
 /*
 CMD:makeleader(playerid, params[])
 {
@@ -12614,42 +11503,7 @@ CMD:setstat(playerid, params[])
     return 1;
 }
 */
-CMD:auninvite(playerid, params[])
-{
-    if(GetPlayerAdminLevel(playerid) >= 4)
-    {
-        new
-            userID;
 
-        if(sscanf(params, "u", userID))
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /auninvite [playerid]");
-        else
-        {
-            if(userID == INVALID_PLAYER_ID) return SendClientMessage(playerid, COLOR_GREY, "Ðis þaidëjas nëra prisijungæs.");
-
-            pInfo[ userID ][ pJob ] = 0;
-            pInfo[ userID ][ pJobLevel ] = 0;
-            pInfo[ userID ][ pJobSkill ] = 0;
-            pInfo[ userID ][ pJobHours ] = 0;
-            ResetPlayerWeapons( userID );
-            RemovePlayerJobWeapons(userID);
-            pInfo[userID][pLead   ] = 0;
-            pInfo[userID][pMember ] = 0;
-            pInfo[userID][pRank   ] = 0;
-            pInfo[userID][pSpawn  ] = DefaultSpawn;
-            
-            new
-                string[128];
-
-            format(string, sizeof(string), "NAUJIENA: Administratorius %s iðmetë jûs ið visø darbø.",GetName(playerid));
-            SendClientMessage(userID,COLOR_NEWS,string);
-            format(string, sizeof(string), "INFORMACIJA: Jûs panaikinote ið visø nefrakciniø darbø %s",GetName(userID));
-            SendClientMessage(playerid,GRAD,string);
-        }
-    }
-
-    return 1;
-}
 /*
 CMD:forcelogout(playerid, params[])
 {
@@ -12868,64 +11722,7 @@ CMD:masked( playerid, params[ ] )
     }
     return 1;
 }
-/*
-CMD:are( playerid, params[ ] )
-{
-    if ( GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        new giveplayerid,
-            string[ 126 ],
-            adminname[ 24 ];
-        if ( sscanf( params, "u", giveplayerid ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /are [þaidëjo id]");
-        if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-        if ( GetPVarInt( giveplayerid, "REPORTED" ) == 0 )
-            return SendClientMessage( playerid, GRAD, "þaidëjas nieko nepraneðë." );
-        DeletePVar( giveplayerid, "REPORTED" );
-        GetPlayerName( playerid, adminname, 24 );
 
-        format(string,126,"Administratorius %s patvirtino /report ið veikëjo %s", GetName( playerid ), GetName( giveplayerid ));
-        AdminLog( pInfo[ playerid ][ pMySQLID ], pInfo[ giveplayerid ][ pMySQLID ], string );
-            
-        format           ( string, 126, "Dëmesio, Administratorius pavirtino Jûsø praneðimà (/report) ir tuojaus susisieks su Jumis. Bûkite kantrûs.",adminname );
-        SendClientMessage( giveplayerid, COLOR_GREEN, string );
-
-        format           ( string, 126, "AdmWarn: Administratorius (%s) patvirtino praneðimà (/report) ið (%s) ", adminname, GetName( giveplayerid ));
-        SendAdminMessage ( COLOR_ADM, string );
-
-        mysql_format(DbHandle, string, sizeof(string), "UPDATE admin_watch_duty SET reports_accepted = reports_accepted + 1 WHERE admin_id = %d",
-            GetPlayerSqlId(playerid));
-        mysql_pquery(DbHandle, string);
-    }
-    return 1;
-}
-CMD:dre( playerid, params[ ] )
-{
-    if ( GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        new giveplayerid,
-            reason[ 126 ],
-            string[ 126 ];
-        if ( sscanf( params, "us[126]", giveplayerid, reason ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /dre [þaidëjo id][ preizastis ]");
-        if(!IsPlayerConnected(giveplayerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-        if ( GetPVarInt( giveplayerid, "REPORTED" ) == 0 )
-            return SendClientMessage( playerid, GRAD, "þaidëjas nieko nepraneðë arba /report buvo priimtas kito Administratoriaus." );
-        DeletePVar( giveplayerid, "REPORTED" );
-
-        format(string,126,"Administratorius %s atmetë reportá  %s", GetName( playerid ), GetName( giveplayerid ));
-        AdminLog( pInfo[ playerid ][ pMySQLID ], pInfo[ giveplayerid ][ pMySQLID ], string );
-
-        format           ( string, 126, "Dëmesio, Administratorius %s atmetë Jûsø praneðimà (/report) nes: %s ", GetName( playerid ), reason );
-        SendClientMessage( giveplayerid, COLOR_GREEN, string );
-        format           ( string, 126, "AdmWarn: Administratorius (%s) atmetë praneðimà (/report) ið (%s)", GetName( playerid ), GetName( giveplayerid ) );
-        SendAdminMessage ( COLOR_ADM, string );
-
-        mysql_format(DbHandle, string, sizeof(string), "UPDATE admin_watch_duty SET reports_rejected = reports_rejected + 1 WHERE admin_id = %d",
-            GetPlayerSqlId(playerid));
-        mysql_pquery(DbHandle, string);
-    }
-    return 1;
-}
-*/
 CMD:gotonowhere(playerid)
 {
     if(!GetPlayerAdminLevel(playerid) && !IsPlayerAdmin(playerid))
@@ -13047,63 +11844,6 @@ CMD:gotogarage(playerid, params[])
     }
     format(string, sizeof(string), "Sëkmingai nusikëlëte prie garaþo kurio ID %d", index);
     SendClientMessage(playerid, COLOR_NEWS, string);
-    return 1;
-}*/
-/*
-CMD:serverstats(playerid)
-{
-    if(!IsPlayerAdmin(playerid) && GetPlayerAdminLevel(playerid) < 4)
-        return 0;
-
-    new playerCount, botCount, string[ 2048 ];
-    for(new i = 0; i < MAX_PLAYERS; i++)
-    {
-        if(IsPlayerConnected(i))
-        {
-            if(IsPlayerNPC(i))
-                botCount++;
-            else 
-                playerCount++;
-        }
-    }
-
-    mysql_stat(string);
-
-    format(string, sizeof(string), "\t\tMySQL\n\n\
-        %s\n\
-        Nebaitos uþklausos: %d\n\
-        Þaidëjø serveryje:%d\n\
-        NPC serveryje:%d\n\n\
-        Dinaminiø objektø: %d\n\
-        Dinaminiø pickup: %d\n\
-        Dinaminiø CP: %d\n\
-        Dinaminiø þemëlapio ikonø: %d\n\
-        Dinaminiø teksto etikeèiø: %d\n\
-        Dinaminiø vietø: %d\n\
-        Matomø dinaminiø objektø: %d\n\
-        Matomø dinaminiø pickup: %d\n\
-        Matomø dinaminiø CP: %d\n\
-        Matomø dinaminiø þemëlapio ikonø: %d\n\
-        Matomø dinaminiø teksto etikeèiø: %d\n\
-        Matomø dinaminiø vietø: %d\n",
-        string,
-        mysql_unprocessed_queries(),
-        playerCount,
-        botCount,
-        Streamer_CountItems(STREAMER_TYPE_OBJECT),
-        Streamer_CountItems(STREAMER_TYPE_PICKUP),
-        Streamer_CountItems(STREAMER_TYPE_CP),
-        Streamer_CountItems(STREAMER_TYPE_MAP_ICON),
-        Streamer_CountItems(STREAMER_TYPE_3D_TEXT_LABEL),
-        Streamer_CountItems(STREAMER_TYPE_AREA),
-        Streamer_GetVisibleItems(STREAMER_TYPE_OBJECT),
-        Streamer_GetVisibleItems(STREAMER_TYPE_PICKUP),
-        Streamer_GetVisibleItems(STREAMER_TYPE_CP),
-        Streamer_GetVisibleItems(STREAMER_TYPE_MAP_ICON),
-        Streamer_GetVisibleItems(STREAMER_TYPE_3D_TEXT_LABEL),
-        Streamer_GetVisibleItems(STREAMER_TYPE_AREA)
-    );
-    ShowPlayerDialog(playerid, 9999, DIALOG_STYLE_MSGBOX, "Info", string, "Gerai", "");
     return 1;
 }*/
 
@@ -13270,36 +12010,7 @@ CMD:rfc( playerid, params[ ] )
     return 1;
 }*/
 
-CMD:olddriver(playerid, params[])
-{
-    if(!GetPlayerAdminLevel(playerid) && !IsPlayerAdmin(playerid))
-        return 0;
 
-
-    new string[100], vehicleid;
-
-    if(sscanf(params, "i", vehicleid))
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /olddriver [Tr. priemonës ID]");
-
-    if(!IsValidVehicle(vehicleid))
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "Tokios transporto priemonës nëra.");
-
-    if(LastVehicleDriverSqlId[ vehicleid ])
-    {
-        new id = FindPlayerSqlIdServerID(LastVehicleDriverSqlId[ vehicleid ]);
-        format(string, sizeof(string), "Paskutinis ðioje transporto priemonëje sedëjo %s.", GetSqlIdName(LastVehicleDriverSqlId[ vehicleid ]));
-        if(id != INVALID_PLAYER_ID)
-            format(string, sizeof(string),"%s Jo serverio ID: %d", string, id);
-        else 
-            strcat(string, " Ðis þaidëjas jau yra atsijungæs.");
-        SendClientMessage(playerid, COLOR_WHITE, string);
-    }
-    else 
-    {
-        SendClientMessage(playerid, COLOR_WHITE, "Ðioje transporto priemonëje nuo jos sukûrimo dar niekas nesedëjo.");
-    }
-    return 1;
-}
 /*
 CMD:gotocar( playerid, params[ ] )
 {
@@ -13462,29 +12173,7 @@ CMD:check( playerid, params[ ] )
     }
     return 1;
 }
-/*
-CMD:lockacc( playerid, params[ ] )
-{
-    if ( GetPlayerAdminLevel(playerid) >= 1 )
-    {
-        new giveplayerid,
-            string[ 256 ],
-            reason[ 128 ];
-        if ( sscanf( params, "us[126]", giveplayerid, reason ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /lockacc [þaidëjo id][Prieþastis]");
-        if ( !IsPlayerConnected(giveplayerid) )  return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje. ");
-        if ( strfind( reason, "'", true ) != -1 ) return 1;
-        mysql_real_escape_string(reason,reason);
 
-        format( string, sizeof(string), "INSERT INTO `nuobaudos` (Kas, Ka, Kam, Priezastis) VALUES('%d', 'uþrakino sá skaitá ', '%d', '%s')", pInfo[ playerid ][ pMySQLID ], pInfo[ giveplayerid ][ pMySQLID ], reason);
-        mysql_pquery(DbHandle, string);
-        format( string, sizeof(string), "INSERT INTO acclock (id,admin,reason) VALUES (%d,'%s','%s')", pInfo[ giveplayerid ][ pMySQLID ], GetName( playerid ), reason );
-        mysql_pquery(DbHandle,  string );
-        format( string, sizeof(string), "Uþrakinta sàskaita, %s", reason );
-        KickPlayer( GetName( playerid ), giveplayerid, string );
-    }
-    return 1;
-}
-*/
 CMD:setint( playerid, params[ ] )
 {
     if(GetPlayerAdminLevel(playerid) >= 1)
@@ -13744,24 +12433,6 @@ CMD:getoldcar( playerid, params[ ] )
     }
     return 1;
 }
-CMD:givemoney(playerid,params[])
-{
-    if ( GetPlayerAdminLevel(playerid) >= 4 )
-    {
-        new giveplayerid,
-            mn,
-            string[126];
-        if ( sscanf( params, "ud", giveplayerid,mn ) ) return SendClientMessage( playerid, COLOR_LIGHTRED, "Teisingas komandos naudojimas: /givemoney [þaidëjo id][pinigai]");
-        if ( !IsPlayerConnected( giveplayerid ) )      return SendClientMessage( playerid, COLOR_LIGHTRED, "Klaida, nurodytas veikëjo ID negalimas, kadangi toks ID nëra prisijungæs serveryje.");
-
-        GivePlayerMoney ( giveplayerid, mn );
-        format          ( string, 126, "AdmWarn: Administratorius (%s) suteikë (/givemoney) veikëjui (%d) sumà: %s$",GetName(playerid),mn,GetName(giveplayerid));
-        SendAdminMessage( COLOR_ADM, string );
-        format          ( string, 56, "OOC suteikë pinigø suma: %d$", mn );
-        AdminLog        ( pInfo[ playerid ][ pMySQLID ], pInfo[ giveplayerid ][ pMySQLID ], string );
-    }
-    return 1;
-}
 /*
 CMD:giveitem(playerid,params[])
 {
@@ -13843,19 +12514,7 @@ stock GetVehicleDriver(vehicleid)
             return i;
     return INVALID_PLAYER_ID;
 }
-/*
-stock GetVehicleOwnerName( id )
-{
-    new name[MAX_PLAYER_NAME+1],
-        string[ 256 ];
-    
-    format(string, sizeof(string), "SELECT `Name` FROM `players` WHERE `id` = %d", id );
-    new Cache:result = mysql_query(DbHandle, string);
-    cache_get_field_content(0, "Name", name);
-    cache_delete(result);
-    return name;
-}
-*/
+
 stock AcesToSVehicle( vehicleid, playerid )
 {
     printf("AcesToSVehicle(%d, %d). Player faction:%d Vehicle faction:%d Vehicle Rank:%d",
@@ -13963,7 +12622,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
         new veh = GetPlayerVehicleID( playerid );
 
         ShowPlayerInfoText( playerid );
-        SetPVarInt( playerid, "PLAYER_VEH_MODEL", GetVehicleModel( veh ) );
+        /*SetPVarInt( playerid, "PLAYER_VEH_MODEL", GetVehicleModel( veh ) );
         if ( cInfo[ veh ][ cLock ] == 1 && GetPVarInt( playerid, "FALSE_ENTER" ) == 0 )
             return KickPlayer( "AC", playerid, "álipo á uþrakinta tr. priemone." );
 
@@ -13973,6 +12632,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
         {
 
         }
+    */
 /*
 
         if ( Audio_IsClientConnected( playerid ) )
@@ -14500,7 +13160,7 @@ public OnVehicleMod(playerid, vehicleid, componentid)
     #if defined DEBUG
         printf("[debug] OnVehicleMod(%s, %d, %d)", GetName(playerid), vehicleid, componentid);
     #endif
-    KickPlayer( "AC", playerid, "Tuninguoja automobilá, tuningavimo salone." );
+//    KickPlayer( "AC", playerid, "Tuninguoja automobilá, tuningavimo salone." );
     SetVehicleToRespawn( vehicleid );
     return 1;
 }
@@ -14557,7 +13217,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
     return 1;
 }
-
+/*
 FUNKCIJA:Mechaniku( playerid, left )
 {
     new Keys,
@@ -14609,6 +13269,7 @@ FUNKCIJA:Mechaniku( playerid, left )
     }
     return 1;
 }
+*/
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
     //Anti CuffedJump
@@ -14996,13 +13657,13 @@ stock IsDriveByWeapon(weaponid)
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
     printf("OnPlayerWeaponShot");
-    if(!IsPlayerWeaponInMemory(playerid, weaponid))
-    {
-        SendClientMessage(playerid, COLOR_LIGHTRED, "-.- Naujas AC norëjo kà tik tave uþblokuoti, ðiaip ne taip iðgelbëjau...");
-        new string[128];
-        format(string, sizeof(string),"Weapons.p : OnPlayerWeaponShot(%d, %d, %d, %d, %f, %f, %f)", playerid, weaponid, hittype, hitid, fX, fY, fZ);
-        ACTestLog(string);
-    }
+//    if(!IsPlayerWeaponInMemory(playerid, weaponid))
+ //   {
+    //    SendClientMessage(playerid, COLOR_LIGHTRED, "-.- Naujas AC norëjo kà tik tave uþblokuoti, ðiaip ne taip iðgelbëjau...");
+       //new string[128];
+        //format(string, sizeof(string),"Weapons.p : OnPlayerWeaponShot(%d, %d, %d, %d, %f, %f, %f)", playerid, weaponid, hittype, hitid, fX, fY, fZ);
+        //ACTestLog(string);
+   // }
     return 1;
 }
 
@@ -15026,6 +13687,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
         }
     }
     */
+    /*
     if ( GetPVarInt( playerid, "TAZER_MODE" ) == 1 )
     {
         if ( ShooterWep != 23 ) return SetPVarInt( playerid, "TAZER_MODE", 0 );
@@ -15049,7 +13711,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 
         RemovePlayerWeapon( playerid, 23 );
         return 1;
-    }
+    }*/
     if( Boxing[ damagedid ] == true )
     {
         new Float:HP;
@@ -15077,7 +13739,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 
 public OnPlayerUpdate(playerid)
 {   
-    OnLookupComplete(playerid);
+//    OnLookupComplete(playerid);
     SetPVarInt( playerid, "Is_AFK", 1 );
 
     new gunid = GetPlayerWeapon(playerid),
@@ -15086,7 +13748,7 @@ public OnPlayerUpdate(playerid)
         Float:X2,
         Float:Y2,
         Float:Z2;
-
+/*
     GetWeaponName( gunid, wepname, sizeof(wepname) );
 
     if(GetWeaponSlotByID(gunid) == 7)
@@ -15099,11 +13761,12 @@ public OnPlayerUpdate(playerid)
         SendClientMessage(playerid, COLOR_RED, str);
         return 1;
     }
+    */
     new iCurWeap = GetPlayerWeapon(playerid); // Return the player's current weapon
     if(iCurWeap != GetPVarInt(playerid, "iCurrentWeapon")) // If he changed weapons since the last update
     {
         // Lets call a callback named OnPlayerChangeWeapon
-        OnPlayerChangeWeapon(playerid, GetPVarInt(playerid, "iCurrentWeapon"), iCurWeap);
+//        OnPlayerChangeWeapon(playerid, GetPVarInt(playerid, "iCurrentWeapon"), iCurWeap);
         SetPVarInt(playerid, "iCurrentWeapon", iCurWeap); // Update the weapon variable
     }
     for(new i = 0; i < MAX_ROADBLOCKS; i++)
@@ -15137,7 +13800,7 @@ CMD:togacmsg(playerid, params[])
     ShowACTestMsg[ playerid ] = !ShowACTestMsg[ playerid ];
     return 1;
 }
-
+/*
 stock OnPlayerChangeWeapon(playerid, oldweapon, newweapon)
 {
     new
@@ -15152,7 +13815,7 @@ stock OnPlayerChangeWeapon(playerid, oldweapon, newweapon)
 
     if( !IsPlayerInAnyVehicle( playerid ) )
     {
-        /*
+        
         if( weapons[ 1 ] < 1)
         {
             format( eile, sizeof( eile ), "DELETE FROM `AC` WHERE `ID` = %d AND `WeaponID` = %d", pInfo[ playerid ][ pMySQLID ], oldweapon );
@@ -15160,11 +13823,11 @@ stock OnPlayerChangeWeapon(playerid, oldweapon, newweapon)
             format(string, sizeof( string ), "%dbone", oldweapon );
             SetPVarFloat ( playerid, string, 0 );
         }
-        */
+        
         if(IsWeaponHasAmmo(newweapon))
         {
             CheckWeaponCheat(playerid, newweapon, 0);
-            /*
+            
             if(!IsPlayerWeaponInDB(playerid, newweapon))
             {
                 if(GetPVarInt(playerid, "PossibleWeaponCheat"))
@@ -15220,7 +13883,7 @@ stock OnPlayerChangeWeapon(playerid, oldweapon, newweapon)
                     string, newweapon, oldweapon, newweapon, weapons[ 0 ], weapons[ 1 ]);
                 ACTestLog(string);
             }
-            */
+            
         }
 
 
@@ -15245,7 +13908,7 @@ stock OnPlayerChangeWeapon(playerid, oldweapon, newweapon)
 
     }
     return true;
-}
+}*/
 
 
 stock IsPlayerSpectatingPlayer(playerid, spectatee)
@@ -15719,7 +14382,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 }
                 case 4:
                 {
-                    EntranceManagementDialog.ShowMain(playerid);
+//                    EntranceManagementDialog.ShowMain(playerid);
                     return 1;
                 }
                 case 5:
@@ -15742,12 +14405,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 }
                 case 8:
                     return TruckerJob:ShowPlayerDialog(playerid, ActionList);
-                case 9: 
-                    return InteriorManagementDialog.ShowMain(playerid);
-                case 10: 
-                    return CoordinateManagementDialog.ShowMain(playerid);
-                case 11:
-                    return GraffitiManagementDialog.ShowMain(playerid);
+                //case 9: 
+                    //return InteriorManagementDialog.ShowMain(playerid);
+                //case 10: 
+                    //return CoordinateManagementDialog.ShowMain(playerid);
+                //case 11:
+                    //return GraffitiManagementDialog.ShowMain(playerid);
                 case 12:
                     return BugReportManagementDialog.ShowMain(playerid);
             }
@@ -18129,204 +16792,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		SendClientMessage(playerid, COLOR_LIGHTRED2, string);
 		return 1;
 	}
-    else if ( dialogid == 166 )
-    {
-        if( !response )
-            return 1;
-
-        new
-            rows,
-            rows2 = 0,
-            kaina,
-            etc1[ 128 ],
-            etc2[ 128 ],
-            etc3[ 128 ],
-            etc4[ 128 ],
-            id;
-
-        format( string, 256, "SELECT `id`,`name`,`crime`,`reporter`,`price`,`When` FROM `tickets` WHERE `name` = '%s'", GetPlayerNameEx(tmpinteger[ playerid ]) );
-        new Cache:result = mysql_query(DbHandle,  string );
    
-        rows = cache_get_row_count();
-
-        format( string, 256, "" );
-
-        for(new i = 0; i < rows; i++)
-        {
-            if( listitem == rows2 )
-            {
-                id = cache_get_field_content_int(i, "id");
-                cache_get_field_content(i, "name", etc1);
-                cache_get_field_content(i, "crime", etc2);
-                cache_get_field_content(i, "reporter", etc3);
-                kaina = cache_get_field_content_int(i, "price");
-                cache_get_field_content(i, "When", etc4);
-
-
-                format( string, sizeof( string ),"%sKas davë:\t %s\n", string, etc3 );
-                format( string, sizeof( string ),"%sKam davë:\t %s\n", string, etc1 );
-                format( string, sizeof( string ),"%s\n", string );
-                format( string, sizeof( string ),"%sSuma:\t\t $%d\n", string, kaina );
-                format( string, sizeof( string ),"%sPaþeidimas:\t %s\n", string, etc2 );
-                format( string, sizeof( string ),"%sData:\t\t %s", string, etc4 );
-                SetPVarInt(playerid, "Listitem", id);
-            }
-            rows2++;
-        }
-        cache_delete(result);
-        
-        if( tmpinteger[ playerid ] != playerid )
-        {
-            tmpinteger[ playerid ] = kaina;
-            ShowPlayerDialog(playerid,167,DIALOG_STYLE_MSGBOX,"Fine details",string,"Mokëti","Atgal");
-        }
-        else
-            ShowPlayerDialog(playerid,9999,DIALOG_STYLE_MSGBOX,"Fine details", string, "OK", "");
-    }
-    else if ( dialogid == 167 )
-    {
-        if( !response )
-            return 1;
-            
-        if( GetPlayerMoney(playerid) < tmpinteger[ playerid ] )
-            return 1;
-            
-        if(!PDJOBPlace(playerid))
-            return 1;
-            
-        new
-            rows;
-
-        format( string, 256, "SELECT * FROM `tickets` WHERE `id` = '%d'", GetPVarInt(playerid, "Listitem") );
-        new Cache:result = mysql_query(DbHandle,  string );
-
-        rows = cache_get_row_count();
-
-        if( rows )
-        {
-            format(string, 512, "UPDATE `tickets` SET `paid` = 1 WHERE `id` = %d", GetPVarInt(playerid, "Listitem") );
-            mysql_query(DbHandle,  string, false);
-            GivePlayerMoney(playerid, -tmpinteger[ playerid ]);
-        }
-        cache_delete(result);
-    }
-    else if ( dialogid == 168 )
-    {
-        if( !response )
-            return 1;
-
-        new
-            rows2 = 0,
-            kaina,
-            etc1[ 128 ],
-            etc2[ 128 ],
-            etc3[ 128 ],
-            etc4[ 128 ],
-            id;
-
-        format( string, 256, "SELECT `id`,`numbers`,`crime`,`reporter`,`price`,`When` FROM `cartickets` WHERE `numbers` = '%s'", cInfo[ tmpinteger[ playerid ] ][ cNumbers ] );
-        new Cache:result = mysql_query(DbHandle,  string );
-
-        format( string, 256, "" );
-
-        for(new i = 0; i < cache_get_row_count(); i++)
-        {
-            
-            if( listitem == rows2 )
-            {
-                id = cache_get_field_content_int(i, "id");
-                cache_get_field_content(i, "name", etc1);
-                cache_get_field_content(i, "crime", etc2);
-                cache_get_field_content(i, "reporter", etc3);
-                kaina = cache_get_field_content_int(i, "price");
-                cache_get_field_content(i, "When", etc4);
-            
-
-                format( string, sizeof( string ),"%sKas davë:\t %s\n", string, etc3 );
-                format( string, sizeof( string ),"%sKam davë:\t %s\n", string, etc1 );
-                format( string, sizeof( string ),"%s\n", string );
-                format( string, sizeof( string ),"%sSuma:\t\t $%d\n", string, kaina );
-                format( string, sizeof( string ),"%sPaþeidimas:\t %s\n", string, etc2 );
-                format( string, sizeof( string ),"%sData:\t\t %s", string, etc4 );
-                SetPVarInt(playerid, "Listitem", id);
-            }
-            rows2++;
-            
-        }
-        cache_delete(result);
-
-        if( tmpinteger[ playerid ] != GetPlayerVehicleID(playerid) )
-        {
-            tmpinteger[ playerid ] = kaina;
-            ShowPlayerDialog(playerid,169,DIALOG_STYLE_MSGBOX,"Fine details",string,"Mokëti","Atgal");
-        }
-        else
-            ShowPlayerDialog(playerid,9999,DIALOG_STYLE_MSGBOX,"Fine details", string, "OK", "");
-    }
-    else if ( dialogid == 169 )
-    {
-        if( !response )
-            return 1;
-
-        if( GetPlayerMoney(playerid) < tmpinteger[ playerid ] )
-            return 1;
-
-        if(!PDJOBPlace(playerid))
-            return 1;
-
-        new
-            rows;
-
-        format( string, 256, "SELECT * FROM `cartickets` WHERE `id` = '%d'", GetPVarInt(playerid, "Listitem") );
-        new Cache:result = mysql_query(DbHandle,  string );
-        rows = cache_get_row_count();
-
-        if( rows )
-        {
-            format(string, 512, "UPDATE `cartickets` SET `paid` = 1 WHERE `id` = %d", GetPVarInt(playerid, "Listitem") );
-            mysql_query(DbHandle,  string, false);
-            GivePlayerMoney(playerid, -tmpinteger[ playerid ]);
-        }
-        cache_delete(result);
-    }
-    else if ( dialogid == 170 )
-    {
-        if( !response )
-            return 1;
-
-        new
-            rows,
-            etc1,
-            etc2[ 128 ],
-            etc3[ 128 ],
-            etc4[ 128 ];
-
-        new Cache:result = mysql_query(DbHandle,  "SELECT `number`,`crime`,`position`,`when` FROM `lastcall` ORDER BY `when` DESC LIMIT 12" );
-        rows = cache_get_row_count();
-
-        if( rows )
-        {
-            rows = 0;
-            for(new i = 0; i <  cache_get_row_count(); i++)
-            {
-                if( listitem == rows )
-                {
-                    etc1 = cache_get_field_content_int(i, "number");
-                    cache_get_field_content(i, "crime", etc2);
-                    cache_get_field_content(i, "position", etc3);
-                    cache_get_field_content(i, "when", etc4);
-                    format( string, sizeof( string ),"%sPraneðëjas:\t %d\n", string, etc1 );
-                    format( string, sizeof( string ),"%sávykis:\t %s\n", string, etc2 );
-                    format( string, sizeof( string ),"%sVieta:\t\t $%s\n", string, etc3 );
-                    format( string, sizeof( string ),"%sData:\t\t %s", string, etc4 );
-                }
-                rows++;
-            }
-        }
-        cache_delete(result);
-
-        ShowPlayerDialog(playerid,9999,DIALOG_STYLE_MSGBOX,"911 details", string, "OK", "");
-    }
     /*
     else if ( dialogid == 104 )
     {
@@ -18441,13 +16907,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
     }
     */
-    else if ( dialogid == 103 )
-    {
-        if ( response == 1 )
-            return AcceptOffer( playerid );
-        else if ( response == 0 )
-            return DeclineOffer( playerid );
-    }
+
     else if( dialogid == 129 )
     {
         if(!response)
@@ -18751,171 +17211,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         cache_delete(result);
     }
     */
-    else if( dialogid == 128 )
-    {
-        if(!response)
-            return 1;
-            
-        switch( listitem )
-        {
-            case 0:
-                ShowPlayerDialog( playerid, 129, DIALOG_STYLE_INPUT,"Paieðka pagal vardà ir pavardæ",
-                "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-				{FFFFFF}Áveskite ieðkomo asmens vardà ir pavardæ\n\
-                 Pavyzdys: Vardas_Pavarde", "Ieðkoti","Atðaukti" );
-            case 1:
-                ShowPlayerDialog( playerid, 130, DIALOG_STYLE_INPUT,"Tr. Priemonës paieðka",
-                "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-				{FFFFFF}Áveskite ieðkomos tr. priemonës valstybinius numerius", "Paieðka", "Uþdaryti" );
-            case 2: // Ieðkomø þaidëjø sá raðas
-            {
-                new
-                    rows,
-                    dString[ 2048 ];
-
-                new Cache:result=  mysql_query(DbHandle,  "SELECT `Name`,`WantedLevel` FROM `players` WHERE `WantedLevel` > 0" );
-                rows = cache_get_row_count();
-
-                for(new i = 0; i < cache_get_row_count(); i++)
-
-                {
-                    new bool:found = false;
-
-                    cache_get_field_content(i, "Name", string);
-                    rows = cache_get_field_content_int(i, "WantedLevel");
-                    foreach(Player,playerd)
-                    {
-                        if ( !IsPlayerConnected(playerd) ) continue;
-                        if ( !strcmp( GetName( playerd ), string, true ) )
-                        {
-                            format(dString, sizeof(dString), "%s\n%s (%d)",
-                            dString, GetName( playerd ), pInfo[ playerd ][ pWantedLevel ]);
-                            found = true;
-                            break;
-                        }
-                    }
-                    if( !found )
-                    {
-                        format(dString, sizeof(dString), "%s\n%s (%d) ((neprisijungæs))",
-                        dString, string, rows);
-                    }
-                }
-                
-                cache_delete(result);
-                ShowPlayerDialog( playerid, 131, DIALOG_STYLE_LIST,"Paieðkomø veikëjø sàraðas",
-                        dString, "Pasirinkti", "Uþdaryti" );
-            }
-            case 3: // Kalëjimo duomenø bazë
-            {
-                foreach(Player, i )
-                {
-                    if( ( pInfo[i][pJail] > 0 && pInfo[i][pJail] != 1 ) && pInfo[i][pJailTime] > 0 )
-                        format( string, sizeof( string ), "%s\nKalinio vardas: %s Likæs laikas kalëjime: %d", string, GetName( i ), pInfo[i][pJailTime] );
-                }
-                if( isnull( string ) )
-                    format(string, sizeof( string ),"Nëra duomenø" );
-                ShowPlayerDialog( playerid, 136, DIALOG_STYLE_LIST,"Kalëjimo duomenø bazë", string, "Uþdaryti", "" );
-            }
-            case 4: // Pridëti á ieðkomøjø sá raðá 
-            {
-                ShowPlayerDialog( playerid, 132, DIALOG_STYLE_INPUT,"Átraukti asmená á paieðkomu sàraða",
-                "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-				{FFFFFF}Áveskite paieðkomo asmens vardà ir pavardæ\n\
-                Pavyzdys: Vardas_Pavarde", "Ávesti", "Uþdaryti" );
-            }
-            case 5: // Pridëti maðiná  á ieðkomøjø sá raðá 
-            {
-                ShowPlayerDialog( playerid, 134, DIALOG_STYLE_INPUT,"Átraukti tr. priemonæ á paieðkas",
-                "{1797cd}LOS SANTOS POLICE DEPARTAMENT\n\
-				{FFFFFF}Áveskite tr. priemonës valstybinius numerius\n\
-                kurie bus átrauka á paieðkomø sàraðà \"Testi\" ", "Ávesti", "Atðaukti" );
-            }
-            case 6: // Ieðkomøjø maðinø sá raðas
-            {
-                new
-                    rows,
-                    dString[ 2048 ],
-                    Cache:result ;
-
-                result = mysql_query(DbHandle,  "SELECT `cNumbers`,`cCrimes` FROM `vehicles` WHERE `cCrimes` > 0" );
-                rows = cache_get_row_count();
-
-                for(new j = 0; j < cache_get_row_count(); j++)
-                {
-                    new bool:found = false;
-
-                    cache_get_field_content(j, "cNumbers", string);
-                    rows = cache_get_field_content_int(j, "cCrimes");
-
-                    foreach(Vehicles,i)
-                    {
-                        if ( cInfo[ i ][ cOwner ] == 0 ) continue;
-                        if ( !strcmp( cInfo[ i ][ cNumbers ], string, true ) )
-                        {
-                            format(dString, sizeof(dString), "%s\n%s (%d)",
-                            dString, cInfo[ i ][ cNumbers ], cInfo[ i ][ cCrimes ]);
-                            found = true;
-                            break;
-                        }
-                    }
-                    if( !found )
-                    {
-                        format(dString, sizeof(dString), "%s\n%s (%d) ((neiðspawninta))",
-                        dString, string, rows);
-                    }
-                }
-                
-                cache_delete(result);
-                
-                ShowPlayerDialog( playerid, 141, DIALOG_STYLE_LIST,"Ieðkomu tr. priemoniø sàraðas",
-                        dString, "Pasirinkti", "Uþdaryti" );
-            }
-            case 7: // Areðtuotø maðinø sá raðas
-            {
-                new
-                    dString[ 2048 ],
-                    Cache:result;
-
-                result = mysql_query(DbHandle,  "SELECT `numbers` FROM `arrestedcars`" );
-
-                for(new i = 0; i < cache_get_row_count(); i++)
-                {
-                    {
-                        cache_get_field_content(i, "numbers", string);
-                        format(dString, sizeof(dString), "%s\n%s", dString, string);
-                    }
-                }
-                cache_delete(result);
-
-                ShowPlayerDialog( playerid, 149, DIALOG_STYLE_LIST,"Areðtuotu tr. priemoniø sàraðas",
-                        dString, "Pasirinkti", "Uþdaryti" );
-            }
-            case 8: // Paskutiniai 911 praneðimai ( 12 )
-            {
-                new
-                    rows,
-                    dString[ 2048 ],
-                    Cache:result;
-
-                result = mysql_query(DbHandle,  "SELECT * FROM `lastcall` ORDER BY `when` DESC LIMIT 12" );
-                rows = cache_get_row_count();
-
-                if( rows )
-                {
-                    rows = 1;
-                    for(new i = 0; i < cache_get_row_count(); i++)
-                    {
-                        format(dString, sizeof(dString), "%s%d iðkvietimas\n", dString, rows);
-                        rows++;
-                    }
-                }
-                cache_delete(result);
-
-                ShowPlayerDialog( playerid, 170, DIALOG_STYLE_LIST,"Paskutiniai 911 skambuèiai",
-                        dString, "Pasirinkti", "Uþdaryti" );
-            }
-        }
-    }
+  
     if(dialogid == INTERIORMENU)
     {
         if(response)
@@ -18987,44 +17283,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
         return 1;
     }
-    if(dialogid == DIALOG_VEHICLE_SCRAP_CONFIRM)
-    {
-        if(response)
-        {
-            new price = GetPVarInt(playerid, "Scrap.Price"),
-                vehicleid = GetPVarInt(playerid, "Scrap.VehicleID"),
-                query[ 70 ];
-
-            if(!IsValidVehicle(vehicleid))
-                return 1;
-
-            GivePlayerMoney(playerid, price);
-            foreach(Player,i)
-            {
-                if ( pInfo[ i ][ pDubKey ] == cInfo[ vehicleid ][ cID ] )
-                    pInfo[ i ][ pDubKey ] = 0;
-            }
-            mysql_format(DbHandle, query, sizeof(query), "UPDATE players SET pDubKey = 0 WHERE pDubKey = %d", cInfo[ vehicleid ][ cID ] );
-            mysql_pquery(DbHandle,  query);
-            
-            cInfo[ vehicleid ][cVehID] = 0;
-            DestroyVehicle(vehicleid);
-            if(pInfo[ playerid ][ pCarGet ] > 0)
-                pInfo[ playerid ][ pCarGet ] --;
-
-            mysql_format(DbHandle, query, sizeof(query), "DELETE FROM `vehicles` WHERE `ID` = '%i'", cInfo[ vehicleid ][ cID ]);
-            // No threading. LoadPlayerVehicles ið naujo krauna visus id... Tai gali dar nebût iðtrintas su paralelinem.
-            mysql_query(DbHandle, query, false);
-            nullVehicle(vehicleid);
-
-            LoadPlayerVehicles(playerid);
-
-            PayLog(pInfo[ playerid ][ pMySQLID ],16, -2, GetVehicleModel(vehicleid));
-            SendClientMessage(playerid, COLOR_LIGHTRED, "Dëmesio, Jûsø pasirinkta tr. priemonë buvo sunaikinta negràþinamai." );
-        }
-        DeletePVar(playerid, "Scrap.Price");
-        DeletePVar(playerid, "Scrap.VehicleID");
-    }
+  
     return 1;
 }
 
@@ -20440,27 +18699,10 @@ FUNKCIJA:MinTime()
     {
         if (!IsPlayerLoggedIn(i)) continue;
 
-        CheckIfAFKing( i );
+        //CheckIfAFKing( i );
 
         pInfo[ i ][ pPayDayHad ] ++;
 
-        if( pInfo[ i ][ pTester ] > 0 && GetPVarInt( i, "TESTER_DUTY" ) == 1 )
-        {
-            format(string, sizeof(string), "UPDATE players SET pDutyT = pDutyT+1 WHERE id = %d", pInfo[ i ][ pMySQLID ]);
-            mysql_pquery(DbHandle,  string );
-        }
-        if(GetPlayerAdminLevel(i) > 0 && AdminDuty[i] == true )
-        {
-            format(string, sizeof(string), "UPDATE players SET aDutyTime = aDutyTime+1 WHERE id = %d", pInfo[ i ][ pMySQLID ]);
-            mysql_pquery(DbHandle,  string );
-        }
-
-        if( GetPVarInt( i, "AddictionTime" ) > 0 )
-        {
-            if( GetPVarInt( i, "AddictionTime" ) == 1 )
-                KillTimer( DrugTimer[ i ] );
-            SetPVarInt( i, "AddictionTime", GetPVarInt( i, "AddictionTime" )-1 );
-        }
         
         //if( GetPlayerState(i) == 2 && VehicleHasEngine( GetVehicleModel( GetPlayerVehicleID ( i ) ) ) && Engine[GetPlayerVehicleID ( i )] == true )
         //    SyncFuel( GetPlayerVehicleID ( i ) );
@@ -20966,7 +19208,7 @@ FUNKCIJA:Sekunde()
             Streamer_Update( i );
             ObjUpdate[ i ] = false;
         }*/
-        
+        /*
         if ( plstate == PLAYER_STATE_DRIVER )
         {
             new
@@ -20982,7 +19224,7 @@ FUNKCIJA:Sekunde()
             else
                 ac_SpeedWarns[ i ] = 0;
         }
-        
+        */
         if ( pInfo[ i ][ pLeftTime ] > 0 )
             pInfo[ i ][ pLeftTime ] --;
 
@@ -21173,7 +19415,7 @@ FUNKCIJA:Sekunde()
 
         static fadeCount[ MAX_PLAYERS ];
         fadeCount[ i ]++;
-        if(PlayerFading)
+      /*  if(PlayerFading)
         {
             if((-3 >= pInfo[ i ][ pHunger ] >= -6 && fadeCount[ i ] % 60 == 0)
                 || (-7 >= pInfo[ i ][ pHunger ] >= -10 && fadeCount[ i ] % 50 == 0)
@@ -21185,6 +19427,7 @@ FUNKCIJA:Sekunde()
                 )
                 FadeColorForPlayer(i, 0, 0, 0, 0, 0, 0, 0, 255, 10, true);
         }
+        */
     }
     return 1;
 }
@@ -22776,27 +21019,7 @@ stock SendOrginMessage(playerid,text[])
             SendChatMessage(i,COLOR_FADE1,string);
     }
 }
-stock AdminLog( mysqlid, givemysqlid, text[] )
-{
-    new string[ 512 ];
-    format( string, sizeof(string), "INSERT INTO adminlog (Kuris,Kam,Ka) VALUES (%d,%d,'%s')", mysqlid, givemysqlid, text);
-    mysql_pquery(DbHandle,  string );
-    return 1;
-}
-stock ActionLog( mysqlid, text[] )
-{
-    new string[ 512 ];
-    format( string, sizeof(string), "INSERT INTO actionlog (Kas,Veiksmas) VALUES (%d,'%s')", mysqlid, text );
-    mysql_pquery(DbHandle,  string );
-    return 1;
-}
-stock CJLog( mysqlid, vehicleid, text[] )
-{
-    new string[ 512 ];
-    format( string, sizeof(string), "INSERT INTO cjlog (Kas,VehicleID,Veiksmas) VALUES (%d,%d,'%s')", mysqlid, vehicleid, text );
-    mysql_pquery(DbHandle,  string );
-    return 1;
-}
+
 stock VehicleHasWindows( model )
 {
     if ( IsVehicleBike( model ) || !VehicleHasEngine( model ) )
@@ -23139,78 +21362,7 @@ stock NearBankomat( playerid )
          return 1;
     else return 0;
 }
-stock PayLog( Kas, Ivykis, Kam, Kiek )
-{
-    new string[ 128 ],
-        Tipas[ 64 ];
 
-    switch ( Ivykis )
-    {
-        case 1: Tipas = "Nusipirko namà ";
-        case 2: Tipas = "Nusipirko bizná";
-        case 3: Tipas = "Nusipirko tr. priemonæ";
-        case 4: Tipas = "Pardavë tr. priemonæ";
-        case 5: Tipas = "Pardavë bizná";
-        case 6: Tipas = "Pardavë namà ";
-        case 7: Tipas = "Sumokëjo (/pay) pinigø";
-        case 8: Tipas = "Gavo (/pay) pinigø";
-        case 9: Tipas = "Gautas valandos atlyginimas";
-        case 10: Tipas = "Gavo uþ nuomà.";
-        case 11: Tipas = "Sumokëjo áeidamas á bizná";
-        case 12: Tipas = "Pirko garaþà";
-        case 13: Tipas = "Pardavë garaþà";
-        case 14: Tipas = "Gavo pavedimà (/transfer)";
-        case 15: Tipas = "Pervedë pinigus (/transfer)";
-        case 16: Tipas = "Sunaikino tr. priemonæ.";
-        case 17: Tipas = "Pasiimë pinigus ið namo banko";
-        case 18: Tipas = "Pasiimë pinigus ið biznio banko";
-        case 19: Tipas = "Padëjo pinigus á namo banká ";
-        case 20: Tipas = "Padëjo pinigus á biznio banká ";
-    }
-    format( string, sizeof(string), "INSERT INTO paylog (Kas,Ivykis,Kam,Suma) VALUES (%d,'%s',%d,%d)", Kas, Tipas, Kam, Kiek );
-    mysql_pquery(DbHandle,  string );
-    return 1;
-}
-stock NarkLog( Kas, Ivykis, Kam, Ka[ ], Kiek )
-{
-    new string[ 128 ],
-        Tipas[ 64 ];
-
-    switch ( Ivykis )
-    {
-        case 1: Tipas = "Padëjo á namà ";
-        case 2: Tipas = "Pasiimë ið namo";
-        case 3: Tipas = "Padëjo á bagaþinà";
-        case 4: Tipas = "Pasiimë ið bagaþinës";
-        case 5: Tipas = "Gavo ið þaidëjo";
-        case 6: Tipas = "Davë þaidëjui";
-        case 7: Tipas = "Padëjo á garaþo inventoriø";
-        case 8: Tipas = "Pasiimë ið garaþo inventoriaus";
-    }
-    format( string, sizeof(string), "INSERT INTO narklog (Kas,Ka,Kiek,Kam,Priezastis) VALUES (%d,'%s',%d,%d,'%s')", Kas, Ka, Kiek, Kam, Tipas );
-    mysql_pquery(DbHandle,  string );
-    return 1;
-}
-stock GunLog( Kas, Ivykis, Kam, Ka[ ], Kiek )
-{
-    new string[ 128 ],
-        Tipas[ 64 ];
-
-    switch ( Ivykis )
-    {
-        case 1: Tipas = "Padëjo á namà ";
-        case 2: Tipas = "Pasiimë ið namo";
-        case 3: Tipas = "Padëjo á bagaþinà";
-        case 4: Tipas = "Pasiimë ið bagaþinës";
-        case 5: Tipas = "Gavo ið þaidëjo";
-        case 6: Tipas = "Davë þaidëjui";
-        case 7: Tipas = "Padëjo á garaþo inventoriø";
-        case 8: Tipas = "Pasiimë ið garaþo inventoriaus";
-    }
-    mysql_format(DbHandle, string, sizeof(string), "INSERT INTO gunlog (Kas,Ka,Kiek,Kam,Priezastis) VALUES (%d,'%e',%d,%d,'%e')", Kas, Ka, Kiek, Kam, Tipas );
-    mysql_pquery(DbHandle,  string );
-    return 1;
-}
 stock SetPlayerCheckPointEx( playerid, type, Float:x, Float:y, Float:z, Float:a )
 {
     if( Checkpoint[ playerid ] == CHECKPOINT_NONE )
@@ -23546,105 +21698,9 @@ stock LoadCommodities()
 	cache_delete(result);
     printf("Serveryje yra %d parduodamu/perkamu prekiu.",commodityCount);
 }
-/*
-stock LoadVehicleShops()
-{
-    new buffer[128], shopCount = 0, ticks = GetTickCount(), Cache:result;
-    result = mysql_query(DbHandle, "SELECT * FROM vehicle_shops");
-    for(new i = 0; i < cache_get_row_count(); i++)
-    {
-        if(shopCount >= MAX_VEHICLE_SHOPS)
-        {
-            printf("KLAIDA. Lenteleje 'vehicle_shops' yra daugiau parduotuviu(%d) nei leidziama(" #MAX_VEHICLE_SHOPS ")", cache_get_row_count());
-            break;
-        }
-
-        VehicleShops[ shopCount ][ Id ] = cache_get_field_content_int(i, "id");
-        cache_get_field_content(i, "name", VehicleShops[ shopCount ][ Name ], DbHandle, MAX_VEHICLE_SHOP_NAME);
-        VehicleShops[ shopCount ][ PosX ] = cache_get_field_content_float(i, "x");
-        VehicleShops[ shopCount ][ PosY ] = cache_get_field_content_float(i, "y");
-        VehicleShops[ shopCount ][ PosZ ] = cache_get_field_content_float(i, "z");
-        
-        Itter_Add(VehicleShopIterator, shopCount);
-        
-        format(buffer,sizeof(buffer), "%s\nParduodamø trnasporto priemoniø sàraðas\nKomanda: {FFFFFF}/v buy",
-            VehicleShops[ shopCount ][ Name ]);
-        
-        VehicleShops[ shopCount ][ Label ] = CreateDynamic3DTextLabel(buffer, COLOR_NEWS, 
-            VehicleShops[ shopCount ][ PosX ],
-            VehicleShops[ shopCount ][ PosY ],
-            VehicleShops[ shopCount ][ PosZ ],
-            7.0,  INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1, 0, 0, -1, 15.0
-        );
-
-        shopCount++;
-    }
-    cache_delete(result);
-
-    
-    new id, model, price, vehicleCount = 0;
-    result = mysql_query(DbHandle, "SELECT * FROM vehicle_shop_vehicles ORDER BY price ASC");
-    for(new k = 0; k < cache_get_row_count(); k++)
-    {
-        id = cache_get_field_content_int(k, "shop_id");
-        model = cache_get_field_content_int(k, "model");
-        price = cache_get_field_content_int(k, "price");
-
-        // Pasitaiko blogai ávestø modeliø, mes jø nenroim.
-        if(model < 400 || model > 611)
-            continue;
-
-        foreach(VehicleShopIterator, i)
-            if(VehicleShops[ i ][ Id ] == id)
-            {
-                for(new j = 0; j < MAX_VEHICLE_SHOP_VEHICLES; j++)
-                {
-                    // Jei indekse j, jau yra kokia masina. Jis musu nedomina.
-                    if(VehicleShops[ i ][ VehicleModels ][ j ])
-                        continue;
-                    VehicleShops[ i ][ VehicleModels ][ j ] = model;
-                    VehicleShops[ i ][ VehiclePrices ][ j ] = price;
-                    break;
-                }
-                vehicleCount++;
-                break;
-            }
-    }
-    cache_delete(result);
-
-    printf("Pakrauti %d maðinø turgûs ir %d transporoto priemonës. Tai uþtruko %d MS", shopCount, vehicleCount, GetTickCount() - ticks);
-}
 
 
 
-stock loadPlayerNotes( playerid )
-{
-    new string[ 126 ],
-        result[ 128 ],
-        number,
-        slot,
-        ministr[ 8 ],
-        Cache:r;
-
-    format     ( string, 126, "SELECT slot,note FROM notes WHERE owner = %d", pInfo[ playerid ][ pMySQLID ] );
-    r = mysql_query(DbHandle,  string );
-    
-    for(new i = 0; i < cache_get_row_count(); i++)
-    {
-        slot = cache_get_field_content_int(i, "slot");
-        cache_get_field_content(i, "note", result);
-        sscanf( result, "p</>s[128]d", string, number);
-
-        format       ( ministr, 8, "NOTE_%d", slot );
-        SetPVarString( playerid, ministr, string );
-        format       ( ministr, 8, "NOTE2_%d", slot );
-        SetPVarInt   ( playerid, ministr, number );
-    }
-    
-    cache_delete(r);
-    return 1;
-}
-*/
 stock nullVehicle( vehicleid )
 {
     Engine[ vehicleid ] = false;
@@ -23829,13 +21885,13 @@ CMD:vest( playerid, params[ ] )
     return 1;
 }
 */
-
+/*
 public OnLookupComplete(playerid)
 {
     if(IsProxyUser(playerid))
         KickPlayer( "AC", playerid, "Proxy" );
 }
-
+*/
 /*
 CMD:blindfold(playerid, params[])
 {

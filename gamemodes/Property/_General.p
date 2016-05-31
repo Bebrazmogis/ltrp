@@ -1019,7 +1019,7 @@ CMD:furniture(playerid, params[])
 
     return 1;
 }
-
+/*
 CMD:clothes(playerid)
 {
     new bizIndex = -1;
@@ -1047,7 +1047,7 @@ CMD:clothes(playerid)
         SendClientMessage(playerid, COLOR_LIGHTRED, "Drabuþius galite keisti tik namuose arba drabuþiø parduotuvëje.");
     return 1;
 }
-
+*/
 /*
 CMD:enter(playerid)
 {
