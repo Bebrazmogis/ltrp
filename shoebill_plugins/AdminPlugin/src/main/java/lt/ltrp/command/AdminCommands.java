@@ -60,6 +60,7 @@ public class AdminCommands {
         adminLevels.put("are", 1);
         adminLevels.put("dre", 1);
         adminLevels.put("reports", 1);
+        adminLevels.put("olddriver", 1);
 
         adminLevels.put("rfc", 2);
         adminLevels.put("dtc", 2);
@@ -143,7 +144,7 @@ public class AdminCommands {
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /freeze /slap /spec /specoff /setint /setvw /intvw /masked /aheal /spawn ");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon ");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] PERSIKËLIMAS: /gotoloc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos");
-        p.sendMessage(Color.WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc /are /dre /reports");
+        p.sendMessage(Color.WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc /are /dre /reports /olddriver");
         if(p.getAdminLevel() >= 2)
             p.sendMessage(Color.WHITE, "[AdmLvl 2] /dtc /gotocar /mute/rac /ipban");
         if(p.getAdminLevel() >= 3)
@@ -220,6 +221,27 @@ public class AdminCommands {
         LtrpPlayer player = LtrpPlayer.get(p);
         AdminPlugin adminPlugin = AdminPlugin.get(AdminPlugin.class);
         new PlayerReportListDialog(player, eventManager, adminPlugin.getReports()).show();
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo kas paskutinis sedëjo transporto priemonëje")
+    public boolean oldDriver(Player p, @CommandParameter(name = "Transporto priemonës ID")LtrpVehicle vehicle) {
+        LtrpPlayer player= LtrpPlayer.get(p);
+        if(vehicle == null)
+            return false;
+        else {
+            Integer uuid = VehiclePlugin.get(VehiclePlugin.class).getLastDriver(vehicle);
+            if(uuid == null)
+                player.sendErrorMessage("Nëra duomenø.");
+            else {
+                String username = PlayerController.get().getUsernameByUUID(uuid);
+                LtrpPlayer target = LtrpPlayer.get(uuid);
+                player.sendMessage(Color.CADETBLUE, "Paskutinis ðioje transporto priemonëje sedëjo  " + target);
+                if(target != null)
+                    player.sendMessage(Color.CADETBLUE, "Þaidëjas prisijungæs, jo ID " + target.getId());
+            }
+        }
         return true;
     }
 
