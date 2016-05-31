@@ -1,9 +1,7 @@
 package lt.ltrp.dao.impl;
 
 
-import javafx.util.Pair;
 import lt.ltrp.constant.LicenseType;
-import lt.ltrp.constant.PlayerVehiclePermission;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
 import lt.ltrp.object.LtrpPlayer;
@@ -15,8 +13,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.sql.Date;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -84,7 +83,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         boolean loaded = false;
         String sql = "SELECT " +
                 "secret_question, secret_answer, admin_level, mod_level, players.level, players.job_id, money, hours_online, box_style, age, " +
-                "respect, deaths, hunger, total_paycheck, current_paycheck, minutes_online_since_payday, forum_name " +
+                "respect, deaths, hunger, total_paycheck, current_paycheck, minutes_online_since_payday, forum_name, ucp_user_id " +
                 "FROM players " +
                 " WHERE players.id = ? LIMIT 1";
         /*String sql = "SELECT " +
@@ -118,6 +117,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setMinutesOnlineSincePayday(result.getInt("minutes_online_since_payday"));
                 player.setModLevel(result.getInt("mod_level"));
                 player.setForumName(result.getString("forum_name"));
+                player.setUcpId(result.getInt("ucp_user_id"));
 
                 /*int jobLevel = result.getInt("job_level");
                 if(!result.wasNull()) {
@@ -375,7 +375,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
         return crimes;
     }
-
+/*
     //@Override
     public Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player) {
         Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> permissions = new HashMap<>();
@@ -430,7 +430,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
 
         return permissions;
     }
-
+*/
     @Override
     public void update(PlayerSettings settings) {
         String sql = "INSERT INTO player_settings (player_id, setting, `value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)";

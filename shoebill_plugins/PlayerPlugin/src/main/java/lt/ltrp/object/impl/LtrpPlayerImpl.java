@@ -201,6 +201,10 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     */
     private Collection<PlayerOffer> offers;
 
+    /**
+     * User panel user ID
+     */
+    private int ucpId;
     private PlayerDrugs drugs;
 
     private boolean isInComa;
@@ -276,6 +280,18 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         } else {
             return getName().replace("_", " ");
         }
+    }
+
+    @Override
+    public String getFirstName() {
+        int index = getName().indexOf("_");
+        return getName().substring(0, index);
+    }
+
+    @Override
+    public String getLastName() {
+        int index = getName().indexOf("_");
+        return getName().substring(index);
     }
 
     /*public void addJobExperience(int amount) {
@@ -800,6 +816,16 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     public boolean isAudioConnected() {
         return AudioPlugin.isConnected(this);
+    }
+
+    @Override
+    public int getUcpId() {
+        return ucpId;
+    }
+
+    @Override
+    public void setUcpId(int i) {
+        this.ucpId = i;
     }
 
 
