@@ -131,6 +131,7 @@ public class JobPlugin extends Plugin implements JobController {
         PlayerCommandManager playerCommandManager = new PlayerCommandManager(eventManager);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
         playerCommandManager.registerCommands(new FactionLeaderCommands(eventManager, this));
+        playerCommandManager.registerCommands(new JobCommands(this));
 
         SpawnPlugin.get(SpawnPlugin.class).getSetSpawnCommandGroup().registerCommands(new SetSpawnCommands());
 
