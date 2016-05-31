@@ -3,16 +3,15 @@ package lt.ltrp;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.dao.VehicleDao;
-import lt.ltrp.dao.impl.MySqlVehicleDaoImpl;
 import lt.ltrp.data.FuelTank;
-import lt.ltrp.data.VehicleLock;
 import lt.ltrp.event.vehicle.SpeedometerTickEvent;
 import lt.ltrp.event.vehicle.VehicleDestroyEvent;
 import lt.ltrp.event.vehicle.VehicleEngineKillEvent;
 import lt.ltrp.event.vehicle.VehicleEngineStartEvent;
-import lt.ltrp.object.*;
-import lt.ltrp.object.impl.*;
-import lt.ltrp.util.Factorial;
+import lt.ltrp.object.Item;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.object.impl.LtrpVehicleImpl;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerKey;
@@ -28,7 +27,6 @@ import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.shoebill.resource.Plugin;
-import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
@@ -52,7 +50,6 @@ public class VehiclePlugin extends Plugin implements VehicleController {
     private Map<LtrpVehicle, Timer> vehicleEngineTimers;
     private Map<LtrpPlayer, Float> maxSpeeds;
     private Random random;
-    private PlayerVehicleManager playerVehicleManager;
 
 
 
@@ -67,6 +64,7 @@ public class VehiclePlugin extends Plugin implements VehicleController {
         if(getEventManager() == null)
             logger.error("How can it be null?");
         this.eventManager = getEventManager().createChildNode();
+
         if(Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class) != null) {
             System.out.println("Database plugin is loaded...");
             load();
@@ -83,9 +81,8 @@ public class VehiclePlugin extends Plugin implements VehicleController {
 
     private void load() {
 
-        this.vehicleDao = new MySqlVehicleDaoImpl(Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
+        //this.vehicleDao = new MySqlVehicleDaoImpl(Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
         PlayerCommandManager commandManager = new PlayerCommandManager(eventManager);
-        this.playerVehicleManager = new PlayerVehicleManager(eventManager, vehicleDao, commandManager);
         commandManager.registerCommands(new VehicleCommands(maxSpeeds, eventManager));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
 
@@ -160,15 +157,16 @@ public class VehiclePlugin extends Plugin implements VehicleController {
                             int time;
                             int percentage;
                             float dmg = 1000 - vehicle.getHealth();
-                            if(vehicle instanceof PlayerVehicle) {
+                            /*if(vehicle instanceof PlayerVehicle) {
                                 int deaths = ((PlayerVehicle)vehicle).getDeaths();
                                 time = 1500 + deaths * 150;
                                 percentage = (int) (100 - Factorial.get((int) (deaths * 1.5)) - dmg / 40f);
                                 logger.debug("Vehicle start percentage:" + percentage);
-                            } else {
+                            }*/// else {
                                 time = 1500;
                                 percentage = 100 - (int)dmg / 40;
-                            }
+                            //}
+
 
                             // Special cased of failure:
                             if(vehicle.getHealth() < 400f) {
@@ -261,12 +259,7 @@ public class VehiclePlugin extends Plugin implements VehicleController {
         timer.destroy();
         fuelUseTimer.stop();
         fuelUseTimer.destroy();
-        playerVehicleManager.destroy();
         eventManager.cancelAll();
-    }
-
-    public PlayerVehicleManager getPlayerVehicleManager() {
-        return playerVehicleManager;
     }
 
 
@@ -302,17 +295,6 @@ public class VehiclePlugin extends Plugin implements VehicleController {
         return vehicles;
     }
 
-    @Override
-    public VehicleAlarm createAlarm(PlayerVehicle playerVehicle, int level) {
-        switch(level) {
-            case 2:
-                return new PoliceAlertAlarm(playerVehicle);
-            case 3:
-                return new PersonalAlarm(playerVehicle);
-            default:
-                return new SimpleAlarm(playerVehicle);
-        }
-    }
 
     @Override
     public LtrpVehicle createVehicle(int id, int modelId, AngledLocation location, int color1, int color2, String license, float mileage) {
@@ -329,16 +311,6 @@ public class VehiclePlugin extends Plugin implements VehicleController {
         return impl;
     }
 
-    @Override
-    public PlayerVehicle createVehicle(int id, int modelId, AngledLocation location, int color1, int color2, int ownerId,
-                                        int deaths, FuelTank fueltank, float mileage, String license, int insurance, VehicleAlarm alarm,
-                                        VehicleLock lock, int doors, int panels, int lights, int tires, float health, EventManager eventManager) {
-        PlayerVehicle vehicle = new PlayerVehicleImpl(id, modelId, location, color1, color2, ownerId, deaths, fueltank, mileage, license, insurance, alarm, lock, doors, panels, lights, tires, health, eventManager);
-        vehicles.add(vehicle);
-        PlayerVehicleManager.playerVehiclesList.add(vehicle);
-        return vehicle;
-    }
-
 
     /*public EventManager getEventManager() {
         return eventManager;
@@ -348,4 +320,5 @@ public class VehiclePlugin extends Plugin implements VehicleController {
     public VehicleDao getDao() {
         return vehicleDao;
     }
+
 }

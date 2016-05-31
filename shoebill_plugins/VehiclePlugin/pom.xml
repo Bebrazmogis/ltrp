@@ -28,23 +28,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.gtaun</groupId>
-            <artifactId>shoebill-api</artifactId>
-            <version>1.3-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.gtaun</groupId>
-            <artifactId>shoebill-common</artifactId>
-            <version>1.3-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.gtaun</groupId>
-            <artifactId>util-event</artifactId>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>ltrp-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>lt.ltrp</groupId>
-            <artifactId>ltrp-api</artifactId>
+            <artifactId>job</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

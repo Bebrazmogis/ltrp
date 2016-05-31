@@ -60,6 +60,9 @@ public class LtrpVehicleImpl extends InventoryEntityImpl implements LtrpVehicle 
         this.radio = new VehicleRadio(this, eventManager);
     }
 
+    protected EventManager getEventManager() {
+        return eventManager;
+    }
 
     public Vehicle getVehicleObject() {
         return vehicleObject;

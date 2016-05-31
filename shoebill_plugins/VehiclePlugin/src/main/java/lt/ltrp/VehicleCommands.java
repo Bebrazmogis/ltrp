@@ -3,12 +3,8 @@ package lt.ltrp;
 import lt.ltrp.command.Commands;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
-import lt.ltrp.constant.ItemType;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.dialog.radio.RadioOptionListDialog;
-import lt.ltrp.object.Radio;
 import lt.ltrp.object.LtrpVehicle;
-import lt.ltrp.object.PlayerVehicle;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -225,29 +221,5 @@ public class VehicleCommands extends Commands {
         return true;
     }
 
-    @Command
-    @CommandHelp("Leidþia valdyti automobilio radijà")
-    public boolean vradio(Player pp) {
-        LtrpPlayer player = LtrpPlayer.get(pp);
-        PlayerVehicle vehicle = PlayerVehicle.getByVehicle(player.getVehicle());
-        if(vehicle == null) {
-            player.sendErrorMessage("Jûs turite bûti nuosavoje transporto priemonëje!");
-        } else if(!vehicle.getInventory().containsType(ItemType.CarAudio)) {
-            player.sendErrorMessage("Ðiame automobilyje nëra automagnetolos.");
-        } else if(player.getVehicleSeat() > 1) {
-            player.sendErrorMessage("Negalite valdyti radijos sedëdamas gale!");
-        } else {
-            final Radio radio = vehicle.getRadio();
-            RadioOptionListDialog.create(player, eventManager, (d, vol) -> {
-                radio.setVolume(vol);
-                player.sendActionMessage("pakeièia radijos garsà á " + vol);
-            }, (d, station) -> {
-                radio.play(station);
-                player.sendActionMessage("pakeièia radijo stotá á " + station.getName());
-            }, (d) -> {
-                radio.stop();
-            });
-        }
-        return true;
-    }
+
 }
