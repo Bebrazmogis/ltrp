@@ -85,6 +85,7 @@ public class AdminCommands {
         adminLevels.put("housetax", 4);
         adminLevels.put("garagetax", 4);
         adminLevels.put("vattax", 4);
+        adminLevels.put("givemoney", 4);
 
         adminLevels.put("giveitem", 6);
         adminLevels.put("fly", 6);
@@ -907,6 +908,22 @@ public class AdminCommands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Duoda þaidëjui pinigø")
+    public boolean giveMoney(Player p,
+                             @CommandParameter(name = "Þaidëjo ID/ Dalis vardo")LtrpPlayer target,
+                             @CommandParameter(name = "Suma")int amount) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            return false;
+        else {
+            target.giveMoney(amount);
+            LtrpPlayer.sendAdminMessage(String.format("Administratorius %s davë þaidëjui %s %d%c", player.getName(), target.getName(), amount, Currency.SYMBOL));
+            target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " jums davë " + amount + Currency.SYMBOL);
+            AdminLog.log(player, "Davë þaidëjui " + target.getUUID() + "  " + amount);
+        }
+        return true;
+    }
 
     // TODO aProperty
     // TODO cmd:ado
