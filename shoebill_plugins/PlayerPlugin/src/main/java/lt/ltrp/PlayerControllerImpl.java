@@ -13,6 +13,7 @@ import lt.ltrp.object.*;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.util.PawnFunc;
 import lt.ltrp.util.PlayerLog;
+import lt.maze.AfkPlugin;
 import lt.maze.streamer.StreamerPlugin;
 import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.Shoebill;
@@ -192,7 +193,7 @@ public class PlayerControllerImpl implements PlayerController {
                int houseTax = (int) House.get().stream().filter(h -> h.getOwner() == p.getUUID()).count() * taxes.getHouseTax();
                int businessTax = (int) Business.get().stream().filter(b -> b.getOwner() == p.getUUID()).count() * taxes.getBusinessTax();
                int garageTax = (int) Garage.get().stream().filter(g -> g.getOwner() == p.getUUID()).count() * taxes.getGarageTax();
-               int vehicleTax = VehicleController.get().getPlayerVehicleDao().getPlayerVehicleCount(p) * taxes.getVehicleTax();
+               int vehicleTax = PlayerVehiclePlugin.get(PlayerVehiclePlugin.class).getVehicleDao().getPlayerVehicleCount(p) * taxes.getVehicleTax();
 
                if(p.getMinutesOnlineSincePayday() > MINUTES_FOR_PAYDAY) {
                    int paycheck = 0;
@@ -265,7 +266,16 @@ public class PlayerControllerImpl implements PlayerController {
         javaMinuteTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                LtrpPlayer.get().forEach(p -> p.setMinutesOnlineSincePayday(p.getMinutesOnlineSincePayday() + 1));
+                LtrpPlayer.get().forEach(p -> {
+                    p.setMinutesOnlineSincePayday(p.getMinutesOnlineSincePayday() + 1);
+                    int seconds = AfkPlugin.get(AfkPlugin.class).getPlayerAfkSeconds(p);
+                    if(seconds >= 7*60) {
+                        LtrpPlayer.sendGlobalMessage(Color.LIGHTRED, "Žaidėjas " + p.getName() + " buvo išmestas iš serverio. Priežastis: AFK");
+                        p.kick();
+                    }
+                });
+
+
             }
         }, 0, 60000);
 
