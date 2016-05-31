@@ -69,8 +69,11 @@ public class PoliceCommands extends Commands {
         commandToRankNumber.put("delarrestcar", 1);
         commandToRankNumber.put("vest", 1);
         commandToRankNumber.put("jobid", 1);
+        commandToRankNumber.put("killcheckpoint", 1);
 
         commandToRankNumber.put("wepstore", 2);
+        commandToRankNumber.put("ramcar", 2);
+        commandToRankNumber.put("ram", 2);
 
         jobVehicleCommands = new ArrayList<>();
         jobVehicleCommands.add("setunit");
@@ -367,6 +370,38 @@ public class PoliceCommands extends Commands {
     }
 
     @Command
+    @CommandHelp("Iðlauþia civilinës transporto priemonës spynà")
+    public boolean ramCar(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PlayerVehicle vehicle = PlayerVehicle.getClosest(player, 5f);
+        if(vehicle == null)
+            player.sendErrorMessage("Prie jûsø nëra civilinës transporto priemonës.");
+        else if(!vehicle.isLocked())
+            player.sendErrorMessage("Transporto priemonë neuþrakinta, nëra prasmës lauþyti jos spynà.");
+        else {
+            player.sendInfoText("~w~ Tr. priemones dureles islauztos", 5000);
+            vehicle.setLocked(false);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Iðlauþia durø spynà á nekilnojamà turtà")
+    public boolean ram(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Property property = Property.getClosest(player.getLocation(), 5f);
+        if(property == null)
+            player.sendErrorMessage("Prie jûsø nëra jokiø durø kurias galëtumëte iðlauþti.");
+        else if(!property.isLocked())
+            player.sendErrorMessage("Durys neuþrakintos..");
+        else {
+            player.sendInfoText("~w~ Durys islauztos", 5000);
+            property.setLocked(false);
+        }
+        return true;
+    }
+
+    @Command
     @CommandHelp("Leidþia surakinti/atrakinti þaidëjà antrankiais")
     public boolean cuff(Player p, LtrpPlayer target) {
         LtrpPlayer player = LtrpPlayer.get(p);
@@ -448,11 +483,23 @@ public class PoliceCommands extends Commands {
             player.sendErrorMessage("|DIÈPEÈERINË PRANEÐA| Pastiprinimo numeris neatpaþintas, praðymas neegzistuoja.");
         } else {
             LtrpPlayer t = target.get();
-            t.setCheckpoint(Checkpoint.create(new Radius(t.getLocation(), 5.0f), null, null));
+            t.setCheckpoint(Checkpoint.create(new Radius(t.getLocation(), 5.0f), (ppp) -> ppp.disableCheckpoint(), null));
             backupRequests.get(t).add(player);
             return true;
         }
         return true;
+    }
+
+    @Command
+    public boolean killCheckpoint(Player pp) {
+        LtrpPlayer player = LtrpPlayer.get(pp);
+        Optional<List<LtrpPlayer>> backup = backupRequests.values().stream().filter(l -> l.contains(player)).findFirst();
+        if(backup.isPresent()) {
+            player.disableCheckpoint();
+            backup.get().remove(player);
+            return true;
+        }
+        return false;
     }
 
 
