@@ -152,6 +152,10 @@ public class DynamicObject extends AbstractStreamerItem implements StreamerItem 
         return move(position.x, position.y, position.z, speed, handler);
     }
 
+    public int move(Vector3D position, Vector3D rotation, float speed, DynamicObjectMoveHandler handler) {
+        return move(position.x, position.y, position.z, speed, rotation.x, rotation.y, rotation.z, handler);
+    }
+
     public void stop() {
         Functions.StopDynamicObject(getId());
     }
