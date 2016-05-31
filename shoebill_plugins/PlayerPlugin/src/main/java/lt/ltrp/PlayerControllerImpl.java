@@ -36,6 +36,8 @@ import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.*;
 
 public class PlayerControllerImpl implements PlayerController {
@@ -82,6 +84,9 @@ public class PlayerControllerImpl implements PlayerController {
 
             player.sendGameText(5000, 1, "~w~Sveikas ~n~~h~~g~" + player.getName());
             loadDataThreaded(player);
+
+            player.setLastLogin(new Timestamp(Instant.now().toEpochMilli()));
+            playerDao.updateLastLogin(player);
 
             // Legacy code for Pawn loading.
             AmxCallable onPlayerLoginPawn = PawnFunc.getPublicMethod("getPublicMethod");

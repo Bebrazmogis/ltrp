@@ -84,6 +84,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         String sql = "SELECT " +
                 "secret_question, secret_answer, admin_level, mod_level, players.level, players.job_id, money, hours_online, box_style, age, " +
                 "respect, deaths, hunger, total_paycheck, current_paycheck, minutes_online_since_payday, forum_name, ucp_user_id " +
+                "last_login " +
                 "FROM players " +
                 " WHERE players.id = ? LIMIT 1";
         /*String sql = "SELECT " +
@@ -118,6 +119,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setModLevel(result.getInt("mod_level"));
                 player.setForumName(result.getString("forum_name"));
                 player.setUcpId(result.getInt("ucp_user_id"));
+                player.setLastLogin(result.getTimestamp("last_login"));
 
                 /*int jobLevel = result.getInt("job_level");
                 if(!result.wasNull()) {
@@ -591,6 +593,21 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
         return LtrpPlayer.INVALID_USER_ID;
+    }
+
+    @Override
+    public void updateLastLogin(LtrpPlayer ltrpPlayer) {
+        String sql = "UPDATE players SET last_login = ? WHERE id = ?";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+        ) {
+            stmt.setTimestamp(1, ltrpPlayer.getLastLogin());
+            stmt.setInt(2, ltrpPlayer.getUUID());
+            stmt.execute();
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public LicenseWarning[] getWarnings(PlayerLicense license) {

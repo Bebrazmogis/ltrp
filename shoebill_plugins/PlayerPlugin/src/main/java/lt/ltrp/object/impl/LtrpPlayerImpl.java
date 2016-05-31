@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -205,6 +206,12 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
      * User panel user ID
      */
     private int ucpId;
+
+    /**
+     * Timestamp of the last player login
+     */
+    private Timestamp lastLogin;
+
     private PlayerDrugs drugs;
 
     private boolean isInComa;
@@ -826,6 +833,16 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     @Override
     public void setUcpId(int i) {
         this.ucpId = i;
+    }
+
+    @Override
+    public Timestamp getLastLogin() {
+        return lastLogin;
+    }
+
+    @Override
+    public void setLastLogin(Timestamp timestamp) {
+        this.lastLogin = timestamp;
     }
 
 
