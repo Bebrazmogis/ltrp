@@ -1,6 +1,7 @@
 package lt.ltrp;
 
 
+import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.dialog.FightStyleDialog;
@@ -195,7 +196,20 @@ public class GeneralCommands {
         return true;
     }
 
-    // TODO setspawn
+    @Command
+    @CommandHelp("Prideda pasirinktà sumà á miesto biudþetà")
+    public boolean charity(Player p, @CommandParameter(name = "Suma")int amount) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(amount > player.getMoney() || amount < 0)
+            player.sendErrorMessage("Jûs tiek pinigø neturite");
+        else {
+            player.giveMoney(-amount);
+            player.sendMessage(Color.NEWS, "Parëmëte miesto biudþetà " + amount + Currency.SYMBOL);
+            LtrpWorld.get().addMoney(amount);
+        }
+        return true;
+    }
+
     // TODO cmd:togooc
     // TODO cmd:togpm
     // TODO cmd:togadmin
