@@ -167,7 +167,7 @@ public class PoliceCommands extends Commands {
             target.sendMessage(Color.GREEN, "|______________LOS SANTOS DEPARTAMENTAS______________|");
             target.sendMessage(Color.GREEN, "|______________  PAREIGðªNO PAþYMëJIMAS ______________|");
             target.sendMessage(Color.WHITE, String.format("Pareigøno vardas: %s     Pavardë: %s", target.getFirstName(), target.getLastName()));
-            target.sendMessage(Color.WHITE, String.format("Pareigøno pareigos/rangas: %s     Amþius: %d", jobData.getJobRank().getName(), target.getAge()));
+            target.sendMessage(Color.WHITE, String.format("Pareigûno pareigos/rangas: %s     Amþius: %d", jobData.getJobRank().getName(), target.getAge()));
         }
         return true;
     }
