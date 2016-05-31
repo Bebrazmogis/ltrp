@@ -1,0 +1,7 @@
+class: lt.maze.AfkPlugin
+name: AFK Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: A simple plugin that counts time since last player action
