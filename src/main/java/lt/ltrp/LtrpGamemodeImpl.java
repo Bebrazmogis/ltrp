@@ -2,13 +2,22 @@ package lt.ltrp;
 
 
 import lt.ltrp.dao.DAOFactory;
+import lt.ltrp.dao.LtrpWorldDao;
+import lt.ltrp.dao.impl.FileLtrpWorldImpl;
+import lt.ltrp.data.Color;
 import lt.ltrp.event.PaydayEvent;
+import lt.ltrp.util.ErrorCode;
 import net.gtaun.shoebill.Shoebill;
+import net.gtaun.shoebill.event.player.PlayerConnectEvent;
+import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Server;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.object.World;
 import net.gtaun.shoebill.resource.Gamemode;
+import net.gtaun.shoebill.resource.ResourceManager;
 import net.gtaun.util.event.EventManager;
+import net.gtaun.util.event.EventManagerNode;
+import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +29,8 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
     private static DAOFactory dao;
     private static final Logger logger = LoggerFactory.getLogger(LtrpGamemode.class);
     private Timer paydayTimer;
+    private EventManagerNode eventManagerNode;
+    private LtrpWorldDao worldDao;
     //private JobManager jobManager;
     //private VehicleController vehicleManager;
    // private PropertyController propertyManager;
@@ -36,6 +47,9 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
         Server.get().setServerCodepage(1257);
         Server.get().setHostname(Name);
 
+        this.worldDao = new FileLtrpWorldImpl(getDataDir());
+        worldDao.load(LtrpWorld.get());
+
       /*  getEventManager().registerHandler(PlayerClickMapEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             if (player != null && player.getAdminLevel() > 0) {
@@ -45,8 +59,9 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
             }
         });
         */
-
+        eventManagerNode = getEventManager().createChildNode();
         schedulePaydayTimer();
+        addEventHandlers();
         logger.debug("DATA DIR: " + Shoebill.get().getResourceManager().getGamemode().getDataDir().getAbsolutePath());
         EventManager eventManager = getEventManager();
 
@@ -65,6 +80,17 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
         new PawnCallbacks(eventManager);
     }
 
+    private void addEventHandlers() {
+        eventManagerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.HIGHEST, e -> {
+            AuthPlugin authPlugin = ResourceManager.get().getPlugin(AuthPlugin.class);
+            if(authPlugin == null) {
+                Player p = e.getPlayer();
+                p.sendMessage(Color.RED, "Klaida" + ErrorCode.MISSING_PLUGIN + ". Ðiuo metu prisijungti negalima.");
+                p.kick();
+            }
+        });
+    }
+
     private void schedulePaydayTimer() {
         LocalDateTime now = LocalDateTime.now();
         int seconds = (60 - now.getMinute()) * 60;
@@ -78,9 +104,11 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemode {
                 hour -= 24;
             World.get().setWorldTime(hour);
 
+            worldDao.save(LtrpWorld.get());
             getEventManager().dispatchEvent(new PaydayEvent(LocalDateTime.now().getHour()));
             schedulePaydayTimer();
         });
+        paydayTimer.start();
     }
 
     @Override
