@@ -1,6 +1,7 @@
 package lt.ltrp;
 
 import lt.ltrp.object.Job;
+import lt.ltrp.object.JobGate;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
@@ -20,6 +21,7 @@ public abstract class AbstractJob extends NamedEntityImpl implements Job {
     private Location location;
     private int basePaycheck;
     private EventManager eventManager;
+    private List<JobGate> jobGates;
 
     public AbstractJob(int id, String name, Location location, int basePaycheck, EventManager eventManager) {
         super(id, name);
@@ -41,6 +43,16 @@ public abstract class AbstractJob extends NamedEntityImpl implements Job {
     protected void finalize() throws Throwable {
         jobList.remove(this);
         super.finalize();
+    }
+
+    @Override
+    public List<JobGate> getGates() {
+        return jobGates;
+    }
+
+    @Override
+    public void setGates(List<JobGate> gates) {
+        this.jobGates = gates;
     }
 
     @Override
