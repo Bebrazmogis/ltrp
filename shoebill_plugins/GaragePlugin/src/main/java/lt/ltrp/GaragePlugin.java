@@ -2,6 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.command.GarageCommands;
 import lt.ltrp.command.GarageOwnerCommands;
+import lt.ltrp.command.GarageSetSpawnCommands;
 import lt.ltrp.dao.GarageDao;
 import lt.ltrp.dao.impl.MySqlGarageDaoImpl;
 import lt.ltrp.dialog.AdminGarageManagementDialog;
@@ -86,7 +87,7 @@ public class GaragePlugin extends Plugin implements GarageController {
         PlayerCommandManager playerCommandManager = new PlayerCommandManager(eventManagerNode);
         playerCommandManager.registerCommands(new GarageCommands(eventManagerNode));
         playerCommandManager.registerCommands(new GarageOwnerCommands(eventManagerNode));
-
+        SpawnPlugin.get(SpawnPlugin.class).getSetSpawnCommandGroup().registerCommands(new GarageSetSpawnCommands());
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
     }
 
