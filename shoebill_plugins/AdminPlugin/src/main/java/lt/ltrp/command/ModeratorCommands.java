@@ -2,6 +2,7 @@ package lt.ltrp.command;
 
 import lt.ltrp.AdminController;
 import lt.ltrp.AdminPlugin;
+import lt.ltrp.PlayerPlugin;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerQuestion;
 import lt.ltrp.dialog.PlayerQuestionListDialog;
@@ -41,6 +42,7 @@ public class ModeratorCommands {
         this.commandLevels.put("mkick", 1);
         this.commandLevels.put("mc", 1);
         this.commandLevels.put("questions", 1);
+        this.commandLevels.put("forumnanme", 1);
     }
 
     @BeforeCheck
@@ -154,6 +156,19 @@ public class ModeratorCommands {
             AdminLog.log(player, "Kicked user " + target.getName() + "(uuid=" + target.getUUID() + ") from server, reason: "+  reason);
             target.kick();
         }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Nustato jûsø forumo vardà")
+    public boolean forumName(Player p, @CommandParameter(name = "Forumo vardas")String forumName) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(forumName == null)
+            return false;
+        player.setForumName(forumName);
+        PlayerPlugin.get(PlayerPlugin.class).getPlayerDao().update(player);
+        LtrpPlayer.sendAdminMessage("Moderatorius/administratorius " + player.getName() + " pasikeitë forumo vardà á \"" + forumName + "\"");
+        AdminLog.log(player, "Changed forum name to " + forumName);
         return true;
     }
 
