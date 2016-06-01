@@ -6,6 +6,7 @@ import lt.ltrp.data.*;
 import lt.ltrp.event.player.PlayerActionMessageEvent;
 import lt.ltrp.event.player.PlayerStateMessageEvent;
 import lt.ltrp.object.*;
+import lt.ltrp.util.ColorUtils;
 import lt.maze.audio.AudioHandle;
 import lt.maze.audio.AudioPlugin;
 import net.gtaun.shoebill.constant.*;
@@ -321,6 +322,18 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public String getLastName() {
         int index = getName().indexOf("_");
         return getName().substring(index);
+    }
+
+    @Override
+    public void sendFadeMessage(Color color, String s, float v) {
+        float[] hsb = ColorUtils.colorToHSB(color);
+        LtrpPlayer.get().stream().forEach(p -> {
+            float distanceToMessage = p.getLocation().distance(getLocation());
+            if(distanceToMessage <= v) {
+                hsb[3] -= v - distanceToMessage;
+                p.sendMessage(ColorUtils.HSBToColor(hsb[0], hsb[1], hsb[2]), s);
+            }
+        });
     }
 
     /*public void addJobExperience(int amount) {

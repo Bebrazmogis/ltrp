@@ -42,7 +42,11 @@ public class GeneralCommands {
     private HandlerEntry disconnectEntry;
     private PlayerPlugin playerPlugin;
 
+    // Simple array to store name toggle status
+    private boolean[] namesToggled;
+
     public GeneralCommands(EventManager eventManager) {
+        this.namesToggled = new boolean[Player.getMaxPlayers()];
         this.eventManager = eventManager;
         this.askqUseTimestamps = new HashMap<>();
         disconnectEntry = eventManager.registerHandler(PlayerDisconnectEvent.class, e -> askqUseTimestamps.remove(LtrpPlayer.get(e.getPlayer())));
@@ -305,6 +309,18 @@ public class GeneralCommands {
     }
 
     @Command
+    @CommandHelp("Iðsiunèia þaidëjo bûsenos þinutæ aplinkiniams")
+    public boolean dO(Player p, @CommandParameter(name = "Veiksmas")String action) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(action == null)
+            return false;
+        else {
+            player.sendStateMessage(action);
+        }
+        return true;
+    }
+
+    @Command
     @CommandHelp("Parodo jûsø veikëjo duomenis")
     public boolean stats(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
@@ -350,6 +366,50 @@ public class GeneralCommands {
             target.sendMessage(Color.WHITE, String.format("Dëmesio, %s nori Jus apieðkoti, jei leidþiatës apieðkomas raðykite /accept frisk %d", player.getName(), player.getId()));
             player.sendMessage(Color.WHITE, String.format("Veikëjas %s gavo praðymà leisti bøti apieðkomas Jûsø, palaukite kol veikëjas atsakys. ", target.getName()));
         }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Iðsiunèia OOC þinutæ aplinkiniams þaidëjams")
+    public boolean b(Player p, @CommandParameter(name = "Tekstas")String text) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(text == null)
+            return false;
+        else {
+            player.sendFadeMessage(new Color(0xE6E6E6E6), String.format("(([ID: %d] {ca965a}%s{d6d6d6}: %s ))", player.getId(), player.getName(), text), 10f);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pasako kaþkà savo tautybës kalba")
+    public boolean g(Player pp, @CommandParameter(name = "Tekstas")String text) {
+        LtrpPlayer player = LtrpPlayer.get(pp);
+        if(text == null)
+            return false;
+        else {
+            LtrpPlayer.get().stream().forEach(p -> {
+                if(p.getNationality().equals(player.getNationality()))
+                    p.sendMessage(new Color(0xE6E6E6E6), String.format("%s sako %s: %s", player.getCharName(), player.getNationality(), text));
+                else
+                    p.sendMessage(new Color(0xE6E6E6E6), player.getCharName() + " kalba nesuprantama kalba");
+            });
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Paslepia/parodo kitø þaidëjø vardus")
+    public boolean togNames(Player pp) {
+        LtrpPlayer player = LtrpPlayer.get(pp);
+        if(namesToggled[player.getId()]) {
+            LtrpPlayer.get().forEach(p -> player.showNameTagForPlayer(p, false));
+            player.sendMessage("[TOGNAMES] Kitø veikëjø vardai buvo paslëpti. Norëdami ájungti pakartokite komandà: /tognames. ");
+        } else {
+            LtrpPlayer.get().forEach(p -> player.showNameTagForPlayer(p, true));
+            player.sendMessage("[TOGnames] Kitø veikëjø vardø rodymas buvo ájungtas..");
+        }
+        namesToggled[player.getId()] = !namesToggled[player.getId()];
         return true;
     }
 
