@@ -22,6 +22,12 @@ public class PlayerReportCommands {
     }
 
     @Command
+    public boolean re(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                      @CommandParameter(name = "Þaidëjo paþeidimas")String reason) {
+        return report(p, target, reason);
+    }
+
+    @Command
     @CommandHelp("Praneða administratoriams apie taisykles paþeidþiantá þaidëjà")
     public boolean report(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
                           @CommandParameter(name = "Þaidëjo paþeidimas")String reason) {
