@@ -11,11 +11,22 @@ public class SpawnData {
     public static final SpawnData DEFAULT = new SpawnData(SpawnType.Default, 0, 104, new WeaponData[0]);
 
     public enum SpawnType {
-        Default,
-        House,
-        Business,
-        Garage,
-        Faction,
+        Default("Los Santos"),
+        House("Nuomojamas/nuosavas namas"),
+        Business("Verslas"),
+        Garage("Garaþas"),
+        Faction("Frakcijos bûstinë");
+
+        String name;
+
+
+        SpawnType(String name) {
+            this.name = name;
+        }
+
+        String getName() {
+            return name;
+        }
     }
 
     private int id;
