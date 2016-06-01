@@ -58,6 +58,11 @@ public class DataThread extends Thread {
                     e1.printStackTrace();
                 }
             });
+            try {
+                sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
