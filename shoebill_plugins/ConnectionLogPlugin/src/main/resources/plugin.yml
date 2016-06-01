@@ -1,0 +1,7 @@
+class: lt.maze.ConnectionLogPLugin
+name: Connection log Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: All this plugin does is gather data. If a KNOWN player connects, his IP, ISP and country are logged. http://ip-api.com/ is used for data.
