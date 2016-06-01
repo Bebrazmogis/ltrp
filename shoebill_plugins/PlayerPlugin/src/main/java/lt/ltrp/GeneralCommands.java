@@ -7,6 +7,8 @@ import lt.ltrp.data.Animation;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.dialog.FightStyleDialog;
+import lt.ltrp.dialog.PlayerDescriptionListDialog;
+import lt.ltrp.dialog.PlayerDescriptionMsgBoxDialog;
 import lt.ltrp.dialog.PlayerSettingsListDialog;
 import lt.ltrp.event.player.PlayerAskQuestionEvent;
 import lt.ltrp.event.player.PlayerSendPrivateMessageEvent;
@@ -246,6 +248,48 @@ public class GeneralCommands {
         }
         return true;
     }
+
+    @Command
+    @CommandHelp("Leidþia redaguoti savo þaidëjo apraðymà")
+    public boolean setCard(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PlayerDescriptionListDialog.create(player, eventManager)
+                .show();
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia perþiûrëti kito þaidëjo apraðymà")
+    public boolean cCard(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            return false;
+        if(target.getDescription() == null)
+            player.sendErrorMessage(target.getName() + " neturi susikûræs veikëjo apraðymo!");
+        else {
+            player.sendMessage(Color.ACTION, String.format("%s (( %s ))", target.getDescription(), target.getCharName()));
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia perþiûrëti kito þaidëjo apraðymà GUI lentele")
+    public boolean cCard(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                         @CommandParameter(name = "Perþiûros bûdas: gui")String method) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null || method == null)
+            return false;
+        if(target.getDescription() == null)
+            player.sendErrorMessage(target.getName() + " neturi susikûræs veikëjo apraðymo!");
+        else if(!method.equalsIgnoreCase("gui"))
+            return false;
+        else {
+            PlayerDescriptionMsgBoxDialog.create(player, eventManager, null, target)
+                    .show();
+        }
+        return true;
+    }
+
 
 
     // TODO cmd:togooc
