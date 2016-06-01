@@ -61,6 +61,7 @@ public class AdminCommands {
         adminLevels.put("dre", 1);
         adminLevels.put("reports", 1);
         adminLevels.put("olddriver", 1);
+        adminLevels.put("check", 1);
 
         adminLevels.put("rfc", 2);
         adminLevels.put("dtc", 2);
@@ -241,6 +242,18 @@ public class AdminCommands {
                 if(target != null)
                     player.sendMessage(Color.CADETBLUE, "Þaidëjas prisijungæs, jo ID " + target.getId());
             }
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo pasirinkto þaidëjo informacijà")
+    public boolean check(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            return false;
+        else {
+            PlayerPlugin.get(PlayerPlugin.class).showStats(player, target);
         }
         return true;
     }
@@ -808,6 +821,7 @@ public class AdminCommands {
                 player.sendErrorMessage(target.getName() + " neturi darbo.");
             } else {
                 Job job = jobData.getJob();
+                target.removeJobWeapons();
                 JobController.get().setJob(target, null);
                 player.sendMessage(Color.GREEN, String.format("Þaidëjas %s(%d) iðmestas ið darbo \"%s\".", target.getName(), target.getId(), job.getName()));
                 target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " iðmetë jus ið darbo.");
