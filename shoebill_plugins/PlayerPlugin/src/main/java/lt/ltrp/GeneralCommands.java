@@ -2,6 +2,8 @@ package lt.ltrp;
 
 
 import lt.ltrp.constant.Currency;
+import lt.ltrp.dao.PlayerDao;
+import lt.ltrp.data.Animation;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.dialog.FightStyleDialog;
@@ -35,11 +37,13 @@ public class GeneralCommands {
     private EventManager eventManager;
     private Map<LtrpPlayer, Long> askqUseTimestamps;
     private HandlerEntry disconnectEntry;
+    private PlayerPlugin playerPlugin;
 
     public GeneralCommands(EventManager eventManager) {
         this.eventManager = eventManager;
         this.askqUseTimestamps = new HashMap<>();
         disconnectEntry = eventManager.registerHandler(PlayerDisconnectEvent.class, e -> askqUseTimestamps.remove(LtrpPlayer.get(e.getPlayer())));
+        playerPlugin = PlayerPlugin.get(PlayerPlugin.class);
     }
 
     @Override
@@ -209,6 +213,40 @@ public class GeneralCommands {
         }
         return true;
     }
+
+
+    @Command
+    @CommandHelp("Perduoda pinigø kitam þaidëjui")
+    public boolean pay(Player p, @CommandParameter(name = "Þaidëjo ID/ Dalis vardo")LtrpPlayer target,
+                       @CommandParameter(name = "Suma")int amount) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            return false;
+        else if(player.equals(target))
+            player.sendErrorMessage("Sau duoti pinigø negalite.");
+        else if(player.getLevel() < 2)
+            player.sendErrorMessage("Pinigus perduoti galite tik nuo antro lygio.");
+        else if(amount <= 0)
+            player.sendErrorMessage("Suma turi bûti didesnë uþ 0.");
+        else if(player.getDistanceToPlayer(target) > 5f)
+            player.sendErrorMessage(target.getCharName() + " yra per toli.");
+        else if(player.getMoney() < amount)
+            player.sendErrorMessage("Jûs neturite tiek pinigø.");
+        else if(player.getIp().equals(target.getIp()) || player.getUcpId() == target.getUcpId())
+            player.sendErrorMessage("Negalite perduoti pinigø savo vëikëjui.");
+        else {
+            player.giveMoney(-amount);
+            target.giveMoney(amount);
+            player.applyAnimation(new Animation("DEALER", "shop_pay", false, 500));
+            player.sendMessage(Color.NEWS, "Sëkmiingai perdavëte " + amount + Currency.SYMBOL + " þaidëjui " + target.getName());
+            target.sendMessage(Color.NEWS, "Þaidëjas " + player.getName() + " jums davë " + amount + Currency.SYMBOL);
+            PlayerDao dao = playerPlugin.getPlayerDao();
+            dao.update(player);
+            dao.update(target);
+        }
+        return true;
+    }
+
 
     // TODO cmd:togooc
     // TODO cmd:togpm
