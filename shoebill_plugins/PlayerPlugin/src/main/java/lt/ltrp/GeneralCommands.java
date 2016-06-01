@@ -5,6 +5,7 @@ import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.Color;
+import lt.ltrp.data.PlayerFriskOffer;
 import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.dialog.FightStyleDialog;
 import lt.ltrp.dialog.PlayerDescriptionListDialog;
@@ -308,6 +309,47 @@ public class GeneralCommands {
     public boolean stats(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
         playerPlugin.showStats(player, player);
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo þaidëjo ID pagal ávesà tekstà")
+    public boolean id(Player pp, @CommandParameter(name = "Þaidëjo vardo dalis")String text) {
+        LtrpPlayer player = LtrpPlayer.get(pp);
+        if(text == null)
+            return false;
+        else {
+            Collection<LtrpPlayer> matches = LtrpPlayer.get().stream()
+                    .filter(p -> p.getName().contains(text) || p.getCharName().contains(text))
+                    .collect(Collectors.toList());
+            if(matches.size() == 0)
+                player.sendErrorMessage("Nëra þaidëjø su panaðiais vardais");
+            else {
+                matches.forEach(m -> {
+                    player.sendMessage(Color.WHITE, String.format("Surastas veikëjas (ID: %d) %s", m.getId(), m.getName()));
+                });
+            }
+        }
+        return true;
+    }
+
+
+    @Command
+    @CommandHelp("Apieðko pasirinktà þaidëjà")
+    public boolean frisk(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(player == null || target == null)
+            return false;
+        Collection<PlayerFriskOffer> offers = target.getOffers(PlayerFriskOffer.class);
+        boolean offered = offers.stream().filter(o -> o.getOfferedBy().equals(player)).findFirst().isPresent();
+        if(player.getDistanceToPlayer(target) > 5f)
+            player.sendErrorMessage(target.getCharName() + " yra per toli kad galëtumëte já apieðkoti.");
+        else if(offered)
+            player.sendErrorMessage("Jûs jau iðsiuntëte siûlymà apieðkoti ðiam þaidëjui.");
+        else {
+            target.sendMessage(Color.WHITE, String.format("Dëmesio, %s nori Jus apieðkoti, jei leidþiatës apieðkomas raðykite /accept frisk %d", player.getName(), player.getId()));
+            player.sendMessage(Color.WHITE, String.format("Veikëjas %s gavo praðymà leisti bøti apieðkomas Jûsø, palaukite kol veikëjas atsakys. ", target.getName()));
+        }
         return true;
     }
 

@@ -203,6 +203,21 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     private Collection<PlayerOffer> offers;
 
     /**
+     * Player IC description
+     */
+    private String description;
+
+    /**
+     * Players nationality, aka country of origin
+     */
+    private String nationality;
+
+    /**
+     * Players sex(gender)
+     */
+    private String sex;
+
+    /**
      * User panel user ID
      */
     private int ucpId;
@@ -261,6 +276,13 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     public Collection<PlayerOffer> getOffers() {
+        return offers;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends PlayerOffer> Collection<T> getOffers(Class<T> type) {
+        Collection<T> offers = new ArrayList<>();
+        getOffers().stream().filter(o -> o.getType().equals(type)).forEach(o -> offers.add((T)o));
         return offers;
     }
 
@@ -843,6 +865,36 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     @Override
     public void setLastLogin(Timestamp timestamp) {
         this.lastLogin = timestamp;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String s) {
+        this.description = s;
+    }
+
+    @Override
+    public String getNationality() {
+        return nationality;
+    }
+
+    @Override
+    public void setNationality(String s) {
+        this.nationality = s;
+    }
+
+    @Override
+    public String getSex() {
+        return sex;
+    }
+
+    @Override
+    public void setSex(String s) {
+        this.sex = s;
     }
 
 
