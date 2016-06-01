@@ -12,8 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Bebras
@@ -25,7 +25,7 @@ public class DataThread extends Thread {
     private DataSource dataSource;
 
     public DataThread(DataSource dataSource) {
-        this.usernameToIp = new HashMap<>();
+        this.usernameToIp = new ConcurrentHashMap<>();
         this.dataSource = dataSource;
     }
 
