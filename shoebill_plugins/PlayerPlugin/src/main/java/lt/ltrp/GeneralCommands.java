@@ -290,7 +290,26 @@ public class GeneralCommands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Iðsiunèia veikëjo veiksmo þinutæ aplinkiniems")
+    public boolean me(Player p, @CommandParameter(name = "Iðsamus veiksmas")String action) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(action == null)
+            return false;
+        // TODO mute check
+        else {
+            player.sendActionMessage(action);
+        }
+        return true;
+    }
 
+    @Command
+    @CommandHelp("Parodo jûsø veikëjo duomenis")
+    public boolean stats(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        playerPlugin.showStats(player, player);
+        return true;
+    }
 
     // TODO cmd:togooc
     // TODO cmd:togpm
