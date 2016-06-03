@@ -67,6 +67,7 @@ public class AdminCommands {
         adminLevels.put("slap", 1);
         adminLevels.put("masked", 1);
         adminLevels.put("lastad", 1);
+        adminLevels.put("a", 1);
 
         adminLevels.put("rfc", 2);
         adminLevels.put("dtc", 2);
@@ -152,7 +153,7 @@ public class AdminCommands {
         p.sendMessage(Color.LIGHTRED,  "|____________________________ADMINISTRATORIAUS SKYRIUS____________________________|");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /kick /ban /warn /jail /noooc /adminduty /gethere /check /afrisk /fon ");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /freeze /slap /spec /specoff /setint /setvw /intvw /masked /aheal /spawn ");
-        p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon /pos /lastad");
+        p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon /pos /lastad /a");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] PERSIKËLIMAS: /gotoloc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc /are /dre /reports /olddriver");
         if(p.getAdminLevel() >= 2)
@@ -263,6 +264,18 @@ public class AdminCommands {
             return false;
         else {
             PlayerPlugin.get(PlayerPlugin.class).showStats(player, target);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Iðsiunèia þinutæ á administratoriø chatà")
+    public boolean a(Player p, @CommandParameter(name = "Tekstas")String text) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(text == null)
+            return false;
+        else {
+            LtrpPlayer.sendAdminMessage(String.format("[Adm. level: %d] %s[ID:%d]: %s", player.getAdminLevel(), player.getName(), player.getId(), text));
         }
         return true;
     }
@@ -1119,6 +1132,9 @@ public class AdminCommands {
         }
         return true;
     }
+
+
+
 
     // TODO aProperty
     // TODO cmd:ado

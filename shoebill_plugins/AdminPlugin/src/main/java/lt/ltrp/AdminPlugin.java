@@ -2,6 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.command.AdminCommands;
 import lt.ltrp.command.ModeratorCommands;
+import lt.ltrp.command.PlayerCommands;
 import lt.ltrp.command.PlayerReportCommands;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerQuestion;
@@ -77,6 +78,7 @@ public class AdminPlugin extends Plugin implements AdminController {
         commandManager.registerCommands(new AdminCommands(this, eventManagerNode));
         commandManager.registerCommands(new ModeratorCommands(this, eventManagerNode));
         commandManager.registerCommands(new PlayerReportCommands());
+        commandManager.registerCommands(new PlayerCommands(this));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
         addEventHandlers();
         logger.debug(getDescription().getName() + " loaded");
