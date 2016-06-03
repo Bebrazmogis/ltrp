@@ -2,8 +2,10 @@ package lt.ltrp.command;
 
 
 import lt.ltrp.*;
-import lt.ltrp.constant.*;
 import lt.ltrp.constant.Currency;
+import lt.ltrp.constant.ItemType;
+import lt.ltrp.constant.LicenseType;
+import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.*;
 import lt.ltrp.dialog.*;
 import lt.ltrp.event.PlayerVehicleArrestDeleteEvent;
@@ -11,6 +13,7 @@ import lt.ltrp.event.PlayerVehicleArrestEvent;
 import lt.ltrp.modelpreview.SkinModelPreview;
 import lt.ltrp.object.*;
 import lt.ltrp.object.drug.DrugItem;
+import lt.ltrp.player.BankAccount;
 import lt.ltrp.util.PawnFunc;
 import lt.ltrp.util.StringUtils;
 import lt.maze.streamer.object.DynamicLabel;
@@ -71,6 +74,10 @@ public class PoliceCommands extends Commands {
         commandToRankNumber.put("jobid", 1);
         commandToRankNumber.put("killcheckpoint", 1);
         commandToRankNumber.put("jobid", 1);
+        commandToRankNumber.put("taser", 1);
+        commandToRankNumber.put("tazer", 1); // alt spelling
+        commandToRankNumber.put("prison", 1);
+        commandToRankNumber.put("arrest", 1);
 
         commandToRankNumber.put("wepstore", 2);
         commandToRankNumber.put("ramcar", 2);
@@ -149,7 +156,7 @@ public class PoliceCommands extends Commands {
         player.sendMessage(Color.POLICE, "|__________________" + job.getName().toUpperCase() + "__________________|");
         player.sendMessage(Color.WHITE, "  PATIKRINIMO KOMANDOS: /frisk /checkalco /fines /vehiclefines /checkspeed /mdc /take");
         player.sendMessage(Color.LIGHTGREY, "  BUDËJIMO PRADÞIOS KOMANDOS: /duty /wepstore");
-        player.sendMessage(Color.WHITE, "  SUËMIMO KOMANDOS: /tazer /cuff /drag");
+        player.sendMessage(Color.WHITE, "  SUËMIMO KOMANDOS: /taser /cuff /drag");
         player.sendMessage(Color.LIGHTGREY, "  GAUDYNIØ/SITUACIJØ KOMANDOS: /bk /rb  /rrb /m");
         player.sendMessage(Color.WHITE, "  KOMANDOS NUBAUSTI: /fine /vehiclefine /arrest /prison /arrestcar /licwarn ");
         player.sendMessage(Color.LIGHTGREY, "  KITOS KOMANDOS: /flist /setunit /delunit /police /delarrestcar /jobid /cutdownweed");
@@ -444,8 +451,105 @@ public class PoliceCommands extends Commands {
     }
 
     @Command
+    @CommandHelp("Ájungia/iðjungia tazerá")
+    public boolean taser(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(!job.isTaserEnabled())
+            player.sendErrorMessage("Direktorius ðiuo metu yra iðjungæs tazerio naudojimà.");
+        else if(player.isInAnyVehicle())
+            player.sendErrorMessage("Negalite tazerio naudoti bûdamas transporto priemonëje.");
+        else {
+            if(policePlugin.isUsingTaser(player))
+                player.sendActionMessage("ideda á dëkla tazerá.");
+            else
+                player.sendActionMessage("iðtraukia ið dëklo tazerá. ");
+            policePlugin.setTaser(player, !policePlugin.isUsingTaser(player));
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Uþdaro nusikaltëlá á kalëjimà")
+    public boolean prison(Player p, @CommandParameter(name = "Þaidëjo ID/ Dalis vardo")LtrpPlayer target,
+                          @CommandParameter(name = "Laikas minutëmis")int minutes,
+                          @CommandParameter(name = "Bauda")int fine) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PenaltyPlugin penalties = PenaltyPlugin.get(PenaltyPlugin.class);
+        BankPlugin bank = BankPlugin.get(BankPlugin.class);
+        if(player.getLocation().distance(penalties.getJailEntrance(JailData.JailType.InCharacterPrison)) > 10f)
+            player.sendErrorMessage("Ðià komandà galite naudoti tik bûdami kalëjime.");
+        else if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else if(penalties.getJailData(target) != null)
+            player.sendErrorMessage("Ðis þaidëjas jau sëdi kalëjime!");
+        else if(minutes < 60)
+            player.sendErrorMessage("Minimalus laikas 60 minuèiø, trumpoms bausmëms uþdarykite á areðtinæ.");
+        else if(fine < 1000 || fine > 50000)
+            player.sendErrorMessage("Bauda negali bûti maþesnë uþ 1000 ar didesnë uþ 50000" + Currency.SYMBOL);
+        else {
+            LtrpPlayer.sendGlobalMessage(String.format("[LSPD] Pareigûnas %s pasodino á kalëjimà asmená %s, %d minutëms.", player.getCharName(), target.getCharName(), minutes));
+            target.sendMessage(Color.LIGHTRED, String.format("[LSPD] Jûs buvote uþdarytas á kalëjimà %d minutëms, bei turësite susimokëti pareigûno nustatyà baudà: %d%c",
+                    minutes, fine, Currency.SYMBOL));
+
+            BankAccount account = bank.getBankController().getAccount(target);
+            if(account != null && account.getMoney() >= fine) {
+                account.addMoney(-fine);
+                bank.getBankController().update(account);
+                LtrpWorld.get().addMoney(fine);
+                target.sendMessage(Color.LIGHTRED, "Pinigai baudai buvo paimti ið jûsø banko sàskaitos.");
+            } else if(target.getMoney() >= fine)
+                target.sendMessage(Color.LIGHTRED, "Pinigai buvo paimti ið jûsø laikomø.");
+            else
+                target.sendMessage(Color.LIGHTRED, "Dël Jûsø maþø pajamø, buvote atleistas nuo baudos.");
+            penalties.jail(target, JailData.JailType.InCharacterPrison, minutes, player);
+
+        }
+        return true;
+    }
+
+
+    @Command
+    @CommandHelp("Uþdaro nusikaltëlá á kalëjimà")
+    public boolean arrest(Player p, @CommandParameter(name = "Þaidëjo ID/ Dalis vardo")LtrpPlayer target,
+                          @CommandParameter(name = "Laikas minutëmis")int minutes,
+                          @CommandParameter(name = "Bauda")int fine) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PenaltyPlugin penalties = PenaltyPlugin.get(PenaltyPlugin.class);
+        BankPlugin bank = BankPlugin.get(BankPlugin.class);
+        if(player.getLocation().distance(penalties.getJailEntrance(JailData.JailType.InCharacter)) > 10f)
+            player.sendErrorMessage("Ðià komandà galite naudoti tik bûdami areðinëje.");
+        else if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else if(penalties.getJailData(target) != null)
+            player.sendErrorMessage("Ðis þaidëjas jau sëdi kalëjime!");
+        else if(minutes < 1)
+            player.sendErrorMessage("Minimalus laikas 1 minutë.");
+        else if(fine < 1000 || fine > 50000)
+            player.sendErrorMessage("Bauda negali bûti maþesnë uþ 1000 ar didesnë uþ 50000" + Currency.SYMBOL);
+        else {
+            LtrpPlayer.sendGlobalMessage(String.format("[LSPD] Pareigûnas %s pasodino á areðtinæ asmená  %s, %d minutëms.", player.getCharName(), target.getCharName(), minutes));
+            target.sendMessage(Color.LIGHTRED, String.format("[LSPD] Jûs buvote uþdarytas á kalëjimà %d minutëms, bei turësite susimokëti pareigûno nustatyà baudà: %d%c",
+                    minutes, fine, Currency.SYMBOL));
+
+            BankAccount account = bank.getBankController().getAccount(target);
+            if(account != null && account.getMoney() >= fine) {
+                account.addMoney(-fine);
+                bank.getBankController().update(account);
+                LtrpWorld.get().addMoney(fine);
+                target.sendMessage(Color.LIGHTRED, "Pinigai baudai buvo paimti ið jûsø banko sàskaitos.");
+            } else if(target.getMoney() >= fine)
+                target.sendMessage(Color.LIGHTRED, "Pinigai buvo paimti ið jûsø laikomø.");
+            else
+                target.sendMessage(Color.LIGHTRED, "Dël Jûsø maþø pajamø, buvote atleistas nuo baudos.");
+            penalties.jail(target, JailData.JailType.InCharacter, minutes, player);
+        }
+        return true;
+    }
+
+
+    @Command
     @CommandHelp("Leidþia surakinti/atrakinti þaidëjà antrankiais")
-    public boolean cuff(Player p, LtrpPlayer target) {
+    public boolean cuff(Player p, @CommandParameter(name = "Þaidëjo ID/ Dalis vardo")LtrpPlayer target) {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");

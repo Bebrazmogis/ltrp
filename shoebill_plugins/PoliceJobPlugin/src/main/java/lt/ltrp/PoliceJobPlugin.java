@@ -5,6 +5,7 @@ import lt.ltrp.dao.PoliceFactionDao;
 import lt.ltrp.dao.impl.MySqlPoliceFactionImpl;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.LtrpWeaponData;
+import lt.ltrp.event.PlayerJailEvent;
 import lt.ltrp.object.JobVehicle;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PoliceFaction;
@@ -188,6 +189,17 @@ public class PoliceJobPlugin extends Plugin {
             if(isUsingTaser(player) && (player.getState() == PlayerState.DRIVER || player.getState() == PlayerState.PASSENGER)) {
                 player.sendActionMessage("prieð ásësdamas á transporto priemonæ, ásideda tazerá á dëklà");
                 setTaser(player, false);
+            }
+        });
+
+
+        eventManager.registerHandler(PlayerJailEvent.class, e -> {
+            LtrpPlayer p = e.getPlayer();
+            Optional<DragTimer> optionalDrag = dragTimers.values().stream().filter(d -> d.getTarget().equals(p)).findFirst();
+            if(optionalDrag.isPresent()) {
+                dragTimers.remove(p);
+                optionalDrag.get().destroy();
+                p.toggleControllable(true);
             }
         });
 
