@@ -9,6 +9,7 @@ import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.Rank;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
@@ -41,6 +42,24 @@ public class FactionCommands extends Commands {
             }
         }
     */
+
+    @Command
+    @CommandHelp("Iðsiunèia OOC þinutæ á frakcijos chatà")
+    public boolean f(Player p, @CommandParameter(name = "Tekstas")String text) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PlayerJobData jobData = JobPlugin.get(JobPlugin.class).getJobData(player);
+        // TODO muted?
+        if(text == null || jobData == null)
+            return false;
+        else if(!(jobData.getJob() instanceof Faction))
+            player.sendErrorMessage("Ðis chatas galimas tik dirbant frakcijoje.");
+        else {
+            jobData.getJob().sendMessage(Color.CYAN, String.format("((%s (%s): %s ))", jobData.getJobRank().getName(),
+                    player.getName(), text));
+        }
+        return true;
+    }
+
     @Command
     public boolean fList(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
