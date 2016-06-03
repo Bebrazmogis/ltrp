@@ -19,7 +19,7 @@ import java.util.Collection;
  * @author Bebras
  *         2016.06.03.
  */
-public abstract class DepartmentChatCommand extends Commands {
+public class DepartmentChatCommand extends Commands {
 
 
     private static final Collection<Faction> FACTIONS = new ArrayList<>();
