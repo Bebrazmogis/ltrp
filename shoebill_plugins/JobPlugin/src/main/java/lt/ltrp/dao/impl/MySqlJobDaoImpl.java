@@ -6,6 +6,7 @@ import lt.ltrp.FactionRankImpl;
 import lt.ltrp.JobProperty;
 import lt.ltrp.LoadingException;
 import lt.ltrp.dao.JobDao;
+import lt.ltrp.dao.JobGateDao;
 import lt.ltrp.dao.JobVehicleDao;
 import lt.ltrp.object.ContractJobRank;
 import lt.ltrp.object.Faction;
@@ -37,19 +38,23 @@ public abstract class MySqlJobDaoImpl implements JobDao {
     private DataSource dataSource;
     private EventManager eventManager;
     private JobVehicleDao jobVehicleDao;
-    private MySqlJobGateDaoImpl jobGateDao;
+    private JobGateDao jobGateDao;
 
 
-    public MySqlJobDaoImpl(DataSource dataSource, JobVehicleDao jobVehicleDao, MySqlJobGateDaoImpl mySqlJobGateDao, EventManager eventManager) {
+    public MySqlJobDaoImpl(DataSource dataSource, JobVehicleDao jobVehicleDao, JobGateDao jobGateDao, EventManager eventManager) {
         this.dataSource = dataSource;
         this.eventManager = eventManager;
-        this.jobGateDao = mySqlJobGateDao;
+        this.jobGateDao = jobGateDao;
         if(jobVehicleDao == null) {
             this.jobVehicleDao = new MySqlJobVehicleDao(dataSource, eventManager);
         }
         else {
             this.jobVehicleDao = jobVehicleDao;
         }
+        if(jobGateDao == null)
+            this.jobGateDao = new MySqlJobGateDaoImpl(dataSource);
+        else
+            this.jobGateDao = jobGateDao;
     }
 
     public DataSource getDataSource() {
@@ -83,6 +88,8 @@ public abstract class MySqlJobDaoImpl implements JobDao {
                 job.setVehicles(jobVehicleDao.get(job));
                 job.setGates(jobGateDao.get(job));
                 job.setRanks(getRanks(job));
+                if(job instanceof Faction)
+                    ((Faction) job).setBudget(result.getInt("budget"));
                 String key = result.getString("key"),
                         value = result.getString("value");
                 if(key != null && value != null)

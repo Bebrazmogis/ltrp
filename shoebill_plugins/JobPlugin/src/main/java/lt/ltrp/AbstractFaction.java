@@ -22,6 +22,7 @@ public abstract class AbstractFaction extends AbstractJob implements Faction {
     private Collection<FactionRank> ranks;
     private Collection<Integer> leaderIds;
     private Collection<JobVehicle> vehicles;
+    private int budget;
 
     public AbstractFaction(int id, String name, Location location, int basePaycheck, EventManager eventManager) {
         super(id, name, location, basePaycheck, eventManager);
@@ -64,6 +65,16 @@ public abstract class AbstractFaction extends AbstractJob implements Faction {
 
     public void removeLeader(int userid) {
         leaderIds.remove(userid);
+    }
+
+    @Override
+    public int getBudget() {
+        return budget;
+    }
+
+    @Override
+    public void setBudget(int budget) {
+        this.budget = budget;
     }
 
     @Override

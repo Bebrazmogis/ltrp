@@ -27,5 +27,7 @@ public interface Faction extends Job {
     void setLocation(Location loc);
     Collection<FactionRank> getRanks();
     FactionRank getRank(int id);
+    void setBudget(int budget);
+    int getBudget();
     //void setRanks(Collection<? extends FactionRank> ranks);
 }
