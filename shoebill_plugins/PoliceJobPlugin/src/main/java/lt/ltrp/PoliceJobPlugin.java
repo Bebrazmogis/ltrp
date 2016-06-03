@@ -1,7 +1,9 @@
 package lt.ltrp;
 
+import lt.ltrp.command.CivilianAcceptCommands;
 import lt.ltrp.command.CivilianCommands;
 import lt.ltrp.command.PoliceCommands;
+import lt.ltrp.command.PoliceLeaderCommands;
 import lt.ltrp.dao.PoliceFactionDao;
 import lt.ltrp.dao.impl.MySqlPoliceFactionImpl;
 import lt.ltrp.object.JobVehicle;
@@ -9,6 +11,7 @@ import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PoliceFaction;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicObject;
+import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.player.PlayerDeathEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
@@ -86,7 +89,10 @@ public class PoliceJobPlugin extends Plugin {
 
     private void registerCommands() {
         commandManager = new PlayerCommandManager(eventManager);
+        CommandGroup acceptGroup = new CommandGroup();
+        acceptGroup.registerCommands(new CivilianAcceptCommands());
 
+        commandManager.registerChildGroup(acceptGroup, "accept");
         commandManager.replaceTypeParser(LtrpPlayer.class, s -> {
             try {
                 return LtrpPlayer.get(Integer.parseInt(s));
@@ -98,6 +104,7 @@ public class PoliceJobPlugin extends Plugin {
         commandManager.registerCommands(new PoliceCommands(commandManager, policeFaction, eventManager, unitLabels, policeSirens, dragTimers));
         commandManager.registerCommands(new RoadblockCommands(policeFaction, eventManager));
         commandManager.registerCommands(new CivilianCommands());
+        commandManager.registerCommands(new PoliceLeaderCommands(this));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
     }
 
