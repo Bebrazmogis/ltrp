@@ -257,6 +257,8 @@ public class SqlItemDao implements ItemDao {
                     insert((RadioItem) item, con);
                 else if(item instanceof WeaponItem)
                     insert((WeaponItem) item, con);
+                else if(item instanceof NewsPaperItem)
+                    insert((NewsPaperItem)item, con);
                 return id;
             }
         } catch(SQLException e) {
@@ -284,6 +286,15 @@ public class SqlItemDao implements ItemDao {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    private void insert(NewsPaperItem item, Connection connection) throws SQLException {
+        String sql = "INSERT INTO items_newspaper (item_id, created_at) VALUES (?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, item.getUUID());
+            stmt.setTimestamp(2, item.getDate());
+            stmt.execute();
+        }
     }
 
     private void insert(ClothingItem item, Connection connection) throws SQLException {
@@ -412,8 +423,19 @@ public class SqlItemDao implements ItemDao {
                 update((RadioItem) item, con);
             else if(item instanceof WeaponItem)
                 update((WeaponItem) item, con);
+            else if(item instanceof NewsPaperItem)
+                update((NewsPaperItem) item, con);
         } catch(SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void update(NewsPaperItem item, Connection connection) throws SQLException {
+        String sql = "UPDATE items_newspaper SET created_at = ? WHERE item_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setTimestamp(1, item.getDate());
+            stmt.setInt(2, item.getUUID());
+            stmt.execute();
         }
     }
 
@@ -545,6 +567,7 @@ public class SqlItemDao implements ItemDao {
                 "LEFT JOIN items_phone ON items.id = items_phone.item_id " +
                 "LEFT JOIN items_weapon ON items.id = items_weapon.item_id " +
                 "LEFT JOIN items_radio ON items.id = items_radio.item_id " +
+                "LEFT JOIN items_newspaper ON items.id = items_newspaper.item_id " +
                 "WHERE "  + columnName +  " = ?";
         try (
                 Connection connection = dataSource.getConnection();
@@ -636,6 +659,7 @@ public class SqlItemDao implements ItemDao {
         float frequency = r.getFloat("frequency");
         int weapon_id = r.getInt("weapon_id");
         int ammo = r.getInt("ammo");
+        Timestamp createdAt = r.getTimestamp("created_at");
         switch(typeClass) {
             case "lt.ltrp.object.impl.AmphetamineItem":
                 item = new AmphetamineItem(id, name, eventManager, doses);
@@ -705,6 +729,9 @@ public class SqlItemDao implements ItemDao {
                 break;
             case "lt.ltrp.object.impl.BoomBoxItem":
                 item = new BoomBoxItem(id, name, eventManager);
+                break;
+            case "lt.ltrp.object.impl.NewsPaperItem":
+                item = new NewsPaperItem(id, name, eventManager, createdAt);
                 break;
             case "lt.ltrp.object.impl.BasicItem":
                 item = new BasicItem(id, name, eventManager, type, stackable);
