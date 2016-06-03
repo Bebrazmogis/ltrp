@@ -1,6 +1,8 @@
 package lt.ltrp;
 
 
+import lt.ltrp.command.PlayerAcceptOffers;
+import lt.ltrp.command.PlayerChatCommands;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
@@ -63,6 +65,8 @@ public class PlayerControllerImpl implements PlayerController {
         this.playerLog = new PlayerLog(managerNode);
 
         playerCommandManager.registerCommands(new GeneralCommands(managerNode));
+        playerCommandManager.registerCommands(new PlayerAcceptOffers());
+        playerCommandManager.registerCommands(new PlayerChatCommands(managerNode));
 
 
         managerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.NORMAL, e -> {
