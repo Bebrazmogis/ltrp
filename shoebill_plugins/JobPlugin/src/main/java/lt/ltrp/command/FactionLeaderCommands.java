@@ -1,14 +1,19 @@
-package lt.ltrp;
+package lt.ltrp.command;
 
-import lt.ltrp.command.Commands;
+import lt.ltrp.FactionInviteOffer;
+import lt.ltrp.JobController;
+import lt.ltrp.JobPlugin;
+import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.dialog.JobRankDialog;
 import lt.ltrp.object.Faction;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.util.AdminLog;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
+import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
@@ -105,6 +110,49 @@ public class FactionLeaderCommands extends Commands {
                 });
                 dialog.show();
             }
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Patikrina pinigø kieká frakcijos biudþete")
+    public boolean checkfbudget(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Faction faction = getLeaderFaction(player);
+        if(faction == null)
+            return false;
+        player.sendMessage(Color.GREEN, "|____________FRAKCIJOS BIUDÞETAS____________|");
+        player.sendMessage(Color.WHITE, "Ðuo metu frakcijos biudþete yra " + faction.getBudget() + Currency.SYMBOL);
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia paimti pinigø ið frakcijos biudþeto")
+    public boolean takeFMoney(Player p,
+                             @CommandParameter(name = "3 lygio administratoriaus ID/Dalis varod")LtrpPlayer admin,
+                             @CommandParameter(name = "Suma")int amount) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Faction faction = getLeaderFaction(player);
+        if(admin == null)
+            return false;
+        else if(!admin.isAdmin())
+            player.sendErrorMessage(admin.getName() + " nëra administratorius");
+        else if(admin.getAdminLevel() < 3)
+            player.sendErrorMessage(admin.getName() + " administratoriaus lygis per maþas, minimalus yra 3.");
+        else if(player.getDistanceToPlayer(admin) > 3f)
+            player.sendErrorMessage("Administratorius " + admin.getName() + " yra per toli.");
+        else if(amount <= 0)
+            player.sendErrorMessage("Suma negali bûti maþesnë uþ 0.");
+        else if(amount > faction.getBudget())
+            player.sendErrorMessage("Suma negali bûti didesnë uþ " + faction.getBudget());
+        else {
+            player.giveMoney(amount);
+            faction.setBudget(-amount);
+            JobPlugin.get(JobPlugin.class).getFactionDao().update(faction);
+
+            LtrpPlayer.sendAdminMessage(String.format("Miesto meras %s(%d) paëmë %d ið biudþeto, tai autorizavæs administratorius %s.",
+                    player.getName(), player.getId(), amount, admin.getName()));
+            AdminLog.log(admin, "Leido paimti " + amount + " ið miesto biudþeto merui " + player.getUUID());
         }
         return true;
     }
