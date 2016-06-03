@@ -10,6 +10,7 @@ import lt.ltrp.object.PlayerInfoBox;
 import lt.ltrp.data.FuelTank;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.constant.TextDrawFont;
+import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.object.PlayerTextdraw;
 
 /**
@@ -83,7 +84,10 @@ public class PlayerInfoBoxImpl implements PlayerInfoBox {
             infoText.append(String.format("~w~R.kanalas: %.1f~n~", radioItem.getFrequency()));
         }
         if(vehicle != null) {
-            infoText.append(String.format("Greitis: %d km/h~n~~w~Rida: %.0f km", vehicle.getSpeed(), vehicle.getMileage()));
+            infoText.append(String.format("Greitis: %d km/h", vehicle.getSpeed()));
+            VehicleModel.VehicleType vehicleType = VehicleModel.getType(vehicle.getModelId());
+            if(VehicleModel.VehicleType.AIRCRAFT != vehicleType && vehicleType != VehicleModel.VehicleType.HELICOPTER)
+                infoText.append(String.format("~n~~w~Rida: %.0f km", vehicle.getMileage()));
             if(LtrpVehicleModel.isMotorVehicle(vehicle.getModelId())) {
                 FuelTank fueltank = vehicle.getFuelTank();
                 int percent = Math.round(fueltank.getFuel() * 100 / fueltank.getSize());
