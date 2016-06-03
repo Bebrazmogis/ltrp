@@ -18,12 +18,14 @@ import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;
+import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;
 
 import java.time.Instant;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -413,10 +415,81 @@ public class GeneralCommands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Pasako kaþkà tyliai pasirinktam þaidëjui")
+    public boolean w(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                     @CommandParameter(name = "Tekstas")String text) {
+        LtrpPlayer player=  LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        else if(text == null)
+            return false;
+        else if(player.getDistanceToPlayer(target) > 2f)
+            player.sendErrorMessage(target.getCharName() + " yra per toli kad galëtumëte jam kà nors pasakyti á ausá.");
+        else {
+            String msg = String.format("%s ðnabþdëdamas sako: %s", player.getCharName(), text);
+            player.sendMessage(Color.LIGHTRED, msg);
+            target.sendMessage(Color.LIGHTRED, msg);
+            player.sendActionMessage("pasilenkæs prie " + target.getCharName() + ", negirdimai suþnabdþa þodþius ir atsitraukia.");
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pasako kaþkà þmonëms sëdintiems toj paèioje transporto priemonëje")
+    public boolean cW(Player pp, @CommandParameter(name = "Tekstas")String text) {
+        LtrpPlayer player=  LtrpPlayer.get(pp);
+        if(text == null)
+            return false;
+        else if(!player.isInAnyVehicle())
+            player.sendErrorMessage("Ðià komandà galite naudoti tik bûdamas transporto priemonëje.");
+        else {
+            Color color = new Color(0xD7DFF3AA);
+            LtrpPlayer.get().stream().filter(p -> player.getVehicle().equals(p.getVehicle())).forEach(p -> {
+                if(player.getState() == PlayerState.DRIVER)
+                    p.sendMessage(color, String.format("Vairuotojas %s sako: %s", player.getCharName(), text));
+                else
+                    p.sendMessage(color, String.format("Pakeleivis %s sako: %s", player.getCharName(), text));
+            });
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo jûsø paskutinës transporto priemonës ID")
+    public boolean oldCar(Player pp) {
+        LtrpPlayer player=  LtrpPlayer.get(pp);
+        if(player.getLastUsedVehicle() == null)
+            player.sendErrorMessage("Nuo prisijungimo, jûs dar nesedëjote jokioje transporto priemonëje.");
+        else
+            player.sendMessage(Color.NEWS, "Paskutinës naudotos transporto priemonës ID yra " + player.getLastUsedVehicle().getId());
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo pasirinktam þaidëjui jûsø asmens tapatybës dokumentà")
+    public boolean sId(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player=  LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        else if(player.getDistanceToPlayer(target) > 2f)
+            player.sendErrorMessage(target.getCharName() + " yra per toli kad galëtumëte jam parodyti savo asmens tapatybës kortelæ.");
+        else {
+            target.sendMessage(Color.GREEN, "|______________" + player.getName() + "______________|");
+            target.sendMessage(Color.WHITE, String.format("*| Vardas: %s Pavardë: %s", player.getFirstName(), player.getLastName()));
+            target.sendMessage(Color.WHITE, String.format("*| Gimimo metai: %d Metai: %d", Calendar.getInstance().get(Calendar.YEAR) - player.getAge(), player.getAge()));
+            target.sendMessage(Color.WHITE, String.format("*| Tautybë: %s", player.getNationality()));
+            target.sendMessage(Color.WHITE, String.format("*| Asmens kodas: %d000000%d%d", player.getUcpId(), player.getUUID(), player.getAge()));
+            player.sendActionMessage("parodo savo asmens dokumentà " + target.getCharName());
+        }
+        return true;
+    }
+
+
+
     // TODO cmd:togooc
     // TODO cmd:togpm
     // TODO cmd:togadmin
     // TODO cmd:tognews
     // TODO cmd:o
-    // TODO cmd:ad
 }

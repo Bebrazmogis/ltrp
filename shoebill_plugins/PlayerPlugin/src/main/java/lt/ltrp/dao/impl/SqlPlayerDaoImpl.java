@@ -84,7 +84,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         String sql = "SELECT " +
                 "secret_question, secret_answer, admin_level, mod_level, players.level, players.job_id, money, hours_online, box_style, age, " +
                 "respect, deaths, hunger, total_paycheck, current_paycheck, minutes_online_since_payday, forum_name, ucp_user_id " +
-                "last_login, description " +
+                "last_login, description, nationality, sex " +
                 "FROM players " +
                 " WHERE players.id = ? LIMIT 1";
         /*String sql = "SELECT " +
@@ -121,6 +121,8 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setUcpId(result.getInt("ucp_user_id"));
                 player.setLastLogin(result.getTimestamp("last_login"));
                 player.setDescription(result.getString("description"));
+                player.setNationality(result.getString("nationality"));
+                player.setSex(result.getString("sex"));
 
                 /*int jobLevel = result.getInt("job_level");
                 if(!result.wasNull()) {

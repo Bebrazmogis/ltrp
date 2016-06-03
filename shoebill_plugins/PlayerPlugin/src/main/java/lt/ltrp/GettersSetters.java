@@ -2,7 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.constant.LicenseType;
-import lt.ltrp.data.JobData;
+import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.object.*;
 import lt.ltrp.player.BankAccount;
@@ -206,7 +206,7 @@ public class GettersSetters {
         amx.registerFunction("addJobExp", params -> {
            LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
             if(p != null) {
-                JobData jobData = JobController.get().getJobData(p);
+                PlayerJobData jobData = JobController.get().getJobData(p);
                 if(jobData != null) {
                     jobData.addXp((Integer)params[1]);
                 }
@@ -312,7 +312,7 @@ public class GettersSetters {
         amx.registerFunction("getPlayerJob", params-> {
            LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
             if(p != null) {
-                JobData jobData = JobController.get().getJobData(p);
+                PlayerJobData jobData = JobController.get().getJobData(p);
                 return jobData != null ? jobData.getJob().getUUID() : 0;
             }
             return -1;
@@ -334,7 +334,7 @@ public class GettersSetters {
         amx.registerFunction("getPlayerRank", params-> {
            LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
             if(p != null) {
-                JobData jobData = JobController.get().getJobData(p);
+                PlayerJobData jobData = JobController.get().getJobData(p);
                 return jobData != null ? jobData.getJobRank().getNumber() : null;
             }
             return -1;
@@ -342,7 +342,7 @@ public class GettersSetters {
 
         amx.registerFunction("setPlayerRank", params-> {
            LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
-            JobData jobData = JobController.get().getJobData(p);
+            PlayerJobData jobData = JobController.get().getJobData(p);
             if(p != null && jobData != null) {
                 Rank rank = jobData.getJob().getRank((Integer) params[1]);
                 if(rank != null) {
