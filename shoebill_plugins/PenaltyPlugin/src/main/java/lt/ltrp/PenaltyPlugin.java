@@ -11,8 +11,9 @@ import lt.ltrp.event.*;
 import lt.ltrp.object.LtrpPlayer;
 import lt.maze.streamer.event.PlayerLeaveDynamicAreaEvent;
 import lt.maze.streamer.object.DynamicArea;
-import lt.maze.streamer.object.DynamicPolygon;
+import lt.maze.streamer.object.DynamicSphere;
 import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
@@ -37,7 +38,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class PenaltyPlugin extends Plugin {
 
-    private static final int MAX_WARNS = 3;
+    public static final int MAX_WARNS = 3;
     private static final float[] IC_JAIL_POINTS = {
             1748.73694f, -1530.12915f,
             1759.70703f, -1528.74841f,
@@ -68,6 +69,7 @@ public class PenaltyPlugin extends Plugin {
     private static final Location IC_JAIL_ENTRANCE = new Location(1771.8267f, -1547.4008f, 8.9070f);
     private static final Location OOC_JAIL_ENTRANCE = new Location(2688.8000f, 2704.5161f, 22.7215f);
     private static final Location JAIL_RELEASE_LOCATION = new Location(1553.9462f, -1675.5209f, 15.1905f);
+    private static final Location IC_PRISON_ENTRANCE = new Location(1810.24f,-1549.45f,5700.43f);
 
     private Logger logger;
     private DynamicArea icJailArea;
@@ -79,8 +81,7 @@ public class PenaltyPlugin extends Plugin {
     private WarnDao warnDao;
 
     public PenaltyPlugin() {
-        icJailArea = DynamicPolygon.create(IC_JAIL_POINTS);
-        oocJailArea = DynamicPolygon.create(OOC_JAIL_POINTS);
+
     }
 
 
@@ -88,6 +89,10 @@ public class PenaltyPlugin extends Plugin {
     protected void onEnable() throws Throwable {
         logger = getLogger();
         node = getEventManager().createChildNode();
+        //icJailArea = DynamicPolygon.create(IC_JAIL_POINTS);
+        //oocJailArea = DynamicPolygon.create(OOC_JAIL_POINTS);
+        icJailArea = DynamicSphere.create(0f, 0f, 0f, 0f, 0, 0, null);
+        oocJailArea = DynamicSphere.create(new Vector3D(), 0f);
 
         final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
         dependencies.add(DatabasePlugin.class);
@@ -149,7 +154,8 @@ public class PenaltyPlugin extends Plugin {
 
 
         this.node.registerHandler(PlayerJailEvent.class, e -> {
-
+            LtrpPlayer p = e.getPlayer();
+            p.removeJobWeapons();
         });
 
         this.node.registerHandler(PlayerUnJailEvent.class, e -> {
@@ -188,11 +194,24 @@ public class PenaltyPlugin extends Plugin {
             SpawnData spawnData = e.getSpawnData();
             JailData jailData = getJailData(player);
             if(jailData != null) {
-                Location l = jailData.getType() == JailData.JailType.InCharacter ? IC_JAIL_ENTRANCE : OOC_JAIL_ENTRANCE;
+                Location l = getJailEntrance(jailData.getType());
                 player.setSpawnInfo(l, 0f, spawnData.getSkin(), Player.NO_TEAM, new WeaponData(), new WeaponData(), new WeaponData());
                 logger.info("RequestSpawnEvent player " + player.getUUID() + " needs to be in jail");
             }
         });
+    }
+
+    public Location getJailEntrance(JailData.JailType type) {
+        switch(type) {
+            case InCharacter:
+                return IC_JAIL_ENTRANCE;
+            case OutOfCharacter:
+                return OOC_JAIL_ENTRANCE;
+            case InCharacterPrison:
+                return IC_PRISON_ENTRANCE;
+            default:
+                return null;
+        }
     }
 
     /**
@@ -225,14 +244,7 @@ public class PenaltyPlugin extends Plugin {
      */
     public void jail(LtrpPlayer player, JailData.JailType jailType, int minutes, LtrpPlayer jailedBy) {
         JailData jailData = new JailData(0, player, jailType, minutes * 60, minutes * 60, jailedBy.getUUID(), new Date(new java.util.Date().getTime()));
-        switch(jailType) {
-            case OutOfCharacter:
-                player.setLocation(OOC_JAIL_ENTRANCE);
-                break;
-            case InCharacter:
-                player.setLocation(IC_JAIL_ENTRANCE);
-                break;
-        }
+        player.setLocation(getJailEntrance(jailType));
         jailDao.insert(jailData);
         node.dispatchEvent(new PlayerJailEvent(player, jailData));
     }

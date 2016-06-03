@@ -86,6 +86,7 @@ public class JailData {
 
     public enum JailType {
         InCharacter,
-        OutOfCharacter
+        OutOfCharacter,
+        InCharacterPrison
     }
 }
