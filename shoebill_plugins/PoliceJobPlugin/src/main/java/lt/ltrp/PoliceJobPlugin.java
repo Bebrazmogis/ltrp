@@ -1,9 +1,6 @@
 package lt.ltrp;
 
-import lt.ltrp.command.CivilianAcceptCommands;
-import lt.ltrp.command.CivilianCommands;
-import lt.ltrp.command.PoliceCommands;
-import lt.ltrp.command.PoliceLeaderCommands;
+import lt.ltrp.command.*;
 import lt.ltrp.dao.PoliceFactionDao;
 import lt.ltrp.dao.impl.MySqlPoliceFactionImpl;
 import lt.ltrp.data.Animation;
@@ -114,6 +111,7 @@ public class PoliceJobPlugin extends Plugin {
         commandManager.registerCommands(new RoadblockCommands(policeFaction, eventManager));
         commandManager.registerCommands(new CivilianCommands());
         commandManager.registerCommands(new PoliceLeaderCommands(this));
+        commandManager.registerCommands(new DepartmentChatCommand(getPoliceFaction()));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
     }
 
