@@ -6,6 +6,8 @@ import lt.ltrp.command.PoliceCommands;
 import lt.ltrp.command.PoliceLeaderCommands;
 import lt.ltrp.dao.PoliceFactionDao;
 import lt.ltrp.dao.impl.MySqlPoliceFactionImpl;
+import lt.ltrp.data.Animation;
+import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.object.JobVehicle;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PoliceFaction;
@@ -13,8 +15,11 @@ import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
-import net.gtaun.shoebill.event.player.PlayerDeathEvent;
-import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
+import net.gtaun.shoebill.common.timers.TemporaryTimer;
+import net.gtaun.shoebill.constant.BulletHitType;
+import net.gtaun.shoebill.constant.PlayerState;
+import net.gtaun.shoebill.constant.WeaponModel;
+import net.gtaun.shoebill.event.player.*;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
 import net.gtaun.shoebill.resource.Plugin;
@@ -42,6 +47,8 @@ public class PoliceJobPlugin extends Plugin {
     private Collection<LtrpPlayer> playersOnDuty;
     private PoliceFaction policeFaction;
     private PoliceFactionDao policeFactionDao;
+    private Map<LtrpPlayer, LtrpWeaponData> taserSlotWeaponCache;
+    private Collection<LtrpPlayer> playersUsingTaser;
 
     @Override
     protected void onEnable() throws Throwable {
@@ -51,6 +58,8 @@ public class PoliceJobPlugin extends Plugin {
         this.policeSirens = new HashMap<>();
         this.dragTimers = new HashMap<>();
         this.playersOnDuty = new ArrayList<>();
+        this.taserSlotWeaponCache = new HashMap<>();
+        this.playersUsingTaser = new ArrayList<>();
 
 
         final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
@@ -133,6 +142,7 @@ public class PoliceJobPlugin extends Plugin {
                     t.destroy();
                     t.getTarget().toggleControllable(true);
                 }
+                if(playersUsingTaser.contains(player)) setTaser(player, false);
             }
         });
 
@@ -146,6 +156,40 @@ public class PoliceJobPlugin extends Plugin {
                     t.destroy();
                     t.getTarget().toggleControllable(true);
                 }
+            }
+        });
+
+        eventManager.registerHandler(PlayerWeaponShotEvent.class, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            // DENY the taser damage
+            if(isUsingTaser(player) && e.getHitType() == BulletHitType.PLAYER) {
+                e.disallow();
+            }
+        });
+
+        eventManager.registerHandler(PlayerTakeDamageEvent.class, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            LtrpPlayer issuer = LtrpPlayer.get(e.getIssuer());
+            if(issuer != null && isUsingTaser(issuer) && issuer.getDistanceToPlayer(player) <= 7) {
+                issuer.sendActionMessage("iððauna elektros ðokà nutaikæs á " + player.getCharName() + " ir nukreèia su didele átampa.");
+                player.sendActionMessage("nuo ðûvio nugriûva ant þemës ir negali pajudëti...");
+                player.toggleControllable(false);
+                player.applyAnimation(new Animation("CRACK", "crckdeth2", true, 0));
+                TemporaryTimer.create(30000, 1, (i) -> {
+                    player.toggleControllable(true);
+                    player.clearAnimations();
+                    // TODO stand up anim
+                });
+                setTaser(issuer, false);
+            }
+        });
+
+        eventManager.registerHandler(PlayerStateChangeEvent.class, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            // When entering a vehicle we should hide users taser
+            if(isUsingTaser(player) && (player.getState() == PlayerState.DRIVER || player.getState() == PlayerState.PASSENGER)) {
+                player.sendActionMessage("prieð ásësdamas á transporto priemonæ, ásideda tazerá á dëklà");
+                setTaser(player, false);
             }
         });
 
@@ -171,6 +215,38 @@ public class PoliceJobPlugin extends Plugin {
         eventManager.cancelAll();
         commandManager.uninstallAllHandlers();
         commandManager.destroy();
+        playersUsingTaser.clear();
+        taserSlotWeaponCache.forEach((p, w) -> setTaser(p, false));
+        taserSlotWeaponCache.clear();
         logger.info(getDescription().getName() + " unloaded");
+    }
+
+
+    public void setTaser(LtrpPlayer player, boolean enabled) {
+        if(enabled) {
+            // If we turn it on, we add the user to a list
+            playersUsingTaser.add(player);
+            // If he has any weapon in tasers slot, we cache it
+            LtrpWeaponData weapon = player.getWeaponData(WeaponModel.SILENCED_COLT45);
+            if(weapon != null) {
+                taserSlotWeaponCache.put(player, weapon);
+                player.removeWeapon(weapon);
+            }
+            player.giveWeapon(new LtrpWeaponData(WeaponModel.SILENCED_COLT45, 10, true));
+        } else {
+            playersUsingTaser.remove(player);
+            // Remove the instance of silencer
+            player.removeWeapon(player.getWeaponData(WeaponModel.SILENCED_COLT45));
+            // If he had cached weapons, give them back
+            LtrpWeaponData weapon = taserSlotWeaponCache.get(player);
+            if(weapon != null) {
+                player.giveWeapon(weapon);
+                taserSlotWeaponCache.remove(player);
+            }
+        }
+    }
+
+    public boolean isUsingTaser(LtrpPlayer player) {
+        return playersUsingTaser.contains(player);
     }
 }
