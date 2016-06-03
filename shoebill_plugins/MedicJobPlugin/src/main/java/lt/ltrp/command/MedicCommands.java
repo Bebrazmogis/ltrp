@@ -4,8 +4,8 @@ package lt.ltrp.command;
 import lt.ltrp.JobController;
 import lt.ltrp.MedicJobPlugin;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.JobData;
 import lt.ltrp.data.LtrpWeaponData;
+import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.MedicFaction;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -36,7 +36,7 @@ public class MedicCommands extends Commands {
     @BeforeCheck
     public boolean bfC(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         if(jobData.getJob().equals(job)) {
             return true;
         } else {
@@ -87,7 +87,7 @@ public class MedicCommands extends Commands {
     @CommandHelp("Paskiria darbuotoja gaisrininku")
     public boolean setFd(Player p, LtrpPlayer target) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = JobController.get().getJobData(player);
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
         } else if(player.getDistanceToPlayer(target) > 5f) {

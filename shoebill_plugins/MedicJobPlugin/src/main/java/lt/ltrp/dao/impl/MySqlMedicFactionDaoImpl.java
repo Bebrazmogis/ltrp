@@ -1,5 +1,6 @@
 package lt.ltrp.dao.impl;
 
+import lt.ltrp.dao.JobGateDao;
 import lt.ltrp.dao.JobVehicleDao;
 import lt.ltrp.dao.MedicFactionDao;
 import lt.ltrp.object.MedicFaction;
@@ -14,8 +15,9 @@ import javax.sql.DataSource;
  */
 public class MySqlMedicFactionDaoImpl extends MySqlFactionDaoImpl implements MedicFactionDao {
 
-    public MySqlMedicFactionDaoImpl(DataSource dataSource, JobVehicleDao vehicleDao, EventManager eventManager) {
-        super(dataSource, vehicleDao, eventManager);
+
+    public MySqlMedicFactionDaoImpl(DataSource dataSource, JobVehicleDao vehicleDao, JobGateDao jobGateDao, EventManager eventManager) {
+        super(dataSource, vehicleDao, jobGateDao, eventManager);
     }
 
     @Override

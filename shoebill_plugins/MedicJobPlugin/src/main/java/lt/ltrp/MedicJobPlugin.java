@@ -1,6 +1,8 @@
 package lt.ltrp;
 
+import lt.ltrp.command.DepartmentChatCommand;
 import lt.ltrp.command.MedicCommands;
+import lt.ltrp.command.RoadblockCommands;
 import lt.ltrp.dao.MedicFactionDao;
 import lt.ltrp.dao.impl.MySqlMedicFactionDaoImpl;
 import lt.ltrp.object.LtrpPlayer;
@@ -65,7 +67,7 @@ public class MedicJobPlugin extends Plugin {
 
     private void load() {
         eventManager.cancelAll();
-        this.medicFactionDao = new MySqlMedicFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, eventManager);
+        this.medicFactionDao = new MySqlMedicFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, null, eventManager);
         this.medicFaction = medicFactionDao.get(JobPlugin.JobId.Medic.id);
         registerCommands();
         addEventHandlers();
@@ -86,6 +88,7 @@ public class MedicJobPlugin extends Plugin {
         this.playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
         this.playerCommandManager.registerCommands(new MedicCommands(medicFaction, eventManager));
         this.playerCommandManager.registerCommands(new RoadblockCommands(medicFaction, eventManager));
+        this.playerCommandManager.registerCommands(new DepartmentChatCommand(medicFaction));
     }
 
     public Collection<LtrpPlayer> getMedicsOnDuty() {
