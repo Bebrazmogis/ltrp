@@ -2,19 +2,14 @@ package lt.ltrp.command;
 
 import lt.ltrp.*;
 import lt.ltrp.constant.Currency;
-import lt.ltrp.data.Color;
-import lt.ltrp.data.JailData;
-import lt.ltrp.data.PlayerJobData;
-import lt.ltrp.data.PlayerReport;
-import lt.ltrp.dialog.FactionListDialog;
-import lt.ltrp.dialog.PlayerReportListDialog;
-import lt.ltrp.dialog.ServerStatsMsgBoxDialog;
-import lt.ltrp.dialog.ServerWeaponListDialog;
+import lt.ltrp.data.*;
+import lt.ltrp.dialog.*;
 import lt.ltrp.event.PlayerSetFactionLeaderEvent;
 import lt.ltrp.event.RemoveFactionLeaderEvent;
 import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
 import lt.ltrp.object.*;
 import lt.ltrp.util.AdminLog;
+import lt.ltrp.util.Skin;
 import lt.maze.shoebilleventlogger.ShoebillEventLoggerPlugin;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -30,11 +25,14 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.shoebill.object.VehicleDamage;
+import net.gtaun.shoebill.object.World;
 import net.gtaun.util.event.EventManager;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -46,10 +44,13 @@ public class AdminCommands {
     private static final Map<String, Location> teleportLocations = new HashMap<>();
 
     static {
+        adminLevels.put("apos", 1);
         adminLevels.put("ahelp", 1);
         adminLevels.put("getoldcar", 1);
         adminLevels.put("rc", 1);
+        adminLevels.put("goto", 1);
         adminLevels.put("gotoloc", 1);
+        adminLevels.put("gethere", 1);
         adminLevels.put("rjc", 1);
         adminLevels.put("adminduty", 1);
         adminLevels.put("aduty", 1);
@@ -62,6 +63,10 @@ public class AdminCommands {
         adminLevels.put("reports", 1);
         adminLevels.put("olddriver", 1);
         adminLevels.put("check", 1);
+        adminLevels.put("setskin", 1);
+        adminLevels.put("slap", 1);
+        adminLevels.put("masked", 1);
+        adminLevels.put("lastad", 1);
 
         adminLevels.put("rfc", 2);
         adminLevels.put("dtc", 2);
@@ -69,9 +74,13 @@ public class AdminCommands {
         adminLevels.put("gotocar", 2);
         adminLevels.put("aheal", 2);
         adminLevels.put("ipban", 2);
+        adminLevels.put("setweather", 2);
 
+        adminLevels.put("sethp", 3);
         adminLevels.put("checkgun", 3);
         adminLevels.put("serverwweapons", 3);
+        adminLevels.put("kickall", 3);
+        adminLevels.put("rac", 3);
 
         adminLevels.put("makefactionmanager", 4);
         adminLevels.put("makeleader", 4);
@@ -143,11 +152,11 @@ public class AdminCommands {
         p.sendMessage(Color.LIGHTRED,  "|____________________________ADMINISTRATORIAUS SKYRIUS____________________________|");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /kick /ban /warn /jail /noooc /adminduty /gethere /check /afrisk /fon ");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /freeze /slap /spec /specoff /setint /setvw /intvw /masked /aheal /spawn ");
-        p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon ");
+        p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon /pos /lastad");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] PERSIKËLIMAS: /gotoloc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc /are /dre /reports /olddriver");
         if(p.getAdminLevel() >= 2)
-            p.sendMessage(Color.WHITE, "[AdmLvl 2] /dtc /gotocar /mute/rac /ipban");
+            p.sendMessage(Color.WHITE, "[AdmLvl 2] /dtc /gotocar /mute /rac /ipban /setweather");
         if(p.getAdminLevel() >= 3)
             p.sendMessage(Color.WHITE, "[AdmLvl 3] /sethp /setarmour /forcelogout /hideadmins /serverwweapons /checkgun /kickall ");
         if(p.getAdminLevel() >= 4)
@@ -259,6 +268,57 @@ public class AdminCommands {
     }
 
     @Command
+    @CommandHelp("Pakeièia þaidëjo iðvaizdà")
+    public boolean setSkin(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                           @CommandParameter(name = "Skino ID")int skinId) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else if(!Skin.isValid(skinId))
+            player.sendErrorMessage("Tokio skino nëra.");
+        else {
+            target.setSkin(skinId);
+            target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø iðvaizdà.");
+            LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë þaidëjo " + target.getName() + " skin'à á " + skinId);
+            AdminLog.log(player, "Changed players " + target.getUUID() + " skin to " + skinId);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pliaukðteli þaidëjui(atima 5 hp)")
+    public boolean slap(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else {
+            if(player.equals(target))
+                player.sendMessage(Color.TAN, "Nemuðkite saves!");
+            if(target.getHealth() > 5f)
+                target.setHealth(target.getHealth() - 5f);
+            target.setLocation(target.getLocation());
+            target.playSound(1130);
+            LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pliaukðtelëjo þaidëjui " + target.getName());
+            AdminLog.log(player, "Slapped player " + target.getUUID());
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo þaidëjø, uþsidëjusiø kaukes sàraðà")
+    public boolean masked(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Collection<LtrpPlayer> masked = LtrpPlayer.get().stream().filter(LtrpPlayer::isMasked).collect(Collectors.toList());
+        if(masked.size() == 0)
+            player.sendErrorMessage("Nëra nei vieno þaidëjo uþsidëjusio kaukæ!");
+        else {
+            player.sendMessage(Color.GREEN, "_________Þaidëjau uþsidëjæ kaukes_____________");
+            masked.forEach(m -> player.sendMessage(Color.WHITE, String.format("ID: %d, MySQL ID: %d %s(%s)", m.getId(), m.getUUID(), m.getName(), m.getMaskName())));
+        }
+        return true;
+    }
+
+    @Command
     @CommandHelp("Pradeda/uþbaigia administracijos budëjimà")
     public boolean adminDuty(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
@@ -365,6 +425,26 @@ public class AdminCommands {
     }
 
     @Command
+    @CommandHelp("Pakeièia serverio orà")
+    public boolean setWeather(Player p, @CommandParameter(name = "Serverio oro ID")int weatherId) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        World.get().setWeather(weatherId);
+        LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë serverio orà á " + weatherId);
+        AdminLog.log(player, "Changed weather to " + weatherId);
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Graþina visas nenaudojamas tr. priemones á jø atsiradimo vietà.")
+    public boolean rac(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpVehicle.get().stream().filter(v -> !v.isUsed()).forEach(LtrpVehicle::respawn);
+        LtrpPlayer.sendGlobalMessage("Administratorius " + player.getName() + " atstatë visas nenaudojamas transporto priemones.");
+        AdminLog.log(player, "Respawned all vehicles");
+        return true;
+    }
+
+    @Command
     @CommandHelp("Leidþia perþiûrëti visus serveryje esanèius tam tikro modelio ginklus")
     public boolean checkGun(Player p, @CommandParameter(name = "Ginklo modelio ID")int modelId) {
         LtrpPlayer player = LtrpPlayer.get(p);
@@ -374,6 +454,37 @@ public class AdminCommands {
 
         ServerWeaponListDialog.create(player, eventManager, weaponModel)
                 .show();
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Iðmeta visus þaidëjus(iðskyrus administratorius) ið serverio")
+    public boolean kickAll(Player pp, @CommandParameter(name = "Prieþastis")String reason) {
+        LtrpPlayer player = LtrpPlayer.get(pp);
+        if(reason == null)
+            return false;
+        else {
+            LtrpPlayer.sendGlobalMessage(Color.RED, "Administratorius " + player.getName() + " iðmetë visus þaidëjus ið serverio. Prieþastis:" + reason);
+            AdminLog.log(player, "Kicked all players. Reason:" + reason);
+            LtrpPlayer.get().stream().filter(p -> !p.isAdmin())
+                    .forEach(Player::kick);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Nustato pasirinkto þaidëjo gyvybiø skaièiø")
+    public boolean setHp(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                         @CommandParameter(name = "Gyvybiø skaièius")float amount) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        else {
+            target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø gyvybiø skaièiø.");
+            LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë þaidëjo " + target.getName() + " gyvybiø skaièiø á " + amount);
+            target.setHealth(amount);
+            AdminLog.log(player, "Changed players " + target.getUUID() + " health to " + amount);
+        }
         return true;
     }
 
@@ -417,6 +528,36 @@ public class AdminCommands {
     }
 
     @Command
+    @CommandHelp("Nukelia jus prie þaidëjo")
+    public boolean goTo(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else {
+            player.setLocation(target.getLocation());
+            player.sendMessage(Color.GREEN, "Sëkmingai nusiteleportavai.");
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Atkelia þaidëjà prie jûsø")
+    public boolean getHere(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else {
+            if(target.isInAnyVehicle())
+                target.getVehicle().setLocation(player.getLocation());
+            else
+                target.setLocation(player.getLocation());
+            target.sendMessage(Color.GREEN, "Jûs buvote nuteleportuotas ðalia administratoriaus.");
+        }
+        return true;
+    }
+
+
+    @Command
     @CommandHelp("Nukelia jus á vienà ið galimø vietoviø, pvz.: ls, bb")
     public boolean gotoloc(Player player, @CommandParameter(name = "Vietovë. Pvz: ls, bb")String pos) {
         LtrpPlayer p = LtrpPlayer.get(player);
@@ -435,6 +576,24 @@ public class AdminCommands {
             }
             p.sendMessage(Color.CHOCOLATE, "Persikëlëte á " + pos);
         }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo paskutinius skelbimus")
+    public boolean lastAd(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Collection<Advert> ads = AdvertPlugin.get(AdvertPlugin.class).getAds();
+        AdvertisementListDialog.create(player, eventManager, ads)
+                .build()
+                .show();
+        return true;
+    }
+
+    @Command
+    public boolean pos(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        player.sendMessage(Color.GREEN, String.format("Jûsø koordinatës - X %.2f, Y %.2f Z %.2f", player.getLocation().x, player.getLocation().y, player.getLocation().z));
         return true;
     }
 
