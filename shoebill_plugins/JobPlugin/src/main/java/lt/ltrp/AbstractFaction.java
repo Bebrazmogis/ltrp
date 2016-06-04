@@ -24,12 +24,17 @@ public abstract class AbstractFaction extends AbstractJob implements Faction {
     private Collection<JobVehicle> vehicles;
     private int budget;
 
+    @JobProperty("is_chat_enabled")
+    private boolean isChatEnabled;
+
     public AbstractFaction(int id, String name, Location location, int basePaycheck, EventManager eventManager) {
         super(id, name, location, basePaycheck, eventManager);
+        this.isChatEnabled  = true;
     }
 
     public AbstractFaction(EventManager eventManager) {
         super(eventManager);
+        this.isChatEnabled = true;
     }
 
 
@@ -114,5 +119,15 @@ public abstract class AbstractFaction extends AbstractJob implements Faction {
     @Override
     public String toString() {
         return super.toString() + String.format("Faction. Id %s Name:%s Rank count:%d vehicle count:%d", getUUID(), getName(), getRanks().size(), vehicles.size());
+    }
+
+    @Override
+    public boolean isChatEnabled() {
+        return isChatEnabled;
+    }
+
+    @Override
+    public void setChatEnabled(boolean chat) {
+        this.isChatEnabled = chat;
     }
 }

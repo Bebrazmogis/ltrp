@@ -53,6 +53,8 @@ public class FactionCommands extends Commands {
             return false;
         else if(!(jobData.getJob() instanceof Faction))
             player.sendErrorMessage("Ðis chatas galimas tik dirbant frakcijoje.");
+        else if(!((Faction) jobData.getJob()).isChatEnabled())
+            player.sendErrorMessage("Frakcijos chatas yra iðjungtas.");
         else {
             jobData.getJob().sendMessage(Color.CYAN, String.format("((%s (%s): %s ))", jobData.getJobRank().getName(),
                     player.getName(), text));

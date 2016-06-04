@@ -29,5 +29,7 @@ public interface Faction extends Job {
     FactionRank getRank(int id);
     void setBudget(int budget);
     int getBudget();
+    boolean isChatEnabled();
+    void setChatEnabled(boolean chat);
     //void setRanks(Collection<? extends FactionRank> ranks);
 }

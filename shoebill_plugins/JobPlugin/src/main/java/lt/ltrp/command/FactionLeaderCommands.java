@@ -157,6 +157,20 @@ public class FactionLeaderCommands extends Commands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Ájungia/iðjungia OOC frakcijos pokalbius")
+    public boolean nof(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Faction faction = getLeaderFaction(player);
+        faction.setChatEnabled(!faction.isChatEnabled());
+        if(faction.isChatEnabled())
+            faction.sendMessage(Color.CYAN, player.getName() + " iðjungë privatø frakcijos kanalà (/f). ");
+        else
+            faction.sendMessage(Color.CYAN, player.getName() + " ájungë privatø frakcijos kanalà (/f).");
+        jobManager.getFactionDao().update(faction);
+        return true;
+    }
+
     private Faction getLeaderFaction(LtrpPlayer leader) {
         Optional<Faction> factionOptional = JobController.get().getFactions().stream().filter(f -> f.getLeaders().contains(leader.getUUID())).findFirst();
         return factionOptional.isPresent() ? factionOptional.get() : null;
