@@ -1,6 +1,7 @@
 package lt.ltrp;
 
 import lt.ltrp.command.*;
+import lt.ltrp.constant.SwatType;
 import lt.ltrp.dao.PoliceFactionDao;
 import lt.ltrp.dao.impl.MySqlPoliceFactionImpl;
 import lt.ltrp.data.Animation;
@@ -47,6 +48,7 @@ public class PoliceJobPlugin extends Plugin {
     private PoliceFactionDao policeFactionDao;
     private Map<LtrpPlayer, LtrpWeaponData> taserSlotWeaponCache;
     private Collection<LtrpPlayer> playersUsingTaser;
+    private HashMap<LtrpPlayer, SwatType> playerSwatTypes;
 
     @Override
     protected void onEnable() throws Throwable {
@@ -58,6 +60,7 @@ public class PoliceJobPlugin extends Plugin {
         this.playersOnDuty = new ArrayList<>();
         this.taserSlotWeaponCache = new HashMap<>();
         this.playersUsingTaser = new ArrayList<>();
+        this.playerSwatTypes = new HashMap<>();
 
 
         final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
@@ -113,6 +116,7 @@ public class PoliceJobPlugin extends Plugin {
         commandManager.registerCommands(new CivilianCommands());
         commandManager.registerCommands(new PoliceLeaderCommands(this));
         commandManager.registerCommands(new DepartmentChatCommand(getPoliceFaction()));
+        commandManager.registerCommands(new SwatCommands(this, eventManager));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
     }
 
@@ -142,6 +146,7 @@ public class PoliceJobPlugin extends Plugin {
                     t.getTarget().toggleControllable(true);
                 }
                 if(playersUsingTaser.contains(player)) setTaser(player, false);
+                if(playerSwatTypes.containsKey(player)) unsetSwat(player);
             }
         });
 
@@ -258,5 +263,30 @@ public class PoliceJobPlugin extends Plugin {
 
     public boolean isUsingTaser(LtrpPlayer player) {
         return playersUsingTaser.contains(player);
+    }
+
+    public boolean isSwat(LtrpPlayer player) {
+        return playerSwatTypes.containsKey(player);
+    }
+
+    public void setSwat(LtrpPlayer player, SwatType swatType) {
+        player.setSkin(swatType.getSkinId());
+        player.setArmour(swatType.getArmour());
+        for(LtrpWeaponData wep : swatType.getWeapons()) {
+            player.giveWeapon(wep.clone());
+        }
+        playerSwatTypes.put(player, swatType);
+    }
+
+    public void unsetSwat(LtrpPlayer player) {
+        SwatType swatType = playerSwatTypes.get(player);
+        for(LtrpWeaponData wep : swatType.getWeapons()) {
+            player.removeWeapon(wep.getModel());
+        }
+        player.setArmour(0f);
+    }
+
+    public SwatType getSwatType(LtrpPlayer plyer) {
+        return playerSwatTypes.get(plyer);
     }
 }

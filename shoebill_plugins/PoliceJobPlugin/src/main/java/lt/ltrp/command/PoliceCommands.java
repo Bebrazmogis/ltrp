@@ -2,10 +2,8 @@ package lt.ltrp.command;
 
 
 import lt.ltrp.*;
+import lt.ltrp.constant.*;
 import lt.ltrp.constant.Currency;
-import lt.ltrp.constant.ItemType;
-import lt.ltrp.constant.LicenseType;
-import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.*;
 import lt.ltrp.dialog.*;
 import lt.ltrp.event.PlayerVehicleArrestDeleteEvent;
@@ -47,7 +45,11 @@ public class PoliceCommands extends Commands {
     private static final List<String> jobAreaCommands;
 
     static {
+        // Experimental but SHOULD work
+        PoliceFaction faction = PoliceJobPlugin.get(PoliceJobPlugin.class).getPoliceFaction();
         commandToRankNumber = new HashMap<>();
+
+        Optional<FactionRank> opMaxRank = faction.getRanks().stream().max((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber()));
 
         commandToRankNumber.put("policehelp", 1);
         commandToRankNumber.put("cutdownweed", 1);
@@ -78,6 +80,12 @@ public class PoliceCommands extends Commands {
         commandToRankNumber.put("tazer", 1); // alt spelling
         commandToRankNumber.put("prison", 1);
         commandToRankNumber.put("arrest", 1);
+        if(opMaxRank.isPresent()) {
+            FactionRank maxRank = opMaxRank.get();
+            commandToRankNumber.put("setswat", maxRank.getNumber());
+            commandToRankNumber.put("unsetswat", maxRank.getNumber());
+        }
+
 
         commandToRankNumber.put("wepstore", 2);
         commandToRankNumber.put("ramcar", 2);
@@ -94,6 +102,8 @@ public class PoliceCommands extends Commands {
         jobAreaCommands.add("duty");
         jobAreaCommands.add("pdclothes");
         jobAreaCommands.add("vest");
+        jobAreaCommands.add("setswat");
+        jobAreaCommands.add("unsetswat");
 
 
     }
@@ -161,9 +171,16 @@ public class PoliceCommands extends Commands {
         player.sendMessage(Color.WHITE, "  KOMANDOS NUBAUSTI: /fine /vehiclefine /arrest /prison /arrestcar /licwarn ");
         player.sendMessage(Color.LIGHTGREY, "  KITOS KOMANDOS: /flist /setunit /delunit /police /delarrestcar /jobid /cutdownweed");
         player.sendMessage(Color.WHITE, "  DRABUÞIAI/APRANGA: /vest /badge /rbadge /pdclothes");
+        Optional<FactionRank> opMaxRank = job.getRanks().stream().max((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber()));
+        if(opMaxRank.isPresent()) {
+            player.sendMessage(Color.LIGHTGREY, "AUKÐTO RANGO KOMANDOS: /setswat /unsetswat");
+        }
         player.sendMessage(Color.POLICE, "____________________________________________________________________________");
         return true;
     }
+
+
+
 
     @Command
     @CommandHelp("Parodo jûsû pareigûno paþymëjimà kitam þaidëjui")
@@ -880,6 +897,46 @@ public class PoliceCommands extends Commands {
             player.setArmour(100f);
             player.getAttach().getSlotByBone(PlayerAttachBone.NECK).set(PlayerAttachBone.NECK, 19142, new Vector3D(1f, 0.1f, 0.05f), new Vector3D(), new Vector3D(), 0, 0);
             player.getAttach().getSlotByBone(PlayerAttachBone.NECK).edit();
+        }
+        return true;
+    }
+
+
+    @Command
+    @CommandHelp("Laikinai paskiria þaidëjà á SWAT bûrá")
+    public boolean setSwat(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                           @CommandParameter(name = "Tipas [0-2]")int type) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else if(policePlugin.isSwat(target))
+            player.sendErrorMessage(target.getName() + " jau yra SWAT bûryje, norëdami pakeisti jo rolæ naudokite /unsetSwat");
+        else if(type < 0 || type >= SwatType.values().length)
+            player.sendErrorMessage("Galimi tipai 0 - " + SwatType.values().length);
+        else if(player.getDistanceToPlayer(target) > 5f)
+            player.sendErrorMessage("Þaidëjas yra per toli.");
+        else {
+            policePlugin.setSwat(target, SwatType.values()[type]);
+            player.sendMessage(Color.POLICE, target.getName() + " paskirtas á SWAT bûrá.");
+            target.sendMessage(Color.POLICE, player.getName() + " paskyrë á SWAT bûrá kaip " + SwatType.values()[type].name());
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Laikinai paskiria þaidëjà á SWAT bûrá")
+    public boolean unsetSwat(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else if(policePlugin.isSwat(target))
+            player.sendErrorMessage("Þaidëjas nëra SWAT bûryje.");
+        else if(player.getDistanceToPlayer(target) > 5f)
+            player.sendErrorMessage("Þaidëjas yra per toli.");
+        else {
+            policePlugin.unsetSwat(target);
+            player.sendMessage(Color.POLICE, target.getName() + " paðalintas ið SWAT bûrio");
+            target.sendMessage(Color.POLICE, player.getName() + " paðalino jus ið SWAT bûrio");
         }
         return true;
     }
