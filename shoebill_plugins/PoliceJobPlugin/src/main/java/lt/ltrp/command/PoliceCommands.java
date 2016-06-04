@@ -13,6 +13,7 @@ import lt.ltrp.object.*;
 import lt.ltrp.object.drug.DrugItem;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.util.PawnFunc;
+import lt.ltrp.util.PlayerUtils;
 import lt.ltrp.util.StringUtils;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicObject;
@@ -28,6 +29,7 @@ import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.object.Checkpoint;
 import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.object.PlayerAttach;
 import net.gtaun.util.event.EventManager;
 
 import java.sql.Timestamp;
@@ -80,6 +82,8 @@ public class PoliceCommands extends Commands {
         commandToRankNumber.put("tazer", 1); // alt spelling
         commandToRankNumber.put("prison", 1);
         commandToRankNumber.put("arrest", 1);
+        commandToRankNumber.put("badge", 1);
+        commandToRankNumber.put("rbadge", 1);
         if(opMaxRank.isPresent()) {
             FactionRank maxRank = opMaxRank.get();
             commandToRankNumber.put("setswat", maxRank.getNumber());
@@ -563,6 +567,35 @@ public class PoliceCommands extends Commands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Leidþia uþsidëti policijos þenklelá")
+    public boolean badge(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PlayerAttach.PlayerAttachSlot slot = PlayerUtils.getSlotByBone(player, PlayerAttachBone.CLAVICLE_RIGHT);
+        if(slot == null || slot.isUsed())
+            player.sendErrorMessage("Jau esate kaþkà uþsidëjæs ðioje vietoje.");
+        else {
+            slot.set(PlayerAttachBone.CLAVICLE_RIGHT, 19347, new Vector3D(0.071999f, -0.112999f, 0.036999f), new Vector3D(115.699981f, -2.099976f ,-36.599925f), new Vector3D(), 0, 0);
+            slot.edit();
+            player.sendMessage(Color.POLICE, "[LSPD] Dabar nusistatykite norimà pozicijà þenkleliui,");
+            player.sendMessage(Color.LIGHTRED, "[LSPD] Norëdami paðalinti þenklelá naudokita komandà: /rbadge.");
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Nuima policijos þenklelá")
+    public boolean rBadge(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PlayerAttach.PlayerAttachSlot slot = PlayerUtils.getSlotByBone(player, PlayerAttachBone.CLAVICLE_RIGHT);
+        if(slot == null || !slot.isUsed() || slot.getModelId() != 19347)
+            player.sendErrorMessage("Jûs neesate uþsidëjæs policijos þenklelio.");
+        else {
+            slot.remove();
+            player.sendMessage(Color.POLICE, "[LSPD] Þenklelis buvo paðalintas");
+        }
+        return true;
+    }
 
     @Command
     @CommandHelp("Leidþia surakinti/atrakinti þaidëjà antrankiais")
