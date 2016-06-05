@@ -28,10 +28,8 @@ import net.gtaun.shoebill.object.VehicleDamage;
 import net.gtaun.shoebill.object.World;
 import net.gtaun.util.event.EventManager;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -68,6 +66,9 @@ public class AdminCommands {
         adminLevels.put("masked", 1);
         adminLevels.put("lastad", 1);
         adminLevels.put("a", 1);
+        adminLevels.put("checkjail", 1);
+        adminLevels.put("setvw", 1);
+        adminLevels.put("setint", 1);
 
         adminLevels.put("rfc", 2);
         adminLevels.put("dtc", 2);
@@ -85,6 +86,7 @@ public class AdminCommands {
 
         adminLevels.put("makefactionmanager", 4);
         adminLevels.put("makeleader", 4);
+        adminLevels.put("makemoderator", 4);
         adminLevels.put("removeleader", 4);
         adminLevels.put("auninvite", 4);
         adminLevels.put("bizitems", 4);
@@ -98,6 +100,7 @@ public class AdminCommands {
         adminLevels.put("garagetax", 4);
         adminLevels.put("vattax", 4);
         adminLevels.put("givemoney", 4);
+        adminLevels.put("amenu", 4);
 
         adminLevels.put("giveitem", 6);
         adminLevels.put("fly", 6);
@@ -115,10 +118,12 @@ public class AdminCommands {
 
     private AdminController controller;
     private EventManager eventManager;
+    private PlayerPlugin playerPlugin;
 
     public AdminCommands(AdminController controller, EventManager eventManager) {
         this.controller = controller;
         this.eventManager = eventManager;
+        this.playerPlugin = PlayerPlugin.get(PlayerPlugin.class);
     }
 
 
@@ -153,7 +158,7 @@ public class AdminCommands {
         p.sendMessage(Color.LIGHTRED,  "|____________________________ADMINISTRATORIAUS SKYRIUS____________________________|");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /kick /ban /warn /jail /noooc /adminduty /gethere /check /afrisk /fon ");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /freeze /slap /spec /specoff /setint /setvw /intvw /masked /aheal /spawn ");
-        p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon /pos /lastad /a");
+        p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon /pos /lastad /a /checkjail");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] PERSIKËLIMAS: /gotoloc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc /are /dre /reports /olddriver");
         if(p.getAdminLevel() >= 2)
@@ -277,6 +282,55 @@ public class AdminCommands {
         else {
             LtrpPlayer.sendAdminMessage(String.format("[Adm. level: %d] %s[ID:%d]: %s", player.getAdminLevel(), player.getName(), player.getId(), text));
         }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Patikrina kiek þaidëjui liko laiko sedëti kalëjime.")
+    public boolean checkJail(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else {
+            JailData data = PenaltyPlugin.get(PenaltyPlugin.class).getJailData(target);
+            if(data == null || data.getRemainingTime() <= 0)
+                player.sendErrorMessage("Ðis þaidëjas nëra kalëjime.");
+            else {
+                player.sendMessage(Color.GREEN, String.format("Þaidëjas %s(%d) yra kalëjime. Tipas: %s, likæs laikas: %s",
+                        target.getName(),
+                        target.getId(),
+                        data.getType().name(),
+                        new SimpleDateFormat("HH:mm:ss").format(new Date(data.getRemainingTime() * 60 * 1000))));
+            }
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pakeièia þaidëjo virtualø pasaulá á pasirinktà")
+    public boolean setVW(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                         @CommandParameter(name = "Virtualaus pasaulio ID")int worldId) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            return false;
+        target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø virtualøjá pasaulá.");
+        player.sendMessage(Color.GREEN, target.getName() + " virtualus pasaulis pakeistas á " + worldId + ".");
+        target.getLocation().setWorldId(worldId);
+        AdminLog.log(player, "Changed players " + target.getUUID() + " virtual world to " + worldId);
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pakeièia þaidëjo interjerà á pasirinktà")
+    public boolean setInt(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                         @CommandParameter(name = "Interjero ID")int interiorId) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            return false;
+        target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø interjerà.");
+        player.sendMessage(Color.GREEN, target.getName() + " interjeras pakeistas á " + interiorId + ".");
+        target.getLocation().setInteriorId(interiorId);
+        AdminLog.log(player, "Changed players " + target.getUUID() + " interior to " + interiorId);
         return true;
     }
 
@@ -668,6 +722,25 @@ public class AdminCommands {
     }
 
     @Command
+    @CommandHelp("Paverèia þaidëjà moderatorium")
+    public boolean makeModerator(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                                 @CommandParameter(name = "Moderatoriaus lygis")int level) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else if(level < 0)
+            player.sendErrorMessage("Neigiamas moderatoriaus lygis bûti negali.");
+        else {
+            target.setModLevel(level);
+            playerPlugin.getPlayerDao().update(target);
+            player.sendMessage(Color.GREEN, String.format(" Administratorius (%s) suteikë veikëjui (%s) moderatoriaus statusà. ", player.getName(), target.getName()));
+            target.sendMessage(Color.MODERATOR, " Sveikiname, jus buvote priimtas á moderatoriø grupæ. Informacija /modhelp ");
+            AdminLog.log(player, "Set players " + target.getUUID() + " mod level " + level);
+        }
+        return true;
+    }
+
+    @Command
     @CommandHelp("Paskiria þaidëjà frakcijos lyderiu")
     public boolean makeLeader(Player p, LtrpPlayer target) {
         LtrpPlayer player = LtrpPlayer.get(p);
@@ -1002,34 +1075,6 @@ public class AdminCommands {
         return true;
     }
 
-    @Command
-    @CommandHelp("Atidaro verslø prekiø valdymo GUI")
-    public boolean bizItems(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        BusinessController.get().showAvailableCommodityDialog(player);
-        return true;
-    }
-
-    @Command
-    public boolean abiz(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        BusinessController.get().showManagementDialog(player);
-        return true;
-    }
-
-    @Command
-    public boolean ahou(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        HouseController.get().showManagementDialog(player);
-        return true;
-    }
-
-    @Command
-    public boolean agarage(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        GarageController.get().showManagementDialog(player);
-        return true;
-    }
 
     @Command
     @CommandHelp("Atidaro serverio statistikos GUI")
@@ -1130,6 +1175,16 @@ public class AdminCommands {
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " jums davë " + amount + Currency.SYMBOL);
             AdminLog.log(player, "Davë þaidëjui " + target.getUUID() + "  " + amount);
         }
+        return true;
+    }
+
+
+    @Command
+    @CommandHelp("Atidaro þymøjá \"amenu\"")
+    public boolean aMenu(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        AdminServerManagementDialog.create(player, eventManager)
+                .show();
         return true;
     }
 
