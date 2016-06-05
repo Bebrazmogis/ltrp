@@ -6,7 +6,6 @@ import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Textdraw;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.resource.Plugin;
-import net.gtaun.util.event.EventManagerNode;
 import org.slf4j.Logger;
 
 import java.util.HashMap;
@@ -24,12 +23,14 @@ public class FaderPlugin extends Plugin {
     private Timer faderTimer;
     private HashMap<Player, PlayerFade> playerFadeData;
     private int framerate = 100;
+    private boolean disabled;
 
     @Override
     protected void onEnable() throws Throwable {
         logger = getLogger();
         instance = this;
         this.playerFadeData = new HashMap<>();
+        this.disabled = false;
 
         faderTextdraw = Textdraw.create(0f, 0f, "~r~");
         faderTextdraw.setTextSize(640f, 480f);
@@ -86,6 +87,9 @@ public class FaderPlugin extends Plugin {
      * @return returns the time in milli seconds this fading will take
      */
     public static int fadeColorForPlayer(Player p, int startr, int startg, int startb, int starta, int endr, int endg, int endb, int enda, int frames, boolean fadeback) {
+        if(get(FaderPlugin.class).isDisabled()) {
+            return 0;
+        }
         if(instance.playerFadeData.containsKey(p)) {
             instance.playerFadeData.remove(p);
             instance.faderTextdraw.hide(p);
@@ -126,5 +130,13 @@ public class FaderPlugin extends Plugin {
     public static void setFrameRate(int framerate) {
         if(instance != null)
             instance.framerate = framerate;
+    }
+
+    public boolean isDisabled() {
+        return isDisabled();
+    }
+
+    public void setDisabled(boolean set) {
+        this.disabled = set;
     }
 }
