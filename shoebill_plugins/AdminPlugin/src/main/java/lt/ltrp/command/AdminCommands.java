@@ -13,6 +13,7 @@ import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
 import lt.ltrp.object.*;
 import lt.ltrp.util.AdminLog;
 import lt.ltrp.util.Skin;
+import lt.maze.fader.FaderPlugin;
 import lt.maze.mapandreas.MapAndreas;
 import lt.maze.shoebilleventlogger.ShoebillEventLoggerPlugin;
 import net.gtaun.shoebill.Shoebill;
@@ -82,6 +83,7 @@ public class AdminCommands {
         adminLevels.put("aheal", 2);
         adminLevels.put("ipban", 2);
         adminLevels.put("setweather", 2);
+        adminLevels.put("togglefading", 2);
 
         adminLevels.put("sethp", 3);
         adminLevels.put("setarmour", 3);
@@ -170,7 +172,7 @@ public class AdminCommands {
         p.sendMessage(Color.WHITE, "[AdmLvl 1] PERSIKËLIMAS: /gotoloc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos /gotonowhere");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc /are /dre /reports /olddriver");
         if(p.getAdminLevel() >= 2)
-            p.sendMessage(Color.WHITE, "[AdmLvl 2] /dtc /gotocar /mute /rac /ipban /setweather");
+            p.sendMessage(Color.WHITE, "[AdmLvl 2] /dtc /gotocar /mute /rac /ipban /setweather /togglefading");
         if(p.getAdminLevel() >= 3)
             p.sendMessage(Color.WHITE, "[AdmLvl 3] /sethp /setarmour /forcelogout /hideadmins /serverwweapons /checkgun /kickall ");
         if(p.getAdminLevel() >= 4)
@@ -553,6 +555,21 @@ public class AdminCommands {
         World.get().setWeather(weatherId);
         LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë serverio orà á " + weatherId);
         AdminLog.log(player, "Changed weather to " + weatherId);
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Ájungia/iðjungia vaizdo aptemima VISIEMS þaidëjams")
+    public boolean toggleFading(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        FaderPlugin plugin = FaderPlugin.get(FaderPlugin.class);
+        plugin.setDisabled(!plugin.isDisabled());
+        if(plugin.isDisabled()) {
+            LtrpPlayer.sendAdminMessage(player.getName() + " iðjungë ekrano aptemimà visiems þaidëjams");
+        } else {
+            LtrpPlayer.sendAdminMessage(player.getName() + " ájungë ekrano aptemimà visiems þaidëjams");
+        }
+        AdminLog.log(player, "Set player fading disabled to " + plugin.isDisabled());
         return true;
     }
 
