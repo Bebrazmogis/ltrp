@@ -13,6 +13,7 @@ import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
 import lt.ltrp.object.*;
 import lt.ltrp.util.AdminLog;
 import lt.ltrp.util.Skin;
+import lt.maze.mapandreas.MapAndreas;
 import lt.maze.shoebilleventlogger.ShoebillEventLoggerPlugin;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -26,13 +27,11 @@ import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.Location;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Vehicle;
-import net.gtaun.shoebill.object.VehicleDamage;
-import net.gtaun.shoebill.object.World;
+import net.gtaun.shoebill.object.*;
 import net.gtaun.util.event.EventManager;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,6 +52,7 @@ public class AdminCommands {
         adminLevels.put("goto", 1);
         adminLevels.put("gotoloc", 1);
         adminLevels.put("gethere", 1);
+        adminLevels.put("gotonowhere", 1);
         adminLevels.put("rjc", 1);
         adminLevels.put("adminduty", 1);
         adminLevels.put("aduty", 1);
@@ -125,11 +125,13 @@ public class AdminCommands {
     private AdminController controller;
     private EventManager eventManager;
     private PlayerPlugin playerPlugin;
+    private int[] lastUsedGotoNowhereTimestamp;
 
     public AdminCommands(AdminController controller, EventManager eventManager) {
         this.controller = controller;
         this.eventManager = eventManager;
         this.playerPlugin = PlayerPlugin.get(PlayerPlugin.class);
+        this.lastUsedGotoNowhereTimestamp = new int[Server.get().getMaxPlayers()];
     }
 
 
@@ -165,7 +167,7 @@ public class AdminCommands {
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /kick /ban /warn /jail /noooc /adminduty /gethere /check /afrisk /fon ");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /freeze /slap /spec /specoff /setint /setvw /intvw /masked /aheal /spawn ");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon /pos /lastad /a /checkjail");
-        p.sendMessage(Color.WHITE, "[AdmLvl 1] PERSIKËLIMAS: /gotoloc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos");
+        p.sendMessage(Color.WHITE, "[AdmLvl 1] PERSIKËLIMAS: /gotoloc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos /gotonowhere");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc /are /dre /reports /olddriver");
         if(p.getAdminLevel() >= 2)
             p.sendMessage(Color.WHITE, "[AdmLvl 2] /dtc /gotocar /mute /rac /ipban /setweather");
@@ -744,6 +746,23 @@ public class AdminCommands {
         }
         if(x != 0f && y != 0f && z != 0f) {
             player.setLocation(x, y, z);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Nukelia jus.... á niekur/kaþkur")
+    public boolean gotoNowhere(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Instant now = Instant.now();
+        if(now.getEpochSecond() - lastUsedGotoNowhereTimestamp[p.getId()] < 5)
+            player.sendErrorMessage("Ðià komandà galima naudoti tik kas 5 sekundes.");
+        else {
+            Random random = new Random();
+            float x = random.nextFloat() * -4000 + 2000;
+            float y = random.nextFloat() * -4000 + 2000;
+            float z = MapAndreas.findZ(x, y);
+            player.setLocation(new Location(x, y, z, 0, 0));
         }
         return true;
     }
