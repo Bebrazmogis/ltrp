@@ -2,6 +2,7 @@ package lt.ltrp.command;
 
 import lt.ltrp.*;
 import lt.ltrp.constant.Currency;
+import lt.ltrp.constant.WorldZone;
 import lt.ltrp.data.*;
 import lt.ltrp.dialog.*;
 import lt.ltrp.event.PlayerSetFactionLeaderEvent;
@@ -20,6 +21,7 @@ import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.shoebill.constant.SpecialAction;
+import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
@@ -62,6 +64,7 @@ public class AdminCommands {
         adminLevels.put("olddriver", 1);
         adminLevels.put("check", 1);
         adminLevels.put("setskin", 1);
+        adminLevels.put("aproperty", 1);
         adminLevels.put("slap", 1);
         adminLevels.put("masked", 1);
         adminLevels.put("lastad", 1);
@@ -348,6 +351,53 @@ public class AdminCommands {
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø iðvaizdà.");
             LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë þaidëjo " + target.getName() + " skin'à á " + skinId);
             AdminLog.log(player, "Changed players " + target.getUUID() + " skin to " + skinId);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo þaidëjo turimà turtà ir transporto priemones")
+    public boolean aProperty(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else {
+            Collection<House> houses = House.get().stream().filter(h -> h.isOwner(target)).collect(Collectors.toList());
+            Collection<Business> businesses = Business.get().stream().filter(b -> b.isOwner(target)).collect(Collectors.toList());
+            Collection<Garage> garages = Garage.get().stream().filter(g -> g.isOwner(target)).collect(Collectors.toList());
+            PlayerVehiclePlugin vehiclePlugin = PlayerVehiclePlugin.get(PlayerVehiclePlugin.class);
+            int[] vehicles = vehiclePlugin.getVehicleUUIDs(target);
+
+            if(houses.size() > 0) {
+                houses.forEach(h -> {
+                    player.sendMessage(Color.HOUSE, String.format("ID [%d]. Vertë: %d Rajonas %s:",
+                            h.getUUID(), h.getPrice(), WorldZone.get(h.getEntrance())));
+                });
+                player.sendMessage(Color.HOUSE, "Bendra namø vertë: " + houses.stream().collect(Collectors.summingInt(House::getPrice)));
+            } else player.sendMessage(Color.HOUSE, "Þaidëjas namø neturi.");
+
+            if(businesses.size() > 0) {
+                businesses.forEach(b -> {
+                    player.sendMessage(Color.BUSINESS, String.format("ID [%d]. Vertë: %d Rajonas %s:",
+                            b.getUUID(), b.getPrice(), WorldZone.get(b.getEntrance())));
+                });
+                player.sendMessage(Color.BUSINESS, "Bendra verslø vertë: " + businesses.stream().collect(Collectors.summingInt(Property::getPrice)));
+            } else player.sendMessage(Color.BUSINESS, "Þaidëjas verslø neturi.");
+
+            if(garages.size() > 0) {
+                garages.forEach(g -> {
+                    player.sendMessage(Color.GARAGE, String.format("ID [%d]. Vertë: %d Rajonas %s:",
+                            g.getUUID(), g.getPrice(), WorldZone.get(g.getEntrance())));
+                });
+                player.sendMessage(Color.BUSINESS, "Bendra garaþø vertë: " + garages.stream().collect(Collectors.summingInt(Property::getPrice)));
+            } else player.sendMessage(Color.GARAGE, "Þaidëjas garaþø neturi.");
+
+            if(vehicles.length > 0) {
+                for(int uuid : vehicles) {
+                    PlayerVehicleMetadata meta = vehiclePlugin.getMetaData(uuid);
+                    player.sendMessage(Color.BEIGE, String.format("ID: [%d] Modelis: [%s] Iðspwninta: [%b]", meta.getId(), VehicleModel.getName(meta.getModelId()), vehiclePlugin.isSpawned(uuid)));
+                }
+            } else player.sendMessage(Color.WHITE, "Þaidëjas transporto priemoniø neturi.");
         }
         return true;
     }
@@ -1189,9 +1239,6 @@ public class AdminCommands {
     }
 
 
-
-
-    // TODO aProperty
     // TODO cmd:ado
     // TODO cmd:ao
 }
