@@ -84,6 +84,7 @@ public class AdminCommands {
         adminLevels.put("setweather", 2);
 
         adminLevels.put("sethp", 3);
+        adminLevels.put("setarmour", 3);
         adminLevels.put("checkgun", 3);
         adminLevels.put("serverwweapons", 3);
         adminLevels.put("kickall", 3);
@@ -603,6 +604,24 @@ public class AdminCommands {
             LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë þaidëjo " + target.getName() + " gyvybiø skaièiø á " + amount);
             target.setHealth(amount);
             AdminLog.log(player, "Changed players " + target.getUUID() + " health to " + amount);
+        }
+        return true;
+    }
+
+
+    @Command
+    @CommandHelp("Nustato pasirinkto þaidëjo ðaarvø skaièiø")
+    public boolean setArmour(Player p,
+                             @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
+                             @CommandParameter(name = "Ðarvø skaièius")float amount) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra!");
+        else {
+            target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø ðarvø skaièiø.");
+            LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë þaidëjo " + target.getName() + " ðarvø skaièiø á " + amount);
+            target.setArmour(amount);
+            AdminLog.log(player, "Changed players " + target.getUUID() + " armour to " + amount);
         }
         return true;
     }
