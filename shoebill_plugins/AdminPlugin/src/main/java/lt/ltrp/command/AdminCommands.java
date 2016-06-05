@@ -2,9 +2,11 @@ package lt.ltrp.command;
 
 import lt.ltrp.*;
 import lt.ltrp.constant.Currency;
+import lt.ltrp.constant.ItemType;
 import lt.ltrp.constant.WorldZone;
 import lt.ltrp.data.*;
 import lt.ltrp.dialog.*;
+import lt.ltrp.dialog.item.ItemTypeListDialog;
 import lt.ltrp.event.PlayerSetFactionLeaderEvent;
 import lt.ltrp.event.RemoveFactionLeaderEvent;
 import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
@@ -867,33 +869,33 @@ public class AdminCommands {
 
         return true;
     }
-/*
+
     @Command
     @CommandHelp("Suteikia nurodytà daiktà nurodytam þaidëjui")
-    public boolean giveitem(Player player, LtrpPlayer p2, String itemClass, String args) {
+    public boolean giveItem(Player player, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer p2) {
         LtrpPlayer p = LtrpPlayer.get(player);
-        if(p2 == null) {
-            p.sendMessage(Color.LIGHTRED, "Tokio þaidëjo nëra.");
-        } else {
-            List<String> matches = new ArrayList<>();
-            Matcher m = Pattern.compile("([^\"][^-]*|\".+?\")\\s*").matcher(args); // strings with spaces can be made like this: "my string"
-            while (m.find())
-                matches.add(m.group(1).replace("\"", ""));
-            Item item = null;
-            try {
-                item = Item.get(itemClass, matches.toArray(new String[0]));
-            } catch (Exception e) {
-                p.sendMessage(Color.SIENNA, e.getMessage());
-                return false;
-            }
-            p.getInventory().add(item);
-            p.sendMessage(Color.SIENNA, "It worked, wow");
-            return true;
+        if(p2 == null)
+            p.sendErrorMessage("Tokio þaidëjo nëra!");
+        else if(p2.getInventory().isFull())
+            p.sendErrorMessage("Þaidëjo inventorius pilnas.");
+        else {
+            List<ItemType> types = Arrays.asList(ItemType.values());
+            ItemTypeListDialog.create(p, eventManager, types, (d, t) -> {
+                Item item = Item.create(t, p2, eventManager);
+                if(item == null)
+                    p.sendErrorMessage("Ávyko klaida. Daiktas nebuvo suteiktas. Tikëtina kad ðio daikto suteikti taip paprastai negalima, sorry plz come again.");
+                else {
+                    p2.getInventory().add(item);
 
+                    p2.sendMessage(Color.GREEN, "Administratorius " + p.getName() + " davë jums daiktà \"" + item.getName() + "\".");
+                    LtrpPlayer.sendAdminMessage(p.getName() + " davë " + item.getName() + " þaidëjui " + p2.getName());
+                    AdminLog.log(p, "Gave item " + item.getUUID() + " to player " + p2.getUUID());
+                }
+            });
         }
         return true;
     }
-*/
+
 
     @Command
     @CommandHelp("Atstato visas nenaudojamas kontraktinio darbo transporto priemones á atsiradimo vietà")
