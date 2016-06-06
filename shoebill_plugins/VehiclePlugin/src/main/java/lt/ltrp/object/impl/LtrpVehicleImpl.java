@@ -157,6 +157,23 @@ public class LtrpVehicleImpl extends InventoryEntityImpl implements LtrpVehicle 
         return false;
     }
 
+    @Override
+    public boolean isSeatWindowOpen(int i) {
+        VehicleState state = getWindows();
+        switch(i) {
+            case 0:
+                return state.getDriver() == VehicleParam.PARAM_ON;
+            case 1:
+                return state.getPassenger() == VehicleParam.PARAM_ON;
+            case 2:
+                return state.getBackLeft() == VehicleParam.PARAM_ON;
+            case 3:
+                return state.getBackRight() == VehicleParam.PARAM_ON;
+            default:
+                return false;
+        }
+    }
+
     public VehicleRadio getRadio() {
         return radio;
     }
