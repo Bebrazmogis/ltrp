@@ -820,12 +820,14 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     @Override
     public void freeze() {
-
+        frozen = true;
+        toggleControllable(false);
     }
 
     @Override
     public void unfreeze() {
-
+        frozen = false;
+        toggleControllable(true);
     }
 
     @Override
