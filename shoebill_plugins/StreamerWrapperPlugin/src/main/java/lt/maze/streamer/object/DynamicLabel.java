@@ -57,6 +57,45 @@ public class DynamicLabel extends AbstractStreamerItem implements StreamerItem {
         return label;
     }
 
+    // CreateDynamic3DTextLabelEx(const text[], color, Float:x, Float:y, Float:z, Float:drawdistance, attachedplayer = INVALID_PLAYER_ID,
+    //  attachedvehicle = INVALID_VEHICLE_ID, testlos = 0, Float:streamdistance = STREAMER_3D_TEXT_LABEL_SD, worlds[] = { -1 },
+    //  interiors[] = { -1 }, players[] = { -1 }, maxworlds = sizeof worlds, maxinteriors = sizeof interiors, maxplayers = sizeof players);
+    public static DynamicLabel create(String text, Color color, Vector3D location, float drawDistance, Player attachedPlayer, Vehicle attachedVehicle,
+                                      boolean testLos, float streamDistance, Integer[] worlds, Integer[] interiors, Integer[] players) {
+        int id = Functions.CreateDynamic3DTextLabelEx(
+                text,
+                color.getValue(),
+                location.x,
+                location.y,
+                location.z,
+                drawDistance,
+                attachedPlayer != null ? attachedPlayer.getId() : Player.INVALID_ID,
+                attachedVehicle != null ? attachedVehicle.getId() : Vehicle.INVALID_ID,
+                testLos,
+                streamDistance,
+                worlds != null ? worlds : new Integer[]{ -1 },
+                interiors != null ? interiors : new Integer[]{ -1 },
+                players != null ? players : new Integer[]{ -1 },
+                worlds != null ? worlds.length : 0,
+                interiors != null ? interiors.length : 0,
+                players != null ? players.length : 0
+        );
+        if(id == Constants.INVALID_STREAMER_ID) {
+            throw new CreationFailedException("DynamicLabel could not be created");
+        }
+        DynamicLabel label = new DynamicLabel(id);
+        labels.add(label);
+        return label;
+    }
+
+    public static DynamicLabel create(String text, Color color, Vector3D position, float drawDistance, Player attachedPlayer, boolean testLos, float streamDistance, Integer[] players) {
+        return create(text, color, position, drawDistance, attachedPlayer, null, testLos, streamDistance, null, null, players);
+    }
+
+    public static DynamicLabel create(String text, Color color, Vector3D vector3D, float drawDistance, Player attachedPlayer, Integer[] players) {
+        return create(text, color, vector3D, drawDistance, attachedPlayer, true, Constants.STREAMER_3D_TEXT_LABEL_SD, players);
+    }
+
     public static DynamicLabel create(String text, Color color, Location location, float drawDistance, Player attachedPlayer, boolean testLOS) {
         return create(text, color, location.x, location.y, location.z, drawDistance, attachedPlayer, null, testLOS, location.worldId, location.interiorId, null, Constants.STREAMER_3D_TEXT_LABEL_SD);
     }

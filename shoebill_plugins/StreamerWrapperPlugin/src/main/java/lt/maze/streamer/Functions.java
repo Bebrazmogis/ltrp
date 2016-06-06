@@ -2,8 +2,12 @@ package lt.maze.streamer;
 
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.amx.AmxInstance;
+import net.gtaun.shoebill.amx.types.ReferenceFloat;
+import net.gtaun.shoebill.amx.types.ReferenceInt;
+import net.gtaun.shoebill.amx.types.ReferenceString;
+import net.gtaun.shoebill.amx.types.ReturnType;
+
 import java.util.HashMap;
-import net.gtaun.shoebill.amx.types.*;
 
 public class Functions {
 
@@ -123,14 +127,14 @@ public class Functions {
 		functions.put("AttachDynamicAreaToObject", instance.getNative("AttachDynamicAreaToObject", ReturnType.INTEGER));
 		functions.put("AttachDynamicAreaToPlayer", instance.getNative("AttachDynamicAreaToPlayer", ReturnType.INTEGER));
 		functions.put("AttachDynamicAreaToVehicle", instance.getNative("AttachDynamicAreaToVehicle", ReturnType.INTEGER));
-
+        functions.put("CreateDynamic3DTextLabelEx", instance.getNative("CreateDynamic3DTextLabelEx", ReturnType.INTEGER));
         functions.put("CreateDynamicPolygon", instance.getNative("CreateDynamicPolygon", ReturnType.INTEGER));
 	}
 
 
-    public static int CreateDynamicPolygon(float[] points, float minz, float maxz, int maxpoints, int worldid, int interiorid, int playerid)
+    public static int CreateDynamicPolygon(Float[] points, float minz, float maxz, int maxpoints, int worldid, int interiorid, int playerid)
     {
-        return (int)functions.get("CreateDynamicPolygon").call(points, minz, maxz, maxpoints, worldid, interiorid, playerid);
+        return (int)functions.get("CreateDynamicPolygon").call((Object)points, minz, maxz, maxpoints, worldid, interiorid, playerid);
     }
 
 	public static int Streamer_GetTickRate() {
@@ -480,6 +484,13 @@ public class Functions {
 	public static int CreateDynamic3DTextLabel(String text, int color, float x, float y, float z, float drawdistance, int attachedplayer, int attachedvehicle, int testlos, int worldid, int interiorid, int playerid, float streamdistance) {
 		return (int) functions.get("CreateDynamic3DTextLabel").call(text, color, x, y, z, drawdistance, attachedplayer, attachedvehicle, testlos, worldid, interiorid, playerid, streamdistance);
 	}
+
+
+    public static int CreateDynamic3DTextLabelEx(String text, int color, float x, float y, float z, float drawDistance, int attachedPlayer, int attachedVehicle,
+                                                 boolean testLos, float streamDistance, Integer[] worlds, Integer[] interiors, Integer[] players, int maxWorlds, int maxInteriors, int maxPlayers) {
+        return (int) functions.get("CreateDynamic3DTextLabelEx").call(text, color, x, y, z, drawDistance, attachedPlayer, attachedVehicle, testLos ? 1 : 0,
+                streamDistance, (Object)worlds, (Object)interiors, (Object)players, maxWorlds, maxInteriors, maxPlayers);
+    }
 
 	public static int DestroyDynamic3DTextLabel(int id) {
 		return (int) functions.get("DestroyDynamic3DTextLabel").call(id);
