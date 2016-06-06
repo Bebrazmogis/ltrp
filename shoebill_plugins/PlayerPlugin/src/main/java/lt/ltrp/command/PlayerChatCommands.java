@@ -91,6 +91,23 @@ public class PlayerChatCommands extends Commands {
     }
 
     @Command
+    @CommandHelp("Iðsiunèia OOC þinutæ á bendrà chatà")
+    public boolean ooc(Player p, @CommandParameter(name = "Tekstas")String text) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(text == null)
+            return false;
+        else {
+            LtrpPlayer.sendGlobalOocMessage(String.format("(( %s[%d] sako: %s ))", player.getName(), player.getId(), text));
+        }
+        return true;
+    }
+
+    @Command
+    public boolean o(Player p, String text) {
+        return ooc(p, text);
+    }
+
+    @Command
     @CommandHelp("Pasako kaþkà savo tautybës kalba")
     public boolean g(Player pp, @CommandParameter(name = "Tekstas")String text) {
         LtrpPlayer player = LtrpPlayer.get(pp);
@@ -153,5 +170,6 @@ public class PlayerChatCommands extends Commands {
         }
         return true;
     }
+
 
 }
