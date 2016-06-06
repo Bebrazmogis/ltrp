@@ -12,6 +12,7 @@ import lt.ltrp.event.player.PlayerEditSettingsEvent;
 import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.event.player.PlayerOfferExpireEvent;
 import lt.ltrp.object.*;
+import lt.ltrp.object.impl.LtrpPlayerImpl;
 import lt.ltrp.player.BankAccount;
 import lt.ltrp.util.PawnFunc;
 import lt.ltrp.util.PlayerLog;
@@ -97,6 +98,27 @@ public class PlayerControllerImpl implements PlayerController {
             if(onPlayerLoginPawn != null) {
                 onPlayerLoginPawn.call(player.getId(), player.getUUID());
             }
+        });
+
+        managerNode.registerHandler(PlayerTextEvent.class, HandlerPriority.HIGH, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            if(player.isMuted()) {
+                player.sendErrorMessage("Jums uždrausta kalbėti!");
+            } else {
+                String msg;
+                if(!player.isInAnyVehicle()) {
+                    msg = String.format("%s sako: %s", player.getCharName(), e.getText());
+                } else {
+                    LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
+                    msg = String.format("(%s) %s sako: %s",
+                            vehicle.isSeatWindowOpen(player.getVehicleSeat()) ? "Langas Atidarytas" : "Langas uždarytas",
+                            player.getCharName(),
+                            e.getText()
+                            );
+                }
+                return;
+            }
+            e.interrupt();
         });
 
         managerNode.registerHandler(PlayerDisconnectEvent.class, HandlerPriority.BOTTOM, e -> {
@@ -257,6 +279,17 @@ public class PlayerControllerImpl implements PlayerController {
                     PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().remove(weaponData);
                 }
             }).start();
+        });
+
+        managerNode.registerHandler(PlayerStreamInEvent.class, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            LtrpPlayer forPlayer = LtrpPlayer.get(e.getForPlayer());
+            forPlayer.showNameTagForPlayer(player, player.isMasked());
+
+            // If the streamed in player is muted and the forPlayer is admin, show mute label
+            if(player.isMuted() && (forPlayer.isAdmin() || forPlayer.isModerator())) {
+                ((LtrpPlayerImpl)player).updateMuteLabel();
+            }
         });
 
         managerNode.registerHandler(PlayerOfferExpireEvent.class, HandlerPriority.BOTTOM, e -> {

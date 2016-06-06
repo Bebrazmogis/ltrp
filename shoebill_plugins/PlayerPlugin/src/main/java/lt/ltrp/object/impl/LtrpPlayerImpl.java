@@ -3,12 +3,15 @@ package lt.ltrp.object.impl;
 import lt.ltrp.*;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.*;
+import lt.ltrp.event.PlayerMuteEvent;
+import lt.ltrp.event.PlayerUnMuteEvent;
 import lt.ltrp.event.player.PlayerActionMessageEvent;
 import lt.ltrp.event.player.PlayerStateMessageEvent;
 import lt.ltrp.object.*;
 import lt.ltrp.util.ColorUtils;
 import lt.maze.audio.AudioHandle;
 import lt.maze.audio.AudioPlugin;
+import lt.maze.streamer.object.DynamicLabel;
 import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.*;
 import net.gtaun.shoebill.data.Color;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -34,113 +38,6 @@ import java.util.Optional;
 public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     private static final Logger logger = LoggerFactory.getLogger(LtrpPlayer.class);
-/*
-    private static List<LtrpPlayer> players = new ArrayList<>();
-
-
-
-    public static List<LtrpPlayer> get() {
-        return players;
-    }
-
-    public static LtrpPlayer get(String name) {
-        for(LtrpPlayer p : players) {
-            if(p.getName().equals(name))
-                return p;
-        }
-        return null;
-    }
-
-    public static LtrpPlayer getByPartName(String part) {
-        SortedMap<Integer, LtrpPlayer> unmatchedChars = new TreeMap<>();
-        for(LtrpPlayer p : players) {
-            if (p.getName().contains(part)) {
-                unmatchedChars.put(p.getName().length() - part.length(), p);
-            }
-        }
-        return unmatchedChars.values().stream().findFirst().get();
-    }
-
-    public static LtrpPlayer get(int id) {
-        for(LtrpPlayer p : players) {
-            if(p.getId() == id)
-                return p;
-        }
-        return null;
-    }
-
-    public static LtrpPlayer getByUserId(int uid) {
-        for(LtrpPlayer p : players) {
-            if(p.getUUID() == uid)
-                return p;
-        }
-        return null;
-    }
-
-    public static LtrpPlayer get(Player player) {
-        if(player == null)
-            return null;
-        if(player.isNpc())
-            return null;
-        for(LtrpPlayer p : players) {
-            if(p.equals(player)) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-    public static void remove(Player p) {
-        logger.debug("remove. Removing player " + p.getId() + " from global list");
-        players.remove(p);
-    }
-
-    public static LtrpPlayer getClosest(LtrpPlayer player, float maxdistance) {
-        LtrpPlayer closest = null;
-        float closestDistance = maxdistance;
-        for(LtrpPlayer p : players) {
-            float distance = p.getLocation().distance(player.getLocation());
-            if(!p.equals(player) && distance <= closestDistance) {
-                closest = p;
-                closestDistance = distance;
-            }
-        }
-        return closest;
-    }
-
-    public static LtrpPlayer[] getClosestPlayers(LtrpPlayer player, float maxdistance) {
-        List<Player> closest =new ArrayList<>();
-        for(LtrpPlayer p : players) {
-            float distance = p.getLocation().distance(player.getLocation());
-            if(!p.equals(player) && distance <= maxdistance) {
-                closest.add(p);
-            }
-        }
-        return (LtrpPlayer[])closest.toArray();
-    }
-
-    public static void sendAdminMessage(String s) {
-        players.stream()
-                .filter(p -> p.isAdmin() || p.getAdminLevel() > 0)
-                .forEach(p -> {
-            p.sendMessage(Color.GREENYELLOW, s);
-        });
-    }
-
-    public static void sendModMessage(String s) {
-        get().stream()
-                .filter(p -> (p.isModerator() || p.isAdmin()) && !p.getSettings().isModChatDisabled())
-                .forEach(p -> p.sendMessage(lt.ltrp.common.data.Color.MODERATOR, s));
-    }
-
-    public static void sendGlobalMessage(String s) {
-        sendGlobalMessage(Color.GREENYELLOW, s);
-    }
-
-    public static void sendGlobalMessage(Color c, String s) {
-        get().forEach(p -> p.sendMessage(c, s));
-    }*/
-
 
     private Player player;
 
@@ -156,11 +53,17 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     //private Rank jobRank;
     private PlayerInfoBox infoBox;
     private PlayerLicenses licenses;
-    private boolean seatbelt, masked, cuffed, isDestroyed;
+    private boolean seatbelt, masked, cuffed, isDestroyed, muted, frozen;
     //private int jobExperience, jobHours;
     private int boxStyle, age, respect, deaths, hunger;
     private PlayerSettings settings;
     private EventManager eventManager;
+
+    /**
+     * Label which is shown for administrators and moderators when this player is muted
+     */
+    private DynamicLabel muteLabel;
+
     /**
      * Textdraw used to display messages
      */
@@ -602,6 +505,11 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         this.weapons = newWeapons;
     }
 
+    @Override
+    public void removeWeapon(WeaponModel weaponModel) {
+
+    }
+
     public void removeJobWeapons() {
         LtrpWeaponData[] newWeapons = new LtrpWeaponData[13];
         int newWeaponCount = 0;
@@ -908,6 +816,45 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     @Override
     public void setSex(String s) {
         this.sex = s;
+    }
+
+    @Override
+    public void freeze() {
+
+    }
+
+    @Override
+    public void unfreeze() {
+
+    }
+
+    @Override
+    public boolean isFrozen() {
+        return frozen;
+    }
+
+    @Override
+    public void mute() {
+        muted = true;
+        updateMuteLabel();
+        eventManager.dispatchEvent(new PlayerMuteEvent(this));
+    }
+
+    public void updateMuteLabel() {
+        List<Integer> admins = LtrpPlayer.get().stream().filter(p -> p.isAdmin() || p.isModerator()).map(LtrpPlayer::getId).collect(Collectors.toList());
+        muteLabel = DynamicLabel.create("Uþtildytas", Color.RED, getLocation(), 10f, this, admins.toArray(new Integer[0]));
+    }
+
+    @Override
+    public void unMute() {
+        muted = false;
+        if(muteLabel != null) muteLabel.destroy();
+        eventManager.dispatchEvent(new PlayerUnMuteEvent(this));
+    }
+
+    @Override
+    public boolean isMuted() {
+        return muted;
     }
 
 
@@ -2055,7 +2002,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         if(infoBox != null) infoBox.destroy();
         if(audioHandle != null) audioHandle.destroy();
         if(offers != null) offers.clear();
-
+        if(muteLabel != null) muteLabel.destroy();
     }
 
     @Override

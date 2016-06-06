@@ -28,7 +28,11 @@ public class PlayerChatCommands extends Commands {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(player != null) {
             if(player.isLoggedIn()) {
-                // TODO muted and not
+                if(player.isMuted())
+                    player.sendErrorMessage("Jums draudþiama kalbëti.");
+                else {
+                    return true;
+                }
             } else player.sendErrorMessage("Praðome prisijungti!");
         }
         return false;
