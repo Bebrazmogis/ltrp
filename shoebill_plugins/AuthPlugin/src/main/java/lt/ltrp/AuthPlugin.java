@@ -7,8 +7,10 @@ import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.LtrpPlayerImpl;
 import lt.ltrp.util.Whirlpool;
+import net.gtaun.shoebill.event.player.PlayerCommandEvent;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
+import net.gtaun.shoebill.event.player.PlayerTextEvent;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.resource.Plugin;
@@ -77,9 +79,6 @@ public class AuthPlugin extends Plugin {
                 LtrpPlayerImpl player = new LtrpPlayerImpl(e.getPlayer(), uuid, eventManagerNode);
                 player.setPassword(playerDao.getPassword(player));
 
-
-                // TODO check for bans
-
                 playerLoginAttempts.put(player, 0);
                 PasswordInputDialog.create(player, eventManagerNode)
                         .onClickCancel(d -> player.kick())
@@ -114,6 +113,22 @@ public class AuthPlugin extends Plugin {
         eventManagerNode.registerHandler(PlayerDisconnectEvent.class, HandlerPriority.HIGHEST, e -> {
             Player p = e.getPlayer();
             playerLoginAttempts.remove(p);
+        });
+
+        eventManagerNode.registerHandler(PlayerCommandEvent.class, HandlerPriority.HIGH, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            if(player == null || !player.isLoggedIn()) {
+                logger.info("Invalid or not logged in player tried using command " + e.getCommand() + " Player=" + player);
+                e.interrupt();
+            }
+        });
+
+        eventManagerNode.registerHandler(PlayerTextEvent.class, HandlerPriority.HIGH, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            if(player == null || !player.isLoggedIn()) {
+                logger.info("Invalid or not logged in player tried texting " + e.getText() + " Player=" + player);
+                e.interrupt();
+            }
         });
     }
 
