@@ -68,6 +68,7 @@ public class AdminCommands {
         adminLevels.put("check", 1);
         adminLevels.put("setskin", 1);
         adminLevels.put("aproperty", 1);
+        adminLevels.put("freeze", 1);
         adminLevels.put("slap", 1);
         adminLevels.put("masked", 1);
         adminLevels.put("lastad", 1);
@@ -80,6 +81,7 @@ public class AdminCommands {
         adminLevels.put("dtc", 2);
         adminLevels.put("gotopos", 2);
         adminLevels.put("gotocar", 2);
+        adminLevels.put("mute", 2);
         adminLevels.put("aheal", 2);
         adminLevels.put("ipban", 2);
         adminLevels.put("setweather", 2);
@@ -405,6 +407,26 @@ public class AdminCommands {
                     player.sendMessage(Color.BEIGE, String.format("ID: [%d] Modelis: [%s] Iðspwninta: [%b]", meta.getId(), VehicleModel.getName(meta.getModelId()), vehiclePlugin.isSpawned(uuid)));
                 }
             } else player.sendMessage(Color.WHITE, "Þaidëjas transporto priemoniø neturi.");
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Uþðaldo/atðildo þaidëjà(leidþia/uþdraudþia jam judëti")
+    public boolean freeze(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else if(target.isFrozen()) {
+            LtrpPlayer.sendAdminMessage(String.format("Administratorius (%s) uþðaldë (/freeze) veikëjà (%s)", player.getName(), target.getName()));
+            target.sendInfoText("~w~ UZSALDYTAS", 4000);
+            target.unfreeze();
+            AdminLog.log(player, "Unfrozen player "+ target.getUUID());
+        } else {
+            LtrpPlayer.sendAdminMessage(String.format("Administratorius (%s) atðaldë (/freeze) veikëjà (%s)", player.getName(), target.getName()));
+            target.sendInfoText("~w~ ATSALDYTAS", 4000);
+            target.freeze();
+            AdminLog.log(player, "Frozen player " + target.getUUID());
         }
         return true;
     }
@@ -794,6 +816,26 @@ public class AdminCommands {
             player.setLocation(vehicle.getLocation());
             player.sendMessage(Color.NEWS, "Nusikëlëte prie " + vehicle.getModelName() + "(ID:" + vehicle.getId() + ")");
             return true;
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia/nebeleidþia þaidëjui kalbëti")
+    public boolean mute(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra");
+        else if(target.isMuted()) {
+            LtrpPlayer.sendAdminMessage(String.format("Administratorius (%s) leido kalbëti (/unmute) veikëjui (%s)", player.getName(), target.getName()));
+            target.sendMessage(Color.GREEN, "Administratorius vël leido jums kalbëti.");
+            target.unMute();
+            AdminLog.log(player, "Unmuted player " + target.getUUID());
+        } else {
+            LtrpPlayer.sendAdminMessage(String.format("Administratorius (%s) uþdraudë kalbëti (/mute) veikëjui (%s)", player.getName(), target.getName()));
+            target.sendMessage(Color.GREEN," Administratorius " + player.getName() + " uþdraudë jums kalbëti.");
+            target.mute();
+            AdminLog.log(player, "Muted player " + player.getUUID());
         }
         return true;
     }
