@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import lt.ltrp.command.GeneralPlayerVehicleCommands;
 import lt.ltrp.command.PlayerVehicleAcceptCommand;
 import lt.ltrp.command.PlayerVehicleCommands;
 import lt.ltrp.constant.PlayerVehiclePermission;
@@ -184,6 +185,7 @@ public class PlayerVehiclePlugin extends Plugin {
 
         playerCommandManager.registerChildGroup(vGroup, "v");
         playerCommandManager.registerChildGroup(acceptGroup, "accept");
+        playerCommandManager.registerCommands(new GeneralPlayerVehicleCommands());
     }
 
     @Override
