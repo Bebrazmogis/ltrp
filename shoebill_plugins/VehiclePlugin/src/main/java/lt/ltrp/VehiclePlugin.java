@@ -23,6 +23,7 @@ import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
 import net.gtaun.shoebill.event.player.PlayerStateChangeEvent;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
+import net.gtaun.shoebill.event.vehicle.VehicleUpdateDamageEvent;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.shoebill.object.VehicleParam;
@@ -50,12 +51,14 @@ public class VehiclePlugin extends Plugin implements VehicleController {
     private Map<LtrpVehicle, Timer> vehicleEngineTimers;
     private Map<LtrpPlayer, Float> maxSpeeds;
     private Random random;
+    private Map<LtrpVehicle, Integer> lastVehicleDrivers;
 
 
 
     @Override
     public void onEnable() throws Throwable {
         Instance.instance = this;
+        this.lastVehicleDrivers = new HashMap<>();
         this.vehicles = new ArrayList<>();
         this.maxSpeeds = new HashMap<>();
         this.random = new Random();
@@ -105,7 +108,7 @@ public class VehiclePlugin extends Plugin implements VehicleController {
             LtrpVehicle v = e.getVehicle();
             vehicleDao.update(v);
             vehicles.remove(v);
-
+            lastVehicleDrivers.remove(v);
         });
         eventManager.registerHandler(VehicleDeathEvent.class, e -> {
             LtrpVehicle vehicle = LtrpVehicle.getByVehicle(e.getVehicle());
@@ -118,7 +121,17 @@ public class VehiclePlugin extends Plugin implements VehicleController {
                 }
             }
         });
-        eventManager.registerHandler(PlayerStateChangeEvent.class, e -> {
+
+        eventManager.registerHandler(VehicleUpdateDamageEvent.class, e -> {
+            LtrpVehicle vehicle = LtrpVehicle.getByVehicle(e.getVehicle());
+            if(vehicle != null && vehicle.getHealth() < 300f) {
+                vehicle.getState().setEngine(VehicleParam.PARAM_OFF);
+                vehicle.sendStateMessage("Automobilio variklis iðsijungia");
+            }
+        });
+
+
+        eventManager.registerHandler(PlayerStateChangeEvent.class, HandlerPriority.HIGHEST, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             if(player != null) {
                 LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
@@ -128,6 +141,7 @@ public class VehiclePlugin extends Plugin implements VehicleController {
                     if(newState == PlayerState.DRIVER) {
                         vehicle.setDriver(player);
                         player.setLastUsedVehicle(vehicle);
+                        lastVehicleDrivers.put(vehicle, player.getUUID());
                     } else if(oldState == PlayerState.DRIVER) {
                         player.getLastUsedVehicle().setDriver(null);
                     }
@@ -149,7 +163,11 @@ public class VehiclePlugin extends Plugin implements VehicleController {
         });
         eventManager.registerHandler(PlayerKeyStateChangeEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            if(player != null && player.getKeyState().isKeyPressed(PlayerKey.FIRE) && !e.getOldState().isKeyPressed(PlayerKey.FIRE)) {
+            if(player == null) {
+                logger.error("PlayerKeyStatechangeEvent handler player is null. " + e.getPlayer());
+                return;
+            }
+            if(player.getKeyState().isKeyPressed(PlayerKey.FIRE) && !e.getOldState().isKeyPressed(PlayerKey.FIRE)) {
                 LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
                 if(vehicle != null && LtrpVehicleModel.isMotorVehicle(vehicle.getModelId())) {
                     if(vehicle.getState().getEngine() != VehicleParam.PARAM_ON) {
@@ -206,6 +224,10 @@ public class VehiclePlugin extends Plugin implements VehicleController {
                     }
                 }
             }
+            if(player.getKeyState().isKeyPressed(PlayerKey.ACTION) && player.getState() == PlayerState.DRIVER) {
+                LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
+                vehicle.getState().setLights(VehicleParam.PARAM_ON);
+            }
         });
     }
 
@@ -257,6 +279,7 @@ public class VehiclePlugin extends Plugin implements VehicleController {
         logger.debug("onDisable");
         timer.stop();
         timer.destroy();
+        lastVehicleDrivers.clear();
         fuelUseTimer.stop();
         fuelUseTimer.destroy();
         eventManager.cancelAll();
@@ -321,4 +344,8 @@ public class VehiclePlugin extends Plugin implements VehicleController {
         return vehicleDao;
     }
 
+
+    public Integer getLastDriver(LtrpVehicle vehicle) {
+        return lastVehicleDrivers.get(vehicle);
+    }
 }
