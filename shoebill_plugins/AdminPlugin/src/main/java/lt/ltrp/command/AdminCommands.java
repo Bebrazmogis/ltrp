@@ -55,12 +55,15 @@ public class AdminCommands {
         adminLevels.put("gethere", 1);
         adminLevels.put("gotonowhere", 1);
         adminLevels.put("rjc", 1);
+        adminLevels.put("rtc", 1);
+        adminLevels.put("rfc", 1);
         adminLevels.put("adminduty", 1);
         adminLevels.put("aduty", 1);
         adminLevels.put("kick", 1);
         adminLevels.put("ban", 1);
         adminLevels.put("warn", 1);
         adminLevels.put("jail", 1);
+        adminLevels.put("noooc", 1);
         adminLevels.put("are", 1);
         adminLevels.put("dre", 1);
         adminLevels.put("reports", 1);
@@ -77,7 +80,6 @@ public class AdminCommands {
         adminLevels.put("setvw", 1);
         adminLevels.put("setint", 1);
 
-        adminLevels.put("rfc", 2);
         adminLevels.put("dtc", 2);
         adminLevels.put("gotopos", 2);
         adminLevels.put("gotocar", 2);
@@ -188,8 +190,23 @@ public class AdminCommands {
     }
 
     @Command
+    @Deprecated
     public boolean togq(Player p) {
         p.sendMessage("Komanda paðalinta. Naudokite /settings");
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Iðjungia/ájungia globalø OOC chatà /o")
+    public boolean noOoc(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpGamemodeImpl impl = LtrpGamemodeImpl.getGamemode(LtrpGamemodeImpl.class);
+        impl.setOocChatEnabled(impl.isOocChatEnabled());
+        if(impl.isOocChatEnabled()) {
+            LtrpPlayer.sendGlobalMessage("Administratorius " + player.getName() + " ájungë globalø OOC chat'à /o");
+        } else {
+            LtrpPlayer.sendGlobalMessage("Administratorius " + player.getName() + " iðjungë globalø OOC chat'à.");
+        }
         return true;
     }
 
@@ -1010,6 +1027,22 @@ public class AdminCommands {
             LtrpPlayer.sendGlobalMessage("Administratorius atstatë visas nenaudojamas darbo " + job.getName() + "transporto priemones.");
         } else
             player.sendErrorMessage("Darbo su tokiu ID nëra.");
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Atstato transporto priemonæ á jos atsiradimo vietà ir pripildo jos bakà")
+    public boolean rtc(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 5f);
+        if(vehicle == null)
+            player.sendErrorMessage("Prie jûsø nëra jokios transporto priemonës.");
+        else {
+            vehicle.respawn();
+            vehicle.getFuelTank().addFuel(vehicle.getFuelTank().getSize());
+            player.sendMessage(Color.GREEN, "Transporto priemonë gràþinta á atsiradimo vietà, degalai atstatyti.");
+            AdminLog.log(player, "Reseted and refueled vehicle " + vehicle.getUUID());
+        }
         return true;
     }
 

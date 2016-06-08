@@ -11,6 +11,7 @@ import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
 import lt.ltrp.event.player.PlayerToggleModDutyEvent;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.util.AdminLog;
 import lt.maze.streamer.object.DynamicLabel;
 import net.gtaun.shoebill.Shoebill;
@@ -20,6 +21,7 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.shoebill.event.resource.ResourceLoadEvent;
+import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.resource.Plugin;
 import net.gtaun.util.event.EventManagerNode;
@@ -78,7 +80,7 @@ public class AdminPlugin extends Plugin implements AdminController {
         commandManager.registerCommands(new AdminCommands(this, eventManagerNode));
         commandManager.registerCommands(new ModeratorCommands(this, eventManagerNode));
         commandManager.registerCommands(new PlayerReportCommands());
-        commandManager.registerCommands(new PlayerCommands(this));
+        commandManager.registerCommands(new PlayerCommands(this, eventManagerNode));
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
         addEventHandlers();
         logger.debug(getDescription().getName() + " loaded");
@@ -124,6 +126,14 @@ public class AdminPlugin extends Plugin implements AdminController {
         // Fail-safe.. Actually, it's not. This data is never inserted and I couldn't think of a better way
         eventManagerNode.registerHandler(PlayerDataLoadEvent.class, e -> {
             AdminLog.insertWatchIfNotExists(e.getPlayer());
+        });
+
+        eventManagerNode.registerHandler(VehicleDeathEvent.class, e -> {
+            LtrpVehicle vehicle = LtrpVehicle.getByVehicle(e.getVehicle());
+            LtrpPlayer killer = LtrpPlayer.get(e.getKiller());
+            if(vehicle != null && killer != null) {
+                LtrpPlayer.sendAdminMessage(String.format("%s[%d] sunaikino transporto priemonæ %s", killer.getName(), killer.getId(), vehicle.getModelName()));
+            }
         });
     }
 
