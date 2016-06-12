@@ -32,10 +32,19 @@ public class Animation {
 
     private String animLib, animName;
     private float speed = 4.1f;
-    private boolean loop = false, lockX = false, lockY = false, freeze = false, forseSync = true;
+    private boolean loop = false, lockX = false, lockY = false, freeze = false, forceSync = true;
     private int time;
+    /**
+     * This field was added for game purposes. Animations that players <b>choose</b> choose to play should be stoppable(for example /dance)
+     * And animations that are played by me(for example when drawing a weapon) should be unstoppable
+      */
+    private boolean stoppable;
 
-    public Animation(String animLib, String animName, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, boolean forseSync, int time) {
+    public Animation(String animLib, String animName, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, boolean forceSync, int time) {
+        this(animLib, animName, speed, loop, lockX, lockY, freeze, forceSync, time, false);
+    }
+
+    public Animation(String animLib, String animName, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, boolean forceSync, int time, boolean stoppable) {
         this.animLib = animLib;
         this.animName = animName;
         this.speed = speed;
@@ -43,15 +52,21 @@ public class Animation {
         this.lockX = lockX;
         this.lockY = lockY;
         this.freeze = freeze;
-        this.forseSync = forseSync;
+        this.forceSync = forceSync;
         this.time = time;
+        this.stoppable = stoppable;
     }
 
     public Animation(String animLib, String animName, boolean loop, int time) {
+        this(animLib, animName, loop, time, false);
+    }
+
+    public Animation(String animLib, String animName, boolean loop, int time, boolean stoppable) {
         this.animLib = animLib;
         this.animName = animName;
         this.loop = loop;
         this.time = time;
+        this.stoppable = stoppable;
     }
 
     public static String[] getAnimationLibs() {
@@ -114,19 +129,27 @@ public class Animation {
         this.freeze = freeze;
     }
 
-    public boolean isForseSync() {
-        return forseSync;
-    }
-
-    public void setForseSync(boolean forseSync) {
-        this.forseSync = forseSync;
-    }
-
     public int getTime() {
         return time;
     }
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public boolean isForceSync() {
+        return forceSync;
+    }
+
+    public void setForceSync(boolean forceSync) {
+        this.forceSync = forceSync;
+    }
+
+    public boolean isStoppable() {
+        return stoppable;
+    }
+
+    public void setStoppable(boolean stoppable) {
+        this.stoppable = stoppable;
     }
 }

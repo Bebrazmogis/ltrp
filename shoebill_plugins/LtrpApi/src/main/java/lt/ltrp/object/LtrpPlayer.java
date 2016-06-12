@@ -10,6 +10,7 @@ import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Player;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 
@@ -125,6 +126,12 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
                 .forEach(p -> p.sendMessage(lt.ltrp.data.Color.MODERATOR, s));
     }
 
+    public static void sendGlobalOocMessage(String s) {
+        get().stream()
+                .filter(p -> !p.getSettings().isOocDisabled())
+                .forEach(p -> p.sendMessage(new Color(0xB1C8FBAA), s));
+    }
+
 
     int getUUID();
 
@@ -163,6 +170,7 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     LtrpWeaponData getWeaponData(WeaponModel weaponModel);
     boolean ownsWeapon(WeaponModel model);
     void removeWeapon(LtrpWeaponData weaponData);
+    void removeWeapon(WeaponModel model);
     void removeJobWeapons();
     LtrpWeaponData getArmedWeaponData();
     void giveWeapon(LtrpWeaponData weaponData);
@@ -249,12 +257,14 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
 
     Collection<PlayerOffer> getOffers();
     boolean containsOffer(Class type);
+    <T extends PlayerOffer> Collection<T> getOffers(Class<T> type);
     <T extends PlayerOffer> T getOffer(Class<T> type);
 
     String getCharName();
     String getFirstName();
     String getLastName();
 
+    void sendFadeMessage(Color color, String text, float distance);
     void sendErrorMessage(String message);
     void sendActionMessage(String message, float distance);
     void sendActionMessage(String s);
@@ -274,7 +284,13 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     LtrpPlayer getClosestPlayer();
     LtrpPlayer[] getClosestPlayers(float maxdistance);
     void applyAnimation(Animation animation);
-    void applyAnimation(String animlib, String anim, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, int time, boolean forsesync);
+    default void applyAnimation(String animLib, String anim, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, int time, boolean forceSync) {
+        applyAnimation(animLib, anim, speed, loop, lockX, lockY, freeze, time, forceSync, false);
+    }
+    void applyAnimation(String animLib, String anim, float speeed, boolean loop, boolean lockX, boolean lockY, boolean freeze, int time, boolean forceSync, boolean stopable);
+    void clearAnimations();
+    Animation getAnimation();
+    boolean isAnimationPlaying();
 
     /**
      *
@@ -289,6 +305,28 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     void applyAnimation(String animLib, String animname, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze);
     boolean isAudioConnected();
 
+    int getUcpId();
+    void setUcpId(int ucpId);
+
+    Timestamp getLastLogin();
+    void setLastLogin(Timestamp timestamp);
+
+    String getDescription();
+    void setDescription(String description);
+
+    String getNationality();
+    void setNationality(String nationality);
+
+    String getSex();
+    void setSex(String sex);
+
+    void freeze();
+    void unfreeze();
+    boolean isFrozen();
+
+    void mute();
+    void unMute();
+    boolean isMuted();
 
     @Override
     void sendGameText(int time, int style, String text);
