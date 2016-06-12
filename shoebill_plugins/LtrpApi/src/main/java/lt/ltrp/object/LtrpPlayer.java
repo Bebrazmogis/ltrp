@@ -302,7 +302,10 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
      * @param lockY
      * @param freeze
      */
-    void applyAnimation(String animLib, String animname, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze);
+    default void applyAnimation(String animLib, String animname, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze) {
+        applyAnimation(animLib, animname, speed, loop, lockX, lockY, freeze, false);
+    }
+    void applyAnimation(String animLib, String animName, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, boolean stoppable);
     boolean isAudioConnected();
 
     int getUcpId();
