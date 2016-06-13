@@ -2,6 +2,8 @@ package lt.ltrp.object;
 
 
 import lt.ltrp.PlayerController;
+import lt.ltrp.constant.TalkStyle;
+import lt.ltrp.constant.WalkStyle;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
 import lt.maze.audio.AudioHandle;
@@ -284,10 +286,30 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     LtrpPlayer getClosestPlayer();
     LtrpPlayer[] getClosestPlayers(float maxdistance);
     void applyAnimation(Animation animation);
+    default void applyLoopAnimation(String animLib, String animation, boolean lockX, boolean lockY, boolean stoppable) {
+        applyLoopAnimation(animLib, animation, lockX, lockY, false, stoppable);
+    }
+
+    /**
+     * Deprecated because of freeze parameter, it does not make sense to play a loop and then freeze.
+     * @param animLib
+     * @param animation
+     * @param lockX
+     * @param lockY
+     * @param freeze
+     * @param stoppable
+     */
+    @Deprecated
+    default void applyLoopAnimation(String animLib, String animation, boolean lockX, boolean lockY, boolean freeze, boolean stoppable) {
+        applyAnimation(animLib, animation, 4.1f, true, lockX, lockY, freeze, stoppable);
+    }
     default void applyAnimation(String animLib, String anim, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, int time, boolean forceSync) {
         applyAnimation(animLib, anim, speed, loop, lockX, lockY, freeze, time, forceSync, false);
     }
     void applyAnimation(String animLib, String anim, float speeed, boolean loop, boolean lockX, boolean lockY, boolean freeze, int time, boolean forceSync, boolean stopable);
+    default void applyAnimation(String animLib, String anim, boolean lockX, boolean lockY, boolean freeze, int time, boolean stoppable) {
+        applyAnimation(animLib, anim, 4.1f, false, lockX, lockY, freeze, time, true, stoppable);
+    }
     void clearAnimations();
     Animation getAnimation();
     boolean isAnimationPlaying();
@@ -330,6 +352,12 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     void mute();
     void unMute();
     boolean isMuted();
+
+    WalkStyle getWalkStyle();
+    void setWalkStyle(WalkStyle walkStyle);
+
+    TalkStyle getTalkStyle();
+    void setTalkStyle(TalkStyle talkStyle);
 
     @Override
     void sendGameText(int time, int style, String text);
