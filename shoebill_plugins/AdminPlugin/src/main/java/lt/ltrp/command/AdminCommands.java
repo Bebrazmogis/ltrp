@@ -79,6 +79,8 @@ public class AdminCommands {
         adminLevels.put("checkjail", 1);
         adminLevels.put("setvw", 1);
         adminLevels.put("setint", 1);
+        adminLevels.put("ao", 1);
+        adminLevels.put("ado", 1);
 
         adminLevels.put("dtc", 2);
         adminLevels.put("gotopos", 2);
@@ -360,6 +362,32 @@ public class AdminCommands {
         player.sendMessage(Color.GREEN, target.getName() + " interjeras pakeistas á " + interiorId + ".");
         target.getLocation().setInteriorId(interiorId);
         AdminLog.log(player, "Changed players " + target.getUUID() + " interior to " + interiorId);
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Iðsiunèia administratoriaus OOC þinutæ")
+    public boolean aO(Player p, @CommandParameter(name = "Tekstas")String text) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(text == null)
+            return false;
+        else {
+            LtrpPlayer.sendGlobalOocMessage(String.format("(( Adm %s[%d]: %s ))", player.getName(), player.getId(), text));
+            AdminLog.log(player, "Said in AOOC:" + text);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Iðsiunèia globalià DO þinutæ")
+    public boolean aDo(Player p, @CommandParameter(name = "Veiksmas")String text) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(text == null)
+            return false;
+        else {
+            LtrpPlayer.sendGlobalMessage(Color.ACTION, text);
+            AdminLog.log(player, "Sent ado: "+ text);
+        }
         return true;
     }
 
