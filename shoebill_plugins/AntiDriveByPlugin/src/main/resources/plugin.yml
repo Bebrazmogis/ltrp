@@ -1,0 +1,7 @@
+class: lt.maze.AntiDriveByPlugin
+name: Anti drive by Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: This plugin simply tries to dissalow drive bys by setting players armed weapon to none on entry. It will fire off an event if a drive-by happens
