@@ -8,12 +8,14 @@ import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
 import lt.maze.audio.AudioHandle;
 import net.gtaun.shoebill.constant.WeaponModel;
+import net.gtaun.shoebill.constant.WeaponSlot;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.shoebill.object.Player;
 
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.function.Function;
 
 
 /**
@@ -114,6 +116,19 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
                 });
     }
 
+    /**
+     * Sends an admin message to those admins that pass the condition
+     * @param s message text
+     * @param condition condition to pass(return true) for the message to be sent for that player
+     */
+    public static void sendAdminMessage(String s, Function<LtrpPlayer, Boolean> condition) {
+        get().stream()
+                .filter(p -> (p.isAdmin() || p.isModerator()) && condition.apply(p))
+                .forEach(p -> {
+                    p.sendMessage(Color.GREENYELLOW, s);
+                });
+    }
+
     public static void sendGlobalMessage(String s) {
         sendGlobalMessage(Color.GREENYELLOW, s);
     }
@@ -171,6 +186,7 @@ public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
     LtrpWeaponData[] getWeapons();
     LtrpWeaponData getWeaponData(WeaponModel weaponModel);
     boolean ownsWeapon(WeaponModel model);
+    boolean isWeaponSlotUsed(WeaponSlot slot);
     void removeWeapon(LtrpWeaponData weaponData);
     void removeWeapon(WeaponModel model);
     void removeJobWeapons();
