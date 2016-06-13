@@ -248,10 +248,6 @@ public class PlayerControllerImpl implements PlayerController {
                     player.setDeaths(player.getDeaths()+1);
                 }
 
-                LtrpPlayer killer = LtrpPlayer.get(e.getKiller());
-                if(killer != null) {
-                    LtrpPlayer.sendAdminMessage("Žaidėjas " + killer.getName() + " nužudė " + player.getName() + " su ginklu " + e.getReason().getName());
-                }
                 playerDao.update(player);
             }
         });
