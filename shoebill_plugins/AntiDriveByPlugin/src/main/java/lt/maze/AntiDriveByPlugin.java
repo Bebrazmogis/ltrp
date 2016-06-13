@@ -37,10 +37,11 @@ public class AntiDriveByPlugin extends Plugin {
 
         eventManagerNode.registerHandler(PlayerWeaponShotEvent.class, HandlerPriority.HIGH, e -> {
             Player p = e.getPlayer();
-            if(p.isInAnyVehicle()) {
+            if(p.isInAnyVehicle() && p.getCameraMode() == 55) {
                 p.setArmedWeapon(WeaponModel.NONE);
                 eventManagerNode.dispatchEvent(new PlayerAttemptDriveByEvent(p));
                 logger.warn("Player shot his weapon " + e.getWeapon().getModelId() + " from a vehicle");
+                e.disallow();
             }
         });
 
