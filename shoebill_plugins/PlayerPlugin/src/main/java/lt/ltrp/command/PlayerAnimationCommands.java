@@ -1,9 +1,12 @@
 package lt.ltrp.command;
 
+import lt.ltrp.constant.TalkStyle;
+import lt.ltrp.constant.WalkStyle;
 import lt.ltrp.data.Color;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
+import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.constant.PlayerState;
 import net.gtaun.shoebill.constant.SpecialAction;
@@ -127,6 +130,41 @@ public class PlayerAnimationCommands {
         player.sendMessage(Color.GREEN, "____________________________________________________________");
         return true;
     }
+
+    @Command
+    @CommandHelp("PAkeièia jûsø vaikðèiojimo stiliø")
+    public boolean walkStyle(Player p, @CommandParameter(name = "Numeris")int number) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(number < 0 || number > WalkStyle.values().length)
+            player.sendErrorMessage("Galimi vaikðèiojimo stiliai 0 - " + WalkStyle.values().length);
+        else if(number == 0) {
+            player.setWalkStyle(null);
+            player.sendMessage(Color.NEWS, "Vaikðèiojimo stilius paðalintas");
+        }
+        else {
+            player.setWalkStyle(WalkStyle.values()[number-1]);
+            player.sendMessage(Color.NEWS, "Vaikðèiojimo stilius sëkmingai pakeistas!");
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Pakeièia jûsø kalbëjimo stiliø")
+    public boolean talkStyle(Player p, @CommandParameter(name = "Numeris")int number) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(number < 0|| number > TalkStyle.values().length)
+            player.sendErrorMessage("Galimi kalbëjimo stiliai 0 - " + TalkStyle.values().length);
+        else if(number == 0) {
+            player.setTalkStyle(null);
+            player.sendMessage(Color.NEWS, "Kalbëjimo stilius paðalintas");
+        }
+        else {
+            player.setTalkStyle(TalkStyle.values()[number-1]);
+            player.sendMessage(Color.NEWS, "Kalbëjimo stilius sëkmingai pakeistas!");
+        }
+        return true;
+    }
+
 
     @Command
     public boolean fall(Player p, @CommandParameter(name = "1-3")Integer type) {

@@ -23,6 +23,7 @@ import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
+import net.gtaun.shoebill.common.timers.TemporaryTimer;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.constant.WeaponModel;
@@ -124,6 +125,19 @@ public class PlayerControllerImpl implements PlayerController {
                 return;
             }
             e.interrupt();
+        });
+
+        // In the end... we play an animation if the player has set it
+        managerNode.registerHandler(PlayerTextEvent.class, HandlerPriority.BOTTOM, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            if(player.getTalkStyle() != null) {
+                player.applyAnimation(player.getTalkStyle().getAnimation());
+                int time = 200 * e.getText().length();
+                TemporaryTimer.create(time, 1, (i) -> {
+                    if(player.getAnimation().equals(player.getTalkStyle().getAnimation())
+                            )player.clearAnimations();
+                });
+            }
         });
 
         managerNode.registerHandler(PlayerDisconnectEvent.class, HandlerPriority.BOTTOM, e -> {
@@ -349,6 +363,12 @@ public class PlayerControllerImpl implements PlayerController {
                         action == SpecialAction.DANCE3 ||
                         action == SpecialAction.DANCE4) {
                     player.setSpecialAction(SpecialAction.NONE);
+                }
+            }
+            if(!old.isKeyPressed(PlayerKey.WALK) && newKeys.isKeyPressed(PlayerKey.WALK)) {
+                if(!player.isInAnyVehicle() && player.getWalkStyle() != null) {
+                    player.applyAnimation(player.getWalkStyle().getAnimation());
+                    player.sendInfoText("Norint sustoti spauskite ~r~SPACE");
                 }
             }
         });

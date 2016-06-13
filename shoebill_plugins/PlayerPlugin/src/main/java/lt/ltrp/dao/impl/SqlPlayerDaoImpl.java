@@ -2,6 +2,8 @@ package lt.ltrp.dao.impl;
 
 
 import lt.ltrp.constant.LicenseType;
+import lt.ltrp.constant.TalkStyle;
+import lt.ltrp.constant.WalkStyle;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
 import lt.ltrp.object.LtrpPlayer;
@@ -84,7 +86,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         String sql = "SELECT " +
                 "secret_question, secret_answer, admin_level, mod_level, players.level, players.job_id, money, hours_online, box_style, age, " +
                 "respect, deaths, hunger, total_paycheck, current_paycheck, minutes_online_since_payday, forum_name, ucp_user_id " +
-                "last_login, description, nationality, sex " +
+                "last_login, description, nationality, sex, walk_style, talk_style " +
                 "FROM players " +
                 " WHERE players.id = ? LIMIT 1";
         /*String sql = "SELECT " +
@@ -123,6 +125,8 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 player.setDescription(result.getString("description"));
                 player.setNationality(result.getString("nationality"));
                 player.setSex(result.getString("sex"));
+                player.setWalkStyle(WalkStyle.getById(result.getInt("walk_style")));
+                player.setTalkStyle(TalkStyle.getById(result.getInt("talk_style")));
 
                 /*int jobLevel = result.getInt("job_level");
                 if(!result.wasNull()) {

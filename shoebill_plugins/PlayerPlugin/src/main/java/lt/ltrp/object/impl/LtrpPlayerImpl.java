@@ -1,6 +1,8 @@
 package lt.ltrp.object.impl;
 
 import lt.ltrp.*;
+import lt.ltrp.constant.TalkStyle;
+import lt.ltrp.constant.WalkStyle;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.*;
 import lt.ltrp.event.PlayerMuteEvent;
@@ -162,6 +164,8 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
      */
     private ScheduledFuture<?> animationTaskFuture;
 
+    private TalkStyle talkStyle;
+    private WalkStyle walkStyle;
 
 
     public LtrpPlayerImpl(Player player, int userid, EventManager manager) {
@@ -874,6 +878,26 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     @Override
     public boolean isMuted() {
         return muted;
+    }
+
+    @Override
+    public WalkStyle getWalkStyle() {
+        return walkStyle;
+    }
+
+    @Override
+    public void setWalkStyle(WalkStyle walkStyle) {
+        this.walkStyle = walkStyle;
+    }
+
+    @Override
+    public TalkStyle getTalkStyle() {
+        return talkStyle;
+    }
+
+    @Override
+    public void setTalkStyle(TalkStyle talkStyle) {
+        this.talkStyle = talkStyle;
     }
 
 
