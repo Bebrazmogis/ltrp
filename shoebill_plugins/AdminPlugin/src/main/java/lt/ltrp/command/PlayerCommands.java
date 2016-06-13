@@ -3,6 +3,7 @@ package lt.ltrp.command;
 import lt.ltrp.AdminController;
 import lt.ltrp.AdminPlugin;
 import lt.ltrp.data.Color;
+import lt.ltrp.data.Vote;
 import lt.ltrp.event.player.PlayerAskQuestionEvent;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
@@ -93,4 +94,36 @@ public class PlayerCommands {
         return true;
     }
 
+
+    @Command
+    @CommandHelp("Leidþia balsuoti teigiamai")
+    public boolean taip(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Vote vote = adminPlugin.getCurrentVote();
+        if(vote == null || vote.isEnded())
+            player.sendErrorMessage("Ðiuo metu balsavimas nevyksta!");
+        else if(vote.voted(player))
+            player.sendErrorMessage("Jûs jau balsavote!");
+        else {
+            vote.addVote(player, true);
+            player.sendMessage(Color.NEWS, "Jûsø balsas sëkmingai áskaièiuotas!");
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Leidþia balsuoti neigiamai")
+    public boolean ne(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        Vote vote = adminPlugin.getCurrentVote();
+        if(vote == null || vote.isEnded())
+            player.sendErrorMessage("Ðiuo metu balsavimas nevyksta!");
+        else if(vote.voted(player))
+            player.sendErrorMessage("Jûs jau balsavote!");
+        else {
+            vote.addVote(player, false);
+            player.sendMessage(Color.NEWS, "Jûsø balsas sëkmingai áskaièiuotas!");
+        }
+        return true;
+    }
 }

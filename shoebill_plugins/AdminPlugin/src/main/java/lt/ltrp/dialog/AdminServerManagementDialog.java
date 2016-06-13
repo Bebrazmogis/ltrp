@@ -1,9 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.BusinessController;
-import lt.ltrp.GarageController;
-import lt.ltrp.HouseController;
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.*;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.util.event.EventManager;
@@ -18,6 +15,7 @@ import net.gtaun.util.event.EventManager;
 public class AdminServerManagementDialog {
 
     public static ListDialog create(LtrpPlayer player, EventManager eventManager) {
+        AdminPlugin adminPlugin = AdminPlugin.get(AdminPlugin.class);
         return ListDialog.create(player, eventManager)
                 .caption(LtrpGamemode.Name + " " + LtrpGamemode.Version + " admin meniu")
                 .buttonOk("Pasirinkti")
@@ -26,6 +24,7 @@ public class AdminServerManagementDialog {
                 .item("Verslai", i -> BusinessController.get().showManagementDialog(player))
                 .item("Verslø prekës", i -> BusinessController.get().showAvailableCommodityDialog(player))
                 .item("Garaþai", i -> GarageController.get().showManagementDialog(player))
+                .item("Balsavimas", () -> adminPlugin.getCurrentVote().isEnded(), i -> NewVoteQuestionInputDialog.create(player, i.getCurrentDialog(), eventManager).show())
                 .build();
     }
 }

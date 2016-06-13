@@ -7,6 +7,8 @@ import lt.ltrp.command.PlayerReportCommands;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerQuestion;
 import lt.ltrp.data.PlayerReport;
+import lt.ltrp.data.Vote;
+import lt.ltrp.event.VoteEndEvent;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
 import lt.ltrp.event.player.PlayerToggleModDutyEvent;
@@ -50,6 +52,7 @@ public class AdminPlugin extends Plugin implements AdminController {
     private Map<LtrpPlayer, Instant> adminDutyStartInstants;
     private ArrayDeque<PlayerReport> playerReports;
     private ArrayDeque<PlayerQuestion> playerQuestions;
+    private Vote currentVote;
 
     @Override
     protected void onEnable() throws Throwable {
@@ -135,6 +138,17 @@ public class AdminPlugin extends Plugin implements AdminController {
                 LtrpPlayer.sendAdminMessage(String.format("%s[%d] sunaikino transporto priemonæ %s", killer.getName(), killer.getId(), vehicle.getModelName()));
             }
         });
+
+        eventManagerNode.registerHandler(VoteEndEvent.class, e -> {
+            Vote vote = e.getVote();
+            LtrpPlayer.sendGlobalMessage("Balsavimas baigësi! Klausimas: " + vote.getQuestion());
+            LtrpPlayer.sendGlobalMessage(String.format("TAIP balsavo %d(%d%%) þaidëjai, NE balsavo %d(%d%%).",
+                    vote.getVoteCount(true),
+                    vote.getVoteCount() / 100 * vote.getVoteCount(true),
+                    vote.getVoteCount(false),
+                    vote.getVoteCount() / 100 * vote.getVoteCount(false)
+            ));
+        });
     }
 
     @Override
@@ -210,5 +224,19 @@ public class AdminPlugin extends Plugin implements AdminController {
 
     public Collection<PlayerQuestion> getQuestions() {
         return playerQuestions;
+    }
+
+    public void startVote(LtrpPlayer player, String question) {
+        if(currentVote == null) {
+            currentVote = new Vote(question, 120, eventManagerNode);
+            AdminLog.log(player, "Started a vote:" + question);
+            LtrpPlayer.sendGlobalMessage("Administratorius " + player.getName() + " pradëjo balsavimà.");
+            LtrpPlayer.sendGlobalMessage("Klausimas:" + question);
+            LtrpPlayer.sendGlobalMessage("Naudokite komandas /taip ir /ne balsavimui, jis tæsis 2 minutes!");
+        }
+    }
+
+    public Vote getCurrentVote() {
+        return currentVote;
     }
 }
