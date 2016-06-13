@@ -41,6 +41,17 @@ public class ItemCommands {
         this.itemDao = itemDao;
     }
 
+    @Command
+    public boolean radioHelp(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        player.sendMessage(Color.GREEN, "_________________RACIJOS NAUDOJIMO KOMANDOS___________________");
+        player.sendMessage(Color.WHITE, "/r(adio) - IC racijos pokalbiø kanalas");
+        player.sendMessage(Color.LIGHTGREY, "/setfrequency - Pakeièia jûsø racijos naudojamà daþná(kanalà)");
+        player.sendMessage(Color.WHITE, "/rlow - IC tylus racijos pokalbiø kanalas");
+        player.sendMessage(Color.GREEN,"_______________________________________________________________");
+        return true;
+    }
+
 
     @Command
     @CommandHelp("Atidaro inventorø")
