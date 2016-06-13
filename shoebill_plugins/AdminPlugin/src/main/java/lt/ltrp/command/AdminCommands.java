@@ -81,6 +81,8 @@ public class AdminCommands {
         adminLevels.put("setint", 1);
         adminLevels.put("ao", 1);
         adminLevels.put("ado", 1);
+        adminLevels.put("checkflist", 1);
+        adminLevels.put("apkills", 1);
 
         adminLevels.put("dtc", 2);
         adminLevels.put("gotopos", 2);
@@ -174,7 +176,7 @@ public class AdminCommands {
         p.sendMessage(Color.LIGHTRED,  "|____________________________ADMINISTRATORIAUS SKYRIUS____________________________|");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /kick /ban /warn /jail /noooc /adminduty /gethere /check /afrisk /fon ");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] /freeze /slap /spec /specoff /setint /setvw /intvw /masked /aheal /spawn ");
-        p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon /pos /lastad /a /checkjail");
+        p.sendMessage(Color.WHITE, "[AdmLvl 1] /mark /rc  /setskin  /aproperty /apkills /fon /pos /lastad /a /checkjail /checkflist");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] PERSIKËLIMAS: /gotoloc /goto /gotomark /gotobiz /gotohouse /gotogarage /gotopos /gotonowhere");
         p.sendMessage(Color.WHITE, "[AdmLvl 1] TR. PRIEMONËS: /getoldcar /rtc /rfc /rjc /rc /are /dre /reports /olddriver");
         if(p.getAdminLevel() >= 2)
@@ -338,6 +340,39 @@ public class AdminCommands {
     }
 
     @Command
+    @CommandHelp("Parodo pasirinktos frakcijos prisijungusiø þaidëjø sàraðà")
+    public boolean checkFList(Player pp) {
+        LtrpPlayer player = LtrpPlayer.get(pp);
+        JobListDialog.create(player, eventManager)
+                .selectJobHandler((d, j) -> {
+                    JobPlugin jobPlugin = JobPlugin.get(JobPlugin.class);
+                    Collection<LtrpPlayer> onlineEmployees = LtrpPlayer.get()
+                            .stream()
+                            .filter(p -> {
+                                PlayerJobData jd = jobPlugin.getJobData(p);
+                                return jd != null && jd.getJob().equals(j);
+                            })
+                            .collect(Collectors.toList());
+                    if(onlineEmployees.size() == 0)
+                        player.sendErrorMessage("Nëra nei vieno prisijungusio þaidëjo, kuris dirba " + j.getName());
+                    else {
+                        onlineEmployees.forEach(p -> {
+                            PlayerJobData jd = jobPlugin.getJobData(player);
+                            player.sendMessage(Color.GRAY, String.format("%s(%d) [%s(rangas %d)]",
+                                    p.getName(),
+                                    p.getId(),
+                                    jd.getJobRank().getName(),
+                                    jd.getJobRank().getNumber()));
+                        });
+                        player.sendMessage(Color.GREEN, "Ið viso " + onlineEmployees.size() + " prisijungusiø darbuotojø.");
+                    }
+                })
+                .build()
+                .show();
+        return true;
+    }
+
+    @Command
     @CommandHelp("Pakeièia þaidëjo virtualø pasaulá á pasirinktà")
     public boolean setVW(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
                          @CommandParameter(name = "Virtualaus pasaulio ID")int worldId) {
@@ -453,6 +488,15 @@ public class AdminCommands {
                 }
             } else player.sendMessage(Color.WHITE, "Þaidëjas transporto priemoniø neturi.");
         }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Ájungia/iðjungia þaidëjø mirèiø þintues")
+    @Deprecated
+    public boolean apKills(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        player.sendErrorMessage("Nustatymai persikële á /settings.");
         return true;
     }
 
