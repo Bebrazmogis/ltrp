@@ -6,6 +6,7 @@ import net.gtaun.shoebill.Shoebill;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.Instant;
 
 /**
  * @author Bebras
@@ -15,21 +16,28 @@ public class AdminLog {
 
     private static final DataSource ds = Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class).getDataSource();
 
-    public static void log(LtrpPlayer player, String s) {
+    public static void log(LtrpPlayer player, String action) {
+        log(player, null, action);
+    }
+
+    public static void log(LtrpPlayer player, LtrpPlayer target, String s) {
         new Thread(() -> {
             Connection connection = null;
             PreparedStatement stmt = null;
-            java.util.Calendar cal = java.util.Calendar.getInstance();
-            java.util.Date utilDate = cal.getTime();
-            java.sql.Date sqlDate = new Date(utilDate.getTime());
-            String sql = "INSERT INTO logs_admin (admin_name, user_id, `date`, `action`) VALUES (?, ?, ?, ?)";
+            Timestamp timestamp = new Timestamp(Instant.now().toEpochMilli());
+            String sql = "INSERT INTO logs_admin (admin_name, user_id, target_id, `created_at`, `action`) VALUES (?, ?, ?, ?, ?)";
             try {
                 connection = ds.getConnection();
                 stmt = connection.prepareStatement(sql);
                 stmt.setString(1, player.getName());
                 stmt.setInt(2, player.getUUID());
-                stmt.setDate(3, sqlDate);
-                stmt.setString(4, s);
+                if(target != null)
+                    stmt.setInt(3, target.getUUID());
+                else
+                    stmt.setNull(3, Types.INTEGER);
+                stmt.setTimestamp(4, timestamp);
+                stmt.setString(5, s);
+                stmt.execute();
             } catch(SQLException ex) {
                 ex.printStackTrace();
             } finally {
