@@ -28,22 +28,23 @@ public interface Inventory {
      * @param item item to be added
      * @return true if the item was added, false otherwise
      */
-    public boolean tryAdd(Item item);
-    public void add(Item[] items);
-    public void remove(Item item);
-    public void remove(int index);
-    public String getName();
-    public void clear();
-    public boolean contains(Item item);
-    public boolean containsType(ItemType type);
-    public boolean containsWeapon(WeaponModel model);
-    public boolean isFull();
-    public int getItemCount();
-    public Item[] getItems();
-    public Item[] getItems(ItemType type);
-    public <T> T[] getItems(Class<T> t);
-    public Item getItem(ItemType type);
-    public void show(Player player);
+    boolean tryAdd(Item item);
+    void add(Item[] items);
+    void remove(Item item);
+    void remove(int index);
+    String getName();
+    void clear();
+    boolean contains(Item item);
+    boolean containsType(ItemType type);
+    boolean containsWeapon(WeaponModel model);
+    boolean isFull();
+    boolean isEmpty();
+    int getItemCount();
+    Item[] getItems();
+    Item[] getItems(ItemType type);
+    <T> T[] getItems(Class<T> t);
+    Item getItem(ItemType type);
+    void show(Player player);
 
     /**
      *
