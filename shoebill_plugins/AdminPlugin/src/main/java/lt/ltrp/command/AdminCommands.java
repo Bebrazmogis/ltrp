@@ -69,6 +69,7 @@ public class AdminCommands {
         adminLevels.put("reports", 1);
         adminLevels.put("olddriver", 1);
         adminLevels.put("check", 1);
+        adminLevels.put("afrisk", 1);
         adminLevels.put("setskin", 1);
         adminLevels.put("aproperty", 1);
         adminLevels.put("freeze", 1);
@@ -302,6 +303,24 @@ public class AdminCommands {
             return false;
         else {
             PlayerPlugin.get(PlayerPlugin.class).showStats(player, target);
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Parodo þaidëjo daiktus ir turimus ginklus")
+    public boolean aFrisk(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        if(target == null)
+            player.sendErrorMessage("Tokio þaidëjo nëra.");
+        else if(target.getInventory().isEmpty())
+            player.sendErrorMessage("Þaidëjo inventoriuje nieko nëra!");
+        else {
+            target.getInventory().show(player);
+            player.sendMessage(Color.GREEN, "__________________TURIMI GINKLAI_____________");
+            for(LtrpWeaponData weaponData : target.getWeapons()) {
+                player.sendMessage(Color.WHITE, String.format("ID %d. Ginklas %s %d kulkos.", weaponData.getUUID(), weaponData.getModel().getName(), weaponData.getAmmo()));
+            }
         }
         return true;
     }
