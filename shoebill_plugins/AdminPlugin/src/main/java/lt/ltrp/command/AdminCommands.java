@@ -321,6 +321,7 @@ public class AdminCommands {
             for(LtrpWeaponData weaponData : target.getWeapons()) {
                 player.sendMessage(Color.WHITE, String.format("ID %d. Ginklas %s %d kulkos.", weaponData.getUUID(), weaponData.getModel().getName(), weaponData.getAmmo()));
             }
+            AdminLog.log(player, target, "Checked players inventory");
         }
         return true;
     }
