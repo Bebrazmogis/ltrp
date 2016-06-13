@@ -234,7 +234,7 @@ public class AdminCommands {
             target.sendMessage(Color.GREEN, "Dëmesio, Administratorius pavirtino Jûsø praneðimà (/report) ir tuojaus susisieks su Jumis. Bûkite kantrûs.");
             LtrpPlayer.sendAdminMessage(String.format("Administratorius (%s) patvirtino praneðimà (/report) ið (%s) ", player.getName(), target.getName()));
             AdminLog.incrementReportAccepted(player);
-            AdminLog.log(player, "Patvirtino /report ið veikëjo " + target.getUUID());
+            AdminLog.log(player, target, "Patvirtino /report ið veikëjo " + target.getUUID());
         }
         return true;
     }
@@ -347,7 +347,7 @@ public class AdminCommands {
         target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø virtualøjá pasaulá.");
         player.sendMessage(Color.GREEN, target.getName() + " virtualus pasaulis pakeistas á " + worldId + ".");
         target.getLocation().setWorldId(worldId);
-        AdminLog.log(player, "Changed players " + target.getUUID() + " virtual world to " + worldId);
+        AdminLog.log(player, target, "Changed players " + target.getUUID() + " virtual world to " + worldId);
         return true;
     }
 
@@ -361,7 +361,7 @@ public class AdminCommands {
         target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø interjerà.");
         player.sendMessage(Color.GREEN, target.getName() + " interjeras pakeistas á " + interiorId + ".");
         target.getLocation().setInteriorId(interiorId);
-        AdminLog.log(player, "Changed players " + target.getUUID() + " interior to " + interiorId);
+        AdminLog.log(player, target, "Changed players " + target.getUUID() + " interior to " + interiorId);
         return true;
     }
 
@@ -404,7 +404,7 @@ public class AdminCommands {
             target.setSkin(skinId);
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø iðvaizdà.");
             LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë þaidëjo " + target.getName() + " skin'à á " + skinId);
-            AdminLog.log(player, "Changed players " + target.getUUID() + " skin to " + skinId);
+            AdminLog.log(player, target, "Changed players " + target.getUUID() + " skin to " + skinId);
         }
         return true;
     }
@@ -466,12 +466,12 @@ public class AdminCommands {
             LtrpPlayer.sendAdminMessage(String.format("Administratorius (%s) uþðaldë (/freeze) veikëjà (%s)", player.getName(), target.getName()));
             target.sendInfoText("~w~ UZSALDYTAS", 4000);
             target.unfreeze();
-            AdminLog.log(player, "Unfrozen player "+ target.getUUID());
+            AdminLog.log(player, target, "Unfrozen player "+ target.getUUID());
         } else {
             LtrpPlayer.sendAdminMessage(String.format("Administratorius (%s) atðaldë (/freeze) veikëjà (%s)", player.getName(), target.getName()));
             target.sendInfoText("~w~ ATSALDYTAS", 4000);
             target.freeze();
-            AdminLog.log(player, "Frozen player " + target.getUUID());
+            AdminLog.log(player, target, "Frozen player " + target.getUUID());
         }
         return true;
     }
@@ -490,7 +490,7 @@ public class AdminCommands {
             target.setLocation(target.getLocation());
             target.playSound(1130);
             LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pliaukðtelëjo þaidëjui " + target.getName());
-            AdminLog.log(player, "Slapped player " + target.getUUID());
+            AdminLog.log(player, target, "Slapped player " + target.getUUID());
         }
         return true;
     }
@@ -535,7 +535,7 @@ public class AdminCommands {
                     player.getName(), target.getName(), minutes));
             LtrpPlayer.sendGlobalMessage(Color.LIGHTRED, String.format("Nurodytà prieþastis: %s ", reason));
             penaltyPlugin.jail(target, JailData.JailType.OutOfCharacter, minutes, player);
-            AdminLog.log(player, "Pasodino " + target.getUUID() + " á OOC kalëjimà " + minutes + " minutëms. Prieþastis:" + reason);
+            AdminLog.log(player, target, "Pasodino " + target.getUUID() + " á OOC kalëjimà " + minutes + " minutëms. Prieþastis:" + reason);
 
         }
         return true;
@@ -555,7 +555,7 @@ public class AdminCommands {
             LtrpPlayer.sendGlobalMessage(Color.LIGHTRED, String.format("Administratorius %s áspëjo þaidëja %s, prieþastis: %s",
                     player.getName(), target.getName(), reason));
             penaltyPlugin.warn(target, reason, player);
-            AdminLog.log(player, "Áspëjo þadiëjà " + target.getUUID() +". Prieþastis: " + reason);
+            AdminLog.log(player, target, "Áspëjo þadiëjà " + target.getUUID() +". Prieþastis: " + reason);
 
         }
         return true;
@@ -577,12 +577,12 @@ public class AdminCommands {
                 LtrpPlayer.sendGlobalMessage(Color.LIGHTRED, String.format("Admin. %s uþdraudë þaisti þaidëjui %s %d valandoms, prieþastis: %s",
                         player.getName(), target.getName(), hours, reason));
                 penaltyPlugin.banPlayer(target, reason, hours, player);
-                AdminLog.log(player, "Uþblokavo " + target.getUUID() + " vartotojà " + hours + " valandoms. Prieþastis: " + reason);
+                AdminLog.log(player, target, "Uþblokavo " + target.getUUID() + " vartotojà " + hours + " valandoms. Prieþastis: " + reason);
             } else {
                 LtrpPlayer.sendGlobalMessage(Color.LIGHTRED, String.format("Admin. %s uþdraudë þaisti þaidëjui %s, prieþastis: %s",
                         player.getName(), target.getName(), reason));
                 penaltyPlugin.banPlayer(target, reason, player);
-                AdminLog.log(player, "Uþblokavo " + target.getUUID() + " vartotojà visam laikui. Prieþastis: " + reason);
+                AdminLog.log(player, target, "Uþblokavo " + target.getUUID() + " vartotojà visam laikui. Prieþastis: " + reason);
             }
         }
         return true;
@@ -604,12 +604,12 @@ public class AdminCommands {
                 LtrpPlayer.sendGlobalMessage(Color.LIGHTRED, String.format("Admin. %s uþdraudë þaisti þaidëjui %s %d valandoms, prieþastis: %s",
                         player.getName(), target.getName(), hours, reason));
                 penaltyPlugin.banIp(target, reason, hours, player);
-                AdminLog.log(player, "Uþblokavo " + target.getUUID() + " vartotojo IP " + target.getIp() +"  " + hours + " valandoms. Prieþastis " + reason);
+                AdminLog.log(player, target, "Uþblokavo " + target.getUUID() + " vartotojo IP " + target.getIp() +"  " + hours + " valandoms. Prieþastis " + reason);
             } else {
                 LtrpPlayer.sendGlobalMessage(Color.LIGHTRED, String.format("Admin. %s uþdraudë þaisti þaidëjui %s, prieþastis: %s",
                         player.getName(), target.getName(), reason));
                 penaltyPlugin.banIp(target, reason, player);
-                AdminLog.log(player, "Uþblokavo " + target.getUUID() + " vartotojo IP " + target.getIp() + " visam laikui. Prieþastis: " + reason);
+                AdminLog.log(player, target, "Uþblokavo " + target.getUUID() + " vartotojo IP " + target.getIp() + " visam laikui. Prieþastis: " + reason);
             }
         }
         return true;
@@ -689,7 +689,7 @@ public class AdminCommands {
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø gyvybiø skaièiø.");
             LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë þaidëjo " + target.getName() + " gyvybiø skaièiø á " + amount);
             target.setHealth(amount);
-            AdminLog.log(player, "Changed players " + target.getUUID() + " health to " + amount);
+            AdminLog.log(player, target, "Changed players " + target.getUUID() + " health to " + amount);
         }
         return true;
     }
@@ -707,7 +707,7 @@ public class AdminCommands {
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø ðarvø skaièiø.");
             LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pakeitë þaidëjo " + target.getName() + " ðarvø skaièiø á " + amount);
             target.setArmour(amount);
-            AdminLog.log(player, "Changed players " + target.getUUID() + " armour to " + amount);
+            AdminLog.log(player, target, "Changed players " + target.getUUID() + " armour to " + amount);
         }
         return true;
     }
@@ -734,7 +734,7 @@ public class AdminCommands {
             LtrpPlayer.sendGlobalMessage(Color.LIGHTRED, String.format("Admin. %s iðspyrë þaidëjà  %s ið serverio, prieþastis: %s",
                     player.getName(), target.getName(), reason));
             target.kick();
-            AdminLog.log(player, "Iðmetë vartotojà " + target.getUUID());
+            AdminLog.log(player, target, "Iðmetë vartotojà " + target.getUUID());
         }
         return true;
     }
@@ -875,12 +875,12 @@ public class AdminCommands {
             LtrpPlayer.sendAdminMessage(String.format("Administratorius (%s) leido kalbëti (/unmute) veikëjui (%s)", player.getName(), target.getName()));
             target.sendMessage(Color.GREEN, "Administratorius vël leido jums kalbëti.");
             target.unMute();
-            AdminLog.log(player, "Unmuted player " + target.getUUID());
+            AdminLog.log(player, target, "Unmuted player " + target.getUUID());
         } else {
             LtrpPlayer.sendAdminMessage(String.format("Administratorius (%s) uþdraudë kalbëti (/mute) veikëjui (%s)", player.getName(), target.getName()));
             target.sendMessage(Color.GREEN," Administratorius " + player.getName() + " uþdraudë jums kalbëti.");
             target.mute();
-            AdminLog.log(player, "Muted player " + player.getUUID());
+            AdminLog.log(player, target, "Muted player " + player.getUUID());
         }
         return true;
     }
@@ -910,7 +910,7 @@ public class AdminCommands {
 
             p2.sendMessage(Color.NEWS, "Administratorius " + p.getName() + " paskyrë jus frakcijø priþiûrëtoju.");
 
-            AdminLog.log(p, "Paskyrë þaidëjà " + p2.getName() + " frakcijø priþirëtoju.");
+            AdminLog.log(p, p2, "Paskyrë þaidëjà " + p2.getName() + " frakcijø priþirëtoju.");
         }
         return true;
     }
@@ -929,7 +929,7 @@ public class AdminCommands {
             playerPlugin.getPlayerDao().update(target);
             player.sendMessage(Color.GREEN, String.format(" Administratorius (%s) suteikë veikëjui (%s) moderatoriaus statusà. ", player.getName(), target.getName()));
             target.sendMessage(Color.MODERATOR, " Sveikiname, jus buvote priimtas á moderatoriø grupæ. Informacija /modhelp ");
-            AdminLog.log(player, "Set players " + target.getUUID() + " mod level " + level);
+            AdminLog.log(player, target, "Set players " + target.getUUID() + " mod level " + level);
         }
         return true;
     }
@@ -1031,7 +1031,7 @@ public class AdminCommands {
 
                     p2.sendMessage(Color.GREEN, "Administratorius " + p.getName() + " davë jums daiktà \"" + item.getName() + "\".");
                     LtrpPlayer.sendAdminMessage(p.getName() + " davë " + item.getName() + " þaidëjui " + p2.getName());
-                    AdminLog.log(p, "Gave item " + item.getUUID() + " to player " + p2.getUUID());
+                    AdminLog.log(p, p2, "Gave item " + item.getUUID() + " to player " + p2.getUUID());
                 }
             });
         }
@@ -1133,7 +1133,7 @@ public class AdminCommands {
             }
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pagydë jus.");
             player.sendMessage(Color.GREEN, "Þaidëjas " + target.getName() + "(ID:" + target.getId() + ") pagydytas");
-            AdminLog.log(player, "Healed user " + target.getName() + " uid: " + target.getUUID());
+            AdminLog.log(player, target, "Healed user " + target.getName() + " uid: " + target.getUUID());
             return true;
         }
         return true;
@@ -1383,7 +1383,7 @@ public class AdminCommands {
             target.giveMoney(amount);
             LtrpPlayer.sendAdminMessage(String.format("Administratorius %s davë þaidëjui %s %d%c", player.getName(), target.getName(), amount, Currency.SYMBOL));
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " jums davë " + amount + Currency.SYMBOL);
-            AdminLog.log(player, "Davë þaidëjui " + target.getUUID() + "  " + amount);
+            AdminLog.log(player, target, "Davë þaidëjui " + target.getUUID() + "  " + amount);
         }
         return true;
     }

@@ -105,7 +105,7 @@ public class ModeratorCommands {
             question.setAnswered(true);
             target.sendMessage(Color.MODERATOR, "Dëmesio, Jûsø pateiktas klausimas buvo atmestas moderatoriaus: " + player.getName() + ".");
             LtrpPlayer.sendModMessage("Moderatorius " + player.getName() + " atmetë þaidëjo " + target.getName() + " klausimà: " + question);
-            AdminLog.log(player, String.format("Rejected users %s(uuid:%d) question:%s", target.getName(), target.getUUID(), question));
+            AdminLog.log(player, target, String.format("Rejected users %s(uuid:%d) question:%s", target.getName(), target.getUUID(), question));
             eventManager.dispatchEvent(new PlayerRejectPlayerQuestion(player, question));
         }
         return true;
@@ -124,7 +124,7 @@ public class ModeratorCommands {
             question.setAnswered(true);
             target.sendMessage(Color.MODERATOR, "Dëmesio, Jûsø pateiktà klausimà patvirtino moderatorius " + player.getName() + ", pasistengsime kuo greièiau pateikti atsakymà.");
             LtrpPlayer.sendModMessage("Moderatorius " + player.getName() + " priemë þaidëjo " + target.getName() + " klausimà: " + question);
-            AdminLog.log(player, String.format("Accepted users %s(uuid:%d) question:%s", target.getName(), target.getUUID(), question));
+            AdminLog.log(player, target, String.format("Accepted users %s(uuid:%d) question:%s", target.getName(), target.getUUID(), question));
             eventManager.dispatchEvent(new PlayerAcceptPlayerQuestion(player, question));
         }
         return true;
@@ -153,7 +153,7 @@ public class ModeratorCommands {
             player.sendErrorMessage("Aukðtesnio lygio administratoriaus iðmesti negalite!");
         } else {
             LtrpPlayer.sendGlobalMessage(Color.LIGHTRED, String.format("AdmCmd %s iðspyrë þaidëjà %s ið serverio, prieþastis: %s", player.getName(), target.getName(), reason));
-            AdminLog.log(player, "Kicked user " + target.getName() + "(uuid=" + target.getUUID() + ") from server, reason: "+  reason);
+            AdminLog.log(player, target, "Kicked user " + target.getName() + "(uuid=" + target.getUUID() + ") from server, reason: "+  reason);
             target.kick();
         }
         return true;

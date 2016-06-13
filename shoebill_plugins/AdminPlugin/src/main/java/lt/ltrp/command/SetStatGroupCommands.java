@@ -45,7 +45,7 @@ public class SetStatGroupCommands {
             target.setLevel(level);
             player.sendMessage(Color.GREEN, "Þaidëjo " + target.getName() + " lygis pakeistas á " + level);
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø lygá á " + level);
-            AdminLog.log(player, "Changed players " + target.getUUID() + " level to " + level + ". Old level:" + oldLevel);
+            AdminLog.log(player, target, "Changed players " + target.getUUID() + " level to " + level + ". Old level:" + oldLevel);
         }
         return true;
     }
@@ -64,7 +64,7 @@ public class SetStatGroupCommands {
                         JobPlugin.get(JobPlugin.class).setJob(target, job);
                         player.sendMessage(Color.GREEN, target.getName() + " darbas sëkmingai pakeistas");
                         target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø darbà á \"" + job.getName() + "\"");
-                        AdminLog.log(player, "Changed players " + target.getUUID() + " job from " + oldJob + " to " + job.getUUID());
+                        AdminLog.log(player, target, "Changed players " + target.getUUID() + " job from " + oldJob + " to " + job.getUUID());
                     })
                     .build()
                     .show();
@@ -85,7 +85,7 @@ public class SetStatGroupCommands {
             target.setDeaths(deaths);
             player.sendMessage(Color.GREEN, "Þaidëjo " + target.getName() + " mirèiø skaièius pakeistas á " + deaths);
             target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë mirèiø skaièiø á " + deaths);
-            AdminLog.log(player, "Changed players " + target.getUUID() + " death count to " + deaths + ". Old death count:" + oldDeaths);
+            AdminLog.log(player, target, "Changed players " + target.getUUID() + " death count to " + deaths + ". Old death count:" + oldDeaths);
         }
         return true;
     }
