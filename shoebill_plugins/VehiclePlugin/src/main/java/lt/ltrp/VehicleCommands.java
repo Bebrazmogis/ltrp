@@ -5,11 +5,14 @@ import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.object.PlayerCountdown;
+import lt.ltrp.util.VehicleUtils;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.constant.PlayerState;
+import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.data.VehicleState;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.VehicleParam;
@@ -221,5 +224,38 @@ public class VehicleCommands extends Commands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Pakabina transporto priemonæ")
+    public boolean towUp(Player p) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
+        if(vehicle == null || vehicle.getModelId() != VehicleModel.TOW_TRUCK || player.getVehicleSeat() != 0)
+            player.sendErrorMessage("Ðià komandà galite naudoti tik bûdami uþ Tow Truck vairo.");
+        else {
+            LtrpVehicle trailer = LtrpVehicle.getClosest(VehicleUtils.getBehind(vehicle), 6f);
+            if(trailer == null)
+                player.sendErrorMessage("Tow Truck gale nëra jokios transporto priemonës.");
+            else if(vehicle.getTrailer() != null) {
+                vehicle.detachTrailer();
+                player.sendActionMessage("paspaudþia kaþkoká mygtukà Tow Truck");
+                vehicle.sendStateMessage("kablys paleidþia " + trailer.getModelName());
+            } else {
+                player.sendActionMessage("paspaudþia mygtukà Tow Truck");
+                vehicle.sendActionMessage("kablys nusileidþia");
+                PlayerCountdown.create(player, 10, true, (pp, finished) -> {
+                    if(finished) {
+                        if(trailer.getLocation().distance(vehicle.getLocation()) > 10f)
+                            player.sendErrorMessage(trailer.getModelName() + " pasitraukë per toli kad galëtumëte já uþkabinti.");
+                        else {
+                            vehicle.attachTrailer(trailer);
+                            player.sendActionMessage("Uþkabina " + trailer.getModelName() + " uþ aðies ir pradeda kelti...");
+                            vehicle.sendStateMessage("kablys pakyla pakeldamas dalá " + trailer.getModelName());
+                        }
+                    }
+                }, true, null).start();
+            }
+        }
+        return true;
+    }
 
 }
