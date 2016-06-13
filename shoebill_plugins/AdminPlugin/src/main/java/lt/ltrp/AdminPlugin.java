@@ -19,6 +19,7 @@ import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
+import net.gtaun.shoebill.event.player.PlayerDeathEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
 import net.gtaun.shoebill.event.resource.ResourceLoadEvent;
 import net.gtaun.shoebill.event.vehicle.VehicleDeathEvent;
@@ -149,6 +150,15 @@ public class AdminPlugin extends Plugin implements AdminController {
                     vote.getVoteCount(false),
                     vote.getVoteCount() / 100 * vote.getVoteCount(false)
             ));
+        });
+
+        eventManagerNode.registerHandler(PlayerDeathEvent.class, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            LtrpPlayer killer = LtrpPlayer.get(e.getKiller());
+            if(killer != null) {
+                LtrpPlayer.sendAdminMessage("Şaidëjas " + killer.getName() + " nuşudë " + player.getName() + " su ginklu " + e.getReason().getName(),
+                        p -> !p.getSettings().isKillMessagesDisabled());
+            }
         });
     }
 
