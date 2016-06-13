@@ -1,6 +1,7 @@
 package lt.ltrp;
 
-import lt.ltrp.command.SetSpawnCommands;
+import lt.ltrp.command.FactionCommands;
+import lt.ltrp.command.*;
 import lt.ltrp.constant.WorldZone;
 import lt.ltrp.dao.FactionDao;
 import lt.ltrp.dao.JobVehicleDao;
@@ -121,7 +122,7 @@ public class JobPlugin extends Plugin implements JobController {
     
     private void load() {
         eventManager.cancelAll();
-        factionDao = new MySqlFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, eventManager);
+        factionDao = new MySqlFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, null, eventManager);
         addEventHandlers();
         addCommands();
         logger.info(getDescription().getName() + " loaded");
@@ -129,8 +130,9 @@ public class JobPlugin extends Plugin implements JobController {
 
     private void addCommands() {
         PlayerCommandManager playerCommandManager = new PlayerCommandManager(eventManager);
-        playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
+        playerCommandManager.installCommandHandler(HandlerPriority.LOW); // Low priority so specific job modules could override commands
         playerCommandManager.registerCommands(new FactionLeaderCommands(eventManager, this));
+        playerCommandManager.registerCommands(new FactionCommands(eventManager, this));
         playerCommandManager.registerCommands(new JobCommands(this));
 
         SpawnPlugin.get(SpawnPlugin.class).getSetSpawnCommandGroup().registerCommands(new SetSpawnCommands());
@@ -414,7 +416,7 @@ public class JobPlugin extends Plugin implements JobController {
 
     @Override
     public JobVehicle createVehicle(int id, Job job, int modelId, AngledLocation location, int color1, int color2, Rank requiredRank, String license, float mileage) {
-        return JobVehicleImpl.create(id, job, modelId, location, color1, color2, requiredRank, license, mileage);
+        return JobVehicleImpl.create(id, job, modelId, location, color1, color2, requiredRank, license, mileage, eventManager);
     }
 
     @Override
@@ -471,7 +473,8 @@ public class JobPlugin extends Plugin implements JobController {
         TrashMan(3),
         Medic(5),
         VehicleThief(7),
-        Mechanic(1);
+        Mechanic(1),
+        Government(12);
 
         int id;
 

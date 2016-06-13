@@ -3,14 +3,16 @@ package lt.ltrp.object;
 import lt.ltrp.data.FuelTank;
 import lt.ltrp.data.TaxiFare;
 import lt.ltrp.data.VehicleRadio;
+import lt.ltrp.object.impl.LtrpVehicleImpl;
 import net.gtaun.shoebill.data.*;
 import net.gtaun.shoebill.object.*;
+import net.gtaun.util.event.EventManager;
 
 /**
  * @author Bebras
  *         2015.12.06.
  */
-public class JobVehicleImpl implements JobVehicle {
+public class JobVehicleImpl extends LtrpVehicleImpl implements JobVehicle {
 
     public static JobVehicle getById(int id) {
        /* for(LtrpVehicle veh : JobVehicle.get()) {
@@ -141,12 +143,14 @@ public class JobVehicleImpl implements JobVehicle {
         return vehicle;
     }
 
-    public static JobVehicle create(lt.ltrp.object.Job job, int modelid, AngledLocation location, int color1, int color2, lt.ltrp.object.Rank requiredrank, float mileage) {
-        return create(0, job, modelid, location, color1, color2, requiredrank, job.getName().substring(0, 3) + modelid, mileage);
+    public static JobVehicle create(lt.ltrp.object.Job job, int modelid, AngledLocation location, int color1, int color2,
+                                    lt.ltrp.object.Rank requiredrank, float mileage, EventManager eventManager) {
+        return create(0, job, modelid, location, color1, color2, requiredrank, job.getName().substring(0, 3) + modelid, mileage, eventManager);
     }
 
-    public static JobVehicle create(int id, lt.ltrp.object.Job job, int modelid, AngledLocation location, int color1, int color2, lt.ltrp.object.Rank requiredrank, String license, float mileage) {
-        JobVehicle veh =  new JobVehicleImpl(id, job, modelid, location, color1, color2, requiredrank, license, mileage);
+    public static JobVehicle create(int id, lt.ltrp.object.Job job, int modelid, AngledLocation location, int color1, int color2,
+                                    lt.ltrp.object.Rank requiredrank, String license, float mileage, EventManager eventManager) {
+        JobVehicle veh =  new JobVehicleImpl(id, job, modelid, location, color1, color2, requiredrank, license, mileage, eventManager);
         //logger.debug("Creating job vehicle  " + veh.getId());
         return veh;
     }
@@ -157,12 +161,12 @@ public class JobVehicleImpl implements JobVehicle {
     private lt.ltrp.object.Rank rankNeeded;
 
 
-    private JobVehicleImpl(lt.ltrp.object.Job job, int modelid, AngledLocation location, int color1, int color2, lt.ltrp.object.Rank requiredrank, String license, float mileage) {
-        this(0, job, modelid, location, color1, color2, requiredrank, license, mileage);
+    private JobVehicleImpl(lt.ltrp.object.Job job, int modelid, AngledLocation location, int color1, int color2, lt.ltrp.object.Rank requiredrank, String license, float mileage, EventManager eventManager) {
+        this(0, job, modelid, location, color1, color2, requiredrank, license, mileage, eventManager);
     }
 
-    private JobVehicleImpl(int id, lt.ltrp.object.Job job, int modelid, AngledLocation spawnLocation, int color1, int color2, lt.ltrp.object.Rank requiredrank, String license, float mileage) {
-        //super(id, modelid, spawnLocation, color1, color2, license, mileage);
+    private JobVehicleImpl(int id, lt.ltrp.object.Job job, int modelid, AngledLocation spawnLocation, int color1, int color2, lt.ltrp.object.Rank requiredrank, String license, float mileage, EventManager eventManager) {
+        super(id, modelid, spawnLocation, color1, color2, null, license, mileage, eventManager);
         this.job = job;
         this.rankNeeded = requiredrank;
     }
