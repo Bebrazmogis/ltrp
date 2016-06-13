@@ -7,7 +7,7 @@ import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.TabListDialog;
 import net.gtaun.shoebill.common.dialog.TabListDialogItem;
-import net.gtaun.util.event.EventManager;import java.lang.String;
+import net.gtaun.util.event.EventManager;
 
 /**
  * @author Bebras
@@ -63,6 +63,11 @@ public class PlayerSettingsListDialog {
                         .onSelect(item -> {
                             settings.setModChatDisabled(!settings.isModChatDisabled());
                         })
+                        .build())
+                .item(TabListDialogItem.create()
+                        .enabled(() -> settings.getPlayer().isAdmin() || settings.getPlayer().isModerator())
+                        .column(0, ListDialogItem.create().itemText("Þaidëjø nuþudymø þinuèiø blokavimas").build())
+                        .column(1, getBoolSetting(settings.isKillMessagesDisabled()))
                         .build())
                 .buttonOk("Keisti")
                 .buttonCancel("Uþdaryti")

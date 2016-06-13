@@ -17,6 +17,7 @@ public class PlayerSettings {
     private boolean soundsDisabled;
     private boolean musicDisabled;
     private boolean modChatDisabled;
+    private boolean killMessagesDisabled;
 
     public PlayerSettings(LtrpPlayer player, Properties properties) {
         this.player = player;
@@ -26,6 +27,7 @@ public class PlayerSettings {
         soundsDisabled = Boolean.parseBoolean(properties.getProperty("sounds_disabled", "false"));
         musicDisabled = Boolean.parseBoolean(properties.getProperty("music_disabled", "false"));
         modChatDisabled = Boolean.parseBoolean(properties.getProperty("mod_chat_disabled", "false"));
+        killMessagesDisabled = Boolean.parseBoolean(properties.getProperty("kill_messages_disabled", "false"));
     }
 
     public Properties toProperties() {
@@ -36,6 +38,7 @@ public class PlayerSettings {
         p.setProperty("sounds_disabled", Boolean.toString(soundsDisabled));
         p.setProperty("music_disabled", Boolean.toString(musicDisabled));
         p.setProperty("mod_chat_disabled", Boolean.toString(modChatDisabled));
+        p.setProperty("kill_message_disabled", Boolean.toString(killMessagesDisabled));
         return p;
     }
 
@@ -92,6 +95,14 @@ public class PlayerSettings {
         this.modChatDisabled = modChatDisabled;
     }
 
+    public boolean isKillMessagesDisabled() {
+        return killMessagesDisabled;
+    }
+
+    public void setKillMessagesDisabled(boolean killMessagesDisabled) {
+        this.killMessagesDisabled = killMessagesDisabled;
+    }
+
     @Override
     public String toString() {
         return "player=" + player +
@@ -99,6 +110,7 @@ public class PlayerSettings {
                 ", oocDisabled=" + oocDisabled +
                 ", newsDisabled=" + newsDisabled +
                 ", soundsDisabled=" + soundsDisabled +
-                ", musicDisabled=" + musicDisabled;
+                ", musicDisabled=" + musicDisabled +
+                ", killMessagesDisabled=" + killMessagesDisabled;
     }
 }
