@@ -30,7 +30,7 @@ public enum TalkStyle {
         return id;
     }
 
-    static TalkStyle getById(int id) {
+    public static TalkStyle getById(int id) {
         for(TalkStyle w : values()) {
             if(w.getId() == id)
                 return w;

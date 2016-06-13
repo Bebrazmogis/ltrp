@@ -34,7 +34,7 @@ public enum WalkStyle {
         return id;
     }
 
-    static WalkStyle getById(int id) {
+    public static WalkStyle getById(int id) {
         for(WalkStyle w : values()) {
             if(w.getId() == id)
                 return w;
