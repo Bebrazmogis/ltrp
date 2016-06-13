@@ -1,9 +1,6 @@
 package lt.ltrp;
 
-import lt.ltrp.command.AdminCommands;
-import lt.ltrp.command.ModeratorCommands;
-import lt.ltrp.command.PlayerCommands;
-import lt.ltrp.command.PlayerReportCommands;
+import lt.ltrp.command.*;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerQuestion;
 import lt.ltrp.data.PlayerReport;
@@ -17,6 +14,7 @@ import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.util.AdminLog;
 import lt.maze.streamer.object.DynamicLabel;
 import net.gtaun.shoebill.Shoebill;
+import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.data.Location;
@@ -80,10 +78,13 @@ public class AdminPlugin extends Plugin implements AdminController {
 
     private void load() {
         PlayerCommandManager commandManager = new PlayerCommandManager(eventManagerNode);
+        CommandGroup setStatGroup = new CommandGroup();
+        setStatGroup.registerCommands(new SetStatGroupCommands(eventManagerNode));
         commandManager.registerCommands(new AdminCommands(this, eventManagerNode));
         commandManager.registerCommands(new ModeratorCommands(this, eventManagerNode));
         commandManager.registerCommands(new PlayerReportCommands());
         commandManager.registerCommands(new PlayerCommands(this, eventManagerNode));
+        commandManager.registerChildGroup(setStatGroup, "setstat");
         commandManager.installCommandHandler(HandlerPriority.NORMAL);
         addEventHandlers();
         logger.debug(getDescription().getName() + " loaded");
