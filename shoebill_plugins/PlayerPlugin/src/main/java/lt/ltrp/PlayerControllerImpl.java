@@ -2,6 +2,7 @@ package lt.ltrp;
 
 
 import lt.ltrp.command.PlayerAcceptOffers;
+import lt.ltrp.command.PlayerAnimationCommands;
 import lt.ltrp.command.PlayerChatCommands;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.PlayerDao;
@@ -22,6 +23,8 @@ import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
+import net.gtaun.shoebill.constant.PlayerKey;
+import net.gtaun.shoebill.constant.SpecialAction;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.constant.WeaponSkill;
 import net.gtaun.shoebill.data.AngledLocation;
@@ -32,6 +35,7 @@ import net.gtaun.shoebill.event.amx.AmxUnloadEvent;
 import net.gtaun.shoebill.event.player.*;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.PlayerAttach;
+import net.gtaun.shoebill.object.PlayerKeyState;
 import net.gtaun.shoebill.object.PlayerWeaponSkill;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
@@ -68,6 +72,7 @@ public class PlayerControllerImpl implements PlayerController {
         playerCommandManager.registerCommands(new GeneralCommands(managerNode));
         playerCommandManager.registerCommands(new PlayerAcceptOffers());
         playerCommandManager.registerCommands(new PlayerChatCommands(managerNode));
+        playerCommandManager.registerCommands(new PlayerAnimationCommands());
 
 
         managerNode.registerHandler(PlayerConnectEvent.class, HandlerPriority.NORMAL, e -> {
@@ -124,10 +129,34 @@ public class PlayerControllerImpl implements PlayerController {
         managerNode.registerHandler(PlayerDisconnectEvent.class, HandlerPriority.BOTTOM, e -> {
             logger.info("PlayerDisconnectEvent received");
             LtrpPlayer p = LtrpPlayer.get(e.getPlayer());
+            if(p == null)
+                return;
+
             playerList.remove(p);
+
+            String leaveMessage;
+            switch(e.getReason()) {
+                case LEFT:
+                    leaveMessage = String.format("%s paliko serverį (Klientas atsijungė).", p.getName());
+                    break;
+                case KICK:
+                    leaveMessage = String.format("%s paliko serverį (Klientas išmestas).", p.getName());
+                    break;
+                default:
+                    leaveMessage = String.format("%s paliko serverį (įvyko kliento klaida/nutrųko ryšys).", p.getName());
+                    break;
+            }
+            p.sendFadeMessage(Color.WHITE, leaveMessage, 20f);
+
+            // If he disconnects while in coma, automatically we add a death
+            if(p.isInComa()) {
+                p.setDeaths(p.getDeaths() + 1);
+            }
 
             for(PlayerAttach.PlayerAttachSlot s : p.getAttach().getSlots())
                 if(s.isUsed()) s.remove();
+
+            playerDao.update(p);
             p.destroy();
         });
 
@@ -302,6 +331,26 @@ public class PlayerControllerImpl implements PlayerController {
 
         managerNode.registerHandler(PlayerEditSettingsEvent.class, e -> {
             playerDao.update(e.getSettings());
+        });
+
+        managerNode.registerHandler(PlayerKeyStateChangeEvent.class, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            PlayerKeyState old = e.getOldState();
+            PlayerKeyState newKeys = player.getKeyState();
+            if(!old.isKeyPressed(PlayerKey.SPRINT) && newKeys.isKeyPressed(PlayerKey.SPRINT)) {
+                Animation animation = player.getAnimation();
+                SpecialAction action = player.getSpecialAction();
+                if(animation != null && animation.isStoppable()) {
+                    player.clearAnimations();
+                } else if(action == SpecialAction.SPECIAL_ACTION_PISSING ||
+                        action == SpecialAction.HANDSUP ||
+                        action == SpecialAction.DANCE1 ||
+                        action == SpecialAction.DANCE2 ||
+                        action == SpecialAction.DANCE3 ||
+                        action == SpecialAction.DANCE4) {
+                    player.setSpecialAction(SpecialAction.NONE);
+                }
+            }
         });
 
         javaMinuteTimer = new Timer("Java minute timer");

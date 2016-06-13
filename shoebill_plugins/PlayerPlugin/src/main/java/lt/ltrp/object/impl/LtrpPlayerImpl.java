@@ -18,6 +18,7 @@ import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.exception.AlreadyExistException;
 import net.gtaun.shoebill.exception.IllegalLengthException;
 import net.gtaun.shoebill.object.*;
+import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.resource.ResourceManager;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
@@ -25,10 +26,11 @@ import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -38,6 +40,20 @@ import java.util.stream.Collectors;
 public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     private static final Logger logger = LoggerFactory.getLogger(LtrpPlayer.class);
+
+    /**
+     * A scheduled exectuor service to run animation clean up
+     */
+    private static final ScheduledExecutorService ANIMATION_EXECUTOR_SERVICE = Executors.newSingleThreadScheduledExecutor();
+
+
+    /**
+     * A task that clears {@link this#playingAnimation}
+     * Note that this task is run on a background thread
+     */
+    private final Runnable ANIMATION_CLEAR_TASK = () -> {
+        playingAnimation = null;
+    };
 
     private Player player;
 
@@ -135,6 +151,17 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     private boolean isInComa;
     private boolean loggedIn, dataLoaded, isFactionManager;
+
+    /**
+     * Animation the player is currently playing, null if none
+     */
+    private Animation playingAnimation;
+
+    /**
+     * A field to store the ScheduledFuture returned by {@link this#ANIMATION_EXECUTOR_SERVICE}
+     */
+    private ScheduledFuture<?> animationTaskFuture;
+
 
 
     public LtrpPlayerImpl(Player player, int userid, EventManager manager) {
@@ -753,16 +780,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         return LtrpPlayer.getClosestPlayers(this, maxdistance);
     }
 
-    public void applyAnimation(Animation animation) {
-        applyAnimation(animation.getAnimLib(), animation.getAnimName(), animation.getSpeed(),
-                animation.isLoop() ? 1 : 0,
-                animation.isLockX() ? 1 : 0,
-                animation.isLockY() ? 1 : 0,
-                animation.isFreeze() ? 1 : 0,
-                animation.getTime(),
-                animation.isForseSync() ? 1 : 0);
-    }
-
 
     public boolean isAudioConnected() {
         return AudioPlugin.isConnected(this);
@@ -1371,12 +1388,39 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
             throw new NotImplementedException();
     }
 
-    public void applyAnimation(String animlib, String anim, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, int time, boolean forsesync) {
-        player.applyAnimation(animlib, anim, speed, loop ? 1 : 0, lockX ? 1 : 0, lockY ? 1 : 0, freeze ? 1 : 0, time, forsesync ? 1 : 0);
+    @Override
+    public void applyAnimation(Animation animation) {
+        // If it is a timed animation, we need to reset {@link this#playingAnimation} after it stops playing
+        // If it freezes the player no reset is needed until {@link this#clearAnimations} is called
+        if(!animation.isLoop() && !animation.isFreeze()) {
+            // If we are playing an animation we need to stop it before starting a new one
+            // The SAMP animation will be just fine, but we must reset OUR variables
+            if(isAnimationPlaying() && animationTaskFuture != null) {
+                animationTaskFuture.cancel(true);
+            }
+            animationTaskFuture = ANIMATION_EXECUTOR_SERVICE.schedule(ANIMATION_CLEAR_TASK, animation.getTime(), TimeUnit.MILLISECONDS);
+        }
+        this.playingAnimation = animation;
+        this.player.applyAnimation(animation.getAnimLib(),
+                animation.getAnimLib(),
+                animation.getSpeed(),
+                animation.isLoop() ? 1 : 0,
+                animation.isLockX() ? 1 : 0,
+                animation.isLockY() ? 1 : 0,
+                animation.isFreeze() ? 1 : 0,
+                animation.getTime(),
+                animation.isForceSync() ? 1 : 0);
     }
 
-    public void applyAnimation(String animLib, String animname, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze) {
-        this.applyAnimation(animLib, animname, speed, loop, lockX, lockY, freeze, 0, false);
+
+    @Override
+    public void applyAnimation(String animLib, String anim, float speeed, boolean loop, boolean lockX, boolean lockY, boolean freeze, int time, boolean forceSync, boolean stopable) {
+        applyAnimation(new Animation(animLib, anim, speeed, loop, lockX, lockY, freeze, forceSync, time, stopable));
+    }
+
+    @Override
+    public void applyAnimation(String animLib, String animName, float speed, boolean loop, boolean lockX, boolean lockY, boolean freeze, boolean stoppable) {
+        applyAnimation(new Animation(animLib, animName, speed, loop, lockX, lockY, freeze, true, 0, stoppable));
     }
 
     public void clearAnimations() {
@@ -1384,7 +1428,20 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     @Override
+    public Animation getAnimation() {
+        return playingAnimation;
+    }
+
+    @Override
+    public boolean isAnimationPlaying() {
+        return playingAnimation != null;
+    }
+
+    @Override
     public void clearAnimations(int i) {
+        this.playingAnimation = null;
+        if(animationTaskFuture != null && !animationTaskFuture.isDone())
+            animationTaskFuture.cancel(true);
         player.clearAnimations(i);
     }
 
