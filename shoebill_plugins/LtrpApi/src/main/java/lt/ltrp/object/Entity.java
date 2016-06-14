@@ -6,6 +6,8 @@ package lt.ltrp.object;
  */
 public interface Entity {
 
+    static final int INVALID_ID = 0;
+
     void setUUID(int uuid);
     int getUUID();
 
