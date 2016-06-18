@@ -33,6 +33,8 @@ import net.gtaun.util.event.EventManagerNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+
 /**
  * @author Bebras
  *         2016.02.08.
@@ -77,9 +79,12 @@ public class MechanicCommands {
             player.sendErrorMessage(target.getCharName() + " jau kaþkas siûlo perþiûrëti spalvø paletæ.");
         } else if(player.equals(target)) {
             player.sendActionMessage("Susiranda spalvø paletæ ir þiûri á jà...");
-            ColorPicker.create(player, eventNode, color -> {
-                player.sendMessage(VehicleColor.getColorFromId(color), "Pasirinktos spalvos ID yra " + color);
-            }).show();
+            ColorPicker.create(player, eventNode, Arrays.asList(VehicleColor.getColors()))
+                    .onSelectColor((d, c) -> {
+                        player.sendMessage(VehicleColor.getColorFromId(c), "Pasirinktos spalvos ID yra " + c);
+                    })
+                    .build()
+                    .show();
         } else {
             target.sendMessage(Color.NEWS, "Mechanikas " + player.getCharName() + " jums siûlo perþvelgti spalvø paletæ. Naudokite /accept palette arba /decline palette");
             player.sendMessage("Pasiûlymas iðsiøstas, laukite atsakymo.");
