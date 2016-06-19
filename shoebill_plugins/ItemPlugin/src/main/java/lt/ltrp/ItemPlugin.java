@@ -335,6 +335,13 @@ public class ItemPlugin extends Plugin implements ItemController {
         return item;
     }
 
+    @Override
+    public WeaponItem createWeaponItem(WeaponModel weaponModel, int i, InventoryEntity inventoryEntity, EventManager eventManager) {
+        WeaponItemImpl item = new WeaponItemImpl(eventManager, new LtrpWeaponData(weaponModel, i, false));
+        eventManager.dispatchEvent(new ItemCreateEvent(item, inventoryEntity));
+        return item;
+    }
+
     /*
 
 

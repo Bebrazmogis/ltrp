@@ -159,6 +159,11 @@ public class FixedSizeInventory implements Inventory {
     }
 
     @Override
+    public boolean isEmpty() {
+        return itemCount == 0;
+    }
+
+    @Override
     public int getItemCount() {
         return itemCount;
     }

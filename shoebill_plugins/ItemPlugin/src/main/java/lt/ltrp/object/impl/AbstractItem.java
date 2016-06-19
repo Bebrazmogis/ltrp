@@ -1,7 +1,6 @@
 package lt.ltrp.object.impl;
 
 
-import lt.ltrp.NamedEntityImpl;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
 import lt.ltrp.event.item.ItemDestroyEvent;
