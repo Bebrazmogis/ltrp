@@ -2,8 +2,8 @@ package lt.ltrp.dao.impl
 
 import lt.ltrp.`object`.Entity
 import lt.ltrp.`object`.LabelWeaponShop
-import lt.ltrp.`object`.WeaponShop
 import lt.ltrp.`object`.PickupWeaponShop
+import lt.ltrp.`object`.WeaponShop
 import lt.ltrp.`object`.impl.LabelWeaponShopImpl
 import lt.ltrp.`object`.impl.PickupWeaponShopImpl
 import lt.ltrp.dao.WeaponShopDao
@@ -147,7 +147,7 @@ class MySqlWeaponShopDaoImpl (ds: DataSource, event: EventManager): WeaponShopDa
                 stmt.setNull(9, Types.INTEGER)
                 stmt.setNull(10, Types.VARCHAR)
             }
-            stmt.setInt(11, shop.getUUID())
+            stmt.setInt(11, shop.UUID)
 
             stmt.execute()
         } catch(e: SQLException) {
@@ -163,7 +163,7 @@ class MySqlWeaponShopDaoImpl (ds: DataSource, event: EventManager): WeaponShopDa
         val connection: Connection = dataSource.getConnection()
         val stmt: PreparedStatement = connection.prepareStatement(sql)
         try {
-            stmt.setInt(1, shop.getUUID())
+            stmt.setInt(1, shop.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             e.printStackTrace()
@@ -205,7 +205,7 @@ class MySqlWeaponShopDaoImpl (ds: DataSource, event: EventManager): WeaponShopDa
             stmt.execute()
             val r = stmt.getGeneratedKeys()
             if(r.next())
-                shop.setUUID(r.getInt(1))
+                shop.UUID = r.getInt(1)
             r.close()
         } catch(e: SQLException) {
             e.printStackTrace()

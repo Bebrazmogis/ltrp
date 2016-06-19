@@ -21,7 +21,7 @@ public class WeaponShopWeaponAddDialog {
                 .parentDialog(parentDialog)
                 .onClickCancel(AbstractDialog::showParentDialog)
                 .onSelectWeapon((d, w) -> {
-                    WeaponShopWeapon weapon = new WeaponShopWeapon(Entity.INVALID_ID, weaponShop, null, w, 0, 0);
+                    WeaponShopWeapon weapon = new WeaponShopWeapon(Entity.Companion.getINVALID_ID(), weaponShop, null, w, 0, 0);
                     WeaponShopPlugin.get(WeaponShopPlugin.class).getShopWeaponDao().insert(weapon);
                 })
                 .build();

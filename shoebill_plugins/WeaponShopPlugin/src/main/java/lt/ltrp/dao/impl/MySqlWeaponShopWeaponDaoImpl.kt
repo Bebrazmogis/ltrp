@@ -33,7 +33,7 @@ class MySqlWeaponShopWeaponDaoImpl (dataSource: DataSource) : WeaponShopWeaponDa
         val connection: Connection = dataSource.getConnection()
         val stmt: PreparedStatement = connection.prepareStatement(sql)
         try {
-            stmt.setInt(1, shop.getUUID())
+            stmt.setInt(1, shop.UUID)
             val r: ResultSet = stmt.executeQuery()
             while(r.next())
                 weps.add(MySqlWeaponShopWeaponDaoImpl.toWeapon(r, shop))
@@ -74,7 +74,7 @@ class MySqlWeaponShopWeaponDaoImpl (dataSource: DataSource) : WeaponShopWeaponDa
         val connection: Connection = dataSource.getConnection()
         val stmt: PreparedStatement = connection.prepareStatement(sql)
         try {
-            stmt.setInt(1, weapon.getUUID())
+            stmt.setInt(1, weapon.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             e.printStackTrace()
@@ -89,7 +89,7 @@ class MySqlWeaponShopWeaponDaoImpl (dataSource: DataSource) : WeaponShopWeaponDa
         val connection: Connection = dataSource.getConnection()
         val stmt: PreparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         try {
-            stmt.setInt(1, weapon.weaponShop.getUUID())
+            stmt.setInt(1, weapon.weaponShop.UUID)
             stmt.setString(2, weapon.name)
             stmt.setInt(3, weapon.weaponModel.getModelId())
             stmt.setInt(4, weapon.ammo)
@@ -97,7 +97,7 @@ class MySqlWeaponShopWeaponDaoImpl (dataSource: DataSource) : WeaponShopWeaponDa
             stmt.execute()
             val keys: ResultSet = stmt.getGeneratedKeys()
             if(keys.next())
-                weapon.setUUID(keys.getInt(1))
+                weapon.UUID = keys.getInt(1)
         } catch(e: SQLException) {
             e.printStackTrace()
         } finally {

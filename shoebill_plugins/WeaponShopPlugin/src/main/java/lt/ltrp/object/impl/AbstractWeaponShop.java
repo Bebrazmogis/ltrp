@@ -3,7 +3,6 @@ package lt.ltrp.object.impl;
 import lt.ltrp.data.WeaponShopWeapon;
 import lt.ltrp.dialog.WeaponShopSoldWeaponListDialog;
 import lt.ltrp.event.WeaponShopDestroyEvent;
-import lt.ltrp.object.AbstractEntity;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.WeaponShop;
 import net.gtaun.shoebill.constant.WeaponModel;
@@ -18,7 +17,7 @@ import java.util.Optional;
  * @author Bebras
  *         2016.06.14.
  */
-public abstract class AbstractWeaponShop extends AbstractEntity implements WeaponShop {
+public abstract class AbstractWeaponShop extends EntityImpl implements WeaponShop {
 
 
     private String name;

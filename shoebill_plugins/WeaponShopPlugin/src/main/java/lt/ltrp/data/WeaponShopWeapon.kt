@@ -1,6 +1,6 @@
 package lt.ltrp.data
 
-import lt.ltrp.EntityImpl
+import lt.ltrp.`object`.impl.EntityImpl
 import lt.ltrp.`object`.WeaponShop
 import net.gtaun.shoebill.constant.WeaponModel
 
