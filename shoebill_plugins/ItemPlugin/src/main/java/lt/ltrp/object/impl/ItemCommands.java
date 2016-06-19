@@ -1,5 +1,6 @@
 package lt.ltrp.object.impl;
 
+import lt.ltrp.WeaponDropPlugin;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.dao.ItemDao;
 import lt.ltrp.data.Animation;
@@ -211,7 +212,7 @@ public class ItemCommands {
         if(weaponData != null) {
             if(!weaponData.isJob()) {
                 if(!player.isInComa()) {
-                    weaponData.setDropped(player.getLocation());
+                    WeaponDropPlugin.get(WeaponDropPlugin.class).dropWeapon(weaponData, player.getLocation());
                     player.sendActionMessage("iðmeta ginklà kuris atrodo kaip " + weaponData.getModel().getName());
                     return true;
                 } else

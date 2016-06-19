@@ -1,5 +1,6 @@
 package lt.ltrp.object.impl;
 
+import lt.ltrp.WeaponDropPlugin;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.event.player.PlayerDrawWeaponItemEvent;
@@ -42,7 +43,7 @@ public class WeaponItemImpl extends BasicItem implements WeaponItem {
     public boolean drop(LtrpPlayer player, Inventory inventory) {
         if(!weaponData.isJob()) {
             if(!player.isInComa()) {
-                weaponData.setDropped(player.getLocation());
+                WeaponDropPlugin.get(WeaponDropPlugin.class).dropWeapon(weaponData, player.getLocation());
                 player.getInventory().remove(this);
                 player.sendActionMessage("iðmeta ginklà kuris atrodo kaip " + getName());
                 return true;

@@ -40,6 +40,7 @@ public class FuelTankItem extends ContainerItemImpl {
                             vehicle.getFuelTank().setFuel(vehicle.getFuelTank().getSize());
                             player.sendActionMessage("papildo " + vehicle.getModelName() + " kuro bakà.");
                         }
+                        return true;
                     } else
                         player.sendErrorMessage("Transporto priemonës bakas jau yra pilnas");
                 } else
