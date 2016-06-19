@@ -1,5 +1,7 @@
-package lt.ltrp.object;
+package lt.ltrp.object.impl;
 
+import lt.ltrp.object.Inventory;
+import lt.ltrp.object.InventoryEntity;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;

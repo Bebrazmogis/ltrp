@@ -1,7 +1,9 @@
-package lt.ltrp.object;
+package lt.ltrp.object.impl;
 
-import lt.ltrp.NamedEntityImpl;
+
 import lt.ltrp.event.property.PropertyDestroyEvent;
+import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.Property;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
