@@ -1,6 +1,5 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.EntityImpl;
 import lt.ltrp.event.EntranceDestroyEvent;
 import lt.ltrp.object.Entrance;
 import lt.ltrp.object.Job;

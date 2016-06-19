@@ -10,6 +10,8 @@ import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.constant.VehicleColor;
 import net.gtaun.util.event.EventManager;
 
+import java.util.Arrays;
+
 /**
  * @author Bebras
  *         2016.05.22.
@@ -27,12 +29,15 @@ public class EntranceColorListDialog {
                 .parentDialog(parent)
                 .onClickCancel(AbstractDialog::showParentDialog)
                 .item("Pasirinkti spalvà iğ meniu", i -> {
-                    ColorPicker.create(player, eventManager, (c) -> {
-                        entrance.setColor(VehicleColor.getColorFromId(c));
-                        plugin.updateEntrance(entrance);
-                        parent.show();
-                        player.sendMessage(entrance.getColor(), "Iğëjimo teksto spalva atnaujinta");
-                    });
+                    ColorPicker.create(player, eventManager, Arrays.asList(VehicleColor.getColors()))
+                            .onSelectColor((d, c) -> {
+                                entrance.setColor(VehicleColor.getColorFromId(c));
+                                plugin.updateEntrance(entrance);
+                                parent.show();
+                                player.sendMessage(entrance.getColor(), "Iğëjimo teksto spalva atnaujinta");
+                            })
+                            .build()
+                            .show();
                 })
                 .item("Ávesti spalvos kodà(paşengusiems)", i -> {
                     HexIntegerInputDialog.create(player, eventManager)
