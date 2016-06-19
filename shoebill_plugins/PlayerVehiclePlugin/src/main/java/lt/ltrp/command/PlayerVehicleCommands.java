@@ -25,7 +25,6 @@ import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.util.event.EventManager;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -58,11 +57,10 @@ public class PlayerVehicleCommands extends Commands {
     private PlayerVehiclePlugin vehiclePlugin;
 
     public PlayerVehicleCommands(PlayerVehiclePlugin vehiclePlugin, CommandGroup vehicleCommandGroup, EventManager eventManager) {
-        logger = LoggerFactory.getLogger(PlayerVehicleCommands.class);
         this.vehiclePlugin = vehiclePlugin;
         this.eventManager = eventManager;
         vehicleCommandGroup.setUsageMessageSupplier((p, prefix, cmd) -> {
-            logger.debug("usage message supplier cmd:" + cmd.getCommand() + " prefix:" + prefix);
+            getLogger().debug("usage message supplier cmd:" + cmd.getCommand() + " prefix:" + prefix);
             if(cmd.getCommand().equalsIgnoreCase("v buyLock")) {
                 p.sendMessage(Color.GREEN, "____________________Galimos spynos___________________________");
                 int i = 0;
@@ -144,7 +142,7 @@ public class PlayerVehicleCommands extends Commands {
                     player.sendMessage("Jûsø tr. priemonë sëkmingai iðparkuota ir vieta paþymëta raudonu taðku.");
                 } else {
                     player.sendErrorMessage("Ávyko klaida " + ErrorCode.PVEHICLE_LOAD_FAILD + ". Atsipraðome uþ nepatogumus.");
-                    logger.error(String.format("Vehicle uid %d load failed. Shoebill vehicle count: %d. LtrpVehicle count: %d",
+                    getLogger().error(String.format("Vehicle uid %d load failed. Shoebill vehicle count: %d. LtrpVehicle count: %d",
                             vehicles[number-1], Vehicle.get().size(), LtrpVehicle.get().size()));
                 }
             }
