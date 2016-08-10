@@ -12,6 +12,7 @@ import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.constant.PlayerState;
+import net.gtaun.shoebill.constant.VehicleComponentSlot;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.data.VehicleState;
 import net.gtaun.shoebill.object.Player;
@@ -38,14 +39,14 @@ public class VehicleCommands extends Commands {
 
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
-        logger.debug("beforeCheck cmd " + cmd);
-        logger.debug("beforeCheck. Player find by player instance" + LtrpPlayer.get(p));
+        getLogger().debug("beforeCheck cmd " + cmd);
+        getLogger().debug("beforeCheck. Player find by player instance" + LtrpPlayer.get(p));
         LtrpPlayer player = LtrpPlayer.get(p);
         LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 6.0f);
         if(vehicle != null) {
             return true;
         } else
-            logger.debug("No vehicle near player");
+            getLogger().debug("No vehicle near player");
         return false;
     }
 
@@ -54,7 +55,7 @@ public class VehicleCommands extends Commands {
     @CommandHelp("Parodo transporto priemonës inventoriø")
     public boolean trunk(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        logger.info("trunk command called");
+        getLogger().info("trunk command called");
         LtrpVehicle vehicle = LtrpVehicle.getClosest(player, 4.0f);
         if(vehicle != null) {
             if(vehicle.getState().getBoot() == VehicleParam.PARAM_ON) {
@@ -258,4 +259,85 @@ public class VehicleCommands extends Commands {
         return true;
     }
 
+    @Command
+    @CommandHelp("Uþdeda stogà kabrioletui.")
+    public boolean roof(Player p, @CommandParameter(name = "Stogo tipas 1-2") int type) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
+        if(vehicle == null)
+            player.sendErrorMessage("Ðià komandà galite naudoti tik bûdamas transporto priemonëje.");
+        else if(vehicle.getModelId() != 567 && vehicle.getModelId() != 536)
+            player.sendErrorMessage("Stogà uþdëti galima tik Savanna ir Blade automobiliams");
+        else if(vehicle.getComponent().get(VehicleComponentSlot.ROOF) != 0)
+            player.sendErrorMessage("Stogas jau yra uþdëtas, naudokite /roof nuimti kad já nuimtumëte.");
+        else if(vehicle.getSpeed() > 5)
+            player.sendErrorMessage("Judëdami stogo uþsidëti negalite, praðome sustoti.");
+        else {
+            int componentId = 0;
+            switch(vehicle.getModelId()) {
+                case 567:
+                    switch(type) {
+                        case 1:
+                            componentId = 1130;
+                            break;
+                        case 2:
+                            componentId = 1131;
+                            break;
+                    }
+                    break;
+                case 536:
+                    switch(type) {
+                        case 1:
+                            componentId = 1103;
+                            break;
+                        case 2:
+                            componentId = 1128;
+                            break;
+                    }
+                    break;
+            }
+            final int fcomponentId = componentId;
+            player.sendActionMessage("paspaudþia mygtukà ant " + vehicle.getName() + " prietaisø skydelio");
+            vehicle.sendActionMessage("Stogas pradeda iðsilanksyti ið automobilio galo");
+            PlayerCountdown countdown = PlayerCountdown.create(player, 15, true, (pl, finished) -> {
+                if(finished) {
+                    vehicle.getComponent().add(fcomponentId);
+                    vehicle.sendActionMessage("Stogas pilnai iðsilanksto ir uþdengia automobilio salonà.");
+                }
+            } , true, "Stogas");
+            player.setCountdown(countdown);
+            countdown.start();
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Nuima kabrioleto stogà")
+    public boolean roof(Player p, @CommandParameter(name = "Veiksmas")String action) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
+        if(vehicle == null)
+            player.sendErrorMessage("Ðià komandà galite naudoti tik bûdamas transporto priemonëje.");
+        else if(vehicle.getModelId() != 567 && vehicle.getModelId() != 536)
+            player.sendErrorMessage("Stogà nuimti galima tik nuo Savanna ir Blade automobiliø");
+        else if(vehicle.getComponent().get(VehicleComponentSlot.ROOF) == 0)
+            player.sendErrorMessage("Stogas jau nuimtas, naudokite /roof [ Tipas ] kad já uþdëtumëte.");
+        else if(vehicle.getSpeed() > 5)
+            player.sendErrorMessage("Judëdami stogo nuimti negalite, praðome sustoti.");
+        else if(!action.equalsIgnoreCase("nuimti"))
+            return false; // Should send usage message
+        else {
+            player.sendActionMessage("paspaudþia mygtukà ant " + vehicle.getName() + " prietaisø skydelio");
+            vehicle.sendStateMessage("Stogas pradeda atsiverti");
+            PlayerCountdown countdown = PlayerCountdown.create(player, 15, true, (pl, finished) -> {
+                if(finished) {
+                    vehicle.getComponent().remove(VehicleComponentSlot.ROOF);
+                    vehicle.sendStateMessage("Stogas pilnai susilanksto ir pasislepia transporto priemonës gale");
+                }
+            } , true, "Stogas");
+            player.setCountdown(countdown);
+            countdown.start();
+        }
+        return true;
+    }
 }
