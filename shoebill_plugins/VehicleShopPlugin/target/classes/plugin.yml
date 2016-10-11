@@ -1,7 +1,0 @@
-class: lt.ltrp.shopplugin.VehicleShopPlugin
-name: Vehicle shop
-version: 1.0-SNAPSHOT
-buildNumber: 0
-buildDate: Unknown
-authors: Bebras
-description: A plugin that loads and does something else with  vehicle shops

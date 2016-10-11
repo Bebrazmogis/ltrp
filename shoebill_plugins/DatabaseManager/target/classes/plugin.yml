@@ -1,7 +1,0 @@
-authors: Bebras
-version: 1.0-SNAPSHOT
-class: lt.ltrp.DatabasePlugin
-name: Database manager plugin
-buildNumber: 0
-buildDate: Unknown
-description: Creates a datasource, thats all this plugin deoes.
