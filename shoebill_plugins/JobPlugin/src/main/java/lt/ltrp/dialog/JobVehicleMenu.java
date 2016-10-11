@@ -2,6 +2,7 @@ package lt.ltrp.dialog;
 
 import lt.ltrp.JobController;
 import lt.ltrp.colorpicker.ColorPicker;
+import lt.ltrp.colorpicker.VehicleColorPicker;
 import lt.ltrp.dialog.IntegerInputDialog;
 import lt.ltrp.dialog.JobListDialog;
 import lt.ltrp.dialog.JobRankDialog;
@@ -182,16 +183,20 @@ public class JobVehicleMenu extends PlayerDialogMenu {
                             player.sendErrorMessage("Tokios transporto priemonës nëra arba ji nepriklauso jokiam darbui.");
                             d.show();
                         } else {
-                            ColorPicker picker = ColorPicker.create(player, eventManager, color1 -> {
-                                player.sendMessage("Pirmoji spalva pasirinkta " + color1 + ". Rinkitës antràjà.");
-                                ColorPicker picker1 = ColorPicker.create(player, eventManager, color2 -> {
-                                    vehicle.setColor(color1, color2);
-                                    JobController.get().getVehicleDao().update(vehicle);
-                                    player.sendMessage(Color.GREEN, "Automobilio informacija atnaujina. Naujos spalvos: " + color1 + " " + color2);
-                                });
-                                picker1.show();
-                            });
-                            picker.show();
+                            VehicleColorPicker.create(player, eventManager)
+                                    .onSelectColor((picker, color1) -> {
+                                        player.sendMessage("Pirmoji spalva pasirinkta " + color1 + ". Rinkitës antràjà.");
+                                        VehicleColorPicker.create(player, eventManager)
+                                                .onSelectColor((picker2, color2) -> {
+                                                    vehicle.setColor(color1, color2);
+                                                    JobController.get().getVehicleDao().update(vehicle);
+                                                    player.sendMessage(Color.GREEN, "Automobilio informacija atnaujina. Naujos spalvos: " + color1 + " " + color2);
+                                                })
+                                                .build()
+                                                .show();
+                                    })
+                                    .build()
+                                    .show();
 
                         }
                     });

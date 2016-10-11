@@ -11,4 +11,7 @@ public abstract class Commands {
 
     protected static Logger logger = LoggerFactory.getLogger(Commands.class);
 
+    protected Logger getLogger() {
+        return logger;
+    }
 }

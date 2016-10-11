@@ -1,6 +1,6 @@
 package lt.ltrp.object;
 
-import lt.ltrp.constant.LicenseType;
+import lt.ltrp.player.licenses.constant.LicenseType;
 import net.gtaun.shoebill.data.Location;
 
 import java.util.List;

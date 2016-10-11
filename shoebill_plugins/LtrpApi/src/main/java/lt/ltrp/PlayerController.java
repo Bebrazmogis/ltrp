@@ -1,6 +1,5 @@
 package lt.ltrp;
 
-import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
@@ -27,7 +26,6 @@ public interface PlayerController extends Destroyable {
     }
 
     Collection<LtrpPlayer> getPlayers();
-    PlayerDao getPlayerDao();
     String getUsernameByUUID(int uuid);
 
 

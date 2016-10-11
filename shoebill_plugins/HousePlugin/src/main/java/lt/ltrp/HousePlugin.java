@@ -2,16 +2,13 @@ package lt.ltrp;
 
 import lt.ltrp.command.HouseCommands;
 import lt.ltrp.command.HouseOwnerCommands;
-import lt.ltrp.command.HouseSetSpawnCommand;
 import lt.ltrp.command.HouseUpgradeCommands;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.HouseDao;
 import lt.ltrp.dao.impl.MySqlHouseDaoImpl;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.SpawnData;
 import lt.ltrp.dialog.AdminHouseManagementListDialog;
 import lt.ltrp.event.PaydayEvent;
-import lt.ltrp.event.PlayerSpawnLocationChangeEvent;
 import lt.ltrp.event.property.HouseEvent;
 import lt.ltrp.event.property.PlayerPlantWeedEvent;
 import lt.ltrp.event.property.WeedGrowEvent;
@@ -95,8 +92,6 @@ public class HousePlugin extends Plugin implements HouseController {
         playerCommandManager.registerCommands(new HouseOwnerCommands(node));
         CommandGroup group = new HouseUpgradeCommands(node).getGroup();
         playerCommandManager.registerChildGroup(group, "hu");
-
-        SpawnPlugin.get(SpawnPlugin.class).getSetSpawnCommandGroup().registerCommands(new HouseSetSpawnCommand());
 
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
 

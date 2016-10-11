@@ -2,6 +2,8 @@ package lt.ltrp.dao.impl;
 
 import lt.ltrp.dao.GarageDao;
 import lt.ltrp.data.Color;
+import lt.ltrp.event.GarageLoadedEvent;
+import lt.ltrp.event.property.garage.GarageCreateEvent;
 import lt.ltrp.object.Garage;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.GarageImpl;
@@ -138,8 +140,10 @@ public class MySqlGarageDaoImpl extends MySqlPropertyDaoImpl implements GarageDa
         ) {
             stmt.setInt(1, i);
             ResultSet resultSet = stmt.executeQuery();
-            if(resultSet.next())
-                return resultToGarage(resultSet);
+            if(resultSet.next()) {
+                Garage g = resultToGarage(resultSet);
+                eventManager.dispatchEvent(new GarageLoadedEvent(g));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -155,8 +159,11 @@ public class MySqlGarageDaoImpl extends MySqlPropertyDaoImpl implements GarageDa
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
             ResultSet resultSet = stmt.executeQuery();
-            while(resultSet.next())
-                garages.add(resultToGarage(resultSet));
+            while(resultSet.next()) {
+                Garage g = resultToGarage(resultSet);
+                eventManager.dispatchEvent(new GarageLoadedEvent(g));
+                garages.add(g);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

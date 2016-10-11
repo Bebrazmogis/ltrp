@@ -5,14 +5,15 @@
     <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/dmv/DmvCheckpoint.java" charset="windows-1257" />
     <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/dmv/DmvQuestion.java" charset="windows-1257" />
     <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/dmv/DmvRaceCheckpoint.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/property/business/commodity/BusinessCommodityDrink.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/property/business/commodity/BusinessCommodityItem.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/BusinessCommodityListDialog.java" charset="windows-1257" />
     <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/AbstractCheckpointTest.java" charset="windows-1257" />
     <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/CheckpointDmv.java" charset="windows-1257" />
     <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/Dmv.java" charset="windows-1257" />
     <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/DmvTest.java" charset="windows-1257" />
     <file url="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/QuestionDmv.java" charset="windows-1257" />
+    <file url="file://$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/object/impl/PlayerDataImpl.kt" charset="windows-1257" />
     <file url="file://$PROJECT_DIR$/../PropertyPlugin/src/main/java/lt/ltrp/dao/impl/MySqlPropertyDaoImpl.java" charset="windows-1257" />
-    <file url="file://$PROJECT_DIR$/../PropertyPlugin/src/main/java/lt/ltrp/object/AbstractProperty.java" charset="windows-1257" />
-    <file url="file://$PROJECT_DIR$/../PropertyPlugin/src/main/java/lt/ltrp/object/InventoryPropertyImpl.java" charset="windows-1257" />
   </component>
 </project>

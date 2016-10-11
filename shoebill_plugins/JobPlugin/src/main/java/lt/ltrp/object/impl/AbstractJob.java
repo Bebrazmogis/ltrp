@@ -17,7 +17,7 @@ import java.util.List;
  */
 public abstract class AbstractJob extends NamedEntityImpl implements Job {
 
-    protected static final List<Job> jobList = new ArrayList<>();
+    public static final List<Job> jobList = new ArrayList<>();
 
     private Location location;
     private int basePaycheck;

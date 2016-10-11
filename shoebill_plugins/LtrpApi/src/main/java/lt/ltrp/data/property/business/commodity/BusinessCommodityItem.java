@@ -44,7 +44,7 @@ public class BusinessCommodityItem extends BusinessCommodity {
     @Override
     public boolean onBuy(LtrpPlayer player) {
         if(player.getInventory().isFull()) {
-            player.sendErrorMessage("Jûsø inventorius pilnas!");
+            player.sendErrorMessage("JÅ«sÅ³ inventorius pilnas!");
             return false;
         } else {
             Item item = Item.create(this.getItemType(), this.getName(), player, eventManager);

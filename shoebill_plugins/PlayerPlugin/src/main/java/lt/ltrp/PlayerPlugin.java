@@ -2,13 +2,16 @@ package lt.ltrp;
 
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.PlayerDao;
+import lt.ltrp.dao.PlayerSettingsDao;
 import lt.ltrp.dao.PlayerWeaponDao;
 import lt.ltrp.dao.impl.MySqlPlayerWeaponDaoImpl;
 import lt.ltrp.dao.impl.SqlPlayerDaoImpl;
+import lt.ltrp.dao.impl.SqlPlayerSettingsDaoImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PlayerJobData;
 import lt.ltrp.data.SpawnData;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.PlayerData;
 import lt.ltrp.player.BankAccount;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -36,6 +39,7 @@ public class PlayerPlugin extends Plugin{
     private GameTextStyleManager gameTextStyleManager;
     private EventManagerNode eventManagerNode;
     private PlayerWeaponDao playerWeaponDao;
+    private PlayerSettingsDao playerSettingsDao;
 
 
     @Override
@@ -61,8 +65,10 @@ public class PlayerPlugin extends Plugin{
         DataSource dataSource = Shoebill.get().getResourceManager().getPlugin(DatabasePlugin.class).getDataSource();
         this.playerWeaponDao = new MySqlPlayerWeaponDaoImpl(dataSource);
         playerCommandManager = new PlayerCommandManager(eventManagerNode);
-        PlayerDao playerDao = new SqlPlayerDaoImpl(dataSource);
-        playerController = new PlayerControllerImpl(eventManagerNode, playerDao, playerCommandManager);
+        PlayerDao playerDao = new SqlPlayerDaoImpl(dataSource, eventManagerNode);
+        playerSettingsDao = new SqlPlayerSettingsDaoImpl(dataSource, eventManagerNode);
+
+        playerController = new PlayerControllerImpl(eventManagerNode, playerDao, playerSettingsDao, playerCommandManager);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
         this.gameTextStyleManager = new GameTextStyleManager(eventManagerNode);
 
@@ -96,6 +102,10 @@ public class PlayerPlugin extends Plugin{
 
     public PlayerDao getPlayerDao() {
         return playerController.getPlayerDao();
+    }
+
+    public PlayerData getPlayerData(String name) {
+        return getPlayerDao().get(name);
     }
 
     public void showStats(LtrpPlayer showTo, LtrpPlayer player) {

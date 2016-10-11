@@ -1,14 +1,16 @@
 package lt.ltrp;
 
-
 import lt.ltrp.command.PlayerAcceptOffers;
 import lt.ltrp.command.PlayerAnimationCommands;
 import lt.ltrp.command.PlayerChatCommands;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.PlayerDao;
-import lt.ltrp.data.*;
+import lt.ltrp.dao.PlayerSettingsDao;
+import lt.ltrp.data.Animation;
+import lt.ltrp.data.LtrpWeaponData;
+import lt.ltrp.data.PlayerJobData;
+import lt.ltrp.data.Taxes;
 import lt.ltrp.event.PaydayEvent;
-import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerEditSettingsEvent;
 import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.event.player.PlayerOfferExpireEvent;
@@ -24,10 +26,7 @@ import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxCallable;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.common.timers.TemporaryTimer;
-import net.gtaun.shoebill.constant.PlayerKey;
-import net.gtaun.shoebill.constant.SpecialAction;
-import net.gtaun.shoebill.constant.WeaponModel;
-import net.gtaun.shoebill.constant.WeaponSkill;
+import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.WeaponData;
@@ -52,20 +51,21 @@ public class PlayerControllerImpl implements PlayerController {
 
     protected static final int MINUTES_FOR_PAYDAY = 20;
     public static final Color DEFAULT_PLAYER_COLOR = new Color(0xFFFFFF00);
+    private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
+    public static Collection<LtrpPlayer> playerList = new ArrayList<>();
 
     private EventManagerNode managerNode;
     private PlayerDao playerDao;
-    public static Collection<LtrpPlayer> playerList = new ArrayList<>();
-    private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
-
+    private PlayerSettingsDao playerSettingsDao;
     private List<LtrpPlayer> firstSpawns = new ArrayList<>();
     private Timer javaMinuteTimer;
     private PlayerLog playerLog;
     private boolean destroyed;
 
-    public PlayerControllerImpl(EventManager manager, PlayerDao playerDao, PlayerCommandManager playerCommandManager) {
+    public PlayerControllerImpl(EventManager manager, PlayerDao playerDao, PlayerSettingsDao settingsDao, PlayerCommandManager playerCommandManager) {
         Instance.instance = this;
         this.playerDao = playerDao;
+        this.playerSettingsDao = settingsDao;
         managerNode = manager.createChildNode();
 
         this.playerLog = new PlayerLog(managerNode);
@@ -81,50 +81,16 @@ public class PlayerControllerImpl implements PlayerController {
             if(e.getPlayer().isNpc()) {
                 return;
             }
-                LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-                playerList.add(player);
-
-                // Various options and settings
-                player.setColor(Color.WHITE); // Make the users radar blip invisible
+            onPlayerConnect(LtrpPlayer.get(e.getPlayer()));
         });
 
         managerNode.registerHandler(PlayerLogInEvent.class, e -> {
             logger.info("PlayerLogInEvent received");
-            LtrpPlayer player = e.getPlayer();
-            player.sendMessage("{FFFFFF}Sveikiname sugrįžus, Jūs prisijungėte su veikėju " + player.getName() + ". Sėkmės serveryje!");
-
-            player.sendGameText(5000, 1, "~w~Sveikas ~n~~h~~g~" + player.getName());
-            loadDataThreaded(player);
-
-            player.setLastLogin(new Timestamp(Instant.now().toEpochMilli()));
-            playerDao.updateLastLogin(player);
-
-            // Legacy code for Pawn loading.
-            AmxCallable onPlayerLoginPawn = PawnFunc.getPublicMethod("getPublicMethod");
-            if(onPlayerLoginPawn != null) {
-                onPlayerLoginPawn.call(player.getId(), player.getUUID());
-            }
+            onPlayerLogIn(e.getPlayer());
         });
 
         managerNode.registerHandler(PlayerTextEvent.class, HandlerPriority.HIGH, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            if(player.isMuted()) {
-                player.sendErrorMessage("Jums uždrausta kalbėti!");
-            } else {
-                String msg;
-                if(!player.isInAnyVehicle()) {
-                    msg = String.format("%s sako: %s", player.getCharName(), e.getText());
-                } else {
-                    LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
-                    msg = String.format("(%s) %s sako: %s",
-                            vehicle.isSeatWindowOpen(player.getVehicleSeat()) ? "Langas Atidarytas" : "Langas uždarytas",
-                            player.getCharName(),
-                            e.getText()
-                            );
-                }
-                return;
-            }
-            e.interrupt();
+            onPlayerText(LtrpPlayer.get(e.getPlayer()), e.getText(), e);
         });
 
         // In the end... we play an animation if the player has set it
@@ -145,179 +111,28 @@ public class PlayerControllerImpl implements PlayerController {
             LtrpPlayer p = LtrpPlayer.get(e.getPlayer());
             if(p == null)
                 return;
-
-            playerList.remove(p);
-
-            String leaveMessage;
-            switch(e.getReason()) {
-                case LEFT:
-                    leaveMessage = String.format("%s paliko serverį (Klientas atsijungė).", p.getName());
-                    break;
-                case KICK:
-                    leaveMessage = String.format("%s paliko serverį (Klientas išmestas).", p.getName());
-                    break;
-                default:
-                    leaveMessage = String.format("%s paliko serverį (įvyko kliento klaida/nutrųko ryšys).", p.getName());
-                    break;
-            }
-            p.sendFadeMessage(Color.WHITE, leaveMessage, 20f);
-
-            // If he disconnects while in coma, automatically we add a death
-            if(p.isInComa()) {
-                p.setDeaths(p.getDeaths() + 1);
-            }
-
-            for(PlayerAttach.PlayerAttachSlot s : p.getAttach().getSlots())
-                if(s.isUsed()) s.remove();
-
-            playerDao.update(p);
-            p.destroy();
+            onPlayerDisconnect(p, e.getReason());
         });
 
         managerNode.registerHandler(PlayerRequestClassEvent.class, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            if(player != null && player.isLoggedIn()) {
-                player.spawn();
-            } else {
-                e.getPlayer().sendMessage(Color.RED, "Jūs neesate prisijungęs.");
-            }
+            onPlayerRequestClass(LtrpPlayer.get(e.getPlayer()), e);
+
         });
 
         managerNode.registerHandler(PlayerSpawnEvent.class, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            if(player != null && player.isLoggedIn()) {
-                player.setCameraBehind();
-                // Another fail-safe
-                if(player.getLevel() == 0) {
-                    player.setLevel(1);
-                    logger.error(String.format("User %s(UDI:%d) level is 0.", player.getName(), player.getUUID()));
-                }
-                // This means the user JUST spawned
-                if(firstSpawns.contains(player)) {
-                    firstSpawns.remove(player);
-
-                    setDefaultWeaponSkillLevel(player);
-                    //preloadAnimLimbs(player);
-                    player.setTeam(Player.NO_TEAM);
-                    player.setScore(player.getLevel());
-                }
-
-                if(player.isMasked()) {
-                    player.setMasked(false);
-                }
-
-                if(player.isInComa()) {
-                    player.applyAnimation("CRACK", "crckdeth2", 4f, true, false, false, false, 0, false);
-                    // We start the coma countdown
-                    player.setCountdown(PlayerCountdown.create(player, 600, true, (p, success) -> {
-                        if (success)
-                            player.setHealth(0f);
-                    }, false, "~w~Iki mirties"));
-                }
-                StreamerPlugin.getInstance().update(player, StreamerType.Object);
-            } else {
-                e.getPlayer().kick(); // fail-safe
-            }
+            onPlayerSpawn(LtrpPlayer.get(e.getPlayer()));
         });
 
         managerNode.registerHandler(PlayerDeathEvent.class, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            if(player != null) {
-
-                // If he was doing something, he isn't doing it anymore
-                if(player.getCountdown() != null) {
-                    player.getCountdown().forceStop();
-                }
-
-                player.cancelEdit();
-                player.cancelSelectTextDraw();
-                player.cancelDialog();
-
-                logger.debug("death location:" + player.getLocation() + " death skin: "+ player.getSkin());
-                // We put him in a coma
-                if(!player.isInComa()) {
-                    player.setInComa(true);
-
-                    player.setSpawnInfo(player.getLocation(), player.getSkin(), Player.NO_TEAM, new WeaponData(), new WeaponData(), new WeaponData());
-
-                    // Actual death
-                } else {
-                    player.setSpawnInfo(new AngledLocation(180f, 600f, 10f, 0f), player.getSkin(), Player.NO_TEAM, new WeaponData(), new WeaponData(), new WeaponData());
-                    // TODO pakeisti koordinates ligoninės
-                    player.setInComa(false);
-                    player.setDeaths(player.getDeaths()+1);
-                }
-
-                playerDao.update(player);
-            }
+            onPlayerDeath(LtrpPlayer.get(e.getPlayer()), LtrpPlayer.get(e.getKiller()), e.getReason());
         });
 
         managerNode.registerHandler(PaydayEvent.class, HandlerPriority.HIGH, e -> {
-            BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
-           LtrpPlayer.get().forEach(p -> {
-               // fail-safe
-               if(Player.get(p.getId()) == null)
-                   playerList.remove(p);
-
-               Taxes taxes = LtrpWorld.get().getTaxes();
-               int houseTax = (int) House.get().stream().filter(h -> h.getOwner() == p.getUUID()).count() * taxes.getHouseTax();
-               int businessTax = (int) Business.get().stream().filter(b -> b.getOwner() == p.getUUID()).count() * taxes.getBusinessTax();
-               int garageTax = (int) Garage.get().stream().filter(g -> g.getOwner() == p.getUUID()).count() * taxes.getGarageTax();
-               int vehicleTax = PlayerVehiclePlugin.get(PlayerVehiclePlugin.class).getVehicleDao().getPlayerVehicleCount(p) * taxes.getVehicleTax();
-
-               if(p.getMinutesOnlineSincePayday() > MINUTES_FOR_PAYDAY) {
-                   int paycheck = 0;
-
-                   PlayerJobData jobData = JobController.get().getJobData(p);
-                   if (jobData != null) {
-                       paycheck = jobData.getJobRank().getSalary();
-                   } else {
-                       paycheck = 100;
-                   }
-                   BankAccount bankAccount = bankPlugin.getBankController().getAccount(p);
-                   int totalTaxes = houseTax + businessTax + garageTax + vehicleTax;
-                   p.sendMessage(Color.LIGHTGREEN, "|______________ Los Santos banko ataskaita______________ |");
-                   p.sendMessage(Color.WHITE, String.format("| Gautas atlyginimas: %d%c | Papildomi mokesčiai: %d%c |", paycheck, Currency.SYMBOL,totalTaxes, Currency.SYMBOL));
-                   p.sendMessage(Color.WHITE, String.format("| Buvęs banko balansas: %d%c |", bankAccount.getMoney(), Currency.SYMBOL));
-                   p.sendMessage(Color.WHITE, String.format("| Galutinė gauta suma: %d%c |", paycheck, Currency.SYMBOL));
-                   bankAccount.addMoney(-totalTaxes);
-                   bankPlugin.getBankController().update(bankAccount);
-                   p.sendMessage(Color.WHITE, String.format("| Dabartinis banko balansas: %d%c |", bankAccount.getMoney(), Currency.SYMBOL));
-                   p.addTotalPaycheck(paycheck);
-                   p.sendMessage(Color.WHITE, String.format("| Sukauptas atlyginimas: %d%c", p.getTotalPaycheck(), Currency.SYMBOL));
-                   if (houseTax > 0)
-                       p.sendMessage(Color.WHITE, String.format("| Mokestis už nekilnojama turtą: %d%c |", houseTax, Currency.SYMBOL));
-                   if (businessTax > 0)
-                       p.sendMessage(Color.WHITE, String.format("| Verslo mokestis: %d%c |", businessTax, Currency.SYMBOL));
-                   if (vehicleTax > 0)
-                       p.sendMessage(Color.WHITE, String.format("| Tr. Priemonių mokestis: %d%c |", vehicleTax, Currency.SYMBOL));
-
-                   p.sendGameText(1, 5000, " ~y~Mokesciai~n~~g~Alga");
-                   p.setOnlineHours(p.getOnlineHours() + 1);
-
-                   p.setMinutesOnlineSincePayday(0);
-               } else {
-                   p.sendErrorMessage("Apgailestaujame, bet atlyginimo už šią valandą negausite, kadangi Jūs nebuvote prisijungęs pakankamai.");
-               }
-               playerDao.update(p);
-           });
+            onPlayerPayday(e.getHour());
         });
 
         managerNode.registerHandler(PlayerWeaponShotEvent.class, HandlerPriority.HIGHEST, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            WeaponModel weaponModel = e.getWeapon();
-            LtrpWeaponData weaponData = player.getWeaponData(weaponModel);
-            if(weaponData != null) {
-                weaponData.setAmmo(player.getArmedWeaponAmmo());
-            }
-
-            new Thread(() -> {
-                if(weaponData.getAmmo() > 0) {
-                    PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().update(weaponData);
-                } else {
-                    PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().remove(weaponData);
-                }
-            }).start();
+            onPlayerWeaponShot(LtrpPlayer.get(e.getPlayer()), e.getWeapon());
         });
 
         managerNode.registerHandler(PlayerStreamInEvent.class, e -> {
@@ -340,33 +155,14 @@ public class PlayerControllerImpl implements PlayerController {
         });
 
         managerNode.registerHandler(PlayerEditSettingsEvent.class, e -> {
-            playerDao.update(e.getSettings());
+            playerSettingsDao.update(e.getSettings());
         });
 
         managerNode.registerHandler(PlayerKeyStateChangeEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
             PlayerKeyState old = e.getOldState();
             PlayerKeyState newKeys = player.getKeyState();
-            if(!old.isKeyPressed(PlayerKey.SPRINT) && newKeys.isKeyPressed(PlayerKey.SPRINT)) {
-                Animation animation = player.getAnimation();
-                SpecialAction action = player.getSpecialAction();
-                if(animation != null && animation.isStoppable()) {
-                    player.clearAnimations();
-                } else if(action == SpecialAction.SPECIAL_ACTION_PISSING ||
-                        action == SpecialAction.HANDSUP ||
-                        action == SpecialAction.DANCE1 ||
-                        action == SpecialAction.DANCE2 ||
-                        action == SpecialAction.DANCE3 ||
-                        action == SpecialAction.DANCE4) {
-                    player.setSpecialAction(SpecialAction.NONE);
-                }
-            }
-            if(!old.isKeyPressed(PlayerKey.WALK) && newKeys.isKeyPressed(PlayerKey.WALK)) {
-                if(!player.isInAnyVehicle() && player.getWalkStyle() != null) {
-                    player.applyAnimation(player.getWalkStyle().getAnimation());
-                    player.sendInfoText("Norint sustoti spauskite ~r~SPACE");
-                }
-            }
+            onPlayerKeyStateChange(player, old, newKeys);
         });
 
         javaMinuteTimer = new Timer("Java minute timer");
@@ -390,7 +186,238 @@ public class PlayerControllerImpl implements PlayerController {
 
     }
 
+    private void onPlayerConnect(LtrpPlayer player) {
+        playerList.add(player);
 
+        // Various options and settings
+        player.setColor(Color.WHITE); // Make the users radar blip invisible
+    }
+
+    private void onPlayerLogIn(LtrpPlayer player) {
+        player.sendMessage("{FFFFFF}Sveikiname sugrįžus, Jūs prisijungėte su veikėju " + player.getName() + ". Sėkmės serveryje!");
+
+        player.sendGameText(5000, 1, "~w~Sveikas ~n~~h~~g~" + player.getName());
+        //loadDataThreaded(player);
+
+        player.setLastLogin(new Timestamp(Instant.now().toEpochMilli()));
+        playerDao.updateLastLogin(player);
+
+        // Legacy code for Pawn loading.
+        AmxCallable onPlayerLoginPawn = PawnFunc.getPublicMethod("getPublicMethod");
+        if(onPlayerLoginPawn != null) {
+            onPlayerLoginPawn.call(player.getId(), player.getUUID());
+        }
+    }
+
+    private void onPlayerText(LtrpPlayer player, String text, PlayerTextEvent e) {
+        if(player.isMuted()) {
+            player.sendErrorMessage("Jums uždrausta kalbėti!");
+        } else {
+            String msg;
+            if(!player.isInAnyVehicle()) {
+                msg = String.format("%s sako: %s", player.getCharName(), text);
+            } else {
+                LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
+                msg = String.format("(%s) %s sako: %s",
+                        vehicle.isSeatWindowOpen(player.getVehicleSeat()) ? "Langas Atidarytas" : "Langas uždarytas",
+                        player.getCharName(),
+                        text
+                );
+            }
+            player.sendFadeMessage(Color.WHITE, msg, 20.0f);
+            return;
+        }
+        e.interrupt();
+    }
+
+    private void onPlayerDisconnect(LtrpPlayer p, DisconnectReason reason) {
+        playerList.remove(p);
+
+        String leaveMessage;
+        switch(reason) {
+            case LEFT:
+                leaveMessage = String.format("%s paliko serverį (Klientas atsijungė).", p.getName());
+                break;
+            case KICK:
+                leaveMessage = String.format("%s paliko serverį (Klientas išmestas).", p.getName());
+                break;
+            default:
+                leaveMessage = String.format("%s paliko serverį (įvyko kliento klaida/nutrųko ryšys).", p.getName());
+                break;
+        }
+        p.sendFadeMessage(Color.WHITE, leaveMessage, 20f);
+
+        // If he disconnects while in coma, automatically we add a death
+        if(p.isInComa()) {
+            p.setDeaths(p.getDeaths() + 1);
+        }
+
+        for(PlayerAttach.PlayerAttachSlot s : p.getAttach().getSlots())
+            if(s.isUsed()) s.remove();
+
+        playerDao.update(p);
+        p.destroy();
+    }
+
+    private void onPlayerRequestClass(LtrpPlayer player, PlayerRequestClassEvent e) {
+        if(player != null && player.isLoggedIn()) {
+            player.spawn();
+        } else {
+            e.getPlayer().sendMessage(Color.RED, "Jūs neesate prisijungęs.");
+        }
+        e.disallow();
+    }
+
+    private void onPlayerSpawn(LtrpPlayer player) {
+        if(player != null && player.isLoggedIn()) {
+            player.setCameraBehind();
+            // Another fail-safe
+            if(player.getLevel() == 0) {
+                player.setLevel(1);
+                logger.error(String.format("User %s(UDI:%d) level is 0.", player.getName(), player.getUUID()));
+            }
+            // This means the user JUST spawned
+            if(firstSpawns.contains(player)) {
+                firstSpawns.remove(player);
+
+                setDefaultWeaponSkillLevel(player);
+                //preloadAnimLimbs(player);
+                player.setTeam(Player.NO_TEAM);
+                player.setScore(player.getLevel());
+            }
+
+            if(player.isMasked()) {
+                player.setMasked(false);
+            }
+
+            if(player.isInComa()) {
+                player.applyAnimation("CRACK", "crckdeth2", 4f, true, false, false, false, 0, false);
+                // We start the coma countdown
+                player.setCountdown(PlayerCountdown.create(player, 600, true, (p, success) -> {
+                    if (success)
+                        player.setHealth(0f);
+                }, false, "~w~Iki mirties"));
+            }
+            StreamerPlugin.getInstance().update(player, StreamerType.Object);
+        }
+    }
+
+    private void onPlayerDeath(LtrpPlayer player, LtrpPlayer killer, WeaponModel reason) {
+        // If he was doing something, he isn't doing it anymore
+        if(player.getCountdown() != null) {
+            player.getCountdown().forceStop();
+        }
+
+        player.cancelEdit();
+        player.cancelSelectTextDraw();
+        player.cancelDialog();
+
+        logger.debug("death location:" + player.getLocation() + " death skin: "+ player.getSkin());
+        // We put him in a coma
+        if(!player.isInComa()) {
+            player.setInComa(true);
+
+            player.setSpawnInfo(player.getLocation(), player.getSkin(), Player.NO_TEAM, new WeaponData(), new WeaponData(), new WeaponData());
+
+            // Actual death
+        } else {
+            player.setSpawnInfo(new AngledLocation(180f, 600f, 10f, 0f), player.getSkin(), Player.NO_TEAM, new WeaponData(), new WeaponData(), new WeaponData());
+            // TODO pakeisti koordinates ligoninės
+            player.setInComa(false);
+            player.setDeaths(player.getDeaths()+1);
+        }
+
+        playerDao.update(player);
+    }
+
+    private void onPlayerPayday(int hour) {
+        BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
+        LtrpPlayer.get().forEach(p -> {
+            // fail-safe
+            if(Player.get(p.getId()) == null)
+                playerList.remove(p);
+
+            Taxes taxes = LtrpWorld.get().getTaxes();
+            int houseTax = (int) House.get().stream().filter(h -> h.getOwner() == p.getUUID()).count() * taxes.getHouseTax();
+            int businessTax = (int) Business.get().stream().filter(b -> b.getOwner() == p.getUUID()).count() * taxes.getBusinessTax();
+            int garageTax = (int) Garage.get().stream().filter(g -> g.getOwner() == p.getUUID()).count() * taxes.getGarageTax();
+            int vehicleTax = PlayerVehiclePlugin.get(PlayerVehiclePlugin.class).getVehicleDao().getPlayerVehicleCount(p) * taxes.getVehicleTax();
+
+            if(p.getMinutesOnlineSincePayday() > MINUTES_FOR_PAYDAY) {
+                int paycheck = 0;
+
+                PlayerJobData jobData = JobController.get().getJobData(p);
+                if (jobData != null) {
+                    paycheck = jobData.getJobRank().getSalary();
+                } else {
+                    paycheck = 100;
+                }
+                BankAccount bankAccount = bankPlugin.getBankController().getAccount(p);
+                int totalTaxes = houseTax + businessTax + garageTax + vehicleTax;
+                p.sendMessage(Color.LIGHTGREEN, "|______________ Los Santos banko ataskaita______________ |");
+                p.sendMessage(Color.WHITE, String.format("| Gautas atlyginimas: %d%c | Papildomi mokesčiai: %d%c |", paycheck, Currency.SYMBOL,totalTaxes, Currency.SYMBOL));
+                p.sendMessage(Color.WHITE, String.format("| Buvęs banko balansas: %d%c |", bankAccount.getMoney(), Currency.SYMBOL));
+                p.sendMessage(Color.WHITE, String.format("| Galutinė gauta suma: %d%c |", paycheck, Currency.SYMBOL));
+                bankAccount.addMoney(-totalTaxes);
+                bankPlugin.getBankController().update(bankAccount);
+                p.sendMessage(Color.WHITE, String.format("| Dabartinis banko balansas: %d%c |", bankAccount.getMoney(), Currency.SYMBOL));
+                p.addTotalPaycheck(paycheck);
+                p.sendMessage(Color.WHITE, String.format("| Sukauptas atlyginimas: %d%c", p.getTotalPaycheck(), Currency.SYMBOL));
+                if (houseTax > 0)
+                    p.sendMessage(Color.WHITE, String.format("| Mokestis už nekilnojama turtą: %d%c |", houseTax, Currency.SYMBOL));
+                if (businessTax > 0)
+                    p.sendMessage(Color.WHITE, String.format("| Verslo mokestis: %d%c |", businessTax, Currency.SYMBOL));
+                if (vehicleTax > 0)
+                    p.sendMessage(Color.WHITE, String.format("| Tr. Priemonių mokestis: %d%c |", vehicleTax, Currency.SYMBOL));
+
+                p.sendGameText(1, 5000, " ~y~Mokesciai~n~~g~Alga");
+                p.setOnlineHours(p.getOnlineHours() + 1);
+
+                p.setMinutesOnlineSincePayday(0);
+            } else {
+                p.sendErrorMessage("Apgailestaujame, bet atlyginimo už šią valandą negausite, kadangi Jūs nebuvote prisijungęs pakankamai.");
+            }
+            playerDao.update(p);
+        });
+    }
+
+    private void onPlayerWeaponShot(LtrpPlayer player, WeaponModel model) {
+        LtrpWeaponData weaponData = player.getWeaponData(model);
+        if(weaponData != null) {
+            weaponData.setAmmo(player.getArmedWeaponAmmo());
+        }
+
+        new Thread(() -> {
+            if(weaponData.getAmmo() > 0) {
+                PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().update(weaponData);
+            } else {
+                PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().remove(weaponData);
+            }
+        }).start();
+    }
+
+    private void onPlayerKeyStateChange(LtrpPlayer player, PlayerKeyState oldKeys, PlayerKeyState newKeys) {
+        if(!oldKeys.isKeyPressed(PlayerKey.SPRINT) && newKeys.isKeyPressed(PlayerKey.SPRINT)) {
+            Animation animation = player.getAnimation();
+            SpecialAction action = player.getSpecialAction();
+            if(animation != null && animation.isStoppable()) {
+                player.clearAnimations();
+            } else if(action == SpecialAction.SPECIAL_ACTION_PISSING ||
+                    action == SpecialAction.HANDSUP ||
+                    action == SpecialAction.DANCE1 ||
+                    action == SpecialAction.DANCE2 ||
+                    action == SpecialAction.DANCE3 ||
+                    action == SpecialAction.DANCE4) {
+                player.setSpecialAction(SpecialAction.NONE);
+            }
+        }
+        if(!oldKeys.isKeyPressed(PlayerKey.WALK) && newKeys.isKeyPressed(PlayerKey.WALK)) {
+            if(!player.isInAnyVehicle() && player.getWalkStyle() != null) {
+                player.applyAnimation(player.getWalkStyle().getAnimation());
+                player.sendInfoText("Norint sustoti spauskite ~r~SPACE");
+            }
+        }
+    }
 
     private void addPawnFunctions() {
         logger.info("PlayerController :: addPawnFunctions. Called.");
@@ -433,7 +460,7 @@ public class PlayerControllerImpl implements PlayerController {
 
         });
     }
-
+/*
     private void loadDataThreaded(LtrpPlayer player) {
         new Thread(() -> {
             playerDao.loadData(player);
@@ -448,7 +475,7 @@ public class PlayerControllerImpl implements PlayerController {
             player.setLicenses(licenses);
             managerNode.dispatchEvent(new PlayerDataLoadEvent(player));
         }).start();
-    }
+    }*/
 
     private void setDefaultWeaponSkillLevel(LtrpPlayer player) {
         PlayerWeaponSkill skill = player.getWeaponSkill();
@@ -487,7 +514,6 @@ public class PlayerControllerImpl implements PlayerController {
         return playerList;
     }
 
-    @Override
     public PlayerDao getPlayerDao() {
         return playerDao;
     }

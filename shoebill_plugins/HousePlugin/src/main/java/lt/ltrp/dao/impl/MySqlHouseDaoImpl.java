@@ -4,7 +4,7 @@ import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.dao.HouseDao;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.HouseWeedSapling;
-import lt.ltrp.data.SpawnData;
+import lt.ltrp.event.HouseLoadedEvent;
 import lt.ltrp.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.HouseImpl;
@@ -152,6 +152,7 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
                 h.setWeedSaplings(getWeed(h));
                 h.getUpgrades().forEach(h::addUpgrade);
                 h.getTenants().addAll(getTenants(h, con));
+                eventManager.dispatchEvent(new HouseLoadedEvent(h));
                 return h;
             }
         } catch (SQLException e) {
@@ -207,6 +208,7 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
                 h.setWeedSaplings(getWeed(h));
                 h.getUpgrades().forEach(h::addUpgrade);
                 houses.add(h);
+                eventManager.dispatchEvent(new HouseLoadedEvent(h));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -286,17 +288,5 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
                 eventManager);
     }
 
-    private List<Integer> getTenants(House house, Connection connection) throws SQLException {
-        List<Integer> tenants = new ArrayList<>();
-        String sql = "SELECT id FROM players WHERE spawn_type = ? AND spawn_ui = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, SpawnData.SpawnType.House.ordinal());
-            stmt.setInt(2, house.getUUID());
-            ResultSet r = stmt.executeQuery();
-            while(r.next())
-                tenants.add(r.getInt(1));
-        }
-        return tenants;
-    }
 
 }

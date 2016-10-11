@@ -2,7 +2,6 @@ package lt.ltrp.object;
 
 
 import lt.ltrp.JobController;
-import lt.ltrp.NamedEntity;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 

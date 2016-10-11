@@ -8,11 +8,13 @@ import lt.ltrp.dao.impl.MySqlDrugAddictionDaoImpl;
 import lt.ltrp.dao.impl.SqlItemDao;
 import lt.ltrp.dao.impl.SqlPhoneDaoImpl;
 import lt.ltrp.data.LtrpWeaponData;
+import lt.ltrp.event.GarageLoadedEvent;
 import lt.ltrp.event.item.ItemCreateEvent;
 import lt.ltrp.event.item.ItemDestroyEvent;
 import lt.ltrp.event.item.ItemLocationChangeEvent;
 import lt.ltrp.event.item.PlayerDropItemEvent;
 import lt.ltrp.event.player.PlayerDrawWeaponItemEvent;
+import lt.ltrp.event.property.garage.GarageCreateEvent;
 import lt.ltrp.object.*;
 import lt.ltrp.object.drug.DrugItem;
 import lt.ltrp.object.impl.*;
@@ -110,6 +112,18 @@ public class ItemPlugin extends Plugin implements ItemController {
                 itemDao.insert(e.getItem(), e.getOwner());
             else
                 itemDao.insert(e.getItem());
+        });
+
+        eventManager.registerHandler(GarageLoadedEvent.class, e -> {
+            Garage g = e.getGarage();
+            Item[] items = itemDao.getItems(g);
+            if(g.getInventory() != null)
+                g.getInventory().add(items);
+            else {
+                Inventory inv = Inventory.create(eventManager, g, "Garaþas " + g.getName(), 15);
+                inv.add(items);
+                g.setInventory(inv);
+            }
         });
 
         logger.debug("Controller:" + ItemController.get() + " dao:" + itemDao);
@@ -335,7 +349,6 @@ public class ItemPlugin extends Plugin implements ItemController {
         return item;
     }
 
-    @Override
     public WeaponItem createWeaponItem(WeaponModel weaponModel, int i, InventoryEntity inventoryEntity, EventManager eventManager) {
         WeaponItemImpl item = new WeaponItemImpl(eventManager, new LtrpWeaponData(weaponModel, i, false));
         eventManager.dispatchEvent(new ItemCreateEvent(item, inventoryEntity));

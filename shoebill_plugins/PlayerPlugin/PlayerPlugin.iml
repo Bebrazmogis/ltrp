@@ -11,13 +11,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: lt.ltrp:ltrp-api:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.gtaun:shoebill-api:1.3-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: lt.ltrp:ltrp-api:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: net.gtaun:shoebill-api:2.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.gtaun:shoebill-utilities:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.13" level="project" />
     <orderEntry type="library" name="Maven: net.gtaun:shoebill-common:1.3-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.gtaun:util-event:1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: jacksum:jacksum:1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.gnu:gnu-crypto:2.0.1" level="project" />
+    <orderEntry type="library" name="Maven: lt.maze:mapandreas:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-reflect:1.0.2-1" level="project" />
     <orderEntry type="library" name="Maven: lt.ltrp:job:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.0" level="project" />
     <orderEntry type="library" name="Maven: lt.ltrp:vehicle:1.0-SNAPSHOT" level="project" />
@@ -35,5 +38,8 @@
     <orderEntry type="library" name="Maven: lt.ltrp:vehicle-shop:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: lt.maze:shoebill-event-logger:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: lt.maze:player-afk:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-runtime:1.0.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains.kotlin:kotlin-test:1.0.4" level="project" />
   </component>
 </module>

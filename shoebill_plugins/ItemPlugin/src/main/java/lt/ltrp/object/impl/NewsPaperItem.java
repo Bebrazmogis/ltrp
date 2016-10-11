@@ -1,11 +1,10 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.AdvertPlugin;
 import lt.ltrp.constant.ItemType;
-import lt.ltrp.dialog.AdvertisementListDialog;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.util.event.EventManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Timestamp;
 
@@ -30,9 +29,6 @@ public class NewsPaperItem extends BasicItem {
 
     @ItemUsageOption(name = "Skaityti")
     public boolean read(LtrpPlayer player) {
-        AdvertisementListDialog.create(player, getEventManager(), AdvertPlugin.get(AdvertPlugin.class).getAdsBeforeDate(date))
-                .build()
-                .show();
-        return true;
+        throw new NotImplementedException();
     }
 }

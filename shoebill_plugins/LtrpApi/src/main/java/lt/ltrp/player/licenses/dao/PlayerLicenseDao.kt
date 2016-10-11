@@ -1,7 +1,19 @@
-package lt.ltrp.player.licenses
+package lt.ltrp.player.licenses.dao
+
+import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.licenses.data.PlayerLicense
+import lt.ltrp.player.licenses.data.PlayerLicenses
 
 /**
  * Created by Bebras on 2016-10-08.
  */
 interface PlayerLicenseDao {
+
+    fun insert(license: PlayerLicense): Int
+    fun get(uuid: Int): PlayerLicense?
+    fun getAll(player: LtrpPlayer): PlayerLicenses
+    fun remove(playerLicense: PlayerLicense)
+    fun update(playerLicense: PlayerLicense)
+
+
 }

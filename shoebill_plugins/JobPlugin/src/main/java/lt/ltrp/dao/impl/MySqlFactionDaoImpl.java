@@ -24,7 +24,7 @@ public class MySqlFactionDaoImpl extends MySqlJobDaoImpl implements FactionDao {
 
 
     public MySqlFactionDaoImpl(DataSource dataSource, JobVehicleDao vehicleDao, EventManager eventManager) {
-        super(dataSource, vehicleDao, eventManager);
+        super(dataSource, vehicleDao, null, eventManager);
     }
 
 

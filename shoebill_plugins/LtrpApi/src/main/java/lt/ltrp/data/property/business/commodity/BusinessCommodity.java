@@ -1,6 +1,6 @@
 package lt.ltrp.data.property.business.commodity;
 
-import lt.ltrp.EntityImpl;
+import lt.ltrp.object.impl.EntityImpl;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;
 

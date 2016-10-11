@@ -4,4 +4,4 @@ version: 1.0-SNAPSHOT
 buildNumber: 0
 buildDate: Unknown
 authors: Bebras
-description:
+description: This plugins handles Player spawns. This plugin should not be required by any other plugin unless for displaying data

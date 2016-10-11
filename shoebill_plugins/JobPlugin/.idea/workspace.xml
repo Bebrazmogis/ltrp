@@ -2,114 +2,166 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7034c151-9b05-4ffc-8e48-681189c2d510" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../VehiclePlugin/src/main/java/lt/ltrp/dao/impl/AbstractMySqlVehicleDaoImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../FishingPlugin/src/main/java/lt/ltrp/FishingPlugin.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/command/SetSpawnCommands.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../AuthPlugin/src/main/resources/plugin.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../FishingPlugin/src/main/resources/plugin.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../GraffitiPlugin/src/main/resources/plugin.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../FishingPlugin/pom.xml" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\DatabaseManager\target\database-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\DatabaseManager\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\FaderPlugin\target\fader-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\FaderPlugin\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerAcceptPlayerQuestion.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\src\main\java\lt\ltrp\event\player\PlayerRejectPlayerQuestion.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\ltrp-api-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpApi\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpBank\target\bank-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpBank\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\ltrp-common-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\LtrpCommons\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\AdminCommands.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\AdminControllerImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\AuthController.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\ModeratorCommands.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\PlayerJailController.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\PlayerPlugin\src\main\java\lt\ltrp\SpawnController.java" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\RadioPlugin\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\RadioPlugin\target\radio-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ShoebillEventLogger\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\ShoebillEventLogger\target\shoebill-event-logger-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleShopPlugin\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehicleShopPlugin\target\vehicle-shop-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\YSFWrapperPlugin\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\YSFWrapperPlugin\target\ysf-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\npcmanager\target\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\npcmanager\target\npc-manager-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\shoebill\plugins\maven-archiver\pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="F:\AAAA\LTRP\shoebill_plugins\shoebill\plugins\npc-manager-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../plugins/Shoebill.dll" afterPath="$PROJECT_DIR$/../../plugins/Shoebill.dll" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/audio-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/audio-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/bank-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/bank-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/business-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/business-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/database-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/database-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/dmv-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/dmv-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/fader-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/fader-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/garage-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/garage-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/house-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/house-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/item-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/item-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/job-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/job-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/ltrp-api-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/ltrp-api-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/mapandreas-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/mapandreas-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/player-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/player-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/property-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/property-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/radio-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/radio-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/shoebill-event-logger-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/shoebill-event-logger-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/streamer-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/streamer-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/vehicle-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/vehicle-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/vehicle-shop-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/vehicle-shop-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/plugins/ysf-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../../shoebill/plugins/ysf-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../.gitignore" afterPath="$PROJECT_DIR$/../../.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/AdminController.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/AdminController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AuthPlugin/src/main/java/lt/ltrp/AuthPlugin.java" afterPath="$PROJECT_DIR$/../AuthPlugin/src/main/java/lt/ltrp/AuthPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DrugDealerJobPlugin/src/main/java/lt/ltrp/command/DrugDealerCommands.java" afterPath="$PROJECT_DIR$/../DrugDealerJobPlugin/src/main/java/lt/ltrp/command/DrugDealerCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../StreamerWrapperPlugin/src/main/java/lt/maze/streamer/object/DynamicPolygon.java" afterPath="$PROJECT_DIR$/../StreamerWrapperPlugin/src/main/java/lt/maze/streamer/object/DynamicPolygon.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../StreamerWrapperPlugin/src/main/java/lt/maze/streamer/Functions.java" afterPath="$PROJECT_DIR$/../StreamerWrapperPlugin/src/main/java/lt/maze/streamer/Functions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/GeneralCommands.java" afterPath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/GeneralCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/GettersSetters.java" afterPath="$PROJECT_DIR$/../PlayerPlugin/src/main/java/lt/ltrp/GettersSetters.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../HousePlugin/src/main/java/lt/ltrp/command/HouseCommands.java" afterPath="$PROJECT_DIR$/../HousePlugin/src/main/java/lt/ltrp/command/HouseCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../HousePlugin/src/main/java/lt/ltrp/command/HouseOwnerCommands.java" afterPath="$PROJECT_DIR$/../HousePlugin/src/main/java/lt/ltrp/command/HouseOwnerCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../HousePlugin/HousePlugin.iml" afterPath="$PROJECT_DIR$/../HousePlugin/HousePlugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../HousePlugin/src/main/java/lt/ltrp/HousePlugin.java" afterPath="$PROJECT_DIR$/../HousePlugin/src/main/java/lt/ltrp/HousePlugin.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../LtrpGamemode.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/dao/LtrpWorldDao.kt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../MapAndreasPlugin/mapandreas.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../VehiclePlugin/vehicle.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../AudioPluginWrapper/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../DatabaseManager/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../FaderPlugin/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/command/SetSpawnCommands.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../LtrpApi/.idea/libraries/Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../LtrpApi/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__com_mchange_c3p0_0_9_5_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__jacksum_jacksum_1_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__lt_ltrp_item_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__lt_ltrp_job_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__lt_ltrp_ltrp_common_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__lt_ltrp_player_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__lt_ltrp_property_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__lt_ltrp_util_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__lt_ltrp_vehicle_api_1_0_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_16.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../RadioPlugin/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../ShoebillEventLogger/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/libraries/Maven__com_mchange_c3p0_0_9_5_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/libraries/Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/.idea/libraries/Maven__net_gtaun_shoebill_api_1_2_SNAPSHOT.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../npcmanager/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractContractJob.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/AbstractContractJob.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractFaction.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/AbstractFaction.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractJob.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/AbstractJob.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySQLJobVehicleDao.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobVehicleDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AudioPluginWrapper/target/audio-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../AudioPluginWrapper/target/audio-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AudioPluginWrapper/target/classes/lt/maze/audio/AudioPlugin.class" afterPath="$PROJECT_DIR$/../AudioPluginWrapper/target/classes/lt/maze/audio/AudioPlugin.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AudioPluginWrapper/target/classes/lt/maze/audio/Callbacks.class" afterPath="$PROJECT_DIR$/../AudioPluginWrapper/target/classes/lt/maze/audio/Callbacks.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DatabaseManager/target/classes/lt/ltrp/DatabasePlugin.class" afterPath="$PROJECT_DIR$/../DatabaseManager/target/classes/lt/ltrp/DatabasePlugin.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DatabaseManager/target/database-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../DatabaseManager/target/database-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FaderPlugin/target/classes/lt/maze/fader/FaderPlugin.class" afterPath="$PROJECT_DIR$/../FaderPlugin/target/classes/lt/maze/fader/FaderPlugin.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FaderPlugin/target/fader-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../FaderPlugin/target/fader-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/target/ltrp-api-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../LtrpApi/target/ltrp-api-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/bank-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../LtrpBank/target/bank-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/BankController.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/BankController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dao/MySqlBankDao.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dao/MySqlBankDao.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankAccountDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankAccountDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankNewDepositDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankNewDepositDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankWireInputDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/BankWireInputDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/CreateBankAccountMsgDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/CreateBankAccountMsgDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/DepositMoneyInputDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/DepositMoneyInputDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/WithdrawMoneyInputDialog.class" afterPath="$PROJECT_DIR$/../LtrpBank/target/classes/lt/ltrp/dialog/WithdrawMoneyInputDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RadioPlugin/target/radio-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../RadioPlugin/target/radio-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShoebillEventLogger/target/classes/lt/maze/shoebilleventlogger/LoggingHandler.class" afterPath="$PROJECT_DIR$/../ShoebillEventLogger/target/classes/lt/maze/shoebilleventlogger/LoggingHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShoebillEventLogger/target/shoebill-event-logger-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../ShoebillEventLogger/target/shoebill-event-logger-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/target/classes/lt/ltrp/shopplugin/dialog/VehicleShopListDialog.class" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/target/classes/lt/ltrp/shopplugin/dialog/VehicleShopListDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/target/vehicle-shop-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/target/vehicle-shop-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/Callbacks.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/Callbacks.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFObject.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFObject.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFObjectManager.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFObjectManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFPickup.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFPickup.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFPlayer.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFPlayer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFPlayerObject.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFPlayerObject.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFPlayerZone.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFPlayerZone.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFVehicle.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFVehicle.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFZone.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/YSFZone.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/impl/YSFObjectImpl.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/impl/YSFObjectImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/impl/YSFPlayerObjectImpl.class" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/classes/lt/maze/ysf/object/impl/YSFPlayerObjectImpl.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/ysf-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/ysf-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../npcmanager/target/classes/lt/ltrp/EventHandler.class" afterPath="$PROJECT_DIR$/../npcmanager/target/classes/lt/ltrp/EventHandler.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../npcmanager/target/classes/lt/ltrp/Npc.class" afterPath="$PROJECT_DIR$/../npcmanager/target/classes/lt/ltrp/Npc.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../npcmanager/target/classes/lt/ltrp/NpcManager.class" afterPath="$PROJECT_DIR$/../npcmanager/target/classes/lt/ltrp/NpcManager.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../npcmanager/target/npc-manager-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/../npcmanager/target/npc-manager-1.0-SNAPSHOT.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../Builder/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../Builder/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../gamemodes/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../../gamemodes/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../gamemodes/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/../../gamemodes/.idea/sqldialects.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pom.xml" afterPath="$PROJECT_DIR$/../../pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/resources.yml" afterPath="$PROJECT_DIR$/../../shoebill/resources.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AudioPluginWrapper/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../AudioPluginWrapper/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AudioPluginWrapper/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../AudioPluginWrapper/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AudioPluginWrapper/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../AudioPluginWrapper/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DatabaseManager/pom.xml" afterPath="$PROJECT_DIR$/../DatabaseManager/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DatabaseManager/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../DatabaseManager/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DmvPlugin/pom.xml" afterPath="$PROJECT_DIR$/../DmvPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FaderPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../FaderPlugin/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FaderPlugin/pom.xml" afterPath="$PROJECT_DIR$/../FaderPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FaderPlugin/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../FaderPlugin/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FaderPlugin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../FaderPlugin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ItemPlugin/pom.xml" afterPath="$PROJECT_DIR$/../ItemPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ItemPlugin/src/main/java/lt/ltrp/ItemPlugin.java" afterPath="$PROJECT_DIR$/../ItemPlugin/src/main/java/lt/ltrp/ItemPlugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JobPlugin.iml" afterPath="$PROJECT_DIR$/JobPlugin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/JobPlugin.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/JobPlugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlFactionDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlFactionDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/JobVehicleMenu.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/JobVehicleMenu.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/Job.java" afterPath="$PROJECT_DIR$/src/main/java/lt/ltrp/object/Job.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../LtrpApi/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/.idea/libraries/Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/../LtrpApi/.idea/libraries/Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/.idea/misc.xml" afterPath="$PROJECT_DIR$/../LtrpApi/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../LtrpApi/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/LtrpApi.iml" afterPath="$PROJECT_DIR$/../LtrpApi/LtrpApi.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/LtrpGamemodeImpl.java" afterPath="$PROJECT_DIR$/../../src/main/java/lt/ltrp/LtrpGamemodeImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/object/LtrpPlayer.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/object/LtrpPlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/LtrpWeaponData.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/LtrpWeaponData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MedicJobPlugin/src/main/java/lt/ltrp/command/MedicCommands.java" afterPath="$PROJECT_DIR$/../MedicJobPlugin/src/main/java/lt/ltrp/command/MedicCommands.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../DrugDealerJobPlugin/src/main/java/lt/ltrp/dao/impl/MySqlDrugDealerJobImpl.java" afterPath="$PROJECT_DIR$/../DrugDealerJobPlugin/src/main/java/lt/ltrp/dao/impl/MySqlDrugDealerJobImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PenaltyPlugin/PenaltyPlugin.iml" afterPath="$PROJECT_DIR$/../PenaltyPlugin/PenaltyPlugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PenaltyPlugin/src/main/java/lt/ltrp/PenaltyPlugin.java" afterPath="$PROJECT_DIR$/../PenaltyPlugin/src/main/java/lt/ltrp/PenaltyPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/PlayerPlugin.iml" afterPath="$PROJECT_DIR$/../PlayerPlugin/PlayerPlugin.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/PlayerUtils.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/PlayerUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehiclePlugin/src/main/java/lt/ltrp/PlayerVehicleManager.java" afterPath="$PROJECT_DIR$/../VehiclePlugin/src/main/java/lt/ltrp/PlayerVehicleManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PoliceJobPlugin/src/main/java/lt/ltrp/dialog/PoliceDatabaseMenu.java" afterPath="$PROJECT_DIR$/../PoliceJobPlugin/src/main/java/lt/ltrp/dialog/PoliceDatabaseMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PoliceJobPlugin/src/main/java/lt/ltrp/PoliceJobPlugin.java" afterPath="$PROJECT_DIR$/../PoliceJobPlugin/src/main/java/lt/ltrp/PoliceJobPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/StringUtils.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/StringUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TrashmanJobPlugin/src/main/java/lt/ltrp/TrashmanJobPlugin.java" afterPath="$PROJECT_DIR$/../TrashmanJobPlugin/src/main/java/lt/ltrp/TrashmanJobPlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehiclePlugin/src/main/java/lt/ltrp/VehiclePlugin.java" afterPath="$PROJECT_DIR$/../VehiclePlugin/src/main/java/lt/ltrp/VehiclePlugin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../gamemodes/Property/_General.p" afterPath="$PROJECT_DIR$/../../gamemodes/Property/_General.p" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/pom.xml" afterPath="$PROJECT_DIR$/../LtrpApi/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/command/Commands.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/command/Commands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/property/business/commodity/BusinessCommodity.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/property/business/commodity/BusinessCommodity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/property/business/commodity/BusinessCommodityDrink.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/property/business/commodity/BusinessCommodityDrink.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/property/business/commodity/BusinessCommodityItem.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/data/property/business/commodity/BusinessCommodityItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/object/Item.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/object/Item.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/object/LtrpVehicle.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/object/LtrpVehicle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/object/Property.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/object/Property.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/Whirlpool.java" afterPath="$PROJECT_DIR$/../LtrpApi/src/main/java/lt/ltrp/util/Whirlpool.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../LtrpApi/target/maven-archiver/pom.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/../LtrpApi/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../LtrpApi/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../gamemodes/ltrp.pwn" afterPath="$PROJECT_DIR$/../../gamemodes/ltrp.pwn" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../src/main/resources/ltrp.sql" afterPath="$PROJECT_DIR$/../../src/main/resources/ltrp.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../modules.ini" afterPath="$PROJECT_DIR$/../../modules.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pom.xml" afterPath="$PROJECT_DIR$/../../pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../HousePlugin/pom.xml" afterPath="$PROJECT_DIR$/../HousePlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/pom.xml" afterPath="$PROJECT_DIR$/../LtrpBank/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpBank/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../LtrpBank/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpCommons/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../LtrpCommons/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../MapAndreasPlugin/pom.xml" afterPath="$PROJECT_DIR$/../MapAndreasPlugin/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PenaltyPlugin/pom.xml" afterPath="$PROJECT_DIR$/../PenaltyPlugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/pom.xml" afterPath="$PROJECT_DIR$/../PlayerPlugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehiclePlugin/pom.xml" afterPath="$PROJECT_DIR$/../VehiclePlugin/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../../shoebill/repository/net/gtaun/shoebill-api/1.2-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/repository/net/gtaun/shoebill-common/1.3-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../../shoebill/repository/net/gtaun/shoebill-common/1.3-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/repository/net/gtaun/shoebill-utilities/1.0-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../../shoebill/repository/net/gtaun/shoebill-utilities/1.0-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/repository/net/gtaun/util-event/1.0-SNAPSHOT/resolver-status.properties" afterPath="$PROJECT_DIR$/../../shoebill/repository/net/gtaun/util-event/1.0-SNAPSHOT/resolver-status.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../shoebill/resources.yml" afterPath="$PROJECT_DIR$/../../shoebill/resources.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/../PlayerPlugin/.idea/sqldialects.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LtrpApi/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../LtrpApi/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PlayerPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../PlayerPlugin/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="F:\AAAA\LTRP\shoebill_plugins\VehiclePlugin\src\main\java\lt\ltrp\dao\impl\MySqlVehicleDaoImpl.java" afterPath="$PROJECT_DIR$/../VehiclePlugin/src/main/java/lt/ltrp/dao/impl/MySqlPlayerVehicleDaoImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../PropertyPlugin/pom.xml" afterPath="$PROJECT_DIR$/../PropertyPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/../RadioPlugin/.idea/libraries/Maven__net_gtaun_util_event_1_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RadioPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../RadioPlugin/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RadioPlugin/RadioPlugin.iml" afterPath="$PROJECT_DIR$/../RadioPlugin/RadioPlugin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RadioPlugin/pom.xml" afterPath="$PROJECT_DIR$/../RadioPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RadioPlugin/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../RadioPlugin/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../RadioPlugin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../RadioPlugin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShoebillEventLogger/.idea/misc.xml" afterPath="$PROJECT_DIR$/../ShoebillEventLogger/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShoebillEventLogger/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ShoebillEventLogger/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShoebillEventLogger/pom.xml" afterPath="$PROJECT_DIR$/../ShoebillEventLogger/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShoebillEventLogger/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../ShoebillEventLogger/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ShoebillEventLogger/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../ShoebillEventLogger/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SpawnPlugin/pom.xml" afterPath="$PROJECT_DIR$/../SpawnPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SpawnPlugin/src/main/java/lt/ltrp/SpawnPlugin.java" afterPath="$PROJECT_DIR$/../SpawnPlugin/src/main/java/lt/ltrp/SpawnPlugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SpawnPlugin/src/main/java/lt/ltrp/command/SpawnCommands.java" afterPath="$PROJECT_DIR$/../SpawnPlugin/src/main/java/lt/ltrp/command/SpawnCommands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SpawnPlugin/src/main/java/lt/ltrp/data/SpawnData.java" afterPath="$PROJECT_DIR$/../SpawnPlugin/src/main/java/lt/ltrp/data/SpawnData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../StreamerWrapperPlugin/pom.xml" afterPath="$PROJECT_DIR$/../StreamerWrapperPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../StreamerWrapperPlugin/src/main/java/lt/maze/streamer/object/DynamicPolygon.java" afterPath="$PROJECT_DIR$/../StreamerWrapperPlugin/src/main/java/lt/maze/streamer/object/DynamicPolygon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehiclePlugin/pom.xml" afterPath="$PROJECT_DIR$/../VehiclePlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehiclePlugin/src/main/java/lt/ltrp/object/impl/LtrpVehicleImpl.java" afterPath="$PROJECT_DIR$/../VehiclePlugin/src/main/java/lt/ltrp/object/impl/LtrpVehicleImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/misc.xml" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/VehicleShopPlugin.iml" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/VehicleShopPlugin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/pom.xml" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../VehicleShopPlugin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../VehicleShopPlugin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/.idea/libraries/Maven__net_gtaun_shoebill_utilities_1_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/.idea/libraries/Maven__net_gtaun_shoebill_utilities_1_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/.idea/misc.xml" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/YSFWrapperPlugin.iml" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/YSFWrapperPlugin.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/pom.xml" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../YSFWRapperPlugin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../YSFWRapperPlugin/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../build-api.bat" afterPath="$PROJECT_DIR$/../build-api.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../npcmanager/pom.xml" afterPath="$PROJECT_DIR$/../npcmanager/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../npcmanager/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../npcmanager/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../npcmanager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../npcmanager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
     </list>
     <list id="dcdb017d-71fe-4e63-9338-cca9983dbec2" name="Failed commit: Default" comment="Redaguotas dabų plugin(abstraktus). Didžiausias dėmesio DAO klasėms. MySqlJobDaoImpl yra abstrakti, kiekviena išvestinė klasė turėtų extendinti ją savaip, taip pat pateikti JobVehicleDao implementaciją(defaultinasi į MySqlJobVehicleDao). Išvestinės JobvehicleDao klasės turėtų būti naudingos darbams kur reikia laikyti papildomus duomenis apie transporto priemonę, pavyzdžiui šiukšlių išvežėjams - šiukšlių kiekis transporto priemonėje." />
     <ignored path="JobPlugin.iws" />
@@ -124,12 +176,8 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
-  </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
   </component>
   <component name="DatabaseView">
     <option name="FLATTEN" value="false" />
@@ -174,12 +222,12 @@
     <favorites_list name="JobPlugin" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file leaf-file-name="JobPlugin.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/JobPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.56577414" vertical-offset="1775" max-vertical-offset="8109">
-              <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+            <state relative-caret-position="352">
+              <caret line="418" column="5" selection-start-line="418" selection-start-column="5" selection-end-line="418" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -187,14 +235,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SetSpawnCommands.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/command/SetSpawnCommands.java">
+      <file leaf-file-name="AbstractJob.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/AbstractJob.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
-              <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+            <state relative-caret-position="68">
+              <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="484">
+              <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -204,13 +262,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/mechanic/MechanicAcceptCommands.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/dialog/PoliceDatabaseMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/policeman/PoliceCommands.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/DrugDealerJobImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/MechanicJobImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/MedicFactionImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/job/object/PoliceFactionImpl.java" />
@@ -229,7 +288,6 @@
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/JobManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/vehiclethief/VehicleThiefManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractContractJob.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySQLJobVehicleDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/drugdealer/DrugDealerManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/policeman/dialog/PoliceDatabaseMenu.java" />
@@ -253,22 +311,34 @@
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerJobDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlPlayerJobDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/JobController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlFactionDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/command/SetSpawnCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/object/AbstractContractJob.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/object/Job.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/JobVehicleMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlFactionDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/JobPlugin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/AbstractJob.java" />
       </list>
     </option>
   </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -293,9 +363,10 @@
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -315,20 +386,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="JobPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JobPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -406,13 +463,143 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="command" />
+              <option name="myItemId" value="object" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="object" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dialog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dao" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JobPlugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ltrp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dao" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -427,8 +614,109 @@
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="dynamic.classpath" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../VehiclePlugin" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="lt.ltrp.object.impl" />
+    </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -450,48 +738,25 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
-    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
-      <module name="" />
-      <setting name="vmparams" value="" />
-      <setting name="cmdLine" value="run-app" />
-      <setting name="depsClasspath" value="false" />
-      <setting name="passParentEnv" value="true" />
+    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <setting name="launchBrowser" value="false" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -499,12 +764,13 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -512,6 +778,39 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="JobPlugin" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -542,150 +841,44 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <pass-parent-envs>true</pass-parent-envs>
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
-      <option name="BCName" value="" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="moduleName" value="" />
-      <option name="trusted" value="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
-      <option name="BCName" value="" />
-      <option name="IOSSimulatorSdkPath" value="" />
-      <option name="adlOptions" value="" />
-      <option name="airProgramParameters" value="" />
-      <option name="appDescriptorForEmulator" value="Android" />
-      <option name="debugTransport" value="USB" />
-      <option name="debuggerSdkRaw" value="BC SDK" />
-      <option name="emulator" value="NexusOne" />
-      <option name="emulatorAdlOptions" value="" />
-      <option name="fastPackaging" value="true" />
-      <option name="fullScreenHeight" value="0" />
-      <option name="fullScreenWidth" value="0" />
-      <option name="launchUrl" value="false" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="mobileRunTarget" value="Emulator" />
-      <option name="moduleName" value="" />
-      <option name="overriddenMainClass" value="" />
-      <option name="overriddenOutputFileName" value="" />
-      <option name="overrideMainClass" value="false" />
-      <option name="runTrusted" value="true" />
-      <option name="screenDpi" value="0" />
-      <option name="screenHeight" value="0" />
-      <option name="screenWidth" value="0" />
-      <option name="url" value="http://" />
-      <option name="usbDebugPort" value="7936" />
-      <method />
-    </configuration>
-    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list />
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
-    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="myFilePath" />
-      <option name="GLUE" />
-      <option name="myNameFilter" />
-      <option name="myGeneratedName" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
+      <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
       <envs />
+      <properties />
+      <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="com.intellij.database.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
-      <option name="VM_PARAMETERS" value="" />
-      <option name="USER_CFG_CLASS" />
-      <option name="CONTEXT_PROVIDER" />
-      <method />
-    </configuration>
-    <list size="0" />
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="7034c151-9b05-4ffc-8e48-681189c2d510" name="Default" comment="" />
       <created>1460490705935</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1460490705935</updated>
       <workItem from="1460490708615" duration="2370000" />
       <workItem from="1460643210374" duration="1689000" />
@@ -712,48 +905,56 @@
     <task id="LOCAL-00001" summary="Darbų plugin'as lauks kol pasikraus DB prieš ką nors darydamas">
       <created>1461853819047</created>
       <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
       <updated>1461853819047</updated>
     </task>
     <task id="LOCAL-00002" summary="BUG&#10;">
       <created>1463565336135</created>
       <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1463565336135</updated>
     </task>
     <task id="LOCAL-00003" summary="Rename. JobManager-&gt;JobPlugin">
       <created>1463946441259</created>
       <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
       <updated>1463946441259</updated>
     </task>
     <task id="LOCAL-00004" summary="stupid git">
       <created>1464089391745</created>
       <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
       <updated>1464089391745</updated>
     </task>
     <task id="LOCAL-00005" summary="Redaguotas dabų plugin(abstraktus). Didžiausias dėmesio DAO klasėms. MySqlJobDaoImpl yra abstrakti, kiekviena išvestinė klasė turėtų extendinti ją savaip, taip pat pateikti JobVehicleDao implementaciją(defaultinasi į MySqlJobVehicleDao). Išvestinės JobvehicleDao klasės turėtų būti naudingos darbams kur reikia laikyti papildomus duomenis apie transporto priemonę, pavyzdžiui šiukšlių išvežėjams - šiukšlių kiekis transporto priemonėje.">
       <created>1464089447462</created>
       <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
       <updated>1464089447462</updated>
     </task>
     <task id="LOCAL-00006" summary="Darbų duomenų krovimo funkcija load turėtų vekti su Location. Duomenys turi būti nustatyti formatu property_x, property_y, property_z, property_interior, property_world.">
       <created>1464095768353</created>
       <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
       <updated>1464095768353</updated>
     </task>
     <task id="LOCAL-00007" summary="interior ir world neprivalomi.">
       <created>1464095797144</created>
       <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
       <updated>1464095797144</updated>
     </task>
     <task id="LOCAL-00008" summary="dirty fix for leaders">
       <created>1464112515728</created>
       <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
       <updated>1464112515728</updated>
     </task>
@@ -784,37 +985,39 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32628062" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3040089" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2683706" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19009584" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32628062" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32628062" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32601535" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30296376" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26822916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19009584" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -829,9 +1032,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
     <MESSAGE value="Darbų plugin'as lauks kol pasikraus DB prieš ką nors darydamas" />
     <MESSAGE value="BUG&#10;" />
     <MESSAGE value="Rename. JobManager-&gt;JobPlugin" />
@@ -849,392 +1049,328 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../MechanicJobPlugin/src/main/java/lt/ltrp/session/HydraulicInstallSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../MechanicJobPlugin/src/main/java/lt/ltrp/session/HydraulicsRemovalSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../MechanicJobPlugin/src/main/java/lt/ltrp/session/RepaintSession.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+        <state relative-caret-position="0">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../MechanicJobPlugin/src/main/java/lt/ltrp/data/ColorPalettePlayerOffer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+        <state relative-caret-position="0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../MechanicJobPlugin/src/main/java/lt/ltrp/command/MechanicCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5491">
+        <state relative-caret-position="0">
           <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/FileJobDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10489">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../MechanicJobPlugin/src/main/java/lt/ltrp/command/MechanicAcceptCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15632184" vertical-offset="0" max-vertical-offset="870">
+        <state relative-caret-position="0">
           <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../MechanicJobPlugin/src/main/java/lt/ltrp/session/WheelChangeSession.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15632184" vertical-offset="0" max-vertical-offset="870">
+        <state relative-caret-position="0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../MechanicJobPlugin/src/main/java/lt/ltrp/session/RepairSession.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15632184" vertical-offset="0" max-vertical-offset="870">
+        <state relative-caret-position="0">
           <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../VehicleThiefJobPlugin/src/main/java/lt/ltrp/object/impl/VehicleThiefJobImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="580" max-vertical-offset="1513">
+        <state relative-caret-position="0">
           <caret line="79" column="5" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../VehicleThiefJobPlugin/src/main/java/lt/ltrp/command/VehicleThiefCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="202" max-vertical-offset="1581">
+        <state relative-caret-position="0">
           <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../PoliceJobPlugin/src/main/java/lt/ltrp/command/PoliceCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2703" max-vertical-offset="11475">
+        <state relative-caret-position="0">
           <caret line="179" column="65" selection-start-line="179" selection-start-column="65" selection-end-line="179" selection-end-column="65" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://db-console:/b6e14cc9/9e8d5436-5e6b-4c9f-a277-dc6616ec27a4/">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="597">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="dbDummy://db-console:/b6e14cc9/9e8d5436-5e6b-4c9f-a277-dc6616ec27a4/" />
     <entry file="file://$PROJECT_DIR$/../PoliceJobPlugin/src/main/java/lt/ltrp/dialog/PoliceDatabaseMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40753424" vertical-offset="2958" max-vertical-offset="5678">
+        <state relative-caret-position="0">
           <caret line="207" column="59" selection-start-line="207" selection-start-column="59" selection-end-line="207" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobVehicleDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.96032673" vertical-offset="27" max-vertical-offset="1819">
-          <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../DrugDealerJobPlugin/src/main/java/lt/ltrp/command/DrugDealerCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9430486" vertical-offset="491" max-vertical-offset="1275">
+        <state relative-caret-position="0">
           <caret line="62" column="2" selection-start-line="62" selection-start-column="2" selection-end-line="62" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../PoliceJobPlugin/src/main/java/lt/ltrp/DragTimer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17465754" vertical-offset="51" max-vertical-offset="1020">
+        <state relative-caret-position="0">
           <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/JobProperty.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31323284" vertical-offset="0" max-vertical-offset="597">
+        <state relative-caret-position="0">
           <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/JobCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22780569" vertical-offset="0" max-vertical-offset="597">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/JobCommands.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/FactionRankImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22780569" vertical-offset="0" max-vertical-offset="986">
+        <state relative-caret-position="0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/FactionInviteOffer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22780569" vertical-offset="0" max-vertical-offset="597">
+        <state relative-caret-position="0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/ContractJobRankImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22780569" vertical-offset="0" max-vertical-offset="1020">
+        <state relative-caret-position="0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractJobManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22780569" vertical-offset="0" max-vertical-offset="597">
+        <state relative-caret-position="0">
           <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractFaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02910959" vertical-offset="119" max-vertical-offset="1462">
-          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractContractJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.83219177" vertical-offset="758" max-vertical-offset="1615">
-          <caret line="24" column="44" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/FactionAcceptCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64041096" vertical-offset="0" max-vertical-offset="663">
+        <state relative-caret-position="0">
           <caret line="27" column="25" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/FactionLeaderCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2260274" vertical-offset="1143" max-vertical-offset="1887">
-          <caret line="87" column="25" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/FactionLeaderCommands.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/JobVehicleImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.25" vertical-offset="282" max-vertical-offset="6307">
+        <state relative-caret-position="0">
           <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/modelpreview/RoadblockModelPreview.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2562814" vertical-offset="0" max-vertical-offset="2873">
+        <state relative-caret-position="0">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/RoadblockDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.028475711" vertical-offset="0" max-vertical-offset="597">
+        <state relative-caret-position="0">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/RoadblockListDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.23287672" vertical-offset="153" max-vertical-offset="850">
+        <state relative-caret-position="0">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/Roadblock.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22780569" vertical-offset="0" max-vertical-offset="1071">
+        <state relative-caret-position="0">
           <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/RoadblockCommands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.011986301" vertical-offset="605" max-vertical-offset="1581">
+        <state relative-caret-position="0">
           <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/AbstractJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1020">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/Job.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.22445561" vertical-offset="270" max-vertical-offset="867">
-          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/FactionCommands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="202" max-vertical-offset="799">
-          <caret line="43" column="65" selection-start-line="43" selection-start-column="65" selection-end-line="43" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/FactionCommands.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlPlayerJobDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.58219177" vertical-offset="935" max-vertical-offset="1615">
+        <state relative-caret-position="0">
           <caret line="79" column="24" selection-start-line="79" selection-start-column="24" selection-end-line="79" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/event/PlayerChangeJobEvent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2847571" vertical-offset="0" max-vertical-offset="597">
+        <state relative-caret-position="0">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/data/PlayerJobData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1309">
+        <state relative-caret-position="0">
           <caret line="10" column="26" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/PlayerJobDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
+        <state relative-caret-position="0">
           <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/FactionDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+        <state relative-caret-position="0">
           <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="dbDummy://dbtable:/b6e14cc9/9e8d5436-5e6b-4c9f-a277-dc6616ec27a4/ltrp-java..jobs">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/b6e14cc9/9e8d5436-5e6b-4c9f-a277-dc6616ec27a4/ltrp-java..job_properties">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47380674" vertical-offset="1293" max-vertical-offset="6256">
-          <caret line="104" column="29" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1464117804501" expanded="true" signature="-1:-1" placeholder="SELECT jobs...jobs..." />
-            <marker date="1464117804501" expanded="true" signature="-1:-1" placeholder="SELECT job_r..job_ranks..." />
-            <marker date="1464117804501" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1464117804501" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1464117804501" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1464117804501" expanded="true" signature="-1:-1" placeholder="SELECT id FR..jobs..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="dbDummy://dbtable:/b6e14cc9/9e8d5436-5e6b-4c9f-a277-dc6616ec27a4/ltrp-java..jobs" />
+    <entry file="dbDummy://dbtable:/b6e14cc9/9e8d5436-5e6b-4c9f-a277-dc6616ec27a4/ltrp-java..job_properties" />
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/JobDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35091743" vertical-offset="0" max-vertical-offset="872">
+        <state relative-caret-position="0">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/JobController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71245635" vertical-offset="0" max-vertical-offset="859">
-          <caret line="44" column="31" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlFactionDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2074">
-          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1464112502225" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1464112502225" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1464112502225" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..job_ranks..." />
-            <marker date="1464112502225" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/plugin.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.116972476" vertical-offset="0" max-vertical-offset="872">
+        <state relative-caret-position="0">
           <caret line="6" column="12" selection-start-line="0" selection-start-column="0" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/command/SetSpawnCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="34" column="5" selection-start-line="19" selection-start-column="4" selection-end-line="34" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/AbstractContractJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/AbstractFaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobGateDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-528">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobVehicleDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/Job.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54587156" vertical-offset="306" max-vertical-offset="1360">
-          <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+        <state relative-caret-position="484">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/command/SetSpawnCommands.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dialog/JobVehicleMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
-          <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+        <state relative-caret-position="88">
+          <caret line="190" column="48" selection-start-line="190" selection-start-column="48" selection-end-line="190" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlJobDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1496">
+          <caret line="104" column="29" selection-start-line="104" selection-start-column="29" selection-end-line="104" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/dao/impl/MySqlFactionDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="26" column="42" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/JobController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="44" column="31" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/object/impl/AbstractJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="19" column="30" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1243,8 +1379,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lt/ltrp/JobPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.56577414" vertical-offset="1775" max-vertical-offset="8109">
-          <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+        <state relative-caret-position="352">
+          <caret line="418" column="5" selection-start-line="418" selection-start-column="5" selection-end-line="418" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -4,8 +4,8 @@ package lt.ltrp.object;
 import lt.ltrp.PlayerController;
 import lt.ltrp.constant.TalkStyle;
 import lt.ltrp.constant.WalkStyle;
-import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
+import lt.ltrp.player.licenses.data.PlayerLicenses;
 import lt.maze.audio.AudioHandle;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.constant.WeaponSlot;
@@ -22,17 +22,12 @@ import java.util.function.Function;
  * @author Bebras
  *         2016.04.07.
  */
-public interface LtrpPlayer extends Player, InventoryEntity, Destroyable {
+public interface LtrpPlayer extends Player, PlayerData, InventoryEntity, Destroyable {
     public static final int INVALID_USER_ID = 0;
     public static final float DEFAULT_ACTION_MESSAGE_DISTANCE = 20f;
     public static final Color DEFAULT_PLAYER_COLOR = new Color(0xFFFFFF00);
     public static final int DEFAULT_INFOTEXT_DURATION = 60;
     public static final int MAX_LOGIN_TRIES = 3;
-
-
-    static PlayerDao getPlayerDao() {
-        return PlayerController.get().getPlayerDao();
-    }
 
 
     static Collection<LtrpPlayer> get() {

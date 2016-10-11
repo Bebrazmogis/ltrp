@@ -1,6 +1,6 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.InventoryEntityImpl;
+import lt.ltrp.object.impl.InventoryEntityImpl;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.FuelTank;
 import lt.ltrp.data.TaxiFare;

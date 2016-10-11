@@ -1,28 +1,30 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.*;
+import lt.ltrp.GameTextStyleManager;
+import lt.ltrp.PenaltyPlugin;
+import lt.ltrp.PlayerControllerImpl;
+import lt.ltrp.PlayerPlugin;
 import lt.ltrp.constant.TalkStyle;
 import lt.ltrp.constant.WalkStyle;
-import lt.ltrp.data.Animation;
 import lt.ltrp.data.*;
+import lt.ltrp.data.Animation;
+import lt.ltrp.data.Color;
+
 import lt.ltrp.event.PlayerMuteEvent;
 import lt.ltrp.event.PlayerUnMuteEvent;
 import lt.ltrp.event.player.PlayerActionMessageEvent;
 import lt.ltrp.event.player.PlayerStateMessageEvent;
 import lt.ltrp.object.*;
-import lt.ltrp.util.ColorUtils;
 import lt.maze.audio.AudioHandle;
 import lt.maze.audio.AudioPlugin;
 import lt.maze.streamer.object.DynamicLabel;
 import net.gtaun.shoebill.constant.*;
 import net.gtaun.shoebill.data.*;
-import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.exception.AlreadyExistException;
 import net.gtaun.shoebill.exception.IllegalLengthException;
 import net.gtaun.shoebill.object.*;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.shoebill.resource.ResourceManager;
-import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -39,7 +41,7 @@ import java.util.stream.Collectors;
  * @author Bebras
  *         2015.11.12.
  */
-public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
+public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
 
     private static final Logger logger = LoggerFactory.getLogger(LtrpPlayer.class);
 
@@ -59,9 +61,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     private Player player;
 
-    private int adminLevel, level, modLevel;
-
-    private String password, secretAnswer, secretQuestion;
     private String forumName;
     private Property property;
     private LtrpWeaponData[] weapons;
@@ -72,10 +71,9 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     private PlayerInfoBox infoBox;
     private PlayerLicenses licenses;
     private boolean seatbelt, masked, cuffed, isDestroyed, muted, frozen;
-    //private int jobExperience, jobHours;
-    private int boxStyle, age, respect, deaths, hunger;
+    private int boxStyle;
     private PlayerSettings settings;
-    private EventManager eventManager;
+    //private EventManager eventManager;
 
     /**
      * Label which is shown for administrators and moderators when this player is muted
@@ -96,16 +94,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
      */
     private int onlineHours;
 
-    /**
-     * Basically this has one ue: to check if the user is allowed to get payday
-     * If this is larger or equal to {@link lt.ltrp.PlayerController#MINUTES_FOR_PAYDAY} he will get payday
-     */
-    private int minutesOnlineSincePayday;
-
-    /**
-     * Total unclaimed job money
-     */
-    private int totalPaycheck;
     /**
      * This paydays paycheck
      */
@@ -135,11 +123,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     private String nationality;
 
     /**
-     * Players sex(gender)
-     */
-    private String sex;
-
-    /**
      * User panel user ID
      */
     private int ucpId;
@@ -152,7 +135,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     private PlayerDrugs drugs;
 
     private boolean isInComa;
-    private boolean loggedIn, dataLoaded, isFactionManager;
+    private boolean dataLoaded, isFactionManager;
 
     /**
      * Animation the player is currently playing, null if none
@@ -164,17 +147,13 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
      */
     private ScheduledFuture<?> animationTaskFuture;
 
-    private TalkStyle talkStyle;
-    private WalkStyle walkStyle;
 
-
-    public LtrpPlayerImpl(Player player, int userid, EventManager manager) {
-        super(userid, player.getName(), null);
+    public LtrpPlayerImpl(PlayerData playerData, Player player) {
+        super(playerData);
         this.player = player;
         this.weapons = new LtrpWeaponData[13];
         this.infoBox = new PlayerInfoBoxImpl(this);
         this.offers = new ArrayList<>();
-        this.eventManager = manager;
         logger.debug("Creating instance of LtrpPlayer. Player object id " +player.getId());
         PlayerControllerImpl.playerList.add(this);
     }
@@ -258,14 +237,16 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         return getName().substring(index);
     }
 
+
     @Override
-    public void sendFadeMessage(Color color, String s, float v) {
-        float[] hsb = ColorUtils.colorToHSB(color);
+    public void sendFadeMessage(net.gtaun.shoebill.data.Color color, String s, float v) {
+        float[] hsb = java.awt.Color.RGBtoHSB(color.getR(), color.getG(), color.getB(), null);
         LtrpPlayer.get().stream().forEach(p -> {
             float distanceToMessage = p.getLocation().distance(getLocation());
             if(distanceToMessage <= v) {
-                hsb[3] -= v - distanceToMessage;
-                p.sendMessage(ColorUtils.HSBToColor(hsb[0], hsb[1], hsb[2]), s);
+                hsb[2] -= v - distanceToMessage;
+                Color c = new Color(java.awt.Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]));
+                p.sendMessage(c, s);
             }
         });
     }
@@ -287,14 +268,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
             }
         }
     }*/
-
-    public int getMinutesOnlineSincePayday() {
-        return minutesOnlineSincePayday;
-    }
-
-    public void setMinutesOnlineSincePayday(int minutesOnlineSincePayday) {
-        this.minutesOnlineSincePayday = minutesOnlineSincePayday;
-    }
 /*
     public int getJobContract() {
         return jobContract;
@@ -328,13 +301,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         setTotalPaycheck(getTotalPaycheck() + amount);
     }
 
-    public int getTotalPaycheck() {
-        return totalPaycheck;
-    }
-
-    public void setTotalPaycheck(int totalPaycheck) {
-        this.totalPaycheck = totalPaycheck;
-    }
 /*
     public int getJobHours() {
         return jobHours;
@@ -430,6 +396,11 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         });
         infoTextTimer.start();
     }
+
+    @Override
+    public boolean isModerator() {
+        return super.getModLevel() > 0;
+    }
 /*
     public Job getJob() {
         return job;
@@ -520,6 +491,11 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         return false;
     }
 
+    @Override
+    public boolean isWeaponSlotUsed(WeaponSlot weaponSlot) {
+        return player.getWeaponData(weaponSlot.getSlotId()) != null;
+    }
+
     // public method for removing weapons
     public void removeWeapon(LtrpWeaponData weaponData) {
         new Thread(() -> {
@@ -570,22 +546,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         }
     }
 
-    public String getSecretAnswer() {
-        return secretAnswer;
-    }
-
-    public void setSecretAnswer(String secretAnswer) {
-        this.secretAnswer = secretAnswer;
-    }
-
-    public String getSecretQuestion() {
-        return secretQuestion;
-    }
-
-    public void setSecretQuestion(String secretQuestion) {
-        this.secretQuestion = secretQuestion;
-    }
-
     @Override
     public boolean isInJail() {
         PenaltyPlugin plugin = ResourceManager.get().getPlugin(PenaltyPlugin.class);
@@ -606,38 +566,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         setFightStyle(FightStyle.get(boxStyle));
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getRespect() {
-        return respect;
-    }
-
-    public void setRespect(int respect) {
-        this.respect = respect;
-    }
-
-    public int getDeaths() {
-        return deaths;
-    }
-
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
-    }
-
-    public int getHunger() {
-        return hunger;
-    }
-
-    public void setHunger(int hunger) {
-        this.hunger = hunger;
-    }
-
     public boolean isInComa() {
         return isInComa;
     }
@@ -654,56 +582,12 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         this.property = property;
     }
 
-    public int getAdminLevel() {
-        return adminLevel;
-    }
-
-    public void setAdminLevel(int adminLevel) {
-        this.adminLevel = adminLevel;
-    }
-
-    public int getModLevel() {
-        return modLevel;
-    }
-
-    public void setModLevel(int modLevel) {
-        this.modLevel = modLevel;
-    }
-
-    public boolean isModerator() {
-        return modLevel > 0;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
     public boolean isDataLoaded() {
         return dataLoaded;
     }
 
     public void setDataLoaded(boolean dataLoaded) {
         this.dataLoaded = dataLoaded;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public boolean isFactionManager() {
@@ -721,7 +605,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public void sendActionMessage(String s, float distance) {
         this.sendMessage(lt.ltrp.data.Color.ACTION, "* "+ getName() + " " + s, distance);
         this.setChatBubble(s, lt.ltrp.data.Color.ACTION, distance, s.length() * 50);
-        this.eventManager.dispatchEvent(new PlayerActionMessageEvent(this, s));
+        getEventManager().dispatchEvent(new PlayerActionMessageEvent(this, s));
     }
 
     public void sendActionMessage(String s) {
@@ -731,7 +615,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public void sendStateMessage(String s, float distance) {
         this.sendMessage(lt.ltrp.data.Color.ACTION, "* " + s + " ((" + getName() + "))", distance);
         this.setChatBubble(s, lt.ltrp.data.Color.ACTION, distance, s.length() * 50);
-        this.eventManager.dispatchEvent(new PlayerStateMessageEvent(this, s));
+        getEventManager().dispatchEvent(new PlayerStateMessageEvent(this, s));
     }
 
     public void sendStateMessage(String s) {
@@ -743,7 +627,8 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         sendMessage(Color.WHITE, s, v);
     }
 
-    public void sendMessage(Color color, String s, float distance) {
+    @Override
+    public void sendMessage(net.gtaun.shoebill.data.Color color, String s, float distance) {
         for(LtrpPlayer p : LtrpPlayer.get()) {
             if(getDistanceToPlayer(p) <= distance) {
                 p.sendMessage(color, s);
@@ -752,7 +637,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     @Override
-    public void sendDebug(Color color, String s) {
+    public void sendDebug(net.gtaun.shoebill.data.Color color, String s) {
         player.sendMessage(color, "[DEBUG]" + s);
     }
 
@@ -830,16 +715,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     @Override
-    public String getSex() {
-        return sex;
-    }
-
-    @Override
-    public void setSex(String s) {
-        this.sex = s;
-    }
-
-    @Override
     public void freeze() {
         frozen = true;
         toggleControllable(false);
@@ -860,7 +735,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public void mute() {
         muted = true;
         updateMuteLabel();
-        eventManager.dispatchEvent(new PlayerMuteEvent(this));
+        getEventManager().dispatchEvent(new PlayerMuteEvent(this));
     }
 
     public void updateMuteLabel() {
@@ -872,32 +747,12 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     public void unMute() {
         muted = false;
         if(muteLabel != null) muteLabel.destroy();
-        eventManager.dispatchEvent(new PlayerUnMuteEvent(this));
+        getEventManager().dispatchEvent(new PlayerUnMuteEvent(this));
     }
 
     @Override
     public boolean isMuted() {
         return muted;
-    }
-
-    @Override
-    public WalkStyle getWalkStyle() {
-        return walkStyle;
-    }
-
-    @Override
-    public void setWalkStyle(WalkStyle walkStyle) {
-        this.walkStyle = walkStyle;
-    }
-
-    @Override
-    public TalkStyle getTalkStyle() {
-        return talkStyle;
-    }
-
-    @Override
-    public void setTalkStyle(TalkStyle talkStyle) {
-        this.talkStyle = talkStyle;
     }
 
 
@@ -1027,11 +882,6 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     @Override
     public int getArmedWeaponAmmo() {
         return player.getArmedWeaponAmmo();
-    }
-
-    @Override
-    public int getMoney() {
-        return player.getMoney();
     }
 
     @Override
@@ -1214,8 +1064,9 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
         player.setSpawnInfo(spawnInfo);
     }
 
+
     @Override
-    public void setColor(Color color) {
+    public void setColor(net.gtaun.shoebill.data.Color color) {
         player.setColor(color);
     }
 
@@ -1242,11 +1093,13 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     @Override
     public void setMoney(int i) {
+        super.setMoney(i);
         player.setMoney(i);
     }
 
     @Override
     public void giveMoney(int i) {
+        super.setMoney(super.getMoney() + i);
         player.giveMoney(i);
     }
 
@@ -1354,12 +1207,12 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     @Override
-    public void sendMessage(Color color, String s) {
+    public void sendMessage(net.gtaun.shoebill.data.Color color, String s) {
         player.sendMessage(color, s);
     }
 
     @Override
-    public void sendMessage(Color color, String s, Object... objects) {
+    public void sendMessage(net.gtaun.shoebill.data.Color color, String s, Object... objects) {
         player.sendMessage(color, s, objects);
     }
 
@@ -1490,7 +1343,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     @Override
-    public void markerForPlayer(Player player, Color color) {
+    public void markerForPlayer(Player player, net.gtaun.shoebill.data.Color color) {
         player.markerForPlayer(player, color);
     }
 
@@ -1690,6 +1543,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
 
     @Override
     public void setWantedLevel(int i) {
+        super.setWantedLevel(i);
         player.setWantedLevel(i);
     }
 
@@ -1913,7 +1767,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     @Override
-    public void selectTextDraw(Color color) {
+    public void selectTextDraw(net.gtaun.shoebill.data.Color color) {
         player.selectTextDraw(color);
     }
 
@@ -1992,7 +1846,7 @@ public class LtrpPlayerImpl extends InventoryEntityImpl implements LtrpPlayer {
     }
 
     @Override
-    public void setChatBubble(String s, Color color, float v, int i) {
+    public void setChatBubble(String s, net.gtaun.shoebill.data.Color color, float v, int i) {
         player.setChatBubble(s, color, v, i);
     }
 

@@ -2,6 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.Color;
+import lt.ltrp.data.PlayerData;
 import lt.ltrp.dialog.PasswordInputDialog;
 import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.object.LtrpPlayer;
@@ -73,28 +74,35 @@ public class AuthPlugin extends Plugin {
             if(e.getPlayer().isNpc()) {
                 return;
             }
-            PlayerDao playerDao = PlayerController.get().getPlayerDao();
-            int uuid = playerDao.getUserId(e.getPlayer());
-            if(uuid != LtrpPlayer.INVALID_USER_ID) {
-                LtrpPlayerImpl player = new LtrpPlayerImpl(e.getPlayer(), uuid, eventManagerNode);
-                player.setPassword(playerDao.getPassword(player));
+            Player p = e.getPlayer();
+            PlayerPlugin plugin = ResourceManager.get().getPlugin(PlayerPlugin.class);
+            if(plugin == null) {
+                p.sendMessage(Color.RED, "Prisijungimas ðiuo metu negalimas.");
+                p.kick();
+                e.interrupt();
+                return;
+            }
+            PlayerData playerData = plugin.getPlayerData(p.getName());
+            if(playerData.isValid()) {
+                //LtrpPlayerImpl player = new LtrpPlayerImpl(e.getPlayer(), uuid, eventManagerNode);
+                //player.setPassword(playerDao.getPassword(player));
 
-                playerLoginAttempts.put(player, 0);
-                PasswordInputDialog.create(player, eventManagerNode)
-                        .onClickCancel(d -> player.kick())
+                playerLoginAttempts.put(p, 0);
+                PasswordInputDialog.create(p, eventManagerNode)
+                        .onClickCancel(d -> p.kick())
                         .onClickOk((d, password) -> {
                             if(password == null || password.isEmpty())
                                 d.show();
                             else {
                                 password = Whirlpool.hash(password);
-                                if(password.equals(player.getPassword())) {
-                                    player.setLoggedIn(true);
-                                    eventManagerNode.dispatchEvent(new PlayerLogInEvent(player, playerLoginAttempts.get(player)));
-
-                                    playerLoginAttempts.remove(player);
+                                if(password.equals(playerData.getPassword())) {
+                                    playerData.setLoggedIn(true);
+                                    LtrpPlayerImpl impl = new LtrpPlayerImpl(playerData, p);
+                                    eventManagerNode.dispatchEvent(new PlayerLogInEvent(impl, playerLoginAttempts.get(p)));
+                                    playerLoginAttempts.remove(p);
                                 } else {
-                                    playerLoginAttempts.put(player, playerLoginAttempts.get(player) + 1);
-                                    d.addLine("\n\n{AA1100}Slaptaþodis neteisingas. Tai " + playerLoginAttempts.get(player) + " bandymas ið " + LtrpPlayer.MAX_LOGIN_TRIES);
+                                    playerLoginAttempts.put(p, playerLoginAttempts.get(p) + 1);
+                                    d.addLine("\n\n{AA1100}Slaptaþodis neteisingas. Tai " + playerLoginAttempts.get(p) + " bandymas ið " + LtrpPlayer.MAX_LOGIN_TRIES);
                                     d.show();
                                 }
                             }

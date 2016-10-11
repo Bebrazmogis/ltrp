@@ -26,5 +26,8 @@
         <module name="VehicleShopPlugin" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="VehicleShopPlugin" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

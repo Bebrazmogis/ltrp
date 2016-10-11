@@ -116,7 +116,7 @@ public class SpawnPlugin extends Plugin{
                 }
                 // This might happen if the spawn location is no longer valid(for example the house is destroyed)
                 if(location == null) {
-                    spawnData = SpawnData.DEFAULT;
+                    spawnData = SpawnData.DEFAULT.clone();
                     setSpawnData(player, SpawnData.DEFAULT);
                     location = DEFAULT_SPAWN_LOCATION;
                 }

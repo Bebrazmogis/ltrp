@@ -52,7 +52,7 @@ public class BusinessCommodityDrink extends BusinessCommodity {
     @Override
     public boolean onBuy(LtrpPlayer player) {
         if(player.getSpecialAction() != SpecialAction.NONE) {
-            player.sendErrorMessage("Jûs jau kaþkà geriate/valgote");
+            player.sendErrorMessage("JÅ«s jau kaÅ¾kÄ… geriate/valgote");
             return false;
         } else {
             DrinkItem item = (DrinkItem) Item.create(ItemType.Drink, getName(), action, player, eventManager);

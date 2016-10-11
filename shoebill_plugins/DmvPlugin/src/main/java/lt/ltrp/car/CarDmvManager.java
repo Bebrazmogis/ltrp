@@ -1,9 +1,7 @@
 package lt.ltrp.car;
 
-import lt.ltrp.AbstractDmvManager;
-import lt.ltrp.DmvController;
-import lt.ltrp.InitException;
-import lt.ltrp.LoadingException;
+import lt.ltrp.*;
+import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.constant.LicenseType;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
@@ -36,6 +34,8 @@ public class CarDmvManager extends AbstractDmvManager {
         super(eventManager);
         this.ongoingTests = new HashMap<>();
 
+        PlayerDao playerDao = PlayerPlugin.get(PlayerPlugin.class).getPlayerDao();
+
         try {
             dmv = DmvController.get().getDao().getCarDmv(1);
         } catch(LoadingException e) {
@@ -55,7 +55,7 @@ public class CarDmvManager extends AbstractDmvManager {
                     }
                     license.setStage(2);
                     license.setDateAquired(new Timestamp(new Date().getTime()));
-                    LtrpPlayer.getPlayerDao().updateLicense(license);
+                    playerDao.updateLicense(license);
                 }
             }
             DrivingTestEndMsgDialog.create(player, eventManager, e.getTest()).show();

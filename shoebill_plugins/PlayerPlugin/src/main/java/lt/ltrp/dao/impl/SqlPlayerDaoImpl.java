@@ -7,14 +7,20 @@ import lt.ltrp.constant.WalkStyle;
 import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.PlayerData;
+import lt.ltrp.object.impl.PlayerDataImpl;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
+import net.gtaun.util.event.EventManager;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -30,15 +36,16 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     private static final Logger logger = LoggerFactory.getLogger(SqlPlayerDaoImpl.class);
 
     private DataSource dataSource;
+    private EventManager eventManager;
 
-    public SqlPlayerDaoImpl( DataSource ds) {
+    public SqlPlayerDaoImpl(DataSource ds, EventManager eventManager) {
         if(ds == null)
             throw new IllegalArgumentException("Datasource cannot be null");
         this.dataSource = ds;
+        this.eventManager = eventManager;
     }
 
 
-    @Override
     public int getUserId(Player player) {
         logger.info("SqlPlayerDaoImpl :: getUserId for player " + player.getName());
         int userid = LtrpPlayer.INVALID_USER_ID;
@@ -61,7 +68,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return userid;
     }
 
-    @Override
     public String getPassword(LtrpPlayer player) {
         String password = null;
         String sql = "SELECT `password` FROM players WHERE id = ? LIMIT 1";
@@ -80,7 +86,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return password;
     }
 
-    @Override
     public boolean loadData(LtrpPlayer player) {
         boolean loaded = false;
         String sql = "SELECT " +
@@ -155,7 +160,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
-    @Override
     public boolean update(LtrpPlayer player) {
         throw new NotImplementedException();
     }
@@ -253,7 +257,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return data;
     }
 */
-    @Override
     public CrashData getCrashData(LtrpPlayer player) {
         CrashData crashData = null;
         String sql = "SELECT * FROM player_crashes WHERE player_id = ?";
@@ -279,7 +282,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return crashData;
     }
 
-    @Override
     public boolean remove(LtrpPlayer player, CrashData data) {
         String sql = "DELETE FROM player_crashes WHERE player_id = ?";
         try(
@@ -309,7 +311,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 */
-    @Override
     public boolean setFactionManager(LtrpPlayer player) {
         String sql = "UPDATE players SET faction_manager = 1 WHERE id = ?";
         try(
@@ -342,7 +343,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 */
-    @Override
     public void insertCrime(PlayerCrime crime) {
         String sql = "INSERT INTO player_crimes (`name`, crime, reporter, `date`) VALUES(?, ?, ?, ?)";
         try (
@@ -359,7 +359,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
-    @Override
+
     public List<PlayerCrime> getCrimes(LtrpPlayer player) {
         List<PlayerCrime> crimes = new ArrayList<>();
         String sql = "SELECT * FROM player_crimes WHERE name = ?";
@@ -440,7 +440,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return permissions;
     }
 */
-    @Override
+
     public void update(PlayerSettings settings) {
         String sql = "INSERT INTO player_settings (player_id, setting, `value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)";
         try (
@@ -465,7 +465,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
-    @Override
     public void updateLicenses(PlayerLicenses licenses) {
         for(PlayerLicense license : licenses.get()) {
             if(license != null) {
@@ -474,7 +473,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
-    @Override
     public void updateLicense(PlayerLicense license) {
         String sql = "UPDATE player_licenses SET type = ?, stage = ?, `date` = ? WHERE id = ?";
         try (
@@ -491,7 +489,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
-    @Override
     public void insertLicense(PlayerLicense license) {
         String sql = "INSERT INTO player_licenses (player_id, type, stage, `date`) VALUES(?, ?, ?, ?)";
         try (
@@ -512,7 +509,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
-    @Override
     public PlayerLicenses get(LtrpPlayer player) {
         PlayerLicenses licenses = new PlayerLicenses(player);
         String sql = "SELECT * FROM player_licenses WHERE player_id = ?";
@@ -538,7 +534,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return licenses;
     }
 
-    @Override
+
     public void delete(PlayerLicense license) {
         String sql = "DELETE FROM player_licenses WHERE id = ?";
         try (
@@ -552,7 +548,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
-    @Override
+
     public void removeJob(int userId) {
         String sql = "UPDATE players SET job_id = NULL, job_rank = NULL WHERE id = ?";
         try (
@@ -566,7 +562,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
-    @Override
     public String getUsername(int userId) {
         String sql = "SELECT username FROM players WHERE id = ?";
         try (
@@ -584,7 +579,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return null;
     }
 
-    @Override
     public int getUserId(String username) {
         String sql = "SELECT id FROM players WHERE username= ?";
         try (
@@ -602,7 +596,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         return LtrpPlayer.INVALID_USER_ID;
     }
 
-    @Override
     public void updateLastLogin(LtrpPlayer ltrpPlayer) {
         String sql = "UPDATE players SET last_login = ? WHERE id = ?";
         try (
@@ -660,4 +653,124 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 
+    @Override
+    public PlayerData get(@NotNull String name) {
+        String sql = "SELECT * FROM players WHERE name = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ) {
+            stmt.setString(1, name);
+            ResultSet r = stmt.executeQuery();
+            return toData(r);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @NotNull
+    @Override
+    public PlayerData get(int uuid) {
+        String sql = "SELECT * FROM players WHERE id = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, uuid);
+            ResultSet r = stmt.executeQuery();
+            return toData(r);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("Invalid user id " + uuid);
+    }
+
+    @Override
+    public void update(@NotNull PlayerData playerData) {
+        String sql = "UPDATE players SET " +
+                "name = ?," +
+                "password = ?," +
+                "secret_question = ?," +
+                "secret_answer = ?," +
+                "level = ?," +
+                "admin_level = ?," +
+                "mod_level = ?," +
+                "hours_online = ?," +
+                "minutes_online_since_payday = ?," +
+                "box_style = ?," +
+                "sex = ?," +
+                "age = ?," +
+                "origin = ?," +
+                "disease = ?," +
+                "respect = ?," +
+                "money = ?," +
+                "deaths = ?," +
+                "wanted_level = ?," +
+                "walk_style = ?," +
+                "talk_style = ?," +
+                "last_login = ? ," +
+                "hunger = ?," +
+                "total_paycheck = ? " +
+                "WHERE id = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+        ) {
+            stmt.setString(1, playerData.getName());
+            stmt.setString(2, playerData.getPassword());
+            stmt.setString(3, playerData.getSecretQuestion());
+            stmt.setString(4, playerData.getSecretAnswer());
+            stmt.setInt(5, playerData.getLevel());
+            stmt.setInt(6, playerData.getAdminLevel());
+            stmt.setInt(7, playerData. getModLevel());
+            stmt.setInt(8, playerData.getHoursOnline());
+            stmt.setInt(9, playerData.getMinutesOnlineSincePayday());
+            stmt.setInt(10, playerData.getBoxStyle());
+            stmt.setString(11, playerData.getSex());
+            stmt.setInt(12, playerData.getAge());
+            stmt.setString(13, playerData.getOrigin());
+            stmt.setInt(14, playerData.getDisease());
+            stmt.setInt(15, playerData.getRespect());
+            stmt.setInt(16, playerData.getMoney());
+            stmt.setInt(17, playerData.getDeaths());
+            stmt.setInt(18, playerData.getWantedLevel());
+            stmt.setInt(19, playerData.getWalkStyle().getId());
+            stmt.setInt(20, playerData.getTalkStyle().getId());
+            stmt.setTimestamp(21, new Timestamp(playerData.getLastLogIn().toEpochSecond(ZoneOffset.UTC)));
+            stmt.setInt(22, playerData.getHunger());
+            stmt.setInt(23, playerData.getTotalPaycheck());
+            stmt.setInt(24, playerData.getUUID());
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private PlayerDataImpl toData(ResultSet r) throws SQLException {
+        return new PlayerDataImpl(r.getInt("id"), r.getString("name"),
+                r.getString("password"),
+                r.getString("secret_question"),
+                r.getString("secret_answer"),
+                r.getInt("level"),
+                r.getInt("admin_level"),
+                r.getInt("mod_level"),
+                r.getInt("hours_online"),
+                r.getInt("minutes_online_since_payday"),
+                r.getInt("box_style"),
+                r.getString("sex"),
+                r.getInt("age"),
+                r.getString("origin"),
+                r.getInt("disease"),
+                r.getInt("respect"),
+                r.getInt("money"),
+                r.getInt("deaths"),
+                r.getInt("wanted_level"),
+                WalkStyle.getById(r.getInt("walk_style")),
+                TalkStyle.getById(r.getInt("talk_style")),
+                r.getTimestamp("last_login").toLocalDateTime(),
+                r.getInt("hunger"),
+                r.getInt("total_paycheck"),
+                eventManager);
+    }
 }

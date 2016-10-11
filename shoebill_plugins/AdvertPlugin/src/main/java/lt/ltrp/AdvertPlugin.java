@@ -6,7 +6,11 @@ import lt.ltrp.dao.impl.FileAdvertisementCenterDaoImpl;
 import lt.ltrp.dao.impl.MySqlAdvertisementDaoImpl;
 import lt.ltrp.data.Advert;
 import lt.ltrp.data.Color;
+import lt.ltrp.dialog.AdvertisementListDialog;
+import lt.ltrp.event.PlayerSelectItemOptionEvent;
+import lt.ltrp.object.Item;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.impl.NewsPaperItem;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.resource.Plugin;
@@ -65,6 +69,16 @@ public class AdvertPlugin extends Plugin {
         this.advertisementDao = new MySqlAdvertisementDaoImpl(dataSource);
 
         adCenterLocation = this.centerDao.get();
+
+        this.eventManager.registerHandler(PlayerSelectItemOptionEvent.class, e -> {
+            LtrpPlayer player = e.getPlayer();
+            Item item = e.getItem();
+            if(item instanceof NewsPaperItem && e.getOption().equals("read")) {
+                AdvertisementListDialog.create(player, getEventManager(), getAdsBeforeDate(((NewsPaperItem) item).getDate()))
+                        .build()
+                        .show();
+            }
+        });
     }
 
     @Override

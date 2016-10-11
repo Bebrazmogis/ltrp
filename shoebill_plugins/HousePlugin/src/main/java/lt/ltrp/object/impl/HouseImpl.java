@@ -7,7 +7,6 @@ import lt.ltrp.data.HouseWeedSapling;
 import lt.ltrp.event.property.house.HouseDestroyEvent;
 import lt.ltrp.object.House;
 import lt.ltrp.object.Inventory;
-import lt.ltrp.object.InventoryPropertyImpl;
 import lt.ltrp.object.LtrpPlayer;
 import lt.maze.streamer.StreamerPlugin;
 import lt.maze.streamer.constant.StreamerType;

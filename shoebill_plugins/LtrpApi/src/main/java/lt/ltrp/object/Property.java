@@ -1,13 +1,15 @@
 package lt.ltrp.object;
 
-import lt.ltrp.NamedEntity;
 import lt.ltrp.PropertyController;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Destroyable;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**

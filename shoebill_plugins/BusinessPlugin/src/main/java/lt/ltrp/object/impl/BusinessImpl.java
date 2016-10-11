@@ -5,7 +5,6 @@ import lt.ltrp.constant.BusinessType;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.dialog.BusinessCommodityListDialog;
 import lt.ltrp.event.property.BusinessDestroyEvent;
-import lt.ltrp.object.AbstractProperty;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.util.PawnFunc;

@@ -6,7 +6,7 @@ import net.gtaun.shoebill.data.WeaponData;
  * @author Bebras
  *         2015.11.12.
  */
-public class SpawnData {
+public class SpawnData implements Cloneable {
 
     public static final SpawnData DEFAULT = new SpawnData(SpawnType.Default, 0, 104, new WeaponData[0]);
 
@@ -75,5 +75,16 @@ public class SpawnData {
 
     public void setWeaponData(WeaponData[] weaponData) {
         this.weaponData = weaponData;
+    }
+
+    @Override
+    public SpawnData clone() {
+        // Sadly Shoebill WeaponData does not support cloning
+        WeaponData[] weapons = new WeaponData[weaponData.length];
+        int i = 0;
+        for(WeaponData weapon : weaponData) {
+            weapons[ i++ ] = new WeaponData(weapon);
+        }
+        return new SpawnData(this.type, this.id, this.skin, weapons);
     }
 }

@@ -2,7 +2,6 @@ package lt.ltrp;
 
 import lt.ltrp.command.GarageCommands;
 import lt.ltrp.command.GarageOwnerCommands;
-import lt.ltrp.command.GarageSetSpawnCommands;
 import lt.ltrp.dao.GarageDao;
 import lt.ltrp.dao.impl.MySqlGarageDaoImpl;
 import lt.ltrp.dialog.AdminGarageManagementDialog;
@@ -48,7 +47,6 @@ public class GaragePlugin extends Plugin implements GarageController {
 
         final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
         dependencies.add(DatabasePlugin.class);
-        dependencies.add(ItemPlugin.class);
         dependencies.add(PropertyPlugin.class);
         int missing = 0;
         for(Class<? extends Plugin> clazz : dependencies) {
@@ -76,7 +74,6 @@ public class GaragePlugin extends Plugin implements GarageController {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
         this.garageDao = new MySqlGarageDaoImpl(databasePlugin.getDataSource(), eventManagerNode);
         Collection<Garage> garages = garageDao.get();
-        loadItemsAsynchronously(garages);
         garageCollection.addAll(garages);
         addCommands();
         addEventHandlers();
@@ -87,7 +84,6 @@ public class GaragePlugin extends Plugin implements GarageController {
         PlayerCommandManager playerCommandManager = new PlayerCommandManager(eventManagerNode);
         playerCommandManager.registerCommands(new GarageCommands(eventManagerNode));
         playerCommandManager.registerCommands(new GarageOwnerCommands(eventManagerNode));
-        SpawnPlugin.get(SpawnPlugin.class).getSetSpawnCommandGroup().registerCommands(new GarageSetSpawnCommands());
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
     }
 
@@ -100,7 +96,7 @@ public class GaragePlugin extends Plugin implements GarageController {
             garageDao.update(e.getProperty());
         });
     }
-
+/*
     private void loadItemsAsynchronously(Collection<Garage> garages) {
         new Thread(() -> {
             ItemPlugin itemPlugin = ResourceManager.get().getPlugin(ItemPlugin.class);
@@ -108,7 +104,7 @@ public class GaragePlugin extends Plugin implements GarageController {
                 g.getInventory().add(itemPlugin.getItemDao().getItems(g)); 
             });
         }).start();
-    }
+    }*/
 
     @Override
     protected void onDisable() throws Throwable {

@@ -22,6 +22,7 @@ public class Color extends net.gtaun.shoebill.data.Color {
     public static final net.gtaun.shoebill.data.Color BUSINESS = new net.gtaun.shoebill.data.Color();
     public static final net.gtaun.shoebill.data.Color GARAGE = new net.gtaun.shoebill.data.Color();
     public static final net.gtaun.shoebill.data.Color HOUSE = new net.gtaun.shoebill.data.Color();
+    public static final net.gtaun.shoebill.data.Color AD = new net.gtaun.shoebill.data.Color();
 
     public Color(int value) {
         super(value);

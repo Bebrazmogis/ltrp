@@ -8,17 +8,11 @@
     <artifactId>ltrp-api</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-        </repository>
+    <properties>
+        <kotlin.version>1.0.4</kotlin.version>
+    </properties>
 
+    <repositories>
         <repository>
             <id>gtaun-public-repo</id>
             <name>GTAUN Public Repository</name>
@@ -30,7 +24,7 @@
         <dependency>
             <groupId>net.gtaun</groupId>
             <artifactId>shoebill-api</artifactId>
-            <version>1.3-SNAPSHOT</version>
+            <version>2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.gtaun</groupId>
@@ -57,11 +51,18 @@
             <artifactId>database</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
+        <!-- <dependency>
             <groupId>jacksum</groupId>
             <artifactId>jacksum</artifactId>
             <version>1.0</version>
+        </dependency> -->
+        <!-- https://mvnrepository.com/artifact/org.gnu/gnu-crypto -->
+        <dependency>
+            <groupId>org.gnu</groupId>
+            <artifactId>gnu-crypto</artifactId>
+            <version>2.0.1</version>
         </dependency>
+
         <dependency>
             <groupId>lt.maze</groupId>
             <artifactId>mapandreas</artifactId>
@@ -70,13 +71,19 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
-            <version>1.0.2</version>
+            <version>${kotlin.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-reflect -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
             <version>1.0.2-1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -88,7 +95,7 @@
             <plugin>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <groupId>org.jetbrains.kotlin</groupId>
-                <version>1.0.2</version>
+                <version>${kotlin.version}</version>
 
                 <executions>
                     <execution>

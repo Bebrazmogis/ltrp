@@ -11,6 +11,7 @@ import java.util.List;
  * @author Bebras
  *         2015.11.12.
  */
+/*
 public interface PlayerDao {
 
 
@@ -25,7 +26,7 @@ public interface PlayerDao {
     List<PlayerCrime> getCrimes(LtrpPlayer player);
 
     void update(PlayerSettings settings);
-
+    void updateLastLogin(LtrpPlayer player);
     void updateLicenses(PlayerLicenses licenses);
     void updateLicense(PlayerLicense license);
     void insertLicense(PlayerLicense license);
@@ -38,3 +39,4 @@ public interface PlayerDao {
     public String getUsername(int userId);
     public int getUserId(String username);
 }
+*/

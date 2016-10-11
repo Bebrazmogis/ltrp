@@ -1,4 +1,4 @@
-package lt.ltrp.constant;
+package lt.ltrp.player.licenses.constant;
 
 /**
  * @author Bebras

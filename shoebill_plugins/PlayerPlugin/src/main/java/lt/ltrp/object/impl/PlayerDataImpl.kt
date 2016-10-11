@@ -16,39 +16,39 @@ import net.gtaun.util.event.EventManager
  */
 open class PlayerDataImpl(uuid: Int,
                           name: String,
-                          var password: String,
-                          var secretQuestion: String,
-                          var secretAnswer: String,
-                          var level: Int,
-                          var adminLevel: Int,
-                          var modLevel: Int,
-                          var hoursOnline: Int,
+                          override var password: String,
+                          override var secretQuestion: String,
+                          override var secretAnswer: String,
+                          override var level: Int,
+                          override var adminLevel: Int,
+                          override var modLevel: Int,
+                          override var hoursOnline: Int,
                           /**
                        * Basically this has one ue: to check if the user is allowed to get payday
                        * If this is larger or equal to {@link lt.ltrp.PlayerController#MINUTES_FOR_PAYDAY} he will get payday
                        */
-                        var minutesOnlineSincePayday: Int,
-                          var boxStyle: Int,
-                          var sex: String,
-                          var age: Int,
-                          var origin: String,
-                          var disease: Int,
-                          var respect: Int,
-                          open var money: Int,
-                          var deaths: Int,
-                          open var wantedLevel: Int,
-                          var walkStyle: WalkStyle,
-                          var talkStyle: TalkStyle,
-                          var lastLogIn: LocalDateTime,
-                          var hunger: Int,
-                          var totalPaycheck: Int,
+                        override var minutesOnlineSincePayday: Int,
+                        override var boxStyle: Int,
+                        override var sex: String,
+                        override var age: Int,
+                        override var origin: String,
+                        override var disease: Int,
+                        override var respect: Int,
+                        override var money: Int,
+                        override var deaths: Int,
+                        override var wantedLevel: Int,
+                        override var walkStyle: WalkStyle,
+                        override var talkStyle: TalkStyle,
+                        override var lastLogIn: LocalDateTime,
+                        override var hunger: Int,
+                        override var totalPaycheck: Int,
                           protected var eventManager: EventManager) : InventoryEntityImpl(uuid, name), PlayerData {
 
     var isLoggedIn = false
         get
         set
 
-    constructor(data: PlayerDataImpl): this(data.UUID, data.name, data.password, data.secretQuestion, data.secretAnswer,
+    constructor(data: PlayerData): this(data.UUID, data.name, data.password, data.secretQuestion, data.secretAnswer,
             data.level,
             data.adminLevel,
             data.modLevel,
@@ -68,7 +68,7 @@ open class PlayerDataImpl(uuid: Int,
             data.lastLogIn,
             data.hunger,
             data.totalPaycheck,
-            data.eventManager) {
+            (data as PlayerDataImpl).eventManager) {
 
     }
 

@@ -16,7 +16,12 @@ public class DynamicPolygon extends AbstractDynamicArea {
     public static DynamicPolygon create(float[] points, float minz, float maxz, int worldid, int interiorid, Player p) {
         int id;
         try {
-            id = Functions.CreateDynamicPolygon(points, minz, maxz, points.length, worldid, interiorid, p == null ? -1 : p.getId());
+            Float[] wrapper = new Float[points.length];
+            int i = 0;
+            for(float point : points) {
+                wrapper[i++] = point;
+            }
+            id = Functions.CreateDynamicPolygon(wrapper, minz, maxz, points.length, worldid, interiorid, p == null ? -1 : p.getId());
             if(id == Constants.INVALID_STREAMER_ID) {
                 throw new CreationFailedException("DynamicCube could not be created");
             }

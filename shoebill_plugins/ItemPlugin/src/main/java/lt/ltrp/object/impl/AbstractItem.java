@@ -3,6 +3,7 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
+import lt.ltrp.event.PlayerSelectItemOptionEvent;
 import lt.ltrp.event.item.ItemDestroyEvent;
 import lt.ltrp.object.Inventory;
 import lt.ltrp.object.Item;
@@ -14,6 +15,7 @@ import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
+import org.apache.commons.lang3.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +72,14 @@ public abstract class AbstractItem extends NamedEntityImpl implements Item {
                 }
             } catch(IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
+                // This might happen whenever item action is implemented outside this package
+            } catch(NotImplementedException e) {
+                logger.info("Method " + m.getName() + " not implemented for " + getClass().getName() + "(player=" + ((LtrpPlayer) player).getUUID());
             }
+            LtrpPlayer p = LtrpPlayer.get(player);
+            // Should not be a problem, but Kotlin
+            if(p != null)
+                eventManager.dispatchEvent(new PlayerSelectItemOptionEvent(p, this, dialogitem.getItemText(), m.getName()));
         });
 
         Method enableSupplier = null;

@@ -13,6 +13,7 @@ import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.event.PlayerChangeJobEvent;
 import lt.ltrp.event.player.PlayerCallNumberEvent;
 import lt.ltrp.object.*;
+import lt.ltrp.object.impl.AbstractJob;
 import lt.ltrp.util.StringUtils;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -122,7 +123,7 @@ public class JobPlugin extends Plugin implements JobController {
     
     private void load() {
         eventManager.cancelAll();
-        factionDao = new MySqlFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, null, eventManager);
+        factionDao = new MySqlFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, eventManager);
         addEventHandlers();
         addCommands();
         logger.info(getDescription().getName() + " loaded");
@@ -134,8 +135,6 @@ public class JobPlugin extends Plugin implements JobController {
         playerCommandManager.registerCommands(new FactionLeaderCommands(eventManager, this));
         playerCommandManager.registerCommands(new FactionCommands(eventManager, this));
         playerCommandManager.registerCommands(new JobCommands(this));
-
-        SpawnPlugin.get(SpawnPlugin.class).getSetSpawnCommandGroup().registerCommands(new SetSpawnCommands());
 
         CommandGroup group = new CommandGroup();
         group.registerCommands(new FactionAcceptCommands());
