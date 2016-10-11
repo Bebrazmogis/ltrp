@@ -1,5 +1,6 @@
-package lt.ltrp;
+package lt.ltrp.object.impl;
 
+import lt.ltrp.JobProperty;
 import lt.ltrp.object.Faction;
 import lt.ltrp.object.FactionRank;
 import lt.ltrp.object.JobVehicle;

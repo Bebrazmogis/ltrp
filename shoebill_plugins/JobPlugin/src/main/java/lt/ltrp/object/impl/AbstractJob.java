@@ -1,5 +1,6 @@
-package lt.ltrp;
+package lt.ltrp.object.impl;
 
+import lt.ltrp.JobController;
 import lt.ltrp.object.Job;
 import lt.ltrp.object.JobGate;
 import lt.ltrp.object.LtrpPlayer;

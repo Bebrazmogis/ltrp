@@ -1,4 +1,4 @@
-package lt.ltrp;
+package lt.ltrp.object.impl;
 
 import lt.ltrp.object.ContractJob;
 import lt.ltrp.object.ContractJobRank;
