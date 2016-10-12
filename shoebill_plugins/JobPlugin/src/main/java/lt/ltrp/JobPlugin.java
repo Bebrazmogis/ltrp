@@ -137,7 +137,7 @@ public class JobPlugin extends Plugin implements JobController {
         playerCommandManager.registerCommands(new JobCommands(this));
 
         CommandGroup group = new CommandGroup();
-        group.registerCommands(new FactionAcceptCommands());
+        group.registerCommands(new FactionAcceptCommands(this));
         playerCommandManager.registerChildGroup(group, "accept");
 
         playerCommandManager.registerCommand("takejob", new Class[0], (p, params) -> {
@@ -153,7 +153,6 @@ public class JobPlugin extends Plugin implements JobController {
                     Job job = contractJobOptional.get();
                     setJob(player, job);
                     player.sendMessage(Color.NEWS, "* Jûs ásidarbinote, jeigu reikia daugiau pagalbos raðykite /help.");
-                    LtrpPlayer.getPlayerDao().update(player);
                 }
             }
             return true;
