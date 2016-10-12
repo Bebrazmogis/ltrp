@@ -13,6 +13,11 @@ import net.gtaun.shoebill.object.Player;
  */
 public class FactionAcceptCommands {
 
+    private JobPlugin jobs;
+
+    public FactionAcceptCommands(JobPlugin jobPlugin) {
+        this.jobs = jobPlugin;
+    }
 
     @Command
     public boolean faction(Player p) {
@@ -27,10 +32,9 @@ public class FactionAcceptCommands {
             LtrpPlayer leader = offer.getOfferedBy();
             PlayerJobData leaderData = JobController.get().getJobData(leader);
             Rank minRank = leaderData.getJob().getRanks().stream().min((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber())).get();
-            JobController.get().setJob(player, leaderData.getJob(), minRank);
+            jobs.setJob(player, leaderData.getJob(), minRank);
             player.sendMessage(Color.NEWS, "Prisijungëte prie frakcijos \"" + leaderData.getJob().getName() + "\". Jûsø rangas: " + minRank.getName());
             leader.sendMessage(Color.NEWS, player.getCharName() + " prisijungë prie jûsø frakcijos, jam paskirtas rangas " + minRank.getName());
-            LtrpPlayer.getPlayerDao().update(player);
         }
         return true;
     }
