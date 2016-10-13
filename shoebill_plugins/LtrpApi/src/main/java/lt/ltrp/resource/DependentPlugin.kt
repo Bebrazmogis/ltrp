@@ -14,6 +14,7 @@ abstract class DependentPlugin: Plugin() {
     val dependencies = mutableSetOf<KClass<out Plugin>>()
     val loadedDependencies = mutableSetOf<Plugin>()
     var handlerEntry: HandlerEntry? = null
+    var isDependenciesLoaded = false
 
     abstract fun onDependenciesLoaded()
     open fun onDependenciesLoaded(set: Set<Plugin>) {
@@ -43,6 +44,8 @@ abstract class DependentPlugin: Plugin() {
             if(loadedDependencies.size == dependencies.size) {
                 onDependenciesLoaded()
                 onDependenciesLoaded(loadedDependencies)
+                handlerEntry?.cancel()
+                isDependenciesLoaded = true
             }
         }
     }
