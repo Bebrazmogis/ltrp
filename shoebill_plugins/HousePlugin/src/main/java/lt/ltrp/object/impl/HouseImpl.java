@@ -5,7 +5,8 @@ import lt.ltrp.data.Color;
 import lt.ltrp.data.HouseRadio;
 import lt.ltrp.data.HouseWeedSapling;
 import lt.ltrp.event.property.house.HouseDestroyEvent;
-import lt.ltrp.object.House;
+import lt.ltrp.house.object.House;
+import lt.ltrp.house.rent.object.HouseTenant;
 import lt.ltrp.object.Inventory;
 import lt.ltrp.object.LtrpPlayer;
 import lt.maze.streamer.StreamerPlugin;
@@ -27,7 +28,7 @@ public class HouseImpl extends InventoryPropertyImpl implements House {
 
     private List<HouseWeedSapling> weedSaplings;
     private Collection<HouseUpgradeType> upgrades;
-    private List<Integer> tenants;
+    private List<HouseTenant> tenants;
     private HouseRadio radio;
     private int money;
     private int rentPrice;
@@ -98,14 +99,15 @@ public class HouseImpl extends InventoryPropertyImpl implements House {
     }
 
     @Override
-    public List<Integer> getTenants() {
+    public Collection<HouseTenant> getTenants() {
         return tenants;
     }
+
 
     @Override
     public void sendTenantMessage(String s) {
         tenants.forEach(i -> {
-            LtrpPlayer p = LtrpPlayer.get(i);
+            LtrpPlayer p = i.getPlayer() instanceof LtrpPlayer ? (LtrpPlayer) i.getPlayer() : LtrpPlayer.get(i.getPlayer().getUUID());
             if(p != null) p.sendMessage(Color.HOUSE, s);
         });
     }
