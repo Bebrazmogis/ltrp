@@ -1,0 +1,7 @@
+class: lt.ltrp.house.rent..HouseRentPlugin
+name: House rent plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: This plugin provides house tenant management
