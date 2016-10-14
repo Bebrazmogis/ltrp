@@ -62,6 +62,7 @@ class HouseUpgradePlugin: DependentPlugin() {
         playerCommandManager = PlayerCommandManager(eventManager)
         val group = CommandGroup()
         playerCommandManager.registerCommands(HouseOwnerCommands(eventManager, group))
+        playerCommandManager.registerChildGroup(group, "hu")
         playerCommandManager.registerCommands(UpgradeCommands())
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL)
     }
