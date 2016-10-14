@@ -4,10 +4,13 @@ import lt.ltrp.DatabasePlugin
 import lt.ltrp.house.HouseController
 import lt.ltrp.house.`object`.House
 import lt.ltrp.house.event.HouseLoadedEvent
+import lt.ltrp.house.weed.command.HouseOwnerCommands
 import lt.ltrp.house.weed.dao.HouseWeedDao
 import lt.ltrp.house.weed.dao.MySqlHouseWeedDaoImpl
 import lt.ltrp.resource.DependentPlugin
+import net.gtaun.shoebill.common.command.PlayerCommandManager
 import net.gtaun.util.event.EventManagerNode
+import net.gtaun.util.event.HandlerPriority
 
 /**
  * Created by Bebras on 2016-10-14.
@@ -22,6 +25,7 @@ class HouseWeedPlugin: DependentPlugin() {
     private lateinit var eventManager: EventManagerNode
     private lateinit var houseWeedDao: HouseWeedDao
     private lateinit var houseWeedController: HouseWeedControllerImpl
+    private lateinit var playerCommandManager: PlayerCommandManager
 
     init {
         addDependency(DatabasePlugin::class)
@@ -37,6 +41,10 @@ class HouseWeedPlugin: DependentPlugin() {
 
         addEventsListeners()
         HouseController.get().all.forEach { it.weedSaplings.addAll(houseWeedDao.getWeed(it)) }
+
+        playerCommandManager = PlayerCommandManager(eventManager)
+        playerCommandManager.registerCommands(HouseOwnerCommands(eventManager))
+        playerCommandManager.installCommandHandler(HandlerPriority.NORMAL)
     }
 
     override fun onDisable() {
@@ -45,6 +53,7 @@ class HouseWeedPlugin: DependentPlugin() {
             it.weedSaplings.forEach { it.destroy() }
             it.weedSaplings.clear()
         }
+        playerCommandManager.destroy()
     }
 
     private fun addEventsListeners() {
