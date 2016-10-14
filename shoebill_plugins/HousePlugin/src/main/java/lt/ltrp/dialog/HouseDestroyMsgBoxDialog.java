@@ -24,8 +24,7 @@ public class HouseDestroyMsgBoxDialog {
                 .parentDialog(parent)
                 .onClickCancel(AbstractDialog::showParentDialog)
                 .onClickOk(d -> {
-                    HouseController.get().getHouseDao().remove(house);
-                    house.destroy();
+                    HouseController.get().remove(house);
                 })
                 .build();
     }
