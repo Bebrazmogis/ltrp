@@ -22,7 +22,7 @@ interface HouseWeedSapling: Entity, Destroyable {
     val plantedAt: LocalDateTime
     var grownAt: LocalDateTime?
     var harvestedBy: PlayerData?
-    val growthStage: GrowthStage
+    var growthStage: GrowthStage
     val plantedBy: PlayerData
     var yieldAmount: Int
     var destroyed: Boolean

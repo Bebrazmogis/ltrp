@@ -22,7 +22,7 @@ class HouseWeedSaplingImpl(uuid: Int,
                            override val house: House,
                            override val location: Location,
                            override val plantedAt: LocalDateTime,
-                           override val growthStage: GrowthStage,
+                           override var growthStage: GrowthStage,
                            override val plantedBy: PlayerData,
                            override var grownAt: LocalDateTime?,
                            override var harvestedBy: PlayerData?,
@@ -76,7 +76,7 @@ class HouseWeedSaplingImpl(uuid: Int,
 
         growthTimer?.schedule(object : TimerTask() {
             override fun run() {
-                val growthStage = growthStage.next()
+                growthStage = growthStage.next()
                 if(growthStage == GrowthStage.Grown) {
                     grownAt = LocalDateTime.now()
                     yieldAmount = Random().nextInt(HouseWeedSapling.MAX_YIELD - HouseWeedSapling.MIN_YIELD) + HouseWeedSapling.MIN_YIELD
