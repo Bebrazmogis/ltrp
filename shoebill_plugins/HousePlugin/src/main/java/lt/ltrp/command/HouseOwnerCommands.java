@@ -1,17 +1,15 @@
 package lt.ltrp.command;
 
-import lt.ltrp.HouseController;
-import lt.ltrp.PlayerController;
+import lt.ltrp.house.HouseController;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.*;
 import lt.ltrp.dialog.radio.RadioOptionListDialog;
-import lt.ltrp.event.player.PlayerSpawnLocationChangeEvent;
-import lt.ltrp.event.property.house.HouseEditEvent;
-import lt.ltrp.event.property.house.HouseLockToggleEvent;
-import lt.ltrp.event.property.house.HouseMoneyEvent;
-import lt.ltrp.object.House;
+import lt.ltrp.house.event.HouseLockToggleEvent;
+import lt.ltrp.house.event.HouseMoneyEvent;
+import lt.ltrp.house.object.House;
+import lt.ltrp.house.weed.data.HouseWeedSapling;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.WeedItem;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -178,99 +176,6 @@ public class HouseOwnerCommands {
         else {
             player.sendActionMessage("atidaro namo seifà, suskaièiuoja jame esanèius pinigus ir vël já uþdaro.");
             player.sendMessage(Color.HOUSE, "Namo seife yra " + house.getMoney() + " " + Currency.NAME);
-        }
-        return true;
-    }
-
-    @Command
-    @CommandHelp("Nustato nuomoti namà ar ne, jei taip nuomos kainà")
-    public boolean setRent(Player p, @CommandParameter(name = "Nuomos kaina, 0 - nenumuoti") int price) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        House house = House.get(player);
-        if(house == null)
-            return false;
-        if(!house.isOwner(player))
-            player.sendErrorMessage("Ðis namas jums nepriklauso");
-        else if(price < 0)
-            player.sendErrorMessage("Nuomos kaina negali bûti neigiama, ar norite mokëti nuomininkams?");
-        else {
-            house.setRentPrice(price);
-            eventManager.dispatchEvent(new HouseEditEvent(house, player));
-            player.sendMessage(Color.HOUSE, "Nuomos mokestis pakeistas á " + price + Currency.SYMBOL);
-            house.sendTenantMessage("Jûsø nuomuojamo namo savininkas " + player.getCharName() + " pakeitë nuomos mokesti á " + price + Currency.SYMBOL);
-            player.playSound(1052);
-        }
-        return true;
-    }
-
-    @Command
-    @CommandHelp("Paðalina visu jûsø namo nuomininkus")
-    public boolean evictAll(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        House house = House.get(player);
-        if(house == null)
-            return false;
-        else if(!house.isOwner(player))
-            player.sendErrorMessage("Ðis namas jums nepriklauso");
-        else {
-            house.getTenants().forEach(i -> {
-                LtrpPlayer tenant = LtrpPlayer.get(i);
-                if(tenant != null) {
-                    tenant.sendMessage(Color.HOUSE, " * Jûs buvote iðkeldintas ið nuomojamo namo.");
-                    house.getTenants().remove(tenant.getUUID());
-                    eventManager.dispatchEvent(new PlayerSpawnLocationChangeEvent(tenant, SpawnData.DEFAULT));
-                }
-            });
-            new Thread(() -> {
-                house.getTenants().forEach(i -> {
-                    PlayerController.get().getPlayerDao().update(i, SpawnData.DEFAULT);
-                });
-                house.getTenants().clear();
-            }).start();
-            player.sendMessage(Color.HOUSE, "Sëkmingai iðkeldinti " + house.getTenants().size() + " nuomininkai.");
-        }
-        return true;
-    }
-
-    @Command
-    @CommandHelp("Paðalina nuomininkà ið jûsø namo")
-    public boolean evict(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer tenant) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        House house = House.get(player);
-        if(house == null)
-            return false;
-        else if(!house.isOwner(player))
-            player.sendErrorMessage("Ðis namas jums nepriklauso");
-        else if(tenant == null || tenant.equals(player))
-            player.sendErrorMessage("Tokio þaidëjo nëra!");
-        else if(!house.getTenants().contains(tenant.getUUID()))
-            player.sendErrorMessage("Ðis þaidëjas nesinomuoja jûsø namo.");
-        else {
-            tenant.sendMessage(Color.HOUSE, " * Jûs buvote iðkeldintas ið nuomojamo namo.");
-            house.getTenants().remove(tenant.getUUID());
-            eventManager.dispatchEvent(new PlayerSpawnLocationChangeEvent(player, SpawnData.DEFAULT));
-            player.sendMessage(Color.HOUSE, "Nuomininkas " + tenant.getCharName() + " iðkeldintas.");
-        }
-        return true;
-    }
-
-    @Command
-    @CommandHelp("Parodo jûsø namà nuomuojanèiø þmoniø sàraðà")
-    public boolean tenantry(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        House house = House.get(player);
-        if(house == null)
-            return false;
-        else if(!house.isOwner(player))
-            player.sendErrorMessage("Ðis namas jums nepriklauso");
-        else if(house.getTenants().size() == 0)
-            player.sendErrorMessage("Jûsø namo niekas nesinomuoja!");
-        else {
-            player.sendMessage(Color.HOUSE, "__________Nuomininkai__________");
-            int count = 1;
-            for (Integer integer : house.getTenants()) {
-                player.sendMessage(Color.WHITE, count + " . " + PlayerController.get().getPlayerDao().getUsername(integer));
-            }
         }
         return true;
     }

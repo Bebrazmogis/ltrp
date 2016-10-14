@@ -1,8 +1,8 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.LtrpGamemode;
-import lt.ltrp.event.property.house.HouseCreateEvent;
-import lt.ltrp.object.House;
+import lt.ltrp.house.event.HouseCreateEvent;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
@@ -18,7 +18,7 @@ public class AdminHouseManagementListDialog {
 
     public static ListDialog create(LtrpPlayer player, EventManager eventManager) {
         return ListDialog.create(player, eventManager)
-                .caption(LtrpGamemode.Name + " serverio namuø valdymas")
+                .caption(LtrpGamemode.Name + " serverio namø valdymas")
                 .item(() -> {
                             House h = House.get(player);
                             return "{623E43}Naudoti dabartiná namà(ID: " + h.getUUID() + ")";

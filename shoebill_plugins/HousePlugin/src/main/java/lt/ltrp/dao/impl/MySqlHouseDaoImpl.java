@@ -3,9 +3,9 @@ package lt.ltrp.dao.impl;
 import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.dao.HouseDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.HouseWeedSapling;
-import lt.ltrp.event.HouseLoadedEvent;
-import lt.ltrp.object.House;
+import lt.ltrp.house.weed.data.HouseWeedSapling;
+import lt.ltrp.house.event.HouseLoadedEvent;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.HouseImpl;
 import net.gtaun.shoebill.data.Location;
@@ -151,7 +151,6 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
                 House h = resultToHouse(r);
                 h.setWeedSaplings(getWeed(h));
                 h.getUpgrades().forEach(h::addUpgrade);
-                h.getTenants().addAll(getTenants(h, con));
                 eventManager.dispatchEvent(new HouseLoadedEvent(h));
                 return h;
             }
@@ -204,7 +203,6 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
             ResultSet r = stmt.executeQuery();
             while(r.next()) {
                 House h = resultToHouse(r);
-                h.getTenants().addAll(getTenants(h, con));
                 h.setWeedSaplings(getWeed(h));
                 h.getUpgrades().forEach(h::addUpgrade);
                 houses.add(h);

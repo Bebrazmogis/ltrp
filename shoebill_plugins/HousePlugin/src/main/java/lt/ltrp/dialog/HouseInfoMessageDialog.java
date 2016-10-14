@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.PlayerController;
-import lt.ltrp.object.House;
+import lt.ltrp.player.PlayerController;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
@@ -24,7 +24,7 @@ public class HouseInfoMessageDialog {
                 .line("Nuomos kaina:" + house.getRentPrice())
                 .line("Pinigai: " + house.getMoney())
                 .line("Radijo stotis:" + (house.getRadio() != null && house.getRadio().getStation() != null ? house.getRadio().getStation().getName() : "iðjungtas"))
-                .line("Savininkas:" + (house.isOwned() ? PlayerController.get().getPlayerDao().getUsername(house.getOwner()) : "nëra"))
+                .line("Savininkas:" + (house.isOwned() ? PlayerController.get().getUsernameByUUID(house.getOwner()) : "nëra"))
                 .line("\n\n")
                 .line("Atnaujinimai\n" + house.getUpgrades().stream().map(u -> "\t" + u.getName()).collect(Collectors.joining("\n")))
                 .line("Þolës augalai(" + house.getWeedSaplings().size() + ")\n\n")

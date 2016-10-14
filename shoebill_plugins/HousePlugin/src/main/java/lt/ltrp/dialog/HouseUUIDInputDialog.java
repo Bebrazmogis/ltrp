@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.object.Business;
-import lt.ltrp.object.House;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.DialogTextSupplier;

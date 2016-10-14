@@ -1,10 +1,10 @@
 package lt.ltrp.command;
 
-import lt.ltrp.HouseController;
+import lt.ltrp.house.HouseController;
 import lt.ltrp.LtrpWorld;
 import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.data.Color;
-import lt.ltrp.object.House;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandGroup;

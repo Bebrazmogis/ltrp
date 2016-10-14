@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.HouseController;
-import lt.ltrp.data.HouseWeedSapling;
+import lt.ltrp.house.HouseController;
+import lt.ltrp.house.weed.data.HouseWeedSapling;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.WeedItem;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;

@@ -4,12 +4,11 @@ package lt.ltrp.command;
 import lt.ltrp.LtrpWorld;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.constant.HouseUpgradeType;
-import lt.ltrp.data.Color;
-import lt.ltrp.data.SpawnData;
-import lt.ltrp.event.player.PlayerSpawnLocationChangeEvent;
-import lt.ltrp.event.property.house.*;
+import lt.ltrp.house.event.HouseBuyEvent;
+import lt.ltrp.house.event.PlayerEnterHouseEvent;
+import lt.ltrp.house.event.PlayerExitHouseEvent;
 import lt.ltrp.modelpreview.SkinModelPreview;
-import lt.ltrp.object.House;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -73,48 +72,6 @@ public class HouseCommands {
         }
         return true;
     }
-
-    @Command
-    public boolean rentRoom(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        House house = House.getClosest(player.getLocation(), 8f);
-        if(house == null)
-            player.sendErrorMessage("Ðià komandà galite naudoti tik bûdami prie nuomuojamo namo áëjimo.");
-        else if(house.getOwner() == LtrpPlayer.INVALID_USER_ID || house.getRentPrice() == 0)
-            player.sendErrorMessage("Namas nëra nuomuojamas!");
-        else if(house.getRentPrice() > player.getMoney())
-            player.sendErrorMessage("Neturite pakankamai pinigø pradiniam nuomos mokesèiui.");
-        else {
-            player.playSound(1052);
-            house.getTenants().add(player.getUUID());
-            house.addMoney(house.getRentPrice());
-            player.giveMoney(-house.getRentPrice());
-            eventManager.dispatchEvent(new HouseRentEvent(house, player));
-            SpawnData spawnData = new SpawnData(SpawnData.SpawnType.House, house.getUUID(), SpawnData.DEFAULT.getSkin(), SpawnData.DEFAULT.getWeaponData());
-            eventManager.dispatchEvent(new PlayerSpawnLocationChangeEvent(player, spawnData));
-            player.sendMessage(Color.HOUSE, "Sveikiname, sëkmingai iðsinuomavote kambará ðiame name. Nusitatykite atsiradimo vietà su komanda /setspawn.");
-        }
-        return true;
-    }
-
-    @Command
-    public boolean unrent(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        SpawnData spawnData = player.getSpawnData();
-        if(spawnData == null || spawnData.getType() != SpawnData.SpawnType.House)
-            player.sendErrorMessage("Jûs nesinomuojate namo!");
-        else {
-            player.playSound(1052);
-            House house = House.get(spawnData.getId());
-            house.getTenants().remove(player.getUUID());
-            eventManager.dispatchEvent(new HouseRentStopEvent(house, player));
-            eventManager.dispatchEvent(new PlayerSpawnLocationChangeEvent(player, SpawnData.DEFAULT));
-            player.sendMessage(Color.HOUSE, "Sveikiname, sëkmingai atsisakëte dabartinio gyvenamojo namo nuomos. Nuo ðiol atsirasite nebe ðiame name.");
-        }
-        return true;
-    }
-
-
 
     @Command
     public boolean enter(Player p) {

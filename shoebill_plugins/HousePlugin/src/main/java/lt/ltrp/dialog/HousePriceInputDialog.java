@@ -1,8 +1,8 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.constant.Currency;
-import lt.ltrp.dialog.IntegerInputDialog;import lt.ltrp.event.property.house.HouseEditEvent;
-import lt.ltrp.object.House;
+import lt.ltrp.house.event.HouseEditEvent;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.util.event.EventManager;
