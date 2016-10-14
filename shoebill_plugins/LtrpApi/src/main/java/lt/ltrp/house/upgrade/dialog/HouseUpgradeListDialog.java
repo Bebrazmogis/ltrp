@@ -1,6 +1,7 @@
 package lt.ltrp.house.upgrade.dialog;
 
 import lt.ltrp.house.upgrade.constant.HouseUpgradeType;
+import lt.ltrp.house.upgrade.data.HouseUpgrade;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
@@ -8,12 +9,18 @@ import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 
 import java.lang.FunctionalInterface;import java.lang.Override;import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
  *         2016.05.17.
  */
 public class HouseUpgradeListDialog extends ListDialog {
+
+    public static AbstractHouseUpgradeDialogBuilder<?, ?> create(LtrpPlayer player, EventManager eventManager, Set<HouseUpgrade> upgrades) {
+        return create(player, eventManager, upgrades.stream().map(HouseUpgrade::getType).collect(Collectors.toList()));
+    }
 
     public static AbstractHouseUpgradeDialogBuilder<?, ?> create(LtrpPlayer player, EventManager eventManager, Collection<HouseUpgradeType> upgrades) {
         return new HouseUpgradeListDialogBuilder(player, eventManager, upgrades);
