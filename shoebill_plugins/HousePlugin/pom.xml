@@ -4,7 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>lt.ltrp</groupId>
+    <parent>
+        <artifactId>gamemode</artifactId>
+        <groupId>lt.ltrp</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
     <artifactId>house</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -16,30 +21,11 @@
         </dependency>
         <dependency>
             <groupId>lt.ltrp</groupId>
-            <artifactId>bank</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>lt.ltrp</groupId>
             <artifactId>property</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>Cp1257</project.build.sourceEncoding>
-        <kotlin.version>1.0.4</kotlin.version>
-    </properties>
+
 
     <build>
         <defaultGoal>clean install</defaultGoal>
