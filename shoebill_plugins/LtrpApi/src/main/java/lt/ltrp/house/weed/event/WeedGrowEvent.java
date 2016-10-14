@@ -1,8 +1,9 @@
-package lt.ltrp.event.property;
+package lt.ltrp.house.weed.event;
 
 
-import lt.ltrp.data.HouseWeedSapling;
-import lt.ltrp.object.House;
+import lt.ltrp.event.property.HouseEvent;
+import lt.ltrp.house.object.House;
+import lt.ltrp.house.weed.object.HouseWeedSapling;
 
 /**
  * @author Bebras
