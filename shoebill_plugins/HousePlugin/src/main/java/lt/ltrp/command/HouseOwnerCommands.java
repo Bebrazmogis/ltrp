@@ -1,17 +1,15 @@
 package lt.ltrp.command;
 
-import lt.ltrp.house.HouseController;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.constant.HouseUpgradeType;
-import lt.ltrp.constant.ItemType;
-import lt.ltrp.data.*;
+import lt.ltrp.data.BuyHouseOffer;
+import lt.ltrp.data.Color;
+import lt.ltrp.data.HouseRadio;
 import lt.ltrp.dialog.radio.RadioOptionListDialog;
 import lt.ltrp.house.event.HouseLockToggleEvent;
 import lt.ltrp.house.event.HouseMoneyEvent;
 import lt.ltrp.house.object.House;
-import lt.ltrp.house.weed.data.HouseWeedSapling;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.WeedItem;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -19,9 +17,6 @@ import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Bebras
@@ -62,40 +57,6 @@ public class HouseOwnerCommands {
         } else {
             house.getInventory().show(player);
         }
-        return true;
-    }
-
-    @Command()
-    @CommandHelp("Nuima uþaugintà þolæ namuose")
-    public boolean cutWeed(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        House house = House.get(player);
-        if(house != null && house.isOwner(player)) {
-            if(house.getWeedSaplings().size() != 0) {
-                if(!player.getInventory().isFull() || player.getInventory().containsType(ItemType.Weed)) {
-                    int totalYield = 0;
-                    List<HouseWeedSapling> grownSaplings = new ArrayList<>();
-                    for(HouseWeedSapling sapling : house.getWeedSaplings()) {
-                        totalYield += sapling.getYield();
-                        sapling.setHarvestedByUser(player.getUUID());
-                        grownSaplings.add(sapling);
-                        sapling.destroy();
-                    }
-                    //house.getWeedSaplings().removeAll(grownSaplings);
-                    grownSaplings.forEach(sapling -> HouseController.get().getHouseDao().update(sapling));
-
-
-                    WeedItem weed = WeedItem.create(eventManager);
-                    weed.setAmount(totalYield);
-                    player.getInventory().add(weed);
-                    player.sendMessage(Color.FORESTGREEN, "Sëkmingai nuëmëte derliø. Ið viso pavyko uþauginti " + totalYield + "gramus ið " + grownSaplings.size() + " augalø.");
-                    return true;
-                } else
-                    player.sendErrorMessage("Jûsø inventorius pilnas.");
-            } else
-                player.sendErrorMessage("Jûsø namusoe neauga þolë.");
-        } else
-            player.sendErrorMessage("Tai ne jûsø namas.");
         return true;
     }
 
