@@ -1,6 +1,6 @@
-package lt.ltrp.event.property.house;
+package lt.ltrp.house.event;
 
-import lt.ltrp.object.House;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
 
 /**
