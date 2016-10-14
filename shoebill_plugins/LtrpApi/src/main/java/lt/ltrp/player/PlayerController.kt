@@ -19,7 +19,7 @@ abstract class PlayerController protected constructor(): Destroyable {
 
         lateinit var instance: PlayerController
 
-        fun get(): PlayerController {
+        @JvmStatic fun get(): PlayerController {
             return instance
         }
 
