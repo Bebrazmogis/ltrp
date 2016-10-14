@@ -1,7 +1,9 @@
-package lt.ltrp.dialog;
+package lt.ltrp.house.weed.dialog;
 
 import lt.ltrp.house.HouseController;
-import lt.ltrp.house.weed.data.HouseWeedSapling;
+import lt.ltrp.house.weed.HouseWeedController;
+import lt.ltrp.house.weed.constant.GrowthStage;
+import lt.ltrp.house.weed.object.HouseWeedSapling;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.WeedItem;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
@@ -15,22 +17,22 @@ import net.gtaun.util.event.EventManager;
 public class HouseWeedOptionDialog {
     public static ListDialog create(LtrpPlayer player, EventManager eventManager, ListDialog parent, HouseWeedSapling weed) {
         return ListDialog.create(player, eventManager)
-                .caption("Þolës " + weed.getId() + " valdymas")
+                .caption("Þolës " + weed.getUUID() + " valdymas")
                 .item("Sunaikinti", i -> {
                     weed.destroy();
-                    HouseController.get().getHouseDao().remove(weed);
+                    HouseWeedController.instance.destroyWeed(weed);
                     parent.show();
                 })
-                .item("Keisti stadijà(" + weed.getStage().getName() + ")", i -> {
+                .item("Keisti stadijà(" + weed.getGrowthStage().getPrettyName() + ")", i -> {
                     HouseWeedSaplingGrowthStageDialog.create(player, eventManager, i.getCurrentDialog(), weed).show();
                 })
                 .item("Nuimti derliø",
-                        () -> weed.getStage().equals(HouseWeedSapling.GrowthStage.Grown),
+                        () -> weed.getGrowthStage().equals(GrowthStage.Grown),
                         i -> {
-                            int yield = weed.getYield();
-                            weed.setHarvestedByUser(player.getUUID());
+                            int yield = weed.getYieldAmount();
+                            weed.setHarvestedBy(player);
                             weed.destroy();
-                            HouseController.get().getHouseDao().update(weed);
+                            HouseWeedController.instance.updateWeed(weed);
                             WeedItem item = WeedItem.create(eventManager);
                             item.setAmount(yield);
                             boolean success = player.getInventory().tryAdd(item);

@@ -1,7 +1,8 @@
-package lt.ltrp.dialog;
+package lt.ltrp.house.weed.dialog;
 
 import lt.ltrp.house.HouseController;
-import lt.ltrp.house.weed.data.HouseWeedSapling;
+import lt.ltrp.house.weed.HouseWeedController;
+import lt.ltrp.house.weed.object.HouseWeedSapling;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.util.event.EventManager;
@@ -20,8 +21,8 @@ public class HouseWeedSaplingGrowthStageDialog {
                 .parentDialog(parent)
                 .onClickCancel(AbstractDialog::showParentDialog)
                 .onClickOk((d, s) -> {
-                    weed.setStage(s);
-                    HouseController.get().getHouseDao().update(weed);
+                    weed.setGrowthStage(s);
+                    HouseWeedController.instance.updateWeed(weed);
                     parent.show();
                 })
                 .build();

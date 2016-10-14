@@ -1,10 +1,13 @@
-package lt.ltrp.dialog;
+package lt.ltrp.house.weed.dialog;
 
-import lt.ltrp.house.weed.data.HouseWeedSapling;
+import lt.ltrp.house.weed.constant.GrowthStage;
+import lt.ltrp.house.weed.object.HouseWeedSapling;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
-import net.gtaun.util.event.EventManager;import java.lang.FunctionalInterface;import java.lang.Override;
+import net.gtaun.util.event.EventManager;
+import java.lang.FunctionalInterface;
+import java.lang.Override;
 
 /**
  * @author Bebras
@@ -30,8 +33,8 @@ public class HouseWeedSaplingGrowthStageListDialog extends ListDialog {
     public void show() {
         items.clear();
 
-        for(HouseWeedSapling.GrowthStage stage : HouseWeedSapling.GrowthStage.values()) {
-            items.add(ListDialogItem.create().itemText(stage.getName()).data(stage).build());
+        for(GrowthStage stage : GrowthStage.values()) {
+            items.add(ListDialogItem.create().itemText(stage.getPrettyName()).data(stage).build());
         }
         super.show();
     }
@@ -39,7 +42,7 @@ public class HouseWeedSaplingGrowthStageListDialog extends ListDialog {
     @Override
     protected void onClickOk(ListDialogItem item) {
         if(clickOkHandler != null)
-            clickOkHandler.onSelectGrowthStage(this, (HouseWeedSapling.GrowthStage)item.getData());
+            clickOkHandler.onSelectGrowthStage(this, (GrowthStage)item.getData());
         else
             super.onClickOk(item);
     }
@@ -65,6 +68,6 @@ public class HouseWeedSaplingGrowthStageListDialog extends ListDialog {
 
     @FunctionalInterface
     public interface ClickOkHandler {
-        void onSelectGrowthStage(HouseWeedSaplingGrowthStageListDialog dialog, HouseWeedSapling.GrowthStage stage);
+        void onSelectGrowthStage(HouseWeedSaplingGrowthStageListDialog dialog, GrowthStage stage);
     }
 }
