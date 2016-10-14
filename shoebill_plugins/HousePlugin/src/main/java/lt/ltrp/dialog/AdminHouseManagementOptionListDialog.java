@@ -1,9 +1,11 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.house.HouseController;
-import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.house.event.HouseEditEvent;
 import lt.ltrp.house.object.House;
+import lt.ltrp.house.upgrade.HouseUpgradeController;
+import lt.ltrp.house.upgrade.constant.HouseUpgradeType;
+import lt.ltrp.house.upgrade.dialog.HouseUpgradeListDialog;
+import lt.ltrp.house.weed.dialog.HouseWeedListDialog;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
@@ -80,8 +82,7 @@ public class AdminHouseManagementOptionListDialog {
                                     .parentDialog(i.getCurrentDialog())
                                     .onClickCancel(AbstractDialog::showParentDialog)
                                     .onClickOk((d, u) -> {
-                                        house.removeUpgrade(u);
-                                        HouseController.get().getHouseDao().remove(house, u);
+                                        HouseUpgradeController.instance.remove(house, u);
                                         i.getCurrentDialog().show();
                                     })
                                     .build()
@@ -97,8 +98,7 @@ public class AdminHouseManagementOptionListDialog {
                                     .parentDialog(i.getCurrentDialog())
                                     .onClickCancel(AbstractDialog::showParentDialog)
                                     .onClickOk((d, u) -> {
-                                        house.addUpgrade(u);
-                                        HouseController.get().getHouseDao().insert(house, u);
+                                        HouseUpgradeController.instance.insert(house, u);
                                         i.getCurrentDialog().show();
                                     })
                                     .build()
