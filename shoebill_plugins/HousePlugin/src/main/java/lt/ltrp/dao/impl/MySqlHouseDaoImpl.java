@@ -3,7 +3,6 @@ package lt.ltrp.dao.impl;
 import lt.ltrp.constant.HouseUpgradeType;
 import lt.ltrp.dao.HouseDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.house.weed.data.HouseWeedSapling;
 import lt.ltrp.house.event.HouseLoadedEvent;
 import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
@@ -28,7 +27,7 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
         super(ds);
         this.eventManager = eventManager;
     }
-
+/*
     @Override
     public List<HouseWeedSapling> getWeed(House house) {
         List<HouseWeedSapling> weed = new ArrayList<>();
@@ -120,7 +119,7 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
             e.printStackTrace();
         }
     }
-
+*/
     @Override
     public void insert(House house) {
         String sql = "INSERT INTO houses (id, money, rent_price) VALUES (?, ?, ?)";
@@ -149,7 +148,6 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
             ResultSet r = stmt.executeQuery();
             if(r.next()) {
                 House h = resultToHouse(r);
-                h.setWeedSaplings(getWeed(h));
                 h.getUpgrades().forEach(h::addUpgrade);
                 eventManager.dispatchEvent(new HouseLoadedEvent(h));
                 return h;
@@ -203,7 +201,6 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
             ResultSet r = stmt.executeQuery();
             while(r.next()) {
                 House h = resultToHouse(r);
-                h.setWeedSaplings(getWeed(h));
                 h.getUpgrades().forEach(h::addUpgrade);
                 houses.add(h);
                 eventManager.dispatchEvent(new HouseLoadedEvent(h));
