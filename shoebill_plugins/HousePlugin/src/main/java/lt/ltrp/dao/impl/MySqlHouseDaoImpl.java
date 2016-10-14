@@ -1,8 +1,7 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.constant.HouseUpgradeType;
-import lt.ltrp.dao.HouseDao;
 import lt.ltrp.data.Color;
+import lt.ltrp.house.dao.HouseDao;
 import lt.ltrp.house.event.HouseLoadedEvent;
 import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
@@ -11,7 +10,10 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -210,7 +212,7 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
         }
         return houses;
     }
-
+/*
     @Override
     public void insert(House house, HouseUpgradeType houseUpgradeType) {
         String sql = "INSERT INTO house_upgrades (house_id, upgrade_id) VALUES (?, ?)";
@@ -260,7 +262,7 @@ public class MySqlHouseDaoImpl extends MySqlPropertyDaoImpl implements HouseDao 
         return upgrades;
     }
 
-
+*/
     private House resultToHouse(ResultSet r) throws SQLException {
         Location exit = null;
         float x = r.getFloat("exit_x");

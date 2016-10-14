@@ -3,7 +3,7 @@ package lt.ltrp.command;
 
 import lt.ltrp.LtrpWorld;
 import lt.ltrp.constant.Currency;
-import lt.ltrp.constant.HouseUpgradeType;
+import lt.ltrp.house.upgrade.constant.HouseUpgradeType;
 import lt.ltrp.house.event.HouseBuyEvent;
 import lt.ltrp.house.event.PlayerEnterHouseEvent;
 import lt.ltrp.house.event.PlayerExitHouseEvent;
@@ -52,24 +52,6 @@ public class HouseCommands {
         p.sendMessage(lt.ltrp.data.Color.WHITE,"NUOSAVYBE: /buyhouse /sellhouse");
         p.sendMessage(lt.ltrp.data.Color.LIGHTGREY,"NUOMA: /setrent /rentroom /unrent /tenantry /evict /evictall");
         p.sendMessage(lt.ltrp.data.Color.GREEN, "__________________________________________________________________");
-        return true;
-    }
-
-
-
-    @Command
-    @CommandHelp("Leidþia pavalgyti bûnant namuose")
-    public boolean eat(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        House house = House.get(player);
-        if(house == null)
-            player.sendErrorMessage("Ðià komandà galite naudoti tik bûdamas name.");
-        else if(!house.isUpgradeInstalled(HouseUpgradeType.Refrigerator))
-            player.sendErrorMessage("Ðiame name nëra kà valgyti...");
-        else {
-            player.sendActionMessage("paima valgio ið ðaldytuvo ir pradeda valgyti.");
-            player.setHealth(100f);
-        }
         return true;
     }
 

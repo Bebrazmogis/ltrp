@@ -1,7 +1,7 @@
 package lt.ltrp.command;
 
 import lt.ltrp.constant.Currency;
-import lt.ltrp.constant.HouseUpgradeType;
+import lt.ltrp.house.upgrade.constant.HouseUpgradeType;
 import lt.ltrp.data.BuyHouseOffer;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.HouseRadio;

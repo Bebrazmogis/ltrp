@@ -1,11 +1,12 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.constant.HouseUpgradeType;
+import lt.ltrp.house.upgrade.constant.HouseUpgradeType;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.HouseRadio;
 import lt.ltrp.house.event.HouseDestroyEvent;
 import lt.ltrp.house.object.House;
 import lt.ltrp.house.rent.object.HouseTenant;
+import lt.ltrp.house.upgrade.data.HouseUpgrade;
 import lt.ltrp.house.weed.object.HouseWeedSapling;
 import lt.ltrp.object.Inventory;
 import lt.ltrp.object.LtrpPlayer;
@@ -16,9 +17,8 @@ import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -27,7 +27,7 @@ import java.util.List;
 public class HouseImpl extends InventoryPropertyImpl implements House {
 
     private List<HouseWeedSapling> weedSaplings;
-    private Collection<HouseUpgradeType> upgrades;
+    private Set<HouseUpgrade> upgrades;
     private List<HouseTenant> tenants;
     private HouseRadio radio;
     private int money;
@@ -42,7 +42,7 @@ public class HouseImpl extends InventoryPropertyImpl implements House {
         radio = new HouseRadio(this, eventManager);
         weedSaplings = new ArrayList<>();
         setInventory(Inventory.create(eventManager, this, "Namo daiktai", 20));
-        upgrades = new ArrayList<>();
+        upgrades = new HashSet<>();
         this.tenants = new ArrayList<>();
     }
 
@@ -58,20 +58,23 @@ public class HouseImpl extends InventoryPropertyImpl implements House {
         this.weedSaplings = weedSaplings;
     }
 
-    public Collection<HouseUpgradeType> getUpgrades() {
+    public Set<HouseUpgrade> getUpgrades() {
         return upgrades;
     }
 
     @Override
     public boolean isUpgradeInstalled(HouseUpgradeType houseUpgradeType) {
-        return getUpgrades().contains(houseUpgradeType);
+        return getUpgrades().stream()
+                .map(HouseUpgrade::getType)
+                .collect(Collectors.toList())
+                .contains(houseUpgradeType);
     }
 
-    public void addUpgrade(HouseUpgradeType up) {
+    public void addUpgrade(HouseUpgrade up) {
         this.upgrades.add(up);
     }
 
-    public void removeUpgrade(HouseUpgradeType up) {
+    public void removeUpgrade(HouseUpgrade up) {
         this.upgrades.remove(up);
     }
 

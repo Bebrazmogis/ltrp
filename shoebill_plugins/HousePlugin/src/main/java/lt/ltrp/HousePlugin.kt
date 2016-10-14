@@ -3,7 +3,6 @@ package lt.ltrp;
 import lt.ltrp.`object`.LtrpPlayer
 import lt.ltrp.command.HouseCommands
 import lt.ltrp.command.HouseOwnerCommands
-import lt.ltrp.command.HouseUpgradeCommands
 import lt.ltrp.dao.impl.MySqlHouseDaoImpl
 import lt.ltrp.event.property.HouseEvent
 import lt.ltrp.house.`object`.House
@@ -43,9 +42,6 @@ class HousePlugin: DependentPlugin() {
         playerCommandManager = PlayerCommandManager(eventManager)
         playerCommandManager.registerCommands(HouseCommands(eventManager))
         playerCommandManager.registerCommands(HouseOwnerCommands(eventManager))
-        val group = HouseUpgradeCommands(eventManager).group
-        playerCommandManager.registerChildGroup(group, "hu")
-
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL)
 
     }
