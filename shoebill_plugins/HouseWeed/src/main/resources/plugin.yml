@@ -1,0 +1,7 @@
+class: lt.ltrp.house.weed.HouseWeedPlugin
+name: House Weed Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: Plugin manages all the house weed sapling related stuff
