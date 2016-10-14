@@ -1,4 +1,4 @@
-package lt.ltrp.constant;
+package lt.ltrp.house.upgrade.constant;
 
 /**
  * @author Bebras
