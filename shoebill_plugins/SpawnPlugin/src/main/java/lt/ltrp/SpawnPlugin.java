@@ -4,10 +4,12 @@ import lt.ltrp.command.SpawnCommands;
 import lt.ltrp.dao.SpawnDao;
 import lt.ltrp.dao.impl.MySqlSpawnDaoImpl;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.SpawnData;
-import lt.ltrp.event.PlayerRequestSpawnEvent;
-import lt.ltrp.event.PlayerSpawnLocationChangeEvent;
-import lt.ltrp.event.PlayerSpawnSetUpEvent;
+import lt.ltrp.spawn.data.SpawnData;
+import lt.ltrp.spawn.event.PlayerFirstSpawnEvent;
+import lt.ltrp.spawn.event.PlayerRequestSpawnEvent;
+import lt.ltrp.spawn.event.PlayerSpawnLocationChangeEvent;
+import lt.ltrp.spawn.event.PlayerSpawnSetUpEvent;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.*;
 import net.gtaun.shoebill.common.command.CommandEntry;
 import net.gtaun.shoebill.common.command.CommandGroup;
@@ -15,6 +17,8 @@ import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
+import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
+import net.gtaun.shoebill.event.player.PlayerSpawnEvent;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.resource.Plugin;
@@ -24,6 +28,7 @@ import net.gtaun.util.event.EventManagerNode;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.stream.Collectors;
@@ -39,6 +44,7 @@ public class SpawnPlugin extends Plugin{
     private EventManagerNode node;
     private SpawnDao spawnDao;
     private Map<LtrpPlayer, SpawnData> playerSpawnData;
+    private Collection<LtrpPlayer> unspawnedPlayers;
     private CommandGroup setSpawnCommandGroup;
     private PlayerCommandManager playerCommandManager;
 
@@ -46,6 +52,7 @@ public class SpawnPlugin extends Plugin{
     protected void onEnable() throws Throwable {
         this.node =  getEventManager().createChildNode();
         this.playerSpawnData= new HashMap<>();
+        this.unspawnedPlayers = new HashSet<>();
 
 
         final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
@@ -90,6 +97,7 @@ public class SpawnPlugin extends Plugin{
 
         node.registerHandler(PlayerConnectEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            unspawnedPlayers.add(player);
             SpawnData spawnData = getSpawnData(player);
             Location location = null;
             if(spawnData != null) {
@@ -128,6 +136,15 @@ public class SpawnPlugin extends Plugin{
                 player.spawn();
             }
         });
+
+        node.registerHandler(PlayerDisconnectEvent.class, e -> { unspawnedPlayers.remove(LtrpPlayer.get(e.getPlayer())); });
+        node.registerHandler(PlayerSpawnEvent.class, e -> {
+            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            if(player != null && unspawnedPlayers.contains(player)) {
+                unspawnedPlayers.remove(player);
+                node.dispatchEvent(new PlayerFirstSpawnEvent(player));
+            }
+        });
     }
 
     @Override
@@ -137,6 +154,8 @@ public class SpawnPlugin extends Plugin{
         playerSpawnData = null;
         playerCommandManager.uninstallAllHandlers();
         playerCommandManager.destroy();
+        unspawnedPlayers.clear();
+        unspawnedPlayers = null;
     }
 
     public CommandGroup getSetSpawnCommandGroup() {
@@ -152,12 +171,15 @@ public class SpawnPlugin extends Plugin{
     }
 
     public void setSpawnData(LtrpPlayer player, SpawnData spawnData) {
+        setSpawnData(player.getUUID(), spawnData);
         playerSpawnData.put(player, spawnData);
-        spawnDao.update(player, spawnData);
         node.dispatchEvent(new PlayerSpawnLocationChangeEvent(player, spawnData));
     }
 
     public void setSpawnData(int userId, SpawnData spawnData) {
+        // If that's the default instance, let's clone it
+        if(spawnData == SpawnData.DEFAULT)
+            spawnData = SpawnData.DEFAULT.clone();
         spawnDao.update(userId, spawnData);
     }
 }
