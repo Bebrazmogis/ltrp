@@ -10,7 +10,6 @@ import lt.ltrp.player.licenses.data.PlayerLicenses
 interface PlayerLicenseDao {
 
     fun insert(license: PlayerLicense): Int
-    fun get(uuid: Int): PlayerLicense?
     fun getAll(player: LtrpPlayer): PlayerLicenses
     fun remove(playerLicense: PlayerLicense)
     fun update(playerLicense: PlayerLicense)
