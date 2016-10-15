@@ -46,7 +46,7 @@ class HouseWeedSaplingImpl(uuid: Int,
         createObjects()
     }
 
-    fun startGrowth() {
+    override fun startGrowth() {
         if (growthStage == GrowthStage.Grown)
             return
         setTimer()

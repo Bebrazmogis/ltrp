@@ -29,6 +29,7 @@ interface HouseWeedSapling: Entity, Destroyable {
 
 
     fun isGrown(): Boolean
+    fun startGrowth()
 
     companion object {
         val PLANT_POT_MODEL = 12
