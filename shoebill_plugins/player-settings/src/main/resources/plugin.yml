@@ -1,0 +1,7 @@
+class: lt.ltrp.player.settings.PlayerSettingsController
+name: Player Setting Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: Plugin responsible for maanging player settings
