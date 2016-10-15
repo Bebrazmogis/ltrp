@@ -1,7 +1,7 @@
 package lt.ltrp.player.settings.dialog;
 
+import lt.ltrp.player.settings.PlayerSettingsController;
 import lt.ltrp.player.settings.data.PlayerSettings;
-import lt.ltrp.event.player.PlayerEditSettingsEvent;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
@@ -72,7 +72,7 @@ public class PlayerSettingsListDialog {
                 .buttonOk("Keisti")
                 .buttonCancel("Uþdaryti")
                 .onClickOk((d, i) -> {
-                    eventManager.dispatchEvent(new PlayerEditSettingsEvent(player, settings));
+                    PlayerSettingsController.instance.update(settings);
                     d.show();
                 })
                 .build();
