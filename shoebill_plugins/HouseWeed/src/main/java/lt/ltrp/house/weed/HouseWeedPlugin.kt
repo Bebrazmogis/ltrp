@@ -32,6 +32,7 @@ class HouseWeedPlugin: DependentPlugin() {
     }
 
     override fun onEnable() {
+        super.onEnable()
         eventManager = getEventManager().createChildNode()
     }
 

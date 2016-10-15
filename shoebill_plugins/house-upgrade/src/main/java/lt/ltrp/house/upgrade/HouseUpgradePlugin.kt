@@ -31,6 +31,7 @@ class HouseUpgradePlugin: DependentPlugin() {
     private lateinit var playerCommandManager: PlayerCommandManager
 
     override fun onEnable() {
+        super.onEnable()
         eventManager = getEventManager().createChildNode()
     }
 
