@@ -1,6 +1,6 @@
-package lt.ltrp.dialog;
+package lt.ltrp.player.settings.dialog;
 
-import lt.ltrp.data.PlayerSettings;
+import lt.ltrp.player.settings.data.PlayerSettings;
 import lt.ltrp.event.player.PlayerEditSettingsEvent;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
@@ -57,7 +57,7 @@ public class PlayerSettingsListDialog {
                         })
                         .build())
                 .item(TabListDialogItem.create()
-                        .enabled(() -> settings.getPlayer().isAdmin() || settings.getPlayer().isModerator())
+                        .enabled(() -> settings.getPlayer().isAdmin() || settings.getPlayer().isMod())
                         .column(0, ListDialogItem.create().itemText("Þaidëjø klausimø blokavimas").build())
                         .column(1, getBoolSetting(settings.isModChatDisabled()))
                         .onSelect(item -> {
@@ -65,7 +65,7 @@ public class PlayerSettingsListDialog {
                         })
                         .build())
                 .item(TabListDialogItem.create()
-                        .enabled(() -> settings.getPlayer().isAdmin() || settings.getPlayer().isModerator())
+                        .enabled(() -> settings.getPlayer().isAdmin() || settings.getPlayer().isMod())
                         .column(0, ListDialogItem.create().itemText("Þaidëjø nuþudymø þinuèiø blokavimas").build())
                         .column(1, getBoolSetting(settings.isKillMessagesDisabled()))
                         .build())

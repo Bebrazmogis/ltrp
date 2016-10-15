@@ -1,6 +1,7 @@
-package lt.ltrp.data;
+package lt.ltrp.player.settings.data;
 
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.PlayerData;
 
 import java.lang.Boolean;import java.lang.Override;import java.lang.String;import java.util.Properties;
 
@@ -10,7 +11,7 @@ import java.lang.Boolean;import java.lang.Override;import java.lang.String;impor
  */
 public class PlayerSettings {
 
-    private LtrpPlayer player;
+    private PlayerData player;
     private boolean pmDisabled;
     private boolean oocDisabled;
     private boolean newsDisabled;
@@ -19,7 +20,15 @@ public class PlayerSettings {
     private boolean modChatDisabled;
     private boolean killMessagesDisabled;
 
-    public PlayerSettings(LtrpPlayer player, Properties properties) {
+    /**
+     * Used to create default properties
+     * @param player player instance
+     */
+    public PlayerSettings(PlayerData player) {
+        this(player, new Properties());
+    }
+
+    public PlayerSettings(PlayerData player, Properties properties) {
         this.player = player;
         pmDisabled = Boolean.parseBoolean(properties.getProperty("pm_disabled", "false"));
         oocDisabled = Boolean.parseBoolean(properties.getProperty("ooc_disabled", "false"));
@@ -43,7 +52,7 @@ public class PlayerSettings {
     }
 
 
-    public LtrpPlayer getPlayer() {
+    public PlayerData getPlayer() {
         return player;
     }
 
