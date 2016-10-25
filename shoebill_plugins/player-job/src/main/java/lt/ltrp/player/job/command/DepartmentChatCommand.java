@@ -1,10 +1,11 @@
-package lt.ltrp.command;
+package lt.ltrp.player.job.command;
 
-import lt.ltrp.JobPlugin;
+
+import lt.ltrp.command.Commands;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerJobData;
-import lt.ltrp.object.Faction;
+import lt.ltrp.player.job.data.PlayerJobData;
+import lt.ltrp.job.object.Faction;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -34,7 +35,7 @@ public class DepartmentChatCommand extends Commands {
     @BeforeCheck
     public boolean bc(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobPlugin.get(JobPlugin.class).getJobData(player);
+        PlayerJobData jobData = player.getJobData();
         return jobData != null && jobData.getJob().equals(faction);
     }
 
@@ -42,14 +43,14 @@ public class DepartmentChatCommand extends Commands {
     @CommandHelp("Iðsiunèia þinutæ per tarp-dapartamentinæ racijà")
     public boolean d(Player p, @CommandParameter(name = "Tekstas")String text) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobPlugin.get(JobPlugin.class).getJobData(player);
+        PlayerJobData jobData = player.getJobData();
         if(text == null)
             return false;
         if(!player.getInventory().containsType(ItemType.Radio))
             player.sendErrorMessage("Jûs neturite racijos!");
         else {
             FACTIONS.forEach(f -> f.sendMessage(Color.NAVY, String.format("|TARPDEPARTAMENTINË RACIJA| %s[%s] praneða: %s",
-                    player.getCharName(), jobData.getJobRank().getName(), text)));
+                    player.getCharName(), jobData.getRank().getName(), text)));
         }
         return true;
     }
