@@ -1,13 +1,11 @@
-package lt.ltrp.dao.impl;
+package lt.ltrp.job.vehicle.dao.impl;
 
-import lt.ltrp.ContractJobRankImpl;
-import lt.ltrp.FactionRankImpl;
 import lt.ltrp.LoadingException;
-import lt.ltrp.dao.JobVehicleDao;
-import lt.ltrp.object.ContractJob;
-import lt.ltrp.object.Job;
-import lt.ltrp.object.JobVehicle;
-import lt.ltrp.object.Rank;
+import lt.ltrp.dao.impl.AbstractMySqlVehicleDaoImpl;
+import lt.ltrp.job.dao.JobVehicleDao;
+import lt.ltrp.job.object.Job;
+import lt.ltrp.job.object.JobRank;
+import lt.ltrp.job.object.JobVehicle;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.util.event.EventManager;
 
@@ -29,10 +27,8 @@ public class MySqlJobVehicleDao extends AbstractMySqlVehicleDaoImpl implements J
 
     @Override
     public Collection<JobVehicle> get(Job job) throws LoadingException {
-        String sql = "SELECT vehicles.*, job_ranks.id AS rank_id, job_ranks.name, job_ranks.salary, job_ranks_contract.xp_needed FROM job_vehicles " +
+        String sql = "SELECT vehicles.*, job_vehicles.* FROM job_vehicles " +
                 "LEFT JOIN vehicles ON vehicles.id = job_vehicles.id " +
-                "LEFT JOIN job_ranks ON job_ranks.id = job_vehicles.rank_id " +
-                "LEFT JOIN job_ranks_contract ON job_ranks.id = job_ranks_contract.id " +
                 "WHERE job_vehicles.job_id = ?";
         Collection<JobVehicle> vehicles = new ArrayList<>();
         try (
@@ -42,11 +38,8 @@ public class MySqlJobVehicleDao extends AbstractMySqlVehicleDaoImpl implements J
             stmt.setInt(1, job.getUUID());
             ResultSet result = stmt.executeQuery();
             while(result.next()) {
-                Rank rank;
-                if(job instanceof ContractJob)
-                    rank = new ContractJobRankImpl(result.getInt("rank_id"), result.getInt("hours_needed"), result.getString("name"), result.getInt("salary"));
-                else
-                    rank = new FactionRankImpl(result.getInt("rank_id"), result.getString("name"), result.getInt("salary"));
+                int rankId = result.getInt("rank_id");
+                JobRank rank = job.getRankByUUID(rankId);
                 JobVehicle vehicle = JobVehicle.create(
                         result.getInt("id"),
                         job,
