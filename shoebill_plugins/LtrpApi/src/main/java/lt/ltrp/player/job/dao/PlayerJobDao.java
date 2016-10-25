@@ -1,11 +1,8 @@
-package lt.ltrp.dao;
+package lt.ltrp.player.job.dao;
 
-import lt.ltrp.data.PlayerJobData;
-import lt.ltrp.object.Job;
+import lt.ltrp.object.PlayerData;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.Rank;
-
-import java.util.Map;
 
 /**
  * @author Bebras
@@ -16,7 +13,6 @@ public interface PlayerJobDao {
     void update(PlayerJobData jobData);
     void remove(PlayerJobData jobData);
     void insert(PlayerJobData jobData);
-    PlayerJobData get(LtrpPlayer player);
-    Map<String, Rank> getEmployeeList(Job job);
+    PlayerJobData get(PlayerData player);
 
 }

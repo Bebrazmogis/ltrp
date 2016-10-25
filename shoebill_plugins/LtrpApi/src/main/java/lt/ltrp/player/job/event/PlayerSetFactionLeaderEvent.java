@@ -1,6 +1,6 @@
-package lt.ltrp.event;
+package lt.ltrp.player.job.event;
 
-import lt.ltrp.event.player.PlayerEvent;import lt.ltrp.object.Faction;
+import lt.ltrp.event.player.PlayerEvent;import lt.ltrp.job.object.Faction;
 import lt.ltrp.object.LtrpPlayer;
 
 /**
