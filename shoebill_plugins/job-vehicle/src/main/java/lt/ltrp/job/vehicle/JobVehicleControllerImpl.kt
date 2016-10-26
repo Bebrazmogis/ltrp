@@ -1,5 +1,6 @@
 package lt.ltrp.job.vehicle
 
+import lt.ltrp.`object`.Entity
 import lt.ltrp.`object`.LtrpVehicle
 import lt.ltrp.job.JobVehicleController
 import lt.ltrp.job.`object`.Job
@@ -9,6 +10,7 @@ import lt.ltrp.job.dao.JobVehicleDao
 import lt.ltrp.job.vehicle.`object`.impl.JobVehicleImpl
 import net.gtaun.shoebill.`object`.Vehicle
 import net.gtaun.shoebill.data.AngledLocation
+import net.gtaun.shoebill.exception.CreationFailedException
 import net.gtaun.util.event.EventManager
 
 /**
@@ -18,11 +20,20 @@ import net.gtaun.util.event.EventManager
 class JobVehicleControllerImpl(private val vehicleDao: JobVehicleDao, private val eventManager: EventManager):
         JobVehicleController() {
 
+    override fun create(job: Job, modelId: Int, location: AngledLocation, color1: Int, color2: Int, requiredRank: JobRank): JobVehicle {
+        return create(Entity.INVALID_ID, job, modelId, location, color1, color2, requiredRank, "-", 0f)
+    }
+
+    override fun create(job: Job, modelId: Int, location: AngledLocation, color1: Int, color2: Int): JobVehicle {
+        val rank = job.ranks.minBy { it.number } ?: throw CreationFailedException("Job " + job.UUID + " has no ranks thus vehicles cannot be created")
+        return create(Entity.INVALID_ID, job, modelId,  location, color1, color2, rank, "-", 0f)
+    }
 
     override fun create(uuid: Int, job: Job, modelId: Int, location: AngledLocation, color1: Int, color2: Int, requiredRank: JobRank, license: String, mileage: Float): JobVehicle {
         val vehicle = JobVehicleImpl(uuid, job, modelId, location, color1, color2, requiredRank, license, mileage, eventManager)
         vehicleDao.insert(vehicle)
         JobVehicleContainer.add(vehicle)
+        if(!job.vehicles.contains(vehicle)) job.vehicles.add(vehicle)
         return vehicle
     }
 
