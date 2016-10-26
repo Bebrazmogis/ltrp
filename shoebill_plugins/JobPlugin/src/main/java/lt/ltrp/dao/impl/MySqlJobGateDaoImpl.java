@@ -1,9 +1,11 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.dao.JobGateDao;
-import lt.ltrp.object.Job;
-import lt.ltrp.object.JobGate;
-import lt.ltrp.object.Rank;
+import lt.ltrp.dao.DaoException;
+import lt.ltrp.job.dao.JobGateDao;
+import lt.ltrp.job.object.Job;
+import lt.ltrp.job.object.JobGate;
+import lt.ltrp.job.object.JobRank;
+import lt.ltrp.object.impl.JobGateImpl;
 import net.gtaun.shoebill.data.Vector3D;
 
 import javax.sql.DataSource;
@@ -25,7 +27,7 @@ public class MySqlJobGateDaoImpl implements JobGateDao {
 
 
     @Override
-    public List<JobGate> get(Job job) {
+    public List<JobGate> get(Job job) throws DaoException {
         List<JobGate> jobGates = new ArrayList<>();
         String sql = "SELECT * FROM job_gates WHERE job_id = ?";
         try(
@@ -35,49 +37,15 @@ public class MySqlJobGateDaoImpl implements JobGateDao {
             stmt.setInt(1, job.getUUID());
             ResultSet r = stmt.executeQuery();
             while(r.next())
-                jobGates.add(toGate(r));
+                jobGates.add(toGate(r, job));
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Could not retrieve gates for job " + job.getUUID(), e);
         }
         return jobGates;
     }
 
     @Override
-    public List<JobGate> get() {
-        List<JobGate> jobGates = new ArrayList<>();
-        String sql = "SELECT * FROM job_gates";
-        try(
-                Connection connection = dataSource.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(sql);
-                ) {
-            ResultSet r = stmt.executeQuery();
-            while(r.next())
-                jobGates.add(toGate(r));
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return jobGates;
-    }
-
-    @Override
-    public JobGate get(int uuid) {
-        String sql = "SELECT * FROM job_gates WHERE id = ?";
-        try(
-                Connection connection = dataSource.getConnection();
-                PreparedStatement stmt = connection.prepareStatement(sql);
-        ) {
-            stmt.setInt(1, uuid);
-            ResultSet r = stmt.executeQuery();
-            while(r.next())
-                return toGate(r);
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public void update(JobGate gate) {
+    public void update(JobGate gate) throws DaoException {
         String sql = "UPDATE job_gates SET job_id = ?, rank_id = ?, model_id = ?, open_pos_x = ?, open_pos_y = ?, open_pos_z = ?, " +
                 "open_rot_x = ?, open_rot_y = ?, open_rot_z = ?, closed_pos_x = ?, closed_pos_y = ?, closed_pos_z = ?, " +
                 "closed_rot_x = ?, closed_rot_y = ?, closed_rot_z = ?, default_opened = ? WHERE id = ?";
@@ -104,12 +72,12 @@ public class MySqlJobGateDaoImpl implements JobGateDao {
             stmt.setInt(17, gate.getUUID());
             stmt.execute();
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Can not update job gate " + gate.getUUID(), e);
         }
     }
 
     @Override
-    public void remove(JobGate gate) {
+    public void remove(JobGate gate) throws DaoException {
         String sql = "DELETE FROM job_gates WHERE id = ?";
         try(
                 Connection connection = dataSource.getConnection();
@@ -118,12 +86,12 @@ public class MySqlJobGateDaoImpl implements JobGateDao {
             stmt.setInt(1, gate.getUUID());
             stmt.execute();
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Can not delete job gate " + gate.getUUID(), e);
         }
     }
 
     @Override
-    public int insert(JobGate gate) {
+    public int insert(JobGate gate) throws DaoException {
         String sql = "INSERT INTO job_gates (job_id, rank_id, model_id, open_pos_x, open_pos_y, " +
                 "open_pos_z, open_rot_x, open_rot_y, open_rot_z, closed_pos_x, closed_pos_y, " +
                 "closed_pos_z, closed_rot_x, closed_rot_y, closed_rot_z, default_opened) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -152,15 +120,14 @@ public class MySqlJobGateDaoImpl implements JobGateDao {
             if(keys.next())
                 return keys.getInt(1);
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw new DaoException("Can not insert job gate for job " + gate.getJob().getUUID(), e);
         }
         return 0;
     }
 
-    private JobGate toGate(ResultSet r) throws SQLException {
-        Job job = Job.get(r.getInt("job_id"));
-        Rank rank = job.getRank(r.getInt("rank_id"));
-        return new JobGate(r.getInt("uuid"),
+    private JobGate toGate(ResultSet r, Job job) throws SQLException {
+        JobRank rank = job.getRankByUUID(r.getInt("rank_id"));
+        return new JobGateImpl(r.getInt("uuid"),
                 r.getInt("model_id"),
                 new Vector3D(r.getFloat("open_pos_x"), r.getFloat("open_pos_y"), r.getFloat("open_pos_z")),
                 new Vector3D(r.getFloat("open_rot_x"), r.getFloat("open_rot_y"), r.getFloat("open_rot_z")),

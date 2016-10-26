@@ -301,8 +301,8 @@ main vehicles ranks  main vehicles ranks   main vehicles ranks  main vehicles ra
         job.setRanks(jobRanks);
     }
 
-    private Map<Rank, JobVehicle> parseFactionVehicles(Job job, File file) throws IOException {
-        Map<Rank, JobVehicle> jobVehicles = new HashMap<>();
+    private Map<JobRank, JobVehicle> parseFactionVehicles(Job job, File file) throws IOException {
+        Map<JobRank, JobVehicle> jobVehicles = new HashMap<>();
         BufferedReader bf = new BufferedReader(new FileReader(file));
         String line;
         int id = 0, model = 0, rankid = 0, color1 = 0, color2 = 0;
@@ -314,7 +314,7 @@ main vehicles ranks  main vehicles ranks   main vehicles ranks  main vehicles ra
             if(matcher.find()) {
                 section = matcher.group();
                 if(model > 0) {
-                    Rank rank = job.getRank(rankid);
+                    JobRank rank = job.getRank(rankid);
                     JobVehicle jobVehicle = JobVehicle.create(id, job, model, location, color1, color2, rank);
                     jobVehicles.put(rank, jobVehicle);
                 }
@@ -462,11 +462,11 @@ main vehicles ranks  main vehicles ranks   main vehicles ranks  main vehicles ra
     }
 
 
-    private void writeJobVehicleData(Map<? extends Rank, JobVehicle> vehicles, File file) {
+    private void writeJobVehicleData(Map<? extends JobRank, JobVehicle> vehicles, File file) {
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(file);
-            for(Rank rank : vehicles.keySet()) {
+            for(JobRank rank : vehicles.keySet()) {
                 JobVehicle veh = vehicles.get(rank);
                 writer.println(String.format("[%s]", veh.getModelName()));
                 writer.println("id = " + veh.getId());

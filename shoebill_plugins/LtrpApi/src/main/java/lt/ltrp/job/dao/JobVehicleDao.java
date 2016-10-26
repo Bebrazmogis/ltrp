@@ -1,8 +1,9 @@
-package lt.ltrp.dao;
+package lt.ltrp.job.dao;
 
 import lt.ltrp.LoadingException;
-import lt.ltrp.dao.VehicleDao;import lt.ltrp.object.Job;
-import lt.ltrp.object.JobVehicle;
+import lt.ltrp.dao.VehicleDao;
+import lt.ltrp.job.object.Job;
+import lt.ltrp.job.object.JobVehicle;
 
 import java.util.Collection;
 

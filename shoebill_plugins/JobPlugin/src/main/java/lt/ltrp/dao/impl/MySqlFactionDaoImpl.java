@@ -1,11 +1,11 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.FactionRankImpl;
+import lt.ltrp.object.impl.FactionRankImpl;
 import lt.ltrp.LoadingException;
-import lt.ltrp.dao.FactionDao;
-import lt.ltrp.dao.JobVehicleDao;
-import lt.ltrp.object.Faction;
-import lt.ltrp.object.FactionRank;
+import lt.ltrp.job.dao.FactionDao;
+import lt.ltrp.job.dao.JobVehicleDao;
+import lt.ltrp.job.object.Faction;
+import lt.ltrp.job.object.FactionRank;
 import net.gtaun.util.event.EventManager;
 
 import javax.sql.DataSource;
