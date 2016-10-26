@@ -3,6 +3,9 @@ package lt.ltrp.job.dao;
 
 import lt.ltrp.dao.DaoException;
 import lt.ltrp.job.object.Job;
+import lt.ltrp.player.job.data.PlayerJobData;
+
+import java.util.Collection;
 
 /**
  * @author Bebras
@@ -18,4 +21,6 @@ public interface JobDao {
     int insert(Job job) throws DaoException;
 
     void parseProperties(Job job) throws DaoException;
+
+    Collection<PlayerJobData> getEmployees(Job job);
 }

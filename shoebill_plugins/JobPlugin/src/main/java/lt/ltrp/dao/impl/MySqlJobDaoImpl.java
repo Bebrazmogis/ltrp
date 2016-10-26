@@ -5,7 +5,11 @@ import lt.ltrp.constant.JobProperty;
 import lt.ltrp.dao.DaoException;
 import lt.ltrp.job.dao.JobDao;
 import lt.ltrp.job.object.Job;
+import lt.ltrp.job.object.JobRank;
 import lt.ltrp.object.Entity;
+import lt.ltrp.object.PlayerData;
+import lt.ltrp.player.PlayerController;
+import lt.ltrp.player.job.data.PlayerJobData;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
@@ -15,6 +19,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Properties;
 
 /**
@@ -148,6 +154,38 @@ public abstract class MySqlJobDaoImpl implements JobDao {
                 }
             }
         }
+    }
+
+    @Override
+    public Collection<PlayerJobData> getEmployees(Job job) {
+        Collection<PlayerJobData> employees = new ArrayList<>();
+        String sql = "SELECT * FROM job_employees WHERE job_id = ?";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, job.getUUID());
+            try(ResultSet result = stmt.executeQuery()) {
+                while(result.next()) {
+                    PlayerData player = PlayerController.instance.getData(result.getInt("player_id"));
+                    JobRank rank = job.getRankByUUID(result.getInt("rank_id"));
+                    if(player == null || rank == null)
+                        continue;
+                    PlayerJobData jobData = new PlayerJobData(player,
+                            job,
+                            rank,
+                            result.getInt("job_level"),
+                            result.getInt("experience"),
+                            result.getInt("hours"),
+                            result.getInt("remaining_contract")
+                    );
+                    employees.add(jobData);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Could not retrieve employee list for " + job.getUUID(), e);
+        }
+        return employees;
     }
 
     private Properties getProperties(Job job) throws DaoException {
