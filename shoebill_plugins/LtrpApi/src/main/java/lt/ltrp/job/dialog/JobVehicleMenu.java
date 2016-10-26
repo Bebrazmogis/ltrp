@@ -1,13 +1,12 @@
-package lt.ltrp.dialog;
+package lt.ltrp.job.dialog;
 
-import lt.ltrp.JobController;
-import lt.ltrp.colorpicker.ColorPicker;
-import lt.ltrp.colorpicker.VehicleColorPicker;
 import lt.ltrp.dialog.IntegerInputDialog;
-import lt.ltrp.dialog.JobListDialog;
-import lt.ltrp.dialog.JobRankDialog;
-import lt.ltrp.dialog.dialogmenu.PlayerDialogMenu;import lt.ltrp.object.Job;
-import lt.ltrp.object.JobVehicle;
+import lt.ltrp.job.JobController;
+import lt.ltrp.colorpicker.VehicleColorPicker;
+import lt.ltrp.dialog.dialogmenu.PlayerDialogMenu;
+import lt.ltrp.job.JobVehicleController;
+import lt.ltrp.job.object.Job;
+import lt.ltrp.job.object.JobVehicle;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.data.Color;
@@ -75,9 +74,8 @@ public class JobVehicleMenu extends PlayerDialogMenu {
                                         if (model >= 400 && model < 613 && color1 >= 0 && color1 < 256 && color2 >= 0 && color2 < 256) {
                                             JobRankDialog dialog = new JobRankDialog(player, eventManager, job);
                                             dialog.setClickOkHandler((JobRankDialog.ClickOkHandler) (ddd, rank) -> {
-                                                JobVehicle vehicle = JobVehicle.create(job, model, player.getLocation(), color1, color2, rank, 0f);
-                                                job.addVehicle(vehicle);
-                                                JobController.get().getVehicleDao().insert(vehicle);
+                                                JobVehicle vehicle = JobVehicleController.instance.
+                                                        create(job, model, player.getLocation(), color1, color2, rank);
                                                 player.sendMessage(Color.GREEN, "Automobilis sukurtas. Jo unikalus ID " + vehicle.getUUID() + " þaidimo ID " + vehicle.getId());
                                                 player.sendMessage(Color.GREEN, "Automobilis priklauso " + job.getName() + ". Privalomas rangas: " + rank.getName());
                                             });
@@ -117,7 +115,7 @@ public class JobVehicleMenu extends PlayerDialogMenu {
                                     vehicleExitEntry.cancel();
                                     vehicle.getState().setEngine(VehicleParam.PARAM_OFF);
                                     vehicle.setSpawnLocation(vehicle.getLocation());
-                                    JobController.get().getVehicleDao().update(vehicle);
+                                    JobVehicleController.instance.update(vehicle);
                                     player.sendMessage("Automobilio pozicija sëkmingai atnaujinta.");
                                 }
                             });
@@ -145,7 +143,7 @@ public class JobVehicleMenu extends PlayerDialogMenu {
                                     jobRankDialog.setClickOkHandler((JobRankDialog.ClickOkHandler) (ddd, rank) -> {
                                         vehicle.setJob(job);
                                         vehicle.setRequiredRank(rank);
-                                        JobController.get().getVehicleDao().update(vehicle);
+                                        JobVehicleController.instance.update(vehicle);
                                         player.sendMessage(Color.GREEN, "Automobilio informacija atnaujinta. Naujas darbas " + job.getName() + ". Naujas rangas: " + rank.getName());
                                     });
                                     jobRankDialog.show();
@@ -169,7 +167,7 @@ public class JobVehicleMenu extends PlayerDialogMenu {
                             jobRankDialog.setClickCancelHandler(AbstractDialog::showParentDialog);
                             jobRankDialog.setClickOkHandler((JobRankDialog.ClickOkHandler) (ddd, rank) -> {
                                 vehicle.setRequiredRank(rank);
-                                JobController.get().getVehicleDao().update(vehicle);
+                                JobVehicleController.instance.update(vehicle);
                                 player.sendMessage(Color.GREEN, "Automobilio informacija atnaujinta. Naujas rangas: " + rank.getName());
                             });
                             jobRankDialog.show();
@@ -189,7 +187,7 @@ public class JobVehicleMenu extends PlayerDialogMenu {
                                         VehicleColorPicker.create(player, eventManager)
                                                 .onSelectColor((picker2, color2) -> {
                                                     vehicle.setColor(color1, color2);
-                                                    JobController.get().getVehicleDao().update(vehicle);
+                                                    JobVehicleController.instance.update(vehicle);
                                                     player.sendMessage(Color.GREEN, "Automobilio informacija atnaujina. Naujos spalvos: " + color1 + " " + color2);
                                                 })
                                                 .build()

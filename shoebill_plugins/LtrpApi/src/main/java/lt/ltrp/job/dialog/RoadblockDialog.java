@@ -1,6 +1,6 @@
-package lt.ltrp.dialog;
+package lt.ltrp.job.dialog;
 
-import lt.ltrp.data.Roadblock;
+import lt.ltrp.job.data.Roadblock;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.util.event.EventManager;

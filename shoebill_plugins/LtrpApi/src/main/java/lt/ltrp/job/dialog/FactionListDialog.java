@@ -1,6 +1,6 @@
-package lt.ltrp.dialog;
+package lt.ltrp.job.dialog;
 
-import lt.ltrp.object.Faction;
+import lt.ltrp.job.object.Faction;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;

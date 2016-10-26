@@ -1,7 +1,7 @@
-package lt.ltrp.dialog;
+package lt.ltrp.job.dialog;
 
-import lt.ltrp.object.Job;
-import lt.ltrp.object.Rank;
+import lt.ltrp.job.object.Job;
+import lt.ltrp.job.object.JobRank;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
@@ -39,14 +39,14 @@ public class JobRankDialog extends PageListDialog {
     @Override
     protected void onClickOk(ListDialogItem item) {
         if(handler != null)
-            handler.onClickOk(this, (Rank)item.getData());
+            handler.onClickOk(this, (JobRank)item.getData());
     }
 
     @Override
     public void show() {
         items.clear();
 
-        for(Rank rank : job.getRanks()) {
+        for(JobRank rank : job.getRanks()) {
             items.add(new ListDialogItem(rank, String.format("%d. %s", rank.getNumber(), rank.getName()), null));
         }
         if(job.getRanks().size() == 0) {
@@ -58,6 +58,6 @@ public class JobRankDialog extends PageListDialog {
 
     @FunctionalInterface
     public interface ClickOkHandler {
-        void onClickOk(JobRankDialog dialog, Rank rank);
+        void onClickOk(JobRankDialog dialog, JobRank rank);
     }
 }

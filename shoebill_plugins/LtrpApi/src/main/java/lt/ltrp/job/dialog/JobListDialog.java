@@ -1,6 +1,7 @@
-package lt.ltrp.dialog;
+package lt.ltrp.job.dialog;
 
-import lt.ltrp.object.Job;
+import lt.ltrp.job.JobController;
+import lt.ltrp.job.object.Job;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.PageListDialog;
@@ -21,7 +22,7 @@ public class JobListDialog extends PageListDialog {
 
     public JobListDialog(LtrpPlayer player, EventManager eventManager) {
         super(player, eventManager);
-        super.setCaption("Darbø sàraðas(" + Job.get().size() + ")");
+        super.setCaption("Darbø sàraðas(" + JobController.instance.get().size() + ")");
         super.setButtonOk("Pasirinkti");
         super.setButtonCancel("Atgal");
     }
@@ -34,7 +35,7 @@ public class JobListDialog extends PageListDialog {
     public void show() {
         items.clear();
 
-        for(final Job job : Job.get()) {
+        for(final Job job : JobController.instance.get()) {
             ListDialogItem item = new ListDialogItem();
             item.setItemText(job.getName());
             item.setData(job);

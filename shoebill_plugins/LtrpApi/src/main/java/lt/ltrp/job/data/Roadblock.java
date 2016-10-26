@@ -1,4 +1,4 @@
-package lt.ltrp.data;
+package lt.ltrp.job.data;
 
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.data.Location;
