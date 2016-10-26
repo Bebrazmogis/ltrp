@@ -30,7 +30,7 @@ import java.util.Properties;
  * A MySQL implementation of the {@link lt.ltrp.job.dao.JobDao} interface.
  * All {@link lt.ltrp.job.object.Job} implementation DAOs should extend this class
  */
-public abstract class MySqlJobDaoImpl implements JobDao {
+public final class MySqlJobDaoImpl implements JobDao {
     private DataSource dataSource;
     private EventManager eventManager;
 
