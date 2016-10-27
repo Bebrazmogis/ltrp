@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.DepartmentChatCommand;
 import lt.ltrp.command.MedicCommands;
 import lt.ltrp.command.RoadblockCommands;
@@ -7,71 +8,49 @@ import lt.ltrp.dao.MedicFactionDao;
 import lt.ltrp.dao.impl.MySqlMedicFactionDaoImpl;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.MedicFaction;
+import lt.ltrp.object.impl.MedicFactionImpl;
+import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
-import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
-import net.gtaun.shoebill.resource.Plugin;
-import net.gtaun.shoebill.resource.Resource;
 import net.gtaun.shoebill.resource.ResourceManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
-import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author Bebras
  *         2016.05.24.
  */
-public class MedicJobPlugin extends Plugin {
+public class MedicJobPlugin extends DependentPlugin {
 
     private EventManagerNode eventManager;
-    private Logger logger;
     private MedicFactionDao medicFactionDao;
     private MedicFaction medicFaction;
     private PlayerCommandManager playerCommandManager;
     private Collection<LtrpPlayer> medicsOnDuty;
 
-
-    @Override
-    protected void onEnable() throws Throwable {
-        this.medicsOnDuty = new ArrayList<>();
-        logger = getLogger();
-        eventManager = getEventManager().createChildNode();
-
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(JobPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManager.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
-
+    public MedicJobPlugin() {
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(JobPlugin.class));
     }
 
-    private void load() {
+    @Override
+    protected void onEnable() {
+        super.onEnable();
+        this.medicsOnDuty = new ArrayList<>();
+        eventManager = getEventManager().createChildNode();
+    }
+
+    @Override
+    public void onDependenciesLoaded() {
         eventManager.cancelAll();
-        this.medicFactionDao = new MySqlMedicFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, null, eventManager);
-        this.medicFaction = medicFactionDao.get(JobPlugin.JobId.Medic.id);
+        this.medicFactionDao = new MySqlMedicFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
+        this.medicFaction = new MedicFactionImpl(JobPlugin.JobId.Medic.id, eventManager);
         registerCommands();
         addEventHandlers();
-        logger.info(getDescription().getName() + " loaded");
+        getLogger().info(getDescription().getName() + " loaded");
     }
 
     private void addEventHandlers() {
@@ -108,9 +87,9 @@ public class MedicJobPlugin extends Plugin {
 
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         eventManager.cancelAll();
         playerCommandManager.uninstallAllHandlers();
-        logger.info(getDescription().getName() + " unloaded");
     }
 }
