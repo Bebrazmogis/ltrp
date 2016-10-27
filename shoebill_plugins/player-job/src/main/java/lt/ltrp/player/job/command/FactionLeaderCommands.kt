@@ -31,7 +31,7 @@ class FactionLeaderCommands(private val eventManager: EventManager): Commands() 
         val player = LtrpPlayer.get(p)
         return JobController.instance.get()
             .filterIsInstance<Faction>()
-            .firstOrNull{ it.leaders.contains(player) } != null
+            .firstOrNull{ it.getLeaders().contains(player) } != null
     }
 
     @Command

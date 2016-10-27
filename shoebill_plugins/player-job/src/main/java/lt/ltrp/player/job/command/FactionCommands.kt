@@ -65,12 +65,14 @@ class FactionCommands(private val eventManager: EventManager): Commands() {
             val members = JobController.instance.getEmployeeList(faction)
             player.sendMessage(Color.GREEN, "|___________ Frakcijai priklausantys nariai(" + members.size + ") ___________|")
             members.forEachIndexed { i, data ->
-                val jobData = PlayerJobController.instance.getData(data)
-                player.sendMessage(Color.WHITE, String.format("**%d. %s [%d - %s]",
-                        i + 1,
-                        data.name,
-                        jobData.rank.number,
-                        jobData.rank.name))
+                val jobData = player.jobData
+                if(jobData != null) {
+                    player.sendMessage(Color.WHITE, String.format("**%d. %s [%d - %s]",
+                            i + 1,
+                            data.player.name,
+                            jobData.rank.number,
+                            jobData.rank.name))
+                }
             }
         }
         return true
