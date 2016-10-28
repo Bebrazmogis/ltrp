@@ -1,5 +1,6 @@
 package lt.ltrp.player.fine.data
 
+import lt.ltrp.`object`.Entity
 import lt.ltrp.`object`.PlayerData
 import lt.ltrp.`object`.impl.EntityImpl
 import java.time.LocalDateTime
@@ -18,7 +19,7 @@ class PlayerFine(uuid: Int,
                  val createdAt: LocalDateTime):
         EntityImpl(uuid) {
 
-    constructor(uuid: Int, player: PlayerData, issuedBy: PlayerData, description: String, fine: Int):
-            this(uuid, player, issuedBy, description, fine, false, LocalDateTime.now())
+    constructor(player: PlayerData, issuedBy: PlayerData, description: String, fine: Int):
+            this(Entity.INVALID_ID, player, issuedBy, description, fine, false, LocalDateTime.now())
 
 }
