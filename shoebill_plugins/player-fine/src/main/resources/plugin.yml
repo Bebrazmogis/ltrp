@@ -1,0 +1,7 @@
+class: lt.ltrp.player.fine.PlayerFinePlugin
+name: Player Fine Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description:
