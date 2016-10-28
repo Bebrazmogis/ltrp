@@ -186,7 +186,7 @@
 
     <build>
         <defaultGoal>clean install</defaultGoal>
-        <directory>${project.basedir}/shoebill/gamemodes</directory>
+        <!-- <directory>${project.basedir}/shoebill/gamemodes</directory> -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
