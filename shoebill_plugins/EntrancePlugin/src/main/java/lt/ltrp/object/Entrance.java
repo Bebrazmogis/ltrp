@@ -1,6 +1,7 @@
 package lt.ltrp.object;
 
 import lt.ltrp.EntrancePlugin;
+import lt.ltrp.job.object.Job;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.AngledLocation;

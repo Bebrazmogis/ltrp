@@ -1,7 +1,6 @@
 package lt.ltrp.object;
 
-import lt.ltrp.ItemController;
-import lt.ltrp.object.NamedEntity;
+import lt.ltrp.item.ItemController;
 import lt.ltrp.constant.ItemType;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.constant.SpecialAction;

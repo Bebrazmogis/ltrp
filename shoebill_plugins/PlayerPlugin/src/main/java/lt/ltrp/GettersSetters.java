@@ -1,11 +1,14 @@
 package lt.ltrp;
 
 import lt.ltrp.constant.ItemType;
-import lt.ltrp.constant.LicenseType;
-import lt.ltrp.data.PlayerJobData;
-import lt.ltrp.data.PlayerLicense;
+import lt.ltrp.job.JobController;
+import lt.ltrp.job.object.Job;
+import lt.ltrp.job.object.JobRank;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.object.*;
 import lt.ltrp.player.BankAccount;
+import lt.ltrp.player.licenses.constant.LicenseType;
+import lt.ltrp.player.licenses.data.PlayerLicense;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.amx.AmxInstance;
 import net.gtaun.shoebill.object.Player;
@@ -203,17 +206,6 @@ public class GettersSetters {
         }, Integer.class, Integer.class);
 
 
-        amx.registerFunction("addJobExp", params -> {
-           LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
-            if(p != null) {
-                PlayerJobData jobData = JobController.get().getJobData(p);
-                if(jobData != null) {
-                    jobData.addXp((Integer)params[1]);
-                }
-            }
-            return 0;
-        }, Integer.class, Integer.class);
-
 
         amx.registerFunction("getPlayerRespect", params-> {
            LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
@@ -309,49 +301,6 @@ public class GettersSetters {
         }, Integer.class, Integer.class);
 
 
-        amx.registerFunction("getPlayerJob", params-> {
-           LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
-            if(p != null) {
-                PlayerJobData jobData = JobController.get().getJobData(p);
-                return jobData != null ? jobData.getJob().getUUID() : 0;
-            }
-            return -1;
-        }, Integer.class);
-
-        amx.registerFunction("setPlayerJob", params-> {
-           LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
-            Job job = Job.get((Integer) params[1]);
-            if(p != null && job != null) {
-                JobController.get().setJob(p, job);
-                return 1;
-            }
-            return 0;
-        }, Integer.class, Integer.class);
-
-
-
-
-        amx.registerFunction("getPlayerRank", params-> {
-           LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
-            if(p != null) {
-                PlayerJobData jobData = JobController.get().getJobData(p);
-                return jobData != null ? jobData.getJobRank().getNumber() : null;
-            }
-            return -1;
-        }, Integer.class);
-
-        amx.registerFunction("setPlayerRank", params-> {
-           LtrpPlayer p = LtrpPlayer.get(Player.get((Integer) params[0]));
-            PlayerJobData jobData = JobController.get().getJobData(p);
-            if(p != null && jobData != null) {
-                Rank rank = jobData.getJob().getRank((Integer) params[1]);
-                if(rank != null) {
-                    JobController.get().setRank(p, rank);
-                    return 1;
-                }
-            }
-            return 0;
-        }, Integer.class, Integer.class);
 
 
         amx.registerFunction("getPlayerSkin", params-> {

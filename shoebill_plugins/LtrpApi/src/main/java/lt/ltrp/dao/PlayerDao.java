@@ -22,8 +22,8 @@ public interface PlayerDao {
     public CrashData getCrashData(LtrpPlayer player);
     public boolean remove(LtrpPlayer player, CrashData data);
     public boolean setFactionManager(LtrpPlayer player);
-    void insertCrime(PlayerCrime crime);
-    List<PlayerCrime> getCrimes(LtrpPlayer player);
+    void insertCrime(PlayerFine crime);
+    List<PlayerFine> getCrimes(LtrpPlayer player);
 
     void update(PlayerSettings settings);
     void updateLastLogin(LtrpPlayer player);

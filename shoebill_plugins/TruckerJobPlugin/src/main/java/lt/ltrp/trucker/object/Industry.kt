@@ -1,6 +1,6 @@
 package lt.ltrp.trucker.`object`
 
-import lt.ltrp.`object`.AbstractEntity
+import lt.ltrp.`object`.impl.EntityImpl
 import lt.ltrp.trucker.constant.IndustryCommodityType
 import lt.ltrp.trucker.data.IndustryCommodity
 import lt.maze.streamer.`object`.DynamicLabel
@@ -13,7 +13,7 @@ import java.util.ArrayList
  * @author Bebras
 * 2016.06.19.
  */
-class Industry(id: Int, name: String, location: Location): AbstractEntity(id), Destroyable {
+class Industry(id: Int, name: String, location: Location): EntityImpl(id), Destroyable {
 
     var name: String = name
         get

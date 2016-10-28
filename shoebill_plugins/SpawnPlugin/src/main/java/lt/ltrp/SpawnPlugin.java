@@ -4,6 +4,9 @@ import lt.ltrp.command.SpawnCommands;
 import lt.ltrp.dao.SpawnDao;
 import lt.ltrp.dao.impl.MySqlSpawnDaoImpl;
 import lt.ltrp.data.Color;
+import lt.ltrp.job.JobController;
+import lt.ltrp.job.object.Faction;
+import lt.ltrp.job.object.Job;
 import lt.ltrp.spawn.data.SpawnData;
 import lt.ltrp.spawn.event.PlayerFirstSpawnEvent;
 import lt.ltrp.spawn.event.PlayerRequestSpawnEvent;
@@ -111,7 +114,7 @@ public class SpawnPlugin extends Plugin{
                         if(business != null) location = business.getEntrance();
                         break;
                     case Faction:
-                        Faction faction = (Faction)Job.get(spawnData.getId());
+                        Faction faction = (Faction) JobController.instance.get(spawnData.getId());
                         if(faction != null) location = faction.getLocation();
                         break;
                     case Garage:

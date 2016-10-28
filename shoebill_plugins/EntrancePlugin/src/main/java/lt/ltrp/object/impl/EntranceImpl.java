@@ -2,7 +2,7 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.event.EntranceDestroyEvent;
 import lt.ltrp.object.Entrance;
-import lt.ltrp.object.Job;
+import lt.ltrp.job.object.Job;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.AngledLocation;

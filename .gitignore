@@ -21,3 +21,7 @@ crashinfo.txt
 *.jar
 !/*.jar
 *.amx
+**/out/**
+plugins/*
+plugins_linux/*
+*.exe

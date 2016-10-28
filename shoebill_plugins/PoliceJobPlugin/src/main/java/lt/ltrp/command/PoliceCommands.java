@@ -8,12 +8,25 @@ import lt.ltrp.data.*;
 import lt.ltrp.dialog.*;
 import lt.ltrp.event.PlayerVehicleArrestDeleteEvent;
 import lt.ltrp.event.PlayerVehicleArrestEvent;
+import lt.ltrp.house.object.House;
+import lt.ltrp.house.weed.HouseWeedController;
+import lt.ltrp.house.weed.object.HouseWeedSapling;
+import lt.ltrp.item.ItemController;
+import lt.ltrp.job.object.FactionRank;
+import lt.ltrp.job.object.JobVehicle;
 import lt.ltrp.modelpreview.SkinModelPreview;
 import lt.ltrp.object.*;
 import lt.ltrp.object.drug.DrugItem;
 import lt.ltrp.player.BankAccount;
+import lt.ltrp.player.fine.PlayerFineController;
+import lt.ltrp.player.fine.data.PlayerFine;
+import lt.ltrp.player.fine.data.PlayerFineOffer;
+import lt.ltrp.player.job.data.PlayerJobData;
+import lt.ltrp.player.licenses.PlayerLicenseController;
+import lt.ltrp.player.licenses.constant.LicenseType;
+import lt.ltrp.player.licenses.data.PlayerLicense;
 import lt.ltrp.util.PawnFunc;
-import lt.ltrp.util.PlayerUtils;
+import lt.ltrp.player.util.PlayerUtils;
 import lt.ltrp.util.StringUtils;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicObject;
@@ -32,7 +45,6 @@ import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.PlayerAttach;
 import net.gtaun.util.event.EventManager;
 
-import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -51,7 +63,7 @@ public class PoliceCommands extends Commands {
         PoliceFaction faction = PoliceJobPlugin.get(PoliceJobPlugin.class).getPoliceFaction();
         commandToRankNumber = new HashMap<>();
 
-        Optional<FactionRank> opMaxRank = faction.getRanks().stream().max((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber()));
+        Optional<? extends FactionRank> opMaxRank = faction.getRanks().stream().max((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber()));
 
         commandToRankNumber.put("policehelp", 1);
         commandToRankNumber.put("cutdownweed", 1);
@@ -118,13 +130,11 @@ public class PoliceCommands extends Commands {
     private Map<JobVehicle, DynamicObject> policeSirens = new HashMap<>();
     private Map<LtrpPlayer, DragTimer> dragTimers;
     private Map<LtrpPlayer, List<LtrpPlayer>> backupRequests;
-    private PlayerCommandManager playerCommandManager;
     private PoliceJobPlugin policePlugin;
 
 
-    public PoliceCommands(PlayerCommandManager cmdmanger, PoliceFaction job, EventManager eventManager,
+    public PoliceCommands(PoliceFaction job, EventManager eventManager,
                           Map<JobVehicle, DynamicLabel> unitLabels, Map<JobVehicle, DynamicObject> sirends, Map<LtrpPlayer,DragTimer> dragtimers) {
-        this.playerCommandManager = cmdmanger;
         this.job = job;
         this.backupRequests = new HashMap<>();
         this.eventManager = eventManager;
@@ -138,10 +148,10 @@ public class PoliceCommands extends Commands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobController.get().getJobData(player);
-        if(jobData.getJob().equals(job)) {
+        PlayerJobData jobData = player.getJobData();
+        if(jobData != null && jobData.getJob().equals(job)) {
             if(commandToRankNumber.containsKey(cmd)) {
-                if(jobData.getJobRank().getNumber() >= commandToRankNumber.get(cmd)) {
+                if(jobData.getRank().getNumber() >= commandToRankNumber.get(cmd)) {
                     if(jobVehicleCommands.contains(cmd)) {
                         JobVehicle jobVehicle = JobVehicle.getById(player.getVehicle().getId());
                         if(jobVehicle != null)
@@ -157,7 +167,7 @@ public class PoliceCommands extends Commands {
                         return true;
                     }
                 } else {
-                    player.sendErrorMessage("Ðià komandà gali naudoti darbuotojai kuriø rangas " + jobData.getJob().getRank(commandToRankNumber.get(cmd)).getName());
+                    player.sendErrorMessage("Ðià komandà gali naudoti darbuotojai kuriø rangas " + jobData.getJob().getRankByNumber(commandToRankNumber.get(cmd)).getName());
                 }
             }
         }
@@ -175,7 +185,7 @@ public class PoliceCommands extends Commands {
         player.sendMessage(Color.WHITE, "  KOMANDOS NUBAUSTI: /fine /vehiclefine /arrest /prison /arrestcar /licwarn ");
         player.sendMessage(Color.LIGHTGREY, "  KITOS KOMANDOS: /flist /setunit /delunit /police /delarrestcar /jobid /cutdownweed");
         player.sendMessage(Color.WHITE, "  DRABUÞIAI/APRANGA: /vest /badge /rbadge /pdclothes");
-        Optional<FactionRank> opMaxRank = job.getRanks().stream().max((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber()));
+        Optional<? extends FactionRank> opMaxRank = job.getRanks().stream().max((r1, r2) -> Integer.compare(r1.getNumber(), r2.getNumber()));
         if(opMaxRank.isPresent()) {
             player.sendMessage(Color.LIGHTGREY, "AUKÐTO RANGO KOMANDOS: /setswat /unsetswat");
         }
@@ -195,11 +205,11 @@ public class PoliceCommands extends Commands {
         if(player.getLocation().distance(target.getLocation()) > 10f)
             player.sendErrorMessage(target.getName() + " yra per toli kad galëtumëte parodyti jam savo paþymëjimà.");
         else {
-            PlayerJobData jobData = JobPlugin.get(JobPlugin.class).getJobData(target);
+            PlayerJobData jobData = target.getJobData();
             target.sendMessage(Color.GREEN, "|______________LOS SANTOS DEPARTAMENTAS______________|");
             target.sendMessage(Color.GREEN, "|______________  PAREIGðªNO PAÞYMËJIMAS ______________|");
             target.sendMessage(Color.WHITE, String.format("Pareigøno vardas: %s     Pavardë: %s", target.getFirstName(), target.getLastName()));
-            target.sendMessage(Color.WHITE, String.format("Pareigûno pareigos/rangas: %s     Amþius: %d", jobData.getJobRank().getName(), target.getAge()));
+            target.sendMessage(Color.WHITE, String.format("Pareigûno pareigos/rangas: %s     Amþius: %d", jobData.getRank().getName(), target.getAge()));
         }
         return true;
     }
@@ -219,7 +229,7 @@ public class PoliceCommands extends Commands {
             } else  {
                 closestWeed.forEach(w -> {
                     w.destroy();
-                    HouseController.get().getHouseDao().update(w);
+                    HouseWeedController.instance.destroyWeed(w);
                 });
                 player.sendActionMessage("Pareigûnas " + player.getCharName() + " sunaikina " + closestWeed.size() + " marihuanos augalus.");
                 return true;
@@ -246,14 +256,14 @@ public class PoliceCommands extends Commands {
 
     @Command
     @CommandHelp("Parodo þaidëjo turimas baudas")
-    public boolean fines(LtrpPlayer player, LtrpPlayer p2) {
+    public boolean fines(Player player, LtrpPlayer p2) {
         LtrpPlayer p = LtrpPlayer.get(player);
         if(p2 == null) {
             p.sendErrorMessage("Naudojimas /p [ÞaidëjoID/Dalis vardo]");
         } else if(p.getLocation().distance(p2.getLocation()) > 10.0f) {
             p.sendErrorMessage("Ðià komandà galima naudoti tik kai þaidëjas prie jûsø. " + p2.getCharName() + " yra per toli");
         } else {
-            List<PlayerCrime> crimes = LtrpPlayer.getPlayerDao().getCrimes(p2);
+            Collection<PlayerFine> crimes = PlayerFineController.Companion.get().get(p2);
             if(crimes.size() == 0) {
                 p.sendErrorMessage(p2.getCharName() + " nëra nieko padaræs.");
             } else {
@@ -419,7 +429,7 @@ public class PoliceCommands extends Commands {
     public boolean mdc(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
         JobVehicle jobVehicle = JobVehicle.getById(player.getVehicle().getId());
-        if(JobController.get().getJobData(player).getJob().isAtWork(player) || (jobVehicle != null && jobVehicle.getJob().equals(job))) {
+        if(player.getJobData() != null && player.getJobData().getJob().isAtWork(player) || (jobVehicle != null && jobVehicle.getJob().equals(job))) {
             new PoliceDatabaseMenu(player, eventManager).show();
         } else
             player.sendErrorMessage("Jûs turite bûti darbovietëje arba darbinëje transporto priemonëje.");
@@ -431,7 +441,7 @@ public class PoliceCommands extends Commands {
     @CommandHelp("Leidþia pasiimti/padëti darbinius ginklus")
     public boolean wepStore(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        if(JobController.get().getJobData(player).getJob().isAtWork(player)) {
+        if(job.isAtWork(player)) {
             PoliceWeaponryDialog.create(player, eventManager, job);
             return true;
         } else
@@ -626,7 +636,7 @@ public class PoliceCommands extends Commands {
     @CommandHelp("Leidþia pradëti/baigti tempti surakintà þaidëjà")
     public boolean drag(Player p, LtrpPlayer target) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = player.getJobData();
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
         } else if(player.getDistanceToPlayer(target) > 10f) {
@@ -636,13 +646,13 @@ public class PoliceCommands extends Commands {
         } else if(target.isInComa()) {
             player.sendErrorMessage(target.getCharName() + " yra komos bûsenoje, já tempti bûtø per daug pavojinga.");
         } else if(dragTimers.containsKey(player)) {
-            player.sendActionMessage(jobData.getJobRank().getName() + " " + player.getCharName() + "nustotojo tempti/traukti" + target.getCharName());
+            player.sendActionMessage(jobData.getRank().getName() + " " + player.getCharName() + "nustotojo tempti/traukti" + target.getCharName());
             target.sendInfoText("~w~Tempiamas");
             target.toggleControllable(false);
             return true;
         } else {
             dragTimers.put(player, DragTimer.create(player, target));
-            player.sendActionMessage(jobData.getJobRank().getName() + " " + player.getCharName() + " pradëjo tempti/traukti " + target.getCharName());
+            player.sendActionMessage(jobData.getRank().getName() + " " + player.getCharName() + " pradëjo tempti/traukti " + target.getCharName());
             target.sendInfoText("~w~Nebe tempiamas");
             target.toggleControllable(true);
             return true;
@@ -655,7 +665,7 @@ public class PoliceCommands extends Commands {
     @CommandHelp("Leidþia iðsikviesti pagalbà")
     public boolean backup(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = player.getJobData();
         if(backupRequests.keySet().contains(player)) {
             for(LtrpPlayer backup : backupRequests.get(player)) {
                 backup.getCheckpoint().disable(player);
@@ -705,7 +715,7 @@ public class PoliceCommands extends Commands {
         LtrpPlayer player = LtrpPlayer.get(p);
         LtrpPlayer target = LtrpPlayer.get(p2);
         if(target == null || paramString == null) {
-            playerCommandManager.sendUsageMessage(player, "take");
+            return false;
         } else if(player.getDistanceToPlayer(target) > 5f) {
             player.sendErrorMessage("Þaidëjas yra per toli kad galëtumëte ið jo kà nors atimti.");
         } else if(player.equals(target)) {
@@ -717,7 +727,8 @@ public class PoliceCommands extends Commands {
                 target.resetWeapons();
                 Item[] weapons = target.getInventory().getItems(ItemType.Weapon);
                 for(Item weapon : weapons) {
-                    ItemController.get().getItemDao().delete(weapon);
+                    // TODO
+                    //ItemController.get().getItemDao().delete(weapon);
                     target.getInventory().remove(weapon);
                     weapon.destroy();
                 }
@@ -735,7 +746,7 @@ public class PoliceCommands extends Commands {
                             if(target.getLicenses().contains(type)) {
                                 PlayerLicense license = target.getLicenses().get(type);
                                 target.getLicenses().remove(license);
-                                LtrpPlayer.getPlayerDao().delete(license);
+                                PlayerLicenseController.instance.remove(license);
                                 player.sendActionMessage("Paima ið " + target.getCharName() + " " + type.getName() + " licenzijà.");
                                 return true;
                             } else {
@@ -758,7 +769,8 @@ public class PoliceCommands extends Commands {
                     player.sendErrorMessage(target.getName() + " neturi narkotikø!");
                 else {
                     for(DrugItem drug : drugs) {
-                        ItemController.get().getItemDao().delete(drug);
+                        // TODO
+                        //ItemController.get().getItemDao().delete(drug);
                         drug.destroy();
                         target.getInventory().remove(drug);
                     }
@@ -777,7 +789,7 @@ public class PoliceCommands extends Commands {
         LtrpPlayer player = LtrpPlayer.get(p);
         LtrpPlayer target = LtrpPlayer.get(p2);
         if(target == null || warningText == null) {
-            playerCommandManager.sendUsageMessage(player, "licWarn");
+            return false;
         } else if(player.equals(target)) {
             player.sendErrorMessage("Sau áspëjimo duoti negalite!");
         } else if(player.getDistanceToPlayer(target) > 5f) {
@@ -785,13 +797,7 @@ public class PoliceCommands extends Commands {
         } else if(!target.getLicenses().contains(LicenseType.Car)) {
             player.sendErrorMessage(target.getCharName() + " neturi vairavimo licenzijos!");
         } else {
-            LicenseWarning warning = new LicenseWarning();
-            warning.setLicense(target.getLicenses().get(LicenseType.Car));
-            warning.setDate(new Timestamp(new Date().getTime()));
-            warning.setIssuedBy(player.getName());
-            warning.setBody(warningText);
-            target.getLicenses().get(LicenseType.Car).addWarning(warning);
-            LtrpPlayer.getPlayerDao().insert(warning);
+            PlayerLicenseController.instance.insertWarning(target.getLicenses().get(LicenseType.Car), warningText, player);
             target.sendMessage("Jûs gavote vairavimp áspëjimà nuo pareigûno " + player.getCharName() + ". Paþeidimas: " + warningText + ".");
             player.sendMessage(target.getCharName() + " áspëtas.");
         }
@@ -818,7 +824,7 @@ public class PoliceCommands extends Commands {
             player.sendActionMessage("atsidaro savo ginklø saugyklà.");
             player.setArmour(100f);
             player.setColor(new Color(0x8d8dffAA));
-            PoliceWeaponryDialog.create(player, eventManager, (PoliceFaction)JobController.get().getJobData(player).getJob());
+            PoliceWeaponryDialog.create(player, eventManager, job);
         }
         policePlugin.setOnDuty(player, !policePlugin.isOnDuty(player));
         return true;
@@ -849,7 +855,7 @@ public class PoliceCommands extends Commands {
                 player.sendMessage(Color.NEWS, " Policijos pareigûnas " + player.getCharName() + "  areðtavo Jûsø automobilá" + vehicle.getModelName() + ", kurio numeriai: " + vehicle.getLicense());
             }
             job.sendMessage(Color.POLICE, String.format("%s %s areðtavo %s, valstybiniai numeriai %s. Prieþastis: %s.",
-                    JobController.get().getJobData(player).getJobRank().getName(),
+                    player.getJobData().getRank().getName(),
                     player.getCharName(),
                     vehicle.getModelName(),
                     vehicle.getLicense(),

@@ -5,14 +5,15 @@ import lt.ltrp.AbstractDmvManager;
 import lt.ltrp.DmvController;
 import lt.ltrp.InitException;
 import lt.ltrp.LoadingException;
-import lt.ltrp.constant.LicenseType;
-import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.dialog.BoatingTestEndMsgDialog;
 import lt.ltrp.event.PlayerBoatingTestEnd;
 import lt.ltrp.object.BoatDmv;
 import lt.ltrp.object.Dmv;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.player.licenses.PlayerLicenseController;
+import lt.ltrp.player.licenses.constant.LicenseType;
+import lt.ltrp.player.licenses.data.PlayerLicense;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
@@ -79,13 +80,7 @@ public class BoatDmvManager extends AbstractDmvManager {
 
         getEventManagerNode().registerHandler(PlayerBoatingTestEnd.class, e -> {
             if(e.getTest().isPassed()) {
-                PlayerLicense license = new PlayerLicense();
-                license.setType(LicenseType.Ship);
-                license.setPlayer(e.getPlayer());
-                license.setDateAquired(new Timestamp(new Date().getTime()));
-                license.setStage(1);
-                LtrpPlayer.getPlayerDao().insertLicense(license);
-                e.getPlayer().getLicenses().add(license);
+                PlayerLicenseController.instance.insert(e.getPlayer(), LicenseType.Ship, 1);
             }
             BoatingTestEndMsgDialog.create(e.getPlayer(), getEventManagerNode(), e.getTest())
                     .show();

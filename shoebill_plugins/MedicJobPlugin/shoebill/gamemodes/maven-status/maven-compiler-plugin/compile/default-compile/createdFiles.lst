@@ -1,0 +1,6 @@
+lt\ltrp\MedicJobPlugin.class
+lt\ltrp\object\impl\MedicFactionImpl.class
+lt\ltrp\dao\impl\MySqlMedicFactionDaoImpl.class
+lt\ltrp\object\MedicFaction.class
+lt\ltrp\dao\MedicFactionDao.class
+lt\ltrp\command\MedicCommands.class

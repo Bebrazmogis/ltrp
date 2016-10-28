@@ -2,6 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.command.PropertyAcceptCommands;
 import lt.ltrp.command.PropertyCommands;
+import lt.ltrp.house.HouseController;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.Property;
 import net.gtaun.shoebill.common.command.CommandGroup;
@@ -52,7 +53,7 @@ public class PropertyPlugin extends Plugin implements PropertyController {
     @Override
     public Collection<Property> getProperties() {
         Collection<Property> cl = new ArrayList<>();
-        cl.addAll(HouseController.get().getHouses());
+        cl.addAll(HouseController.get().getAll());
         cl.addAll(BusinessController.get().getBusinesses());
         cl.addAll(GarageController.get().getGarages());
         return cl;

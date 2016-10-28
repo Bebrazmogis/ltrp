@@ -24,7 +24,7 @@ public class MySqlIndustryCommodityDaoImpl(ds: DataSource): IndustryCommodityDao
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         val r: ResultSet = try {
-            stmt.setInt(1, industry.getUUID())
+            stmt.setInt(1, industry.UUID)
             stmt.executeQuery()
         } catch(e: SQLException) {
             throw e
@@ -48,8 +48,8 @@ public class MySqlIndustryCommodityDaoImpl(ds: DataSource): IndustryCommodityDao
             stmt.setInt(2, commodity.price)
             stmt.setInt(3, commodity.currentStock)
             stmt.setInt(4, commodity.maxStock)
-            stmt.setInt(5, commodity.industry.getUUID())
-            stmt.setInt(6, commodity.getUUID())
+            stmt.setInt(5, commodity.industry.UUID)
+            stmt.setInt(6, commodity.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             throw e
@@ -64,8 +64,8 @@ public class MySqlIndustryCommodityDaoImpl(ds: DataSource): IndustryCommodityDao
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
-            stmt.setInt(1, commodity.industry.getUUID())
-            stmt.setInt(2, commodity.getUUID())
+            stmt.setInt(1, commodity.industry.UUID)
+            stmt.setInt(2, commodity.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             throw e
@@ -80,8 +80,8 @@ public class MySqlIndustryCommodityDaoImpl(ds: DataSource): IndustryCommodityDao
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
-            stmt.setInt(1, commodity.industry.uuid)
-            stmt.setInt(2, commodity.uuid)
+            stmt.setInt(1, commodity.industry.UUID)
+            stmt.setInt(2, commodity.UUID)
             stmt.setString(3, commodity.type.name)
             stmt.setInt(4, commodity.price)
             stmt.setInt(5, commodity.currentStock)

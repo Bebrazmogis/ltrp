@@ -1,12 +1,12 @@
 package lt.ltrp;
 
-import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerData;
 import lt.ltrp.dialog.PasswordInputDialog;
 import lt.ltrp.event.player.PlayerLogInEvent;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.object.PlayerData;
 import lt.ltrp.object.impl.LtrpPlayerImpl;
+import lt.ltrp.player.PlayerController;
 import lt.ltrp.util.Whirlpool;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
@@ -30,6 +30,8 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.05.19.
  */
+
+
 public class AuthPlugin extends Plugin {
 
     private Logger logger;
@@ -82,8 +84,8 @@ public class AuthPlugin extends Plugin {
                 e.interrupt();
                 return;
             }
-            PlayerData playerData = plugin.getPlayerData(p.getName());
-            if(playerData.isValid()) {
+            PlayerData playerData = PlayerController.instance.getData(p.getName());
+            if(playerData != null && playerData.isValid()) {
                 //LtrpPlayerImpl player = new LtrpPlayerImpl(e.getPlayer(), uuid, eventManagerNode);
                 //player.setPassword(playerDao.getPassword(player));
 

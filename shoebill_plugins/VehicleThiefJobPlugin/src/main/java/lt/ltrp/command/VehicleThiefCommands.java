@@ -1,10 +1,10 @@
 package lt.ltrp.command;
 
-import lt.ltrp.JobController;
+import lt.ltrp.job.JobController;
 import lt.ltrp.VehicleController;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.NamedLocation;
-import lt.ltrp.data.PlayerJobData;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PlayerVehicle;
 import lt.ltrp.object.VehicleThiefJob;
@@ -34,8 +34,8 @@ public class VehicleThiefCommands extends Commands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobController.get().getJobData(player);
-        if(jobData.getJob().equals(job)) {
+        PlayerJobData jobData = player.getJobData();
+        if(jobData != null && jobData.getJob().equals(job)) {
             return true;
         } else
             player.sendErrorMessage("Ði komanda skirta tik dirbantiems automobiliø vagimis");
@@ -46,7 +46,7 @@ public class VehicleThiefCommands extends Commands {
     @Command
     public boolean sellCar(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobController.get().getJobData(player);
+        PlayerJobData jobData = player.getJobData();
         if(!playerVehicleSellDelay.containsKey(player)) {
             if(player.getVehicle() != null) {
                 PlayerVehicle vehicle = PlayerVehicle.getByVehicle(player.getVehicle());
@@ -59,7 +59,7 @@ public class VehicleThiefCommands extends Commands {
                                 player.giveMoney(money);
                                 VehicleController.get().getDao().update(vehicle);
                                 vehicle.destroy();
-                                jobData.addXp(1);
+                                jobData.setXp(jobData.getXp() + 1);
                                 job.log("Þaidëjas " + player.getUUID() + "(darbas:" + jobData.getJob().getUUID() + ") pardavë transporto priemonæ " + vehicle.getModelName() + " kuri priklauso þaidëjui " + vehicle.getOwnerId());
                                 return true;
                             } else

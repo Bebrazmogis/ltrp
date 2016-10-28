@@ -1,6 +1,6 @@
 package lt.ltrp;
 
-import lt.ltrp.object.Job;
+import lt.ltrp.job.object.Job;
 import net.gtaun.shoebill.object.Destroyable;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
@@ -9,6 +9,7 @@ import net.gtaun.util.event.EventManagerNode;
  * @author Bebras
  *         2016.03.01.
  */
+@Deprecated
 public abstract class AbstractJobManager implements Destroyable {
 
     private boolean destroyed;

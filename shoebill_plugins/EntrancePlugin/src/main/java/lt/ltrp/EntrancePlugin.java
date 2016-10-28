@@ -6,7 +6,7 @@ import lt.ltrp.dao.impl.MySqlEntranceDaoImpl;
 import lt.ltrp.dialog.EntranceListManagementDialog;
 import lt.ltrp.event.EntranceCreateEvent;
 import lt.ltrp.object.Entrance;
-import lt.ltrp.object.Job;
+import lt.ltrp.job.object.Job;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.EntranceImpl;
 import lt.maze.streamer.event.PlayerDynamicPickupEvent;

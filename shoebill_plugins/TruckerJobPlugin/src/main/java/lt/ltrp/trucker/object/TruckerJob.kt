@@ -1,6 +1,6 @@
 package lt.ltrp.trucker.`object`
 
-import lt.ltrp.`object`.ContractJob
+import lt.ltrp.job.`object`.ContractJob
 
 /**
  * @author Bebras

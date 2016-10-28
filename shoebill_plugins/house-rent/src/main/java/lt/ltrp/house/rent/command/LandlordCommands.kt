@@ -5,7 +5,7 @@ import lt.ltrp.`object`.LtrpPlayer
 import lt.ltrp.command.Commands
 import lt.ltrp.constant.Currency
 import lt.ltrp.data.Color
-import lt.ltrp.event.property.house.HouseEditEvent
+import lt.ltrp.house.event.HouseEditEvent
 import lt.ltrp.house.`object`.House
 import lt.ltrp.spawn.data.SpawnData
 import lt.ltrp.util.ErrorCode

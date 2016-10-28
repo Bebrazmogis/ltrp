@@ -115,7 +115,7 @@ public class BankController implements Destroyable {
     public String generateAccountNumber(LtrpPlayer player) {
         String number = null;
         while(number == null || getAccount(number) == null) {
-            number = String.format("%s%06d", LtrpGamemode.NameShort, player.getUUID() + player.getId());
+            number = String.format("%s%06d", LtrpGamemodeConstants.NameShort, player.getUUID() + player.getId());
         }
         return number;
     }

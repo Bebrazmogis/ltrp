@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.ItemController;
+import lt.ltrp.item.ItemController;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.PhoneBook;
 import lt.ltrp.data.PhoneContact;
@@ -85,8 +85,8 @@ public class PhonebookListDialog extends ListDialog {
                                     .onClickCancel(AbstractDialog::showParentDialog)
                                     .onClickOk((contactNameDialog, contactName) -> {
                                         if (contactName != null && !contactName.isEmpty()) {
-                                            PhoneContact newContact = ItemController.get().getPhoneDao().add(phonebook.getOwnerNumber(), number, contactName);
-                                            phonebook.addContact(newContact);
+                                            //PhoneContact newContact = ItemController.get().getPhoneDao().add(phonebook.getOwnerNumber(), number, contactName);
+                                            //phonebook.addContact(newContact);
                                             player.sendMessage(Color.NEWS, "Kontaktas \"" + contactName + "\" pridëtas á telefono kontaktø sàraðà");
                                         } else {
                                             contactNameDialog.show();

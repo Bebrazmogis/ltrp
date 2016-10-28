@@ -1,0 +1,13 @@
+lt\ltrp\object\impl\AbstractJob.class
+lt\ltrp\JobPlugin.class
+lt\ltrp\object\impl\FactionRankImpl.class
+lt\ltrp\constant\JobProperty.class
+lt\ltrp\object\impl\JobGateImpl.class
+lt\ltrp\AbstractJobManager.class
+lt\ltrp\object\impl\ContractJobRankImpl.class
+lt\ltrp\dao\impl\MySqlJobGateDaoImpl.class
+lt\ltrp\command\DepartmentChatCommand.class
+lt\ltrp\dao\impl\MySqlJobDaoImpl.class
+lt\ltrp\command\TestCommands.class
+lt\ltrp\JobPlugin$JobId.class
+lt\ltrp\object\impl\AbstractContractJob.class

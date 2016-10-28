@@ -1,9 +1,12 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.GovernmentCommands;
 import lt.ltrp.dao.GovernmentFactionDao;
 import lt.ltrp.dao.impl.MySqlGovernmentFactionDaoImpl;
 import lt.ltrp.object.GovernmentFaction;
+import lt.ltrp.object.impl.GovernmentFactionImpl;
+import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.resource.Plugin;
@@ -19,7 +22,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.05.31.
  */
-public class GovernmentJobPlugin extends Plugin {
+public class GovernmentJobPlugin extends DependentPlugin {
 
     private EventManagerNode eventManager;
     private Logger logger;
@@ -27,37 +30,22 @@ public class GovernmentJobPlugin extends Plugin {
     private GovernmentFaction governmentFaction;
     private PlayerCommandManager commandManager;
 
-    @Override
-    protected void onEnable() throws Throwable {
-        logger = getLogger();
-        eventManager = getEventManager().createChildNode();
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(JobPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManager.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
+    public GovernmentJobPlugin() {
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(JobPlugin.class));
     }
 
-    private  void load() {
-        eventManager.cancelAll();
-        this.governmentDao= new MySqlGovernmentFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, null, eventManager);
-        this.governmentFaction= governmentDao.get(JobPlugin.JobId.Government.id);
+    @Override
+    protected void onEnable() {
+        super.onEnable();
+        logger = getLogger();
+        eventManager = getEventManager().createChildNode();
+    }
+
+    @Override
+    public void onDependenciesLoaded() {
+        this.governmentDao= new MySqlGovernmentFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
+        this.governmentFaction= new GovernmentFactionImpl(JobPlugin.JobId.Government.id, eventManager);
         addCommands();
         logger.info(getDescription().getName() + " loaded");
     }
@@ -68,7 +56,8 @@ public class GovernmentJobPlugin extends Plugin {
     }
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         eventManager.cancelAll();
         commandManager.uninstallAllHandlers();
         commandManager.destroy();

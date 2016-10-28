@@ -2,18 +2,17 @@ package lt.ltrp;
 
 
 import lt.ltrp.constant.Currency;
-import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerFriskOffer;
-import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.dialog.FightStyleDialog;
-import lt.ltrp.dialog.PlayerDescriptionListDialog;
-import lt.ltrp.dialog.PlayerDescriptionMsgBoxDialog;
-import lt.ltrp.dialog.PlayerSettingsListDialog;
 import lt.ltrp.event.player.PlayerAskQuestionEvent;
 import lt.ltrp.event.player.PlayerSendPrivateMessageEvent;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.PlayerController;
+import lt.ltrp.player.dao.PlayerDao;
+import lt.ltrp.player.data.PlayerFriskOffer;
+import lt.ltrp.player.dialog.PlayerDescriptionListDialog;
+import lt.ltrp.player.dialog.PlayerDescriptionMsgBoxDialog;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -82,28 +81,9 @@ public class GeneralCommands {
     }
 
     @Command
-    @CommandHelp("Parodo jûsø turimas licenzijas pasirinktam þaidëjui")
-    public boolean licenses(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target) {
-        LtrpPlayer player =LtrpPlayer.get(p);
-        if(target == null) {
-            player.sendErrorMessage("Tokio þaidëjo nëra!");
-        } else if(player.getDistanceToPlayer(target) > 5f) {
-            player.sendErrorMessage(target.getCharName() + " yra per toli!");
-        } else {
-            target.sendMessage(Color.GREEN, String.format("|________%s licencijos________|", player.getCharName()));
-            for(PlayerLicense license : player.getLicenses().get()) {
-                if(license != null)
-                    player.sendMessage(Color.WHITE, String.format("Licenzijos tipas:%s. Etapas: %s Iðlaikymo data: %s Áspëjimø skaièius: %d",
-                        license.getType().getName(), license.getStage() == 2 ? "Praktika" : "Teorija", license.getDateAquired(), license.getWarnings().length));
-            }
-        }
-        return true;
-    }
-
-    @Command
     @CommandHelp("Leidþia iðmokti naujus kovos stilius")
     public boolean learnfight(LtrpPlayer player) {
-        if(player.getLocation().distance(PlayerController.GYM_LOCATION) > 10f) {
+        if(player.getLocation().distance(PlayerController.Companion.getGYM_LOCATION()) > 10f) {
             player.sendErrorMessage("Jûs turite bûti sporto salëje!");
         } else {
             FightStyleDialog.create(player, eventManager).show();
@@ -161,15 +141,6 @@ public class GeneralCommands {
             p.sendMessage(Color.PM_SENT, String.format("(( PÞ iðsiûsta %s[ID:%d]: %s ))", target.getName(), target.getId(), text));
             eventManager.dispatchEvent(new PlayerSendPrivateMessageEvent(p, target, text));
         }
-        return true;
-    }
-
-    @Command
-    @CommandHelp("Atidaro þaidimo nustatymø meniu")
-    public boolean settings(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerSettingsListDialog.create(player, eventManager, player.getSettings())
-                .show();
         return true;
     }
 
@@ -249,9 +220,8 @@ public class GeneralCommands {
             player.applyAnimation(new Animation("DEALER", "shop_pay", false, 500));
             player.sendMessage(Color.NEWS, "Sëkmiingai perdavëte " + amount + Currency.SYMBOL + " þaidëjui " + target.getName());
             target.sendMessage(Color.NEWS, "Þaidëjas " + player.getName() + " jums davë " + amount + Currency.SYMBOL);
-            PlayerDao dao = playerPlugin.getPlayerDao();
-            dao.update(player);
-            dao.update(target);
+            PlayerController.instance.update(player);
+            PlayerController.instance.update(target);
         }
         return true;
     }
@@ -326,8 +296,8 @@ public class GeneralCommands {
     @CommandHelp("Parodo jûsø veikëjo duomenis")
     public boolean stats(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        playerPlugin.showStats(player, player);
-        return true;
+        //playerPlugin.showStats(player, player);
+        throw new RuntimeException("command stats is not implemented see github issue 4");
     }
 
     @Command

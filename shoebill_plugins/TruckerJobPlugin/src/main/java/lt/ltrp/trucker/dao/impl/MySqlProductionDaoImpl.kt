@@ -25,7 +25,7 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         val r: ResultSet = try {
-            stmt.setInt(1, industry.getUUID())
+            stmt.setInt(1, industry.UUID)
             stmt.executeQuery()
         } catch(e: SQLException) {
             throw e
@@ -49,7 +49,7 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         val keys: ResultSet = try {
-            stmt.setInt(1, industryProduction.industry.getUUID())
+            stmt.setInt(1, industryProduction.industry.UUID)
             stmt.execute()
             stmt.getGeneratedKeys()
         } catch(e: SQLException) {
@@ -72,7 +72,7 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
-            stmt.setInt(1, industryProduction.industry.getUUID())
+            stmt.setInt(1, industryProduction.industry.UUID)
             stmt.execute()
             stmt.getGeneratedKeys()
         } catch(e: SQLException) {
@@ -91,7 +91,7 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
-            stmt.setInt(1, industryProduction.getUUID())
+            stmt.setInt(1, industryProduction.UUID)
             stmt.execute()
             stmt.getGeneratedKeys()
         } catch(e: SQLException) {

@@ -1,6 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.*;
+import lt.ltrp.house.HouseController;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.util.event.EventManager;
@@ -17,7 +18,7 @@ public class AdminServerManagementDialog {
     public static ListDialog create(LtrpPlayer player, EventManager eventManager) {
         AdminPlugin adminPlugin = AdminPlugin.get(AdminPlugin.class);
         return ListDialog.create(player, eventManager)
-                .caption(LtrpGamemode.Name + " " + LtrpGamemode.Version + " admin meniu")
+                .caption(LtrpGamemodeConstants.Name + " " + LtrpGamemodeConstants.Version + " admin meniu")
                 .buttonOk("Pasirinkti")
                 .buttonCancel("Uþdaryti")
                 .item("Namai", i -> HouseController.get().showManagementDialog(player))

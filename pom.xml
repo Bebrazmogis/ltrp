@@ -5,12 +5,56 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lt.ltrp</groupId>
-    <artifactId>LtrpGamemode</artifactId>
+    <artifactId>gamemode</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <!-- <module>shoebill_plugins/LtrpApi</module> -->
+        <module>shoebill_gamemode</module>
+        <module>shoebill_plugins/AuthPlugin</module>
+        <module>shoebill_plugins/PlayerPlugin</module>
+        <module>shoebill_plugins/AdminPlugin</module>
+        <module>shoebill_plugins/BusinessPlugin</module>
+        <module>shoebill_plugins/DatabaseManager</module>
+        <module>shoebill_plugins/DmvPlugin</module>
+        <module>shoebill_plugins/DrugDealerJobPlugin</module>
+        <module>shoebill_plugins/EntrancePlugin</module>
+        <module>shoebill_plugins/FaderPlugin</module>
+        <module>shoebill_plugins/GaragePlugin</module>
+        <module>shoebill_plugins/GovernmenetJobPlugin</module>
+        <module>shoebill_plugins/GraffitiPlugin</module>
+        <module>shoebill_plugins/HousePlugin</module>
+        <module>shoebill_plugins/ItemPlugin</module>
+        <module>shoebill_plugins/JobPlugin</module>
+        <module>shoebill_plugins/LtrpBank</module>
+        <module>shoebill_plugins/MechanicJobPlugin</module>
+        <module>shoebill_plugins/MedicJobPlugin</module>
+        <module>shoebill_plugins/PenaltyPlugin</module>
+        <module>shoebill_plugins/PlayerAfkPlugin</module>
+        <module>shoebill_plugins/PlayerLicense</module>
+        <module>shoebill_plugins/PlayerVehiclePlugin</module>
+        <module>shoebill_plugins/PoliceJobPlugin</module>
+        <module>shoebill_plugins/PropertyPlugin</module>
+        <module>shoebill_plugins/RadioPlugin</module>
+        <module>shoebill_plugins/SpawnPlugin</module>
+        <module>shoebill_plugins/TrashmanJobPlugin</module>
+        <module>shoebill_plugins/TruckerJobPlugin</module>
+        <module>shoebill_plugins/VehicleFuelPlugin</module>
+        <module>shoebill_plugins/VehiclePlugin</module>
+        <module>shoebill_plugins/VehicleShopPlugin</module>
+        <module>shoebill_plugins/VehicleThiefJobPlugin</module>
+        <module>shoebill_plugins/WeaponDropPlugin</module>
+        <module>shoebill_plugins/WeaponShopPlugin</module>
+    </modules>
 
 
     <name>Ltrp</name>
-    <url>https://ltrp.lt</url>
+    <url>https://lt-rp.lt</url>
+
+    <properties>
+        <kotlin.version>1.0.4</kotlin.version>
+        <project.build.sourceEncoding>Cp1257</project.build.sourceEncoding>
+    </properties>
 
     <repositories>
         <repository>
@@ -34,7 +78,7 @@
         <dependency>
             <groupId>net.gtaun</groupId>
             <artifactId>shoebill-api</artifactId>
-            <version>1.3-SNAPSHOT</version>
+            <version>2.0-SNAPSHOT</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
@@ -50,6 +94,13 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.37</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.github.salomonbrys.kodein</groupId>
+            <artifactId>kodein</artifactId>
+            <version>3.1.0</version>
         </dependency>
 
         <!-- Logging -->
@@ -106,12 +157,6 @@
         </dependency>
 
         <dependency>
-            <groupId>lt.ltrp</groupId>
-            <artifactId>vehicle-shop</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
             <groupId>lt.maze</groupId>
             <artifactId>ysf</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -123,17 +168,21 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>dialog</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
-            <groupId>lt.ltrp</groupId>
-            <artifactId>ltrp-api</artifactId>
+            <groupId>lt.maze</groupId>
+            <artifactId>injector</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+
     </dependencies>
 
-    <properties>
-        <project.build.sourceEncoding>Cp1257</project.build.sourceEncoding>
-    </properties>
 
     <build>
         <defaultGoal>clean install</defaultGoal>

@@ -1,5 +1,6 @@
 package lt.ltrp.command;
 
+import lt.ltrp.PlayerPlugin;
 import lt.ltrp.PlayerVehiclePlugin;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.constant.ItemType;
@@ -11,6 +12,8 @@ import lt.ltrp.dialog.radio.RadioOptionListDialog;
 import lt.ltrp.event.*;
 import lt.ltrp.event.vehicle.PlayerBuyNewVehicleEvent;
 import lt.ltrp.object.*;
+import lt.ltrp.player.PlayerController;
+import lt.ltrp.player.dao.PlayerDao;
 import lt.ltrp.shopplugin.VehicleShop;
 import lt.ltrp.shopplugin.VehicleShopPlugin;
 import lt.ltrp.shopplugin.dialog.VehicleShopListDialog;
@@ -69,7 +72,8 @@ public class PlayerVehicleCommands extends Commands {
                 }
                 return null;
             }
-            return PlayerCommandManager.DEFAULT_USAGE_MESSAGE_SUPPLIER.get(p, prefix, cmd);
+            //return PlayerCommandManager.DEFAULT_USAGE_MESSAGE_SUPPLIER.get(p, prefix, cmd);
+            return null;
         });
     }
 
@@ -292,7 +296,7 @@ public class PlayerVehicleCommands extends Commands {
                 player.sendActionMessage("parodo savo tr. priemonës dokumentus " + target.getCharName());
             }
             player.sendMessage(Color.GREEN, "|___________________Tr. priemonës dokumentai______________________|");
-            player.sendMessage(Color.WHITE, "| Tr. priemonës savininkas: " + LtrpPlayer.getPlayerDao().getUsername(vehicle.getOwnerId()) + " | Tr. priemonës modelis: " + vehicle.getName());
+            player.sendMessage(Color.WHITE, "| Tr. priemonës savininkas: " + PlayerController.instance.getUsernameByUUID(vehicle.getOwnerId()) + " | Tr. priemonës modelis: " + vehicle.getName());
             player.sendMessage(Color.WHITE, String.format("| Uþrakto lygis: %s | Signalicazijos lygis: %s",
                     vehicle.getLock() == null ? "nëra" : vehicle.getLock().getLevel(),
                     vehicle.getAlarm() == null ? "nëra" : vehicle.getAlarm().getLevel()));

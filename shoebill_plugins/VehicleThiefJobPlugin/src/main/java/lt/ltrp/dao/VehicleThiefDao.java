@@ -6,9 +6,7 @@ import lt.ltrp.object.VehicleThiefJob;
  * @author Bebras
  *         2016.05.23.
  */
-public interface VehicleThiefDao extends JobDao {
+public interface VehicleThiefDao {
 
-    VehicleThiefJob get(int id);
-    void update(VehicleThiefJob vehicleThiefJob);
 
 }

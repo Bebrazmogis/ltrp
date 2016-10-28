@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.PlayerController;
+import lt.ltrp.player.PlayerController;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.object.Business;
@@ -22,7 +22,7 @@ public class BusinessInfoMsgBoxDialog {
                         "\n\nPrekës\n\nParduodamø prekiø kiekis: %d\nParduodamø prekiø limitas: %d",
                 b.getUUID(),
                 b.getName(),
-                b.isOwned() ? PlayerController.get().getUsernameByUUID(b.getOwner()) : "nëra",
+                b.isOwned() ? PlayerController.instance.getUsernameByUUID(b.getOwner()) : "nëra",
                 b.getMoney(),
                 b.getBusinessType().getName(),
                 b.getResources(), Business.MAX_RESOURCES,

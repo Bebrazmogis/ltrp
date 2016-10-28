@@ -7,10 +7,21 @@ import lt.ltrp.constant.WorldZone;
 import lt.ltrp.data.*;
 import lt.ltrp.dialog.*;
 import lt.ltrp.dialog.item.ItemTypeListDialog;
-import lt.ltrp.event.PlayerSetFactionLeaderEvent;
-import lt.ltrp.event.RemoveFactionLeaderEvent;
+import lt.ltrp.player.job.PlayerJobController;
+import lt.ltrp.player.job.event.PlayerSetFactionLeaderEvent;
+import lt.ltrp.player.job.event.RemoveFactionLeaderEvent;
 import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
+import lt.ltrp.house.object.House;
+import lt.ltrp.job.JobController;
+import lt.ltrp.job.dialog.FactionListDialog;
+import lt.ltrp.job.dialog.JobListDialog;
+import lt.ltrp.job.object.ContractJob;
+import lt.ltrp.job.object.Faction;
+import lt.ltrp.job.object.Job;
+import lt.ltrp.job.object.JobVehicle;
 import lt.ltrp.object.*;
+import lt.ltrp.player.PlayerController;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.util.AdminLog;
 import lt.ltrp.util.Skin;
 import lt.maze.fader.FaderPlugin;
@@ -135,13 +146,11 @@ public class AdminCommands {
 
     private AdminController controller;
     private EventManager eventManager;
-    private PlayerPlugin playerPlugin;
     private int[] lastUsedGotoNowhereTimestamp;
 
     public AdminCommands(AdminController controller, EventManager eventManager) {
         this.controller = controller;
         this.eventManager = eventManager;
-        this.playerPlugin = PlayerPlugin.get(PlayerPlugin.class);
         this.lastUsedGotoNowhereTimestamp = new int[Server.get().getMaxPlayers()];
     }
 
@@ -200,7 +209,7 @@ public class AdminCommands {
         p.sendMessage("Komanda paðalinta. Naudokite /settings");
         return true;
     }
-
+/*
     @Command
     @CommandHelp("Iðjungia/ájungia globalø OOC chatà /o")
     public boolean noOoc(Player p) {
@@ -214,7 +223,7 @@ public class AdminCommands {
         }
         return true;
     }
-
+*/
     @Command
     public boolean aDuty(Player p) {
         return adminDuty(p);
@@ -281,8 +290,8 @@ public class AdminCommands {
         if(vehicle == null)
             return false;
         else {
-            Integer uuid = VehiclePlugin.get(VehiclePlugin.class).getLastDriver(vehicle);
-            if(uuid == null)
+            Integer uuid = vehicle.getLastDriver() != null ? vehicle.getLastDriver().getUUID() : 0;
+            if(uuid == 0)
                 player.sendErrorMessage("Nëra duomenø.");
             else {
                 String username = PlayerController.get().getUsernameByUUID(uuid);
@@ -302,7 +311,7 @@ public class AdminCommands {
         if(target == null)
             return false;
         else {
-            PlayerPlugin.get(PlayerPlugin.class).showStats(player, target);
+            //PlayerPlugin.get(PlayerPlugin.class).showStats(player, target);
         }
         return true;
     }
@@ -365,11 +374,10 @@ public class AdminCommands {
         LtrpPlayer player = LtrpPlayer.get(pp);
         JobListDialog.create(player, eventManager)
                 .selectJobHandler((d, j) -> {
-                    JobPlugin jobPlugin = JobPlugin.get(JobPlugin.class);
                     Collection<LtrpPlayer> onlineEmployees = LtrpPlayer.get()
                             .stream()
                             .filter(p -> {
-                                PlayerJobData jd = jobPlugin.getJobData(p);
+                                PlayerJobData jd = p.getJobData();
                                 return jd != null && jd.getJob().equals(j);
                             })
                             .collect(Collectors.toList());
@@ -377,12 +385,12 @@ public class AdminCommands {
                         player.sendErrorMessage("Nëra nei vieno prisijungusio þaidëjo, kuris dirba " + j.getName());
                     else {
                         onlineEmployees.forEach(p -> {
-                            PlayerJobData jd = jobPlugin.getJobData(player);
+                            PlayerJobData jd = player.getJobData();
                             player.sendMessage(Color.GRAY, String.format("%s(%d) [%s(rangas %d)]",
                                     p.getName(),
                                     p.getId(),
-                                    jd.getJobRank().getName(),
-                                    jd.getJobRank().getNumber()));
+                                    jd.getRank().getName(),
+                                    jd.getRank().getNumber()));
                         });
                         player.sendMessage(Color.GREEN, "Ið viso " + onlineEmployees.size() + " prisijungusiø darbuotojø.");
                     }
@@ -453,7 +461,7 @@ public class AdminCommands {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(target == null)
             player.sendErrorMessage("Tokio þaidëjo nëra.");
-        else if(!Skin.isValid(skinId))
+        else if(!Skin.isValidSkin(skinId))
             player.sendErrorMessage("Tokio skino nëra.");
         else {
             target.setSkin(skinId);
@@ -722,7 +730,7 @@ public class AdminCommands {
         if(weaponModel == null)
             return false;
 
-        ServerWeaponListDialog.create(player, eventManager, weaponModel)
+        ServerWeaponListDialog.INSTANCE.create(player, eventManager, weaponModel)
                 .show();
         return true;
     }
@@ -780,7 +788,7 @@ public class AdminCommands {
     @CommandHelp("Leidþia perþiûrët visus serveryje esanèius ne darbinius ginklus")
     public boolean serverWeapons(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        ServerWeaponListDialog.create(player, eventManager)
+        ServerWeaponListDialog.INSTANCE.create(player, eventManager)
                 .show();
         return true;
     }
@@ -959,7 +967,7 @@ public class AdminCommands {
         return true;
     }
 
-
+/*
     @Command
     @CommandHelp("Paskiria nurodytà þaidëjà frakcijø priþiûrëtoju")
     public boolean makeFactionManager(Player player, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer p2) {
@@ -978,7 +986,7 @@ public class AdminCommands {
         }
         return true;
     }
-
+*/
     @Command
     @CommandHelp("Paverèia þaidëjà moderatorium")
     public boolean makeModerator(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
@@ -990,7 +998,7 @@ public class AdminCommands {
             player.sendErrorMessage("Neigiamas moderatoriaus lygis bûti negali.");
         else {
             target.setModLevel(level);
-            playerPlugin.getPlayerDao().update(target);
+            PlayerController.instance.update(target);
             player.sendMessage(Color.GREEN, String.format(" Administratorius (%s) suteikë veikëjui (%s) moderatoriaus statusà. ", player.getName(), target.getName()));
             target.sendMessage(Color.MODERATOR, " Sveikiname, jus buvote priimtas á moderatoriø grupæ. Informacija /modhelp ");
             AdminLog.log(player, target, "Set players " + target.getUUID() + " mod level " + level);
@@ -1004,22 +1012,27 @@ public class AdminCommands {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra.");
-        } else if(JobController.get().isLeader(target)) {
+        } else if(isAnyFactionLeader(target)) {
             player.sendErrorMessage(target.getName() + " jau yra kitos frakcijos lyderis. Paðalinti já galite su /removeLeader");
         } else {
-            FactionListDialog.create(player, eventManager, JobController.get().getFactions())
+            Collection<Faction> factions=  new ArrayList<>();
+            JobController.Companion.getInstance().get().forEach(j -> {
+                if(j instanceof Faction)
+                    factions.add((Faction) j);
+            });
+            FactionListDialog.create(player, eventManager, factions)
                     .caption("Pasirinkite frakcijà")
                     .buttonOk("Pasirinkti")
                     .buttonCancel("Iðeiti")
                     .onSelectFaction((d, f) -> {
                         String message = "Ar tikrai norite pridëti " + target.getName() + " á frakcijos " + f.getName() + " lyderius?" +
                                 "\n\nDabartinis(-ai) lyderis(-ai):\n";
-                        for(int leaderId : f.getLeaders()) {
-                            LtrpPlayer leader = LtrpPlayer.get(leaderId);
+                        for(PlayerData leader : f.getLeaders()) {
+                            int leaderId = leader.getUUID();
                             if(leader != null) {
-                                message += leader.getName() + "(ID:" + leader.getId() + ")\n";
+                                message += leader.getName() + "(ID:" + leader.getUUID() + ")\n";
                             } else {
-                                message += PlayerController.get().getPlayerDao().getUsername(leaderId) + "\n";
+                                message += PlayerController.instance.getUsernameByUUID(leaderId) + "\n";
                             }
                         }
 
@@ -1029,7 +1042,7 @@ public class AdminCommands {
                                 .buttonOk("Taip")
                                 .buttonCancel("Ne")
                                 .onClickOk(dd -> {
-                                    JobController.get().setJob(target, f, f.getRank(f.getRanks().size()-1));
+                                    PlayerJobController.Companion.getInstance().setJob(target, f);
                                     LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " pridëjo " + target.getName() + " á frakcijos " + f.getName() + " lyderius.");
                                     target.sendMessage(Color.NEWS, "Administratorius " + player.getName() + " paskyrë jus, frakcijos " + f.getName() + " lyderiu!");
                                     f.sendMessage(Color.NEWS, target.getName() + " buvo paskirtas naujuoju frakcijos lyderiu!");
@@ -1048,13 +1061,15 @@ public class AdminCommands {
     @CommandHelp("Paðalina pasirinktos frakcijos lyderá, nesvarbu prisijungæs jis ar ne")
     public boolean removeLeader(Player p, String username) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        int userId = PlayerController.get().getPlayerDao().getUserId(username);
-        if(userId == LtrpPlayer.INVALID_USER_ID) {
+        PlayerData target = PlayerController.instance.getData(username);
+        if(target == null) {
             player.sendErrorMessage("Tokio vartotojo nëra!");
-        } else if(!JobController.get().isLeader(userId)) {
+        } else if(!JobController.Companion.getInstance().get().stream().filter(j -> j instanceof Faction && ((Faction)j).getLeaders().contains(target)).findFirst().isPresent()) {
             player.sendErrorMessage("Vartotojas " + username + " nevadovauja jokiai frakcijai.");
         } else {
-            Optional<Faction> factionOp = JobController.get().getFactions().stream().filter(f -> f.getLeaders().contains(userId)).findFirst();
+            Collection<Faction> factions = new ArrayList<>();
+            JobController.Companion.getInstance().get().stream().filter(j -> j instanceof Faction).forEach(f -> factions.add((Faction) f));
+            Optional<Faction> factionOp = factions.stream().filter(f -> f.getLeaders().contains(target)).findFirst();
             if(factionOp.isPresent()) {
                 Faction f = factionOp.get();
                 MsgboxDialog.create(player, eventManager)
@@ -1064,10 +1079,9 @@ public class AdminCommands {
                         .message("Ar tikrai norite paðalinti " + username + " ið frakcijos " + f.getName() + " lyderiu?" +
                             "\nÐiuo metu frakcija turi " + f.getLeaders().size() + " lyderius.")
                         .onClickOk(d -> {
-                            eventManager.dispatchEvent(new RemoveFactionLeaderEvent(userId, f));
+                            JobController.Companion.getInstance().removeLeader(f, target);
                             LtrpPlayer.sendAdminMessage("Administratorius " + player.getName() + " paðalino frakcijos " + f.getName() + " lyderá " + username + " ið pareigø.");
                             f.sendMessage(Color.NEWS, "Lyderis " + username + " buvo paðalintas ið pareigø.");
-                            JobController.get().getFactionDao().removeLeader(f, userId);
                         })
                         .build().show();
             }
@@ -1335,13 +1349,13 @@ public class AdminCommands {
         if(target == null) {
             player.sendErrorMessage("Tokio þaidëjo nëra!");
         } else {
-            PlayerJobData jobData = JobController.get().getJobData(target);
-            if(jobData.getJob() == null) {
+            PlayerJobData jobData = target.getJobData();
+            if(jobData == null) {
                 player.sendErrorMessage(target.getName() + " neturi darbo.");
             } else {
                 Job job = jobData.getJob();
                 target.removeJobWeapons();
-                JobController.get().setJob(target, null);
+                PlayerJobController.Companion.getInstance().removeJob(target);
                 player.sendMessage(Color.GREEN, String.format("Þaidëjas %s(%d) iðmestas ið darbo \"%s\".", target.getName(), target.getId(), job.getName()));
                 target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " iðmetë jus ið darbo.");
             }
@@ -1358,7 +1372,7 @@ public class AdminCommands {
                 .show();
         return true;
     }
-
+/*
     @Command
     @CommandHelp("Pakeièia mokestá uþ vienà verslà")
     public boolean bizTax(Player p, @CommandParameter(name = "Naujas verslo mokestis")int tax) {
@@ -1434,7 +1448,7 @@ public class AdminCommands {
         }
         return true;
     }
-
+*/
     @Command
     @CommandHelp("Duoda þaidëjui pinigø")
     public boolean giveMoney(Player p,
@@ -1462,6 +1476,12 @@ public class AdminCommands {
         return true;
     }
 
+    private boolean isAnyFactionLeader(PlayerData p) {
+        Collection<Faction> factions = new ArrayList<>();
+        JobController.Companion.getInstance().get().stream().filter(j -> j instanceof Faction).forEach(f -> factions.add((Faction) f));
+        Optional<Faction> factionOp = factions.stream().filter(f -> f.getLeaders().contains(p)).findFirst();
+        return factionOp.isPresent();
+    }
 
     // TODO cmd:ado
     // TODO cmd:ao

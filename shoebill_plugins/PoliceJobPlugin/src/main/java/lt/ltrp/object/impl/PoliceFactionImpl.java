@@ -1,6 +1,6 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.AbstractFaction;
+import lt.ltrp.constant.JobProperty;
 import lt.ltrp.object.PoliceFaction;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
@@ -11,11 +11,20 @@ import net.gtaun.util.event.EventManager;
  */
 public class PoliceFactionImpl extends AbstractFaction implements PoliceFaction {
 
-    public PoliceFactionImpl(int id, String name, Location location, int basePaycheck, EventManager eventManager) {
-        super(id, name, location, basePaycheck, eventManager);
-    }
+    @JobProperty("is_taser_enabled")
+    private int taserEnabled;
 
     public PoliceFactionImpl(int id, EventManager eventManager) {
-        this(id, null, null , 0, eventManager);
+        super(id, eventManager);
+    }
+
+    @Override
+    public boolean isTaserEnabled() {
+        return taserEnabled != 0;
+    }
+
+    @Override
+    public void setTaserEnabled(boolean set) {
+        taserEnabled = set ? 1 : 0;
     }
 }

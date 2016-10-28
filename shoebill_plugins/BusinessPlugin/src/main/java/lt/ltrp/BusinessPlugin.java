@@ -11,6 +11,7 @@ import lt.ltrp.event.property.*;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.BusinessImpl;
+import lt.ltrp.player.PlayerController;
 import lt.ltrp.util.StringUtils;
 import lt.maze.streamer.event.PlayerDynamicPickupEvent;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -146,7 +147,7 @@ public class BusinessPlugin extends Plugin implements BusinessController {
                 Business b = opB.get();
                 String name = StringUtils.limit(StringUtils.replaceLtChars(StringUtils.stripColors(b.getName())), 40, "..");
                 String msg = String.format("%s~n~~w~Savininkas: ~g~%s~n~ ~w~Mokestis: ~g~ %d ~n~~p~ Noredami ieiti - Rasykite /enter",
-                        name, PlayerController.get().getUsernameByUUID(b.getOwner()), b.getEntrancePrice());
+                        name, PlayerController.instance.getUsernameByUUID(b.getOwner()), b.getEntrancePrice());
                 player.sendGameText(6000, 7, msg);
                 // TODO rasi alternatyva ivietoj gameText. Su ilgaisp avadinimais blogai
             }

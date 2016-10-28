@@ -7,9 +7,11 @@ import lt.ltrp.dao.impl.MySqlPoliceFactionImpl;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.event.PlayerJailEvent;
-import lt.ltrp.object.JobVehicle;
+import lt.ltrp.job.JobController;
+import lt.ltrp.job.object.JobVehicle;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PoliceFaction;
+import lt.ltrp.object.impl.PoliceFactionImpl;
 import lt.maze.streamer.object.DynamicLabel;
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.common.command.CommandGroup;
@@ -89,8 +91,7 @@ public class PoliceJobPlugin extends Plugin {
     private  void load() {
         eventManager.cancelAll();
         policeFactionDao = new MySqlPoliceFactionImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, eventManager);
-        policeFaction = policeFactionDao.get(JobPlugin.JobId.Officer.id);
-
+        policeFaction = new PoliceFactionImpl(JobPlugin.JobId.Officer.id, eventManager);
         registerCommands();
         registerEventHandlers();
 
@@ -100,7 +101,7 @@ public class PoliceJobPlugin extends Plugin {
     private void registerCommands() {
         commandManager = new PlayerCommandManager(eventManager);
         CommandGroup acceptGroup = new CommandGroup();
-        acceptGroup.registerCommands(new CivilianAcceptCommands());
+        //acceptGroup.registerCommands(new CivilianAcceptCommands());
 
         commandManager.registerChildGroup(acceptGroup, "accept");
         commandManager.replaceTypeParser(LtrpPlayer.class, s -> {
@@ -111,7 +112,7 @@ public class PoliceJobPlugin extends Plugin {
             }
         });
 
-        commandManager.registerCommands(new PoliceCommands(commandManager, policeFaction, eventManager, unitLabels, policeSirens, dragTimers));
+        commandManager.registerCommands(new PoliceCommands(policeFaction, eventManager, unitLabels, policeSirens, dragTimers));
         commandManager.registerCommands(new RoadblockCommands(policeFaction, eventManager));
         commandManager.registerCommands(new CivilianCommands());
         commandManager.registerCommands(new PoliceLeaderCommands(this));

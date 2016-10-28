@@ -1,7 +1,7 @@
 package lt.ltrp.trucker.`object`
 
 
-import lt.ltrp.`object`.AbstractEntity
+import lt.ltrp.`object`.impl.EntityImpl
 import lt.ltrp.trucker.data.IndustryProductionCommodity
 import java.util.ArrayList
 
@@ -12,7 +12,7 @@ import java.util.ArrayList
 *
 * This class represents a single production but it might required and/or produce multiple commodities
  */
-class IndustryProduction(uuid: Int, industry: Industry): AbstractEntity(uuid) {
+class IndustryProduction(uuid: Int, industry: Industry): EntityImpl(uuid) {
 
     var industry = industry
         get

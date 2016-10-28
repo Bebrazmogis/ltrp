@@ -1,14 +1,15 @@
 package lt.ltrp.dao.impl;
 
 
-import lt.ltrp.constant.LicenseType;
 import lt.ltrp.constant.TalkStyle;
 import lt.ltrp.constant.WalkStyle;
-import lt.ltrp.dao.PlayerDao;
 import lt.ltrp.data.*;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PlayerData;
 import lt.ltrp.object.impl.PlayerDataImpl;
+import lt.ltrp.player.dao.PlayerDao;
+import lt.ltrp.player.job.PlayerJobController;
+import lt.ltrp.player.settings.data.PlayerSettings;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
@@ -19,7 +20,6 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
@@ -343,7 +343,8 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }
     }
 */
-    public void insertCrime(PlayerCrime crime) {
+/*
+    public void insertCrime(PlayerFine crime) {
         String sql = "INSERT INTO player_crimes (`name`, crime, reporter, `date`) VALUES(?, ?, ?, ?)";
         try (
                 Connection con = dataSource.getConnection();
@@ -360,8 +361,8 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     }
 
 
-    public List<PlayerCrime> getCrimes(LtrpPlayer player) {
-        List<PlayerCrime> crimes = new ArrayList<>();
+    public List<PlayerFine> getCrimes(LtrpPlayer player) {
+        List<PlayerFine> crimes = new ArrayList<>();
         String sql = "SELECT * FROM player_crimes WHERE name = ?";
         try (
                 Connection con = dataSource.getConnection();
@@ -370,7 +371,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             stmt.setString(1, player.getName());
             ResultSet result = stmt.executeQuery();
             while(result.next()) {
-                crimes.add(new PlayerCrime(
+                crimes.add(new PlayerFine(
                         result.getInt("id"),
                         result.getString("name"),
                         result.getString("reporter"),
@@ -383,7 +384,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
         return crimes;
-    }
+    }*/
 /*
     //@Override
     public Map<Integer, Pair<Integer, List<PlayerVehiclePermission>>> getVehiclePermissions(LtrpPlayer player) {
@@ -464,7 +465,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
     }
-
+/*
     public void updateLicenses(PlayerLicenses licenses) {
         for(PlayerLicense license : licenses.get()) {
             if(license != null) {
@@ -547,7 +548,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
     }
-
+*/
 
     public void removeJob(int userId) {
         String sql = "UPDATE players SET job_id = NULL, job_rank = NULL WHERE id = ?";
@@ -609,7 +610,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
     }
-
+/*
     public LicenseWarning[] getWarnings(PlayerLicense license) {
         String sql = "SELECT * FROM player_license_warnings WHERE license_id = ?";
         List<LicenseWarning> warnings = new ArrayList<>();
@@ -652,7 +653,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
             e.printStackTrace();
         }
     }
-
+*/
     @Override
     public PlayerData get(@NotNull String name) {
         String sql = "SELECT * FROM players WHERE name = ?";
@@ -748,7 +749,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     }
 
     private PlayerDataImpl toData(ResultSet r) throws SQLException {
-        return new PlayerDataImpl(r.getInt("id"), r.getString("name"),
+        PlayerDataImpl impl =  new PlayerDataImpl(r.getInt("id"), r.getString("name"),
                 r.getString("password"),
                 r.getString("secret_question"),
                 r.getString("secret_answer"),
@@ -771,6 +772,9 @@ public class SqlPlayerDaoImpl implements PlayerDao {
                 r.getTimestamp("last_login").toLocalDateTime(),
                 r.getInt("hunger"),
                 r.getInt("total_paycheck"),
+                null,
                 eventManager);
+        impl.setJobData(PlayerJobController.Companion.getInstance().getData(impl));
+        return impl;
     }
 }

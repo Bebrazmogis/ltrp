@@ -1,7 +1,10 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.LtrpWorld;
+import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.WeaponShopWeapon;
+import lt.ltrp.item.ItemFactory;
+import lt.ltrp.object.Item;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.WeaponItem;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
@@ -33,7 +36,7 @@ public class WeaponShopSoldWeaponConfirmDialog {
                         player.giveMoney(-weapon.getPrice());
                         LtrpWorld.get().addMoney(weapon.getPrice());
                         player.sendMessage("Sëkmingai nusipirkote " + name);
-                        player.getInventory().add(WeaponItem.create(weapon.getWeaponModel(), weapon.getAmmo(), player, eventManager));
+                        player.getInventory().add(ItemFactory.Companion.getInstance().createWeapon(weapon.getWeaponModel(), weapon.getAmmo(), player));
                     }
                     dialog.show();
                 })

@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.GarageController;
-import lt.ltrp.PlayerController;
+import lt.ltrp.player.PlayerController;
 import lt.ltrp.event.property.garage.GarageEditEvent;
 import lt.ltrp.object.Garage;
 import lt.ltrp.object.LtrpPlayer;

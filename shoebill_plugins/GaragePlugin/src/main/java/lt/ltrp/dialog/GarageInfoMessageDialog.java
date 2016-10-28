@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.PlayerController;
+import lt.ltrp.player.PlayerController;
 import lt.ltrp.object.Garage;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
@@ -18,7 +18,7 @@ public class GarageInfoMessageDialog {
                 .line("ID:" + garage.getUUID())
                 .line("Pavadinimas: " + garage.getName())
                 .line("Kaina:" + garage.getPrice())
-                .line("Savininkas:" + (garage.isOwned() ? PlayerController.get().getPlayerDao().getUsername(garage.getOwner()) : "nëra"))
+                .line("Savininkas:" + (garage.isOwned() ? PlayerController.get().getUsernameByUUID(garage.getOwner()) : "nëra"))
                 .buttonOk("Atgal")
                 .buttonCancel("")
                 .onClickOk(d -> parentDialog.show())

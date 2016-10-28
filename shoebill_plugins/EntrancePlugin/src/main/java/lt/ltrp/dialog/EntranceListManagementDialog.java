@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeConstants;
 import lt.ltrp.object.Entrance;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
@@ -16,7 +16,7 @@ public class EntranceListManagementDialog {
 
     public static ListDialog create(LtrpPlayer player, EventManager eventManager) {
         return ListDialog.create(player, eventManager)
-                .caption(LtrpGamemode.Name + " áëjimø valdymas")
+                .caption(LtrpGamemodeConstants.Name + " áëjimø valdymas")
                 .item("Pagalba", i -> {
                     MsgboxDialog.create(player, eventManager)
                             .caption("Áëjimø informacija")

@@ -4,17 +4,17 @@ import lt.ltrp.GameTextStyleManager;
 import lt.ltrp.PenaltyPlugin;
 import lt.ltrp.PlayerControllerImpl;
 import lt.ltrp.PlayerPlugin;
-import lt.ltrp.constant.TalkStyle;
-import lt.ltrp.constant.WalkStyle;
 import lt.ltrp.data.*;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.Color;
 
-import lt.ltrp.event.PlayerMuteEvent;
-import lt.ltrp.event.PlayerUnMuteEvent;
 import lt.ltrp.event.player.PlayerActionMessageEvent;
 import lt.ltrp.event.player.PlayerStateMessageEvent;
 import lt.ltrp.object.*;
+import lt.ltrp.player.event.PlayerMuteEvent;
+import lt.ltrp.player.event.PlayerUnMuteEvent;
+import lt.ltrp.player.licenses.data.PlayerLicenses;
+import lt.ltrp.player.settings.data.PlayerSettings;
 import lt.maze.audio.AudioHandle;
 import lt.maze.audio.AudioPlugin;
 import lt.maze.streamer.object.DynamicLabel;
@@ -67,7 +67,7 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
     private LtrpVehicle lastUsedVehicle;
     private PlayerCountdown countdown;
     //private Job job;
-    //private Rank jobRank;
+    //private JobRank jobRank;
     private PlayerInfoBox infoBox;
     private PlayerLicenses licenses;
     private boolean seatbelt, masked, cuffed, isDestroyed, muted, frozen;
@@ -155,7 +155,6 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
         this.infoBox = new PlayerInfoBoxImpl(this);
         this.offers = new ArrayList<>();
         logger.debug("Creating instance of LtrpPlayer. Player object id " +player.getId());
-        PlayerControllerImpl.playerList.add(this);
     }
 
     public int getUserId() {
@@ -168,6 +167,11 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
 
     public void setSettings(PlayerSettings settings) {
         this.settings = settings;
+    }
+
+    @Override
+    public void sendInfoText(String msg) {
+        sendInfoText(msg, 30000);
     }
 
     public String getForumName() {
@@ -412,11 +416,11 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
         eventManager.dispatchEvent(new PlayerChangeJobEvent(this, oldJob, job));
     }
 
-    public Rank getJobRank() {
+    public JobRank getJobRank() {
         return jobRank;
     }
 
-    public void setJobRank(Rank jobRank) {
+    public void setJobRank(JobRank jobRank) {
         this.jobRank = jobRank;
     }*/
 
@@ -443,12 +447,12 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
                 // If they are both non-job weapons, we update the storage record
                 if(!weapons[i].isJob() && !weaponData.isJob()) {
                     new Thread(() -> {
-                        PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().update(weaponData);
+                        PlayerPlugin.get(PlayerPlugin.class).getWeaponDao().update(weaponData);
                     }).start();
                     // If only the new weapon is non-job, we insert a new record
                 } else if(!weaponData.isJob()) {
                     new Thread(() -> {
-                        PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().insert(this, weaponData);
+                        PlayerPlugin.get(PlayerPlugin.class).getWeaponDao().insert(this, weaponData);
                     }).start();
                 }
                 return;
@@ -460,7 +464,7 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
                 weapons[i] = weaponData;
                 player.giveWeapon(weaponData);
                 new Thread(() -> {
-                    PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().insert(this, weaponData);
+                    PlayerPlugin.get(PlayerPlugin.class).getWeaponDao().insert(this, weaponData);
                 }).start();
                 return;
             }
@@ -499,7 +503,7 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
     // public method for removing weapons
     public void removeWeapon(LtrpWeaponData weaponData) {
         new Thread(() -> {
-            PlayerPlugin.get(PlayerPlugin.class).getPlayerWeaponDao().remove(weaponData);
+            PlayerPlugin.get(PlayerPlugin.class).getWeaponDao().remove(weaponData);
         }).start();
         LtrpWeaponData[] newWeapons = new LtrpWeaponData[13];
         int newWeaponCount = 0;
@@ -600,6 +604,12 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
 
     public void sendErrorMessage(String s) {
         this.sendMessage(Color.RED, s);
+    }
+
+    @Override
+    public void sendErrorMessage(int errorCode) {
+        this.sendMessage(Color.RED, "Atsipraðome bet ðiuo metu negalime uþbaigti jûsø veiksmo. Klaidos kodas " + errorCode + ".");
+        logger.error("Error ID " + errorCode);
     }
 
     public void sendActionMessage(String s, float distance) {

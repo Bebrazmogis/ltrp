@@ -1,17 +1,16 @@
 package lt.ltrp.dao;
 
 import lt.ltrp.data.TrashMissions;
+import lt.ltrp.job.dao.JobDao;
 import lt.ltrp.object.TrashManJob;
 
 /**
  * @author Bebras
  *         2016.05.24.
  */
-public interface TrashManJobDao extends JobDao {
+public interface TrashManJobDao  {
 
-    TrashManJob get(int id);
     TrashMissions getMissions();
 
-    //void update(TrashMission mission);
 
 }

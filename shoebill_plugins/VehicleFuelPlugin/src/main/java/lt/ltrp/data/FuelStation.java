@@ -1,6 +1,7 @@
 package lt.ltrp.data;
 
-import lt.ltrp.object.AbstractEntity;
+
+import lt.ltrp.object.impl.EntityImpl;
 import net.gtaun.shoebill.data.Radius;
 
 /**
@@ -9,7 +10,7 @@ import net.gtaun.shoebill.data.Radius;
  *
  *         Nothing special, just room for improvement
  */
-public class FuelStation extends AbstractEntity {
+public class FuelStation extends EntityImpl {
 
     private Radius radius;
 

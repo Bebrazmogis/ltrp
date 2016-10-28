@@ -1,6 +1,5 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.JobController;
 import lt.ltrp.JobPlugin;
 import lt.ltrp.data.Color;
 import lt.ltrp.object.LtrpPlayer;
@@ -32,7 +31,7 @@ public class PoliceAlertAlarm extends SimpleAlarm {
     @Override
     public void activate() {
         super.activate();
-        LtrpPlayer.get().stream().filter(p -> JobPlugin.get(JobPlugin.class).getJob(p).getUUID() == 1).forEach(p -> {
+        LtrpPlayer.get().stream().filter(p -> p.getJobData().getJob().getUUID() == 1).forEach(p -> {
             p.sendMessage(Color.LIGHTRED, "|________________Ávykio praneðimas________________|");
             p.sendMessage(Color.WHITE, "|Dispeèerinë: Automobilio signalizacija praneða apie ásilauþimà.");
             p.sendMessage(Color.WHITE, "|Vieta: Automobilio GPS imtuvas praneða, kad automobilis yra rajone " + LocationZone.getZone(getVehicle().getLocation()));

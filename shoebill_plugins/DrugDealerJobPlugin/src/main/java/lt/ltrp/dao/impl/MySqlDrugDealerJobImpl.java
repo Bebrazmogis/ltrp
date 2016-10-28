@@ -2,9 +2,9 @@ package lt.ltrp.dao.impl;
 
 import lt.ltrp.LoadingException;
 import lt.ltrp.dao.DrugDealerJobDao;
-import lt.ltrp.dao.JobVehicleDao;
+import lt.ltrp.job.dao.JobVehicleDao;
 import lt.ltrp.object.DrugDealerJob;
-import lt.ltrp.object.DrugDealerJobImpl;
+import lt.ltrp.object.impl.DrugDealerJobImpl;
 import net.gtaun.util.event.EventManager;
 
 import javax.sql.DataSource;
@@ -13,24 +13,10 @@ import javax.sql.DataSource;
  * @author Bebras
  *         2016.05.24.
  */
-public class MySqlDrugDealerJobImpl extends MySqlJobDaoImpl implements DrugDealerJobDao {
+public class MySqlDrugDealerJobImpl implements DrugDealerJobDao {
 
 
-    public MySqlDrugDealerJobImpl(DataSource dataSource, JobVehicleDao jobVehicleDao, EventManager eventManager) {
-        super(dataSource, jobVehicleDao, eventManager);
-    }
+    public MySqlDrugDealerJobImpl(DataSource dataSource, EventManager eventManager) {
 
-    @Override
-    public DrugDealerJob get(int id) {
-        DrugDealerJobImpl impl = null;
-        if(isValid(id)) {
-            impl = new DrugDealerJobImpl(id, getEventManager());
-            try {
-                load(impl);
-            } catch (LoadingException e) {
-                e.printStackTrace();
-            }
-        }
-        return impl;
     }
 }

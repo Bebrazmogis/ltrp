@@ -1,6 +1,6 @@
 package lt.ltrp.object;
 
-import lt.ltrp.ItemController;
+import lt.ltrp.item.ItemController;
 import net.gtaun.util.event.EventManager;
 
 /**

@@ -23,7 +23,7 @@ public class WeaponShopSoldWeaponManagementDialog {
                 .item("Paðalinti esamà daiktà",
                         () -> weaponShop.getSoldWeaponCount() > 0,
                         i -> WeaponShopWeaponRemoveDialog.create(player, eventManager, i.getCurrentDialog(), weaponShop).show())
-                .item("Pridëti dar vienà prekæ", i -> WeaponShopWeaponAddDialog.create(player, eventManager, i.getCurrentDialog(), weaponShop).show())
+                .item("Pridëti dar vienà prekæ", i -> WeaponShopWeaponAddDialog.INSTANCE.create(player, eventManager, null, weaponShop).show())
                 .item("Redaguoti esamà prekæ",
                         () -> weaponShop.getSoldWeaponCount() > 0,
                         i -> WeaponShopWeaponPropertyManagementDialog.create(player, eventManager, i.getCurrentDialog(), weaponShop).show())

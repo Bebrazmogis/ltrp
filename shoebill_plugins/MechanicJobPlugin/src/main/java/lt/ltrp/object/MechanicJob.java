@@ -1,18 +1,12 @@
 package lt.ltrp.object;
 
+import lt.ltrp.job.object.ContractJob;
+
 /**
  * @author Bebras
  *         2016.04.14.
  */
 public interface MechanicJob extends ContractJob {
-
-    class Instance {
-        static MechanicJob instance;
-    }
-
-    static MechanicJob get() {
-        return Instance.instance;
-    }
 
    int getHydraulicsInstallPrice();
    int getHydraulicRemovePrice();

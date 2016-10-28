@@ -1,7 +1,7 @@
 package lt.ltrp.event.property;
 
 
-import lt.ltrp.object.House;
+import lt.ltrp.house.object.House;
 import net.gtaun.util.event.Event;
 
 /**

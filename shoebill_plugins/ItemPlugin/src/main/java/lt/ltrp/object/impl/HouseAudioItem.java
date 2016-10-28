@@ -1,9 +1,10 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.constant.HouseUpgradeType;
+import lt.ltrp.house.upgrade.HouseUpgradeController;
+import lt.ltrp.house.upgrade.constant.HouseUpgradeType;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
-import lt.ltrp.object.House;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
@@ -39,7 +40,7 @@ public class HouseAudioItem extends BasicItem {
                                 + "\nAr tikrai norite tæsti?"
                                 + (house.getOwner() != player.getUUID() ? "\n\n{FF0000}Pastaba. Ðis namas jums nepriklauso." : ""))
                         .onClickOk(dialog -> {
-                            house.addUpgrade(HouseUpgradeType.Radio);
+                            HouseUpgradeController.instance.insert(house, HouseUpgradeType.Radio);
                             player.sendMessage(Color.NEWS, "Sveikiname sëkmingai instaliavus garso sistemà. Gero klausymosi!");
                         })
                         .build()

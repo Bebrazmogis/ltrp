@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.data.Color;
-import lt.ltrp.ItemController;
+import lt.ltrp.item.ItemController;
 import lt.ltrp.data.PhoneContact;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
@@ -68,7 +68,7 @@ public class PhoneContactDialog {
                                     return;
                                 }
                                 contact.setNumber(number);
-                                ItemController.get().getPhoneDao().update(contact);
+                                //ItemController.get().getPhoneDao().update(contact);
                                 p.sendMessage(Color.NEWS, "Kontakto \"" + contact.getName() + "\" numeris atnaujintas. Naujasis numeris " + contact.getName());
                                 changeNumberOption.getCurrentDialog().show();
                             })
@@ -89,7 +89,7 @@ public class PhoneContactDialog {
                                     p.sendErrorMessage("Kontakto vardas negali bûti tuðèias");
                                 } else {
                                     contact.setName(newName);
-                                    ItemController.get().getPhoneDao().update(contact);
+                                   // ItemController.get().getPhoneDao().update(contact);
                                     p.sendMessage(Color.NEWS, "Kontakto vardas atnaujintas. Naujasis vardas \"" + newName + "\"");
                                     changeNameOption.getCurrentDialog().show();
                                 }

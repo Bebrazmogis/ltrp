@@ -1,7 +1,6 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.AbstractContractJob;
-import lt.ltrp.JobProperty;
+import lt.ltrp.constant.JobProperty;
 import lt.ltrp.data.TrashMissions;
 import lt.ltrp.object.TrashManJob;import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
@@ -27,14 +26,14 @@ public class TrashManJobImpl extends AbstractContractJob implements TrashManJob 
 
     private TrashMissions trashMissions;
 
-    public TrashManJobImpl(int id, String name, Location location, int basePaycheck, EventManager eventManager, int contractLength, int maxPaycheck, int minPaycheck, int trashMasterCapacity, int trashRouteBonus) {
-        super(id, name, location, basePaycheck, eventManager, contractLength, maxPaycheck, minPaycheck);
+    public TrashManJobImpl(int id, String name, Location location, int basePaycheck, EventManager eventManager, int contractLength, int maxPaycheck, int trashMasterCapacity, int trashRouteBonus) {
+        super(id, name, location, basePaycheck, eventManager, contractLength, maxPaycheck);
         this.trashMasterCapacity = trashMasterCapacity;
         this.trashRouteBonus = trashRouteBonus;
     }
 
     public TrashManJobImpl(int id, EventManager eventManager) {
-        this(id, null, null, 0, eventManager, 0, 0, 0, 0, 0);
+        this(id, null, null, 0, eventManager, 0, 0, 0, 0);
     }
 
     public int getTrashMasterCapacity() {

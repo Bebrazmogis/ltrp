@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.PlayerController;
+import lt.ltrp.player.PlayerController;
 import lt.ltrp.event.property.BusinessEditEvent;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;
@@ -18,7 +18,7 @@ public class BusinessRemoveOwnerMsgBoxDialog {
         return MsgboxDialog.create(player, eventManager)
                 .parentDialog(parent)
                 .caption("Verslo savininko ðalinimas")
-                .line("Dabartinis verslo savininkas yra " + PlayerController.get().getPlayerDao().getUsername(business.getOwner()))
+                .line("Dabartinis verslo savininkas yra " + PlayerController.instance.getUsernameByUUID(business.getOwner()))
                 .line("\nAr norite paðalinti verslo savininkà, verslas vël taps parduodamas?")
                 .buttonOk("Taip")
                 .buttonCancel("Atgal")

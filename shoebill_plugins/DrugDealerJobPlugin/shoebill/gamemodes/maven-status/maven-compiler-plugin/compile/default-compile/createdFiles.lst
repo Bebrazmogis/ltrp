@@ -1,0 +1,6 @@
+lt\ltrp\DrugDealerJobPlugin.class
+lt\ltrp\dao\impl\MySqlDrugDealerJobImpl.class
+lt\ltrp\object\DrugDealerJob.class
+lt\ltrp\dao\DrugDealerJobDao.class
+lt\ltrp\object\impl\DrugDealerJobImpl.class
+lt\ltrp\command\DrugDealerCommands.class

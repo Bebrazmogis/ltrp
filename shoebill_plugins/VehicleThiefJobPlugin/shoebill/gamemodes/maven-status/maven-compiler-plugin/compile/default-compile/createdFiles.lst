@@ -1,0 +1,6 @@
+lt\ltrp\object\VehicleThiefJob.class
+lt\ltrp\object\impl\VehicleThiefJobImpl.class
+lt\ltrp\dao\impl\MySqlVehicleThiefDaoImpl.class
+lt\ltrp\VehicleThiefJobPlugin.class
+lt\ltrp\command\VehicleThiefCommands.class
+lt\ltrp\dao\VehicleThiefDao.class

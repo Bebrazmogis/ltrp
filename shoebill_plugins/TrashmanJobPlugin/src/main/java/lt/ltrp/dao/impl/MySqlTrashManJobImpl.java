@@ -1,12 +1,8 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.LoadingException;
-import lt.ltrp.dao.JobVehicleDao;
 import lt.ltrp.dao.TrashManJobDao;
 import lt.ltrp.data.TrashMission;
 import lt.ltrp.data.TrashMissions;
-import lt.ltrp.object.TrashManJob;
-import lt.ltrp.object.impl.TrashManJobImpl;
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
@@ -22,11 +18,14 @@ import java.sql.SQLException;
  * @author Bebras
  *         2016.05.24.
  */
-public class MySqlTrashManJobImpl extends MySqlJobDaoImpl implements TrashManJobDao {
+public class MySqlTrashManJobImpl implements TrashManJobDao {
 
+    private DataSource dataSource;
+    private EventManager eventManager;
 
-    public MySqlTrashManJobImpl(DataSource dataSource, JobVehicleDao jobVehicleDao, EventManager eventManager) {
-        super(dataSource, jobVehicleDao, eventManager);
+    public MySqlTrashManJobImpl(DataSource dataSource, EventManager eventManager) {
+        this.dataSource = dataSource;
+        this.eventManager = eventManager;
     }
 
     @Override
@@ -34,7 +33,7 @@ public class MySqlTrashManJobImpl extends MySqlJobDaoImpl implements TrashManJob
         TrashMissions trashMissions = new TrashMissions();
         String sql = "SELECT garbageman_missions.*, garbageman_mission_garbage.* FROM garbageman_missions LEFT JOIN garbageman_mission_garbage ON garbageman_missions.id = garbageman_mission_garbage.mission_id";
         try (
-                Connection connection = getDataSource().getConnection();
+                Connection connection = dataSource.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
                 ) {
             ResultSet result = stmt.executeQuery();
@@ -56,18 +55,4 @@ public class MySqlTrashManJobImpl extends MySqlJobDaoImpl implements TrashManJob
         return trashMissions;
     }
 
-    @Override
-    public TrashManJob get(int i) {
-        TrashManJobImpl job = null;
-        if(isValid(i)) {
-            job = new TrashManJobImpl(i, getEventManager());
-            try {
-                super.load(job);
-            } catch (LoadingException e) {
-                e.printStackTrace();
-            }
-            job.setMissions(getMissions());
-        }
-        return job;
-    }
 }

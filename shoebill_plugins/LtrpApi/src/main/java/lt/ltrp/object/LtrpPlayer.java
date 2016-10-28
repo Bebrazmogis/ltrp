@@ -1,11 +1,13 @@
 package lt.ltrp.object;
 
 
-import lt.ltrp.PlayerController;
+import lt.ltrp.player.PlayerController;
 import lt.ltrp.constant.TalkStyle;
 import lt.ltrp.constant.WalkStyle;
 import lt.ltrp.data.*;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.player.licenses.data.PlayerLicenses;
+import lt.ltrp.player.settings.data.PlayerSettings;
 import lt.maze.audio.AudioHandle;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.constant.WeaponSlot;
@@ -31,7 +33,7 @@ public interface LtrpPlayer extends Player, PlayerData, InventoryEntity, Destroy
 
 
     static Collection<LtrpPlayer> get() {
-        return PlayerController.get().getPlayers();
+        return PlayerController.instance.getPlayers();
     }
 
     static LtrpPlayer get(int uuid) {
@@ -218,7 +220,7 @@ public interface LtrpPlayer extends Player, PlayerData, InventoryEntity, Destroy
 
     /**
      * Basically this has one ue: to check if the user is allowed to get payday
-     * If this is larger or equal to {@link lt.ltrp.PlayerController#MINUTES_FOR_PAYDAY} he will get payday
+     * If this is larger or equal to {@link PlayerController#MINUTES_FOR_PAYDAY} he will get payday
      */
     int getMinutesOnlineSincePayday();
     void setMinutesOnlineSincePayday(int minutes);
@@ -279,6 +281,7 @@ public interface LtrpPlayer extends Player, PlayerData, InventoryEntity, Destroy
 
     void sendFadeMessage(Color color, String text, float distance);
     void sendErrorMessage(String message);
+    void sendErrorMessage(int errorCode);
     void sendActionMessage(String message, float distance);
     void sendActionMessage(String s);
     void sendStateMessage(String s, float distance);

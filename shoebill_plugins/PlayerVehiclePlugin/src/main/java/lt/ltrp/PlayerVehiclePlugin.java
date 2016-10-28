@@ -17,6 +17,7 @@ import lt.ltrp.event.PlayerVehicleDestroyEvent;
 import lt.ltrp.event.PlayerVehicleSellEvent;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.vehicle.PlayerBuyNewVehicleEvent;
+import lt.ltrp.item.ItemController;
 import lt.ltrp.object.*;
 import lt.ltrp.object.impl.PersonalAlarm;
 import lt.ltrp.object.impl.PlayerVehicleImpl;
@@ -331,10 +332,11 @@ public class PlayerVehiclePlugin extends Plugin {
         vehicleDao.update(vehicle);
     }
 
+// TODO
     public PlayerVehicle loadVehicle(int uid) {
         PlayerVehicle vehicle = vehicleDao.get(uid);
-        Item[] items = ItemController.get().getItemDao().getItems(vehicle);
-        vehicle.getInventory().add(items);
+        //Item[] items = ItemController.get().getItemDao().getItems(vehicle);
+        //vehicle.getInventory().add(items);
         logger.info("PlayerVehicle " + uid + " loaded.");
         return vehicle;
     }
@@ -397,7 +399,7 @@ public class PlayerVehiclePlugin extends Plugin {
         loadVehicles(LtrpPlayer.get(vehicle.getOwnerId()));
     }
 
-    private void loadVehicles(LtrpPlayer p) {
+    public void loadVehicles(LtrpPlayer p) {
         playerVehicleUUIDs.put(p, vehicleDao.getPlayerVehicles(p));
     }
 

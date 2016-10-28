@@ -1,6 +1,5 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.AbstractFaction;
 import lt.ltrp.object.GovernmentFaction;
 import net.gtaun.util.event.EventManager;
 
@@ -11,8 +10,8 @@ import net.gtaun.util.event.EventManager;
 public class GovernmentFactionImpl extends AbstractFaction implements GovernmentFaction {
 
 
-    public GovernmentFactionImpl(EventManager eventManager) {
-        super(eventManager);
+    public GovernmentFactionImpl(int uuid, EventManager eventManager) {
+        super(uuid, eventManager);
     }
 
 

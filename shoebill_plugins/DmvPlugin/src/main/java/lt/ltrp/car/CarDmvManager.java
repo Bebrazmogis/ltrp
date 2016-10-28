@@ -1,21 +1,23 @@
 package lt.ltrp.car;
 
 import lt.ltrp.*;
-import lt.ltrp.dao.PlayerDao;
-import lt.ltrp.constant.LicenseType;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerLicense;
-import lt.ltrp.data.PlayerLicenses;
 import lt.ltrp.dialog.DrivingTestEndMsgDialog;
 import lt.ltrp.dialog.QuestionTestEndMsgDialog;
 import lt.ltrp.event.PlayerDrivingTestEndEvent;
 import lt.ltrp.event.PlayerQuestionTestEndEvent;
 import lt.ltrp.object.*;
+import lt.ltrp.player.dao.PlayerDao;
+import lt.ltrp.player.licenses.PlayerLicenseController;
+import lt.ltrp.player.licenses.constant.LicenseType;
+import lt.ltrp.player.licenses.data.PlayerLicense;
+import lt.ltrp.player.licenses.data.PlayerLicenses;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +35,6 @@ public class CarDmvManager extends AbstractDmvManager {
     public CarDmvManager(EventManager eventManager) {
         super(eventManager);
         this.ongoingTests = new HashMap<>();
-
-        PlayerDao playerDao = PlayerPlugin.get(PlayerPlugin.class).getPlayerDao();
 
         try {
             dmv = DmvController.get().getDao().getCarDmv(1);
@@ -54,8 +54,8 @@ public class CarDmvManager extends AbstractDmvManager {
                         license = player.getLicenses().get(LicenseType.Motorcycle);
                     }
                     license.setStage(2);
-                    license.setDateAquired(new Timestamp(new Date().getTime()));
-                    playerDao.updateLicense(license);
+                    license.setDateAquired(LocalDateTime.now());
+                    PlayerLicenseController.instance.update(license);
                 }
             }
             DrivingTestEndMsgDialog.create(player, eventManager, e.getTest()).show();
@@ -66,22 +66,8 @@ public class CarDmvManager extends AbstractDmvManager {
             LtrpPlayer p = e.getPlayer();
             if (e.getDmv().equals(dmv)) {
                 if (e.getTest().isPassed()) {
-
-                    PlayerLicense license = new PlayerLicense();
-                    license.setType(LicenseType.Car);
-                    license.setDateAquired(new Timestamp(new Date().getTime()));
-                    license.setStage(1);
-                    license.setPlayer(p);
-                    p.getLicenses().add(license);
-                    LtrpPlayer.getPlayerDao().insertLicense(license);
-
-                    license = new PlayerLicense();
-                    license.setType(LicenseType.Motorcycle);
-                    license.setDateAquired(new Timestamp(new Date().getTime()));
-                    license.setStage(1);
-                    license.setPlayer(p);
-                    p.getLicenses().add(license);
-                    LtrpPlayer.getPlayerDao().insertLicense(license);
+                    PlayerLicenseController.instance.insert(p, LicenseType.Car, 1);
+                    PlayerLicenseController.instance.insert(p, LicenseType.Motorcycle, 1);
                     p.sendMessage(Color.NEWS, "Dabar galite laikyti praktikos egzaminà su lengvuoju automobiliu/motociklu.");
                 }
             }

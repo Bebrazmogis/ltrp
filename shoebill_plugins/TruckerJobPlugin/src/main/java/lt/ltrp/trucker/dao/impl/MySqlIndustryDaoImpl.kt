@@ -96,7 +96,7 @@ public class MySqlIndustryDaoImpl(ds: DataSource, productionDao: MySqlProduction
             stmt.setFloat(4, industry.location.z)
             stmt.setInt(5, industry.location.interiorId)
             stmt.setInt(6, industry.location.worldId)
-            stmt.setInt(7, industry.getUUID())
+            stmt.setInt(7, industry.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             throw e
@@ -112,7 +112,7 @@ public class MySqlIndustryDaoImpl(ds: DataSource, productionDao: MySqlProduction
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
-            stmt.setInt(1, industry.getUUID())
+            stmt.setInt(1, industry.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             throw e

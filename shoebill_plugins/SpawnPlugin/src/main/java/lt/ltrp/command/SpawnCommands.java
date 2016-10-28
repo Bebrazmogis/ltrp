@@ -3,8 +3,10 @@ package lt.ltrp.command;
 import lt.ltrp.JobPlugin;
 import lt.ltrp.SpawnPlugin;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerJobData;
-import lt.ltrp.data.SpawnData;
+import lt.ltrp.job.object.Faction;
+import lt.ltrp.player.job.data.PlayerJobData;
+import lt.ltrp.spawn.data.SpawnData;
+import lt.ltrp.house.object.House;
 import lt.ltrp.object.*;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -32,16 +34,16 @@ public class SpawnCommands {
     @Command(name = "Frakcija")
     public boolean faction(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobPlugin.get(JobPlugin.class).getJobData(player);
-        if(jobData == null || !(jobData instanceof Faction))
+        PlayerJobData jobData = player.getJobData();
+        if(jobData == null || !(jobData.getJob() instanceof Faction))
             player.sendErrorMessage("Jûs nepriklausote jokiai frakcijai, todël negalite atsirasti jos bûstinëje.");
         else {
             SpawnPlugin spawnPlugin = SpawnPlugin.get(SpawnPlugin.class);
             SpawnData spawnData = spawnPlugin.getSpawnData(player);
             spawnData.setType(SpawnData.SpawnType.Faction);
-            spawnData.setId(((Faction) jobData).getUUID());
+            spawnData.setId(((Faction) jobData.getJob()).getUUID());
             spawnPlugin.setSpawnData(player, spawnData);
-            player.sendMessage(Color.NEWS, "Atsiradimo vieta pakeista, dabar atsirasite " + ((Faction) jobData).getName() + " bûstinëje.");
+            player.sendMessage(Color.NEWS, "Atsiradimo vieta pakeista, dabar atsirasite " + ((Faction) jobData.getJob()).getName() + " bûstinëje.");
         }
         return true;
     }

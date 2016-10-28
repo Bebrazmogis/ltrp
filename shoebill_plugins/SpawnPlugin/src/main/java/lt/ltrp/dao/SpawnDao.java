@@ -1,6 +1,6 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.data.SpawnData;
+import lt.ltrp.spawn.data.SpawnData;
 import lt.ltrp.object.LtrpPlayer;
 
 /**

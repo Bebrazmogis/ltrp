@@ -21,8 +21,8 @@ class GeneralTruckerCommands(truckerPlugin : TruckerJobPlugin): Commands() {
     @BeforeCheck
     fun checkPermissions(p: Player, cmd: String, params: String): Boolean {
         val player = LtrpPlayer.get(p);
-        val jobData = JobPlugin.get(JobPlugin::class.java).getJobData(player)
-        return jobData != null && jobData.job.equals(truckerPlugin.truckerJob)
+        val jobData = player.jobData
+        return jobData != null && jobData.job == truckerPlugin.truckerJob
     }
 
     @Command

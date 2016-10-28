@@ -1,13 +1,17 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.dao.VehicleThiefDao;
 import lt.ltrp.dao.impl.MySqlVehicleThiefDaoImpl;
-import lt.ltrp.data.PlayerJobData;
+import lt.ltrp.job.JobController;
+import lt.ltrp.object.impl.VehicleThiefJobImpl;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.data.VehicleLock;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.event.vehicle.VehicleEngineStartEvent;
 import lt.ltrp.object.*;
+import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
@@ -25,44 +29,30 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.05.22.
  */
-public class VehicleThiefJobPlugin extends Plugin {
+public class VehicleThiefJobPlugin extends DependentPlugin {
 
     private VehicleThiefJob vehicleThiefJob;
     private EventManagerNode eventManagerNode;
     private Logger logger;
     private VehicleThiefDao vehicleThiefDao;
 
-    @Override
-    protected void onEnable() throws Throwable {
-        eventManagerNode = getEventManager().createChildNode();
-        logger = getLogger();
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(JobPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManagerNode.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
+    public VehicleThiefJobPlugin() {
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(JobPlugin.class));
     }
 
-    private void load() {
+    @Override
+    protected void onEnable() {
+        super.onEnable();
+        eventManagerNode = getEventManager().createChildNode();
+        logger = getLogger();
+    }
+
+    @Override
+    public void onDependenciesLoaded() {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
         vehicleThiefDao = new MySqlVehicleThiefDaoImpl(databasePlugin.getDataSource(), null, eventManagerNode);
-        vehicleThiefJob = vehicleThiefDao.get(JobPlugin.JobId.VehicleThief.id);
+        vehicleThiefJob = new VehicleThiefJobImpl(JobPlugin.JobId.VehicleThief.id, eventManagerNode);
 
         eventManagerNode.cancelAll();
         addEventHandlers();
@@ -76,7 +66,7 @@ public class VehicleThiefJobPlugin extends Plugin {
 
         this.eventManagerNode.registerHandler(PlayerKeyStateChangeEvent.class, e -> {
             LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            PlayerJobData jobData = JobController.get().getJobData(player);
+            PlayerJobData jobData = player.getJobData();
             // If player is pressing key FIRE and he's working as a vehicle thief AND he is in a vehicle
             if(player != null && player.getKeyState().isKeyPressed(PlayerKey.FIRE) && jobData.getJob() != null && jobData.getJob().equals(vehicleThiefJob) && player.getVehicle() != null) {
                 final PlayerVehicle vehicle = PlayerVehicle.getByVehicle(player.getVehicle());
@@ -117,7 +107,8 @@ public class VehicleThiefJobPlugin extends Plugin {
     }
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable()  {
+        super.onDisable();
         eventManagerNode.cancelAll();
         logger.info(getDescription().getName() + " disabled.");
     }

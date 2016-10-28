@@ -1,11 +1,13 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.object.ContractJob;
-import lt.ltrp.object.ContractJobRank;
-import lt.ltrp.object.JobVehicle;
-import lt.ltrp.object.Rank;
+import lt.ltrp.job.object.ContractJob;
+import lt.ltrp.job.object.ContractJobRank;
+import lt.ltrp.job.object.JobRank;
+import lt.ltrp.job.object.JobVehicle;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,69 +19,40 @@ import java.util.stream.Collectors;
 
 public abstract class AbstractContractJob extends AbstractJob implements ContractJob {
 
-    public static final int INVALID_ID = 0;
-
     private int contractLength;
-    private int maxPaycheck, minPaycheck;
-    private Collection<ContractJobRank> ranks;
-    private Collection<JobVehicle> vehicles;
+    private int maxPaycheck;
+    private List<? extends ContractJobRank> ranks;
 
     public AbstractContractJob(int id, String name, Location location, int basePaycheck, EventManager eventManager,
-                               int contractLength, int maxPaycheck, int minPaycheck) {
+                               int contractLength, int maxPaycheck) {
         super(id, name, location, basePaycheck, eventManager);
         this.contractLength = contractLength;
         this.maxPaycheck = maxPaycheck;
-        this.minPaycheck = minPaycheck;
-        vehicles = new ArrayList<>();
+        this.ranks = new ArrayList<>();
     }
 
-    public AbstractContractJob(EventManager eventManager) {
-        super(eventManager);
+    public AbstractContractJob(int uuid, EventManager eventManager) {
+        super(uuid, eventManager);
+        this.ranks = new ArrayList<>();
     }
 
     @Override
-    public Collection<ContractJobRank> getRanks() {
+    public ContractJobRank getRankByNumber(int id) {
+        Optional<? extends ContractJobRank> rank = ranks.stream().filter(r -> r.getNumber() == id).findFirst();
+        return rank.isPresent() ? rank.get() : null;
+    }
+
+    @Nullable
+    @Override
+    public ContractJobRank getRankByUUID(int uuid) {
+        Optional<? extends ContractJobRank> rank = ranks.stream().filter(r -> r.getUUID() == uuid).findFirst();
+        return rank.isPresent() ? rank.get() : null;
+    }
+
+    @NotNull
+    @Override
+    public List<? extends ContractJobRank> getRanks() {
         return ranks;
-    }
-
-    @Override
-    public ContractJobRank getRank(int id) {
-        for(ContractJobRank c : ranks) {
-            if(c.getNumber() == id) {
-                return c;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public void setRanks(Collection<? extends Rank> ranks) {
-        this.ranks = (Collection<ContractJobRank>) ranks;
-    }
-
-    @Override
-    public Collection<JobVehicle> getVehicles() {
-        return vehicles;
-    }
-
-    @Override
-    public Collection<JobVehicle> getVehicles(Rank rank) {
-        return getVehicles().stream().filter(v -> v.getRequiredRank().equals(rank)).collect(Collectors.toList());
-    }
-
-    @Override
-    public void setVehicles(Collection<JobVehicle> vehicles) {
-        this.vehicles = vehicles;
-    }
-
-    @Override
-    public Collection<JobVehicle> getVehicles(ContractJobRank rank) {
-        return vehicles.stream().filter(v -> v.getRequiredRank().equals(rank)).collect(Collectors.toList());
-    }
-
-    @Override
-    public void addVehicle(JobVehicle vehicle) {
-        vehicles.add(vehicle);
     }
 
     @Override
@@ -88,24 +61,12 @@ public abstract class AbstractContractJob extends AbstractJob implements Contrac
     }
 
 
-    public void setRanks(List<ContractJobRank> ranks) {
-        this.ranks =  ranks;
-    }
-
     public int getMaxPaycheck() {
         return maxPaycheck;
     }
 
     public void setMaxPaycheck(int maxPaycheck) {
         this.maxPaycheck = maxPaycheck;
-    }
-
-    public int getMinPaycheck() {
-        return minPaycheck;
-    }
-
-    public void setMinPaycheck(int minPaycheck) {
-        this.minPaycheck = minPaycheck;
     }
 
     public int getContractLength() {
@@ -118,6 +79,12 @@ public abstract class AbstractContractJob extends AbstractJob implements Contrac
 
     @Override
     public String toString() {
-        return super.toString() + String.format("Contract Job. Id %s Name:%s Rank count:%d vehicle count:%d", getUUID(), getName(), getRanks().size(), vehicles.size());
+        return super.toString() + String.format("Contract Job. Id %s Name:%s JobRank count:%d vehicle count:%d", getUUID(), getName(), getRanks().size(), getVehicles().size());
+    }
+
+    @NotNull
+    @Override
+    public Collection<JobVehicle> getVehicles(@NotNull ContractJobRank rank) {
+        return super.getVehicles().stream().filter(v -> v.getRequiredRank().equals(rank)).collect(Collectors.toSet());
     }
 }

@@ -2,6 +2,7 @@ package lt.ltrp.object;
 
 
 import lt.ltrp.data.NamedLocation;
+import lt.ltrp.job.object.ContractJob;
 
 import java.util.Map;
 
@@ -11,23 +12,14 @@ import java.util.Map;
  */
 public interface VehicleThiefJob extends ContractJob {
 
-    class Instance {
-        static VehicleThiefJob instance;
-    }
-
-    static VehicleThiefJob get() {
-        return Instance.instance;
-    }
-
-
-    public void addBuyPoint(NamedLocation location, int model);
-    public void addBuyPoint(NamedLocation location);
-    public Map<NamedLocation, Integer> getVehicleBuyPoints();
-    public int[] getRequiredModels();
-    public void setRequiredModels(int[] requiredModels);
-    public int getRequiredModelCount();
-    public void setRequiredModelCount(int requiredModelCount);
-    public void resetRequiredModels();
+    void addBuyPoint(NamedLocation location, int model);
+    void addBuyPoint(NamedLocation location);
+    Map<NamedLocation, Integer> getVehicleBuyPoints();
+    int[] getRequiredModels();
+    void setRequiredModels(int[] requiredModels);
+    int getRequiredModelCount();
+    void setRequiredModelCount(int requiredModelCount);
+    void resetRequiredModels();
     void log(String s);
 
 }

@@ -1,9 +1,12 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.DrugDealerCommands;
 import lt.ltrp.dao.DrugDealerJobDao;
 import lt.ltrp.dao.impl.MySqlDrugDealerJobImpl;
 import lt.ltrp.object.DrugDealerJob;
+import lt.ltrp.object.impl.DrugDealerJobImpl;
+import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.resource.Plugin;
@@ -20,7 +23,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.05.24.
  */
-public class DrugDealerJobPlugin extends Plugin {
+public class DrugDealerJobPlugin extends DependentPlugin {
 
     private EventManagerNode eventManager;
     private Logger logger;
@@ -28,38 +31,22 @@ public class DrugDealerJobPlugin extends Plugin {
     private DrugDealerJob drugDealerJob;
     private PlayerCommandManager playerCommandManager;
 
-
-    @Override
-    protected void onEnable() throws Throwable {
-        logger = getLogger();
-        eventManager = getEventManager().createChildNode();
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(JobPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManager.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
+    public DrugDealerJobPlugin() {
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(JobPlugin.class));
     }
 
-    private void load() {
-        eventManager.cancelAll();
-        drugDealerDao = new MySqlDrugDealerJobImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, eventManager);
-        drugDealerJob = drugDealerDao.get(JobPlugin.JobId.DrugDealer.id);
+    @Override
+    protected void onEnable() {
+        super.onEnable();
+        logger = getLogger();
+        eventManager = getEventManager().createChildNode();
+    }
+
+    @Override
+    public void onDependenciesLoaded() {
+        drugDealerDao = new MySqlDrugDealerJobImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
+        drugDealerJob = new DrugDealerJobImpl(JobPlugin.JobId.DrugDealer.id, eventManager);
 
         this.playerCommandManager = new PlayerCommandManager(eventManager);
         playerCommandManager.installCommandHandler(HandlerPriority.NORMAL);
@@ -68,8 +55,10 @@ public class DrugDealerJobPlugin extends Plugin {
         logger.info(getDescription().getName() + " loaded");
     }
 
+
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         eventManager.cancelAll();
         playerCommandManager.uninstallAllHandlers();
         logger.info(getDescription().getName() + " unloaded");

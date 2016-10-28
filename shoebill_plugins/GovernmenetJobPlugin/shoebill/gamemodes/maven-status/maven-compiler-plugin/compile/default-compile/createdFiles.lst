@@ -1,0 +1,6 @@
+lt\ltrp\dao\GovernmentFactionDao.class
+lt\ltrp\dao\impl\MySqlGovernmentFactionDaoImpl.class
+lt\ltrp\command\GovernmentCommands.class
+lt\ltrp\object\GovernmentFaction.class
+lt\ltrp\object\impl\GovernmentFactionImpl.class
+lt\ltrp\GovernmentJobPlugin.class

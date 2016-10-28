@@ -25,7 +25,7 @@ import javax.sql.DataSource
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         val r: ResultSet = try {
-            stmt.setInt(1, industryProduction.getUUID())
+            stmt.setInt(1, industryProduction.UUID)
             stmt.setString(2, type.name)
             stmt.executeQuery()
         } catch(e: SQLException) {
@@ -46,8 +46,8 @@ import javax.sql.DataSource
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
-            stmt.setInt(1, industryProduction.getUUID())
-            stmt.setInt(2, commodity.getUUID())
+            stmt.setInt(1, industryProduction.UUID)
+            stmt.setInt(2, commodity.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             throw e
@@ -62,8 +62,8 @@ import javax.sql.DataSource
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
-            stmt.setInt(1, industryProduction.getUUID())
-            stmt.setInt(2, commodity.getUUID())
+            stmt.setInt(1, industryProduction.UUID)
+            stmt.setInt(2, commodity.UUID)
             stmt.setInt(3, commodity.amount)
             stmt.setString(4, commodity.type.name)
             stmt.executeQuery()
@@ -82,8 +82,8 @@ import javax.sql.DataSource
         try {
             stmt.setInt(1, commodity.amount)
             stmt.setString(2, commodity.type.name)
-            stmt.setInt(3, commodity.getUUID())
-            stmt.setInt(4, industryProduction.getUUID())
+            stmt.setInt(3, commodity.UUID)
+            stmt.setInt(4, industryProduction.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             throw e

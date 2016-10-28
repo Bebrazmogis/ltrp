@@ -9,7 +9,7 @@ import net.gtaun.shoebill.data.Location
  * @author Bebras
  *         2016.04.08.
  */
-abstract class PlayerController protected constructor(): Destroyable {
+abstract class PlayerController protected constructor() {
 
     init {
         instance = this
@@ -30,6 +30,7 @@ abstract class PlayerController protected constructor(): Destroyable {
     abstract fun getPlayers(): Collection<LtrpPlayer>
     abstract fun getUsernameByUUID(uuid: Int): String?
     abstract fun getData(uuid: Int): PlayerData?
+    abstract fun getData(name: String): PlayerData?
     abstract fun update(player: LtrpPlayer)
 
 

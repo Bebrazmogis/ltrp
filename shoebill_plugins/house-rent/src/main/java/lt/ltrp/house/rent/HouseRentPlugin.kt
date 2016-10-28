@@ -8,7 +8,7 @@ import lt.ltrp.`object`.LtrpPlayer
 import lt.ltrp.`object`.PlayerData
 import lt.ltrp.constant.Currency
 import lt.ltrp.house.rent.dao.impl.MySqlHouseTenantDaoImpl
-import lt.ltrp.event.HouseLoadedEvent
+import lt.ltrp.house.event.HouseLoadedEvent
 import lt.ltrp.event.PaydayEvent
 import lt.ltrp.house.`object`.House
 import lt.ltrp.house.rent.`object`.HouseTenant

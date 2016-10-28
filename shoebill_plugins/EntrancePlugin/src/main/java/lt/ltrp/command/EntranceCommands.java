@@ -1,6 +1,6 @@
 package lt.ltrp.command;
 
-import lt.ltrp.JobController;
+import lt.ltrp.job.JobController;
 import lt.ltrp.event.PlayerEnterEntranceEvent;
 import lt.ltrp.object.Entrance;
 import lt.ltrp.object.LtrpPlayer;
@@ -33,7 +33,7 @@ public class EntranceCommands {
             player.sendErrorMessage("Èia nëra kur áeiti.");
         if(!entrance.allowsVehicles() && player.isInAnyVehicle())
             player.sendErrorMessage("Bûdamas transporto priemonëje áeiti negalite!");
-        if(!entrance.getJob().equals(JobController.get().getJob(player)))
+        if(player.getJobData() == null || !entrance.getJob().equals(player.getJobData().getJob()))
             player.sendErrorMessage("Tai yra tarnybinis áëjimas, jûs èia nedirbate.");
         else {
             Entrance exit = entrance.getExit();

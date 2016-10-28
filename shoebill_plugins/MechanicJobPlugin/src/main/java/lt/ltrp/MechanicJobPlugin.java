@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.MechanicAcceptCommands;
 import lt.ltrp.command.MechanicCommands;
 import lt.ltrp.dao.MechanicJobDao;
@@ -10,6 +11,8 @@ import lt.ltrp.event.vehicle.VehicleEngineStartEvent;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.object.MechanicJob;
+import lt.ltrp.object.impl.MechanicJobImpl;
+import lt.ltrp.resource.DependentPlugin;
 import lt.ltrp.session.AbstractRepairSession;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -31,7 +34,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.05.24.
  */
-public class MechanicJobPlugin extends Plugin {
+public class MechanicJobPlugin extends DependentPlugin {
 
     public static final Map<String, Integer> WHEEL_COMPONENTS = new HashMap<>();
 
@@ -62,44 +65,18 @@ public class MechanicJobPlugin extends Plugin {
     private MechanicJobDao mechanicDao;
     private MechanicJob mechanicJob;
 
+    public MechanicJobPlugin() {
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(JobPlugin.class));
+    }
+
     @Override
-    protected void onEnable() throws Throwable {
+    protected void onEnable()  {
         this.repairSessionMap = new HashMap<>();
         logger = getLogger();
         eventManager = getEventManager().createChildNode();
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(JobPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManager.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
     }
 
-    private void load() {
-        eventManager.cancelAll();
-        mechanicDao = new MySqlMechanicJobDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, eventManager);
-        mechanicJob = mechanicDao.get(JobPlugin.JobId.Mechanic.id);
-
-        addEventHandlers();
-        addCommands();
-
-        logger.info(getDescription().getName() + " loaded");
-    }
 
     private void addCommands() {
         playerCommandManager = new PlayerCommandManager(eventManager);
@@ -147,12 +124,24 @@ public class MechanicJobPlugin extends Plugin {
 
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         eventManager.cancelAll();
         playerCommandManager.uninstallAllHandlers();
         repairSessionMap.values().forEach(AbstractRepairSession::destroy);
         repairSessionMap.clear();
         repairSessionMap = null;
         logger.info(getDescription().getName() + " unloaded");
+    }
+
+    @Override
+    public void onDependenciesLoaded() {
+        mechanicDao = new MySqlMechanicJobDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, eventManager);
+        mechanicJob = new MechanicJobImpl(JobPlugin.JobId.Mechanic.id, eventManager);
+
+        addEventHandlers();
+        addCommands();
+
+        logger.info(getDescription().getName() + " loaded");
     }
 }

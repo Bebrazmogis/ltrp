@@ -4,7 +4,7 @@ import lt.ltrp.JobPlugin;
 import lt.ltrp.PoliceJobPlugin;
 import lt.ltrp.constant.SwatType;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerJobData;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -30,8 +30,8 @@ public class SwatCommands extends Commands{
     @BeforeCheck
     public boolean bc(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData job = JobPlugin.get(JobPlugin.class).getJobData(player);
-        return job != null && job.equals(policePlugin.getPoliceFaction()) && policePlugin.isSwat(player);
+        PlayerJobData job = player.getJobData();
+        return job != null && job.getJob().equals(policePlugin.getPoliceFaction()) && policePlugin.isSwat(player);
     }
 
     @Command
@@ -44,8 +44,8 @@ public class SwatCommands extends Commands{
         else if(!policePlugin.getPoliceFaction().isChatEnabled())
             player.sendErrorMessage("Frakcijos pokalbiai yra iðjungti.");
         else {
-            PlayerJobData jobData = JobPlugin.get(JobPlugin.class).getJobData(player);
-            jobData.getJob().sendMessage(Color.CYAN, String.format("((%s[%s] (%s): %s ))", jobData.getJobRank().getName(),
+            PlayerJobData jobData = player.getJobData();
+            jobData.getJob().sendMessage(Color.CYAN, String.format("((%s[%s] (%s): %s ))", jobData.getRank().getName(),
                     swatType.name(),
                     player.getName(), text));
         }

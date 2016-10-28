@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeConstants;
 import lt.ltrp.event.property.BusinessCreateEvent;
 import lt.ltrp.event.property.BusinessEditEvent;
 import lt.ltrp.object.Business;
@@ -23,7 +23,7 @@ public final class AdminBusinessManagementDialog {
 
     public static ListDialog create(LtrpPlayer player, EventManager eventManager) {
         return ListDialog.create(player, eventManager)
-                .caption(LtrpGamemode.Name + " serverio verslø valdymas")
+                .caption(LtrpGamemodeConstants.Name + " serverio verslø valdymas")
                 .item(() -> {
                     Business b = Business.getClosest(player.getLocation());
                     return String.format("{623E43}Artimiausio verslo ID %d, atstumas %.2f", b.getUUID(), b.getEntrance().distance(player.getLocation()));
@@ -174,7 +174,7 @@ public final class AdminBusinessManagementDialog {
         if(mostExpensive.isPresent()) {
             Business expensive = mostExpensive.get();
             MsgboxDialog.create(player, eventManager)
-                    .caption(LtrpGamemode.Name + " verslø informacija")
+                    .caption(LtrpGamemodeConstants.Name + " verslø informacija")
                     .line("Serveryje yra " + Business.get().size() + " verslai")
                     .line("Brangiausias verslas \"" + expensive.getName() + "\"(" + expensive.getUUID()+ ")")
                     .line("Verslø be savininko:" + sold)

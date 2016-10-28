@@ -59,7 +59,7 @@ public class MySqlCommodityDaoImpl(ds: DataSource): CommodityDao {
         val stmt = con.prepareStatement(sql)
         try {
             stmt.setString(1, commodity.name)
-            stmt.setInt(2, commodity.getUUID())
+            stmt.setInt(2, commodity.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             throw e
@@ -74,7 +74,7 @@ public class MySqlCommodityDaoImpl(ds: DataSource): CommodityDao {
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
-            stmt.setInt(1, commodity.getUUID())
+            stmt.setInt(1, commodity.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             throw e

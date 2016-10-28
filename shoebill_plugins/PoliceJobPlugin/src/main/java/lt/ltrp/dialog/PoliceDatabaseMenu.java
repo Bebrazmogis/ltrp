@@ -1,10 +1,13 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.DatabasePlugin;
-import lt.ltrp.JobController;
+import lt.ltrp.job.JobController;
 import lt.ltrp.data.*;
 import lt.ltrp.dialog.dialogmenu.PlayerDialogMenu;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.fine.PlayerFineController;
+import lt.ltrp.player.fine.data.PlayerFine;
+import lt.ltrp.player.job.data.PlayerJobData;
 import net.gtaun.shoebill.Shoebill;
 import net.gtaun.shoebill.common.dialog.*;
 import net.gtaun.util.event.EventManager;
@@ -38,7 +41,7 @@ public class PoliceDatabaseMenu extends PlayerDialogMenu {
         EventManager eventManager = getEventManager();
         shown = true;
         ListDialog.create(getPlayer(), eventManager)
-                .caption("{1797cd}" + JobController.get().getJobData(player).getJob().getName() + " duomenø bazë. {FFFFFF}Vartotojas " + player.getName())
+                .caption("{1797cd}" + player.getJobData().getJob().getName() + " duomenø bazë. {FFFFFF}Vartotojas " + player.getName())
                 .buttonOk("Pasirinkti")
                 .buttonCancel("Iðeiti")
                 .onClickCancel(dialog -> {
@@ -161,11 +164,11 @@ public class PoliceDatabaseMenu extends PlayerDialogMenu {
                                                 if(suspectReason != null && !suspectReason.isEmpty()) {
                                                     LtrpPlayer suspect = LtrpPlayer.get(suspectName);
                                                     if(suspect != null) {
-                                                        JobData jobData = JobController.get().getJobData(player);
+                                                        PlayerJobData jobData = player.getJobData();
                                                         jobData.getJob().sendMessage(Color.POLICE, String.format("[LSPD] Asmuo %s gavo áskaita nuo pareigûno: %s, áskaita: %s", suspectName, player.getName(), suspectReason));
                                                         suspect.sendMessage(Color.POLICE, String.format("[LSPD] Policininkas %s áraðë jums áskaità , esate kaltinamas %s, tai yra %d jûsø áskaita.", player.getName(), suspectReason, suspect.getWantedLevel()));
                                                     }
-                                                    LtrpPlayer.getPlayerDao().insertCrime(new PlayerCrime(suspectName, suspectReason, player.getName(), 0));
+                                                    PlayerFineController.Companion.get().create(new PlayerFine(suspect, player, suspectReason, 0));
                                                     updateWantedLevel(suspectName);
                                                     item.getCurrentDialog().show();
                                                 } else {
@@ -200,7 +203,7 @@ public class PoliceDatabaseMenu extends PlayerDialogMenu {
                                             .message("Áveskite transporto priemonës " + suspectPlate + " paieðkos prieþastá")
                                             .onClickOk((suspectDialog2, suspectReason) -> {
                                                 if(suspectReason != null && !suspectReason.isEmpty()) {
-                                                    JobData jobData = JobController.get().getJobData(player);
+                                                    PlayerJobData jobData = player.getJobData();
                                                     jobData.getJob().sendMessage(Color.POLICE, String.format("[LSPD] Tr. priemonë, kurios valstybiniai numeriai %s buvo átrauka pareigûno %s á áskaita.", suspectPlate, player.getName()));
                                                     jobData.getJob().sendMessage(Color.POLICE, "[LSPD] Nurodyta áskaitos prieþastis: " +  suspectReason);
                                                     item.getCurrentDialog().show();

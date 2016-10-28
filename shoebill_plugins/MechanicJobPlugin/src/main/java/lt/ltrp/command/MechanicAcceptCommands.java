@@ -1,6 +1,7 @@
 package lt.ltrp.command;
 
 import lt.ltrp.colorpicker.ColorPicker;
+import lt.ltrp.colorpicker.VehicleColorPicker;
 import lt.ltrp.data.ColorPalettePlayerOffer;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
@@ -33,9 +34,12 @@ public class MechanicAcceptCommands {
         } else {
             player.getOffers().remove(offer);
             offer.getOfferedBy().sendMessage(player.getCharName() + " priemë jûsø pasiûlymà perþiûrëti spalvø paletæ.");
-            ColorPicker.create(player, eventManager, color -> {
-                player.sendActionMessage("iðsirenka spalvà ið spalvø paletës, kurios kodas yra #" + color);
-            });
+            VehicleColorPicker.create(player, eventManager)
+                    .onSelectColor((pl, c) -> {
+                        player.sendActionMessage("iðsirenka spalvà ið spalvø paletës, kurios kodas yra #" + c);
+                    })
+                    .build()
+                    .show();
 
         }
         return true;

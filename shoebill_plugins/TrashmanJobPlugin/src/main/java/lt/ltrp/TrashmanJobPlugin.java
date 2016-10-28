@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.TrashmanCommands;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.TrashManJobDao;
@@ -13,7 +14,9 @@ import lt.ltrp.event.PlayerTrashMissionStartEvent;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.TrashManJob;
 import lt.ltrp.object.impl.PlayerTrashMission;
-import lt.ltrp.util.PlayerUtils;
+import lt.ltrp.object.impl.TrashManJobImpl;
+import lt.ltrp.player.util.PlayerUtils;
+import lt.ltrp.resource.DependentPlugin;
 import lt.ltrp.util.VehicleUtils;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.common.timers.TemporaryTimer;
@@ -45,7 +48,7 @@ import java.util.function.Consumer;
  * @author Bebras
  *         2016.05.24.
  */
-public class TrashmanJobPlugin extends Plugin {
+public class TrashmanJobPlugin extends DependentPlugin {
 
     private static final Animation ANIMATION_THROW_GARBAGE = new Animation("GRENADE", "WEAPON_THROWU", false, 400);
     private static final Animation ANIMATION_PICKUP_GARBAGE = new Animation("CARRY", "liftup05", false, 500);
@@ -98,39 +101,24 @@ public class TrashmanJobPlugin extends Plugin {
         }
     };
 
+    public TrashmanJobPlugin() {
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(JobPlugin.class));
+    }
+
     @Override
     protected void onEnable() {
+        super.onEnable();
         this.playerTrashMissions = new HashMap<>();
         eventManager = getEventManager().createChildNode();
         logger = getLogger();
-
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(JobPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManager.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
     }
 
-    public void load() {
+    @Override
+    public void onDependenciesLoaded() {
         eventManager.cancelAll();
-        trashManJobDao = new MySqlTrashManJobImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), null, eventManager);
-        this.trashManJob = trashManJobDao.get(JobPlugin.JobId.TrashMan.id);
+        trashManJobDao = new MySqlTrashManJobImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
+        this.trashManJob = new TrashManJobImpl(JobPlugin.JobId.TrashMan.id, eventManager);
 
         addCommands();
         addEventHandlers();
@@ -208,7 +196,8 @@ public class TrashmanJobPlugin extends Plugin {
     }
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         playerCommandManager.uninstallAllHandlers();
         playerTrashMissions.clear();
         playerTrashMissions = null;

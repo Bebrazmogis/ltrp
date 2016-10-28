@@ -1,8 +1,8 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.AbstractContractJob;
-import lt.ltrp.JobProperty;
-import lt.ltrp.object.MechanicJob;import net.gtaun.shoebill.data.Location;
+import lt.ltrp.constant.JobProperty;
+import lt.ltrp.object.MechanicJob;
+import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
 /**
@@ -23,15 +23,15 @@ public class MechanicJobImpl extends AbstractContractJob implements MechanicJob 
     @JobProperty("wheel_price")
     public int wheelPrice;
 
-    public MechanicJobImpl(int id, String name, Location location, int basePaycheck, EventManager eventManager, int contractLength, int maxPaycheck, int minPaycheck, int hydraulicsInstallPrice, int hydraulicRemovePrice, int wheelPrice) {
-        super(id, name, location, basePaycheck, eventManager, contractLength, maxPaycheck, minPaycheck);
+    public MechanicJobImpl(int id, String name, Location location, int basePaycheck, EventManager eventManager, int contractLength, int maxPaycheck, int hydraulicsInstallPrice, int hydraulicRemovePrice, int wheelPrice) {
+        super(id, name, location, basePaycheck, eventManager, contractLength, maxPaycheck);
         this.hydraulicsInstallPrice = hydraulicsInstallPrice;
         this.hydraulicRemovePrice = hydraulicRemovePrice;
         this.wheelPrice = wheelPrice;
     }
 
     public MechanicJobImpl(int id, EventManager eventManager) {
-        this(id, null, null, 0, eventManager, 0, 0, 0, 0, 0, 0);
+        this(id, null, null, 0, eventManager, 0, 0, 0, 0, 0);
     }
 
     public int getHydraulicsInstallPrice() {

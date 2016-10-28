@@ -1,10 +1,10 @@
 package lt.ltrp.command;
 
-import lt.ltrp.JobPlugin;
 import lt.ltrp.data.Color;
-import lt.ltrp.dialog.JobListDialog;
-import lt.ltrp.object.Job;
+import lt.ltrp.job.dialog.JobListDialog;
+import lt.ltrp.job.object.Job;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.job.PlayerJobController;
 import lt.ltrp.util.AdminLog;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -56,12 +56,14 @@ public class SetStatGroupCommands {
         LtrpPlayer player = LtrpPlayer.get(p);
         if(target == null)
             player.sendErrorMessage("Tokio þaidëjo nëra!");
+        else if(target.getJobData() == null)
+            player.sendErrorMessage(target.getName() + " neturi darbo.");
         else {
             JobListDialog.create(player, eventManager)
                     .onClickOk((d, i) -> {
                         Job job = (Job)i.getData();
-                        Job oldJob = JobPlugin.get(JobPlugin.class).getJob(target);
-                        JobPlugin.get(JobPlugin.class).setJob(target, job);
+                        Job oldJob = target.getJobData().getJob();
+                        PlayerJobController.Companion.getInstance().setJob(target, job);
                         player.sendMessage(Color.GREEN, target.getName() + " darbas sëkmingai pakeistas");
                         target.sendMessage(Color.GREEN, "Administratorius " + player.getName() + " pakeitë jûsø darbà á \"" + job.getName() + "\"");
                         AdminLog.log(player, target, "Changed players " + target.getUUID() + " job from " + oldJob + " to " + job.getUUID());

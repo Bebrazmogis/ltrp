@@ -1,12 +1,14 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.data.PlayerCrime;
+import lt.ltrp.player.fine.data.PlayerFine;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.PageListDialog;
 import net.gtaun.util.event.EventManager;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Bebras
@@ -14,20 +16,26 @@ import java.util.List;
  */
 public class CrimeListDialog extends PageListDialog {
 
-    private List<PlayerCrime> crimes;
+    private Collection<PlayerFine> crimes;
 
-    public CrimeListDialog(LtrpPlayer player, EventManager eventManager, List<PlayerCrime> crimes) {
+    public CrimeListDialog(LtrpPlayer player, EventManager eventManager, Collection<PlayerFine> crimes) {
         super(player, eventManager);
         this.crimes = crimes;
-        this.setCaption(crimes.get(0).getPlayerName() + " nusikaltimai. ");
+        Optional<PlayerFine> fine = crimes.stream().findFirst();
+        if(fine.isPresent()) {
+            this.setCaption(fine.get().getPlayer().getName() + " nusikaltimai. ");
+        }
+        else
+            setCaption("Nusikaltimai");
     }
 
     @Override
     public void show() {
         items.clear();
 
-        for(PlayerCrime crime : crimes) {
-            String crimetext = String.format("%s\t%s\t%s", crime.getPlayerName(), crime.getCrime(), crime.getReporterName());
+        for(PlayerFine crime : crimes) {
+            String crimetext = String.format("%s\t%s\t%s",
+                    crime.getPlayer().getName(), crime.getDescription(), crime.getIssuedBy().getName());
             if(crimetext.length() > 100) {
                 crimetext = crimetext.substring(0, 100).trim() + "...";
 

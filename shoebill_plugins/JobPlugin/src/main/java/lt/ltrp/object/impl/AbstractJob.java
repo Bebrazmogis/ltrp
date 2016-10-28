@@ -1,15 +1,22 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.JobController;
-import lt.ltrp.object.Job;
-import lt.ltrp.object.JobGate;
+import lt.ltrp.JobContainer;
+import lt.ltrp.job.object.Job;
+import lt.ltrp.job.object.JobGate;
+import lt.ltrp.job.object.JobRank;
+import lt.ltrp.job.object.JobVehicle;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Bebras
@@ -22,18 +29,21 @@ public abstract class AbstractJob extends NamedEntityImpl implements Job {
     private Location location;
     private int basePaycheck;
     private EventManager eventManager;
-    private List<JobGate> jobGates;
+    private Collection<JobGate> jobGates;
+    private Collection<JobVehicle> vehicles;
 
     public AbstractJob(int id, String name, Location location, int basePaycheck, EventManager eventManager) {
         super(id, name);
         this.location = location;
         this.basePaycheck = basePaycheck;
         this.eventManager = eventManager;
-        jobList.add(this);
+        this.jobGates = new ArrayList<>();
+        this.vehicles = new ArrayList<>();
+        JobContainer.INSTANCE.add(this);
     }
 
-    public AbstractJob(EventManager eventManager) {
-        this(0, null, null, 0, eventManager);
+    public AbstractJob(int uuid, EventManager eventManager) {
+        this(uuid, null, null, 0, eventManager);
     }
 
     protected EventManager getEventManager() {
@@ -42,27 +52,39 @@ public abstract class AbstractJob extends NamedEntityImpl implements Job {
 
     @Override
     protected void finalize() throws Throwable {
-        jobList.remove(this);
+        JobContainer.INSTANCE.remove(this);
         super.finalize();
     }
 
+    @NotNull
     @Override
-    public List<JobGate> getGates() {
+    public Collection<JobVehicle> getVehicles() {
+        return vehicles;
+    }
+
+    @NotNull
+    @Override
+    public Collection<JobGate> getGates() {
         return jobGates;
     }
 
+
+    @NotNull
     @Override
-    public void setGates(List<JobGate> gates) {
-        this.jobGates = gates;
+    public Collection<JobVehicle> getVehicles(@NotNull JobRank rank) {
+        Collection<JobVehicle> collection = new ArrayList<>();
+        vehicles.stream().filter(v -> v.getRequiredRank().equals(rank)).collect(Collectors.toCollection(() -> collection));
+        return collection;
     }
 
+    @NotNull
     @Override
     public Location getLocation() {
         return location;
     }
 
     @Override
-    public void setLocation(Location location) {
+    public void setLocation(@NotNull Location location) {
         this.location = location;
     }
 
@@ -77,12 +99,14 @@ public abstract class AbstractJob extends NamedEntityImpl implements Job {
     }
 
     @Override
-    public boolean isAtWork(LtrpPlayer player) {
+    public boolean isAtWork(@NotNull LtrpPlayer player) {
         return player.getLocation().distance(location) < 50.0f;
     }
 
     @Override
-    public void sendMessage(Color color, String s) {
-        LtrpPlayer.get().stream().filter(p -> this.equals(JobController.get().getJob(p))).forEach(p -> p.sendMessage(color, s));
+    public void sendMessage(@NotNull Color color, @NotNull String s) {
+        LtrpPlayer.get().stream()
+                .filter(p -> p.getJobData() != null && this.equals(p.getJobData().getJob()))
+                .forEach(p -> p.sendMessage(color, s));
     }
 }

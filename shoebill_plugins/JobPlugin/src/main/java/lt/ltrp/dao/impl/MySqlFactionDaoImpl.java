@@ -2,7 +2,6 @@ package lt.ltrp.dao.impl;
 
 import lt.ltrp.object.impl.FactionRankImpl;
 import lt.ltrp.LoadingException;
-import lt.ltrp.job.dao.FactionDao;
 import lt.ltrp.job.dao.JobVehicleDao;
 import lt.ltrp.job.object.Faction;
 import lt.ltrp.job.object.FactionRank;
@@ -20,6 +19,7 @@ import java.util.TreeSet;
  * @author Bebras
  *         2016.05.23.
  */
+/*
 public class MySqlFactionDaoImpl extends MySqlJobDaoImpl implements FactionDao {
 
 
@@ -117,4 +117,4 @@ public class MySqlFactionDaoImpl extends MySqlJobDaoImpl implements FactionDao {
     public void update(Faction faction) {
 
     }
-}
+}*/

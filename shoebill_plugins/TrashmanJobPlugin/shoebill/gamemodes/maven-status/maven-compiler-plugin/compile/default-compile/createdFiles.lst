@@ -1,0 +1,11 @@
+lt\ltrp\event\PlayerTrashMissionEndEvent.class
+lt\ltrp\object\impl\TrashManJobImpl.class
+lt\ltrp\object\TrashManJob.class
+lt\ltrp\data\TrashMission.class
+lt\ltrp\command\TrashmanCommands.class
+lt\ltrp\object\impl\PlayerTrashMission.class
+lt\ltrp\dao\impl\MySqlTrashManJobImpl.class
+lt\ltrp\event\PlayerTrashMissionStartEvent.class
+lt\ltrp\TrashmanJobPlugin.class
+lt\ltrp\dao\TrashManJobDao.class
+lt\ltrp\data\TrashMissions.class

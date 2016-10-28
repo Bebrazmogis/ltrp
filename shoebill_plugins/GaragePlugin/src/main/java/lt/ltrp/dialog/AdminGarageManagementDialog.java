@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeConstants;
 import lt.ltrp.event.property.garage.GarageCreateEvent;
 import lt.ltrp.object.Garage;
 import lt.ltrp.object.LtrpPlayer;
@@ -18,7 +18,7 @@ public class AdminGarageManagementDialog {
 
     public static ListDialog create(LtrpPlayer player, EventManager eventManager) {
         return ListDialog.create(player, eventManager)
-                .caption(LtrpGamemode.Name + " serverio garaşø valdymas")
+                .caption(LtrpGamemodeConstants.Name + " serverio garaşø valdymas")
                 .item(() -> {
                             Garage g = Garage.get(player);
                             return "{623E43}Naudoti dabartiná garaşà(ID: " + g.getUUID() + ")";

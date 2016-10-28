@@ -19,7 +19,7 @@ public class Skin {
 
     private static final int MAX_SKIN_ID = 311;
 
-    public boolean isValidSkin(int skinId) {
+    public static boolean isValidSkin(int skinId) {
         return skinId != 74 && skinId >= 0 && skinId <= MAX_SKIN_ID;
     }
 

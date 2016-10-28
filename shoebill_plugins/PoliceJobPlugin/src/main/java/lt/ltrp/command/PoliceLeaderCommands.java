@@ -3,7 +3,7 @@ package lt.ltrp.command;
 import lt.ltrp.JobPlugin;
 import lt.ltrp.PoliceJobPlugin;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerJobData;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PoliceFaction;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -26,9 +26,9 @@ public class PoliceLeaderCommands extends Commands {
     @BeforeCheck
     public boolean bc(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobPlugin.get(JobPlugin.class).getJobData(player);
+        PlayerJobData jobData = player.getJobData();
         if(jobData != null) {
-            if(jobData.getJob().equals(policePlugin) && policePlugin.getPoliceFaction().getLeaders().contains(player.getUUID()))
+            if(jobData.getJob().equals(policePlugin) && policePlugin.getPoliceFaction().getLeaders().contains(player))
                 return true;
         }
         return false;
@@ -45,12 +45,12 @@ public class PoliceLeaderCommands extends Commands {
     public boolean autTaser(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
         PoliceFaction faction = policePlugin.getPoliceFaction();
-        PlayerJobData playerJobData = JobPlugin.get(JobPlugin.class).getJobData(player);
-        faction.setTaserEanbled(!faction.isTaserEnabled());
+        PlayerJobData playerJobData = player.getJobData();
+        faction.setTaserEnabled(!faction.isTaserEnabled());
         if(faction.isTaserEnabled())
-            faction.sendMessage(Color.LIGHTRED, playerJobData.getJobRank().getName() + " ájungë tazerio naudojimà.");
+            faction.sendMessage(Color.LIGHTRED, playerJobData.getRank().getName() + " ájungë tazerio naudojimà.");
         else
-            faction.sendMessage(Color.LIGHTRED, playerJobData.getJobRank().getName() + " iðjungë tazerio naudojimà visiems darbuotjams.");
+            faction.sendMessage(Color.LIGHTRED, playerJobData.getRank().getName() + " iðjungë tazerio naudojimà visiems darbuotjams.");
         return true;
     }
 

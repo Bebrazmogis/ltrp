@@ -7,8 +7,10 @@ import lt.ltrp.`object`.Entity
 import lt.ltrp.`object`.PlayerData
 import lt.ltrp.constant.TalkStyle
 import lt.ltrp.constant.WalkStyle
+import lt.ltrp.player.job.data.PlayerJobData
 import java.time.LocalDateTime
 import net.gtaun.util.event.EventManager
+import java.lang.ref.WeakReference
 
 /**
  * Created by Bebras on 2016-10-06.
@@ -28,23 +30,28 @@ open class PlayerDataImpl(uuid: Int,
                        * If this is larger or equal to {@link lt.ltrp.PlayerController#MINUTES_FOR_PAYDAY} he will get payday
                        */
                         override var minutesOnlineSincePayday: Int,
-                        override var boxStyle: Int,
-                        override var sex: String,
-                        override var age: Int,
-                        override var origin: String,
-                        override var disease: Int,
-                        override var respect: Int,
-                        override var money: Int,
-                        override var deaths: Int,
-                        override var wantedLevel: Int,
-                        override var walkStyle: WalkStyle,
-                        override var talkStyle: TalkStyle,
-                        override var lastLogIn: LocalDateTime,
-                        override var hunger: Int,
-                        override var totalPaycheck: Int,
+                          override var boxStyle: Int,
+                          override var sex: String,
+                          override var age: Int,
+                          override var origin: String,
+                          override var disease: Int,
+                          override var respect: Int,
+                          override var money: Int,
+                          override var deaths: Int,
+                          override var wantedLevel: Int,
+                          override var walkStyle: WalkStyle,
+                          override var talkStyle: TalkStyle,
+                          override var lastLogIn: LocalDateTime,
+                          override var hunger: Int,
+                          override var totalPaycheck: Int,
+                          override var jobData: PlayerJobData?,
                           protected var eventManager: EventManager) : InventoryEntityImpl(uuid, name), PlayerData {
 
-    var isLoggedIn = false
+    override var isLoggedIn = false
+        get
+        set
+
+    override var isOnline = false
         get
         set
 
@@ -68,15 +75,28 @@ open class PlayerDataImpl(uuid: Int,
             data.lastLogIn,
             data.hunger,
             data.totalPaycheck,
+            data.jobData,
             (data as PlayerDataImpl).eventManager) {
 
     }
 
     init {
         this.inventory = Inventory.create(eventManager, this, name)
+        PlayerData.playerDataList.add(WeakReference(this))
     }
 
-    fun isValid(): Boolean {
+    override fun isValid(): Boolean {
         return UUID == Entity.INVALID_ID;
     }
+
+    override fun isAdmin(): Boolean {
+        return adminLevel > 0
+    }
+
+    override fun isMod(): Boolean {
+        return modLevel > 0
+    }
+
+
+
 }

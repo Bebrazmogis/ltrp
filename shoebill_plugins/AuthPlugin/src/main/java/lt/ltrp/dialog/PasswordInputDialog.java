@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeConstants;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.object.Player;
@@ -23,7 +23,7 @@ public class PasswordInputDialog extends InputDialog {
         this.addLine("{FFFFFF} Sveiki prisijungæ á {cca267}Lithuanian role-play (ltrp.lt){FFFFFF} serverá, dabar galite prisijungti");
         this.addLine("\n\n");
         this.addLine("Vartotojas: {cca267}" + player.getName());
-        this.addLine("{FFFFFF}  Skripto versija: {cca267} " + LtrpGamemode.Version + " {FFFFFF}, atnaujintas: {cca267} " + LtrpGamemode.BuildDate);
+        this.addLine("{FFFFFF}  Skripto versija: {cca267} " + LtrpGamemodeConstants.Version + " {FFFFFF}, atnaujintas: {cca267} " + LtrpGamemodeConstants.BuildDate);
         this.addLine("\n\n");
         this.addLine("{FFFFFF}Áveskite slaptaþodá:");
         this.setButtonOk("Jungtis");

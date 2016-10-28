@@ -1,9 +1,11 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.PlayerController;
+import lt.ltrp.PlayerPlugin;
 import lt.ltrp.PlayerVehiclePlugin;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.PlayerVehicle;
+import lt.ltrp.player.PlayerController;
+import lt.ltrp.player.dao.PlayerDao;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
@@ -20,13 +22,14 @@ import java.util.Collection;
  */
 public class VehicleUserManagementDialog {
 
+
     public static ListDialog create(LtrpPlayer player, EventManager eventManager, AbstractDialog parent, PlayerVehicle vehicle) {
         PlayerVehiclePlugin plugin = PlayerVehiclePlugin.get(PlayerVehiclePlugin.class);
         Collection< ListDialogItem > items = new ArrayList<>();
         vehicle.getPermissions().keySet().forEach(userId -> {
             if(userId != player.getUUID()) {
-                items.add(new ListDialogItem(LtrpPlayer.getPlayerDao().getUsername(userId), i -> {
-                    new VehicleUserPermissionDialog(player, eventManager, vehicle, userId, PlayerController.get().getPlayerDao().getUsername(userId))
+                items.add(new ListDialogItem(PlayerController.instance.getUsernameByUUID(userId), i -> {
+                    new VehicleUserPermissionDialog(player, eventManager, vehicle, userId, PlayerController.instance.getUsernameByUUID(userId))
                             .show();
                 }));
             }

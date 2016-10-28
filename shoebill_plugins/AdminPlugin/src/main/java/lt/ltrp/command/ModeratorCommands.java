@@ -10,6 +10,7 @@ import lt.ltrp.event.PlayerAcceptPlayerQuestion;
 import lt.ltrp.event.PlayerRejectPlayerQuestion;
 import lt.ltrp.event.player.PlayerToggleModDutyEvent;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.PlayerController;
 import lt.ltrp.util.AdminLog;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -166,7 +167,7 @@ public class ModeratorCommands {
         if(forumName == null)
             return false;
         player.setForumName(forumName);
-        PlayerPlugin.get(PlayerPlugin.class).getPlayerDao().update(player);
+        PlayerController.instance.update(player);
         LtrpPlayer.sendAdminMessage("Moderatorius/administratorius " + player.getName() + " pasikeitë forumo vardà á \"" + forumName + "\"");
         AdminLog.log(player, "Changed forum name to " + forumName);
         return true;

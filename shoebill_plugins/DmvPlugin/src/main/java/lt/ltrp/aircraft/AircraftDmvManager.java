@@ -4,12 +4,12 @@ import lt.ltrp.AbstractDmvManager;
 import lt.ltrp.DmvController;
 import lt.ltrp.InitException;
 import lt.ltrp.LoadingException;
-import lt.ltrp.constant.LicenseType;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerLicense;
 import lt.ltrp.dialog.FlyingTestEndMsgDialog;
 import lt.ltrp.event.PlayerFlyingTestEnd;
 import lt.ltrp.object.*;
+import lt.ltrp.player.licenses.PlayerLicenseController;
+import lt.ltrp.player.licenses.constant.LicenseType;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
@@ -76,13 +76,7 @@ public class AircraftDmvManager extends AbstractDmvManager {
 
         getEventManagerNode().registerHandler(PlayerFlyingTestEnd.class, e -> {
             if(e.getTest().isPassed()) {
-                PlayerLicense license = new PlayerLicense();
-                license.setType(LicenseType.Aircraft);
-                license.setPlayer(e.getPlayer());
-                license.setDateAquired(new Timestamp(new Date().getTime()));
-                license.setStage(1);
-                LtrpPlayer.getPlayerDao().insertLicense(license);
-                e.getPlayer().getLicenses().add(license);
+                PlayerLicenseController.instance.insert(e.getPlayer(), LicenseType.Aircraft, 1);
             }
             FlyingTestEndMsgDialog.create(e.getPlayer(), getEventManagerNode(), e.getTest())
                     .show();

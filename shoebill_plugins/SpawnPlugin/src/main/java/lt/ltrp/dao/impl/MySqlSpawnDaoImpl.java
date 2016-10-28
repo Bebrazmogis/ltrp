@@ -1,7 +1,7 @@
 package lt.ltrp.dao.impl;
 
 import lt.ltrp.dao.SpawnDao;
-import lt.ltrp.data.SpawnData;
+import lt.ltrp.spawn.data.SpawnData;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.WeaponData;

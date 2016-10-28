@@ -6,7 +6,7 @@ import lt.ltrp.object.Inventory;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageEnabler;
 import lt.ltrp.util.ItemUsageOption;
-import lt.ltrp.util.PlayerUtils;
+import lt.ltrp.player.util.PlayerUtils;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.object.PlayerAttach;

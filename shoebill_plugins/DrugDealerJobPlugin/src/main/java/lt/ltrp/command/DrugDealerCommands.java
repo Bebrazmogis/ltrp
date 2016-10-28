@@ -1,8 +1,8 @@
 package lt.ltrp.command;
 
-import lt.ltrp.JobController;
+import lt.ltrp.job.JobController;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.JobData;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.event.item.ItemCreateEvent;
 import lt.ltrp.object.DrugDealerJob;
 import lt.ltrp.object.LtrpPlayer;
@@ -34,8 +34,7 @@ public class DrugDealerCommands extends Commands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        JobData jobData = JobController.get().getJobData(player);
-        if(jobData.getJob().equals(job)) {
+        if(player.getJobData() != null && player.getJobData().getJob().equals(job)) {
             return true;
         } else {
             return false;

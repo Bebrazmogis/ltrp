@@ -2,8 +2,9 @@ package lt.ltrp.dao.impl;
 
 import lt.ltrp.dao.EntranceDao;
 import lt.ltrp.data.Color;
+import lt.ltrp.job.JobController;
 import lt.ltrp.object.Entrance;
-import lt.ltrp.object.Job;
+import lt.ltrp.job.object.Job;
 import lt.ltrp.object.impl.EntranceImpl;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.util.event.EventManager;
@@ -146,7 +147,7 @@ public class MySqlEntranceDaoImpl implements EntranceDao {
         int jobId = r.getInt("job_id");
         Job job = null;
         if(!r.wasNull())
-            job = Job.get(jobId);
+            job = JobController.Companion.getInstance().get(jobId);
         en = new EntranceImpl(r.getInt("id"), new Color(r.getInt("label_color")),
                 r.getInt("pickup_model"),
                 r.getString("name"),

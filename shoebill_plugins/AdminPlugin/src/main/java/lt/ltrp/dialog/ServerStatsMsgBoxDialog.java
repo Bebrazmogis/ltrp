@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.LtrpGamemode;
+import lt.ltrp.LtrpGamemodeConstants;
 import lt.ltrp.object.LtrpPlayer;
 import lt.maze.streamer.StreamerPlugin;
 import lt.maze.streamer.constant.StreamerType;
@@ -18,9 +18,9 @@ public class ServerStatsMsgBoxDialog {
 
     public static MsgboxDialog create(LtrpPlayer player, EventManager eventManager) {
         return MsgboxDialog.create(player, eventManager)
-                .caption(LtrpGamemode.Name + " statistika")
+                .caption(LtrpGamemodeConstants.Name + " statistika")
                 .buttonOk("Gerai")
-                .line("Serverio versija: " + LtrpGamemode.Version)
+                .line("Serverio versija: " + LtrpGamemodeConstants.Version)
                 .line("Pickup skaièius: " + StreamerPlugin.getInstance().countItems(StreamerType.Pickup))
                 .line("Objektø skaièius:" + StreamerPlugin.getInstance().countItems(StreamerType.Object))
                 .line("Area skaièius: "+ StreamerPlugin.getInstance().countItems(StreamerType.Area))

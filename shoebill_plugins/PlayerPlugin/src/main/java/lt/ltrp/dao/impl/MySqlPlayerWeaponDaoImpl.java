@@ -1,8 +1,8 @@
 package lt.ltrp.dao.impl;
 
-import lt.ltrp.dao.PlayerWeaponDao;
 import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.dao.PlayerWeaponDao;
 import net.gtaun.shoebill.constant.WeaponModel;
 
 import javax.sql.DataSource;

@@ -1,9 +1,9 @@
 package lt.ltrp.command;
 
-import lt.ltrp.JobController;
+import lt.ltrp.job.JobController;
 import lt.ltrp.TrashmanJobPlugin;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerJobData;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.data.TrashMission;
 import lt.ltrp.data.TrashMissions;
 import lt.ltrp.object.LtrpPlayer;
@@ -33,9 +33,10 @@ public class TrashmanCommands extends Commands {
 
 
     @BeforeCheck
-    public boolean beforeCheck(LtrpPlayer player, String cmd, String params) {
-        PlayerJobData jobData = JobController.get().getJobData(player);
-        if(!jobData.getJob().equals(trashPlugin.getJob())) {
+    public boolean beforeCheck(Player p, String cmd, String params) {
+        LtrpPlayer player = LtrpPlayer.get(p);
+        PlayerJobData jobData = player.getJobData();
+        if(jobData != null && !jobData.getJob().equals(trashPlugin.getJob())) {
             player.sendErrorMessage("Ði komanda skirtai tik dirbantiems ðiukðliø iðveþëjais.");
             return false;
         } else {

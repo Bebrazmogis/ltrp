@@ -1,0 +1,6 @@
+lt\ltrp\object\impl\AbstractProperty.class
+lt\ltrp\object\impl\InventoryPropertyImpl.class
+lt\ltrp\dao\impl\MySqlPropertyDaoImpl.class
+lt\ltrp\PropertyPlugin.class
+lt\ltrp\command\PropertyAcceptCommands.class
+lt\ltrp\command\PropertyCommands.class

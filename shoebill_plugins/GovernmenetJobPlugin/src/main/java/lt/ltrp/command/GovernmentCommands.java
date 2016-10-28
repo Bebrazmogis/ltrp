@@ -3,7 +3,7 @@ package lt.ltrp.command;
 import lt.ltrp.*;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.PlayerJobData;
+import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.util.AdminLog;
 import net.gtaun.shoebill.common.command.BeforeCheck;
@@ -23,8 +23,7 @@ public class GovernmentCommands extends Commands {
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerJobData jobData = JobPlugin.get(JobPlugin.class).getJobData(player);
-        if(jobData != null && jobData.getJob().equals(GovernmentJobPlugin.get(GovernmentJobPlugin.class).getGovernmentFaction())) {
+        if(player.getJobData() != null && player.getJobData().getJob().equals(GovernmentJobPlugin.get(GovernmentJobPlugin.class).getGovernmentFaction())) {
             return true;
         }
         return false;
@@ -44,7 +43,7 @@ public class GovernmentCommands extends Commands {
         return true;
     }
 
-
+ // TODO THIS DOES NOT WORK
     @Command
     @CommandHelp("Paima tam tikrà pinigø sumà ið biudþeto")
     public boolean takeMoney(Player p,
@@ -68,7 +67,7 @@ public class GovernmentCommands extends Commands {
         else {
             player.giveMoney(amount);
             LtrpWorld.get().addMoney(-amount);
-            LtrpGamemodeImpl.getGamemode(LtrpGamemodeImpl.class).getDao().save(LtrpWorld.get());
+            //LtrpGamemodeImpl.getGamemode(LtrpGamemodeImpl.class).getDao().save(LtrpWorld.get());
             LtrpPlayer.sendAdminMessage(String.format("Miesto meras %s(%d) paëmë %d ið biudþeto, tai autorizavæs administratorius %s.",
                     player.getName(), player.getId(), amount, admin.getName()));
             AdminLog.log(admin, "Leido paimti " + amount + " ið miesto biudþeto merui " + player.getUUID());

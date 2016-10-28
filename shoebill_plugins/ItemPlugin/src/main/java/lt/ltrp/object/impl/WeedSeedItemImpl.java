@@ -2,8 +2,10 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
-import lt.ltrp.data.HouseWeedSapling;
-import lt.ltrp.event.property.PlayerPlantWeedEvent;
+import lt.ltrp.house.weed.HouseWeedController;
+import lt.ltrp.house.weed.event.PlayerPlantWeedEvent;
+import lt.ltrp.house.object.House;
+import lt.ltrp.house.weed.object.HouseWeedSapling;
 import lt.ltrp.object.*;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.shoebill.data.Location;
@@ -34,7 +36,7 @@ public class WeedSeedItemImpl extends BasicItem implements WeedSeedItem {
             if(house.getOwner() == player.getUUID()) {
                 Location location = player.getLocation();
                 location.setZ(location.getZ()-1.1f);
-                HouseWeedSapling sapling = new HouseWeedSapling(location, house, player.getUUID(), getEventManager());
+                HouseWeedSapling sapling = HouseWeedController.instance.createWeed(house, location, player);
                 sapling.startGrowth();
                 house.getWeedSaplings().add(sapling);
                 getEventManager().dispatchEvent(new PlayerPlantWeedEvent(player, house, sapling));

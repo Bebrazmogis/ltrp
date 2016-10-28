@@ -1,6 +1,7 @@
 package lt.ltrp.object;
 
 import lt.ltrp.data.TrashMissions;
+import lt.ltrp.job.object.ContractJob;
 import net.gtaun.shoebill.data.Location;
 
 /**
@@ -8,14 +9,6 @@ import net.gtaun.shoebill.data.Location;
  *         2016.04.14.
  */
 public interface TrashManJob extends ContractJob {
-
-    class Instance {
-        static TrashManJob instance;
-    }
-
-    static TrashManJob get() {
-        return Instance.instance;
-    }
 
     int getTrashMasterCapacity();
     int getTrashRouteBonus();

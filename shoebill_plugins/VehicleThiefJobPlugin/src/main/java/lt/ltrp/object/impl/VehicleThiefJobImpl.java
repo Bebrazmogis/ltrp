@@ -1,11 +1,20 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.AbstractContractJob;
 import lt.ltrp.data.NamedLocation;
-import lt.ltrp.object.LtrpVehicle;import lt.ltrp.object.PlayerVehicle;import lt.ltrp.object.VehicleThiefJob;import net.gtaun.shoebill.data.Location;
+import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.object.PlayerVehicle;
+import lt.ltrp.object.VehicleThiefJob;
+import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
-import java.lang.Integer;import java.lang.String;import java.lang.System;import java.util.*;import java.util.ArrayList;import java.util.HashMap;import java.util.List;import java.util.Map;import java.util.Random;
+import java.lang.Integer;
+import java.lang.String;
+import java.lang.System;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * @author Bebras
@@ -20,11 +29,11 @@ public class VehicleThiefJobImpl extends AbstractContractJob implements VehicleT
 
 
     public VehicleThiefJobImpl(int id, EventManager eventManager) {
-        this(id, null, null, 0, eventManager, 0, 0, 0);
+        this(id, null, null, 0, eventManager, 0, 0);
     }
 
-    public VehicleThiefJobImpl(int id, String name, Location location, int basePaycheck, EventManager eventManager, int contractLength, int maxPaycheck, int minPaycheck) {
-        super(id, name, location, basePaycheck, eventManager, contractLength, maxPaycheck, minPaycheck);
+    public VehicleThiefJobImpl(int id, String name, Location location, int basePaycheck, EventManager eventManager, int contractLength, int maxPaycheck) {
+        super(id, name, location, basePaycheck, eventManager, contractLength, maxPaycheck);
         this.vehicleBuyPoints = new HashMap<>();
         this.random = new Random();
     }

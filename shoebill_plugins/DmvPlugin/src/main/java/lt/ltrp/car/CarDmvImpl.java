@@ -2,10 +2,10 @@ package lt.ltrp.car;
 
 
 import lt.ltrp.QuestionTestImpl;
-import lt.ltrp.constant.LicenseType;
 import lt.ltrp.data.dmv.DmvCheckpoint;
 import lt.ltrp.data.dmv.DmvQuestion;
 import lt.ltrp.object.*;
+import lt.ltrp.player.licenses.constant.LicenseType;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 

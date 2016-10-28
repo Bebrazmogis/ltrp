@@ -14,7 +14,7 @@ import lt.ltrp.event.PlayerStartGraffitiPaintingEvent;
 import lt.ltrp.object.Graffiti;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.GraffitiImpl;
-import lt.ltrp.util.PlayerUtils;
+import lt.ltrp.player.util.PlayerUtils;
 import lt.maze.streamer.StreamerPlugin;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;

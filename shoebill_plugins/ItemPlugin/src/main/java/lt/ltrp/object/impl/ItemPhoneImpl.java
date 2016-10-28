@@ -1,6 +1,7 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.ItemController;
+import lt.ltrp.ItemPlugin;
+import lt.ltrp.item.ItemController;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.data.Color;
@@ -100,7 +101,7 @@ public class ItemPhoneImpl extends BasicItem implements ItemPhone {
 
     @ItemUsageOption(name = "Perþiûrëti gautas SMS")
     public boolean showSmsInbox(LtrpPlayer player, Inventory inventory) {
-        PhoneDao phoneDao = ItemController.get().getPhoneDao();
+        PhoneDao phoneDao = ItemPlugin.get(ItemPlugin.class).getPhoneDao();
         if(phoneDao != null) {
             PhoneSms[] sms = phoneDao.getSmsByRecipient(this.phonenumber);
             showSmsManagement(player, sms, inventory);
@@ -111,7 +112,7 @@ public class ItemPhoneImpl extends BasicItem implements ItemPhone {
 
     @ItemUsageOption(name = "Perþiûrëti iðsiøstas SMS")
     public boolean showSmsOutbox(LtrpPlayer player, Inventory inventory) {
-        PhoneDao phoneDao = ItemController.get().getPhoneDao();
+        PhoneDao phoneDao = ItemPlugin.get(ItemPlugin.class).getPhoneDao();
         if(phoneDao != null) {
             PhoneSms[] sms = phoneDao.getSmsBySender(this.phonenumber);
             showSmsManagement(player, sms, inventory);
@@ -134,7 +135,7 @@ public class ItemPhoneImpl extends BasicItem implements ItemPhone {
         });
 
         dialog.setDeleteHandler((d, contact) -> {
-            ItemController.get().getPhoneDao().remove(contact);
+            ItemPlugin.get(ItemPlugin.class).getPhoneDao().remove(contact);
             phonebook.remove(contact);
             player.sendMessage(Color.NEWS, "Kontaktas " + contact.getName() + " paðalintas");
         });
