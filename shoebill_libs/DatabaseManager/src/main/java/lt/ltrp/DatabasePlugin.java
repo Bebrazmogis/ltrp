@@ -3,7 +3,6 @@ package lt.ltrp;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import net.gtaun.shoebill.resource.Plugin;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -31,7 +30,7 @@ public class DatabasePlugin extends Plugin {
 
     @Override
     protected void onEnable() throws Throwable {
-        Logger logger = LoggerFactory.getLogger(getClass());
+        Logger logger = getLogger();
         logger.debug("onEnable");
         dataSource = new ComboPooledDataSource();
         try {
