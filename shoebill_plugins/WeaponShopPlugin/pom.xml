@@ -8,7 +8,7 @@
         <artifactId>gamemode</artifactId>
         <groupId>lt.ltrp</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../shoebill_gamemode/pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>weapon-shop</artifactId>
     <version>1.0-SNAPSHOT</version>
