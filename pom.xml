@@ -15,11 +15,9 @@
         <module>shoebill_plugins/PlayerPlugin</module>
         <module>shoebill_plugins/AdminPlugin</module>
         <module>shoebill_plugins/BusinessPlugin</module>
-        <module>shoebill_plugins/DatabaseManager</module>
         <module>shoebill_plugins/DmvPlugin</module>
         <module>shoebill_plugins/DrugDealerJobPlugin</module>
         <module>shoebill_plugins/EntrancePlugin</module>
-        <module>shoebill_plugins/FaderPlugin</module>
         <module>shoebill_plugins/GaragePlugin</module>
         <module>shoebill_plugins/GovernmenetJobPlugin</module>
         <module>shoebill_plugins/GraffitiPlugin</module>
@@ -180,6 +178,18 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>ltrp-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Kotlin  -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
 
     </dependencies>
 
