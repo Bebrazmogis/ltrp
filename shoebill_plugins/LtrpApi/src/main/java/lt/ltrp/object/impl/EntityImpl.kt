@@ -14,5 +14,11 @@ abstract class EntityImpl(uuid: Int):  Entity {
 
     }
 
+    override fun equals(other: Any?): Boolean {
+        return other != null && other is Entity && other.UUID == UUID
+    }
 
+    override fun hashCode(): Int {
+        return UUID
+    }
 }
