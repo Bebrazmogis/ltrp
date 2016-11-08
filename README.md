@@ -1,10 +1,13 @@
 # LTRP
 
+### Modifikacija neveikia
+
 Neužbaigtoji Lietuviško GTA San Andreas projekto [LT-RP.LT](http://lt-rp.lt) modifikacija
 
 
-* Modifikacija nesikompiliuoja
-* Kodas parašytas su Java
+
+* ~Modifikacija nesikompiliuoja~
+* Kodas parašytas su Java ir Kotlin kalbų mišiniu
 * Minimali Java versija 1.8
 * Naudojamas package manager: Maven
 
