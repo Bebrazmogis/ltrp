@@ -39,7 +39,7 @@
                <artifactId>maven-jar-plugin</artifactId>
                <version>2.3.1</version>
                <configuration>
-                   <outputDirectory>${project.basedir}/shoebill/out/</outputDirectory>
+                   <outputDirectory>${project.basedir}/../../shoebill/plugins/</outputDirectory>
                </configuration>
            </plugin>
            <plugin>
