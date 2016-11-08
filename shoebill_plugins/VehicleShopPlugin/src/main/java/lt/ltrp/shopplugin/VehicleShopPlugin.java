@@ -1,6 +1,8 @@
 package lt.ltrp.shopplugin;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.DatabasePlugin;
+import lt.ltrp.resource.DependentPlugin;
 import lt.ltrp.shopplugin.dao.MySqlVehicleShopDao;
 import lt.ltrp.shopplugin.dao.MySqlVehicleShopVehicleDao;
 import lt.ltrp.shopplugin.dao.VehicleShopDao;
@@ -21,7 +23,7 @@ import java.sql.Statement;
  * @author Bebras
  *         2016.03.15.
  */
-public class VehicleShopPlugin extends Plugin {
+public class VehicleShopPlugin extends DependentPlugin {
 
     private static final String[] SQL_FILES = new String[] {
             "vehicle_shop.sql",
@@ -31,22 +33,18 @@ public class VehicleShopPlugin extends Plugin {
 
     private VehicleShopManager shopManager;
 
-
-    @Override
-    protected void onEnable() throws Throwable {
-        logger = getLogger();
-
-        DatabasePlugin db = Plugin.get(DatabasePlugin.class);
-        if(db.getDataSource() != null) {
-            load(db);
-        } else {
-            getEventManager().registerHandler(ResourceLoadEvent.class, e -> {
-                load((DatabasePlugin)e.getResource());
-            });
-        }
+    public VehicleShopPlugin() {
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
     }
 
-    private void load(DatabasePlugin db) {
+    @Override
+    protected void onEnable()  {
+        logger = getLogger();
+    }
+
+    @Override
+    public void onDependenciesLoaded() {
+        DatabasePlugin db = DatabasePlugin.get(DatabasePlugin.class);
         parseTables(db.getDataSource());
         VehicleShopDao vehicleShopDao = new MySqlVehicleShopDao(db.getDataSource());
         VehicleShopVehicleDao vehicleShopVehicleDao = new MySqlVehicleShopVehicleDao(db.getDataSource());
@@ -59,7 +57,7 @@ public class VehicleShopPlugin extends Plugin {
 
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
         shopManager.destroy();
         shopManager = null;
     }
