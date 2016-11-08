@@ -142,6 +142,11 @@ public class BusinessImpl extends AbstractProperty implements Business {
     }
 
     @Override
+    public void addResources() {
+        resources += 50;
+    }
+
+    @Override
     public int getEntrancePrice() {
         return entrancePrice;
     }
