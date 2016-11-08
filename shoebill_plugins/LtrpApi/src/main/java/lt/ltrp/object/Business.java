@@ -94,6 +94,14 @@ public interface Business extends Property {
      */
     int getResources();
     void setResources(int amount);
+
+    /**
+     * Should be called when a trucker updates sells a trucker commodity to this business
+     * The business itself decides on how many resources to add to the resource count
+     * Also checks whether it already got enough
+     */
+    void addResources();
+
     int getEntrancePrice();
     void setEntrancePrice(int entrancePrice);
     int getResourcePrice();
