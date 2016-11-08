@@ -46,8 +46,11 @@ class HouseUpgradePlugin: DependentPlugin() {
     }
 
     override fun onDisable() {
+        // Otherwise nothing was created and the controller is null
+        if(isDependenciesLoaded) {
+            HouseController.get().all.forEach { it.upgrades.clear() }
+        }
         eventManager.cancelAll()
-        HouseController.get().all.forEach { it.upgrades.clear() }
         playerCommandManager.destroy()
     }
 

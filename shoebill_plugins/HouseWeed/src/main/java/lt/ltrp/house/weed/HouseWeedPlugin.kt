@@ -49,11 +49,13 @@ class HouseWeedPlugin: DependentPlugin() {
     }
 
     override fun onDisable() {
-        eventManager.destroy()
-        HouseController.get().all.forEach {
-            it.weedSaplings.forEach { it.destroy() }
-            it.weedSaplings.clear()
+        if(isDependenciesLoaded) {
+            HouseController.get().all.forEach {
+                it.weedSaplings.forEach { it.destroy() }
+                it.weedSaplings.clear()
+            }
         }
+        eventManager.destroy()
         playerCommandManager.destroy()
     }
 
