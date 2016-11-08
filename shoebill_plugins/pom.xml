@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>lt.ltrp</groupId>
+    <artifactId>runtime</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <!-- <module>shoebill_plugins/LtrpApi</module> -->
+        <!-- <module>shoebill_gamemode</module> -->
+        <module>AdminPlugin</module>
+        <module>AdvertPlugin</module>
+        <module>AntiDriveByPlugin</module>
+        <module>AuthPlugin</module>
+        <module>BusinessPlugin</module>
+        <module>ConnectionLogPlugin</module>
+        <module>DmvPlugin</module>
+        <module>DrugDealerJobPlugin</module>
+        <module>EntrancePlugin</module>
+        <module>GaragePlugin</module>
+        <module>GovernmenetJobPlugin</module>
+        <module>GraffitiPlugin</module>
+        <module>house-rent</module>
+        <module>house-upgrade</module>
+        <module>HousePlugin</module>
+        <module>HouseWeed</module>
+        <module>ItemPlugin</module>
+
+        <module>JobPlugin</module>
+        <module>LtrpBank</module>
+        <module>MechanicJobPlugin</module>
+        <module>MedicJobPlugin</module>
+        <module>PenaltyPlugin</module>
+        <module>player-fine</module>
+        <module>player-job</module>
+        <module>player-settings</module>
+        <module>PlayerAfkPlugin</module>
+        <module>PlayerLicense</module>
+        <module>PlayerPlugin</module>
+        <module>PlayerVehiclePlugin</module>
+        <module>PoliceJobPlugin</module>
+        <module>PropertyPlugin</module>
+        <module>RadioPlugin</module>
+        <module>SpawnPlugin</module>
+        <module>TrashmanJobPlugin</module>
+        <module>TruckerJobPlugin</module>
+        <module>VehicleFuelPlugin</module>
+        <module>VehiclePlugin</module>
+        <module>VehicleShopPlugin</module>
+        <module>VehicleThiefJobPlugin</module>
+        <module>WeaponDropPlugin</module>
+        <module>WeaponShopPlugin</module>
+    </modules>
+
+
+    <name>Ltrp</name>
+    <url>https://lt-rp.lt</url>
+
+    <properties>
+        <kotlin.version>1.0.4</kotlin.version>
+        <project.build.sourceEncoding>Cp1257</project.build.sourceEncoding>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>gtaun-public-repo</id>
+            <name>GTAUN Public Repository</name>
+            <url>http://repo.gtaun.net/content/groups/public</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.gtaun</groupId>
+            <artifactId>shoebill-api</artifactId>
+            <version>2.0-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.gtaun</groupId>
+            <artifactId>shoebill-common</artifactId>
+            <version>1.3-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.37</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.github.salomonbrys.kodein</groupId>
+            <artifactId>kodein</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <!-- Logging -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+        
+        <!-- My plugins and stuff -->
+
+        <!-- <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>bank</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+-->
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>database</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>npc-manager</artifactId>
+            <version>1.0-SNAPSHOT</version>
+
+        </dependency>
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>audio</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>streamer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>ysf</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>fader</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>dialog</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>injector</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lt.maze</groupId>
+            <artifactId>mapandreas</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>lt.ltrp</groupId>
+            <artifactId>ltrp-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Kotlin  -->
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <defaultGoal>clean install</defaultGoal>
+        <!-- <directory>${project.basedir}/shoebill/gamemodes</directory> -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <outputDirectory>${project.basedir}/../../shoebill/plugins/</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <source>src/main/java</source>
+                                <source>src/main/resources</source>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
