@@ -3,7 +3,6 @@ package lt.ltrp.trucker.dao.impl
 import lt.ltrp.trucker.`object`.Industry
 import lt.ltrp.trucker.`object`.IndustryProduction
 import lt.ltrp.trucker.constant.IndustryProductionCommodityType
-import lt.ltrp.trucker.dao.IndustryProductionCommodityDao
 import lt.ltrp.trucker.dao.IndustryProductionDao
 import java.sql.ResultSet
 import java.sql.SQLException
@@ -14,15 +13,15 @@ import javax.sql.DataSource
  * @author Bebras
 * 2016.06.19.
  */
-public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProductionCommodityDaoImpl): IndustryProductionDao {
+class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProductionMaterialDaoImpl): IndustryProductionDao {
 
     val dataSource = ds
-    override val industryProductionCommodityDao: IndustryProductionCommodityDao = comDao
+    override val industryProductionCommodityDao: MySqlIndustryProductionMaterialDaoImpl = comDao
 
 
     override fun get(industry: Industry): List<IndustryProduction> {
         val sql = "SELECT * FROM trucker_industry_productions WHERE industry_id = ?"
-        val con = dataSource.getConnection()
+        val con = dataSource.connection
         val stmt = con.prepareStatement(sql)
         val r: ResultSet = try {
             stmt.setInt(1, industry.UUID)
@@ -36,8 +35,8 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
         val productions = ArrayList<IndustryProduction>()
         while(r.next()) {
             val prod = IndustryProduction(r.getInt("id"), industry)
-            prod.producedCommodities.addAll(industryProductionCommodityDao.get(prod, IndustryProductionCommodityType.PRODUCT))
-            prod.requiredCommodities.addAll(industryProductionCommodityDao.get(prod, IndustryProductionCommodityType.MATERIAL))
+            prod.producedMaterials.addAll(industryProductionCommodityDao.get(prod, IndustryProductionCommodityType.PRODUCT))
+            prod.requiredMaterials.addAll(industryProductionCommodityDao.get(prod, IndustryProductionCommodityType.MATERIAL))
             productions.add(prod)
         }
         r.close()
@@ -46,12 +45,12 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
 
     override fun insert(industryProduction: IndustryProduction): Int {
         val sql = "INSERT INTO trucker_industry_productions (industry_id) VALUES (?)"
-        val con = dataSource.getConnection()
+        val con = dataSource.connection
         val stmt = con.prepareStatement(sql)
         val keys: ResultSet = try {
             stmt.setInt(1, industryProduction.industry.UUID)
             stmt.execute()
-            stmt.getGeneratedKeys()
+            stmt.generatedKeys
         } catch(e: SQLException) {
             throw e
         } finally {
@@ -62,7 +61,7 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
         if(keys.next()) uuid = keys.getInt(1)
         keys.close()
         industryProduction.commodities().forEach {
-            industryProductionCommodityDao.insert(industryProduction, it)
+            industryProductionCommodityDao.insert(it)
         }
         return uuid
     }
@@ -74,7 +73,6 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
         try {
             stmt.setInt(1, industryProduction.industry.UUID)
             stmt.execute()
-            stmt.getGeneratedKeys()
         } catch(e: SQLException) {
             throw e
         } finally {
@@ -82,7 +80,7 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
             stmt.close()
         }
         industryProduction.commodities().forEach {
-            industryProductionCommodityDao.update(industryProduction, it)
+            industryProductionCommodityDao.update(it)
         }
     }
 
@@ -93,7 +91,6 @@ public class MySqlProductionDaoImpl(ds: DataSource, comDao: MySqlIndustryProduct
         try {
             stmt.setInt(1, industryProduction.UUID)
             stmt.execute()
-            stmt.getGeneratedKeys()
         } catch(e: SQLException) {
             throw e
         } finally {

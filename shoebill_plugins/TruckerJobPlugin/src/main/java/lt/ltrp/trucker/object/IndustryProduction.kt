@@ -2,7 +2,7 @@ package lt.ltrp.trucker.`object`
 
 
 import lt.ltrp.`object`.impl.EntityImpl
-import lt.ltrp.trucker.data.IndustryProductionCommodity
+import lt.ltrp.trucker.data.IndustryProductionMaterial
 import java.util.ArrayList
 
 /**
@@ -10,39 +10,40 @@ import java.util.ArrayList
 * 2016.06.19.
 *
 *
-* This class represents a single production but it might required and/or produce multiple commodities
+* This class represents a single production but it might require and/or produce multiple commodities
  */
 class IndustryProduction(uuid: Int, industry: Industry): EntityImpl(uuid) {
 
     var industry = industry
         get
 
-     var requiredCommodities = ArrayList<IndustryProductionCommodity>()
+     var requiredMaterials = ArrayList<IndustryProductionMaterial>()
          get
          private set
 
-    var producedCommodities = ArrayList<IndustryProductionCommodity>()
+    var producedMaterials = ArrayList<IndustryProductionMaterial>()
         get
         private set
 
-    fun commodities(): List<IndustryProductionCommodity> {
-        val l = ArrayList<IndustryProductionCommodity>()
-        l.addAll(requiredCommodities)
-        l.addAll(producedCommodities)
+    fun commodities(): List<IndustryProductionMaterial> {
+        val l = ArrayList<IndustryProductionMaterial>()
+        l.addAll(requiredMaterials)
+        l.addAll(producedMaterials)
         return l
     }
 
     fun canProduce(): Boolean {
         var can: Boolean = true
-        requiredCommodities.forEach({
-            if(it.amount > industry.commodities.first { it.equals(it) }.currentStock)
+        requiredMaterials.forEach({ material ->
+            if(material.amount > industry.boughtStock.first { material.cargo == it.cargo }.currentStock)
                 can = false
         })
-        producedCommodities.forEach({
-            val com = industry.commodities.first{ it.equals(it) }
+        // If the industry can not handle more products, it shouldn't produce
+        producedMaterials.forEach({ material ->
+            val com = industry.soldStock.first{ material.cargo == it.cargo }
             val cStock: Int =  com.currentStock
             val maxStock = com.maxStock
-            if(it.amount + cStock > maxStock)
+            if(material.amount + cStock > maxStock)
                 can = false
         })
         return can

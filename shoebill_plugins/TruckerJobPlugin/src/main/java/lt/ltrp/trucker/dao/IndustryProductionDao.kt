@@ -9,7 +9,7 @@ import lt.ltrp.trucker.`object`.IndustryProduction
  */
 interface IndustryProductionDao {
 
-    val industryProductionCommodityDao: IndustryProductionCommodityDao
+    val industryProductionCommodityDao: IndustryProductionMaterialDao
 
     fun get(industry: Industry): List<IndustryProduction>
     fun insert(industryProduction: IndustryProduction): Int

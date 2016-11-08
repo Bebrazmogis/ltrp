@@ -1,10 +1,12 @@
 package lt.ltrp.trucker.dao.impl
 
 import lt.ltrp.trucker.`object`.Industry
-import lt.ltrp.trucker.dao.IndustryCommodityDao
+import lt.ltrp.trucker.constant.IndustryStockType
 import lt.ltrp.trucker.dao.IndustryDao
 import lt.ltrp.trucker.dao.IndustryProductionDao
+import lt.ltrp.trucker.dao.IndustryStockDao
 import net.gtaun.shoebill.data.Location
+import net.gtaun.util.event.EventManager
 import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
@@ -14,13 +16,14 @@ import javax.sql.DataSource
  * @author Bebras
 * 2016.06.19.
  */
-public class MySqlIndustryDaoImpl(ds: DataSource, productionDao: MySqlProductionDaoImpl,
-                                  industryCommodityDao: IndustryCommodityDao): IndustryDao {
+class MySqlIndustryDaoImpl(ds: DataSource, private val eventManager: EventManager,
+                           productionDao: MySqlProductionDaoImpl,
+                           industryStockDao: IndustryStockDao): IndustryDao {
 
 
-    override val industryProductionDao: IndustryProductionDao = productionDao
+    override val productionDao: IndustryProductionDao = productionDao
 
-    override val industryCommodityDao: IndustryCommodityDao = industryCommodityDao
+    override val stockDao = industryStockDao
 
     private val dataSource = ds
 
@@ -37,13 +40,13 @@ public class MySqlIndustryDaoImpl(ds: DataSource, productionDao: MySqlProduction
             con.close()
             stmt.close()
         }
-        val c = resultToIndustry(r)
+        val c = resultToIndustry(r, eventManager)
         r.close()
         return c
     }
 
     override fun get(): List<Industry> {
-        val sql = "SELECT * FROM trucker_commodities"
+        val sql = "SELECT * FROM trucker_industries"
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         val r: ResultSet = try {
@@ -56,14 +59,14 @@ public class MySqlIndustryDaoImpl(ds: DataSource, productionDao: MySqlProduction
         }
         val industries = ArrayList<Industry>()
         while(r.next()) {
-            industries.add(resultToIndustry(r))
+            industries.add(resultToIndustry(r, eventManager))
         }
         r.close()
         return industries
     }
 
     override fun getFull(): List<Industry> {
-        val sql = "SELECT * FROM trucker_commodities"
+        val sql = "SELECT * FROM trucker_industries"
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         val r: ResultSet = try {
@@ -76,9 +79,10 @@ public class MySqlIndustryDaoImpl(ds: DataSource, productionDao: MySqlProduction
         }
         val industries = ArrayList<Industry>()
         while(r.next()) {
-            val industry = resultToIndustry(r)
-            industry.productions.addAll(industryProductionDao.get(industry))
-            industry.commodities.addAll(industryCommodityDao.get(industry))
+            val industry = resultToIndustry(r, eventManager)
+            industry.productions.addAll(productionDao.get(industry))
+            industry.boughtStock.addAll(stockDao.get(industry, IndustryStockType.BOUGHT))
+            industry.soldStock.addAll(stockDao.get(industry, IndustryStockType.SOLD))
             industries.add(industry)
         }
         r.close()
@@ -148,14 +152,15 @@ public class MySqlIndustryDaoImpl(ds: DataSource, productionDao: MySqlProduction
         return uuid
     }
 
-    private fun resultToIndustry(r: ResultSet): Industry {
+    private fun resultToIndustry(r: ResultSet, eventManager: EventManager): Industry {
         return Industry(r.getInt("id"),
                 r.getString("name"),
                 Location(r.getFloat("x"),
                         r.getFloat("y"),
                         r.getFloat("z"),
                         r.getInt("interior_id"),
-                        r.getInt("world_id"))
+                        r.getInt("world_id")),
+                eventManager
                 )
     }
 

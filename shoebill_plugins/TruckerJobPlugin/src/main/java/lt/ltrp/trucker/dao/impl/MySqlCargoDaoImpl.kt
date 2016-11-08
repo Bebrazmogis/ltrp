@@ -1,7 +1,8 @@
 package lt.ltrp.trucker.dao.impl
 
-import lt.ltrp.trucker.dao.CommodityDao
-import lt.ltrp.trucker.data.Commodity
+import lt.ltrp.trucker.constant.TruckerCargoType
+import lt.ltrp.trucker.dao.CargoDao
+import lt.ltrp.trucker.data.Cargo
 import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
@@ -11,13 +12,13 @@ import javax.sql.DataSource
  * @author Bebras
 * 2016.06.19.
  */
-public class MySqlCommodityDaoImpl(ds: DataSource): CommodityDao {
+class MySqlCargoDaoImpl(ds: DataSource): CargoDao {
 
     private val dataSource = ds
 
 
-    override fun get(uuid: Int): Commodity? {
-        val sql = "SELECT * FROM trucker_commodities WHERE id = ?"
+    override fun get(uuid: Int): Cargo? {
+        val sql = "SELECT * FROM trucker_cargo WHERE id = ?"
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         val r: ResultSet = try {
@@ -34,8 +35,8 @@ public class MySqlCommodityDaoImpl(ds: DataSource): CommodityDao {
         return c
     }
 
-    override fun get(): List<Commodity> {
-        val sql = "SELECT * FROM trucker_commodities"
+    override fun get(): List<Cargo> {
+        val sql = "SELECT * FROM trucker_cargo"
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         val r: ResultSet = try {
@@ -46,20 +47,21 @@ public class MySqlCommodityDaoImpl(ds: DataSource): CommodityDao {
             con.close()
             stmt.close()
         }
-        val c = ArrayList<Commodity>()
+        val c = ArrayList<Cargo>()
         while(r.next())
             c.add( resultToCommodity(r))
         r.close()
         return c
     }
 
-    override fun update(commodity: Commodity) {
-        val sql = "UPDATE trucker_commodities SET name = ? WHERE id = ?"
+    override fun update(commodity: Cargo) {
+        val sql = "UPDATE trucker_cargo SET name = ?, type = ? WHERE id = ?"
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
             stmt.setString(1, commodity.name)
-            stmt.setInt(2, commodity.UUID)
+            stmt.setString(2, commodity.type.name)
+            stmt.setInt(3, commodity.UUID)
             stmt.execute()
         } catch(e: SQLException) {
             throw e
@@ -69,8 +71,8 @@ public class MySqlCommodityDaoImpl(ds: DataSource): CommodityDao {
         }
     }
 
-    override fun delete(commodity: Commodity) {
-        val sql = "DELETE FROM trucker_commodities WHERE id = ?"
+    override fun delete(commodity: Cargo) {
+        val sql = "DELETE FROM trucker_cargo WHERE id = ?"
         val con = dataSource.getConnection()
         val stmt = con.prepareStatement(sql)
         try {
@@ -84,14 +86,15 @@ public class MySqlCommodityDaoImpl(ds: DataSource): CommodityDao {
         }
     }
 
-    override fun insert(commodity: Commodity): Int {
-        val sql = "INSERT INTO trucker_commodities (name) VALUES (?)"
-        val con = dataSource.getConnection()
+    override fun insert(commodity: Cargo): Int {
+        val sql = "INSERT INTO trucker_cargo (name, type) VALUES (?, ?)"
+        val con = dataSource.connection
         val stmt = con.prepareStatement(sql)
         val keys: ResultSet = try {
             stmt.setString(1, commodity.name)
+            stmt.setString(2, commodity.type.name)
             stmt.execute()
-            stmt.getGeneratedKeys()
+            stmt.generatedKeys
         } catch(e: SQLException) {
             throw e
         } finally {
@@ -104,7 +107,7 @@ public class MySqlCommodityDaoImpl(ds: DataSource): CommodityDao {
         return uuid
     }
 
-    private fun resultToCommodity(r: ResultSet): Commodity {
-        return Commodity(r.getInt("id"), r.getString("name"))
+    internal fun resultToCommodity(r: ResultSet): Cargo {
+        return Cargo(r.getInt("id"), r.getString("name"), TruckerCargoType.valueOf(r.getString("type")))
     }
 }

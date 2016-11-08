@@ -1,27 +1,35 @@
 package lt.ltrp.trucker.`object`
 
 import lt.ltrp.`object`.impl.EntityImpl
-import lt.ltrp.trucker.constant.IndustryCommodityType
-import lt.ltrp.trucker.data.IndustryCommodity
+import lt.ltrp.trucker.data.Cargo
+import lt.ltrp.trucker.data.IndustryStock
+import lt.ltrp.trucker.dialog.IndustryBuyCommodityDialog
 import lt.maze.streamer.`object`.DynamicLabel
 import net.gtaun.shoebill.`object`.Destroyable
 import net.gtaun.shoebill.data.Color
 import net.gtaun.shoebill.data.Location
-import java.util.ArrayList
+import net.gtaun.util.event.EventManager
+import java.util.*
 
 /**
  * @author Bebras
 * 2016.06.19.
  */
-class Industry(id: Int, name: String, location: Location): EntityImpl(id), Destroyable {
+class Industry(id: Int, name: String, location: Location, private val eventManager: EventManager): EntityImpl(id), Destroyable {
 
     var name: String = name
         get
-        set
+        set(value) {
+            updateLabel()
+            field = value
+        }
 
     var location: Location = location
         get
-        set
+        set(value) {
+            updateLabel()
+            field = value
+        }
 
 
     var productions: ArrayList<IndustryProduction> = ArrayList<IndustryProduction>()
@@ -29,19 +37,20 @@ class Industry(id: Int, name: String, location: Location): EntityImpl(id), Destr
         private set
 
 
-    var commodities: ArrayList<IndustryCommodity> = ArrayList<IndustryCommodity>()
+    var boughtStock = mutableListOf<IndustryStock>()
+        get
+        private set
+
+    var soldStock = mutableListOf<IndustryStock>()
         get
         private set
 
     private var destroyed = false
-    private var label: DynamicLabel = DynamicLabel.create(getText(), Color.WHITE, location)
+    private var label: DynamicLabel = DynamicLabel.create(getLabelText(), Color.WHITE, location)
 
-    fun getSoldCommodities(): List<IndustryCommodity> {
-        return commodities.filter { it.type == IndustryCommodityType.SOLD }
-    }
 
-    fun getBoughtCommodities(): List<IndustryCommodity> {
-        return commodities.filter { it.type == IndustryCommodityType.BOUGHT }
+    fun isBuyingCommodity(c: Cargo): Boolean {
+        return boughtStock.map { it.cargo }.contains(c)
     }
 
     override fun destroy() {
@@ -53,7 +62,22 @@ class Industry(id: Int, name: String, location: Location): EntityImpl(id), Destr
         return destroyed
     }
 
-    fun getText(): String {
+    private fun getLabelText(): String {
         return name + "\n"
+    }
+
+    fun updateLabel() {
+        val text = getLabelText()
+        if(label.isValid && !label.isDestroyed) {
+            label.update(Color.WHITE, text)
+        } else {
+            label.destroy()
+            label = DynamicLabel.create(text, Color.WHITE, location)
+        }
+    }
+
+    fun showSoldCommodities(player: TruckerPlayer) {
+        IndustryBuyCommodityDialog.create(player, this, eventManager)
+                .show()
     }
 }
