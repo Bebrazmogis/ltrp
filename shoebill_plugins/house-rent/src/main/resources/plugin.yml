@@ -1,4 +1,4 @@
-class: lt.ltrp.house.rent..HouseRentPlugin
+class: lt.ltrp.house.rent.HouseRentPlugin
 name: House rent plugin
 version: 1.0-SNAPSHOT
 buildNumber: 0

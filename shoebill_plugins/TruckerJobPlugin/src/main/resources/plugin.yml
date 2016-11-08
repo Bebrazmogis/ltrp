@@ -1,0 +1,7 @@
+class: lt.ltrp.trucker.TruckerJobPlugin
+name: LTRP Trucker Job plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description:

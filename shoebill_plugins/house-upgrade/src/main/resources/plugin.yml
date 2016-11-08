@@ -1,0 +1,7 @@
+class: lt.ltrp.house.upgrade.HouseUpgradePlugin
+name: LTRP House Upgrade Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description:

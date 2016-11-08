@@ -1,0 +1,7 @@
+class: lt.ltrp.GraffitiPlugin
+name: LTRP Graffiti Plugin
+version: 1.0-SNAPSHOT
+buildNumber: 0
+buildDate: Unknown
+authors: Bebras
+description: Plugin provides ingame graffitis
