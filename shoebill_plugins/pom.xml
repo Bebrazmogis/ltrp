@@ -28,7 +28,8 @@
         <module>HousePlugin</module>
         <module>HouseWeed</module>
         <module>ItemPlugin</module>
-
+        <!-- For some reason compiles without being here -->
+        <!-- <module>job-vehicle</module> -->
         <module>JobPlugin</module>
         <module>LtrpBank</module>
         <module>MechanicJobPlugin</module>

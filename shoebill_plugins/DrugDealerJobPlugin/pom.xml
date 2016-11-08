@@ -12,11 +12,12 @@
     </dependencies>
 
     <parent>
-        <artifactId>gamemode</artifactId>
         <groupId>lt.ltrp</groupId>
+        <artifactId>runtime</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
-    </parent>    <artifactId>job-drugdealer</artifactId>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <artifactId>job-drugdealer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <build>
