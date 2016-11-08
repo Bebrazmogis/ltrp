@@ -181,6 +181,15 @@ public class LtrpVehicleImpl extends InventoryEntityImpl implements LtrpVehicle 
         return player.isPresent() ? player.get() : null;
     }
 
+    @Override
+    public LtrpVehicle getPullingVehicle() {
+        for (LtrpVehicle v : LtrpVehicle.get()) {
+            if (v.isTrailerAttached() && v.getTrailer().equals(this.vehicleObject))
+                return v;
+        }
+        return null;
+    }
+
     public VehicleRadio getRadio() {
         return radio;
     }
