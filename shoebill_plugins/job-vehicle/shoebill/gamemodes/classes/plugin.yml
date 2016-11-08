@@ -1,7 +1,0 @@
-class: lt.ltrp.job.vehicle.JobVehiclePlugin
-name: Job Vehicle Plugin
-version: 1.0-SNAPSHOT
-buildNumber: 0
-buildDate: Unknown
-authors: Bebras
-description: Job Vehicle manager plugin
