@@ -34,7 +34,7 @@ class PlayerSettingsPlugin: DependentPlugin() {
 
     override fun onDependenciesLoaded() {
         settingsDao = SqlPlayerSettingsDaoImpl(DatabasePlugin.get(DatabasePlugin::class.java).dataSource, eventManager)
-        settingsController = PlayerSettingsControllerImpl(settingsDao)
+        settingsController = PlayerSettingsControllerImpl(settingsDao, eventManager)
         registerEventListeners()
         registerCommands()
 
