@@ -70,4 +70,5 @@ public interface LtrpVehicle extends Vehicle, InventoryEntity {
     TaxiFare getTaxi();
     boolean isSeatWindowOpen(int seatId);
     LtrpPlayer getLastDriver();
+    LtrpVehicle getPullingVehicle();
 }
