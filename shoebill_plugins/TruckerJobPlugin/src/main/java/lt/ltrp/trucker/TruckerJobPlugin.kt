@@ -36,7 +36,7 @@ import java.util.*
 class TruckerJobPlugin: DependentPlugin(), BindingPlugin {
 
     private lateinit var eventManagerNode: EventManagerNode
-    private val playerCommandManager = PlayerCommandManager(eventManagerNode)
+    private lateinit var playerCommandManager: PlayerCommandManager
     private lateinit var truckerJobDao: TruckerJobDao
     lateinit var truckerJob: TruckerJob
         get
@@ -92,6 +92,7 @@ class TruckerJobPlugin: DependentPlugin(), BindingPlugin {
     }
 
     private fun registerCommands() {
+        playerCommandManager = PlayerCommandManager(eventManagerNode)
         playerCommandManager.registerCommands(GeneralTruckerCommands(this, eventManagerNode))
         playerCommandManager.registerChildGroup(TruckerCargoGroupCommands(truckerJob, eventManagerNode, truckerHolder, truckerVehicleHolder),
                 "cargo")
