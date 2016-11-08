@@ -1,4 +1,4 @@
-class: lt.ltrp.LtrpGamemode
+class: lt.ltrp.gamemode.LtrpGamemode
 name: LTRP
 version: 1.0-SNAPSHOT
 buildNumber: 0

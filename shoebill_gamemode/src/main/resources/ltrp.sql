@@ -683,3 +683,10 @@ CREATE TABLE IF NOT EXISTS businesses_commodities
   FOREIGN KEY (business_id) REFERENCES businesses(id) ON DELETE CASCADE,
   FOREIGN KEY (commodity_id) REFERENCES businesses_available_commodities(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+create table if not exists business_required_trucker_commodities (
+    business_type smallint not null,
+    commodity_id int not null,
+    primary key(business_type),
+    foreign key(commodity_id) references trucker_commodities(id) on delete cascade
+) engine=innodb default charset=utf8 collate=utf8_unicode_ci;

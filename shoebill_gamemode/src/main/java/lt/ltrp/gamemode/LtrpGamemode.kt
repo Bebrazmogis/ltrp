@@ -1,6 +1,5 @@
 package lt.ltrp.gamemode
 
-import com.github.salomonbrys.kodein.Kodein
 import net.gtaun.shoebill.resource.Gamemode
 import net.gtaun.shoebill.resource.ResourceManager
 
@@ -9,13 +8,13 @@ import net.gtaun.shoebill.resource.ResourceManager
  */
 class LtrpGamemode: Gamemode() {
 
-    lateinit var kodein: Kodein
 
     override fun onEnable() {
+        logger.info("Gamemode started")
     }
 
     override fun onDisable() {
-
+        logger.info("Gamemode disabled")
     }
 
 
