@@ -2,6 +2,7 @@ package lt.maze.mapandreas;
 
 
 import net.gtaun.shoebill.amx.AmxInstance;
+import net.gtaun.shoebill.data.Vector2D;
 import net.gtaun.shoebill.resource.Plugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,10 @@ public class MapAndreas extends Plugin {
     // native MapAndreas_FindZ_For2DCoord(Float:X, Float:Y, &Float:Z);
     public static float findZ(float x, float y) {
         return Functions.MapAndreas_FindZ_For2DCoord(x, y);
+    }
+
+    public static float findZ(Vector2D location) {
+        return findZ(location.x, location.y);
     }
 
     // native MapAndreas_FindAverageZ(Float:X, Float:Y, &Float:Z);
