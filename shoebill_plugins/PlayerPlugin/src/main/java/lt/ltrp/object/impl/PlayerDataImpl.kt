@@ -86,7 +86,7 @@ open class PlayerDataImpl(uuid: Int,
     }
 
     override fun isValid(): Boolean {
-        return UUID == Entity.INVALID_ID;
+        return UUID == Entity.INVALID_ID
     }
 
     override fun isAdmin(): Boolean {
@@ -97,6 +97,14 @@ open class PlayerDataImpl(uuid: Int,
         return modLevel > 0
     }
 
-
+    override fun toString(): String {
+        return super.toString() + "[uuid=" + UUID + ",name=" + name + ",level=" + level + ",adminLevel=" + adminLevel +
+                ",modLevel=" + modLevel + ",hoursOnline=" + hoursOnline + ",minutesOnlineSincePayday=" + minutesOnlineSincePayday +
+                ",boxStyle=" + boxStyle + ",sex=" + sex + ",age=" + age + ",origin=" + origin + ",disease=" + disease +
+                ",respect=" + respect + ",money=" + money + ",deaths=" + deaths + ",wantedLevel=" + wantedLevel + ",walkStyle=" + walkStyle +
+                ",talkStyle=" + talkStyle + ",lastLogIn=" + lastLogIn + ",hunger=" + hunger + ",totalPaycheck=" + totalPaycheck +
+                "jobData=" + jobData +
+                "]"
+    }
 
 }
