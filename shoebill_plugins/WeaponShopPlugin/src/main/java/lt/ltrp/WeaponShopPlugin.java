@@ -39,17 +39,13 @@ public class WeaponShopPlugin extends DependentPlugin {
         addDependency(new KClassImpl<>(DatabasePlugin.class));
     }
 
-    @Override
-    protected void onEnable() {
-        super.onEnable();
-        this.eventManagerNode = getEventManager().createChildNode();
-        logger = getLogger();
-        this.weaponShops = new ArrayList<>();
-    }
 
     @Override
     public void onDependenciesLoaded() {
-        eventManagerNode.cancelAll();
+        this.eventManagerNode = getEventManager().createChildNode();
+        logger = getLogger();
+        this.weaponShops = new ArrayList<>();
+
         DatabasePlugin db = ResourceManager.get().getPlugin(DatabasePlugin.class);
         this.weaponShopWeaponDao = new MySqlWeaponShopWeaponDaoImpl(db.getDataSource());
         this.weaponShopDao = new MySqlWeaponShopDaoImpl(db.getDataSource(), eventManagerNode);

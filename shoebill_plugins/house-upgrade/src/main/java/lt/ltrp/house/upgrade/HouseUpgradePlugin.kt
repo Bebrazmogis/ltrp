@@ -30,12 +30,8 @@ class HouseUpgradePlugin: DependentPlugin() {
     private lateinit var upgradeController: HouseUpgradeController
     private lateinit var playerCommandManager: PlayerCommandManager
 
-    override fun onEnable() {
-        super.onEnable()
-        eventManager = getEventManager().createChildNode()
-    }
-
     override fun onDependenciesLoaded() {
+        eventManager = getEventManager().createChildNode()
         upgradeDao = MySqlHouseUpgradeDaoImpl(DatabasePlugin.get(DatabasePlugin::class.java).dataSource)
         upgradeController = HouseUpgradeControllerImpl(upgradeDao)
 

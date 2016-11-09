@@ -35,15 +35,12 @@ public class GovernmentJobPlugin extends DependentPlugin {
         addDependency(new KClassImpl<>(JobPlugin.class));
     }
 
-    @Override
-    protected void onEnable() {
-        super.onEnable();
-        logger = getLogger();
-        eventManager = getEventManager().createChildNode();
-    }
 
     @Override
     public void onDependenciesLoaded() {
+        logger = getLogger();
+        eventManager = getEventManager().createChildNode();
+
         this.governmentDao= new MySqlGovernmentFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
         this.governmentFaction= new GovernmentFactionImpl(JobPlugin.JobId.Government.id, eventManager);
         addCommands();

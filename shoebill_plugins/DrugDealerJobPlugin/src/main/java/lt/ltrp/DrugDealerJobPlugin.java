@@ -36,15 +36,12 @@ public class DrugDealerJobPlugin extends DependentPlugin {
         addDependency(new KClassImpl<>(JobPlugin.class));
     }
 
-    @Override
-    protected void onEnable() {
-        super.onEnable();
-        logger = getLogger();
-        eventManager = getEventManager().createChildNode();
-    }
 
     @Override
     public void onDependenciesLoaded() {
+        logger = getLogger();
+        eventManager = getEventManager().createChildNode();
+
         drugDealerDao = new MySqlDrugDealerJobImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
         drugDealerJob = new DrugDealerJobImpl(JobPlugin.JobId.DrugDealer.id, eventManager);
 

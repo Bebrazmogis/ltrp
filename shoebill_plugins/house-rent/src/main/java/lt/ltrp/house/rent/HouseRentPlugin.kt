@@ -39,14 +39,13 @@ class HouseRentPlugin: DependentPlugin() {
     private lateinit var houseTenantDao: HouseTenantDao
     private lateinit var commandManager: PlayerCommandManager
 
-    override fun onEnable() {
-        super.onEnable()
+    init {
         addDependency(DatabasePlugin::class)
         addDependency(HousePlugin::class)
-        eventManager = getEventManager().createChildNode()
     }
 
     override fun onDependenciesLoaded() {
+        eventManager = getEventManager().createChildNode()
         houseTenantDao = MySqlHouseTenantDaoImpl(DatabasePlugin.get(DatabasePlugin::class.java).dataSource, eventManager)
 
         registerEvents()

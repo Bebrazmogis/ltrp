@@ -43,14 +43,8 @@ public class AdvertPlugin extends DependentPlugin {
     }
 
     @Override
-    protected void onEnable() {
-        super.onEnable();
-        this.eventManager = getEventManager().createChildNode();
-    }
-
-    @Override
     public void onDependenciesLoaded() {
-        eventManager.cancelAll();
+        this.eventManager = getEventManager().createChildNode();
         DataSource dataSource = ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource();
         this.centerDao = new FileAdvertisementCenterDaoImpl(getDataDir(), getLogger());
         this.advertisementDao = new MySqlAdvertisementDaoImpl(dataSource);

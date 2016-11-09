@@ -31,12 +31,8 @@ class HouseWeedPlugin: DependentPlugin() {
         addDependency(DatabasePlugin::class)
     }
 
-    override fun onEnable() {
-        super.onEnable()
-        eventManager = getEventManager().createChildNode()
-    }
-
     override fun onDependenciesLoaded() {
+        eventManager = getEventManager().createChildNode()
         houseWeedDao = MySqlHouseWeedDaoImpl(DatabasePlugin.get(DatabasePlugin::class.java).dataSource, eventManager)
         houseWeedController = HouseWeedControllerImpl(houseWeedDao, eventManager)
 

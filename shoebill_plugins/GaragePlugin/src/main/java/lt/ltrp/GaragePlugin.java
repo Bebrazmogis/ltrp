@@ -46,17 +46,13 @@ public class GaragePlugin extends DependentPlugin implements GarageController {
         addDependency(new KClassImpl<>(PropertyPlugin.class));
     }
 
+
     @Override
-    protected void onEnable() {
-        super.onEnable();
+    public void onDependenciesLoaded() {
         Instance.instance = this;
         logger = getLogger();
         eventManagerNode = getEventManager().createChildNode();
         garageCollection = new ArrayList<>();
-    }
-
-    @Override
-    public void onDependenciesLoaded() {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
         this.garageDao = new MySqlGarageDaoImpl(databasePlugin.getDataSource(), eventManagerNode);
         Collection<Garage> garages = garageDao.get();

@@ -50,13 +50,10 @@ class PlayerPlugin: DependentPlugin() {
         addDependency(DatabasePlugin::class)
     }
 
-    override fun onEnable() {
-        super.onEnable()
+    override fun onDependenciesLoaded() {
         eventManager = getEventManager().createChildNode()
         replaceTypeParsers()
-    }
 
-    override fun onDependenciesLoaded() {
         val dataSource = DatabasePlugin.get(DatabasePlugin::class.java).dataSource
         playerDao = SqlPlayerDaoImpl(dataSource, eventManager)
         playerWeaponDao = MySqlPlayerWeaponDaoImpl(dataSource)

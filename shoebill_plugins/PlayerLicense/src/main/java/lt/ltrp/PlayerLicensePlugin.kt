@@ -27,12 +27,9 @@ class PlayerLicensePlugin: DependentPlugin() {
     lateinit var commandManager: PlayerCommandManager
     lateinit var licenseController: PlayerLicenseControllerImpl
 
-    override fun onEnable() {
-        super.onEnable()
-        eventManager = getEventManager().createChildNode()
-    }
 
     override fun onDependenciesLoaded() {
+        eventManager = getEventManager().createChildNode()
         val ds = DatabasePlugin.get(DatabasePlugin::class.java).dataSource
         playerLicenseWarningDao = MySqlPlayerLicenseWarningDaoImpl(ds)
         playerLicenseDao = MySqlPlayerLicenseDaoImpl(ds, playerLicenseWarningDao)

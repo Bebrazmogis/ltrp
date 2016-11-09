@@ -43,14 +43,6 @@ class ItemPlugin: DependentPlugin(), BindingPlugin {
         addDependency(DatabasePlugin::class)
     }
 
-    override fun onEnable() {
-        super.onEnable()
-        System.out.println("ItemControllerImpl :: onEnable");
-        //Instance.instance = this;
-        this.eventManager = getEventManager().createChildNode();
-
-    }
-
     override fun getKodeinModule(): Kodein.Module {
         return Kodein.Module {
             bind<ItemFactory>() with singleton { itemFactory }
@@ -59,6 +51,7 @@ class ItemPlugin: DependentPlugin(), BindingPlugin {
     }
 
     override fun onDependenciesLoaded() {
+        this.eventManager = getEventManager().createChildNode()
         val ds = Shoebill.get().resourceManager.getPlugin(DatabasePlugin::class.java).dataSource
         this.phoneDao = SqlPhoneDaoImpl(ds)
         this.itemDao = SqlItemDao(ds, eventManager, phoneDao)
@@ -76,8 +69,8 @@ class ItemPlugin: DependentPlugin(), BindingPlugin {
 
     override fun onDisable() {
         super.onDisable()
-        drugController.destroy();
-        phoneController.destroy();
+        drugController.destroy()
+        phoneController.destroy()
         commandManager.destroy()
     }
 

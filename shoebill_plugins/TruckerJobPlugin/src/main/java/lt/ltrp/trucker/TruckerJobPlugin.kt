@@ -50,11 +50,6 @@ class TruckerJobPlugin: DependentPlugin(), BindingPlugin {
         addDependency(JobPlugin::class)
     }
 
-    override fun onEnable() {
-        super.onEnable()
-        eventManagerNode = eventManager.createChildNode()
-    }
-
     override fun onDisable() {
         super.onDisable()
         eventManagerNode.cancelAll()
@@ -62,6 +57,8 @@ class TruckerJobPlugin: DependentPlugin(), BindingPlugin {
     }
 
     override fun onDependenciesLoaded() {
+        eventManagerNode = eventManager.createChildNode()
+
         val db = ResourceManager.get().getPlugin(DatabasePlugin::class.java)
         val cargoDao = MySqlCargoDaoImpl(db.dataSource)
         val industryProductionMaterialDao = MySqlIndustryProductionMaterialDaoImpl(db.dataSource, cargoDao)

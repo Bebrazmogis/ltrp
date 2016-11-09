@@ -23,15 +23,13 @@ class HousePlugin: DependentPlugin() {
     private lateinit var houseController: HouseControllerImpl
     private lateinit var playerCommandManager: PlayerCommandManager
 
-    override fun onEnable() {
-        super.onEnable()
-        eventManager = getEventManager().createChildNode()
-
+    init {
         addDependency(PropertyPlugin::class)
         addDependency(DatabasePlugin::class)
     }
 
     override fun onDependenciesLoaded() {
+        eventManager = getEventManager().createChildNode()
         val dao = MySqlHouseDaoImpl(DatabasePlugin.get(DatabasePlugin::class.java).dataSource, eventManager)
         houseController = HouseControllerImpl(HouseContainer.instance, dao, eventManager)
 

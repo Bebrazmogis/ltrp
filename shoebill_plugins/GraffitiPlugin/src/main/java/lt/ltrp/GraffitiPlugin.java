@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.AdminGraffitiCommands;
 import lt.ltrp.command.SprayCommands;
 import lt.ltrp.dao.GraffitiColorDao;
@@ -15,6 +16,7 @@ import lt.ltrp.object.Graffiti;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.GraffitiImpl;
 import lt.ltrp.player.util.PlayerUtils;
+import lt.ltrp.resource.DependentPlugin;
 import lt.maze.streamer.StreamerPlugin;
 import net.gtaun.shoebill.common.command.CommandGroup;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -37,7 +39,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.05.30.
  */
-public class GraffitiPlugin extends Plugin {
+public class GraffitiPlugin extends DependentPlugin {
 
     public static final int GRAFFITI_PAINT_PERMISSION_TIME = 3 * 60 * 1000;
     public static final String DEFAULT_GRAFFITI_TEXT = "Tekstas";
@@ -59,8 +61,13 @@ public class GraffitiPlugin extends Plugin {
     private PlayerCommandManager playerCommandManager;
 
 
+    public GraffitiPlugin() {
+        addDependency(new KClassImpl<>(StreamerPlugin.class));
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+    }
+
     @Override
-    protected void onEnable() throws Throwable {
+    public void onDependenciesLoaded() {
         this.graffitiCollection = new ArrayList<>();
         this.graffitiObjectCollection = new ArrayList<>();
         this.graffitiFontCollection = new ArrayList<>();
@@ -70,30 +77,6 @@ public class GraffitiPlugin extends Plugin {
         this.eventManager = getEventManager().createChildNode();
         this.logger = getLogger();
 
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(StreamerPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManager.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
-    }
-
-    private void load() {
-        eventManager.cancelAll();
         DatabasePlugin database = ResourceManager.get().getPlugin(DatabasePlugin.class);
         graffitiColorDao = new MySqlGraffitiColorDaoImpl(database.getDataSource());
         graffitiFontDao = new MySqlGraffitiFontDaoImpl(database.getDataSource());
@@ -149,7 +132,8 @@ public class GraffitiPlugin extends Plugin {
     }
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         eventManager.cancelAll();
         playerCommandManager.uninstallAllHandlers();
         playerCommandManager.destroy();

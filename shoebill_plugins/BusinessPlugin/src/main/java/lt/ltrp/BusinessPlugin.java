@@ -50,17 +50,13 @@ public class BusinessPlugin extends DependentPlugin implements BusinessControlle
         addDependency(new KClassImpl<>(PropertyPlugin.class));
     }
 
+
     @Override
-    protected void onEnable() {
-        super.onEnable();
+    public void onDependenciesLoaded() {
         BusinessController.Instance.instance = this;
         logger = getLogger();
         businessCollection = new ArrayList<>();
         node = getEventManager().createChildNode();
-    }
-
-    @Override
-    public void onDependenciesLoaded() {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
         businessDao = new MySqlBusinessDaoImpl(databasePlugin.getDataSource(), node);
         businessCollection.addAll(businessDao.get());

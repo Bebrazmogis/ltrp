@@ -29,13 +29,10 @@ class JobVehiclePlugin: DependentPlugin() {
         addDependency(VehiclePlugin::class)
     }
 
-    override fun onEnable() {
-        super.onEnable()
+    override fun onDependenciesLoaded() {
         eventManager = getEventManager().createChildNode()
         addEvents()
-    }
 
-    override fun onDependenciesLoaded() {
         vehicleDao = MySqlJobVehicleDao(DatabasePlugin.get(DatabasePlugin::class.java).dataSource, eventManager)
         controller = JobVehicleControllerImpl(vehicleDao, eventManager)
 

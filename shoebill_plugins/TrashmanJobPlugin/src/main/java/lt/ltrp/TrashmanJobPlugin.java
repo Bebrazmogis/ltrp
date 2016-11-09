@@ -106,17 +106,12 @@ public class TrashmanJobPlugin extends DependentPlugin {
         addDependency(new KClassImpl<>(JobPlugin.class));
     }
 
-    @Override
-    protected void onEnable() {
-        super.onEnable();
-        this.playerTrashMissions = new HashMap<>();
-        eventManager = getEventManager().createChildNode();
-        logger = getLogger();
-    }
 
     @Override
     public void onDependenciesLoaded() {
-        eventManager.cancelAll();
+        this.playerTrashMissions = new HashMap<>();
+        eventManager = getEventManager().createChildNode();
+        logger = getLogger();
         trashManJobDao = new MySqlTrashManJobImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
         this.trashManJob = new TrashManJobImpl(JobPlugin.JobId.TrashMan.id, eventManager);
 

@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public class JobPlugin extends DependentPlugin {
 
-    private static final Logger logger = LoggerFactory.getLogger(JobPlugin.class);
+    private static Logger logger;
 
 
    // private EventManager eventManager = LtrpGamemode.get().getEventManager().createChildNode();
@@ -51,15 +51,17 @@ public class JobPlugin extends DependentPlugin {
     private FactionLeaderDao leaderDao;
 
     public JobPlugin() {
-        super.addDependency(new KClassImpl<DatabasePlugin>(DatabasePlugin.class));
+        super();
+        super.addDependency(new KClassImpl<>(DatabasePlugin.class));
     }
 
     @Override
     protected void onEnable() {
-        super.onEnable();
+        logger = getLogger();
         this.eventManager = getEventManager().createChildNode();
         this.playerEmergencyCalls = new HashMap<>();
         addTypeParsers();
+        super.onEnable();
     }
 
     private void addCommands() {
@@ -85,9 +87,6 @@ public class JobPlugin extends DependentPlugin {
         });
     }
 
-
-
-
     @Override
     protected void onDisable() {
         super.onDisable();
@@ -95,8 +94,8 @@ public class JobPlugin extends DependentPlugin {
 
     @Override
     public void onDependenciesLoaded() {
-        eventManager.cancelAll();
-        jobDao = new MySqlJobDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
+        DatabasePlugin dbPlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
+        jobDao = new MySqlJobDaoImpl(dbPlugin.getDataSource(), eventManager);
         leaderDao = new MySqlFactionLeaderDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource());
         jobController = new JobControllerImpl(jobDao, leaderDao, eventManager);
         addEventHandlers();

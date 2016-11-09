@@ -42,14 +42,9 @@ public class VehicleThiefJobPlugin extends DependentPlugin {
     }
 
     @Override
-    protected void onEnable() {
-        super.onEnable();
+    public void onDependenciesLoaded() {
         eventManagerNode = getEventManager().createChildNode();
         logger = getLogger();
-    }
-
-    @Override
-    public void onDependenciesLoaded() {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
         vehicleThiefDao = new MySqlVehicleThiefDaoImpl(databasePlugin.getDataSource(), null, eventManagerNode);
         vehicleThiefJob = new VehicleThiefJobImpl(JobPlugin.JobId.VehicleThief.id, eventManagerNode);

@@ -37,15 +37,10 @@ public class MedicJobPlugin extends DependentPlugin {
     }
 
     @Override
-    protected void onEnable() {
-        super.onEnable();
+    public void onDependenciesLoaded() {
         this.medicsOnDuty = new ArrayList<>();
         eventManager = getEventManager().createChildNode();
-    }
 
-    @Override
-    public void onDependenciesLoaded() {
-        eventManager.cancelAll();
         this.medicFactionDao = new MySqlMedicFactionDaoImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
         this.medicFaction = new MedicFactionImpl(JobPlugin.JobId.Medic.id, eventManager);
         registerCommands();

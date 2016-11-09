@@ -27,12 +27,13 @@ class PlayerSettingsPlugin: DependentPlugin() {
     private lateinit var commandManager: PlayerCommandManager
     private lateinit var settingsController: PlayerSettingsControllerImpl
 
-    override fun onEnable() {
-        super.onEnable()
-        eventManager = getEventManager().createChildNode()
+    init {
+        addDependency(DatabasePlugin::class)
     }
 
     override fun onDependenciesLoaded() {
+        eventManager = getEventManager().createChildNode()
+
         settingsDao = SqlPlayerSettingsDaoImpl(DatabasePlugin.get(DatabasePlugin::class.java).dataSource, eventManager)
         settingsController = PlayerSettingsControllerImpl(settingsDao, eventManager)
         registerEventListeners()
