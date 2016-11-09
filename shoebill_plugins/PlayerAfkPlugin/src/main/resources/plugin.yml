@@ -1,4 +1,4 @@
-class: lt.maze.AfkPlugin
+class: lt.ltrp.AfkPlugin
 name: AFK Plugin
 version: 1.0-SNAPSHOT
 buildNumber: 0
