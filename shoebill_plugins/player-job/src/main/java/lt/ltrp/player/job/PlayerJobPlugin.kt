@@ -25,8 +25,6 @@ class PlayerJobPlugin: DependentPlugin() {
 
     override fun onEnable() {
         super.onEnable()
-        eventManager = getEventManager().createChildNode()
-
     }
 
     override fun onDisable() {
@@ -34,6 +32,7 @@ class PlayerJobPlugin: DependentPlugin() {
     }
 
     override fun onDependenciesLoaded() {
+        eventManager = getEventManager().createChildNode()
         jobDao = MySqlPlayerJobDaoImpl(DatabasePlugin.get(DatabasePlugin::class.java).dataSource)
         jobController = PlayerJobControllerImpl(jobDao, eventManager)
         addEventHandlers()
