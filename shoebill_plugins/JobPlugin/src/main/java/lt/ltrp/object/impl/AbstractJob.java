@@ -43,7 +43,7 @@ public abstract class AbstractJob extends NamedEntityImpl implements Job {
     }
 
     public AbstractJob(int uuid, EventManager eventManager) {
-        this(uuid, null, null, 0, eventManager);
+        this(uuid, "job-" + uuid, null, 0, eventManager);
     }
 
     protected EventManager getEventManager() {
