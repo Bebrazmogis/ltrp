@@ -47,7 +47,7 @@ class MySqlWeaponShopDaoImpl (ds: DataSource, event: EventManager): WeaponShopDa
 
     override fun get(): MutableCollection<WeaponShop> {
         val shops = arrayListOf<WeaponShop>()
-        val sql: String = "SELET * FROM weapon_shops"
+        val sql: String = "SELECT * FROM weapon_shops"
         val connection: Connection = dataSource.getConnection()
         val stmt: PreparedStatement = connection.prepareStatement(sql)
         try {
@@ -66,7 +66,7 @@ class MySqlWeaponShopDaoImpl (ds: DataSource, event: EventManager): WeaponShopDa
 
     override fun getWithWeapons(): MutableCollection<WeaponShop>? {
         val shops = arrayListOf<WeaponShop>()
-        val sql: String = "SELET weapon_shops.*, weapon_shop_weapons.* FROM weapon_shops LEFT JOIN weapon_shop_weapons ON weapon_shops.id = weapon_shop_weapons.shop_id"
+        val sql: String = "SELECT weapon_shops.*, weapon_shop_weapons.* FROM weapon_shops LEFT JOIN weapon_shop_weapons ON weapon_shops.id = weapon_shop_weapons.shop_id"
         val connection: Connection = dataSource.getConnection()
         val stmt: PreparedStatement = connection.prepareStatement(sql)
         try {
@@ -100,7 +100,7 @@ class MySqlWeaponShopDaoImpl (ds: DataSource, event: EventManager): WeaponShopDa
     }
 
     override fun get(uuid: Int): WeaponShop? {
-        val sql: String = "SELET * FROM weapon_shops WHERE id = ?"
+        val sql: String = "SELECT * FROM weapon_shops WHERE id = ?"
         val connection: Connection = dataSource.getConnection()
         val stmt: PreparedStatement = connection.prepareStatement(sql)
         try {
@@ -119,7 +119,7 @@ class MySqlWeaponShopDaoImpl (ds: DataSource, event: EventManager): WeaponShopDa
     }
 
     override fun update(shop: WeaponShop) {
-        val sql: String = "UPDATE wepon_shop SET name = ?, x = ?, y = ?, z = ?, world_id = ?, interior_id = ?, label_color = ?, label_text = ?, pickup_model = ?, pickup_text = ? WHERE id = ?"
+        val sql: String = "UPDATE weapon_shop SET name = ?, x = ?, y = ?, z = ?, world_id = ?, interior_id = ?, label_color = ?, label_text = ?, pickup_model = ?, pickup_text = ? WHERE id = ?"
         val connection: Connection = dataSource.getConnection()
         val stmt: PreparedStatement = connection.prepareStatement(sql)
         try {
