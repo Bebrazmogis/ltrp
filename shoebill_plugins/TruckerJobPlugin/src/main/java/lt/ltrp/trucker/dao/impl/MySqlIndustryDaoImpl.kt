@@ -68,24 +68,25 @@ class MySqlIndustryDaoImpl(ds: DataSource, private val eventManager: EventManage
     override fun getFull(): List<Industry> {
         val sql = "SELECT * FROM trucker_industries"
         val con = dataSource.getConnection()
+        val industries = ArrayList<Industry>()
         val stmt = con.prepareStatement(sql)
-        val r: ResultSet = try {
-            stmt.executeQuery()
+        var r: ResultSet? = null
+        try {
+            r = stmt.executeQuery()
+            while(r.next()) {
+                val industry = resultToIndustry(r, eventManager)
+                industry.productions.addAll(productionDao.get(industry))
+                industry.boughtStock.addAll(stockDao.get(industry, IndustryStockType.BOUGHT))
+                industry.soldStock.addAll(stockDao.get(industry, IndustryStockType.SOLD))
+                industries.add(industry)
+            }
         } catch(e: SQLException) {
             throw e
         } finally {
             con.close()
             stmt.close()
+            r?.close()
         }
-        val industries = ArrayList<Industry>()
-        while(r.next()) {
-            val industry = resultToIndustry(r, eventManager)
-            industry.productions.addAll(productionDao.get(industry))
-            industry.boughtStock.addAll(stockDao.get(industry, IndustryStockType.BOUGHT))
-            industry.soldStock.addAll(stockDao.get(industry, IndustryStockType.SOLD))
-            industries.add(industry)
-        }
-        r.close()
         return industries
     }
 
