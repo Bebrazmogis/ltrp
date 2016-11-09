@@ -29,14 +29,11 @@ public class VehicleThiefJobImpl extends AbstractContractJob implements VehicleT
 
 
     public VehicleThiefJobImpl(int id, EventManager eventManager) {
-        this(id, null, null, 0, eventManager, 0, 0);
-    }
-
-    public VehicleThiefJobImpl(int id, String name, Location location, int basePaycheck, EventManager eventManager, int contractLength, int maxPaycheck) {
-        super(id, name, location, basePaycheck, eventManager, contractLength, maxPaycheck);
+        super(id, eventManager);
         this.vehicleBuyPoints = new HashMap<>();
         this.random = new Random();
     }
+
 
     public void addBuyPoint(NamedLocation location, int model) {
         this.vehicleBuyPoints.put(location, model);
