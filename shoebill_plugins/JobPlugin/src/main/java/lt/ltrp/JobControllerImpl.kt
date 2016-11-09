@@ -19,6 +19,11 @@ class JobControllerImpl(private var jobDao: JobDao,
         JobController() {
 
 
+    override fun loadProperties(job: Job) {
+        jobDao.parseProperties(job)
+    }
+
+
     override fun get(): List<Job> {
         return JobContainer.get()
     }
