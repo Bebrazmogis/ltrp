@@ -11,6 +11,7 @@ import lt.ltrp.data.TrashMission;
 import lt.ltrp.data.TrashMissions;
 import lt.ltrp.event.PlayerTrashMissionEndEvent;
 import lt.ltrp.event.PlayerTrashMissionStartEvent;
+import lt.ltrp.job.JobController;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.TrashManJob;
 import lt.ltrp.object.impl.PlayerTrashMission;
@@ -114,6 +115,7 @@ public class TrashmanJobPlugin extends DependentPlugin {
         logger = getLogger();
         trashManJobDao = new MySqlTrashManJobImpl(ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource(), eventManager);
         this.trashManJob = new TrashManJobImpl(JobPlugin.JobId.TrashMan.id, eventManager);
+        JobController.instance.loadProperties(trashManJob);
 
         addCommands();
         addEventHandlers();
