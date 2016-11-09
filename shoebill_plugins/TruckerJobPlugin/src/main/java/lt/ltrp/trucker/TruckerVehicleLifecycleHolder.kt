@@ -12,7 +12,9 @@ import net.gtaun.util.event.EventManager
 class TruckerVehicleLifecycleHolder(eventManager: EventManager): VehicleLifecycleHolder(eventManager) {
 
     init {
-        registerClass(TruckerVehicle::class.java)
+        registerClass(TruckerVehicle::class.java, { eventManager, vehicle ->
+            TruckerVehicle(eventManager, LtrpVehicle.getByVehicle(vehicle))
+        })
     }
 
     fun getObject(vehicle: LtrpVehicle): TruckerVehicle? {

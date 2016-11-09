@@ -11,7 +11,9 @@ import net.gtaun.util.event.EventManager
 class TruckerPlayerLifecycleHolder(eventManager: EventManager): PlayerLifecycleHolder(eventManager) {
 
     init {
-        registerClass(TruckerPlayer::class.java)
+        registerClass(TruckerPlayer::class.java, { eventManager, player ->
+            TruckerPlayer(eventManager, LtrpPlayer.get(player))
+        })
     }
 
     fun getObject(player: LtrpPlayer): TruckerPlayer {
