@@ -91,7 +91,8 @@ public class MySqlPlayerJobDaoImpl implements PlayerJobDao {
         ) {
             stmt.setInt(1, player.getUUID());
             ResultSet result = stmt.executeQuery();
-            return toPlayerJobData(result, player);
+            if(result.next())
+                return toPlayerJobData(result, player);
         } catch (SQLException e) {
             e.printStackTrace();
         }
