@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.dao.BanDao;
 import lt.ltrp.dao.JailDao;
 import lt.ltrp.dao.WarnDao;
@@ -10,6 +11,7 @@ import lt.ltrp.data.*;
 import lt.ltrp.event.*;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.player.PlayerController;
+import lt.ltrp.resource.DependentPlugin;
 import lt.ltrp.spawn.data.SpawnData;
 import lt.ltrp.spawn.event.PlayerRequestSpawnEvent;
 import lt.maze.streamer.event.PlayerLeaveDynamicAreaEvent;
@@ -39,7 +41,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.05.20.
  */
-public class PenaltyPlugin extends Plugin {
+public class PenaltyPlugin extends DependentPlugin {
 
     public static final int MAX_WARNS = 3;
     private static final float[] IC_JAIL_POINTS = {
@@ -84,12 +86,13 @@ public class PenaltyPlugin extends Plugin {
     private WarnDao warnDao;
 
     public PenaltyPlugin() {
-
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(SpawnPlugin.class));
     }
 
 
     @Override
-    protected void onEnable() throws Throwable {
+    public void onDependenciesLoaded() {
         logger = getLogger();
         node = getEventManager().createChildNode();
         //icJailArea = DynamicPolygon.create(IC_JAIL_POINTS);
@@ -97,30 +100,6 @@ public class PenaltyPlugin extends Plugin {
         icJailArea = DynamicSphere.create(0f, 0f, 0f, 0f, 0, 0, null);
         oocJailArea = DynamicSphere.create(new Vector3D(), 0f);
 
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(SpawnPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            node.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
-    }
-
-
-    private void load() {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
         this.jailDao = new MySqlJailDaoImpl(databasePlugin.getDataSource());
         this.banDao = new MySqlBanDaoImpl(databasePlugin.getDataSource());
@@ -130,7 +109,8 @@ public class PenaltyPlugin extends Plugin {
     }
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         icJailArea.destroy();
         oocJailArea.destroy();
         jailTimeTimer.stop();
