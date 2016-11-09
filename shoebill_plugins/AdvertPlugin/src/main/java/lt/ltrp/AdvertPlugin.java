@@ -54,6 +54,7 @@ public class AdvertPlugin extends DependentPlugin {
             getLogger().error("Advertisement center location is null, exitting");
             try {
                 disable();
+                return;
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }
