@@ -1,4 +1,4 @@
-class: lt.ltrp.player.settings.PlayerSettingsController
+class: lt.ltrp.player.settings.PlayerSettingsPlugin
 name: Player Setting Plugin
 version: 1.0-SNAPSHOT
 buildNumber: 0
