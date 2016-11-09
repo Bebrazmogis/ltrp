@@ -1,6 +1,7 @@
 package lt.ltrp.house.weed
 
 import lt.ltrp.DatabasePlugin
+import lt.ltrp.HousePlugin
 import lt.ltrp.house.HouseController
 import lt.ltrp.house.`object`.House
 import lt.ltrp.house.event.HouseLoadedEvent
@@ -29,6 +30,7 @@ class HouseWeedPlugin: DependentPlugin() {
 
     init {
         addDependency(DatabasePlugin::class)
+        addDependency(HousePlugin::class)
     }
 
     override fun onDependenciesLoaded() {

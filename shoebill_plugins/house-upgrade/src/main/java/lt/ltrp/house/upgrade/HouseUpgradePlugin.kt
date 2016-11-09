@@ -1,6 +1,7 @@
 package lt.ltrp.house.upgrade
 
 import lt.ltrp.DatabasePlugin
+import lt.ltrp.HousePlugin
 import lt.ltrp.house.HouseController
 import lt.ltrp.house.`object`.House
 import lt.ltrp.house.event.HouseLoadedEvent
@@ -29,6 +30,11 @@ class HouseUpgradePlugin: DependentPlugin() {
     private lateinit var upgradeDao: HouseUpgradeDao
     private lateinit var upgradeController: HouseUpgradeController
     private lateinit var playerCommandManager: PlayerCommandManager
+
+    init {
+        addDependency(DatabasePlugin::class)
+        addDependency(HousePlugin::class)
+    }
 
     override fun onDependenciesLoaded() {
         eventManager = getEventManager().createChildNode()
