@@ -1,6 +1,3 @@
-UPDATE entrances SET name = ?, x = ?, y = ?, z = ?, angle = ?, interior = ?, virtual_world = ?,
-label_color = ?, pickup_model = ?, job_id = ?, is_vehicle = ?, exit_id = ? WHERE id = ?
-
 
 
 create table if not exists entrances
