@@ -43,7 +43,7 @@ class PlayerJobControllerImpl(private val dao: PlayerJobDao, private val eventMa
             (oldData?.job as Faction).removeLeader(playerData)
     }
 
-    override fun getData(playerData: PlayerData): PlayerJobData {
+    override fun getData(playerData: PlayerData): PlayerJobData? {
         if(playerData.jobData != null)
             return playerData.jobData as PlayerJobData
         else
