@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.GarageCommands;
 import lt.ltrp.command.GarageOwnerCommands;
 import lt.ltrp.dao.GarageDao;
@@ -10,6 +11,7 @@ import lt.ltrp.event.property.garage.GarageDestroyEvent;
 import lt.ltrp.object.Garage;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.GarageImpl;
+import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Color;
@@ -31,46 +33,30 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.05.19.
  */
-public class GaragePlugin extends Plugin implements GarageController {
+public class GaragePlugin extends DependentPlugin implements GarageController {
 
     private Logger logger;
     private Collection<Garage> garageCollection;
     private EventManagerNode eventManagerNode;
     private MySqlGarageDaoImpl garageDao;
 
+    public GaragePlugin() {
+        super();
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(PropertyPlugin.class));
+    }
+
     @Override
-    protected void onEnable() throws Throwable {
+    protected void onEnable() {
+        super.onEnable();
         Instance.instance = this;
         logger = getLogger();
         eventManagerNode = getEventManager().createChildNode();
         garageCollection = new ArrayList<>();
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(PropertyPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManagerNode.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                logger.debug("R:" + r);
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    logger.debug("Removing r");
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
     }
 
-    private void load() {
-        eventManagerNode.cancelAll();
+    @Override
+    public void onDependenciesLoaded() {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
         this.garageDao = new MySqlGarageDaoImpl(databasePlugin.getDataSource(), eventManagerNode);
         Collection<Garage> garages = garageDao.get();
@@ -107,7 +93,8 @@ public class GaragePlugin extends Plugin implements GarageController {
     }*/
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         garageCollection.forEach(Garage::destroy);
         garageCollection.clear();
         garageCollection = null;

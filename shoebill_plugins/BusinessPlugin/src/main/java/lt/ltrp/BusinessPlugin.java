@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.BusinessCommands;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.dao.BusinessDao;
@@ -12,6 +13,7 @@ import lt.ltrp.object.Business;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.BusinessImpl;
 import lt.ltrp.player.PlayerController;
+import lt.ltrp.resource.DependentPlugin;
 import lt.ltrp.util.StringUtils;
 import lt.maze.streamer.event.PlayerDynamicPickupEvent;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
@@ -35,46 +37,31 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.05.19.
  */
-public class BusinessPlugin extends Plugin implements BusinessController {
+public class BusinessPlugin extends DependentPlugin implements BusinessController {
 
     private Logger logger;
     private Collection<Business> businessCollection;
     private MySqlBusinessDaoImpl businessDao;
     private EventManagerNode node;
 
+    public BusinessPlugin() {
+        super();
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(PropertyPlugin.class));
+    }
+
     @Override
-    protected void onEnable() throws Throwable {
+    protected void onEnable() {
+        super.onEnable();
         BusinessController.Instance.instance = this;
         logger = getLogger();
         businessCollection = new ArrayList<>();
         node = getEventManager().createChildNode();
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(PropertyPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            node.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                logger.debug("R:" + r);
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    logger.debug("Removing r");
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
     }
-    private void load() {
+
+    @Override
+    public void onDependenciesLoaded() {
         DatabasePlugin databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin.class);
-        node.cancelAll();
         businessDao = new MySqlBusinessDaoImpl(databasePlugin.getDataSource(), node);
         businessCollection.addAll(businessDao.get());
         addEventHandlers();
@@ -169,7 +156,8 @@ public class BusinessPlugin extends Plugin implements BusinessController {
     }
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         businessCollection.forEach(Business::destroy);
         businessCollection.clear();
         businessCollection = null;

@@ -1,11 +1,13 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.WeaponShopCommands;
 import lt.ltrp.dao.WeaponShopDao;
 import lt.ltrp.dao.WeaponShopWeaponDao;
 import lt.ltrp.dao.impl.MySqlWeaponShopDaoImpl;
 import lt.ltrp.dao.impl.MySqlWeaponShopWeaponDaoImpl;
 import lt.ltrp.object.WeaponShop;
+import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.resource.Plugin;
@@ -23,7 +25,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.06.14.
  */
-public class WeaponShopPlugin extends Plugin {
+public class WeaponShopPlugin extends DependentPlugin {
 
     private EventManagerNode eventManagerNode;
     private Logger logger;
@@ -32,36 +34,21 @@ public class WeaponShopPlugin extends Plugin {
     private Collection<WeaponShop> weaponShops;
     private PlayerCommandManager playerCommandManager;
 
+    public WeaponShopPlugin() {
+        super();
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+    }
+
     @Override
-    protected void onEnable() throws Throwable {
+    protected void onEnable() {
+        super.onEnable();
         this.eventManagerNode = getEventManager().createChildNode();
         logger = getLogger();
         this.weaponShops = new ArrayList<>();
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManagerNode.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                logger.debug("R:" + r);
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    logger.debug("Removing r");
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
     }
 
-    private void load() {
+    @Override
+    public void onDependenciesLoaded() {
         eventManagerNode.cancelAll();
         DatabasePlugin db = ResourceManager.get().getPlugin(DatabasePlugin.class);
         this.weaponShopWeaponDao = new MySqlWeaponShopWeaponDaoImpl(db.getDataSource());
@@ -77,7 +64,8 @@ public class WeaponShopPlugin extends Plugin {
 
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         weaponShops.forEach(WeaponShop::destroy);
         weaponShops.clear();
         eventManagerNode.cancelAll();
