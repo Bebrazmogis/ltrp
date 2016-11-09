@@ -19,6 +19,7 @@ abstract class JobController protected constructor() {
     abstract fun get(uuid: Int): Job?
     abstract fun getEmployeeList(job: Job): List<PlayerJobData>
     abstract fun update(job: Job)
+    abstract fun loadProperties(job: Job)
 
 
     abstract fun addLeader(faction: Faction, playerData: PlayerData)
