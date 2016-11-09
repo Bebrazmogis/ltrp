@@ -8,6 +8,7 @@ import lt.ltrp.object.PlayerData;
 import lt.ltrp.object.impl.LtrpPlayerImpl;
 import lt.ltrp.player.PlayerController;
 import lt.ltrp.util.Whirlpool;
+import net.gtaun.shoebill.common.timers.TemporaryTimer;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
@@ -114,7 +115,7 @@ public class AuthPlugin extends Plugin {
                         .show();
             } else {
                 e.getPlayer().sendMessage(Color.LIGHTRED, "Jûs neesate uþsreigstravæs. Tai padaryti galite tinklalapyje www.ltrp.lt");
-                e.getPlayer().kick();
+                TemporaryTimer.create(100, i -> e.getPlayer().kick()).start();
                 e.interrupt(); // Nobody else should do anything
             }
 
@@ -123,6 +124,10 @@ public class AuthPlugin extends Plugin {
         eventManagerNode.registerHandler(PlayerDisconnectEvent.class, HandlerPriority.HIGHEST, e -> {
             Player p = e.getPlayer();
             playerLoginAttempts.remove(p);
+            LtrpPlayer player = LtrpPlayer.get(p);
+            if(player != null) {
+                eventManagerNode.dispatchEvent(new lt.ltrp.player.event.PlayerDisconnectEvent(player, e.getReason()));
+            }
         });
 
         eventManagerNode.registerHandler(PlayerCommandEvent.class, HandlerPriority.HIGH, e -> {
