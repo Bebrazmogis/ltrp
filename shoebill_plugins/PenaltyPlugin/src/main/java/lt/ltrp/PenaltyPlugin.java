@@ -148,15 +148,15 @@ public class PenaltyPlugin extends DependentPlugin {
         });
 
         this.node.registerHandler(PlayerConnectEvent.class, HandlerPriority.HIGH, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
-            BanData banData = getBanData(player);
+            Player player = e.getPlayer();
+            BanData banData = getBanData(player.getName());
             if(banData != null) {
                 if(banData.isPermanent() || !banData.isExpired()) {
-                    player.sendErrorMessage("Dëmesio, Jûsø veikëjui ir IP adresui yra uþdrausta jungtis á ðá serverá");
-                    player.sendErrorMessage("Daugiau informacijos dël draudimo lankytis paðalinimo galite rasti forum.ltrp.lt");
-                    player.sendMessage(Color.WHITE, "Uþdraustas veikëjas: " + player.getCharName());
+                    player.sendMessage(Color.LIGHTRED, "Dëmesio, Jûsø veikëjui ir IP adresui yra uþdrausta jungtis á ðá serverá");
+                    player.sendMessage(Color.LIGHTRED, "Daugiau informacijos dël draudimo lankytis paðalinimo galite rasti forum.ltrp.lt");
+                    player.sendMessage(Color.WHITE, "Uþdraustas veikëjas: " + player.getName());
                     player.sendMessage(Color.LIGHTGREY, "Nurodyta prieþastis: " + banData.getReason());
-                    player.sendMessage(Color.WHITE, String.format("Blokuojamas IP adresas: %s | Blokuojami veikëjai: %s", banData.getIp() != null ? banData.getIp() : "-", player.getCharName()));
+                    player.sendMessage(Color.WHITE, String.format("Blokuojamas IP adresas: %s | Blokuojami veikëjai: %s", banData.getIp() != null ? banData.getIp() : "-", player.getName()));
                     if(banData.getAdminId() != LtrpPlayer.INVALID_USER_ID)
                         player.sendMessage(Color.LIGHTGREY, "Draudimà lankytis suteikë: " + PlayerController.get().getUsernameByUUID(banData.getAdminId()));
                     if(!banData.isPermanent())
@@ -167,7 +167,7 @@ public class PenaltyPlugin extends DependentPlugin {
                     e.disallow();
                 }
                 if(banData.isExpired()) {
-                    unBan(player.getUUID());
+                    unBan(PlayerController.instance.getData(player.getName()).getUUID());
                 }
             }
         });
@@ -353,6 +353,15 @@ public class PenaltyPlugin extends DependentPlugin {
      */
     public BanData getBanData(LtrpPlayer player) {
         return banDao.getByUserOrIp(player.getUUID(), player.getIp());
+    }
+
+    /**
+     * Finds the usernames bandata
+     * @param name
+     * @return BanData for the specified name, or null if not banned
+     */
+    public BanData getBanData(String name) {
+        return banDao.getByName(name);
     }
 
     /**

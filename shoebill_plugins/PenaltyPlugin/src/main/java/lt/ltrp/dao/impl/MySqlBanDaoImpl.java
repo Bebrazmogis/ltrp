@@ -79,6 +79,24 @@ public class MySqlBanDaoImpl implements BanDao {
     }
 
     @Override
+    public BanData getByName(String name) {
+        String sql = "SELECT * FROM bans WHERE player_id = (SELECT id FROM players WHERE username = ?)";
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql);
+                ) {
+            stmt.setString(1, name);
+            ResultSet r = stmt.executeQuery();
+            if(r.next()) {
+                return resultToBan(r);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public void update(BanData banData) {
         String sql = "UPDATE bans SET ip = ?, banned_by = ?, reason = ?, duration = ?, created_at = ?, deleted_at = ? WHERE id = ?";
         try (

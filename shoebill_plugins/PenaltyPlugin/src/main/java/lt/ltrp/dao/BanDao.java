@@ -11,6 +11,7 @@ public interface BanDao {
     BanData getByUser(int userId);
     BanData getByIp(String ip);
     BanData getByUserOrIp(int userId, String ip);
+    BanData getByName(String name);
     void update(BanData banData);
 
     /**
