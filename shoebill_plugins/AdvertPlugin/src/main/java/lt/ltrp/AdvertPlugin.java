@@ -1,5 +1,6 @@
 package lt.ltrp;
 
+import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.dao.AdvertisementCenterDao;
 import lt.ltrp.dao.AdvertisementDao;
 import lt.ltrp.dao.impl.FileAdvertisementCenterDaoImpl;
@@ -11,6 +12,7 @@ import lt.ltrp.event.PlayerSelectItemOptionEvent;
 import lt.ltrp.object.Item;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.NewsPaperItem;
+import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.resource.Plugin;
@@ -27,49 +29,41 @@ import java.util.concurrent.ArrayBlockingQueue;
  * @author Bebras
  *         2016.06.01.
  */
-public class AdvertPlugin extends Plugin {
+public class AdvertPlugin extends DependentPlugin {
 
     private EventManagerNode eventManager;
     private Location adCenterLocation;
     private AdvertisementCenterDao centerDao;
     private AdvertisementDao advertisementDao;
 
-    @Override
-    protected void onEnable() throws Throwable {
-        this.eventManager = getEventManager().createChildNode();
-
-
-        final Collection<Class<? extends Plugin>> dependencies = new ArrayBlockingQueue<>(5);
-        dependencies.add(DatabasePlugin.class);
-        dependencies.add(ItemPlugin.class);
-        int missing = 0;
-        for(Class<? extends Plugin> clazz : dependencies) {
-            if(ResourceManager.get().getPlugin(clazz) == null)
-                missing++;
-            else
-                dependencies.remove(clazz);
-        }
-        if(missing > 0) {
-            eventManager.registerHandler(ResourceEnableEvent.class, e -> {
-                Resource r = e.getResource();
-                if(r instanceof Plugin && dependencies.contains(r.getClass())) {
-                    dependencies.remove(r.getClass());
-                    if(dependencies.size() == 0)
-                        load();
-                }
-            });
-        } else load();
-
+    public AdvertPlugin() {
+        super();
+        addDependency(new KClassImpl<>(DatabasePlugin.class));
+        addDependency(new KClassImpl<>(ItemPlugin.class));
     }
 
-    private void load() {
+    @Override
+    protected void onEnable() {
+        super.onEnable();
+        this.eventManager = getEventManager().createChildNode();
+    }
+
+    @Override
+    public void onDependenciesLoaded() {
         eventManager.cancelAll();
         DataSource dataSource = ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource();
         this.centerDao = new FileAdvertisementCenterDaoImpl(getDataDir(), getLogger());
         this.advertisementDao = new MySqlAdvertisementDaoImpl(dataSource);
 
         adCenterLocation = this.centerDao.get();
-
+        if(adCenterLocation == null) {
+            getLogger().error("Advertisement center location is null, exitting");
+            try {
+                disable();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        }
         this.eventManager.registerHandler(PlayerSelectItemOptionEvent.class, e -> {
             LtrpPlayer player = e.getPlayer();
             Item item = e.getItem();
@@ -82,7 +76,8 @@ public class AdvertPlugin extends Plugin {
     }
 
     @Override
-    protected void onDisable() throws Throwable {
+    protected void onDisable() {
+        super.onDisable();
         eventManager.cancelAll();
     }
 
