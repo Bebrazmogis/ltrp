@@ -86,7 +86,7 @@ open class PlayerDataImpl(uuid: Int,
     }
 
     override fun isValid(): Boolean {
-        return UUID == Entity.INVALID_ID
+        return UUID != Entity.INVALID_ID
     }
 
     override fun isAdmin(): Boolean {
