@@ -65,7 +65,7 @@ public class AdvertPlugin extends Plugin {
     private void load() {
         eventManager.cancelAll();
         DataSource dataSource = ResourceManager.get().getPlugin(DatabasePlugin.class).getDataSource();
-        this.centerDao = new FileAdvertisementCenterDaoImpl(getDataDir());
+        this.centerDao = new FileAdvertisementCenterDaoImpl(getDataDir(), getLogger());
         this.advertisementDao = new MySqlAdvertisementDaoImpl(dataSource);
 
         adCenterLocation = this.centerDao.get();

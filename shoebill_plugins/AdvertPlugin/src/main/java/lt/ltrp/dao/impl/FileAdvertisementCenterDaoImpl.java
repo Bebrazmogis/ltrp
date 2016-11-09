@@ -2,6 +2,7 @@ package lt.ltrp.dao.impl;
 
 import lt.ltrp.dao.AdvertisementCenterDao;
 import net.gtaun.shoebill.data.Location;
+import org.slf4j.Logger;
 
 import java.io.*;
 
@@ -12,13 +13,15 @@ import java.io.*;
 public class FileAdvertisementCenterDaoImpl implements AdvertisementCenterDao {
 
     private File root;
+    private Logger logger;
 
-    public FileAdvertisementCenterDaoImpl(File rootDir) {
+    public FileAdvertisementCenterDaoImpl(File rootDir, Logger logger) {
         this.root = rootDir;
+        this.logger = logger;
     }
 
     private File dataFile() {
-        return new File(root, "advertisementcenter");
+        return new File(root, "advertisementcenter.ini");
     }
 
     @Override
@@ -26,6 +29,8 @@ public class FileAdvertisementCenterDaoImpl implements AdvertisementCenterDao {
         Location loc = null;
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(dataFile()))) {
             loc = (Location)in.readObject();
+        } catch(FileNotFoundException e) {
+            logger.error("Data file \"" + dataFile() + "\" not found.");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
