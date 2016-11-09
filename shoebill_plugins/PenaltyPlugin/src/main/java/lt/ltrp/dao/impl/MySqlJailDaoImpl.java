@@ -31,7 +31,7 @@ public class MySqlJailDaoImpl implements JailDao {
             stmt.setInt(3, data.getRemainingTime());
             stmt.setString(4, data.getType().name());
             stmt.setInt(5, data.getJailer());
-            stmt.setDate(6, data.getDate());
+            stmt.setTimestamp(6, Timestamp.valueOf(data.getDate()));
             stmt.execute();
             ResultSet r = stmt.getGeneratedKeys();
             if(r.next())
@@ -58,7 +58,7 @@ public class MySqlJailDaoImpl implements JailDao {
                         r.getInt("seconds_remaining"),
                         r.getInt("seconds_total"),
                         r.getInt("jailer"),
-                        r.getDate("created_at"));
+                        r.getTimestamp("created_at").toLocalDateTime());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class MySqlJailDaoImpl implements JailDao {
             stmt.setInt(2, jailData.getRemainingTime());
             stmt.setString(3, jailData.getType().name());
             stmt.setInt(4, jailData.getJailer());
-            stmt.setDate(5, jailData.getDate());
+            stmt.setTimestamp(5, Timestamp.valueOf(jailData.getDate()));
             stmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();

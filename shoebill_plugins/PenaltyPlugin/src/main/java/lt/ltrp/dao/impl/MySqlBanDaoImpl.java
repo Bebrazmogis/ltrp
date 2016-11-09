@@ -113,8 +113,8 @@ public class MySqlBanDaoImpl implements BanDao {
                 stmt.setNull(4, Types.INTEGER);
             else
                 stmt.setInt(4, banData.getDuration());
-            stmt.setDate(5, banData.getCreatedAt());
-            stmt.setDate(6, banData.getDeletedAt());
+            stmt.setTimestamp(5, Timestamp.valueOf(banData.getCreatedAt()));
+            stmt.setTimestamp(6, Timestamp.valueOf(banData.getDeletedAt()));
             stmt.setInt(7, banData.getUUID());
             stmt.execute();
         } catch (SQLException e) {
@@ -155,8 +155,8 @@ public class MySqlBanDaoImpl implements BanDao {
                 stmt.setNull(5, Types.INTEGER);
             else
                 stmt.setInt(5, banData.getDuration());
-            stmt.setDate(6, banData.getCreatedAt());
-            stmt.setDate(7, banData.getDeletedAt());
+            stmt.setTimestamp(6, Timestamp.valueOf(banData.getCreatedAt()));
+            stmt.setTimestamp(7, Timestamp.valueOf(banData.getDeletedAt()));
             stmt.execute();
             ResultSet r = stmt.getGeneratedKeys();
             if(r.next())
@@ -180,8 +180,8 @@ public class MySqlBanDaoImpl implements BanDao {
                 r.getString("reason"),
                 r.getString("ip"),
                 duration,
-                r.getDate("created_at"),
-                r.getDate("deleted_at"));
+                r.getTimestamp("created_at").toLocalDateTime(),
+                r.getTimestamp("deleted_at").toLocalDateTime());
         return b;
     }
 }

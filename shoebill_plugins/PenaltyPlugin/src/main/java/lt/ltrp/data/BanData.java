@@ -1,8 +1,7 @@
 package lt.ltrp.data;
 
 
-import java.sql.Date;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 /**
  * @author Bebras
@@ -14,9 +13,9 @@ public class BanData {
     private int userId, adminId;
     private String reason, ip;
     private int duration;
-    private Date createdAt, deletedAt;
+    private LocalDateTime createdAt, deletedAt;
 
-    public BanData(int uuid, int userId, int adminId, String reason, String ip, int hours, Date createdAt, Date deletedAt) {
+    public BanData(int uuid, int userId, int adminId, String reason, String ip, int hours, LocalDateTime createdAt, LocalDateTime deletedAt) {
         this.uuid = uuid;
         this.userId = userId;
         this.adminId = adminId;
@@ -27,7 +26,7 @@ public class BanData {
         this.deletedAt = deletedAt;
     }
 
-    public BanData(int userId, int adminId, String reason, String ip, int hours, Date createdAt, Date deletedAt) {
+    public BanData(int userId, int adminId, String reason, String ip, int hours, LocalDateTime createdAt, LocalDateTime deletedAt) {
         this.userId = userId;
         this.adminId = adminId;
         this.reason = reason;
@@ -37,15 +36,15 @@ public class BanData {
         this.deletedAt = deletedAt;
     }
 
-    public BanData(int userId, int adminId, String reason, int hours, Date createdAt, Date deletedAt) {
+    public BanData(int userId, int adminId, String reason, int hours, LocalDateTime createdAt, LocalDateTime deletedAt) {
         this(userId, adminId, reason, null, hours, createdAt, deletedAt);
     }
 
-    public BanData(int userId, int adminId, String reason, Date createdAt, Date deletedAt) {
+    public BanData(int userId, int adminId, String reason, LocalDateTime createdAt, LocalDateTime deletedAt) {
         this(userId, adminId, reason, null, -1, createdAt, deletedAt);
     }
 
-    public BanData(int userId, int adminId, String reason, String ip, Date createdAt, Date deletedAt) {
+    public BanData(int userId, int adminId, String reason, String ip, LocalDateTime createdAt, LocalDateTime deletedAt) {
         this(userId, adminId, reason, ip, -1, createdAt, deletedAt);
     }
 
@@ -77,11 +76,11 @@ public class BanData {
         return duration;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public Date getDeletedAt() {
+    public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
@@ -113,11 +112,11 @@ public class BanData {
         this.duration = duration;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public void setDeletedAt(Date deletedAt) {
+    public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
 
@@ -126,10 +125,11 @@ public class BanData {
     }
 
     public boolean isExpired() {
-        return !isPermanent() && (deletedAt != null || Instant.now().toEpochMilli() > createdAt.getTime() + duration * 60 * 60 * 1000);
+        return !isPermanent() && (deletedAt != null ||
+                createdAt.plusHours(duration).isBefore(LocalDateTime.now()));
     }
 
-    public Date getExpirationDate() {
-        return new Date(createdAt.getTime() + duration * 60 * 60 * 100);
+    public LocalDateTime getExpirationDate() {
+        return createdAt.plusHours(duration);
     }
 }

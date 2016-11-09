@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -226,7 +227,7 @@ public class PenaltyPlugin extends DependentPlugin {
      * @param jailedBy the user responsible for this jail entry
      */
     public void jail(LtrpPlayer player, JailData.JailType jailType, int minutes, LtrpPlayer jailedBy) {
-        JailData jailData = new JailData(0, player, jailType, minutes * 60, minutes * 60, jailedBy.getUUID(), new Date(new java.util.Date().getTime()));
+        JailData jailData = new JailData(0, player, jailType, minutes * 60, minutes * 60, jailedBy.getUUID(), LocalDateTime.now());
         player.setLocation(getJailEntrance(jailType));
         jailDao.insert(jailData);
         node.dispatchEvent(new PlayerJailEvent(player, jailData));
@@ -262,7 +263,7 @@ public class PenaltyPlugin extends DependentPlugin {
      * @param bannedBy admin that banned this user, may be null
      */
     public void banPlayer(LtrpPlayer player, String reason, int hours, LtrpPlayer bannedBy) {
-        ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason, hours,  new Date(Instant.now().toEpochMilli()), null));
+        ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason, hours,  LocalDateTime.now(), null));
     }
 
     /**
@@ -282,7 +283,7 @@ public class PenaltyPlugin extends DependentPlugin {
      * @param bannedBy the administrator who initiated the ban
      */
     public void banPlayer(LtrpPlayer player, String reason, LtrpPlayer bannedBy) {
-        ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason,  new Date(Instant.now().toEpochMilli()), null));
+        ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason,  LocalDateTime.now(), null));
     }
 
     /**
@@ -293,7 +294,7 @@ public class PenaltyPlugin extends DependentPlugin {
      * @param bannedBy the administrator that initiated this ban
      */
     public void banIp(LtrpPlayer player, String reason, int hours, LtrpPlayer bannedBy) {
-        ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason, player.getIp(), hours, new Date(Instant.now().toEpochMilli()), null));
+        ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason, player.getIp(), hours, LocalDateTime.now(), null));
     }
 
     /**
@@ -303,7 +304,7 @@ public class PenaltyPlugin extends DependentPlugin {
      * @param bannedBy the administrator that initiated this ban
      */
     public void banIp(LtrpPlayer player, String reason, LtrpPlayer bannedBy) {
-        ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason, player.getIp(), new Date(Instant.now().toEpochMilli()), null));
+        ban(player, new BanData(player.getUUID(), bannedBy != null ? bannedBy.getUUID() : LtrpPlayer.INVALID_USER_ID, reason, player.getIp(), LocalDateTime.now(), null));
     }
 
     /**
@@ -330,7 +331,7 @@ public class PenaltyPlugin extends DependentPlugin {
     public void unBan(String ip) {
         BanData banData = banDao.getByIp(ip);
         if(banData != null) {
-            banData.setDeletedAt(new Date(Instant.now().toEpochMilli()));
+            banData.setDeletedAt(LocalDateTime.now());
             banDao.update(banData);
         }
     }
@@ -371,7 +372,7 @@ public class PenaltyPlugin extends DependentPlugin {
      * @param warnedBy administrator that initiated this warning
      */
     public void warn(LtrpPlayer player, String reason, LtrpPlayer warnedBy) {
-        WarnData warnData = new WarnData(player.getUUID(), warnedBy.getUUID(), reason, new Date(Instant.now().toEpochMilli()));
+        WarnData warnData = new WarnData(player.getUUID(), warnedBy.getUUID(), reason, LocalDateTime.now());
         warnDao.insert(warnData);
         node.dispatchEvent(new PlayerWarnEvent(player, warnData));
         if(getWarnCount(player) >= MAX_WARNS) {

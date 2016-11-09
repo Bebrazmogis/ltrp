@@ -83,7 +83,7 @@ public class MySqlWarnDaoImpl implements WarnDao {
             stmt.setInt(1, warnData.getUserId());
             stmt.setInt(2, warnData.getWarnedByUserId());
             stmt.setString(3, warnData.getReason());
-            stmt.setDate(4, warnData.getDate());
+            stmt.setTimestamp(4, Timestamp.valueOf(warnData.getDate()));
             stmt.execute();
             ResultSet r = stmt.getGeneratedKeys();
             if(r.next())
@@ -103,7 +103,7 @@ public class MySqlWarnDaoImpl implements WarnDao {
             stmt.setInt(1, warnData.getUserId());
             stmt.setInt(2, warnData.getWarnedByUserId());
             stmt.setString(3, warnData.getReason());
-            stmt.setDate(4, warnData.getDate());
+            stmt.setTimestamp(4, Timestamp.valueOf(warnData.getDate()));
             stmt.setInt(5, warnData.getId());
             stmt.execute();
         } catch (SQLException e) {
@@ -112,6 +112,6 @@ public class MySqlWarnDaoImpl implements WarnDao {
     }
 
     private WarnData resultToWarn(ResultSet r) throws SQLException {
-        return new WarnData(r.getInt("id"), r.getInt("player_id"), r.getInt("warned_by"), r.getString("reason"), r.getDate("created_at"));
+        return new WarnData(r.getInt("id"), r.getInt("player_id"), r.getInt("warned_by"), r.getString("reason"), r.getTimestamp("created_at").toLocalDateTime());
     }
 }

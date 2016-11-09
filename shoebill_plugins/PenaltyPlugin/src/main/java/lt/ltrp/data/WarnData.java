@@ -1,6 +1,6 @@
 package lt.ltrp.data;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author Bebras
@@ -12,9 +12,9 @@ public class WarnData {
     private int userId;
     private int warnedByUserId;
     private String reason;
-    private Date date;
+    private LocalDateTime date;
 
-    public WarnData(int id, int userId, int warnedByUserId, String reason, Date date) {
+    public WarnData(int id, int userId, int warnedByUserId, String reason, LocalDateTime date) {
         this.id = id;
         this.userId = userId;
         this.warnedByUserId = warnedByUserId;
@@ -22,7 +22,7 @@ public class WarnData {
         this.date = date;
     }
 
-    public WarnData(int userId, int warnedByUserId, String reason, Date date) {
+    public WarnData(int userId, int warnedByUserId, String reason, LocalDateTime date) {
         this.userId = userId;
         this.warnedByUserId = warnedByUserId;
         this.reason = reason;
@@ -61,11 +61,11 @@ public class WarnData {
         this.reason = reason;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

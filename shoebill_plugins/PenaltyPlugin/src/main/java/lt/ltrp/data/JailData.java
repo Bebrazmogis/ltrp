@@ -3,7 +3,7 @@ package lt.ltrp.data;
 
 import lt.ltrp.object.LtrpPlayer;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author Bebras
@@ -16,9 +16,9 @@ public class JailData {
     private JailType type;
     private int remainingTime, totalTime;
     private int jailer;
-    private Date date;
+    private LocalDateTime date;
 
-    public JailData(int id, LtrpPlayer player, JailType type, int remainingTime, int totalTime, int jailer, Date date) {
+    public JailData(int id, LtrpPlayer player, JailType type, int remainingTime, int totalTime, int jailer, LocalDateTime date) {
         this.id = id;
         this.player = player;
         this.type = type;
@@ -76,11 +76,11 @@ public class JailData {
         this.jailer = jailer;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
