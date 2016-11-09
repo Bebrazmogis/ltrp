@@ -25,13 +25,18 @@ abstract class DependentPlugin: Plugin() {
         // First we should see how many dependencies are already loaded and how many are missing
         var missing = 0
         dependencies.forEach {
-            if(ResourceManager.get().getPlugin(it.java) == null) {
+            val plugin = ResourceManager.get().getPlugin(it.java)
+            if(plugin == null) {
+                loadedDependencies.add(plugin)
                 missing++
             }
         }
         // If some dependencies are still missing, we need to wait for them
         if(missing > 0)
             handlerEntry = eventManager.registerHandler(ResourceEnableEvent::class.java, { onResourceEnabled(it.resource) })
+        else {
+            onLoad()
+        }
     }
 
     open fun <T> addDependency(clz: KClass<T>) where T: Plugin {
@@ -42,12 +47,17 @@ abstract class DependentPlugin: Plugin() {
         if(resource is Plugin && dependencies.contains(resource.javaClass.kotlin)) {
             loadedDependencies.add(resource)
             if(loadedDependencies.size == dependencies.size) {
-                onDependenciesLoaded()
-                onDependenciesLoaded(loadedDependencies)
-                handlerEntry?.cancel()
-                isDependenciesLoaded = true
+                onLoad()
             }
         }
+    }
+
+    private fun onLoad() {
+        isDependenciesLoaded = true
+        logger.info("Dependencies loaded " + loadedDependencies.joinToString(":"))
+        onDependenciesLoaded()
+        onDependenciesLoaded(loadedDependencies)
+        handlerEntry?.cancel()
     }
 
     override fun onDisable() {
