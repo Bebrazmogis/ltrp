@@ -1,6 +1,7 @@
 package lt.maze
 
 import lt.maze.event.PayDayEvent
+import net.gtaun.shoebill.Shoebill
 import net.gtaun.util.event.EventManager
 import java.util.*
 
@@ -12,7 +13,9 @@ class PayDayTask(private val eventManager: EventManager) : TimerTask() {
 
 
     override fun run() {
-        eventManager.dispatchEvent(PayDayEvent())
+        Shoebill.get().runOnMainThread {
+            eventManager.dispatchEvent(PayDayEvent())
+        }
     }
 
 }
