@@ -21,15 +21,15 @@ public interface Item extends NamedEntity, Destroyable {
     void showOptions(Player player, Inventory inventory, AbstractDialog parentDialog);
 
     public static Item create(ItemType type, InventoryEntity entity, EventManager eventManager) {
-        return ItemController.get().createItem(type, entity, eventManager);
+        return ItemController.Companion.get().createItem(type, entity, eventManager);
     }
 
     public static Item create(ItemType type, String name, InventoryEntity entity, EventManager eventManager) {
-        return ItemController.get().createItem(type, name, entity, eventManager);
+        return ItemController.Companion.get().createItem(type, name, entity, eventManager);
     }
 
     public static Item create(ItemType type, String name, SpecialAction specialAction, InventoryEntity entity, EventManager eventManager) {
-        return ItemController.get().createItem(type, name, specialAction, entity, eventManager);
+        return ItemController.Companion.get().createItem(type, name, specialAction, entity, eventManager);
     }
 
     public static Item create(ItemType type, EventManager eventManager) {

@@ -1,9 +1,6 @@
 package lt.ltrp.object.impl;
 
-import lt.ltrp.GameTextStyleManager;
-import lt.ltrp.PenaltyPlugin;
-import lt.ltrp.PlayerControllerImpl;
-import lt.ltrp.PlayerPlugin;
+import lt.ltrp.*;
 import lt.ltrp.data.*;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.Color;
@@ -154,6 +151,7 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
         this.weapons = new LtrpWeaponData[13];
         this.infoBox = new PlayerInfoBoxImpl(this);
         this.offers = new ArrayList<>();
+        PlayerContainer.INSTANCE.getPlayerList().add(this);
         logger.debug("Creating instance of LtrpPlayer. Player object id " +player.getId());
     }
 

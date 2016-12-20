@@ -15,6 +15,7 @@ import lt.ltrp.event.item.ItemDestroyEvent
 import lt.ltrp.event.item.ItemLocationChangeEvent
 import lt.ltrp.event.item.PlayerDropItemEvent
 import lt.ltrp.event.player.PlayerDrawWeaponItemEvent
+import lt.ltrp.item.InventoryFactory
 import lt.ltrp.item.ItemController
 import lt.ltrp.item.ItemFactory
 import lt.ltrp.resource.DependentPlugin
@@ -36,7 +37,7 @@ class ItemPlugin: DependentPlugin(), BindingPlugin {
     private lateinit var phoneDao: PhoneDao
     private lateinit var phoneController: PhoneController
     private lateinit var commandManager: PlayerCommandManager
-    private lateinit var itemController: ItemControllerImpl
+    private lateinit var inventoryFactory: InventoryFactoryImpl
     private lateinit var itemFactory: ItemFactory
 
     init {
@@ -46,7 +47,7 @@ class ItemPlugin: DependentPlugin(), BindingPlugin {
     override fun getKodeinModule(): Kodein.Module {
         return Kodein.Module {
             bind<ItemFactory>() with singleton { itemFactory }
-            bind<ItemController>() with singleton { itemController }
+            bind<InventoryFactory>() with singleton { inventoryFactory }
         }
     }
 
@@ -56,15 +57,15 @@ class ItemPlugin: DependentPlugin(), BindingPlugin {
         this.phoneDao = SqlPhoneDaoImpl(ds)
         this.itemDao = SqlItemDao(ds, eventManager, phoneDao)
         val drugAddictionDao = MySqlDrugAddictionDaoImpl(ds)
-        itemFactory = ItemFactoryImpl(eventManager, itemDao)
-        itemController = ItemControllerImpl(itemFactory , eventManager , itemDao, phoneDao)
+        itemFactory = ItemFactoryImpl(eventManager, itemDao, phoneDao)
+        inventoryFactory = InventoryFactoryImpl(eventManager)
 
         drugController = DrugController(eventManager, drugAddictionDao)
         phoneController = PhoneController(eventManager, phoneDao)
 
         registerCommands()
         registerEvents()
-        logger.debug("Controller:" + itemController + " dao:" + itemDao);
+        logger.debug("Controller:" + inventoryFactory + " dao:" + itemDao);
     }
 
     override fun onDisable() {
@@ -153,3 +154,4 @@ class ItemPlugin: DependentPlugin(), BindingPlugin {
         CarAudio(40)
      */
 }
+

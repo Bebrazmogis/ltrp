@@ -13,6 +13,7 @@ import lt.ltrp.data.Animation
 import lt.ltrp.event.player.PlayerConnectEvent
 import lt.ltrp.event.player.PlayerLogInEvent
 import lt.ltrp.event.player.PlayerOfferExpireEvent
+import lt.ltrp.player.event.PlayerDisconnectEvent
 import lt.ltrp.player.dao.PlayerDao
 import lt.ltrp.player.dao.PlayerWeaponDao
 import lt.ltrp.player.util.PlayerLog
@@ -44,7 +45,7 @@ class PlayerPlugin: DependentPlugin() {
     private lateinit var playerWeaponDao: PlayerWeaponDao
     private lateinit var playerController: PlayerControllerImpl
     private lateinit var playerCommandManager: PlayerCommandManager
-    private val playerContainer = PlayerContainer.instance
+    private val playerContainer = PlayerContainer
 
     init {
         addDependency(DatabasePlugin::class)
@@ -80,7 +81,7 @@ class PlayerPlugin: DependentPlugin() {
             if(player != null) onPlayerConnect(player)
         })
         eventManager.registerHandler(PlayerLogInEvent::class.java, { onPlayerLogIn(it.player, it.failedAttempts) })
-        eventManager.registerHandler(PlayerDisconnectEvent::class.java, { onPlayerDisconnect(LtrpPlayer.get(it.player), it.reason) })
+        eventManager.registerHandler(PlayerDisconnectEvent::class.java, { onPlayerDisconnect(it.player, it.reason) })
         eventManager.registerHandler(PlayerRequestClassEvent::class.java, { onPlayerRequestClass(LtrpPlayer.get(it.player), it) })
         eventManager.registerHandler(PlayerSpawnEvent::class.java, { onPlayerSpawn(LtrpPlayer.get(it.player)) })
         eventManager.registerHandler(PlayerFirstSpawnEvent::class.java, { onPlayerFirstSpawn(it.player) })

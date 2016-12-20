@@ -12,7 +12,7 @@ import net.gtaun.util.event.EventManager;
  */
 public class PasswordInputDialog extends InputDialog {
 
-    public static AbstractPasswordInputDialogBuilder<?, ?> create(LtrpPlayer player, EventManager eventManager) {
+    public static AbstractPasswordInputDialogBuilder<?, ?> create(Player player, EventManager eventManager) {
         return new PasswordInputDialogBuilder(player, eventManager);
     }
 
@@ -40,7 +40,7 @@ public class PasswordInputDialog extends InputDialog {
     }
 
     public static class PasswordInputDialogBuilder extends AbstractPasswordInputDialogBuilder<PasswordInputDialog, PasswordInputDialogBuilder> {
-        private PasswordInputDialogBuilder(LtrpPlayer player, EventManager eventManager) {
+        private PasswordInputDialogBuilder(Player player, EventManager eventManager) {
             super(new PasswordInputDialog(player, eventManager));
         }
     }

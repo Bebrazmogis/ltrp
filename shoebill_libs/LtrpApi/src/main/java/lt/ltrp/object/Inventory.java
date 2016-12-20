@@ -14,11 +14,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public interface Inventory {
 
     static Inventory create(EventManager eventManager, InventoryEntity owner, String name, int size) {
-        return ItemController.get().createInventory(eventManager, owner, name, size);
+        return ItemController.Companion.get().createInventory(eventManager, owner, name, size);
     }
 
     static Inventory create(EventManager eventManager, InventoryEntity owner, String name) {
-        throw new NotImplementedException();
+        return ItemController.Companion.get().createInventory(eventManager, owner, name, 15);
     }
 
     public void add(Item item);

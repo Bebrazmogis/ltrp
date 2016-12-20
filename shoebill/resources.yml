@@ -1,35 +1,80 @@
 ---
-repositories:
-- id: "central"
-  url: "http://repo1.maven.org/maven2/"
-- id: "gtaun-public-repo"
-  url: "http://repo.gtaun.net/content/groups/public"
-- id: "sonatype-oss-snapshots"
-  url: "https://oss.sonatype.org/content/repositories/snapshots/"
-cacheUpdatePolicy: "always"
+cacheUpdatePolicy: always
 offlineMode: false
 runtimes:
-- "net.gtaun:shoebill-runtime:1.3-SNAPSHOT"
-- "net.gtaun:shoebill-common:1.3-SNAPSHOT"
+  - kotlin-reflect-1.0.4
+  - kotlin-runtime-1.0.4
+  - kotlin-stdlib-1.0.4
+  - c3p0-0.9.5.1
+  - jacksum
+  - mchange-commons-java-0.2.3.4
+  - mchange-commons-java-0.2.10
+  - mysql-connector-java-5.1.35-bin
+  - net.gtaun:shoebill-runtime:1.3-SNAPSHOT
+  - net.gtaun:shoebill-common:1.3-SNAPSHOT
+  - ltrp-api-1.0-SNAPSHOT
+  - kodein-3.1.0
+  - gnu-crypto-2.0.1
 plugins:
-- "ltrp-api-1.0-SNAPSHOT"
-- "shoebill-event-logger-1.0-SNAPSHOT"
-- "ysf-1.0-SNAPSHOT"
-- "mapandreas-1.0-SNAPSHOT"
-- "streamer-1.0-SNAPSHOT"
-- "audio-1.0-SNAPSHOT"
-- "database-1.0-SNAPSHOT"
-- "fader-1.0-SNAPSHOT"
-- "player-1.0-SNAPSHOT"
-- "bank-1.0-SNAPSHOT"
-- "radio-1.0-SNAPSHOT"
-- "vehicle-1.0-SNAPSHOT"
-- "dmv-1.0-SNAPSHOT"
-- "item-1.0-SNAPSHOT"
-- "job-1.0-SNAPSHOT"
-- "vehicle-shop-1.0-SNAPSHOT"
-- "house-1.0-SNAPSHOT"
-- "business-1.0-SNAPSHOT"
-- "garage-1.0-SNAPSHOT"
-- "property-1.0-SNAPSHOT"
-gamemode: "LtrpGamemode-1.0-SNAPSHOT"
+  - audio-1.0-SNAPSHOT
+  - c3p0-0.9.5.1
+  - database-1.0-SNAPSHOT
+  - fader-1.0-SNAPSHOT
+  - injector-1.0-SNAPSHOT
+  - jacksum
+  - mapandreas-1.0-SNAPSHOT
+  - mchange-commons-java-0.2.3.4
+  - mysql-connector-java-5.1.35-bin
+  - npc-manager-1.0-SNAPSHOT
+  - shoebill-event-logger-1.0-SNAPSHOT
+  - streamer-1.0-SNAPSHOT
+  - ysf-1.0-SNAPSHOT
+  - admin-1.0-SNAPSHOT
+  - advertisement-1.0-SNAPSHOT
+  - anti-driveby-1.0-SNAPSHOT
+  - auth-1.0-SNAPSHOT
+  - bank-1.0-SNAPSHOT
+  - business-1.0-SNAPSHOT
+  - dmv-1.0-SNAPSHOT
+  - dropped-weapons-1.0-SNAPSHOT
+  - entrance-1.0-SNAPSHOT
+  - garage-1.0-SNAPSHOT
+  - graffiti-1.0-SNAPSHOT
+  - house-1.0-SNAPSHOT
+  - house-rent-1.0-SNAPSHOT
+  - house-upgrade-1.0-SNAPSHOT
+  - house-weed-1.0-SNAPSHOT
+  - item-1.0-SNAPSHOT
+  - job-1.0-SNAPSHOT
+  - job-drugdealer-1.0-SNAPSHOT
+  - job-government-1.0-SNAPSHOT
+  - job-mechanic-1.0-SNAPSHOT
+  - job-medic-1.0-SNAPSHOT
+  - job-police-1.0-SNAPSHOT
+  - job-trashman-1.0-SNAPSHOT
+  - job-trucker-1.0-SNAPSHOT
+  - job-vehicle-1.0-SNAPSHOT
+  - job-vehiclethief-1.0-SNAPSHOT
+  - penalty-1.0-SNAPSHOT
+  - player-1.0-SNAPSHOT
+  - player-afk-1.0-SNAPSHOT
+  - player-fine-1.0-SNAPSHOT
+  - player-license-1.0-SNAPSHOT
+  - player-settings-1.0-SNAPSHOT
+  - player-vehicle-1.0-SNAPSHOT
+  - property-1.0-SNAPSHOT
+  - radio-1.0-SNAPSHOT
+  - spawn-1.0-SNAPSHOT
+  - vehicle-1.0-SNAPSHOT
+  - vehicle-fuel-1.0-SNAPSHOT
+  - vehicle-shop-1.0-SNAPSHOT
+  - weapon-shop-1.0-SNAPSHOT
+  - player-job-1.0-SNAPSHOT
+gamemode: ltrp-gamemode-1.0-SNAPSHOT
+repositories: 
+  
+  - id: central
+    url: http://repo1.maven.org/maven2/
+  
+  - id: gtaun-public-repo
+    url: http://repo.gtaun.net/content/groups/public

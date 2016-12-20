@@ -86,6 +86,7 @@ public class AuthPlugin extends Plugin {
                 return;
             }
             PlayerData playerData = PlayerController.instance.getData(p.getName());
+            logger.debug("Player data: "+ playerData + " is valid?" + (playerData != null ? playerData.isValid() : "false"));
             if(playerData != null && playerData.isValid()) {
                 //LtrpPlayerImpl player = new LtrpPlayerImpl(e.getPlayer(), uuid, eventManagerNode);
                 //player.setPassword(playerDao.getPassword(player));
@@ -97,7 +98,10 @@ public class AuthPlugin extends Plugin {
                             if(password == null || password.isEmpty())
                                 d.show();
                             else {
+                                logger.debug("Unhashed password:" + password);
                                 password = Whirlpool.hash(password);
+                                logger.debug("Hashed password:" + password);
+                                logger.debug("Stored password:" + playerData.getPassword());
                                 if(password.equals(playerData.getPassword())) {
                                     playerData.setLoggedIn(true);
                                     LtrpPlayerImpl impl = new LtrpPlayerImpl(playerData, p);

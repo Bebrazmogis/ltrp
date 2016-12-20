@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>lt.ltrp</groupId>
-            <artifactId>ltrp-api</artifactId>
+            <artifactId>house</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

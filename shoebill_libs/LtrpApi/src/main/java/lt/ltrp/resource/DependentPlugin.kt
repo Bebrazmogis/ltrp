@@ -13,7 +13,8 @@ abstract class DependentPlugin: Plugin() {
 
     val dependencies = mutableSetOf<KClass<out Plugin>>()
     val loadedDependencies = mutableSetOf<Plugin>()
-    var handlerEntry: HandlerEntry? = null
+    var resourceEnableEntry: HandlerEntry? = null
+    var dependencyLoadEntry: HandlerEntry? = null
     var isDependenciesLoaded = false
 
     abstract fun onDependenciesLoaded()
@@ -26,15 +27,17 @@ abstract class DependentPlugin: Plugin() {
         var missing = 0
         dependencies.forEach {
             val plugin = ResourceManager.get().getPlugin(it.java)
-            if(plugin == null) {
-                loadedDependencies.add(plugin)
+            // if plugin is not found or it a dependent plugin which is not loaded yet, we wait
+            if(plugin == null || plugin is DependentPlugin && !plugin.isDependenciesLoaded) {
                 missing++
-            }
+            } else
+                loadedDependencies.add(plugin)
         }
         // If some dependencies are still missing, we need to wait for them
-        if(missing > 0)
-            handlerEntry = eventManager.registerHandler(ResourceEnableEvent::class.java, { onResourceEnabled(it.resource) })
-        else {
+        if(missing > 0) {
+            resourceEnableEntry = eventManager.registerHandler(ResourceEnableEvent::class.java, { onResourceEnabled(it.resource) })
+            dependencyLoadEntry = eventManager.registerHandler(PluginDependencyLoadEvent::class.java, { onPluginDependencyLoad(it.plugin) })
+        } else {
             onLoad()
         }
     }
@@ -44,26 +47,41 @@ abstract class DependentPlugin: Plugin() {
     }
 
     private fun onResourceEnabled(resource: Resource) {
-        if(resource is Plugin && dependencies.contains(resource.javaClass.kotlin)) {
+        if(resource is Plugin && resource !is DependentPlugin && dependencies.contains(resource.javaClass.kotlin)) {
             loadedDependencies.add(resource)
+            logger.debug("Loaded dependency from resource event:" + resource)
             if(loadedDependencies.size == dependencies.size) {
                 onLoad()
             }
         }
     }
 
+    private fun onPluginDependencyLoad(plugin: DependentPlugin) {
+        if(dependencies.contains(plugin.javaClass.kotlin)) {
+            loadedDependencies.add(plugin)
+            logger.debug("Loaded dependency from dependency event: "+ plugin)
+            if(loadedDependencies.size == dependencies.size)
+                onLoad()
+        }
+    }
+
     private fun onLoad() {
         isDependenciesLoaded = true
-        logger.info("Dependencies loaded " + loadedDependencies.joinToString(":"))
+        logger.info("Dependencies loaded " + loadedDependencies.map { it.javaClass.name }.joinToString(":"))
         onDependenciesLoaded()
         onDependenciesLoaded(loadedDependencies)
-        handlerEntry?.cancel()
+        // Plugin might get disabled and thus destroy the eventManager
+        if(eventManager != null)
+            eventManager.dispatchEvent(PluginDependencyLoadEvent(this))
+        dependencyLoadEntry?.cancel()
+        resourceEnableEntry?.cancel()
     }
 
     override fun onDisable() {
         dependencies.clear()
         loadedDependencies.clear()
-        handlerEntry?.cancel()
+        dependencyLoadEntry?.cancel()
+        resourceEnableEntry?.cancel()
     }
 }
 /*

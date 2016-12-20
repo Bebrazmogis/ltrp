@@ -117,9 +117,22 @@ public class TrashmanJobPlugin extends DependentPlugin {
         this.trashManJob = new TrashManJobImpl(JobPlugin.JobId.TrashMan.id, eventManager);
         JobController.instance.loadProperties(trashManJob);
 
-        addCommands();
-        addEventHandlers();
-        createCheckpoints();
+        if(getDropOffCheckpoint() == null || getMissions() == null) {
+            if(getDropOffCheckpoint() == null) {
+                logger.error("Trashman job checkpoint not found, exiting");
+            } else {
+                logger.error("Trashman missions not found, exitting");
+            }
+            try {
+                disable();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        } else {
+            addCommands();
+            addEventHandlers();
+            createCheckpoints();
+        }
     }
 
     private void createCheckpoints() {

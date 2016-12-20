@@ -19,7 +19,7 @@ abstract class PlayerJobController protected constructor() {
     abstract fun setJob(playerData: PlayerData, job: Job)
     abstract fun setJob(playerData: PlayerData, job: Job, rank: JobRank)
     abstract fun removeJob(playerData: PlayerData)
-    abstract fun getData(playerData: PlayerData): PlayerJobData
+    abstract fun getData(playerData: PlayerData): PlayerJobData?
     abstract fun setRank(playerData: PlayerData, jobRank: JobRank)
 
     companion object {

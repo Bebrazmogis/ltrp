@@ -93,7 +93,7 @@ public class MySqlGraffitiDaoImpl implements GraffitiDao {
 
     @Override
     public void update(Graffiti graffiti) {
-        String sql = "UPDATE graffiti SET author = ?, object_id = ?, text = ?, pos_x = ?, pos_y = ?, pos_z = ?, rot_x = ?, rot_y = ?, rot_z = ?, font_id = ?, color_id = ?, approved_by = ?, created_at = ? WHERE id = ?";
+        String sql = "UPDATE graffiti SET author = ?, object_id = ?, `text` = ?, pos_x = ?, pos_y = ?, pos_z = ?, rot_x = ?, rot_y = ?, rot_z = ?, font_id = ?, color_id = ?, approved_by = ?, created_at = ? WHERE id = ?";
         try(
                 Connection connection = dataSource.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);

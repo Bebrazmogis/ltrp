@@ -49,8 +49,8 @@ CREATE TABLE players
   pDutyT INT DEFAULT 0 NOT NULL,
   Donator INT DEFAULT 0 NOT NULL,
   Accepted VARCHAR(255) NOT NULL,
-  WalkStyle INT NOT NULL,
-  TalkStyle INT NOT NULL,
+  walk_style tinyint unsigned NOT NULL default 1,
+  talk_style tinyint unsigned NOT NULL default 1,
   TelNrKeite INT DEFAULT 0 NOT NULL,
   MasinosNrKeite INT DEFAULT 0 NOT NULL,
   DuziusKeite INT DEFAULT 0 NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE players
   MetamfaAddict SMALLINT DEFAULT 0 NOT NULL,
   CocaineAddict SMALLINT DEFAULT 0 NOT NULL,
   playerIP VARCHAR(32) DEFAULT '127.0.0.1' NOT NULL,
-  playerLastLogOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
   spawn_type SMALLINT NOT NULL DEFAULT '0',
   spawn_ui INT NOT NULL DEFAULT '0',
   Card VARCHAR(256) DEFAULT 'Tuščia' NOT NULL,
@@ -81,8 +81,7 @@ CREATE TABLE players
   StrengthLevel SMALLINT DEFAULT 0 NOT NULL,
   ISP VARCHAR(128) DEFAULT '' NOT NULL,
   Hunger TINYINT UNSIGNED DEFAULT 0 NOT NULL,
-  total_paycheck INT UNSIGNED NOT NULL ,
-  PRIMARY KEY (id)
+  total_paycheck INT UNSIGNED NOT NULL 
   #FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE SET NULL,
   #FOREIGN KEY (job_rank) REFERENCES job_ranks(id) ON DELETE SET NULL
 )  ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -510,8 +509,8 @@ CREATE TABLE IF NOT EXISTS jobs (
 
 create TABLE IF NOT EXISTS job_properties (
   job_id int not null,
-  `key` text not null,
-  value text not null,
+  `key` varchar(64) not null,
+  value text(64) not null,
   primary KEY (job_id, `key`),
   FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -551,6 +550,23 @@ CREATE TABLE IF NOT EXISTS job_vehicles (
   FOREIGN KEY (job_id) REFERENCES jobs(id) ON DELETE CASCADE ,
   FOREIGN KEY (rank_id) REFERENCES job_ranks(id) ON DELETE CASCADE
 )ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+create table if not exists job_employees
+(
+    job_id int not null,
+    player_id int not null,
+    rank_id int not null,
+    job_level tinyint unsigned not null,
+    experience int not null,
+    hours tinyint unsigned not null,
+    remaining_contract tinyint unsigned not null,
+    primary key(player_id),
+    foreign key(job_id) references jobs(id),
+    foreign key(player_id) references players(id),
+    foreign key(rank_id) references job_ranks(id)
+) engine=innodb default charset=utf8 collate=utf8_unicode_ci;
+
 
 
 CREATE TABLE IF NOT EXISTS garbageman_missions (
@@ -689,4 +705,72 @@ create table if not exists business_required_trucker_commodities (
     commodity_id int not null,
     primary key(business_type),
     foreign key(commodity_id) references trucker_commodities(id) on delete cascade
+) engine=innodb default charset=utf8 collate=utf8_unicode_ci;
+
+
+
+create table if not exists graffiti_objects
+(
+    id int unsigned auto_increment not null,
+    model_id smallint unsigned not null,
+    material_size tinyint unsigned not null,
+    primary key(id)
+) engine=innodb default charset=utf8 collate=utf8_unicode_ci;
+
+create table if not exists graffiti_colors
+(
+    id int unsigned auto_increment not null,
+    color int not null,
+    primary key(id)
+) engine=innodb default charset=utf8 collate=utf8_unicode_ci;
+
+create table if not exists graffiti_fonts
+(
+    id int unsigned auto_increment not null,
+    name varchar(32) not null,
+    size tinyint unsigned not null,
+    primary key(id)
+) engine=innodb default charset=utf8 collate=utf8_unicode_ci;
+
+
+create table if not exists graffiti
+(
+    id int unsigned auto_increment not null,
+    author int not null,
+    object_id int unsigned not null,
+    `text` varchar(128) not null,
+    pos_x float not null,
+    pos_y float not null,
+    poz_z float not null,
+    rot_x float not null,
+    rot_y float not null,
+    rot_z float not null,
+    font_id int unsigned not null,
+    color_id int unsigned not null,
+    approved_by int not null,
+    created_at timestamp not null default current_timestamp,   
+    primary key(id),
+    foreign key(author) references players(id) on delete cascade,
+    foreign key(approved_by) references players(id) on delete cascade,
+    foreign key(object_id) references graffiti_objects(id) on delete cascade,
+    foreign key(font_id) references graffiti_fonts(id) on delete cascade,
+    foreign key(color_id) references graffiti_colors(id) on delete cascade,
+) engine=innodb default charset=utf8 collate=utf8_unicode_ci;
+
+create table if not exists entrances
+(
+    id int unsigned auto_increment not null,
+    name varchar(128) not null,
+    x float not null,
+    y float not null,
+    z float not null,
+    angle float not null,
+    interior int not null,
+    virtual_world int not null,
+    label_color int not null,
+    pickup_model smallint unsigned not null,
+    job_id int null,
+    is_vehicle tinyint unsigned not null,
+    exit_id int null,
+    primary key(id)
 ) engine=innodb default charset=utf8 collate=utf8_unicode_ci;

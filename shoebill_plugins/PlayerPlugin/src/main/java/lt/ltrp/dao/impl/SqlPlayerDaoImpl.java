@@ -656,14 +656,15 @@ public class SqlPlayerDaoImpl implements PlayerDao {
 */
     @Override
     public PlayerData get(@NotNull String name) {
-        String sql = "SELECT * FROM players WHERE name = ?";
+        String sql = "SELECT * FROM players WHERE username = ?";
         try (
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
                 ) {
             stmt.setString(1, name);
             ResultSet r = stmt.executeQuery();
-            return toData(r);
+            if(r.next())
+                return toData(r);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -690,7 +691,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     @Override
     public void update(@NotNull PlayerData playerData) {
         String sql = "UPDATE players SET " +
-                "name = ?," +
+                "username = ?," +
                 "password = ?," +
                 "secret_question = ?," +
                 "secret_answer = ?," +
@@ -749,7 +750,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     }
 
     private PlayerDataImpl toData(ResultSet r) throws SQLException {
-        PlayerDataImpl impl =  new PlayerDataImpl(r.getInt("id"), r.getString("name"),
+        PlayerDataImpl impl =  new PlayerDataImpl(r.getInt("id"), r.getString("username"),
                 r.getString("password"),
                 r.getString("secret_question"),
                 r.getString("secret_answer"),
