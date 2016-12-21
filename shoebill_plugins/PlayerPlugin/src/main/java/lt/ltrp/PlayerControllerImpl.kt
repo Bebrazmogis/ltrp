@@ -54,59 +54,6 @@ class PlayerControllerImpl(eventManager: EventManager,
 */
 
 /*
-    private void onPlayerPayday(int hour) {
-        BankPlugin bankPlugin = Shoebill.get().getResourceManager().getPlugin(BankPlugin.class);
-        LtrpPlayer.get().forEach(p -> {
-            // fail-safe
-            if(Player.get(p.getId()) == null)
-                playerList.remove(p);
-
-            Taxes taxes = LtrpWorld.get().getTaxes();
-            int houseTax = (int) House.get().stream().filter(h -> h.getOwner() == p.getUUID()).count() * taxes.getHouseTax();
-            int businessTax = (int) Business.get().stream().filter(b -> b.getOwner() == p.getUUID()).count() * taxes.getBusinessTax();
-            int garageTax = (int) Garage.get().stream().filter(g -> g.getOwner() == p.getUUID()).count() * taxes.getGarageTax();
-            //int vehicleTax = PlayerVehiclePlugin.get(PlayerVehiclePlugin.class).getVehicleDao().getPlayerVehicleCount(p) * taxes.getVehicleTax();
-            // TODO perkelti mokesčius į atskirą modulį
-            int vehicleTax = 0;
-            if(p.getMinutesOnlineSincePayday() > MINUTES_FOR_PAYDAY) {
-                int paycheck = 0;
-
-                PlayerJobData jobData = JobController.get().getJobData(p);
-                if (jobData != null) {
-                    paycheck = jobData.getJobRank().getSalary();
-                } else {
-                    paycheck = 100;
-                }
-                BankAccount bankAccount = bankPlugin.getBankController().getAccount(p);
-                int totalTaxes = houseTax + businessTax + garageTax + vehicleTax;
-                p.sendMessage(Color.LIGHTGREEN, "|______________ Los Santos banko ataskaita______________ |");
-                p.sendMessage(Color.WHITE, String.format("| Gautas atlyginimas: %d%c | Papildomi mokesčiai: %d%c |", paycheck, Currency.SYMBOL,totalTaxes, Currency.SYMBOL));
-                p.sendMessage(Color.WHITE, String.format("| Buvęs banko balansas: %d%c |", bankAccount.getMoney(), Currency.SYMBOL));
-                p.sendMessage(Color.WHITE, String.format("| Galutinė gauta suma: %d%c |", paycheck, Currency.SYMBOL));
-                bankAccount.addMoney(-totalTaxes);
-                bankPlugin.getBankController().update(bankAccount);
-                p.sendMessage(Color.WHITE, String.format("| Dabartinis banko balansas: %d%c |", bankAccount.getMoney(), Currency.SYMBOL));
-                p.addTotalPaycheck(paycheck);
-                p.sendMessage(Color.WHITE, String.format("| Sukauptas atlyginimas: %d%c", p.getTotalPaycheck(), Currency.SYMBOL));
-                if (houseTax > 0)
-                    p.sendMessage(Color.WHITE, String.format("| Mokestis už nekilnojama turtą: %d%c |", houseTax, Currency.SYMBOL));
-                if (businessTax > 0)
-                    p.sendMessage(Color.WHITE, String.format("| Verslo mokestis: %d%c |", businessTax, Currency.SYMBOL));
-                if (vehicleTax > 0)
-                    p.sendMessage(Color.WHITE, String.format("| Tr. Priemonių mokestis: %d%c |", vehicleTax, Currency.SYMBOL));
-
-                p.sendGameText(1, 5000, " ~y~Mokesciai~n~~g~Alga");
-                p.setOnlineHours(p.getOnlineHours() + 1);
-
-                p.setMinutesOnlineSincePayday(0);
-            } else {
-                p.sendErrorMessage("Apgailestaujame, bet atlyginimo už šią valandą negausite, kadangi Jūs nebuvote prisijungęs pakankamai.");
-            }
-            playerDao.update(p);
-        });
-    }
-*/
-/*
     private void addPawnFunctions() {
         logger.info("PlayerController :: addPawnFunctions. Called.");
         managerNode.registerHandler(AmxLoadEvent.class, e-> {

@@ -43,7 +43,7 @@ class PlayerPlugin: DependentPlugin() {
     private lateinit var eventManager: EventManagerNode
     private lateinit var playerDao: PlayerDao
     private lateinit var playerWeaponDao: PlayerWeaponDao
-    private lateinit var playerController: PlayerControllerImpl
+    lateinit var playerController: PlayerControllerImpl
     private lateinit var playerCommandManager: PlayerCommandManager
     private val playerContainer = PlayerContainer
 
