@@ -18,7 +18,7 @@ class PlayerPaydayPlugin : Plugin() {
 
     override fun onEnable() {
         eventManagerNode = eventManager.createChildNode()
-        paydayEventHandler = PayDayEventHandler(logger)
+        paydayEventHandler = PayDayEventHandler(eventManagerNode, logger)
         registerEventHandlers()
     }
 

@@ -3,16 +3,19 @@ package lt.ltrp
 import lt.ltrp.`object`.LtrpPlayer
 import lt.ltrp.constant.Currency
 import lt.ltrp.data.Color
+import lt.ltrp.event.PlayerPaydayEvent
 import lt.maze.event.PayDayEvent
 import net.gtaun.shoebill.resource.ResourceManager
 import net.gtaun.util.event.EventHandler
+import net.gtaun.util.event.EventManager
 import org.slf4j.Logger
 
 /**
  * Created by Bebras on 2016-12-21.
  *
  */
-class PayDayEventHandler(private val logger: Logger) : EventHandler<PayDayEvent> {
+class PayDayEventHandler(private val eventManager: EventManager,
+                         private val logger: Logger) : EventHandler<PayDayEvent> {
 
     override fun handleEvent(e: PayDayEvent?) {
         if(e == null) {
@@ -86,7 +89,7 @@ class PayDayEventHandler(private val logger: Logger) : EventHandler<PayDayEvent>
                 p.setMinutesOnlineSincePayday(0)
 
                 playerPlugin.playerController.update(p)
-
+                eventManager.dispatchEvent(PlayerPaydayEvent(p))
             } else {
                 p.sendErrorMessage("Apgailestaujame, bet atlyginimo uþ ðià valandà negausite, kadangi Jûs nebuvote prisijungæs pakankamai.")
             }
