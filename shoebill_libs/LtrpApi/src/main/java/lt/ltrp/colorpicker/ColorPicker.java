@@ -5,8 +5,8 @@ import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.TextDrawFont;
 import net.gtaun.shoebill.constant.VehicleColor;
 import net.gtaun.shoebill.data.Color;
+import net.gtaun.shoebill.entities.Textdraw;
 import net.gtaun.shoebill.event.player.PlayerClickTextDrawEvent;
-import net.gtaun.shoebill.object.Textdraw;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 
@@ -105,29 +105,29 @@ public class ColorPicker {
         for(int i = page * ColorPickerTextDraws.ITEMS_PER_PAGE; i < (page + 1) * ColorPickerTextDraws.ITEMS_PER_PAGE; i++) {
             int prevPageTdIndex = i - ColorPickerTextDraws.ITEMS_PER_PAGE,
                     nextPageTdIndex = i + ColorPickerTextDraws.ITEMS_PER_PAGE;
-            if(prevPageTdIndex >= 0 && TEXT_DRAWS.colorTextDraws[prevPageTdIndex].isShowed(player)) {
+            if(prevPageTdIndex >= 0 && TEXT_DRAWS.colorTextDraws[prevPageTdIndex].isShownForPlayer(player)) {
                 TEXT_DRAWS.colorTextDraws[prevPageTdIndex].hide(player);
             }
-            if(nextPageTdIndex < TEXT_DRAWS.colorTextDraws.length && TEXT_DRAWS.colorTextDraws[nextPageTdIndex].isShowed(player)) {
+            if(nextPageTdIndex < TEXT_DRAWS.colorTextDraws.length && TEXT_DRAWS.colorTextDraws[nextPageTdIndex].isShownForPlayer(player)) {
                 TEXT_DRAWS.colorTextDraws[nextPageTdIndex].hide(player);
             }
             if(i < TEXT_DRAWS.colorTextDraws.length)
                 TEXT_DRAWS.colorTextDraws[i].show(player);
         }
-        if(!TEXT_DRAWS.prevButton.isShowed(player)) {
+        if(!TEXT_DRAWS.prevButton.isShownForPlayer(player)) {
             TEXT_DRAWS.prevButton.show(player);
         }
-        if(!TEXT_DRAWS.nextButton.isShowed(player)) {
+        if(!TEXT_DRAWS.nextButton.isShownForPlayer(player)) {
             TEXT_DRAWS.nextButton.show(player);
         }
-        if(!TEXT_DRAWS.exitButton.isShowed(player))
+        if(!TEXT_DRAWS.exitButton.isShownForPlayer(player))
             TEXT_DRAWS.exitButton.show(player);
     }
 
     public void hide() {
         player.cancelSelectTextDraw();
         for(Textdraw td : TEXT_DRAWS.colorTextDraws) {
-            if(td.isShowed(player)) {
+            if(td.isShownForPlayer(player)) {
                 td.hide(player);
             }
         }
@@ -201,8 +201,8 @@ public class ColorPicker {
             float x = X + MARGIN;
             float y = Y + MARGIN;
             int count = 0;
-            for(Color c : VehicleColor.getColors()) {
-                System.out.println("COUNT: " + count + " id:" + VehicleColor.getIdFromColor(c));
+            for(Color c : VehicleColor.INSTANCE.get()) {
+                System.out.println("COUNT: " + count + " id:" + VehicleColor.INSTANCE.getId(c));
                 colorTextDraws[count] = Textdraw.create(x, y, " ");
                 colorTextDraws[count].setFont(TextDrawFont.MODEL_PREVIEW);
                 //colorTextDraws[count].setPreviewModel(492);
