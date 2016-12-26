@@ -1,10 +1,14 @@
-package lt.ltrp.dao.impl;
+package lt.ltrp.radio.dao.impl;
 
-import lt.ltrp.LoadingException;
-import lt.ltrp.dao.RadioStationDao;
-import lt.ltrp.data.RadioStation;
+import lt.ltrp.radio.dao.RadioStationDao;
+import lt.ltrp.radio.data.RadioStation;
+import org.slf4j.Logger;
 
 import javax.sql.DataSource;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +20,20 @@ import java.util.List;
 public class SqlRadioStationDao implements RadioStationDao {
 
     private DataSource ds;
+    private Logger logger;
 
-    public SqlRadioStationDao(DataSource ds) {
+    public SqlRadioStationDao(DataSource ds, Logger logger) {
         this.ds = ds;
+        this.logger = logger;
+        try {
+            insertTable();
+        } catch (SQLException e) {
+            logger.error("Could not create table", e);
+        }
     }
 
     @Override
-    public List<RadioStation> get() throws LoadingException {
+    public List<RadioStation> get() {
         String sql = "SELECT * FROM radio_stations";
         List<RadioStation> radioStations = new ArrayList<>();
         try (
@@ -35,7 +46,7 @@ public class SqlRadioStationDao implements RadioStationDao {
                 radioStations.add(station);
             }
         } catch(SQLException e){
-            throw new LoadingException("Radio stations could not be loaded", e);
+            logger.error("Could not retrieve radio stations", e);
         }
         return radioStations;
     }
@@ -49,10 +60,10 @@ public class SqlRadioStationDao implements RadioStationDao {
             ) {
             stmt.setString(1, station.getName());
             stmt.setString(2, station.getUrl());
-            stmt.setInt(3, station.getId());
+            stmt.setInt(3, station.getUuid());
             stmt.execute();
         } catch(SQLException e) {
-            e.printStackTrace();
+            logger.error("Could not update radio station " + station, e);
         }
     }
 
@@ -67,9 +78,9 @@ public class SqlRadioStationDao implements RadioStationDao {
             stmt.setString(2, station.getUrl());
             stmt.execute();
             int id = stmt.getGeneratedKeys().getInt(1);
-            station.setId(id);
+            station.setUuid(id);
         } catch(SQLException e) {
-            e.printStackTrace();
+            logger.error("Could not insert new radio station " + station, e);
         }
     }
 
@@ -80,10 +91,27 @@ public class SqlRadioStationDao implements RadioStationDao {
                 Connection con = ds.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql);
         ) {
-            stmt.setInt(1, station.getId());
+            stmt.setInt(1, station.getUuid());
             stmt.execute();
         } catch(SQLException e) {
-            e.printStackTrace();
+            logger.error("Could not remove radio station " + station, e);
+        }
+    }
+
+    private void insertTable() throws SQLException {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("radio_stations.sql")))) {
+            StringBuilder sql = new StringBuilder();
+            String line;
+            while((line = reader.readLine()) != null)
+                sql.append(line);
+
+            try(Connection connection = ds.getConnection()) {
+                try(Statement stmt = connection.createStatement()) {
+                    stmt.execute(sql.toString());
+                }
+            }
+        } catch (IOException e) {
+            throw new SQLException("Could not read table file \"radio_stations.sql\"", e);
         }
     }
 }
