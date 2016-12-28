@@ -18,7 +18,7 @@ import java.util.Collection;
  * @author Bebras
  *         2016.05.31.
  *
- *         This dialog lets owners see WHO has permissions to their vehicles
+ *         This player-stats lets owners see WHO has permissions to their vehicles
  */
 public class VehicleUserManagementDialog {
 

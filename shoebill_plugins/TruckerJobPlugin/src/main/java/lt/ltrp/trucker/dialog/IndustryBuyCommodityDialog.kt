@@ -14,7 +14,7 @@ import net.gtaun.util.event.EventManager
 
 /**
  * Created by Bebras on 2016-10-30.
- * This dialog lets the [trucker] to buy a commodity
+ * This player-stats lets the [trucker] to buy a commodity
  */
 object IndustryBuyCommodityDialog {
 

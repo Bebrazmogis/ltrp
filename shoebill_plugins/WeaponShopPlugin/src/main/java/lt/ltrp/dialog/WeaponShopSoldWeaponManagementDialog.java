@@ -10,7 +10,7 @@ import net.gtaun.util.event.EventManager;
  * @author Bebras
  *         2016.06.14.
  *
- *         This dialog must provide full {@link lt.ltrp.data.WeaponShopWeapon} management for the provided weapon shop instance
+ *         This player-stats must provide full {@link lt.ltrp.data.WeaponShopWeapon} management for the provided weapon shop instance
  */
 public class WeaponShopSoldWeaponManagementDialog {
     public static ListDialog create(LtrpPlayer player, EventManager eventManager, AbstractDialog parentDialog, WeaponShop weaponShop) {

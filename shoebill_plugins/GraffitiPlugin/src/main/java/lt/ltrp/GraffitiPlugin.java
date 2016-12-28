@@ -7,7 +7,7 @@ import lt.ltrp.dao.GraffitiColorDao;
 import lt.ltrp.dao.GraffitiDao;
 import lt.ltrp.dao.GraffitiFontDao;
 import lt.ltrp.dao.GraffitiObjectDao;
-import lt.ltrp.dao.impl.*;
+import lt.ltrp.business.dao.impl.*;
 import lt.ltrp.data.*;
 import lt.ltrp.event.GraffitiCreateEvent;
 import lt.ltrp.event.PlayerEndGraffitiPaintingEvent;

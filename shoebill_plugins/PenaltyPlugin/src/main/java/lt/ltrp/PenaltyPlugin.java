@@ -4,9 +4,9 @@ import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.dao.BanDao;
 import lt.ltrp.dao.JailDao;
 import lt.ltrp.dao.WarnDao;
-import lt.ltrp.dao.impl.MySqlBanDaoImpl;
-import lt.ltrp.dao.impl.MySqlJailDaoImpl;
-import lt.ltrp.dao.impl.MySqlWarnDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlBanDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlJailDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlWarnDaoImpl;
 import lt.ltrp.data.*;
 import lt.ltrp.event.*;
 import lt.ltrp.object.LtrpPlayer;
@@ -21,22 +21,15 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.data.WeaponData;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
-import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.shoebill.object.Timer;
-import net.gtaun.shoebill.resource.Plugin;
-import net.gtaun.shoebill.resource.Resource;
 import net.gtaun.shoebill.resource.ResourceManager;
 import net.gtaun.util.event.EventManagerNode;
 import net.gtaun.util.event.HandlerPriority;
 import org.slf4j.Logger;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author Bebras

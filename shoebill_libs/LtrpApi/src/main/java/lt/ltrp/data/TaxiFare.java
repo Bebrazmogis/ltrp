@@ -5,7 +5,7 @@ import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Location;
-import net.gtaun.shoebill.object.Timer;
+import net.gtaun.shoebill.entities.Timer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +14,7 @@ import java.util.Map;
  * @author Bebras
  *         2015.12.14.
  */
+/*
 public class TaxiFare {
 
     private static final int MAX_PASSENGERS = 10;
@@ -121,3 +122,4 @@ public class TaxiFare {
 
 
 }
+*/

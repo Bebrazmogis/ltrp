@@ -3,8 +3,8 @@ package lt.ltrp;
 import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.dao.AdvertisementCenterDao;
 import lt.ltrp.dao.AdvertisementDao;
-import lt.ltrp.dao.impl.FileAdvertisementCenterDaoImpl;
-import lt.ltrp.dao.impl.MySqlAdvertisementDaoImpl;
+import lt.ltrp.business.dao.impl.FileAdvertisementCenterDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlAdvertisementDaoImpl;
 import lt.ltrp.data.Advert;
 import lt.ltrp.data.Color;
 import lt.ltrp.dialog.AdvertisementListDialog;
@@ -14,16 +14,12 @@ import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.impl.NewsPaperItem;
 import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.data.Location;
-import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
-import net.gtaun.shoebill.resource.Plugin;
-import net.gtaun.shoebill.resource.Resource;
 import net.gtaun.shoebill.resource.ResourceManager;
 import net.gtaun.util.event.EventManagerNode;
 
 import javax.sql.DataSource;
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author Bebras

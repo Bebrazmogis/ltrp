@@ -1,13 +1,13 @@
 package lt.ltrp;
 
 import lt.ltrp.constant.LtrpVehicleModel;
-import lt.ltrp.data.Color;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.data.FuelTank;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.constant.TextDrawFont;
-import net.gtaun.shoebill.object.Destroyable;
-import net.gtaun.shoebill.object.PlayerTextdraw;
+import net.gtaun.shoebill.data.Color;
+import net.gtaun.shoebill.entities.Destroyable;
+import net.gtaun.shoebill.entities.PlayerTextdraw;
 
 /**
  * @author Bebras
@@ -41,7 +41,7 @@ public class SpeedometerTd implements Destroyable {
         if(vehicle != null) {
             StringBuilder speedoTextBuilder = new StringBuilder();
             speedoTextBuilder.append(String.format("Greitis: %d km/h~n~~w~Rida: %.0f km", vehicle.getSpeed(), vehicle.getMileage()));
-            if(LtrpVehicleModel.isMotorVehicle(vehicle.getModelId())) {
+            if(LtrpVehicleModel.isMotorVehicle(vehicle.getVehicle().getModelId())) {
                 FuelTank fueltank = vehicle.getFuelTank();
                 int percent = (int)fueltank.getSize() / 100 * (int)fueltank.getFuel();
                 String color;
@@ -70,7 +70,7 @@ public class SpeedometerTd implements Destroyable {
 
 
     public boolean isShown() {
-        return textdraw.isShowed();
+        return textdraw.isShown();
     }
 
     public void hide() {

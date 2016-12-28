@@ -18,7 +18,7 @@ open class WeaponModelSelectDialog(player: LtrpPlayer, override val eventManager
     override fun show() {
         WeaponModel.values().forEach { w ->
                 items.add(ListDialogItem.create {
-                    itemText { w.getName() }
+                    itemText { w.name }
                     data { w }
                 })
         }

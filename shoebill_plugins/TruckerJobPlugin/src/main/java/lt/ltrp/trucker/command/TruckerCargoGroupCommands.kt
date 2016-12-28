@@ -195,7 +195,7 @@ class TruckerCargoGroupCommands(private val truckerJob: TruckerJob,
                             player.sendErrorMessage("Industrija ðios prekës neperka!")
                         else if(industryCommodity.currentStock >= industryCommodity.maxStock)
                             player.sendErrorMessage("Industrijos sandëlis ðiai prekei pilnas!")
-                        // Maybe someone took it out while he was looking at the dialog
+                        // Maybe someone took it out while he was looking at the player-stats
                         else if(cargo.amount == 0)
                             player.sendErrorMessage("Ðios prekës sunkveþimyje nebëra!")
                         else {

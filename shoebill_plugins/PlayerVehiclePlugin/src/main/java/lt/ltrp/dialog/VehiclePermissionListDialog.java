@@ -12,7 +12,7 @@ import net.gtaun.util.event.EventManager;
  * @author Bebras
  *         2016.03.11.
  *
- *         This dialog lets a player select a permission from {@link lt.ltrp.constant.PlayerVehiclePermission} enum
+ *         This player-stats lets a player select a permission from {@link lt.ltrp.constant.PlayerVehiclePermission} enum
  */
 public class VehiclePermissionListDialog extends PageListDialog {
 

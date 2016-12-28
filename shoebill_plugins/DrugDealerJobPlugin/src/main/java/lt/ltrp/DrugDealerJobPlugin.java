@@ -3,7 +3,7 @@ package lt.ltrp;
 import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.DrugDealerCommands;
 import lt.ltrp.dao.DrugDealerJobDao;
-import lt.ltrp.dao.impl.MySqlDrugDealerJobImpl;
+import lt.ltrp.business.dao.impl.MySqlDrugDealerJobImpl;
 import lt.ltrp.object.DrugDealerJob;
 import lt.ltrp.object.impl.DrugDealerJobImpl;
 import lt.ltrp.resource.DependentPlugin;

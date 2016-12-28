@@ -1,9 +1,12 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.data.Color;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import lt.ltrp.object.LtrpPlayer;
-import net.gtaun.shoebill.common.dialog.ListDialog;
-import net.gtaun.shoebill.common.dialog.ListDialogItem;
+import lt.maze.dialog.ListDialog;
+import lt.maze.dialog.ListDialogItem;
+import net.gtaun.shoebill.data.Color;
 import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
@@ -30,13 +33,14 @@ public class FightStyleDialog {
             item.setData(f);
             dialogItems.add(item);
         }
-
-        return ListDialog.create(player, eventManager)
-                .caption("Sporto salë - Kovos stiliaus pamokos")
-                .items(dialogItems)
-                .buttonOk("Pirkti pam.")
-                .buttonCancel("Iðeiti")
-                .onClickOk((dialog, item) -> {
+        return ListDialog.Companion.create(player, eventManager, new Function1<ListDialog.ListDialogBuilder, Unit>() {
+            @Override
+            public Unit invoke(ListDialog.ListDialogBuilder listDialogBuilder) {
+                listDialogBuilder.caption(() -> "Sporto salë - Kovos stiliaus pamokos");
+                listDialogBuilder.items(dialogItems);
+                listDialogBuilder.buttonOk("Pirkti pam.");
+                listDialogBuilder.buttonCancel("Iðeiti");
+                listDialogBuilder.onSelectItem((dialog, item) -> {
                     FightStyle style = (FightStyle) item.getData();
                     if (player.getMoney() < style.price) {
                         player.sendErrorMessage("Jums neuþtenka pinigø " + style.name + " pamokai. Pamokos kaina $" + style.price);
@@ -45,8 +49,11 @@ public class FightStyleDialog {
                         player.giveMoney(-style.price);
                         player.sendMessage(Color.PURPLE, style.name + " pamoka baigta, dabar jau mokësite iðnaudoti ðá stiliø, pamoka kainavo $" + style.price);
                     }
-                })
-                .build();
+                    return Unit.INSTANCE;
+                });
+                return Unit.INSTANCE;
+            }
+        });
     }
 
 

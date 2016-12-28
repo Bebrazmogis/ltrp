@@ -4,7 +4,7 @@ import lt.ltrp.aircraft.AircraftDmvManager;
 import lt.ltrp.boat.BoatDmvManager;
 import lt.ltrp.car.CarDmvManager;
 import lt.ltrp.dao.DmvDao;
-import lt.ltrp.dao.impl.FileDmvDaoImpl;
+import lt.ltrp.business.dao.impl.FileDmvDaoImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.event.DmvVehicleDestroyEvent;
 import lt.ltrp.event.vehicle.VehicleEngineKillEvent;

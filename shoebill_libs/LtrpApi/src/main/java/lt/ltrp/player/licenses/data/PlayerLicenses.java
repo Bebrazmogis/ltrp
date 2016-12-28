@@ -1,5 +1,6 @@
 package lt.ltrp.player.licenses.data;
 
+import lt.ltrp.object.PlayerData;
 import lt.ltrp.player.licenses.constant.LicenseType;
 import lt.ltrp.object.LtrpPlayer;
 
@@ -12,10 +13,10 @@ public class PlayerLicenses {
     private static final int MAX_LICENSES = LicenseType.values().length;
 
     private PlayerLicense[] playerLicenses;
-    private LtrpPlayer player;
+    private PlayerData player;
     private int licenseCount;
 
-    public PlayerLicenses(LtrpPlayer player) {
+    public PlayerLicenses(PlayerData player) {
         playerLicenses = new PlayerLicense[MAX_LICENSES];
         licenseCount = 0;
         this.player = player;

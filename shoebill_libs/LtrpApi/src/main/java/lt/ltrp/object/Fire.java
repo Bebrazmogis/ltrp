@@ -3,8 +3,8 @@ package lt.ltrp.object;
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
-import net.gtaun.shoebill.object.Destroyable;
-import net.gtaun.shoebill.object.Timer;
+import net.gtaun.shoebill.entities.Destroyable;
+import net.gtaun.shoebill.entities.Timer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +63,8 @@ public class Fire implements Destroyable {
                 offset = -offset;
             }
             Location location = new Location(center);
-            location.setX(location.getX() + offset);
-            location.setY(location.getY() + offset);
+            location.x = location.x + offset;
+            location.y = location.y + offset;
             fireObjects[i] = DynamicObject.create(DEFAULT_FIRE_MODEL, location, new Vector3D());
         }
 

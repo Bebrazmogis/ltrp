@@ -2,7 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.command.SpawnCommands;
 import lt.ltrp.dao.SpawnDao;
-import lt.ltrp.dao.impl.MySqlSpawnDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlSpawnDaoImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.job.JobController;
 import lt.ltrp.job.object.Faction;

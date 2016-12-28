@@ -1,4 +1,4 @@
-class: lt.ltrp.GaragePlugin
+class: lt.ltrp.garage.GaragePlugin
 name: Garage Plugin
 version: 1.0-SNAPSHOT
 buildNumber: 0

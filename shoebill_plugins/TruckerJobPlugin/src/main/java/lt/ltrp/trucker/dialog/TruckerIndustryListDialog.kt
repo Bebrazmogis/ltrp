@@ -9,7 +9,7 @@ import net.gtaun.util.event.EventManager
 
 /**
  * Created by Bebras on 2016-11-06.
- * This dialog shows a list of industries
+ * This player-stats shows a list of industries
  */
 open class TruckerIndustryListDialog(override val player: LtrpPlayer, eventManager: EventManager): ListDialog(player, eventManager) {
 

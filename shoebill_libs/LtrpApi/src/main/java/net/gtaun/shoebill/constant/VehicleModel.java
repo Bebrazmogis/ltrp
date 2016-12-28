@@ -1,7 +1,7 @@
 package net.gtaun.shoebill.constant;
 
 import net.gtaun.shoebill.data.Vector3D;
-import net.gtaun.shoebill.object.Server;
+import net.gtaun.shoebill.entities.Server;
 
 import java.util.*;
 

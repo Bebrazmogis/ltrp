@@ -4,6 +4,7 @@ package lt.ltrp.data;
 
 
 
+import lt.ltrp.object.PlayerData;
 import lt.ltrp.object.drug.DrugItem;
 import lt.ltrp.object.LtrpPlayer;
 
@@ -18,17 +19,17 @@ import java.util.stream.Collectors;
 public class PlayerDrugs {
 
 
-    private LtrpPlayer player;
+    private PlayerData player;
     private Collection<PlayerAddiction> addictions;
     private Collection<Class<? extends DrugItem>> playerDrugs;
 
-    public PlayerDrugs(LtrpPlayer player) {
+    public PlayerDrugs(PlayerData player) {
         this.player = player;
         this.addictions = new ArrayList<>();
         this.playerDrugs = new HashSet<>();
     }
 
-    public LtrpPlayer getPlayer() {
+    public PlayerData getPlayer() {
         return player;
     }
 

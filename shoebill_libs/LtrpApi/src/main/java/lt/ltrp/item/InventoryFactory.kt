@@ -18,7 +18,7 @@ interface InventoryFactory {
 
     companion object {
         private val kodein by lazy {
-            ResourceManager.get().getPlugin(InjectorPlugin::class.java).kodein
+            ResourceManager.get().getPlugin(InjectorPlugin::class.java)?.kodein
         }
         val INSTANCE: InventoryFactory by kodein?.lazy?.instance<InventoryFactory>()
     }

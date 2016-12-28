@@ -2,8 +2,8 @@ package lt.ltrp.data.dmv;
 
 import net.gtaun.shoebill.constant.RaceCheckpointType;
 import net.gtaun.shoebill.data.Radius;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.RaceCheckpoint;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.entities.RaceCheckpoint;
 
 import java.lang.Override;import java.util.function.Consumer;
 

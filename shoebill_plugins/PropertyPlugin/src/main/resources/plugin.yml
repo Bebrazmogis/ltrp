@@ -1,4 +1,4 @@
-class: lt.ltrp.PropertyPlugin
+class: lt.ltrp.property.PropertyPlugin
 name: Property Plugin
 version: 1.0-SNAPSHOT
 buildNumber: 0

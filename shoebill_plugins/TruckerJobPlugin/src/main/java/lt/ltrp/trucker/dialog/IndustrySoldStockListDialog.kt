@@ -13,7 +13,7 @@ import net.gtaun.util.event.EventManager
 /**
  * Created by Bebras on 2016-10-30.
  * A list of the industries commodities
- * Shows commodities their prices and stock amounts with a tabbed, header list dialog
+ * Shows commodities their prices and stock amounts with a tabbed, header list player-stats
  *
  * |---------------------------------------------|
  * | Name | Price($) | current_stock / max_stock |

@@ -293,14 +293,6 @@ public class GeneralCommands {
     }
 
     @Command
-    @CommandHelp("Parodo jûsø veikëjo duomenis")
-    public boolean stats(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
-        //playerPlugin.showStats(player, player);
-        throw new RuntimeException("command stats is not implemented see github issue 4");
-    }
-
-    @Command
     @CommandHelp("Parodo þaidëjo ID pagal ávesà tekstà")
     public boolean id(Player pp, @CommandParameter(name = "Þaidëjo vardo dalis")String text) {
         LtrpPlayer player = LtrpPlayer.get(pp);

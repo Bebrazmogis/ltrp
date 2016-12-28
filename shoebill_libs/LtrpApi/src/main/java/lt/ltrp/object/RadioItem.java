@@ -1,5 +1,7 @@
 package lt.ltrp.object;
 
+import lt.ltrp.ActionMessenger;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -16,7 +18,7 @@ public interface RadioItem extends Item {
     float getFrequency();
     void setFrequency(float frequency);
     default void sendMessage(LtrpPlayer player, String msg) {
-        sendMessage(player, msg, LtrpPlayer.DEFAULT_ACTION_MESSAGE_DISTANCE);
+        sendMessage(player, msg, ActionMessenger.Companion.getDEFAULT_RADIUS());
     }
     void sendMessage(LtrpPlayer player, String message, float distance);
 

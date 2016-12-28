@@ -2,7 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.command.FuelStationCommands;
 import lt.ltrp.dao.FuelStationDao;
-import lt.ltrp.dao.impl.MySqlFuelStationDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlFuelStationDaoImpl;
 import lt.ltrp.data.FillData;
 import lt.ltrp.data.FuelStation;
 import lt.ltrp.dialog.VehicleStationBillDialog;

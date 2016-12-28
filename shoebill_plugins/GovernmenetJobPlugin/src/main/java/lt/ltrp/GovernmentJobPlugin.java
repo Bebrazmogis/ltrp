@@ -3,7 +3,7 @@ package lt.ltrp;
 import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.GovernmentCommands;
 import lt.ltrp.dao.GovernmentFactionDao;
-import lt.ltrp.dao.impl.MySqlGovernmentFactionDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlGovernmentFactionDaoImpl;
 import lt.ltrp.object.GovernmentFaction;
 import lt.ltrp.object.impl.GovernmentFactionImpl;
 import lt.ltrp.resource.DependentPlugin;

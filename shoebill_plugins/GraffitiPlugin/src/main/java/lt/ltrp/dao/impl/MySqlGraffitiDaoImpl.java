@@ -1,4 +1,4 @@
-package lt.ltrp.dao.impl;
+package lt.ltrp.business.dao.impl;
 
 import lt.ltrp.dao.GraffitiDao;
 import lt.ltrp.object.Graffiti;

@@ -1,7 +1,7 @@
 package lt.ltrp.command;
 
 import lt.ltrp.object.LtrpPlayer;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras

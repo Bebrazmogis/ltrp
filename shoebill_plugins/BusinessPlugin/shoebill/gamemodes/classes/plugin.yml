@@ -1,4 +1,4 @@
-class: lt.ltrp.BusinessPlugin
+class: lt.ltrp.business.BusinessPlugin
 name: Business Plugin
 version: 1.0-SNAPSHOT
 buildNumber: 0

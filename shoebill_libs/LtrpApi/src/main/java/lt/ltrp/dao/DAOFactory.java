@@ -1,6 +1,6 @@
 package lt.ltrp.dao;
 
-import lt.ltrp.DatabasePlugin;
+import lt.maze.DatabasePlugin;
 import net.gtaun.shoebill.Shoebill;
 
 import javax.sql.DataSource;
@@ -47,9 +47,9 @@ public abstract class DAOFactory {
     public abstract ItemDao getItemDao();
   //  public abstract HouseDao getHouseDao();
     //public abstract JobDao getJobDao();
-    public abstract DmvDao getDmvDao();
+    //public abstract DmvDao getDmvDao();
    // public abstract VehicleDao getVehicleDao();
-    public abstract RadioStationDao getRadioStationDao();
+   // public abstract RadioStationDao getRadioStationDao();
     public abstract DrugAddictionDao getDrugAddictionDao();
 }
 
@@ -61,9 +61,9 @@ class JdbcDAO extends DAOFactory {
     private ItemDao itemDao;
   //  private HouseDao houseDao;
     //private JobDao jobDao;
-    private DmvDao dmvDao;
+   // private DmvDao dmvDao;
   //  private VehicleDao vehicleDao;
-    private RadioStationDao radioStationDao;
+   // private RadioStationDao radioStationDao;
     private DrugAddictionDao drugAddictionDao;
 
     public JdbcDAO(DataSource ds) throws IOException, SQLException {
@@ -147,22 +147,22 @@ class JdbcDAO extends DAOFactory {
    /* public JobDao getJobDao() {
         return jobDao;
     }*/
-
+/*
     @Override
     public DmvDao getDmvDao() {
         return dmvDao;
     }
-
+*/
    /* @Override
     public VehicleDao getVehicleDao() {
         return vehicleDao;
     }*/
-
+/*
     @Override
     public RadioStationDao getRadioStationDao() {
         return radioStationDao;
     }
-
+*/
     @Override
     public DrugAddictionDao getDrugAddictionDao() {
         return drugAddictionDao;

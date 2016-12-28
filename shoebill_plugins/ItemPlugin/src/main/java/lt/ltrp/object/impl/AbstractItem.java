@@ -61,7 +61,7 @@ public abstract class AbstractItem extends NamedEntityImpl implements Item {
         listDialog.setButtonCancel("Atgal");
         listDialog.setClickCancelHandler((d) -> parentDialog.show());
         listDialog.setClickOkHandler((dialog, dialogitem) -> {
-            logger.debug("showOptions dialog item selected. item="+ dialogitem.getItemText());
+            logger.debug("showOptions player-stats item selected. item="+ dialogitem.getItemText());
             Method m = (Method)dialogitem.getData();
             logger.debug("showOptions selected item method=" + m.getName());
             try {

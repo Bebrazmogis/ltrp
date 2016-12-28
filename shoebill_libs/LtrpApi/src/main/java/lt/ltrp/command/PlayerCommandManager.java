@@ -1,17 +1,12 @@
 package lt.ltrp.command;
 
 
-import lt.ltrp.data.Color;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.LtrpVehicle;
-import net.gtaun.shoebill.common.command.BeforeCheck;
-import net.gtaun.shoebill.common.command.Command;
-import net.gtaun.shoebill.common.command.CommandHelp;
-import net.gtaun.shoebill.common.command.CustomCommandHandler;
-import net.gtaun.shoebill.common.command.PlayerCommandManager.UsageMessageSupplier;
+import net.gtaun.shoebill.common.command.*;
+import net.gtaun.shoebill.data.Color;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.entities.Vehicle;
 import net.gtaun.shoebill.event.player.PlayerCommandEvent;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Vehicle;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerPriority;
 import org.apache.commons.lang3.ArrayUtils;
@@ -80,9 +75,9 @@ public class PlayerCommandManager {
         TYPE_PARSER.put(Color.class, (s) -> new Color(Integer.parseUnsignedInt(s, 16)));
 
         // Custom defaults
-        TYPE_PARSER.put(LtrpPlayer.class, (s) -> LtrpPlayer.get(Player.getByNameOrId(s)));
+        TYPE_PARSER.put(LtrpPlayer.class, (s) -> LtrpPlayer.Companion.getByPartName(s));
         TYPE_PARSER.put(Vehicle.class, (s) -> Vehicle.get(Integer.parseInt(s)));
-        TYPE_PARSER.put(LtrpVehicle.class, s -> LtrpVehicle.getById(Integer.parseInt(s)));
+        //TYPE_PARSER.put(LtrpVehicle.class, s -> LtrpVehicle.getById(Integer.parseInt(s)));
 
     }
 
@@ -109,7 +104,7 @@ public class PlayerCommandManager {
         beforeCheckers = new HashMap<>();
 
         eventManager.registerHandler(PlayerCommandEvent.class, priority, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            LtrpPlayer player = LtrpPlayer.Companion.get(e.getPlayer());
             logger.debug("Command " + e.getCommand() + " received");
             if(processCommand(player, e.getCommand().substring(1)))
                 e.setProcessed();
@@ -149,7 +144,7 @@ public class PlayerCommandManager {
             }
             if(data.length != commandData.getParamTypes().length) {
                 if(commandUsageMessages.containsKey(cmdName)) {
-                    player.sendMessage(Color.NEWS, commandUsageMessages.get(cmdName));
+                    player.sendMessage(Color.WHEAT, commandUsageMessages.get(cmdName));
                 } else {
                    /* player.sendMessage(Color.NEWS, usageMessageSupplier != null ?
                             usageMessageSupplier.get(player, "/", cmdName) :

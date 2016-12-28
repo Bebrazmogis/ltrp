@@ -1,5 +1,6 @@
 package lt.ltrp.player.licenses.data;
 
+import lt.ltrp.object.PlayerData;
 import lt.ltrp.player.licenses.constant.LicenseType;
 import lt.ltrp.object.LtrpPlayer;
 
@@ -16,10 +17,10 @@ public class PlayerLicense {
     private LicenseType type;
     private int stage;
     private LocalDateTime dateAcquired;
-    private LtrpPlayer player;
+    private PlayerData player;
     private LicenseWarning[] warnings;
 
-    public PlayerLicense(int id, LicenseType type, int stage, LocalDateTime date, LtrpPlayer player) {
+    public PlayerLicense(int id, LicenseType type, int stage, LocalDateTime date, PlayerData player) {
         this.id = id;
         this.type = type;
         this.stage = stage;
@@ -31,7 +32,7 @@ public class PlayerLicense {
         this(0, type, stage, LocalDateTime.now(), player);
     }
 
-    public LtrpPlayer getPlayer() {
+    public PlayerData getPlayer() {
         return player;
     }
 

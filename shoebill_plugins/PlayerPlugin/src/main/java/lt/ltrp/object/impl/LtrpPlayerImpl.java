@@ -253,6 +253,15 @@ public class LtrpPlayerImpl extends PlayerDataImpl implements LtrpPlayer {
         });
     }
 
+    @Override
+    public void sendFadeMessage(Color color, String text, Location location) {
+        float[] hsb = java.awt.Color.RGBtoHSB(color.getR(), color.getG(), color.getB(), null);
+        float distanceToMessage = getLocation().distance(location);
+        hsb[2] -= distanceToMessage;
+        Color c = new Color(java.awt.Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]));
+        sendMessage(c, text);
+    }
+
     /*public void addJobExperience(int amount) {
         setJobExperience(getJobExperience() + amount);
     }

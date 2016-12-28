@@ -3,7 +3,7 @@ package lt.ltrp.object;
 import lt.ltrp.item.ItemController;
 import lt.ltrp.constant.ItemType;
 import net.gtaun.shoebill.constant.WeaponModel;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.util.event.EventManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

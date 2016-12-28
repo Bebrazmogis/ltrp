@@ -14,7 +14,7 @@ import net.gtaun.util.event.EventManager;
  * @author Bebras
  *         2016.03.11.
  *
- *         This dialog allows vehicle owners to add/remove permission for a user
+ *         This player-stats allows vehicle owners to add/remove permission for a user
  */
 public class VehicleUserPermissionDialog extends PageListDialog {
 

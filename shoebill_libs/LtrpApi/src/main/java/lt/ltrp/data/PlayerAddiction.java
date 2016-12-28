@@ -2,6 +2,7 @@ package lt.ltrp.data;
 
 
 
+import lt.ltrp.object.PlayerData;
 import lt.ltrp.object.drug.DrugItem;
 import lt.ltrp.object.LtrpPlayer;
 
@@ -16,16 +17,16 @@ public class PlayerAddiction {
     private Class<? extends DrugItem> type;
     private int level;
     private Timestamp lastDose;
-    private LtrpPlayer player;
+    private PlayerData player;
 
-    public PlayerAddiction(LtrpPlayer player, Class<? extends DrugItem> type, int level, Timestamp lastDose) {
+    public PlayerAddiction(PlayerData player, Class<? extends DrugItem> type, int level, Timestamp lastDose) {
         this.player = player;
         this.type = type;
         this.level = level;
         this.lastDose = lastDose;
     }
 
-    public LtrpPlayer getPlayer() {
+    public PlayerData getPlayer() {
         return player;
     }
 

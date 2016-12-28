@@ -1,4 +1,4 @@
-class: lt.ltrp.HousePlugin
+class: lt.ltrp.house.HousePlugin
 name: House Plugin
 version: 1.0-SNAPSHOT
 buildNumber: 0

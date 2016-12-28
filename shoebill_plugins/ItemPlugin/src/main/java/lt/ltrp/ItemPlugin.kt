@@ -6,10 +6,10 @@ import lt.ltrp.`object`.Inventory
 import lt.ltrp.`object`.impl.ItemCommands
 import lt.ltrp.dao.ItemDao
 import lt.ltrp.dao.PhoneDao
-import lt.ltrp.dao.impl.MySqlDrugAddictionDaoImpl
-import lt.ltrp.dao.impl.SqlItemDao
-import lt.ltrp.dao.impl.SqlPhoneDaoImpl
-import lt.ltrp.event.GarageLoadedEvent
+import lt.ltrp.business.dao.impl.MySqlDrugAddictionDaoImpl
+import lt.ltrp.business.dao.impl.SqlItemDao
+import lt.ltrp.business.dao.impl.SqlPhoneDaoImpl
+import lt.ltrp.garage.event.GarageLoadedEvent
 import lt.ltrp.event.item.ItemCreateEvent
 import lt.ltrp.event.item.ItemDestroyEvent
 import lt.ltrp.event.item.ItemLocationChangeEvent
@@ -106,7 +106,7 @@ class ItemPlugin: DependentPlugin(), BindingPlugin {
                 itemDao.insert(e.getItem());
         });
 
-        eventManager.registerHandler(GarageLoadedEvent::class.java, {e ->
+        eventManager.registerHandler(GarageLoadedEvent::class.java, { e ->
             val g = e.garage
             val items = itemDao.getItems(g)
             if (g.inventory != null)

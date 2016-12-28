@@ -28,7 +28,7 @@ interface ItemFactory {
 
     companion object {
         private val kodein: Kodein? by lazy {
-            ResourceManager.get().getPlugin(InjectorPlugin::class.java).kodein;
+            ResourceManager.get().getPlugin(InjectorPlugin::class.java)?.kodein;
         }
         val instance by kodein?.lazy?.instance<ItemFactory>()
     }

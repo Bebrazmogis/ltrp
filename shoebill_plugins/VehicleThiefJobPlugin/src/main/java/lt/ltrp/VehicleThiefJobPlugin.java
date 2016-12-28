@@ -3,7 +3,7 @@ package lt.ltrp;
 import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.dao.VehicleThiefDao;
-import lt.ltrp.dao.impl.MySqlVehicleThiefDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlVehicleThiefDaoImpl;
 import lt.ltrp.job.JobController;
 import lt.ltrp.object.impl.VehicleThiefJobImpl;
 import lt.ltrp.player.job.data.PlayerJobData;
@@ -14,16 +14,10 @@ import lt.ltrp.object.*;
 import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
-import net.gtaun.shoebill.event.resource.ResourceEnableEvent;
 import net.gtaun.shoebill.object.VehicleParam;
-import net.gtaun.shoebill.resource.Plugin;
-import net.gtaun.shoebill.resource.Resource;
 import net.gtaun.shoebill.resource.ResourceManager;
 import net.gtaun.util.event.EventManagerNode;
 import org.slf4j.Logger;
-
-import java.util.Collection;
-import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @author Bebras

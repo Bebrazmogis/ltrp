@@ -1,6 +1,6 @@
 package lt.ltrp.modelpreview;
 
-import net.gtaun.shoebill.object.Destroyable;
+import net.gtaun.shoebill.entities.Destroyable;
 
 /**
  * @author Bebras

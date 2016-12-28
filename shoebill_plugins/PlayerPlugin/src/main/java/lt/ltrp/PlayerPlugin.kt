@@ -7,8 +7,8 @@ import lt.ltrp.`object`.impl.LtrpPlayerImpl
 import lt.ltrp.command.PlayerAcceptOffers
 import lt.ltrp.command.PlayerAnimationCommands
 import lt.ltrp.command.PlayerChatCommands
-import lt.ltrp.dao.impl.MySqlPlayerWeaponDaoImpl
-import lt.ltrp.dao.impl.SqlPlayerDaoImpl
+import lt.ltrp.business.dao.impl.MySqlPlayerWeaponDaoImpl
+import lt.ltrp.business.dao.impl.SqlPlayerDaoImpl
 import lt.ltrp.data.Animation
 import lt.ltrp.event.player.PlayerConnectEvent
 import lt.ltrp.event.player.PlayerLogInEvent

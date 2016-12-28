@@ -2,9 +2,10 @@ package lt.ltrp.`object`
 
 import lt.ltrp.constant.TalkStyle
 import lt.ltrp.constant.WalkStyle
-import lt.ltrp.player.job.data.PlayerJobData
-import net.gtaun.shoebill.`object`.Player
-import net.gtaun.util.event.EventManager
+import lt.ltrp.data.PlayerDrugs
+import lt.ltrp.player.licenses.data.PlayerLicenses
+import lt.ltrp.player.settings.data.PlayerSettings
+import lt.maze.audio.AudioHandle
 import java.lang.ref.WeakReference
 import java.time.LocalDateTime
 
@@ -20,6 +21,10 @@ interface PlayerData: InventoryEntity {
     var adminLevel: Int
     var modLevel: Int
     var hoursOnline: Int
+    /**
+     * Basically this has one ue: to check if the user is allowed to get payday
+     * If this is larger or equal to {@link PlayerController#MINUTES_FOR_PAYDAY} he will get payday
+     */
     var minutesOnlineSincePayday: Int
     var boxStyle: Int
     var sex: String
@@ -27,22 +32,82 @@ interface PlayerData: InventoryEntity {
     var origin: String
     var disease: Int
     var respect: Int
-    var money: Int
     var deaths: Int
-    var wantedLevel: Int
     var walkStyle: WalkStyle
     var talkStyle: TalkStyle
-    var lastLogIn: LocalDateTime
+    var lastLogin: LocalDateTime
+    var lastUsedVehicle: LtrpVehicle?
     var hunger: Int
+    var boxingStyle: Int
+    var forumName: String
+    var audioHandle: AudioHandle
+
+    /**
+     * Current(current paydays) paycheck
+     */
+    var currentPaycheck: Int
+
+    /**
+     * Paydays a user spent online
+     */
+    var onlineHours: Int
+
+    var description: String?
+
+    /*********************************************
+     *  Various flags
+     */
+
+    /**
+     * Total unclaimed job money
+     */
     var totalPaycheck: Int
     var isLoggedIn: Boolean
-    var isOnline: Boolean
-    var jobData: PlayerJobData?
+    var isMuted: Boolean
+    var isFrozen: Boolean
+    var isFactionManager: Boolean
+    var isInComa: Boolean
+    var isAnimationPlaying: Boolean
+    var isMasked: Boolean
+    var isSeatbelt: Boolean
+    var isInJail: Boolean
+    var isCuffed: Boolean
+    var isMod: Boolean
 
 
-    fun isValid(): Boolean
-    fun isAdmin(): Boolean
-    fun isMod(): Boolean
+    val countdown: PlayerCountdown
+    val infoBox: PlayerInfoBox
+    fun addTotalPaycheck(amount: Int)
+
+    /**
+     * References to other data classes
+     */
+    val drugs: PlayerDrugs
+    val licenses: PlayerLicenses
+    val settings: PlayerSettings
+    //var jobData: PlayerJobData?
+
+    val firstName: String
+        get() {
+            val index = name.indexOf("_")
+            return if(index != -1) name.substring(0, index) else name.substring(0, name.length / 2)
+        }
+
+    val lastName: String
+        get() {
+            val index = name.indexOf("_")
+            if(index != -1) return name.substring(index, name.length)
+            else return name.substring(name.length / 2, name.length)
+        }
+
+    val charName: String
+        get() = name.replace("_", " ")
+
+    val maskName: String
+        get() = "((Kaukëtasis " + (UUID + 400) + "))"
+
+    val isValid: Boolean
+        get() = UUID != Entity.INVALID_ID
 
     companion object {
 

@@ -3,7 +3,7 @@ package lt.ltrp;
 import lt.ltrp.command.*;
 import lt.ltrp.constant.SwatType;
 import lt.ltrp.dao.PoliceFactionDao;
-import lt.ltrp.dao.impl.MySqlPoliceFactionImpl;
+import lt.ltrp.business.dao.impl.MySqlPoliceFactionImpl;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.event.PlayerJailEvent;

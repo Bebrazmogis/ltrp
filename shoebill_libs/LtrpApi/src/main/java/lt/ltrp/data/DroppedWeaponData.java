@@ -7,8 +7,8 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector2D;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.data.WeaponData;
-import net.gtaun.shoebill.object.Destroyable;
-import net.gtaun.shoebill.object.Timer;
+import net.gtaun.shoebill.entities.Destroyable;
+import net.gtaun.shoebill.entities.Timer;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author Bebras
  *         2015.12.03.
  */
-public class DroppedWeaponData extends LtrpWeaponData implements Destroyable{
+public class DroppedWeaponData extends LtrpWeaponData implements Destroyable {
 
     private static List<DroppedWeaponData> droppedWeapons = new ArrayList<>();
 
@@ -44,9 +44,9 @@ public class DroppedWeaponData extends LtrpWeaponData implements Destroyable{
             //float z = MapAndreas.FindZ(location.getX(), location.getY());
             float z = 0f;
             // TODO
-            this.location = new Location(location.getX(), location.getY(), z);
+            this.location = new Location(location.x, location.y, z);
             Shoebill.get().runOnSampThread(() -> {
-                this.object = DynamicObject.create(type.getModelId(), this.location, new Vector3D());
+                this.object = DynamicObject.create(type.id, this.location, new Vector3D());
                 timer = Timer.create(DISAPPEAR_INTERVAL, 1, (interval) -> {
                     this.destroy();
                 });
@@ -59,12 +59,12 @@ public class DroppedWeaponData extends LtrpWeaponData implements Destroyable{
 
 
     public DroppedWeaponData(WeaponData data, boolean job, Vector2D location) {
-        this(data.getModel(), data.getAmmo(), job, location);
+        this(data.model, data.ammo, job, location);
 
     }
 
     public DroppedWeaponData(LtrpWeaponData data, Vector2D location) {
-        this(data, data.isJob(), location);
+        this(data.getWeaponData(), data.isJob(), location);
 
     }
 

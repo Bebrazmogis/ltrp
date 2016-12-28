@@ -3,7 +3,7 @@ package lt.ltrp.dao;
 
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.data.*;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import lt.ltrp.command.DepartmentChatCommand;
 import lt.ltrp.command.MedicCommands;
 import lt.ltrp.command.RoadblockCommands;
 import lt.ltrp.dao.MedicFactionDao;
-import lt.ltrp.dao.impl.MySqlMedicFactionDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlMedicFactionDaoImpl;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.MedicFaction;
 import lt.ltrp.object.impl.MedicFactionImpl;

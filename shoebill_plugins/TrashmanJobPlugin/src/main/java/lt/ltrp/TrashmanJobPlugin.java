@@ -4,7 +4,7 @@ import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.TrashmanCommands;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dao.TrashManJobDao;
-import lt.ltrp.dao.impl.MySqlTrashManJobImpl;
+import lt.ltrp.business.dao.impl.MySqlTrashManJobImpl;
 import lt.ltrp.data.Animation;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.TrashMission;

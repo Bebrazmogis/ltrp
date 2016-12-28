@@ -15,7 +15,7 @@ import net.gtaun.util.event.EventManager;
  * @author Bebras
  *         2016.05.31.
  *
- *         This dialog is a confirmation whether to pay a fine, or not
+ *         This player-stats is a confirmation whether to pay a fine, or not
  */
 public class ConfirmPayFineMsgBoxDialog {
 

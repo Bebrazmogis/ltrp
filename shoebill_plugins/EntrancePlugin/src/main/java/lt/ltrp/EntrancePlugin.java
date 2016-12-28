@@ -2,7 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.command.EntranceCommands;
 import lt.ltrp.dao.EntranceDao;
-import lt.ltrp.dao.impl.MySqlEntranceDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlEntranceDaoImpl;
 import lt.ltrp.dialog.EntranceListManagementDialog;
 import lt.ltrp.event.EntranceCreateEvent;
 import lt.ltrp.object.Entrance;

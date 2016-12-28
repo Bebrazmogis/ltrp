@@ -4,7 +4,7 @@ import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.command.MechanicAcceptCommands;
 import lt.ltrp.command.MechanicCommands;
 import lt.ltrp.dao.MechanicJobDao;
-import lt.ltrp.dao.impl.MySqlMechanicJobDaoImpl;
+import lt.ltrp.business.dao.impl.MySqlMechanicJobDaoImpl;
 import lt.ltrp.event.PlayerLeaveRepairArea;
 import lt.ltrp.event.RepairSessionEndEvent;
 import lt.ltrp.event.vehicle.VehicleEngineStartEvent;

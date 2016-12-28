@@ -1,8 +1,7 @@
 package lt.ltrp.object;
 
 
-import lt.ltrp.data.TaxiFare;
-import net.gtaun.shoebill.object.Destroyable;
+import net.gtaun.shoebill.entities.Destroyable;
 
 /**
  * @author Bebras
@@ -16,7 +15,7 @@ public interface PlayerInfoBox extends Destroyable {
     void setCountDown(Integer seconds);
     void setCountDown(String caption, Integer seconds);
     void setJailTime(Integer seconds);
-    void setTaxiFare(TaxiFare trip);
+   // void setTaxiFare(TaxiFare trip);
     void update();
 
 

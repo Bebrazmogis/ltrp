@@ -1,15 +1,18 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.item.ItemController;
-import lt.ltrp.data.Color;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import lt.ltrp.data.PhoneBook;
 import lt.ltrp.data.PhoneContact;
 import lt.ltrp.object.LtrpPlayer;
-import net.gtaun.shoebill.common.dialog.AbstractDialog;
-import net.gtaun.shoebill.common.dialog.InputDialog;
-import net.gtaun.shoebill.common.dialog.ListDialog;
-import net.gtaun.shoebill.common.dialog.ListDialogItem;
+import lt.maze.dialog.InputDialog;
+import lt.maze.dialog.ListDialog;
+import lt.maze.dialog.ListDialogItem;
+import net.gtaun.shoebill.data.Color;
 import net.gtaun.util.event.EventManager;
+
+import static lt.ltrp.constant.LtrpColorKt.getNEWS;
 
 /**
  * @author Bebras
@@ -26,7 +29,7 @@ public class PhonebookListDialog extends ListDialog {
         super(player, eventManager);
         this.phonebook = phonebook;
 
-        this.setCaption("Kontaktai");
+        this.setTitle("Kontaktai");
         this.setButtonOk("Pasirinkti");
         this.setButtonCancel("Atgal");
     }
@@ -50,56 +53,70 @@ public class PhonebookListDialog extends ListDialog {
 
     @Override
     public void show() {
-        items.clear();
+        getItems().clear();
         for(PhoneContact contact : phonebook.getContacts()) {
             ListDialogItem item = new ListDialogItem();
             if(contact != null) {
                 item.setItemText(contact.getName());
                 item.setData(contact);
-                item.setSelectHandler(h -> {
-                    PhoneContactDialog.create(getPlayer(), eventManagerNode, contact, callContactHandler, sendSmsHandler, deleteHandler).show();
+                item.selectHandler(h -> {
+                    PhoneContactDialog.create(getPlayer(), getEventNode(), contact, callContactHandler, sendSmsHandler, deleteHandler).show();
+                    return Unit.INSTANCE;
                 });
             } else {
                 item.setItemText("- Tuðèia - ");
-                item.setSelectHandler(h -> {
+                item.selectHandler(h -> {
                     // Prideëti naujà kontaktà
-                    InputDialog.create(player, eventManagerNode)
-                        .caption("Naujas kontaktas 1/2")
-                        .buttonOk("Tæsti")
-                        .buttonCancel("Atgal")
-                        .message("Áveskite kontakto telefono numerá")
-                        .onClickOk((contactNumberDialog, contactNumber) -> {
-                            final int number;
-                            try {
-                                number = Integer.parseInt(contactNumber);
-                            } catch (NumberFormatException e) {
-                                getPlayer().sendErrorMessage("Numeris turi bûti sudarytas ið skaitmenu");
-                                contactNumberDialog.show();
-                                return;
-                            }
-                            InputDialog.create(player, eventManagerNode)
-                                    .caption("Naujas kontaktas 2/2")
-                                    .buttonOk("Iðsaugoti")
-                                    .buttonCancel("Atgal")
-                                    .message("Áveskite kontakto " + number + " vardà")
-                                    .onClickCancel(AbstractDialog::showParentDialog)
-                                    .onClickOk((contactNameDialog, contactName) -> {
-                                        if (contactName != null && !contactName.isEmpty()) {
-                                            //PhoneContact newContact = ItemController.get().getPhoneDao().add(phonebook.getOwnerNumber(), number, contactName);
-                                            //phonebook.addContact(newContact);
-                                            player.sendMessage(Color.NEWS, "Kontaktas \"" + contactName + "\" pridëtas á telefono kontaktø sàraðà");
-                                        } else {
-                                            contactNameDialog.show();
-                                        }
-                                    })
-                                    .build()
-                                    .show();
-                        })
-                        .build()
-                        .show();
+                    InputDialog.Companion.create(getPlayer(), getEventNode(), new Function1<InputDialog.InputDialogBuilder, Unit>() {
+                        @Override
+                        public Unit invoke(InputDialog.InputDialogBuilder inputDialogBuilder) {
+                            inputDialogBuilder.caption("Naujas kontaktas 1/2");
+                            inputDialogBuilder.buttonOk("Tæsti");
+                            inputDialogBuilder.buttonCancel("Atgal");
+                            inputDialogBuilder.body("Áveskite kontakto telefono numerá");
+                            inputDialogBuilder.onClickOk((contactNumberDialog, contactNumber) -> {
+                                final int number;
+                                try {
+                                    number = Integer.parseInt(contactNumber);
+                                } catch (NumberFormatException e) {
+                                    getPlayer().sendErrorMessage("Numeris turi bûti sudarytas ið skaitmenu");
+                                    contactNumberDialog.show();
+                                    return Unit.INSTANCE;
+                                }
+                                InputDialog.Companion.create(getPlayer(), getEventNode(), new Function1<InputDialog.InputDialogBuilder, Unit>() {
+                                    @Override
+                                    public Unit invoke(InputDialog.InputDialogBuilder inputDialogBuilder) {
+                                        inputDialogBuilder.caption("Naujas kontaktas 2/2");
+                                        inputDialogBuilder.buttonOk("Iðsaugoti");
+                                        inputDialogBuilder.buttonCancel("Atgal");
+                                        inputDialogBuilder.body("Áveskite kontakto " + number + " vardà");
+                                        inputDialogBuilder.onClickCancel(abstractDialog -> {
+                                            abstractDialog.showParent();
+                                            return Unit.INSTANCE;
+                                        });
+                                        inputDialogBuilder.onClickOk((contactNameDialog, contactName) -> {
+                                            if (contactName != null && !contactName.isEmpty()) {
+                                                //PhoneContact newContact = ItemController.get().getPhoneDao().add(phonebook.getOwnerNumber(), number, contactName);
+                                                //phonebook.addContact(newContact);
+                                                // TODO
+                                                getPlayer().sendMessage(getNEWS(Color.Companion), "Kontaktas \"" + contactName + "\" pridëtas á telefono kontaktø sàraðà");
+                                            } else {
+                                                contactNameDialog.show();
+                                            }
+                                            return Unit.INSTANCE;
+                                        });
+                                        return Unit.INSTANCE;
+                                    }
+                                }).show();
+                                return Unit.INSTANCE;
+                                    });
+                            return Unit.INSTANCE;
+                        }
+                    }).show();
+                    return Unit.INSTANCE;
                 });
             }
-            items.add(item);
+            getItems().add(item);
         }
         super.show();
     }

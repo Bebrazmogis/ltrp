@@ -2,7 +2,6 @@ package lt.ltrp.player
 
 import lt.ltrp.`object`.LtrpPlayer
 import lt.ltrp.`object`.PlayerData
-import net.gtaun.shoebill.`object`.Destroyable
 import net.gtaun.shoebill.data.Location
 
 /**

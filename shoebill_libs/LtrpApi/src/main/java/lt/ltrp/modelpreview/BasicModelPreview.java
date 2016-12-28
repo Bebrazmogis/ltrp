@@ -1,15 +1,16 @@
 package lt.ltrp.modelpreview;
 
-import lt.ltrp.data.Color;
+
 import lt.ltrp.modelpreview.event.ModelPreviewCancelEvent;
 import lt.ltrp.modelpreview.event.ModelPreviewSelectModelEvent;
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.TextDrawAlign;
 import net.gtaun.shoebill.constant.TextDrawFont;
+import net.gtaun.shoebill.data.Color;
+import net.gtaun.shoebill.entities.PlayerTextdraw;
+import net.gtaun.shoebill.entities.Textdraw;
 import net.gtaun.shoebill.event.player.PlayerClickPlayerTextDrawEvent;
 import net.gtaun.shoebill.event.player.PlayerClickTextDrawEvent;
-import net.gtaun.shoebill.object.PlayerTextdraw;
-import net.gtaun.shoebill.object.Textdraw;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.EventManagerNode;
 

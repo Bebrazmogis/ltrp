@@ -13,8 +13,8 @@ import net.gtaun.util.event.EventManager
 
 /**
  * Created by Bebras on 2016-11-06.
- * The main dialog for truckers
- * The dialog should look somewhat like this
+ * The main player-stats for truckers
+ * The player-stats should look somewhat like this
  * |--------------------------|
  * | Industry information     |
  * | Ship information         |

@@ -4,8 +4,8 @@ import lt.ltrp.item.ItemController;
 import lt.ltrp.constant.ItemType;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.constant.SpecialAction;
-import net.gtaun.shoebill.object.Destroyable;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Destroyable;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.util.event.EventManager;
 
 /**

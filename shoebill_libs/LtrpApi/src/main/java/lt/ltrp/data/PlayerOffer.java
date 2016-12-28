@@ -3,7 +3,7 @@ package lt.ltrp.data;
 
 import lt.ltrp.event.player.PlayerOfferExpireEvent;
 import lt.ltrp.object.LtrpPlayer;
-import net.gtaun.shoebill.object.Timer;
+import net.gtaun.shoebill.entities.Timer;
 import net.gtaun.util.event.EventManager;
 
 /**

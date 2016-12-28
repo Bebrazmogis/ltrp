@@ -11,7 +11,7 @@ import net.gtaun.util.event.EventManager
 
 /**
  * Created by Bebras on 2016-11-06.
- * This dialog shows information about an industry and its sold/bought commodities
+ * This player-stats shows information about an industry and its sold/bought commodities
  * If selects OK, checkpoint is created and shown
  */
 object TruckerIndustryInfoDialog {

@@ -4,15 +4,13 @@ package lt.ltrp;
 import lt.ltrp.dao.DAOFactory;
 import lt.ltrp.dao.LtrpWorldDao;
 import lt.ltrp.dao.impl.FileLtrpWorldImpl;
-import lt.ltrp.data.Color;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.util.ErrorCode;
 import net.gtaun.shoebill.Shoebill;
+import net.gtaun.shoebill.entities.Server;
+import net.gtaun.shoebill.entities.Timer;
+import net.gtaun.shoebill.entities.World;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Server;
-import net.gtaun.shoebill.object.Timer;
-import net.gtaun.shoebill.object.World;
 import net.gtaun.shoebill.resource.Gamemode;
 import net.gtaun.shoebill.resource.ResourceManager;
 import net.gtaun.util.event.EventManager;
@@ -51,7 +49,7 @@ public class LtrpGamemodeImpl extends Gamemode implements LtrpGamemodeConstants 
         worldDao.load(LtrpWorld.get());
 
       /*  getEventManager().registerHandler(PlayerClickMapEvent.class, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            LtrpPlayer player = LtrpPlayer.Companion.get(e.getPlayer());
             if (player != null && player.getAdminLevel() > 0) {
                 float z = MapAndreas.FindZ(e.getPosition().getX(), e.getPosition().getY());
                 System.out.println("Player location: " + e.getPlayer().getLocation() + " selected pos:" + e.getPosition() + " MapAndreas z:" + z);

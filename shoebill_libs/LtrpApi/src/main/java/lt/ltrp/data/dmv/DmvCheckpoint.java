@@ -2,8 +2,8 @@ package lt.ltrp.data.dmv;
 
 import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Radius;
-import net.gtaun.shoebill.object.Checkpoint;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Checkpoint;
+import net.gtaun.shoebill.entities.Player;
 
 import java.util.function.Consumer;
 

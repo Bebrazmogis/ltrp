@@ -6,7 +6,7 @@ import lt.ltrp.data.FuelTank;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;
-import net.gtaun.shoebill.object.Vehicle;
+import net.gtaun.shoebill.entities.Vehicle;
 
 import java.util.List;
 
