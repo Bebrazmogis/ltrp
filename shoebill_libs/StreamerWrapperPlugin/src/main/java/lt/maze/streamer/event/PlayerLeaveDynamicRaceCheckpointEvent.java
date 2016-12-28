@@ -1,7 +1,7 @@
 package lt.maze.streamer.event;
 
 import lt.maze.streamer.object.DynamicRaceCheckpoint;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras

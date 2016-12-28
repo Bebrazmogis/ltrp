@@ -7,7 +7,7 @@ import net.gtaun.shoebill.data.Area3D;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras
@@ -25,7 +25,7 @@ public class DynamicCube extends AbstractDynamicArea {
     }
 
     public static DynamicCube create(Area3D area, int worldid, int interiorid, Player p) {
-        return create(area.getMinX(), area.getMinY(), area.getMinZ(), area.getMaxX(), area.getMaxY(), area.getMaxZ(), worldid, interiorid, p);
+        return create(area.minX, area.minY, area.minZ, area.maxX, area.maxY, area.maxZ, worldid, interiorid, p);
     }
 
     public static DynamicCube create(Area3D area) {
@@ -42,7 +42,7 @@ public class DynamicCube extends AbstractDynamicArea {
         if(size <= 0f) {
             throw new CreationFailedException("Cannot create DynamicCube, size msut be greater than 0.");
         }
-        return create(new Area3D(location.x, location.y, location.z, location.x + size, location.y + size, location.z + size), location.getWorldId(), location.getInteriorId(), null);
+        return create(new Area3D(location.x, location.y, location.z, location.x + size, location.y + size, location.z + size), location.worldId, location.interiorId, null);
     }
 
     public static DynamicCube create(Vector3D position, float size) {

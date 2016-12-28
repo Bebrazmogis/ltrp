@@ -5,8 +5,8 @@ import lt.maze.streamer.constant.StreamerAreaType;
 import lt.maze.streamer.constant.StreamerObjectType;
 import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.data.Vector3D;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Vehicle;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.entities.Vehicle;
 
 import java.util.List;
 import java.util.stream.Collectors;

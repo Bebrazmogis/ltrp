@@ -6,7 +6,7 @@ import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;

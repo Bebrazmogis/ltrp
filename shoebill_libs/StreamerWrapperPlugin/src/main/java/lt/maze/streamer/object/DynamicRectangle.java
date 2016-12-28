@@ -5,7 +5,7 @@ import lt.maze.streamer.Functions;
 import lt.maze.streamer.constant.StreamerAreaType;
 import net.gtaun.shoebill.data.Area;
 import net.gtaun.shoebill.exception.CreationFailedException;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras
@@ -22,7 +22,7 @@ class DynamicRectangle extends AbstractDynamicArea {
     }
 
     public static DynamicRectangle create(Area area, int worldid, int interiorid, Player p) {
-        return create(area.getMinX(), area.getMinY(), area.getMaxX(), area.getMaxY(), worldid, interiorid, p);
+        return create(area.minX, area.minY, area.maxX, area.maxY, worldid, interiorid, p);
     }
 
     public static DynamicRectangle create(Area area, int worldid, int interiorid) {

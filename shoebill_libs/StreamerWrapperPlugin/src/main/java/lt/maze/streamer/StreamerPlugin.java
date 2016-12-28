@@ -7,8 +7,8 @@ import net.gtaun.shoebill.amx.AmxInstanceManager;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
-import net.gtaun.shoebill.object.Destroyable;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Destroyable;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.resource.Plugin;
 import org.slf4j.Logger;
 

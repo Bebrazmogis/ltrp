@@ -7,7 +7,7 @@ import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras
@@ -20,7 +20,7 @@ public class DynamicSphere extends AbstractDynamicArea {
         int id = Functions.CreateDynamicSphere(x, y, z, size, worldid, interiorid, p == null ? -1 : p.getId());
         if(id == Constants.INVALID_STREAMER_ID)
             throw new CreationFailedException("DynamicSphere could not be created");
-        return new DynamicSphere(id, new Radius(x, y, z, interiorid, worldid, size));
+        return new DynamicSphere(id, new Radius(x, y, z, size, interiorid, worldid));
     }
 
     public static DynamicSphere create(Vector3D pos, float size) {

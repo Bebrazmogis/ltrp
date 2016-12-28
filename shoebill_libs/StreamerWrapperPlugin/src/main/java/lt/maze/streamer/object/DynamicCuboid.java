@@ -5,7 +5,7 @@ import lt.maze.streamer.Functions;
 import lt.maze.streamer.constant.StreamerAreaType;
 import net.gtaun.shoebill.data.Area3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras
@@ -24,7 +24,7 @@ public class DynamicCuboid extends AbstractDynamicArea {
     }
 
     public static DynamicCuboid create(Area3D area, int worldid, int interiorid, Player p) {
-        return create(area.getMinX(), area.getMinY(), area.getMinZ(), area.getMaxX(), area.getMaxY(), area.getMaxZ(), worldid, interiorid, p);
+        return create(area.minX, area.minY, area.minZ, area.maxX, area.maxY, area.maxZ, worldid, interiorid, p);
     }
 
     public static DynamicCuboid create(Area3D area) {

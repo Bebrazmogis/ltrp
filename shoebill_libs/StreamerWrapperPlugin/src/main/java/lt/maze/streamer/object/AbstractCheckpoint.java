@@ -1,7 +1,7 @@
 package lt.maze.streamer.object;
 
 import lt.maze.streamer.constant.StreamerType;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras

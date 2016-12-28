@@ -3,8 +3,8 @@ package lt.maze.streamer.object;
 import lt.maze.streamer.Constants;
 import lt.maze.streamer.Functions;
 import lt.maze.streamer.constant.StreamerAreaType;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.exception.CreationFailedException;
-import net.gtaun.shoebill.object.Player;
 
 /**
  * @author Bebras

@@ -8,8 +8,8 @@ import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Vehicle;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.entities.Vehicle;
 
 import java.util.ArrayList;
 import java.util.Collection;

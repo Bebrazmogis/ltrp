@@ -3,7 +3,7 @@ package lt.maze.streamer.event;
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.event.player.PlayerEvent;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras

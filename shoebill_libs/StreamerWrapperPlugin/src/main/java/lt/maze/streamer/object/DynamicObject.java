@@ -5,6 +5,7 @@ import lt.maze.streamer.Functions;
 import lt.maze.streamer.constant.StreamerType;
 import lt.maze.streamer.data.DynamicObjectMaterial;
 import lt.maze.streamer.data.DynamicObjectMaterialText;
+import lt.maze.streamer.util.ColorUtils;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.amx.types.ReferenceInt;
 import net.gtaun.shoebill.amx.types.ReferenceString;
@@ -13,8 +14,8 @@ import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.exception.CreationFailedException;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Vehicle;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.entities.Vehicle;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -203,7 +204,7 @@ public class DynamicObject extends AbstractStreamerItem implements StreamerItem 
 
     // SetDynamicObjectMaterial(STREAMER_TAG_OBJECT objectid, materialindex, modelid, const txdname[], const texturename[], materialcolor = 0);
     public void setMaterial(int index, DynamicObjectMaterial material) {
-        Functions.SetDynamicObjectMaterial(getId(), index, material.getModelId(), material.getTxdName(), material.getTextureName(), material.getColor().toArgbValue());
+        Functions.SetDynamicObjectMaterial(getId(), index, material.getModelId(), material.getTxdName(), material.getTextureName(), ColorUtils.toARGB(material.getColor()));
     }
 
     // native IsDynamicObjectMaterialTextUsed(STREAMER_TAG_OBJECT objectid, materialindex);
@@ -236,7 +237,7 @@ public class DynamicObject extends AbstractStreamerItem implements StreamerItem 
 
     // native SetDynamicObjectMaterialText(STREAMER_TAG_OBJECT objectid, materialindex, const text[], materialsize = OBJECT_MATERIAL_SIZE_256x128, const fontface[] = "Arial", fontsize = 24, bold = 1, fontcolor = 0xFFFFFFFF, backcolor = 0, textalignment = 0);
     public void setMaterialText(int index, DynamicObjectMaterialText text) {
-        Functions.SetDynamicObjectMaterialText(getId(), index, text.getText(), text.getSize().getValue(), text.getFontFace(), text.getFontSize(), text.isBold() ? 1 : 0, text.getFontColor().toArgbValue(), text.getBackColor().toArgbValue(), text.getAlignment());
+        Functions.SetDynamicObjectMaterialText(getId(), index, text.getText(), text.getSize().getValue(), text.getFontFace(), text.getFontSize(), text.isBold() ? 1 : 0, ColorUtils.toARGB(text.getFontColor()), ColorUtils.toARGB(text.getBackColor()), text.getAlignment());
     }
 
     @Override
