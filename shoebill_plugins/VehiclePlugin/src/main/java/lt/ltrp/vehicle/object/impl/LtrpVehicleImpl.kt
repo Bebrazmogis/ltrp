@@ -97,7 +97,20 @@ class LtrpVehicleImpl(uuid: Int, name: String,
         if(!isDestroyed) destroy()
     }
 
-
+    override fun toString(): String {
+        return "LtrpVehicle=[UUID=$UUID,name=$name," +
+                "vehicle=$vehicle," +
+                "spawnLocation=$spawnlocation," +
+                "fuelTank=$fuelTank," +
+                "isLocked=$isLocked," +
+                "mileage=$mileage," +
+                "license=$license," +
+                "isUsed=$isUsed," +
+                "driver=$driver," +
+                "speed=$speed," +
+                "lastDriver=$getLastDriver," +
+                "isDestroyed=$isDestroyed"
+    }
     /*
     public static final float SPEED_MAGIC_NUMBER = 170f;
     protected static final Logger logger = LoggerFactory.getLogger(LtrpVehicle.class);
