@@ -12,9 +12,9 @@ import javax.sql.DataSource
  * @author Bebras
  * *         2015.12.20.
  */
-abstract class AbstractMySqlVehicleDaoImpl(val dataSource: DataSource,
-                                           val eventManager: EventManager,
-                                           val logger: Logger) : VehicleDao {
+abstract class AbstractMySqlVehicleDaoImpl(protected val dataSource: DataSource,
+                                           protected val eventManager: EventManager,
+                                           protected val logger: Logger) : VehicleDao {
 
     override fun insert(): Int {
         val sql = "INSERT INTO vehicles (created_at) VALUES (?)"
