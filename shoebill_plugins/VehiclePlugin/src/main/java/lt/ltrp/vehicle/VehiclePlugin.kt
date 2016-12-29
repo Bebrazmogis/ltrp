@@ -5,7 +5,6 @@ import lt.ltrp.resource.DependentPlugin
 import lt.ltrp.vehicle.`object`.LtrpVehicle
 import lt.ltrp.vehicle.dao.VehicleFuelConsumptionDao
 import lt.ltrp.vehicle.dao.impl.ConstantVehicleFuelConstumptionDao
-import lt.ltrp.vehicle.event.VehicleDestroyEvent
 import lt.ltrp.vehicle.event.handlers.*
 import lt.ltrp.vehicle.tasks.FuelDecrementTask
 import lt.maze.DatabasePlugin
@@ -57,7 +56,14 @@ class VehiclePlugin: DependentPlugin() {
 
     override fun onDependenciesLoaded() {
         val databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin::class.java)
-        // TODO load static vehicles
+        if(databasePlugin != null) {
+            try {
+                databasePlugin.query(this.javaClass.getResourceAsStream("vehicles.sql"))
+            } catch (e: Exception) {
+                logger.error("Can not insert vehicle table", e)
+                super.disable()
+            }
+        }
 
         startTimers()
         addEventHandlers()
