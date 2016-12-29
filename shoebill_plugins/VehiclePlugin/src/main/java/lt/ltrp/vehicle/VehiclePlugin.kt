@@ -23,6 +23,11 @@ import net.gtaun.util.event.EventManagerNode
 /**
  * @author Bebras
  *         2015.12.06.
+ *
+ *         This plugin is the foundation for all vehicles in LTRP gamemode
+ *         It provides a wrapper for Shoebill [Vehicle] object [LtrpVehicle]
+ *         Every plugin that needs to create vehicles should extend classes in here
+ *
  */
 @ShoebillMain("Vehicle plugin", "Bebras")
 class VehiclePlugin: DependentPlugin() {
