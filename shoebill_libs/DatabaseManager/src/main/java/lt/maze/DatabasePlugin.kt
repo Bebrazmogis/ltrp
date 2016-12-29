@@ -3,6 +3,10 @@ package lt.maze
 import com.mchange.v2.c3p0.ComboPooledDataSource
 import net.gtaun.shoebill.ShoebillMain
 import net.gtaun.shoebill.resource.Plugin
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
 import java.sql.Connection
 import java.sql.SQLException
 import java.sql.Statement
@@ -74,6 +78,28 @@ class DatabasePlugin : Plugin() {
         dataSource.close()
     }
 
+    @Throws(SQLException::class)
+    fun query(query: String): Boolean {
+        var connection: Connection? = null
+        var stmt: Statement? = null
+        try {
+            connection = dataSource.connection
+            stmt = connection.createStatement()
+            return stmt.execute(query)
+        } finally {
+            connection?.close()
+            stmt?.close()
+        }
+
+    }
+
+    @Throws(SQLException::class, IOException::class)
+    fun query(inputStream: InputStream): Boolean {
+        val reader = BufferedReader(InputStreamReader(inputStream))
+        reader.use {
+            return query(reader.readText())
+        }
+    }
 
     companion object {
         private val driver = "com.mysql.jdbc.Driver"
