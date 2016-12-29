@@ -1,4 +1,4 @@
-package lt.ltrp.event;
+package lt.ltrp.vehicle.event;
 
 
 import lt.ltrp.event.player.PlayerEvent;

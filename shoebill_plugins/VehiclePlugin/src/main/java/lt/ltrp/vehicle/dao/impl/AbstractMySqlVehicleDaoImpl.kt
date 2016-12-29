@@ -1,40 +1,47 @@
-package lt.ltrp.business.dao.impl;
+package lt.ltrp.vehicle.dao.impl
 
-import lt.ltrp.dao.VehicleDao;
-import lt.ltrp.object.LtrpVehicle;
-import net.gtaun.shoebill.data.AngledLocation;
-import net.gtaun.util.event.EventManager;
-
-import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import lt.ltrp.`object`.Entity
+import lt.ltrp.vehicle.dao.VehicleDao
+import net.gtaun.util.event.EventManager
+import org.slf4j.Logger
+import java.sql.*
+import java.time.LocalDateTime
+import javax.sql.DataSource
 
 /**
  * @author Bebras
- *         2015.12.20.
+ * *         2015.12.20.
  */
-public abstract class AbstractMySqlVehicleDaoImpl implements VehicleDao {
+abstract class AbstractMySqlVehicleDaoImpl(val dataSource: DataSource,
+                                           val eventManager: EventManager,
+                                           val logger: Logger) : VehicleDao {
 
-    private DataSource dataSource;
-    private EventManager eventManager;
-
-    public AbstractMySqlVehicleDaoImpl(DataSource ds, EventManager eventManager) {
-        this.dataSource = ds;
-        if(ds == null)
-            throw new IllegalArgumentException("Datasource cannot be null");
-        this.eventManager = eventManager;
+    override fun insert(): Int {
+        val sql = "INSERT INTO vehicles (created_at) VALUES (?)"
+        var uuid = Entity.INVALID_ID
+        var con: Connection? = null
+        var stmt: PreparedStatement? = null
+        var keys: ResultSet? = null
+        try {
+            con = dataSource.connection
+            stmt = con.prepareStatement(sql)
+            stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()))
+            stmt.execute()
+            keys = stmt.generatedKeys
+            if(keys.next()) {
+                uuid = keys.getInt(1)
+            }
+        } catch(e: SQLException) {
+            logger.error("Could not create a vehicle. ", e)
+        } finally {
+            con?.close()
+            stmt?.close()
+            keys?.close()
+        }
+        return uuid
     }
 
-    public DataSource getDataSource() {
-        return dataSource;
-    }
-
-    public EventManager getEventManager() {
-        return eventManager;
-    }
-
+    /*
     @Override
     public String generateLicensePlate() {
         String sql = "SELECT license_plate FROM player_vehicles";
@@ -147,5 +154,5 @@ public abstract class AbstractMySqlVehicleDaoImpl implements VehicleDao {
             e.printStackTrace();
         }
     }
-
+*/
 }

@@ -1,4 +1,4 @@
-package lt.ltrp.util;
+package lt.ltrp.vehicle.util;
 
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.constant.VehicleModel;
@@ -14,14 +14,14 @@ import net.gtaun.shoebill.data.Vector3D;
 public class VehicleUtils {
 
     public static Location getBehind(LtrpVehicle vehicle, float distance) {
-        AngledLocation loc = vehicle.getLocation().clone();
+        AngledLocation loc = vehicle.getVehicle().getLocation().clone();
         loc.x += (distance * Math.sin(Math.toRadians(-loc.angle + 180)));
         loc.y += (distance * Math.cos(Math.toRadians(-loc.angle + 180)));
         return loc;
     }
 
     public static Location getBehind(LtrpVehicle vehicle) {
-        Vector3D size = VehicleModel.getModelInfo(vehicle.getModelId(), VehicleModelInfoType.SIZE);
+        Vector3D size = VehicleModel.getModelInfo(vehicle.getVehicle().getModelId(), VehicleModelInfoType.SIZE);
         return getBehind(vehicle, size.y);
     }
 

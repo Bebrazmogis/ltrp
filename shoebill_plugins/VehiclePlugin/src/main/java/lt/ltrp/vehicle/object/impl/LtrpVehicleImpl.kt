@@ -1,32 +1,104 @@
-package lt.ltrp.object.impl;
+package lt.ltrp.vehicle.`object`.impl
 
-import lt.ltrp.object.impl.InventoryEntityImpl;
-import lt.ltrp.constant.LtrpVehicleModel;
-import lt.ltrp.data.FuelTank;
-import lt.ltrp.data.TaxiFare;
-import lt.ltrp.data.VehicleRadio;
-import lt.ltrp.event.vehicle.VehicleDestroyEvent;
-import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.LtrpVehicle;
-import net.gtaun.shoebill.constant.VehicleModel;
-import net.gtaun.shoebill.data.*;
-import net.gtaun.shoebill.exception.CreationFailedException;
-import net.gtaun.shoebill.object.*;
-import net.gtaun.util.event.EventManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lt.ltrp.ActionMessenger
+import lt.ltrp.StateMessenger
+import lt.ltrp.`object`.impl.InventoryEntityImpl
+import lt.ltrp.vehicle.`object`.LtrpVehicle
+import lt.ltrp.vehicle.data.FuelTank
+import lt.ltrp.vehicle.event.VehicleDestroyEvent
+import net.gtaun.shoebill.data.AngledLocation
+import net.gtaun.shoebill.entities.Player
+import net.gtaun.shoebill.entities.Vehicle
+import net.gtaun.shoebill.entities.VehicleParam
+import net.gtaun.util.event.EventManager
 
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author Bebras
  *         2015.11.13.
  */
-public class LtrpVehicleImpl extends InventoryEntityImpl implements LtrpVehicle {
+class LtrpVehicleImpl(uuid: Int, name: String,
+                      vehicle: Vehicle?,
+                      spawnLocation: AngledLocation,
+                      fuelTank: FuelTank,
+                      isLocked: Boolean,
+                      mileage: Float,
+                      license: String,
+                      protected val eventManager: EventManager) : InventoryEntityImpl(uuid, name), LtrpVehicle {
 
+    companion object {
+        internal val vehicles = mutableListOf<LtrpVehicle>()
+    }
+
+    init {
+        vehicles.add(this)
+    }
+
+    override var isDestroyed: Boolean = false
+
+    override val vehicle: Vehicle? = vehicle
+    override var spawnlocation: AngledLocation = spawnLocation
+    override val fuelTank: FuelTank = fuelTank
+
+    override var isLocked: Boolean = isLocked
+        set(value) {
+            vehicle?.state?.doors = if(value) VehicleParam.PARAM_ON else VehicleParam.PARAM_OFF
+            field = value
+        }
+
+    override var mileage: Float = mileage
+    override val speed: Float
+        get() {
+            val velocity = vehicle?.velocity ?: return 0f
+            return velocity.speed3d * LtrpVehicle.SPEEC_MAGIC_NUMBER
+        }
+    override var license: String = license
+    override val isUsed: Boolean = false
+    override var driver: Player? = null
+    override var getLastDriver: Player? = null
+    override var getPullingVehicle: LtrpVehicle? = null
+
+    override fun isSeatWindowOpen(seatId: Int): Boolean {
+        if(vehicle == null) return false
+        val state = vehicle.windows
+        when(seatId) {
+            0 -> return state.driver == VehicleParam.PARAM_ON
+            1 -> return state.passenger == VehicleParam.PARAM_ON
+            2 -> return state.backLeft == VehicleParam.PARAM_ON
+            3 -> return state.backRight == VehicleParam.PARAM_ON
+            else -> return false
+        }
+    }
+
+    override fun sendActionMessage(action: String, radius: Float) {
+        if(vehicle == null) return
+        val message = "* ${vehicle.modelName} $action"
+        Player.get()
+                .filter { it.isInVehicle(vehicle) || it.location.distance(vehicle.location) < radius }
+                .forEach { it.sendMessage(ActionMessenger.DEFAULT_COLOR, message) }
+    }
+
+    override fun sendStateMessage(state: String, radius: Float) {
+        if(vehicle == null) return
+        val message = "* $state (( ${vehicle.modelName} ))"
+        Player.get()
+                .filter { it.isInVehicle(vehicle) || it.location.distance(vehicle.location) < radius }
+                .forEach { it.sendMessage(StateMessenger.COLOR, message) }
+    }
+
+    override fun destroy() {
+        isDestroyed = true
+        vehicle?.destroy()
+        eventManager.dispatchEvent(VehicleDestroyEvent(this))
+        vehicles.remove(this)
+    }
+
+    protected fun finalize() {
+        if(!isDestroyed) destroy()
+    }
+
+
+    /*
     public static final float SPEED_MAGIC_NUMBER = 170f;
     protected static final Logger logger = LoggerFactory.getLogger(LtrpVehicle.class);
 
@@ -483,5 +555,5 @@ public class LtrpVehicleImpl extends InventoryEntityImpl implements LtrpVehicle 
     @Override
     public boolean equals(Object obj) {
         return obj instanceof LtrpVehicle && ((LtrpVehicle) obj).getUUID() == getUUID();
-    }
+    }*/
 }
