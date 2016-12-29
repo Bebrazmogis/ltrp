@@ -50,7 +50,12 @@ class StaticVehiclePlugin: DependentPlugin() {
 
     override fun onDependenciesLoaded() {
         val databasePlugin = ResourceManager.get().getPlugin(DatabasePlugin::class.java)
-
+        try {
+            databasePlugin!!.query(javaClass.getResourceAsStream("static_vehicles.sql"))
+        } catch (e: Exception) {
+            logger.error("Could not create static_vehicles table.", e)
+            disable()
+        }
         vehicleDao = MySqlStaticVehicleDaoImpl(databasePlugin!!.dataSource, logger, eventManagerNode)
         val vehicles = vehicleDao.get()
         logger.info("Loaded " + vehicles.size + " static vehicles")
