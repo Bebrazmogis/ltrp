@@ -50,6 +50,12 @@ public class AudioSequence implements Destroyable {
     }
 
     @Override
+    protected void finalize() throws Throwable {
+        if(!isDestroyed()) destroy();
+        super.finalize();
+    }
+
+    @Override
     public void destroy() {
         destroyed = true;
         Functions.Audio_DestroySequence(getId());
