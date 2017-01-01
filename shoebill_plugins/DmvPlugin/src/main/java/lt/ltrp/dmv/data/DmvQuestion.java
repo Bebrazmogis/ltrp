@@ -1,4 +1,4 @@
-package lt.ltrp.data.dmv;
+package lt.ltrp.dmv.data;
 
 /**
  * @author Bebras

@@ -1,4 +1,4 @@
-package lt.ltrp.data.dmv;
+package lt.ltrp.dmv.data;
 
 import net.gtaun.shoebill.constant.RaceCheckpointType;
 import net.gtaun.shoebill.data.Radius;
