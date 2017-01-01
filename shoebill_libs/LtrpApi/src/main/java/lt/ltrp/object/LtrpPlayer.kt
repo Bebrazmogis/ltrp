@@ -130,7 +130,10 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
         applyAnimation(animLib, animName, speed, loop, lockX, lockY, freeze, false)
     }
 
-    fun applyAnimation(animLib: String, animName: String, speed: Float, loop: Boolean, lockX: Boolean, lockY: Boolean, freeze: Boolean, stoppable: Boolean)
+    fun applyAnimation(animLib: String, animName: String, speed: Float, loop: Boolean, lockX: Boolean, lockY: Boolean, freeze: Boolean, stoppable: Boolean) {
+        player.applyAnimation(animLib, animName, speed, if(loop) 1 else 0, if(lockX) 1 else 0, if(lockY) 1 else 0, if(freeze) 1 else 0, if(stoppable) 1 else 0, 1)
+    }
+
     fun isAudioConnected(): Boolean
 
     fun freeze()
