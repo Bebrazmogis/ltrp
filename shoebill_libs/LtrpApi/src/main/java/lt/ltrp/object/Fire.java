@@ -53,7 +53,7 @@ public class Fire implements Destroyable {
         this.fireObjects = new DynamicObject[fireCount];
 
         if(explosionCount > 0) {
-            starter.createExplosion(center, explosionType, 5.0f);
+            starter.getPlayer().createExplosion(center, explosionType, 5.0f);
             this.explosionCount--;
         }
         Random random = new Random();
@@ -70,7 +70,7 @@ public class Fire implements Destroyable {
 
         if(explosionCount > 0) {
             Timer.create(600+ random.nextInt(500), explosionCount, (e) -> {
-                starter.createExplosion(center, explosionType, 5.0f);
+                starter.getPlayer().createExplosion(center, explosionType, 5.0f);
                 this.explosionCount--;
             });
         }

@@ -210,12 +210,12 @@ public class BasicModelPreview implements ModelPreview {
             nextButton.setColor(buttonColor);
             prevButton.setColor(buttonColor);
 
-            background.show(player);
-            exitButton.show(player);
-            nextButton.show(player);
-            prevButton.show(player);
+            background.show(player.getPlayer());
+            exitButton.show(player.getPlayer());
+            nextButton.show(player.getPlayer());
+            prevButton.show(player.getPlayer());
 
-            player.selectTextDraw(selectionColor);
+            player.getPlayer().selectTextDraw(selectionColor);
 
             for(int i = 0; i < itemsPerPage; i++) {
                 PlayerTextdraw td =  modelTextdraws.get(modelIds.get(i));
@@ -246,10 +246,10 @@ public class BasicModelPreview implements ModelPreview {
 
     @Override
     public void hide() {
-        background.hide(player);
-        exitButton.hide(player);
-        nextButton.hide(player);
-        prevButton.hide(player);
+        background.hide(player.getPlayer());
+        exitButton.hide(player.getPlayer());
+        nextButton.hide(player.getPlayer());
+        prevButton.hide(player.getPlayer());
         for(int i = this.page * itemsPerPage; i <  (this.page+1) * itemsPerPage; i++) {
             PlayerTextdraw td =  modelTextdraws.get(modelIds.get(i));
             if(td != null)
@@ -353,7 +353,7 @@ public class BasicModelPreview implements ModelPreview {
         int columnIndex = currentPageItemIndex - lineIndex * itemsPerColumn;
         float x = lineIndex * (modelWidth + 1);
         float y = columnIndex * (modelHeight + 1);
-        PlayerTextdraw textdraw = PlayerTextdraw.create(player, x, y,  " ");
+        PlayerTextdraw textdraw = PlayerTextdraw.create(player.getPlayer(), x, y,  " ");
         textdraw.setTextSize(modelWidth, modelHeight);
         textdraw.setFont(TextDrawFont.MODEL_PREVIEW);
         textdraw.setBackgroundColor(modelBackgroundColor);

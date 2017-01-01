@@ -137,7 +137,7 @@ public class PlayerCommandManager {
 
         for(CommandData commandData : commands.get(cmdName)) {
             if(beforeCheckers.containsKey(commandData.getOrigin())) {
-                if(!beforeCheckers.get(commandData.getOrigin()).handle(player, cmdName, cmdText)) {
+                if(!beforeCheckers.get(commandData.getOrigin()).handle(player.getPlayer(), cmdName, cmdText)) {
                     logger.debug("command checker for " + cmdName + " failed.");
                     return false;
                 }

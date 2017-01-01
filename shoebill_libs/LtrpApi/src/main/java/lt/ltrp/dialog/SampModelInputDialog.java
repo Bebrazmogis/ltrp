@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class SampModelInputDialog extends IntegerInputDialog {
 
     public SampModelInputDialog(LtrpPlayer player, EventManager parentEventManager) {
-        super(player, parentEventManager);
+        super(player.getPlayer(), parentEventManager);
         this.setTitle("SAMP modelio ávedimas");
         this.setButtonOk("Gerai");
         this.setButtonCancel("Atðaukti");
