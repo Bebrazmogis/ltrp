@@ -2,11 +2,14 @@ package lt.maze.audio;
 
 import lt.maze.audio.event.*;
 import net.gtaun.shoebill.amx.AmxInstanceManager;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.event.amx.AmxCallEvent;
 import net.gtaun.shoebill.event.player.PlayerConnectEvent;
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent;
-import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 import net.gtaun.util.event.HandlerEntry;
+
+import java.util.function.Consumer;
 
 /**
  * @author Bebras
@@ -20,70 +23,94 @@ class Callbacks {
         AudioPlugin plugin = AudioPlugin.getInstance();
         EventManager eventManager = plugin.getEventManager();
 
-        manager.hookCallback("Audio_OnClientConnect", e -> {
-            Player p = Player.get((int)e.getParameters()[0]);
-            eventManager.dispatchEvent(new AudioClientConnectEvent(p), p);
+        manager.hookCallback("Audio_OnClientConnect", new Consumer<AmxCallEvent>() {
+            @Override
+            public void accept(AmxCallEvent e) {
+                Player p = Player.get((int)e.getParameters()[0]);
+                eventManager.dispatchEvent(new AudioClientConnectEvent(p), p);
+            }
         }, "i");
 
-        manager.hookCallback("Audio_OnClientDisconnect", e -> {
-            Player p = Player.get((int)e.getParameters()[0]);
-            eventManager.dispatchEvent(new AudioClientDisconnectEvent(p), p);
+        manager.hookCallback("Audio_OnClientDisconnect", new Consumer<AmxCallEvent>() {
+            @Override
+            public void accept(AmxCallEvent e) {
+                Player p = Player.get((int)e.getParameters()[0]);
+                eventManager.dispatchEvent(new AudioClientDisconnectEvent(p), p);
+            }
         }, "i");
 
-        manager.hookCallback("Audio_OnTransferFile", e -> {
-            int playerid = (int)e.getParameters()[0];
-            String filename = (String)e.getParameters()[1];
-            int current = (int)e.getParameters()[2];
-            int total = (int)e.getParameters()[3];
-            int result = (int)e.getParameters()[4];
-            Player p = Player.get(playerid);
-            TransferResult r = TransferResult.getById(result);
-            eventManager.dispatchEvent(new AudioTransferFileEvent(p, filename, current, total, r), p, r);
+        manager.hookCallback("Audio_OnTransferFile", new Consumer<AmxCallEvent>() {
+            @Override
+            public void accept(AmxCallEvent e) {
+                int playerid = (int)e.getParameters()[0];
+                String filename = (String)e.getParameters()[1];
+                int current = (int)e.getParameters()[2];
+                int total = (int)e.getParameters()[3];
+                int result = (int)e.getParameters()[4];
+                Player p = Player.get(playerid);
+                TransferResult r = TransferResult.getById(result);
+                eventManager.dispatchEvent(new AudioTransferFileEvent(p, filename, current, total, r), p, r);
+            }
         }, "isiii");
 
-        manager.hookCallback("Audio_OnPlay", e -> {
-            int playerid = (int)e.getParameters()[0];
-            int handleid = (int)e.getParameters()[1];
-            Player p = Player.get(playerid);
-            AudioHandle handle = AudioHandle.get(p, handleid);
-            eventManager.dispatchEvent(new AudioOnPlayEvent(p, handle), p, handle);
+        manager.hookCallback("Audio_OnPlay", new Consumer<AmxCallEvent>() {
+            @Override
+            public void accept(AmxCallEvent e) {
+                int playerid = (int)e.getParameters()[0];
+                int handleid = (int)e.getParameters()[1];
+                Player p = Player.get(playerid);
+                AudioHandle handle = AudioHandle.get(p, handleid);
+                eventManager.dispatchEvent(new AudioOnPlayEvent(p, handle), p, handle);
+            }
         }, "ii");
 
-        manager.hookCallback("Audio_OnStop", e -> {
-            int playerid = (int)e.getParameters()[0];
-            int handleid = (int)e.getParameters()[1];
-            Player p = Player.get(playerid);
-            AudioHandle handle = AudioHandle.get(p, handleid);
-            eventManager.dispatchEvent(new AudioOnStopEvent(p, handle), p, handle);
+        manager.hookCallback("Audio_OnStop", new Consumer<AmxCallEvent>() {
+            @Override
+            public void accept(AmxCallEvent e) {
+                int playerid = (int)e.getParameters()[0];
+                int handleid = (int)e.getParameters()[1];
+                Player p = Player.get(playerid);
+                AudioHandle handle = AudioHandle.get(p, handleid);
+                eventManager.dispatchEvent(new AudioOnStopEvent(p, handle), p, handle);
+            }
         }, "ii");
 
-        manager.hookCallback("Audio_OnTrackChange", e -> {
-            int playerid = (int)e.getParameters()[0];
-            int handleid = (int)e.getParameters()[1];
-            String track = (String)e.getParameters()[2];
-            Player p = Player.get(playerid);
-            AudioHandle handle = AudioHandle.get(p, handleid);
-            eventManager.dispatchEvent(new AudioTrackChangeEvent(p, handle, track), p, handle, track);
+        manager.hookCallback("Audio_OnTrackChange", new Consumer<AmxCallEvent>() {
+            @Override
+            public void accept(AmxCallEvent e) {
+                int playerid = (int)e.getParameters()[0];
+                int handleid = (int)e.getParameters()[1];
+                String track = (String)e.getParameters()[2];
+                Player p = Player.get(playerid);
+                AudioHandle handle = AudioHandle.get(p, handleid);
+                eventManager.dispatchEvent(new AudioTrackChangeEvent(p, handle, track), p, handle, track);
+            }
         }, "iis");
 
-        manager.hookCallback("Audio_OnRadioStationChange", e -> {
-            int playerid = (int)e.getParameters()[0];
-            int stationid = (int)e.getParameters()[1];
-            Player p = Player.get(playerid);
-            RadioStation s = RadioStation.get(stationid);
-            eventManager.dispatchEvent(new AudioStationChangeEvent(p, s), p, s);
+        manager.hookCallback("Audio_OnRadioStationChange", new Consumer<AmxCallEvent>() {
+            @Override
+            public void accept(AmxCallEvent e) {
+                int playerid = (int)e.getParameters()[0];
+                int stationid = (int)e.getParameters()[1];
+                Player p = Player.get(playerid);
+                RadioStation s = RadioStation.get(stationid);
+                eventManager.dispatchEvent(new AudioStationChangeEvent(p, s), p, s);
+            }
         }, "ii");
 
-        manager.hookCallback("Audio_OnGetPosition", e -> {
-            int playerid = (int)e.getParameters()[0];
-            int handleid = (int)e.getParameters()[1];
-            int seconds = (int)e.getParameters()[2];
-            Player p = Player.get(playerid);
-            AudioHandle h = AudioHandle.get(p, handleid);
-            if(h.getHandler() != null) {
-                h.getHandler().onPositionGet(h, seconds);
+        manager.hookCallback("Audio_OnGetPosition", new Consumer<AmxCallEvent>() {
+            @Override
+            public void accept(AmxCallEvent e) {
+                int playerid = (int)e.getParameters()[0];
+                int handleid = (int)e.getParameters()[1];
+                int seconds = (int)e.getParameters()[2];
+                Player p = Player.get(playerid);
+                AudioHandle h = AudioHandle.get(p, handleid);
+                if(h.getHandler() != null) {
+                    h.getHandler().onPositionGet(h, seconds);
+                }
+                eventManager.dispatchEvent(new AudioPositionGetEvent(p, h, seconds), p, h);
             }
-            eventManager.dispatchEvent(new AudioPositionGetEvent(p, h, seconds), p, h);
         }, "iii");
 
 
