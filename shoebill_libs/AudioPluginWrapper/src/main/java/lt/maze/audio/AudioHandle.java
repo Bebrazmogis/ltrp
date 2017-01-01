@@ -2,8 +2,8 @@ package lt.maze.audio;
 
 import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.data.Vector3D;
-import net.gtaun.shoebill.object.Destroyable;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Destroyable;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras
@@ -127,11 +127,11 @@ public class AudioHandle implements Destroyable {
     }
 
     public void set3DPosition(Radius radius) {
-        set3DPosition(radius.getX(), radius.getY(), radius.getZ(), radius.getRadius());
+        set3DPosition(radius.x, radius.y, radius.z, radius.radius);
     }
 
     public void set3DPosition(Vector3D vector, float distance) {
-        set3DPosition(vector.getX(), vector.getY(), vector.getZ(), distance);
+        set3DPosition(vector.x, vector.y, vector.z, distance);
     }
 
     public void remove3DPosition() {

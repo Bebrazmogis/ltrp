@@ -1,6 +1,6 @@
 package lt.maze.audio;
 
-import net.gtaun.shoebill.object.Destroyable;
+import net.gtaun.shoebill.entities.Destroyable;
 
 import java.util.ArrayList;
 import java.util.List;

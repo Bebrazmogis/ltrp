@@ -1,8 +1,8 @@
 package lt.maze.audio;
 
 import net.gtaun.shoebill.amx.AmxInstance;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Server;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.entities.Server;
 import net.gtaun.shoebill.resource.Plugin;
 import org.slf4j.Logger;
 
