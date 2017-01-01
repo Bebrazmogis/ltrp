@@ -7,11 +7,12 @@ import lt.ltrp.constant.MODERATOR
 import lt.ltrp.data.Animation
 import lt.ltrp.data.LtrpWeaponData
 import lt.ltrp.data.PlayerOffer
-import lt.ltrp.player.PlayerController
+import lt.maze.audio.AudioHandle
 import net.gtaun.shoebill.constant.WeaponModel
 import net.gtaun.shoebill.constant.WeaponSlot
 import net.gtaun.shoebill.data.Color
 import net.gtaun.shoebill.data.Location
+import net.gtaun.shoebill.data.Radius
 import net.gtaun.shoebill.entities.Player
 import java.util.*
 
@@ -32,7 +33,7 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
         get() = player.isAdmin || adminLevel > 0
 
     var animation: Animation?
-
+    var audioHandle: AudioHandle?
 
     val ucpId: Int
 
@@ -42,23 +43,20 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
 
     fun sendInfoText(msg: String, seconds: Int)
 
-    fun getWeapons(): Array<LtrpWeaponData>
-    fun getWeaponData(weaponModel: WeaponModel): LtrpWeaponData
+    fun getWeapons(): Collection<LtrpWeaponData>
+    fun getWeaponData(weaponModel: WeaponModel): LtrpWeaponData?
     fun ownsWeapon(model: WeaponModel): Boolean
     fun isWeaponSlotUsed(slot: WeaponSlot): Boolean
     fun removeWeapon(weaponData: LtrpWeaponData)
     fun removeWeapon(model: WeaponModel)
     fun removeJobWeapons()
-    fun getArmedWeaponData(): LtrpWeaponData
+    fun getArmedWeaponData(): LtrpWeaponData?
     fun giveWeapon(weaponData: LtrpWeaponData)
 
-    fun setVolume(volume: Int)
-    fun isDataLoaded(): Boolean
-
     fun getOffers(): Collection<PlayerOffer>
-    fun containsOffer(type: Class<*>): Boolean
+    fun containsOffer(type: Class<Any>): Boolean
     fun <T : PlayerOffer> getOffers(type: Class<T>): Collection<T>
-    fun <T : PlayerOffer> getOffer(type: Class<T>): T
+    fun <T : PlayerOffer> getOffer(type: Class<T>): T?
 
     fun sendFadeMessage(color: Color, text: String, distance: Float)
     /**
@@ -74,7 +72,7 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
     fun sendMessage(color: Color, s: String, distance: Float)
     fun sendDebug(color: Color, message: String)
     fun sendDebug(message: String)
-    fun sendDebug(vararg objects: Any)
+    fun sendDebug(vararg objects: Any?)
 
     /**
      * Just a wrapper for [Player.sendMessage] for convenience
@@ -83,10 +81,15 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
         player.sendMessage(color, message)
     }
 
+    fun sendMessage(message: String) {
+        player.sendMessage(Color.WHITE, message)
+    }
 
-    fun getClosestPlayer(maxDistance: Float): LtrpPlayer
-    fun getClosestPlayer(): LtrpPlayer
-    fun getClosestPlayers(maxDistance: Float): Array<LtrpPlayer>
+
+    fun getClosestPlayer(maxDistance: Float): LtrpPlayer?
+    fun getClosestPlayer(): LtrpPlayer?
+    fun getClosestPlayers(maxDistance: Float): Collection<LtrpPlayer>
+
     fun applyAnimation(animation: Animation)
     fun applyLoopAnimation(animLib: String, animation: String, lockX: Boolean, lockY: Boolean, stoppable: Boolean) {
         applyLoopAnimation(animLib, animation, lockX, lockY, false, stoppable)
@@ -137,21 +140,20 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
         applyAnimation(Animation(animLib, animName, speed, loop, lockX, lockY, freeze, true, 0, stoppable))
     }
 
-    fun isAudioConnected(): Boolean
-
-    fun freeze()
-    fun unfreeze()
-
-    fun mute()
-    fun unMute()
+    val isAudioConnected: Boolean
+    fun setVolume(volume: Int)
+    fun playAudioStream(url: String)
+    fun playAudioStream(url: String, radius: Radius)
 
     companion object {
         val DEFAULT_PLAYER_COLOR = Color(0xFF, 0xFF, 0xFF, 0x00)
         val DEFAULT_ACTION_MESSAGE_DISTANCE = 20f
         val DEFAULT_INFOTEXT_DURATION = 60
 
+        protected val players = mutableSetOf<LtrpPlayer>()
+
         fun get(): Collection<LtrpPlayer> {
-            return PlayerController.instance.getPlayers()
+            return players
         }
 
         fun get(uuid: Int): LtrpPlayer? {
