@@ -36,4 +36,8 @@ open class LtrpWeaponData(weaponData: WeaponData, job: Boolean, uuid: Int) : Ent
         DroppedWeaponData(this, loc)
     }
 
+
+    companion object {
+        val UNARMED = LtrpWeaponData(WeaponModel.UNKNOWN, 1, false)
+    }
 }

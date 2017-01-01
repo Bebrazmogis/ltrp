@@ -33,7 +33,7 @@ public class FightStyleDialog {
             item.setData(f);
             dialogItems.add(item);
         }
-        return ListDialog.Companion.create(player, eventManager, new Function1<ListDialog.ListDialogBuilder, Unit>() {
+        return ListDialog.Companion.create(player.getPlayer(), eventManager, new Function1<ListDialog.ListDialogBuilder, Unit>() {
             @Override
             public Unit invoke(ListDialog.ListDialogBuilder listDialogBuilder) {
                 listDialogBuilder.caption(() -> "Sporto salë - Kovos stiliaus pamokos");
@@ -42,11 +42,11 @@ public class FightStyleDialog {
                 listDialogBuilder.buttonCancel("Iðeiti");
                 listDialogBuilder.onSelectItem((dialog, item) -> {
                     FightStyle style = (FightStyle) item.getData();
-                    if (player.getMoney() < style.price) {
+                    if (player.getPlayer().getMoney() < style.price) {
                         player.sendErrorMessage("Jums neuþtenka pinigø " + style.name + " pamokai. Pamokos kaina $" + style.price);
                     } else {
                         player.setBoxingStyle(style.styleId);
-                        player.giveMoney(-style.price);
+                        player.getPlayer().giveMoney(-style.price);
                         player.sendMessage(Color.PURPLE, style.name + " pamoka baigta, dabar jau mokësite iðnaudoti ðá stiliø, pamoka kainavo $" + style.price);
                     }
                     return Unit.INSTANCE;

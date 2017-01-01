@@ -1,6 +1,6 @@
 package lt.maze.audio;
 
-import net.gtaun.shoebill.object.Destroyable;
+import net.gtaun.shoebill.entities.Destroyable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +47,12 @@ public class AudioSequence implements Destroyable {
 
     public List<Integer> getAudioIds() {
         return audioIds;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        if(!isDestroyed()) destroy();
+        super.finalize();
     }
 
     @Override

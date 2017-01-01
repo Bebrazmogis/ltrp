@@ -1,7 +1,6 @@
 package lt.ltrp.data;
 
 
-
 /**
  * @author Bebras
  *         2015.12.14.

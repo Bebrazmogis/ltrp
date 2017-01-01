@@ -17,7 +17,7 @@ public class HexIntegerInputDialog extends InputDialog {
     protected InputErrorHandler inputErrorHandler;
 
     public HexIntegerInputDialog(LtrpPlayer player, EventManager parentEventManager) {
-        super(player, parentEventManager, false);
+        super(player.getPlayer(), parentEventManager, false);
     }
 
     public static AbstractHexIntegerInputDialogBuilder<?, ?> create(LtrpPlayer player, EventManager parentEventManager) {

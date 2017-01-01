@@ -5,7 +5,7 @@ import lt.ltrp.constant.WalkStyle
 import lt.ltrp.data.PlayerDrugs
 import lt.ltrp.player.licenses.data.PlayerLicenses
 import lt.ltrp.player.settings.data.PlayerSettings
-import lt.maze.audio.AudioHandle
+import net.gtaun.shoebill.entities.Vehicle
 import java.lang.ref.WeakReference
 import java.time.LocalDateTime
 
@@ -15,8 +15,8 @@ import java.time.LocalDateTime
 interface PlayerData: InventoryEntity {
 
     var password: String
-    var secretQuestion: String
-    var secretAnswer: String
+    var secretQuestion: String?
+    var secretAnswer: String?
     var level: Int
     var adminLevel: Int
     var modLevel: Int
@@ -30,17 +30,15 @@ interface PlayerData: InventoryEntity {
     var sex: String
     var age: Int
     var origin: String
-    var disease: Int
-    var respect: Int
     var deaths: Int
     var walkStyle: WalkStyle
     var talkStyle: TalkStyle
     var lastLogin: LocalDateTime
-    var lastUsedVehicle: LtrpVehicle?
+    var lastUsedVehicle: Vehicle?
     var hunger: Int
     var boxingStyle: Int
     var forumName: String
-    var audioHandle: AudioHandle
+    var money: Int
 
     /**
      * Current(current paydays) paycheck
@@ -74,9 +72,6 @@ interface PlayerData: InventoryEntity {
     var isCuffed: Boolean
     var isMod: Boolean
 
-
-    val countdown: PlayerCountdown
-    val infoBox: PlayerInfoBox
     fun addTotalPaycheck(amount: Int)
 
     /**

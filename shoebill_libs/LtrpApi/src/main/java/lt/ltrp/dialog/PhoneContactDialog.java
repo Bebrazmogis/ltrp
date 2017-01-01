@@ -23,7 +23,7 @@ public class PhoneContactDialog {
                                        PhonebookListDialog.CallContactHandler callContactHandler,
                                        PhonebookListDialog.SendSmsHandler sendSmsHandler,
                                        PhonebookListDialog.ContactDeleteHandler deleteHandler) {
-        return ListDialog.Companion.create(p, eventManager, (builder) -> {
+        return ListDialog.Companion.create(p.getPlayer(), eventManager, (builder) -> {
             builder.caption(contact.getName() + " redagavimas");
             builder.buttonOk("Gerai");
             builder.buttonCancel("Atgal");
@@ -38,7 +38,7 @@ public class PhoneContactDialog {
                 return Unit.INSTANCE;
             }));
             builder.item("Raðyti þinutæ", smsOption -> {
-                InputDialog.Companion.create(p, eventManager, inputBuilder -> {
+                InputDialog.Companion.create(p.getPlayer(), eventManager, inputBuilder -> {
                     inputBuilder.caption("Nauja þinutë " + contact.getName());
                     inputBuilder.body("Áveskite þinutës tekstà:");
                     inputBuilder.buttonOk("Tæsti");
@@ -63,7 +63,7 @@ public class PhoneContactDialog {
                 return Unit.INSTANCE;
             });
             builder.item("Keisti numerá", changeNumberOption -> {
-                InputDialog.Companion.create(p, eventManager, inputBuilder -> {
+                InputDialog.Companion.create(p.getPlayer(), eventManager, inputBuilder -> {
                     inputBuilder.caption("Naujas " + contact.getName() + " numeris");
                     inputBuilder.caption("Áveskite kontakto " + contact.getName() + " naujà numerá."
                                     + "\nDabartinis numeris:" + contact.getNumber());
@@ -93,7 +93,7 @@ public class PhoneContactDialog {
                 return Unit.INSTANCE;
             });
             builder.item("Keisti vardà", changeNameOption -> {
-                InputDialog.Companion.create(p, eventManager, inputBuilder -> {
+                InputDialog.Companion.create(p.getPlayer(), eventManager, inputBuilder -> {
                     inputBuilder.caption("Naujas " + contact.getNumber() + " vardas");
                     inputBuilder.body("Áveskite kontakto \"" + contact.getName() + "\" naujà vardà."
                             + "\nDabartinis numeris:" + contact.getNumber());
@@ -120,7 +120,7 @@ public class PhoneContactDialog {
                 return Unit.INSTANCE;
             });
             builder .item("{FF0000}Paðalinti", removeOption -> {
-                MsgBoxDialog.Companion.create(p, eventManager, msgboxBuilder -> {
+                MsgBoxDialog.Companion.create(p.getPlayer(), eventManager, msgboxBuilder -> {
                     msgboxBuilder.caption("Svarbu.");
                     msgboxBuilder.body("Ar tikrai norite paðaliti kontaktà ið telefono atminties?"
                             + "\n\nKontakto numeris:" + contact.getNumber()

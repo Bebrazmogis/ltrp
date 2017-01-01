@@ -20,23 +20,20 @@ import static lt.ltrp.constant.LtrpColorKt.getNEWS;
  */
 public class PhonebookListDialog extends ListDialog {
 
+    private LtrpPlayer player;
     private PhoneBook phonebook;
     private CallContactHandler callContactHandler;
     private SendSmsHandler sendSmsHandler;
     private ContactDeleteHandler deleteHandler;
 
     public PhonebookListDialog(LtrpPlayer player, EventManager eventManager, PhoneBook phonebook) {
-        super(player, eventManager);
+        super(player.getPlayer(), eventManager);
         this.phonebook = phonebook;
+        this.player = player;
 
         this.setTitle("Kontaktai");
         this.setButtonOk("Pasirinkti");
         this.setButtonCancel("Atgal");
-    }
-
-    @Override
-    public LtrpPlayer getPlayer() {
-        return (LtrpPlayer)super.getPlayer();
     }
 
     public void setSendSmsHandler(SendSmsHandler sendSmsHandler) {
@@ -60,7 +57,7 @@ public class PhonebookListDialog extends ListDialog {
                 item.setItemText(contact.getName());
                 item.setData(contact);
                 item.selectHandler(h -> {
-                    PhoneContactDialog.create(getPlayer(), getEventNode(), contact, callContactHandler, sendSmsHandler, deleteHandler).show();
+                    PhoneContactDialog.create(player, getEventNode(), contact, callContactHandler, sendSmsHandler, deleteHandler).show();
                     return Unit.INSTANCE;
                 });
             } else {
@@ -79,7 +76,7 @@ public class PhonebookListDialog extends ListDialog {
                                 try {
                                     number = Integer.parseInt(contactNumber);
                                 } catch (NumberFormatException e) {
-                                    getPlayer().sendErrorMessage("Numeris turi bûti sudarytas ið skaitmenu");
+                                    player.sendErrorMessage("Numeris turi bûti sudarytas ið skaitmenu");
                                     contactNumberDialog.show();
                                     return Unit.INSTANCE;
                                 }
