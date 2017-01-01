@@ -31,6 +31,8 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
     val isAdmin: Boolean
         get() = player.isAdmin || adminLevel > 0
 
+    var animation: Animation
+
 
     val ucpId: Int
 
@@ -116,7 +118,6 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
     }
 
     fun clearAnimations()
-    fun getAnimation(): Animation
 
     /**
 
