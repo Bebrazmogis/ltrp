@@ -105,12 +105,14 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
     }
 
     fun applyAnimation(animLib: String, anim: String, speed: Float, loop: Boolean, lockX: Boolean, lockY: Boolean, freeze: Boolean, time: Int, forceSync: Boolean) {
-        applyAnimation(animLib, anim, speed, loop, lockX, lockY, freeze, time, forceSync, false)
+        applyAnimation(Animation(animLib, anim, speed, loop, lockX, lockY, freeze, forceSync, time))
     }
 
-    fun applyAnimation(animLib: String, anim: String, speeed: Float, loop: Boolean, lockX: Boolean, lockY: Boolean, freeze: Boolean, time: Int, forceSync: Boolean, stopable: Boolean)
+    fun applyAnimation(animLib: String, anim: String, speed: Float, loop: Boolean, lockX: Boolean, lockY: Boolean, freeze: Boolean, time: Int, forceSync: Boolean, stoppable: Boolean) {
+        applyAnimation(Animation(animLib, anim, speed, loop, lockX, lockY, freeze, forceSync, time, stoppable))
+    }
     fun applyAnimation(animLib: String, anim: String, lockX: Boolean, lockY: Boolean, freeze: Boolean, time: Int, stoppable: Boolean) {
-        applyAnimation(animLib, anim, 4.1f, false, lockX, lockY, freeze, time, true, stoppable)
+        applyAnimation(Animation(animLib, anim, 4.1f, false, lockX, lockY, freeze, true, time, stoppable))
     }
 
     fun clearAnimations()
@@ -127,11 +129,11 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
      * @param freeze
      */
     fun applyAnimation(animLib: String, animName: String, speed: Float, loop: Boolean, lockX: Boolean, lockY: Boolean, freeze: Boolean) {
-        applyAnimation(animLib, animName, speed, loop, lockX, lockY, freeze, false)
+        applyAnimation(Animation(animLib, animName, speed, loop, lockX, lockY, freeze, true, 0))
     }
 
     fun applyAnimation(animLib: String, animName: String, speed: Float, loop: Boolean, lockX: Boolean, lockY: Boolean, freeze: Boolean, stoppable: Boolean) {
-        player.applyAnimation(animLib, animName, speed, if(loop) 1 else 0, if(lockX) 1 else 0, if(lockY) 1 else 0, if(freeze) 1 else 0, if(stoppable) 1 else 0, 1)
+        applyAnimation(Animation(animLib, animName, speed, loop, lockX, lockY, freeze, true, 0, stoppable))
     }
 
     fun isAudioConnected(): Boolean
