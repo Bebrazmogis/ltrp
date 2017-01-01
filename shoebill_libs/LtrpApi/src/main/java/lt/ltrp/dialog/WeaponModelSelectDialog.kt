@@ -11,7 +11,7 @@ import net.gtaun.util.event.EventManager
  * This dialog shows a list of possible [WeaponModel]
  */
 open class WeaponModelSelectDialog(player: LtrpPlayer, override val eventManager: EventManager):
-        ListDialog(player, eventManager) {
+        ListDialog(player.player, eventManager) {
 
     var clickOkHandler: ((WeaponModelSelectDialog, WeaponModel) -> Unit)? = null
 

@@ -36,7 +36,7 @@ interface LtrpVehicle: InventoryEntity {
                     .minBy { it.vehicle?.location?.distance(location)!! }
         }
 
-        fun getClosest(player: LtrpPlayer, distance: Float) = getClosest(player.location, distance)
+        fun getClosest(player: LtrpPlayer, distance: Float) = getClosest(player.player.location, distance)
         fun getClosest(location: Location) = getClosest(location, Float.MAX_VALUE)
     }
 
