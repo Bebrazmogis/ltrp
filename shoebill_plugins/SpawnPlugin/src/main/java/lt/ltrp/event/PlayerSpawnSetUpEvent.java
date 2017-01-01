@@ -1,4 +1,4 @@
-package lt.ltrp.spawn.event;
+package lt.ltrp.event;
 
 
 import lt.ltrp.event.player.PlayerEvent;import lt.ltrp.object.LtrpPlayer;

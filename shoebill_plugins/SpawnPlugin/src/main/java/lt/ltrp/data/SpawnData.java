@@ -1,4 +1,4 @@
-package lt.ltrp.spawn.data;
+package lt.ltrp.data;
 
 import net.gtaun.shoebill.data.WeaponData;
 

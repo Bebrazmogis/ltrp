@@ -1,8 +1,8 @@
-package lt.ltrp.spawn.event;
+package lt.ltrp.event;
 
 import lt.ltrp.event.player.PlayerEvent;
 import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.spawn.data.SpawnData;
+import lt.ltrp.data.SpawnData;
 
 /**
  * @author Bebras
