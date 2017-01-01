@@ -95,35 +95,35 @@ public class AudioPlugin extends Plugin {
     }
 
 
-    public static void renamePlayer(Player p, String name) {
+    public void renamePlayer(Player p, String name) {
         Functions.Audio_RenamePlayer(p.getId(), name);
     }
 
-    public static void setRadioStation(Player p, RadioStation station) {
+    public void setRadioStation(Player p, RadioStation station) {
         Functions.Audio_SetRadioStation(p.getId(), station.getId());
     }
 
-    public static void stopRadio(Player p) {
+    public void stopRadio(Player p) {
         Functions.Audio_StopRadio(p.getId());
     }
 
-    public static boolean isConnected(Player p) {
+    public boolean isConnected(Player p) {
         return Functions.Audio_IsClientConnected(p.getId()) == 1;
     }
 
-    public static void sendMessage(Player p, String message) {
+    public void sendMessage(Player p, String message) {
         Functions.Audio_SendMessage(p.getId(), message);
     }
 
-    public static void transferPack(Player p) {
+    public void transferPack(Player p) {
         Functions.Audio_TransferPack(p.getId());
     }
 
-    public static void setPack(String name, boolean transferable, boolean automated) {
+    public void setPack(String name, boolean transferable, boolean automated) {
         Functions.Audio_SetPack(name, transferable, automated);
     }
 
-    public static void setPack(String name) {
+    public void setPack(String name) {
         setPack(name, true, true);
     }
 
