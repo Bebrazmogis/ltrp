@@ -5,6 +5,7 @@ import lt.ltrp.StateMessenger
 import lt.ltrp.`object`.impl.NamedEntityImpl
 import lt.ltrp.vehicle.`object`.LtrpVehicle
 import lt.ltrp.vehicle.data.FuelTank
+import lt.ltrp.vehicle.event.VehicleCreateEvent
 import lt.ltrp.vehicle.event.VehicleDestroyEvent
 import net.gtaun.shoebill.data.AngledLocation
 import net.gtaun.shoebill.entities.Player
@@ -31,7 +32,10 @@ class LtrpVehicleImpl(uuid: Int, name: String,
     }
 
     init {
-        vehicles.add(this)
+        if(vehicle != null) {
+            vehicles.add(this)
+            eventManager.dispatchEvent(VehicleCreateEvent(this))
+        }
     }
 
     override var isDestroyed: Boolean = false
