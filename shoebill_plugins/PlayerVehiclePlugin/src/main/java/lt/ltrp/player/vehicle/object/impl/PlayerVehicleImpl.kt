@@ -1,7 +1,6 @@
 package lt.ltrp.player.vehicle.object.impl;
 
 import lt.ltrp.player.vehicle.constant.PlayerVehiclePermission;
-import lt.ltrp.data.FuelTank;
 import lt.ltrp.data.VehicleLock;
 import lt.ltrp.player.vehicle.event.PlayerVehicleDestroyEvent;
 import lt.ltrp.player.object.LtrpPlayer;
@@ -9,7 +8,6 @@ import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import lt.ltrp.player.vehicle.object.VehicleAlarm;
 import lt.ltrp.vehicle.object.impl.LtrpVehicleImpl;
 import net.gtaun.shoebill.data.AngledLocation;
-import net.gtaun.shoebill.object.VehicleDamage;
 import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;

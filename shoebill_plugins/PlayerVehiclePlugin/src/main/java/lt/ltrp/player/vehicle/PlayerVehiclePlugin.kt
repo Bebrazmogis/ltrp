@@ -413,7 +413,7 @@ public class PlayerVehiclePlugin extends Plugin {
         playerVehicleUUIDs.put(p, vehicleDao.getPlayerVehicles(p));
     }
 
-    public PlayerVehiclePermissionDao getVehiclePermissionDao() {
+    public PlayerVehiclePermissionDao getPlayerVehiclePermissionDao() {
         return vehiclePermissionDao;
     }
 
