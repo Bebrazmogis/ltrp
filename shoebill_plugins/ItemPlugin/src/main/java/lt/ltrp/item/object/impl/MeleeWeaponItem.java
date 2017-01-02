@@ -3,7 +3,7 @@ package lt.ltrp.object.impl;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Animation;
 import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;

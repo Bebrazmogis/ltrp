@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.GraffitiPlugin;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.StringUtils;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;

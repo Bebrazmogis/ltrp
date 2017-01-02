@@ -2,7 +2,7 @@ package lt.ltrp.player.vehicle.dao.impl;
 
 import lt.ltrp.dao.BanDao;
 import lt.ltrp.data.BanData;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 import javax.sql.DataSource;
 import java.sql.*;

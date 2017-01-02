@@ -7,7 +7,7 @@ import lt.ltrp.event.PlayerSelectItemOptionEvent;
 import lt.ltrp.event.item.ItemDestroyEvent;
 import lt.ltrp.object.Inventory;
 import lt.ltrp.object.Item;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageEnabler;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;

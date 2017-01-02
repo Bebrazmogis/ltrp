@@ -4,7 +4,7 @@ import lt.ltrp.BusinessController;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.dialog.BusinessCommodityListDialog;
-import lt.ltrp.object.Entity;import lt.ltrp.object.LtrpPlayer;import lt.maze.streamer.object.DynamicPickup;
+import lt.ltrp.object.Entity;import lt.ltrp.player.object.LtrpPlayer;import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 

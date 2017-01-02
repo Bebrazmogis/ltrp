@@ -1,6 +1,6 @@
 package lt.ltrp.player.settings.dao.impl
 
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.player.settings.dao.PlayerSettingsDao
 import lt.ltrp.player.settings.data.PlayerSettings
 import net.gtaun.util.event.EventManager

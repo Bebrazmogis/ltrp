@@ -3,7 +3,7 @@ package lt.ltrp.player.vehicle.dialog;
 import lt.ltrp.player.vehicle.PlayerVehiclePlugin;
 import lt.ltrp.player.vehicle.event.PlayerVehicleAddPermissionEvent;
 import lt.ltrp.player.vehicle.event.PlayerVehicleRemovePermissionEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;

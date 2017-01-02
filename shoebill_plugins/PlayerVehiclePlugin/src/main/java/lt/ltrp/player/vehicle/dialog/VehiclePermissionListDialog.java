@@ -2,7 +2,7 @@ package lt.ltrp.player.vehicle.dialog;
 
 
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.constant.PlayerVehiclePermission;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.PageListDialog;

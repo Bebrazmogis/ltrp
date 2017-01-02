@@ -9,7 +9,7 @@ import lt.ltrp.dialog.BoatingTestEndMsgDialog;
 import lt.ltrp.PlayerBoatingTestEnd;
 import lt.ltrp.object.BoatDmv;
 import lt.ltrp.object.Dmv;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.player.licenses.PlayerLicenseController;
 import lt.ltrp.player.licenses.constant.LicenseType;

@@ -1,6 +1,6 @@
 package lt.ltrp.player.job.command
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.command.Commands
 import lt.ltrp.data.Color
 import lt.ltrp.job.`object`.Faction

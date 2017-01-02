@@ -2,7 +2,7 @@ package lt.ltrp.trucker.dialog
 
 import lt.ltrp.BusinessController
 import lt.ltrp.`object`.Business
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.property.business.dialog.BusinessListDialog
 import lt.ltrp.trucker.`object`.Industry
 import lt.ltrp.trucker.controller.BusinessCommodityController

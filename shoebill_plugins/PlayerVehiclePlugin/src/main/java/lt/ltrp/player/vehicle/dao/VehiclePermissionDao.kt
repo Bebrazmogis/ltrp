@@ -1,6 +1,6 @@
 package lt.ltrp.player.vehicle.dao
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.player.vehicle.data.VehiclePermission
 
 /**

@@ -1,7 +1,7 @@
 package lt.ltrp.player.job
 
-import lt.ltrp.`object`.LtrpPlayer
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.job.`object`.Faction
 import lt.ltrp.job.`object`.Job
 import lt.ltrp.job.`object`.JobRank

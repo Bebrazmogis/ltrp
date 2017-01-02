@@ -1,6 +1,6 @@
 package lt.ltrp.player.licenses
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.player.licenses.constant.LicenseType
 import lt.ltrp.player.licenses.data.PlayerLicense
 

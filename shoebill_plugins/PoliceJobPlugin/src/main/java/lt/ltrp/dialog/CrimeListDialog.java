@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.player.fine.data.PlayerFine;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.PageListDialog;
 import net.gtaun.util.event.EventManager;

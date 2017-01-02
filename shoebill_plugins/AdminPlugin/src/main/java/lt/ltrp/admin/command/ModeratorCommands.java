@@ -8,7 +8,7 @@ import lt.ltrp.dialog.PlayerQuestionListDialog;
 import lt.ltrp.vehicle.event.PlayerAcceptPlayerQuestion;
 import lt.ltrp.vehicle.event.PlayerRejectPlayerQuestion;
 import lt.ltrp.event.player.PlayerToggleModDutyEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.PlayerController;
 import lt.ltrp.util.AdminLog;
 import net.gtaun.shoebill.common.command.BeforeCheck;

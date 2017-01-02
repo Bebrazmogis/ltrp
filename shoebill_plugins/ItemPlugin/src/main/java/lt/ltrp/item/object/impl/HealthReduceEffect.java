@@ -1,7 +1,7 @@
 package lt.ltrp.object.impl;
 
 import lt.ltrp.object.DetoxEffect;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

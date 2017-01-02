@@ -1,7 +1,7 @@
 package lt.ltrp.player.fine.data
 
 import lt.ltrp.`object`.Entity
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.`object`.impl.EntityImpl
 import java.time.LocalDateTime
 

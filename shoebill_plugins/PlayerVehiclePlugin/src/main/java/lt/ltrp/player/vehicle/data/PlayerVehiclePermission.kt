@@ -1,6 +1,6 @@
 package lt.ltrp.player.vehicle.data
 
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.player.vehicle.`object`.PlayerVehicle
 
 /**

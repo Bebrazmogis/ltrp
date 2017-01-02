@@ -10,7 +10,7 @@ import lt.ltrp.house.upgrade.data.HouseUpgrade;
 import lt.ltrp.house.weed.object.HouseWeedSapling;
 import lt.ltrp.object.Entity;
 import lt.ltrp.object.InventoryEntity;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.Property;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;

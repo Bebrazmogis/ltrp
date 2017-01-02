@@ -2,7 +2,7 @@ package lt.ltrp.event;
 
 
 import lt.ltrp.data.PlayerQuestion;
-import lt.ltrp.event.player.PlayerEvent;import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.event.player.PlayerEvent;import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

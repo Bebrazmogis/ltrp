@@ -2,7 +2,7 @@ package lt.ltrp.business.dialog;
 
 import lt.ltrp.event.property.BusinessNameChangeEvent;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.StringUtils;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.InputDialog;

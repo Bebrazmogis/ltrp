@@ -1,7 +1,7 @@
 package lt.ltrp.garage;
 
 import lt.ltrp.GarageController;
-import lt.ltrp.object.Entity;import lt.ltrp.object.InventoryEntity;import lt.ltrp.object.LtrpPlayer;import lt.ltrp.object.LtrpVehicle;import net.gtaun.shoebill.data.AngledLocation;
+import lt.ltrp.object.Entity;import lt.ltrp.object.InventoryEntity;import lt.ltrp.player.object.LtrpPlayer;import lt.ltrp.object.LtrpVehicle;import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 

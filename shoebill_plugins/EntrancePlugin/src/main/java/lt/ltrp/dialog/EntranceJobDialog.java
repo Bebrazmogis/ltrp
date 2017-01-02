@@ -3,7 +3,7 @@ package lt.ltrp.dialog;
 import lt.ltrp.EntrancePlugin;
 import lt.ltrp.job.dialog.JobListDialog;
 import lt.ltrp.object.Entrance;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.util.event.EventManager;

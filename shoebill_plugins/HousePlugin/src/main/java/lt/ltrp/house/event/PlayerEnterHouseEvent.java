@@ -2,7 +2,7 @@ package lt.ltrp.house.event;
 
 import lt.ltrp.event.property.PlayerEnterPropertyEvent;
 import lt.ltrp.house.object.House;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 
 /**

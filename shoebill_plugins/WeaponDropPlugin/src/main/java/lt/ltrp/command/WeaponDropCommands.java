@@ -3,7 +3,7 @@ package lt.ltrp.command;
 import lt.ltrp.WeaponDropPlugin;
 import lt.ltrp.data.DroppedWeaponData;
 import lt.ltrp.data.LtrpWeaponData;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.object.Player;
 

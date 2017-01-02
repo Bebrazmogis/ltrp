@@ -5,7 +5,7 @@ import lt.ltrp.player.vehicle.constant.PlayerVehiclePermission;
 import lt.ltrp.player.vehicle.data.BuyVehicleOffer;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.vehicle.event.PlayerVehicleSellEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.object.Player;

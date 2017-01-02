@@ -5,7 +5,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.event.player.PlayerDrawWeaponItemEvent;
 import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.WeaponItem;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.shoebill.data.WeaponData;

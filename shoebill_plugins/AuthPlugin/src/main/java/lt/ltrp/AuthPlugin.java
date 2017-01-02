@@ -3,7 +3,7 @@ package lt.ltrp;
 import lt.ltrp.data.Color;
 import lt.ltrp.dialog.PasswordInputDialog;
 import lt.ltrp.event.player.PlayerLogInEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.PlayerData;
 import lt.ltrp.object.impl.LtrpPlayerImpl;
 import lt.ltrp.player.PlayerController;

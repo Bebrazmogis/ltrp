@@ -1,6 +1,6 @@
 package lt.ltrp;
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 import java.util.Collection;
 

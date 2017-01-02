@@ -2,7 +2,7 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.object.WeedItem;
 import lt.maze.ysf.YSFPlugin;

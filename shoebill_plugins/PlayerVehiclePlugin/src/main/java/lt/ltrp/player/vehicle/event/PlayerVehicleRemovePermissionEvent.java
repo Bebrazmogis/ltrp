@@ -1,6 +1,6 @@
 package lt.ltrp.player.vehicle.event;
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.constant.PlayerVehiclePermission;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 

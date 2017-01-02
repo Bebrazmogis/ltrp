@@ -2,7 +2,7 @@ package lt.ltrp.data;
 
 import lt.ltrp.vehicle.event.VoteEndEvent;
 import lt.ltrp.vehicle.event.VoteStartEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.timers.TemporaryTimer;
 import net.gtaun.util.event.EventManager;
 

@@ -2,7 +2,7 @@ package lt.ltrp.object.drug;
 
 import lt.ltrp.object.Inventory;
 import lt.ltrp.object.Item;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

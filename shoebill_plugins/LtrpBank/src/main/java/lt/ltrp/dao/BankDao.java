@@ -1,7 +1,7 @@
 package lt.ltrp.dao;
 
 import lt.ltrp.player.BankAccount;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Location;
 
 import java.io.Closeable;

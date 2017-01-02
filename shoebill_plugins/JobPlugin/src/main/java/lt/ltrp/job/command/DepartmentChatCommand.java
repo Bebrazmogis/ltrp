@@ -6,7 +6,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.job.object.Faction;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;

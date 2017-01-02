@@ -1,6 +1,6 @@
 package lt.ltrp.house.weed.command
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.WeedItem
 import lt.ltrp.command.Commands
 import lt.ltrp.data.Color

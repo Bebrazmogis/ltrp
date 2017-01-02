@@ -6,7 +6,7 @@ import lt.ltrp.house.upgrade.HouseUpgradeController;
 import lt.ltrp.house.upgrade.constant.HouseUpgradeType;
 import lt.ltrp.house.upgrade.dialog.HouseUpgradeListDialog;
 import lt.ltrp.house.weed.dialog.HouseWeedListDialog;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.data.Location;

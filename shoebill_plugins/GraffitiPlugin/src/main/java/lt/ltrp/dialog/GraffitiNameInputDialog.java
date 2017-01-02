@@ -2,7 +2,7 @@ package lt.ltrp.dialog;
 
 import lt.ltrp.event.GraffitiEditEvent;
 import lt.ltrp.object.Graffiti;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.StringUtils;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.util.event.EventManager;

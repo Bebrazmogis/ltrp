@@ -9,7 +9,7 @@ import lt.ltrp.vehicle.event.VoteEndEvent;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerToggleAdminDutyEvent;
 import lt.ltrp.event.player.PlayerToggleModDutyEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.util.AdminLog;
 import lt.maze.streamer.object.DynamicLabel;

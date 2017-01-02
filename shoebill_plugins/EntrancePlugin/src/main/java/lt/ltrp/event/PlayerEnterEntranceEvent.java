@@ -1,7 +1,7 @@
 package lt.ltrp.event;
 
 import lt.ltrp.object.Entrance;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

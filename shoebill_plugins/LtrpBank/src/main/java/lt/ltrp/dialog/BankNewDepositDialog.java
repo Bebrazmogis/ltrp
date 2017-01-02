@@ -2,7 +2,7 @@ package lt.ltrp.dialog;
 
 import lt.ltrp.BankController;
 import lt.ltrp.event.BankPlaceDepositEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.BankAccount;
 import net.gtaun.util.event.EventManager;
 

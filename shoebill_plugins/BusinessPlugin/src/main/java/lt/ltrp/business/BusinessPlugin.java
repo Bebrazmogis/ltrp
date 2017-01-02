@@ -10,7 +10,7 @@ import lt.ltrp.business.dialog.AdminBusinessManagementDialog;
 import lt.ltrp.business.dialog.BusinessAvailableCommodityManagementDialog;
 import lt.ltrp.event.property.*;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.business.impl.BusinessImpl;
 import lt.ltrp.player.PlayerController;
 import lt.ltrp.property.PropertyPlugin;

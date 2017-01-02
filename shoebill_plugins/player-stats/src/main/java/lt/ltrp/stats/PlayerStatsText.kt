@@ -2,7 +2,7 @@ package lt.ltrp.stats
 
 import lt.ltrp.BankPlugin
 import lt.ltrp.SpawnPlugin
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.constant.Currency
 import lt.ltrp.data.Color
 import lt.ltrp.player.job.PlayerJobPlugin

@@ -5,7 +5,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.WeaponShopWeapon;
 import lt.ltrp.item.ItemFactory;
 import lt.ltrp.object.Item;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.WeaponItem;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;

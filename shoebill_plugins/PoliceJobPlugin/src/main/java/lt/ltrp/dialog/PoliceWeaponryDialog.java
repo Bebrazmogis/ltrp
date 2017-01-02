@@ -2,7 +2,7 @@ package lt.ltrp.dialog;
 
 import lt.ltrp.object.PoliceFaction;
 import lt.ltrp.data.LtrpWeaponData;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.util.event.EventManager;

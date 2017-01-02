@@ -11,7 +11,7 @@ import lt.ltrp.event.property.PlayerEnterBusinessEvent;
 import lt.ltrp.event.property.PlayerExitBusinessEvent;
 import lt.ltrp.modelpreview.SkinModelPreview;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.business.impl.BusinessImpl;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;

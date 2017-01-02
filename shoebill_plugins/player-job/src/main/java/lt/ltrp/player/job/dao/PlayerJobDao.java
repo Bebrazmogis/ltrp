@@ -2,7 +2,7 @@ package lt.ltrp.player.job.dao;
 
 import lt.ltrp.object.PlayerData;
 import lt.ltrp.player.job.data.PlayerJobData;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

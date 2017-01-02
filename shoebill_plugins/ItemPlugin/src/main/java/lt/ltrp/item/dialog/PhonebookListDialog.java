@@ -5,7 +5,7 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import lt.ltrp.data.PhoneBook;
 import lt.ltrp.data.PhoneContact;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.dialog.InputDialog;
 import lt.maze.dialog.ListDialog;
 import lt.maze.dialog.ListDialogItem;

@@ -9,7 +9,7 @@ import lt.ltrp.data.property.business.commodity.BusinessCommodityDrink;
 import lt.ltrp.data.property.business.commodity.BusinessCommodityFood;
 import lt.ltrp.data.property.business.commodity.BusinessCommodityItem;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.business.impl.BusinessImpl;
 import lt.ltrp.property.dao.impl.MySqlPropertyDaoImpl;
 import net.gtaun.shoebill.constant.SpecialAction;

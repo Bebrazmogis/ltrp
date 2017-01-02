@@ -1,6 +1,6 @@
 package lt.ltrp.property.dao.impl;
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.Property;
 import lt.ltrp.property.dao.PropertyDao;
 

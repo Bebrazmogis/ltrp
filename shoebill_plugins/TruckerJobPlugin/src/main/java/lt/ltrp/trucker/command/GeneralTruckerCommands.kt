@@ -1,6 +1,6 @@
 package lt.ltrp.trucker.command
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.command.Commands
 import lt.ltrp.trucker.TruckerJobPlugin
 import lt.ltrp.trucker.dialog.TpdaDialog

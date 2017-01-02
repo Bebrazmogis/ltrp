@@ -5,7 +5,7 @@ import lt.ltrp.AdminPlugin;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.Vote;
 import lt.ltrp.event.player.PlayerAskQuestionEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;

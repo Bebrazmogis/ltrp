@@ -3,7 +3,7 @@ package lt.ltrp.command;
 import lt.ltrp.data.Color;
 import lt.ltrp.job.dialog.JobListDialog;
 import lt.ltrp.job.object.Job;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.job.PlayerJobController;
 import lt.ltrp.util.AdminLog;
 import net.gtaun.shoebill.common.command.BeforeCheck;

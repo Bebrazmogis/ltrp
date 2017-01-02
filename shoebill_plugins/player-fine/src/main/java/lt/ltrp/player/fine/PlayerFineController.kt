@@ -1,6 +1,6 @@
 package lt.ltrp.player.fine
 
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.player.fine.data.PlayerFine
 
 /**

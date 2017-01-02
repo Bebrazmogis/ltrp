@@ -3,7 +3,7 @@ package lt.ltrp.business.dialog;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.business.commodity.BusinessCommodity;
 import lt.ltrp.event.property.SelectCommodityEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.TabListDialog;

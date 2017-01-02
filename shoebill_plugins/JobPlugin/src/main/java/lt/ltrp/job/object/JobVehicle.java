@@ -2,7 +2,7 @@ package lt.ltrp.job.object;
 
 import lt.ltrp.job.JobController;
 import lt.ltrp.job.JobVehicleController;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;

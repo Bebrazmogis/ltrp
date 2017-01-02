@@ -1,7 +1,7 @@
 package lt.ltrp.player.vehicle.dialog;
 
 import lt.ltrp.player.vehicle.PlayerVehiclePlugin;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import lt.ltrp.player.PlayerController;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;

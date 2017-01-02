@@ -13,7 +13,7 @@ import lt.ltrp.event.GraffitiCreateEvent;
 import lt.ltrp.event.PlayerEndGraffitiPaintingEvent;
 import lt.ltrp.event.PlayerStartGraffitiPaintingEvent;
 import lt.ltrp.object.Graffiti;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.impl.GraffitiImpl;
 import lt.ltrp.player.util.PlayerUtils;
 import lt.ltrp.resource.DependentPlugin;

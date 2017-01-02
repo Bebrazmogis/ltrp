@@ -4,8 +4,8 @@ import lt.ltrp.BankPlugin
 import lt.ltrp.DatabasePlugin
 import lt.ltrp.HousePlugin
 import lt.ltrp.SpawnPlugin
-import lt.ltrp.`object`.LtrpPlayer
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.constant.Currency
 import lt.ltrp.house.rent.dao.impl.MySqlHouseTenantDaoImpl
 import lt.ltrp.house.event.HouseLoadedEvent

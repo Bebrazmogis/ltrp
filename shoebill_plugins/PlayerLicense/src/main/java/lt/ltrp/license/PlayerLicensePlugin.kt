@@ -1,6 +1,6 @@
 package lt.ltrp.license
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.license.command.LicenseCommands
 import lt.ltrp.license.dao.impl.MySqlPlayerLicenseDaoImpl
 import lt.ltrp.license.dao.impl.MySqlPlayerLicenseWarningDaoImpl

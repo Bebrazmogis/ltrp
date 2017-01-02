@@ -10,7 +10,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.dialog.AdvertisementListDialog;
 import lt.ltrp.event.PlayerSelectItemOptionEvent;
 import lt.ltrp.object.Item;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.impl.NewsPaperItem;
 import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.data.Location;

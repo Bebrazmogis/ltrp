@@ -8,7 +8,7 @@ import lt.ltrp.data.Animation;
 import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.event.PlayerJailEvent;
 import lt.ltrp.job.object.JobVehicle;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.PoliceFaction;
 import lt.ltrp.object.impl.PoliceFactionImpl;
 import lt.maze.streamer.object.DynamicLabel;

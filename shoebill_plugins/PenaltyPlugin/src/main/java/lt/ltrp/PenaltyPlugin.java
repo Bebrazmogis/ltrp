@@ -9,7 +9,7 @@ import lt.ltrp.player.vehicle.dao.impl.MySqlJailDaoImpl;
 import lt.ltrp.player.vehicle.dao.impl.MySqlWarnDaoImpl;
 import lt.ltrp.data.*;
 import lt.ltrp.event.*;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.PlayerController;
 import lt.ltrp.resource.DependentPlugin;
 import lt.ltrp.spawn.data.SpawnData;

@@ -5,7 +5,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.RadioStation;
 import lt.ltrp.dialog.IntegerInputDialog;
 import lt.ltrp.dialog.radio.RadioStationListDialog;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageEnabler;
 import lt.ltrp.util.ItemUsageOption;
 import lt.maze.mapandreas.MapAndreas;

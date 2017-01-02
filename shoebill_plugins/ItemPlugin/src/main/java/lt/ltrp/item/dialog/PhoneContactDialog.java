@@ -3,7 +3,7 @@ package lt.ltrp.dialog;
 
 import kotlin.Unit;
 import lt.ltrp.data.PhoneContact;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.dialog.InputDialog;
 import lt.maze.dialog.ListDialog;
 import lt.maze.dialog.ListDialogItem;

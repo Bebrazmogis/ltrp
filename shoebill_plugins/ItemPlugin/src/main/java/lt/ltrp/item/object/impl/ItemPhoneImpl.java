@@ -13,7 +13,7 @@ import lt.ltrp.event.player.PlayerCallNumberEvent;
 import lt.ltrp.event.player.PlayerSendSmsEvent;
 import lt.ltrp.object.Inventory;
 import lt.ltrp.object.ItemPhone;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;

@@ -1,7 +1,7 @@
 package lt.ltrp.job.dialog;
 
 import lt.ltrp.job.object.Faction;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.util.event.EventManager;

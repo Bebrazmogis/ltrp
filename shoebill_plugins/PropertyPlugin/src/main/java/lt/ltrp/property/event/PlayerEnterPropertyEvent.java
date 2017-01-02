@@ -1,7 +1,7 @@
 package lt.ltrp.property.event;
 
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.property.object.Property;
 
 /**

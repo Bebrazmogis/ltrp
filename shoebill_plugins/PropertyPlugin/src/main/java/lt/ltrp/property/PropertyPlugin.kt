@@ -5,7 +5,7 @@ import lt.ltrp.GarageController
 import lt.ltrp.property.command.PropertyAcceptCommands
 import lt.ltrp.property.command.PropertyCommands
 import lt.ltrp.house.HouseController
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.Property
 import net.gtaun.shoebill.common.command.CommandGroup
 import net.gtaun.shoebill.common.command.PlayerCommandManager

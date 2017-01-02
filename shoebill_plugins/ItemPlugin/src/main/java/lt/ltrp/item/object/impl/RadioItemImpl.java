@@ -3,7 +3,7 @@ package lt.ltrp.object.impl;
 import lt.ltrp.data.Color;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.object.RadioItem;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;

@@ -10,7 +10,7 @@ import lt.ltrp.garage.dialog.AdminGarageManagementDialog;
 import lt.ltrp.event.property.garage.GarageBuyEvent;
 import lt.ltrp.event.property.garage.GarageDestroyEvent;
 import lt.ltrp.object.Garage;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.garage.object.impl.GarageImpl;
 import lt.ltrp.property.PropertyPlugin;
 import lt.ltrp.resource.DependentPlugin;

@@ -11,7 +11,7 @@ import lt.ltrp.dialog.BusinessCommodityListDialog;
 import lt.ltrp.dialog.IntegerInputDialog;
 import lt.ltrp.dialog.item.ItemTypeListDialog;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;

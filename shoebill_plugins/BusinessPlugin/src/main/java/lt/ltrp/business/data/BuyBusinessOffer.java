@@ -1,7 +1,7 @@
 package lt.ltrp.business.data;
 
 import lt.ltrp.data.PlayerOffer;import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
 /**

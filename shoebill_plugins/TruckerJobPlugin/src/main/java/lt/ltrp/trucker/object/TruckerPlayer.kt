@@ -1,6 +1,6 @@
 package lt.ltrp.trucker.`object`
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.data.Animation
 import lt.ltrp.trucker.data.Cargo
 import net.gtaun.shoebill.common.player.PlayerLifecycleObject

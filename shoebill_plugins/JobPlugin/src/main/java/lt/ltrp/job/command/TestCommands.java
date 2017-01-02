@@ -6,7 +6,7 @@ import lt.ltrp.job.JobController;
 import lt.ltrp.job.object.ContractJob;
 import lt.ltrp.job.object.Job;
 import lt.ltrp.job.object.JobRank;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.job.PlayerJobController;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.object.Player;

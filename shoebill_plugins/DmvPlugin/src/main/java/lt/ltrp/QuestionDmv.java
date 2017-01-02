@@ -1,7 +1,7 @@
 package lt.ltrp;
 
 import lt.ltrp.data.dmv.DmvQuestion;
-import lt.ltrp.object.LtrpPlayer;import net.gtaun.util.event.EventManager;
+import lt.ltrp.player.object.LtrpPlayer;import net.gtaun.util.event.EventManager;
 
 import java.util.List;
 

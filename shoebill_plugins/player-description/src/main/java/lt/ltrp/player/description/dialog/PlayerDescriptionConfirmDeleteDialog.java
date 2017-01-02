@@ -2,7 +2,7 @@ package lt.ltrp.player.description.dialog;
 
 
 import lt.ltrp.data.Color;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.PlayerController;
 import lt.ltrp.util.StringUtils;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;

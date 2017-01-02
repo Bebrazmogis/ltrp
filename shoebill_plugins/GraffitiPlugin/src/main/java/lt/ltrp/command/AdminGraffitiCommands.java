@@ -3,7 +3,7 @@ package lt.ltrp.command;
 import lt.ltrp.GraffitiPlugin;
 import lt.ltrp.data.Color;
 import lt.ltrp.dialog.GraffitiListDialog;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.CommandParameter;
 import net.gtaun.shoebill.object.Player;

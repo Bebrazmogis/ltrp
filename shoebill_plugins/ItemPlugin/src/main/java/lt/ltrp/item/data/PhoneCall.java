@@ -1,7 +1,7 @@
 package lt.ltrp.data;
 
 import lt.ltrp.object.ItemPhone;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

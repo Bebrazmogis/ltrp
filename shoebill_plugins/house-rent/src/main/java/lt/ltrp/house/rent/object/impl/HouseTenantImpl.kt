@@ -1,7 +1,7 @@
 package lt.ltrp.house.rent.`object`.impl
 
 import lt.ltrp.`object`.Entity
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.`object`.impl.EntityImpl
 import lt.ltrp.house.`object`.House
 import lt.ltrp.house.rent.`object`.HouseTenant

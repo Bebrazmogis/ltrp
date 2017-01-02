@@ -7,7 +7,7 @@ import lt.ltrp.event.item.ItemLocationChangeEvent;
 import lt.ltrp.util.ItemUsageEnabler;
 import lt.ltrp.util.ItemUsageOption;import lt.ltrp.object.Inventory;
 import lt.ltrp.object.InventoryEntity;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.Property;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.util.event.EventManager;

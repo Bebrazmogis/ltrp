@@ -2,7 +2,7 @@ package lt.ltrp.business.dialog
 
 import lt.ltrp.BusinessController
 import lt.ltrp.`object`.Business
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.maze.dialog.ListDialogItem
 import lt.maze.dialog.TabListDialog
 import lt.maze.dialog.TabListDialogHeader

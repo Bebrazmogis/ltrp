@@ -1,6 +1,6 @@
 package lt.ltrp.house.upgrade.command
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.command.Commands
 import lt.ltrp.house.HouseController
 import lt.ltrp.house.upgrade.constant.HouseUpgradeType

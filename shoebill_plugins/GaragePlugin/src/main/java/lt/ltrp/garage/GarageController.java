@@ -2,7 +2,7 @@ package lt.ltrp.garage;
 
 import lt.ltrp.dao.GarageDao;
 import lt.ltrp.object.Garage;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;

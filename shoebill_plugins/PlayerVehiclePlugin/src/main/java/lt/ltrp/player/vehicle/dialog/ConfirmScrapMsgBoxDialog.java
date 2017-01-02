@@ -3,7 +3,7 @@ package lt.ltrp.player.vehicle.dialog;
 import lt.ltrp.player.vehicle.PlayerVehiclePlugin;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.player.vehicle.event.PlayerVehicleScrapEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;

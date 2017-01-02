@@ -5,7 +5,7 @@ import lt.ltrp.job.object.Job;
 import lt.ltrp.job.object.JobGate;
 import lt.ltrp.job.object.JobRank;
 import lt.ltrp.job.object.JobVehicle;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;

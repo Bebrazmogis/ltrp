@@ -1,7 +1,7 @@
 package lt.ltrp.job.dialog;
 
 import lt.ltrp.job.data.Roadblock;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.AdminLog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.PageListDialog;

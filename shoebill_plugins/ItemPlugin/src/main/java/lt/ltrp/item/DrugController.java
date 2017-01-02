@@ -7,7 +7,7 @@ import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.event.player.PlayerDataLoadEvent;
 import lt.ltrp.event.player.PlayerUseDrugsEvent;
 import lt.ltrp.object.DetoxEffect;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.WeedItem;
 import lt.ltrp.object.drug.DrugItem;
 import lt.ltrp.object.impl.*;

@@ -5,7 +5,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.event.item.ItemCreateEvent;
 import lt.ltrp.object.DrugDealerJob;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.WeedSeedItem;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;

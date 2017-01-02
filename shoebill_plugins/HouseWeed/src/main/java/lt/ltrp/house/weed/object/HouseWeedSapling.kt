@@ -1,7 +1,7 @@
 package lt.ltrp.house.weed.`object`;
 
 import lt.ltrp.`object`.Entity
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.house.`object`.House
 import lt.ltrp.house.weed.constant.GrowthStage
 import net.gtaun.shoebill.data.Location

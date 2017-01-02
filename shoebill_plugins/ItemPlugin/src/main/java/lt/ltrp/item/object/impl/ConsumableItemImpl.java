@@ -4,7 +4,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.util.ItemUsageOption;
 import lt.ltrp.object.ConsumableItem;
 import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
 /**

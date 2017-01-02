@@ -4,7 +4,7 @@ import lt.ltrp.player.vehicle.constant.PlayerVehiclePermission;
 import lt.ltrp.data.FuelTank;
 import lt.ltrp.data.VehicleLock;
 import lt.ltrp.player.vehicle.event.PlayerVehicleDestroyEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import lt.ltrp.player.vehicle.object.VehicleAlarm;
 import lt.ltrp.vehicle.object.impl.LtrpVehicleImpl;

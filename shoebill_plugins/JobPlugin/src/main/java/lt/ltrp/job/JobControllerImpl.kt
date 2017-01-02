@@ -1,6 +1,6 @@
 package lt.ltrp
 
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.job.JobController
 import lt.ltrp.job.`object`.Faction
 import lt.ltrp.job.`object`.Job

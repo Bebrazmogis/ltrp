@@ -2,7 +2,7 @@ package lt.ltrp.player.settings.dialog;
 
 import lt.ltrp.player.settings.PlayerSettingsController;
 import lt.ltrp.player.settings.data.PlayerSettings;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.TabListDialog;

@@ -5,7 +5,7 @@ import lt.ltrp.player.vehicle.PlayerVehiclePlugin;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.vehicle.data.VehicleFine;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.StringUtils;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;

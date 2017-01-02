@@ -2,7 +2,7 @@ package lt.ltrp;
 
 
 import lt.ltrp.data.dmv.DmvCheckpoint;
-import lt.ltrp.object.LtrpPlayer;import lt.ltrp.object.LtrpVehicle;import net.gtaun.util.event.EventManager;
+import lt.ltrp.player.object.LtrpPlayer;import lt.ltrp.object.LtrpVehicle;import net.gtaun.util.event.EventManager;
 
 /**
  * @author Bebras

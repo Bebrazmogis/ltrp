@@ -1,7 +1,7 @@
 package lt.ltrp.event;
 
 import lt.ltrp.session.AbstractRepairSession;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.event.player.PlayerEvent;
 
 /**

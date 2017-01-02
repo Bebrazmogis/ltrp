@@ -8,7 +8,7 @@ import lt.ltrp.business.dao.impl.MySqlMechanicJobDaoImpl;
 import lt.ltrp.event.PlayerLeaveRepairArea;
 import lt.ltrp.event.RepairSessionEndEvent;
 import lt.ltrp.event.vehicle.VehicleEngineStartEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.object.MechanicJob;
 import lt.ltrp.object.impl.MechanicJobImpl;

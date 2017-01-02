@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.LtrpGamemodeConstants;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.streamer.StreamerPlugin;
 import lt.maze.streamer.constant.StreamerType;
 import net.gtaun.shoebill.Shoebill;

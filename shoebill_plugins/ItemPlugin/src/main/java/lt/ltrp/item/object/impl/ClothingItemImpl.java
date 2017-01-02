@@ -5,7 +5,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
 import lt.ltrp.object.ClothingItem;
 import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageEnabler;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.shoebill.constant.PlayerAttachBone;

@@ -2,7 +2,7 @@ package lt.ltrp.player.vehicle.dao.impl;
 
 import lt.ltrp.player.vehicle.constant.PlayerVehiclePermission;
 import lt.ltrp.player.vehicle.dao.PlayerVehiclePermissionDao;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 
 import javax.sql.DataSource;

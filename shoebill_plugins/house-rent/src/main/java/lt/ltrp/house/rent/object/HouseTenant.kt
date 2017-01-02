@@ -2,7 +2,7 @@ package lt.ltrp.house.rent.`object`
 
 import lt.ltrp.`object`.Entity
 import lt.ltrp.`object`.NamedEntity
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.house.`object`.House
 import java.time.Duration
 import java.time.LocalDateTime

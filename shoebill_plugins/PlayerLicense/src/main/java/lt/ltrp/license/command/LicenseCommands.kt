@@ -1,6 +1,6 @@
 package lt.ltrp.license.command
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.data.Color
 import net.gtaun.shoebill.`object`.Player
 import net.gtaun.shoebill.common.command.Command

@@ -4,7 +4,7 @@ import lt.ltrp.dao.GarageDao;
 import lt.ltrp.data.Color;
 import lt.ltrp.garage.event.GarageLoadedEvent;
 import lt.ltrp.object.Garage;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.garage.object.impl.GarageImpl;
 import lt.ltrp.property.dao.impl.MySqlPropertyDaoImpl;
 import net.gtaun.shoebill.data.AngledLocation;

@@ -1,7 +1,7 @@
 package lt.ltrp.util;
 
 import lt.ltrp.DatabasePlugin;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.Shoebill;
 
 import javax.sql.DataSource;

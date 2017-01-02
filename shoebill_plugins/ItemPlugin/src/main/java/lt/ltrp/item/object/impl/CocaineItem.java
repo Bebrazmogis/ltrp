@@ -2,7 +2,7 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.ysf.YSFPlugin;
 import lt.maze.ysf.object.YSFPlayer;
 import net.gtaun.shoebill.object.Timer;

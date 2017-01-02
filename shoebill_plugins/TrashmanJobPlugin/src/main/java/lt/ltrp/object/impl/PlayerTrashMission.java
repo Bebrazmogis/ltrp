@@ -1,7 +1,7 @@
 package lt.ltrp.object.impl;
 
 import lt.ltrp.data.TrashMission;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.object.Checkpoint;
 

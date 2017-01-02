@@ -1,7 +1,7 @@
 package lt.ltrp.player.vehicle.object.impl;
 
 import lt.ltrp.data.Color;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import net.gtaun.shoebill.constant.LocationZone;
 

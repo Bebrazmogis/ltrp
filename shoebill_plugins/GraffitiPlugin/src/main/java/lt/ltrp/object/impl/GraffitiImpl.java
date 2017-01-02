@@ -5,7 +5,7 @@ import lt.ltrp.data.GraffitiFont;
 import lt.ltrp.data.GraffitiObject;
 import lt.ltrp.event.GraffitiDestroyEvent;
 import lt.ltrp.object.Graffiti;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.streamer.data.DynamicObjectMaterialText;
 import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.constant.ObjectMaterialSize;

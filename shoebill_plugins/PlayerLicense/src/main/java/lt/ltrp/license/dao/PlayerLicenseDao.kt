@@ -1,6 +1,6 @@
 package lt.ltrp.player.licenses.dao
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.player.licenses.data.PlayerLicense
 import lt.ltrp.player.licenses.data.PlayerLicenses
 

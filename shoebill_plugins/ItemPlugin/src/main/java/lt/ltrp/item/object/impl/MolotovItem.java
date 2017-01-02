@@ -4,7 +4,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.object.Fire;
 import lt.ltrp.object.Inventory;
 import lt.ltrp.object.Item;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageOption;
 import lt.maze.mapandreas.MapAndreas;
 import net.gtaun.shoebill.Shoebill;

@@ -1,7 +1,7 @@
 package lt.ltrp.house.rent.command
 
 import lt.ltrp.SpawnPlugin
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.command.Commands
 import lt.ltrp.constant.Currency
 import lt.ltrp.data.Color

@@ -4,7 +4,7 @@ import lt.ltrp.dao.DrugAddictionDao;
 import lt.ltrp.object.drug.DrugItem;
 import lt.ltrp.data.PlayerAddiction;
 import lt.ltrp.data.PlayerDrugs;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

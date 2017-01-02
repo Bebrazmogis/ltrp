@@ -5,7 +5,7 @@ import lt.ltrp.house.upgrade.constant.HouseUpgradeType;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
 import lt.ltrp.house.object.House;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;

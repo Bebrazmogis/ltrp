@@ -2,7 +2,7 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.dialog.LabelWeaponShopManagementDialog;
 import lt.ltrp.object.LabelWeaponShop;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.streamer.object.DynamicLabel;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.data.Color;

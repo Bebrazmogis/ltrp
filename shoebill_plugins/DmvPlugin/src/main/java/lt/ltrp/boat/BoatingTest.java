@@ -3,7 +3,7 @@ package lt.ltrp.boat;
 import lt.ltrp.PlayerBoatingTestEnd;
 import lt.ltrp.object.AbstractCheckpointTest;
 import lt.ltrp.object.CheckpointDmv;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.util.event.EventManager;
 

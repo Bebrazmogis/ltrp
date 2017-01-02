@@ -1,6 +1,6 @@
 package lt.ltrp.command
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.command.Commands
 import lt.ltrp.job.`object`.Job
 import lt.ltrp.job.data.Roadblock

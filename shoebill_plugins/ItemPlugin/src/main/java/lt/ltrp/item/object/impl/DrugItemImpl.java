@@ -5,7 +5,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.PlayerDrugs;
 import lt.ltrp.event.player.PlayerUseDrugsEvent;
 import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.drug.DrugItem;
 import net.gtaun.shoebill.object.Timer;
 import net.gtaun.util.event.EventManager;

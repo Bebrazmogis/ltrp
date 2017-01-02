@@ -7,7 +7,7 @@ import lt.ltrp.dialog.dialogmenu.PlayerDialogMenu;
 import lt.ltrp.job.JobVehicleController;
 import lt.ltrp.job.object.Job;
 import lt.ltrp.job.object.JobVehicle;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.InputDialog;

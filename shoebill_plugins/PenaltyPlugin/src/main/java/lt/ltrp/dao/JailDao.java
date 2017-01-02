@@ -1,7 +1,7 @@
 package lt.ltrp.dao;
 
 import lt.ltrp.data.JailData;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

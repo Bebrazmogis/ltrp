@@ -1,6 +1,6 @@
 package lt.ltrp
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.business.BusinessPlugin
 import lt.ltrp.constant.Currency
 import lt.ltrp.data.Color

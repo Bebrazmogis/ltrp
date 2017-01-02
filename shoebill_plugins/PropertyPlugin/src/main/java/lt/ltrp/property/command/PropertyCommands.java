@@ -6,7 +6,7 @@ import lt.ltrp.data.BuyBusinessOffer;
 import lt.ltrp.data.Color;
 import lt.ltrp.event.property.BusinessBuyEvent;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.Property;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;

@@ -1,7 +1,7 @@
 package lt.ltrp.property.`object`
 
 import lt.ltrp.property.PropertyController
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.Entity
 import lt.ltrp.`object`.NamedEntity
 import lt.maze.streamer.`object`.DynamicPickup

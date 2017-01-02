@@ -1,7 +1,7 @@
 package lt.ltrp.player.job.data
 
 import lt.ltrp.data.PlayerOffer
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.job.`object`.Faction
 import net.gtaun.util.event.EventManager
 

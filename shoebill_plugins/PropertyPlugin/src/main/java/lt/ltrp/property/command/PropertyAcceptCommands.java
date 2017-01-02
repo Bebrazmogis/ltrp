@@ -11,7 +11,7 @@ import lt.ltrp.house.event.HouseBuyEvent;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.Garage;
 import lt.ltrp.house.object.House;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;

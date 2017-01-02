@@ -4,7 +4,7 @@ import lt.ltrp.ItemPlugin;
 import lt.ltrp.PlayerPlugin;
 import lt.ltrp.`object`.Garage
 import lt.ltrp.data.LtrpWeaponData;
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.LtrpVehicle
 import lt.ltrp.`object`.WeaponItem
 import lt.ltrp.house.`object`.House

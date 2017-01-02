@@ -6,7 +6,7 @@ import lt.ltrp.MedicJobPlugin;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.LtrpWeaponData;
 import lt.ltrp.player.job.data.PlayerJobData;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.MedicFaction;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;

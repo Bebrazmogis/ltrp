@@ -9,7 +9,7 @@ import lt.ltrp.house.rent.object.HouseTenant;
 import lt.ltrp.house.upgrade.data.HouseUpgrade;
 import lt.ltrp.house.weed.object.HouseWeedSapling;
 import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.property.object.impl.InventoryPropertyImpl;
 import lt.maze.streamer.StreamerPlugin;
 import lt.maze.streamer.constant.StreamerType;

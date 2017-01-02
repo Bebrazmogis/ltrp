@@ -2,7 +2,7 @@ package lt.ltrp.license.data;
 
 import lt.ltrp.object.PlayerData;
 import lt.ltrp.player.licenses.constant.LicenseType;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 import java.time.LocalDateTime;
 

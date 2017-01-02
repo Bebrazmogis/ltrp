@@ -2,7 +2,7 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.data.Color;
 import lt.ltrp.object.DetoxEffect;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.maze.fader.FaderPlugin;
 
 /**

@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
 import lt.ltrp.boat.BoatingTest;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 

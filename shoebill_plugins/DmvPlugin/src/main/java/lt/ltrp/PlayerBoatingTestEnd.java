@@ -2,7 +2,7 @@ package lt.ltrp;
 
 import lt.ltrp.boat.BoatingTest;
 import lt.ltrp.object.Dmv;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

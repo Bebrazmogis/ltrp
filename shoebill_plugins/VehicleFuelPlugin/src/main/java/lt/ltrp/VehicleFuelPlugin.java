@@ -6,7 +6,7 @@ import lt.ltrp.business.dao.impl.MySqlFuelStationDaoImpl;
 import lt.ltrp.data.FillData;
 import lt.ltrp.data.FuelStation;
 import lt.ltrp.dialog.VehicleStationBillDialog;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.player.BankAccount;
 import net.gtaun.shoebill.common.command.PlayerCommandManager;

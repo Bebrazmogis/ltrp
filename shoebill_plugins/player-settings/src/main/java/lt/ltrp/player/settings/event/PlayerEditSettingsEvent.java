@@ -3,7 +3,7 @@ package lt.ltrp.player.settings.event;
 
 import lt.ltrp.event.player.PlayerEvent;
 import lt.ltrp.player.settings.data.PlayerSettings;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

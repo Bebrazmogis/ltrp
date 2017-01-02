@@ -4,7 +4,7 @@ import lt.ltrp.VehicleController;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.NamedLocation;
 import lt.ltrp.player.job.data.PlayerJobData;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import lt.ltrp.object.VehicleThiefJob;
 import net.gtaun.shoebill.common.command.BeforeCheck;

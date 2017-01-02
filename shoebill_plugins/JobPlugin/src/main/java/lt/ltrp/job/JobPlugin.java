@@ -15,7 +15,7 @@ import lt.ltrp.job.object.ContractJob;
 import lt.ltrp.job.object.ContractJobRank;
 import lt.ltrp.job.object.Job;
 import lt.ltrp.object.ItemPhone;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.job.PlayerJobController;
 import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.resource.DependentPlugin;

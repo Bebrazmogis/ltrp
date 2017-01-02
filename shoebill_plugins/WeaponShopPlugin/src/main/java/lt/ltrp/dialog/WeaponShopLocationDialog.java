@@ -3,7 +3,7 @@ package lt.ltrp.dialog;
 import lt.ltrp.WeaponShopPlugin;
 import lt.ltrp.data.Color;
 import lt.ltrp.event.WeaponShopUpdateEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.WeaponShop;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;

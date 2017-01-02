@@ -4,7 +4,7 @@ import lt.ltrp.constant.ItemType;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.RadioStation;
 import lt.ltrp.dialog.radio.RadioStationListDialog;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.util.event.EventManager;

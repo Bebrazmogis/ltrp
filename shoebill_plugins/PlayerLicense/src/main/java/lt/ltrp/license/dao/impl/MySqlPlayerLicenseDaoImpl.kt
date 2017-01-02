@@ -1,6 +1,6 @@
 package lt.ltrp.license.dao.impl
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.Entity
 import lt.ltrp.player.licenses.constant.LicenseType
 import lt.ltrp.player.licenses.dao.PlayerLicenseDao

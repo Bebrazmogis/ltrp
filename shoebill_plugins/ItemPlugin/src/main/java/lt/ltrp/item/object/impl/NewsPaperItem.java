@@ -1,7 +1,7 @@
 package lt.ltrp.object.impl;
 
 import lt.ltrp.constant.ItemType;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.util.ItemUsageOption;
 import net.gtaun.util.event.EventManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;

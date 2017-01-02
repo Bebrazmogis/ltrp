@@ -5,7 +5,7 @@ import lt.ltrp.PlayerDrivingTestEndEvent;
 import lt.ltrp.event.vehicle.SpeedometerTickEvent;
 import lt.ltrp.object.AbstractCheckpointTest;
 import lt.ltrp.object.CarDmv;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.object.VehicleParam;
 import net.gtaun.util.event.EventManager;

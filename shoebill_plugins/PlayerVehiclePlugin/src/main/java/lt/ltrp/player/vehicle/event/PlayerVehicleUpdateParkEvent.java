@@ -1,7 +1,7 @@
 package lt.ltrp.player.vehicle.event;
 
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import net.gtaun.shoebill.data.AngledLocation;
 
