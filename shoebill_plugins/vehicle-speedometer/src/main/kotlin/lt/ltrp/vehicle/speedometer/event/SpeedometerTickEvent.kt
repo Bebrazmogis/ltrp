@@ -1,16 +1,14 @@
 package lt.ltrp.vehicle.speedometer.event
 
+import lt.ltrp.vehicle.`object`.LtrpVehicle
 
-import lt.ltrp.event.player.PlayerEvent
-import lt.ltrp.player.`object`.LtrpPlayer
-import lt.ltrp.`object`.LtrpVehicle
 
 /**
  * @author Bebras
  * *         2015.12.14.
+ * Dispatched whenever a speedometer is updated
+ * **This event is dispatched frequently**
  */
-class SpeedometerTickEvent(player: LtrpPlayer, var vehicle: LtrpVehicle?, var speed: Float) : PlayerEvent(player) {
+class SpeedometerTickEvent(vehicle: LtrpVehicle, val speed: Float) : SpeedometerEvent(vehicle) {
 
-    val player: LtrpPlayer
-        get() = super.getPlayer() as LtrpPlayer
 }

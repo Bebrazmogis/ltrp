@@ -10,6 +10,7 @@ import net.gtaun.shoebill.entities.Player
 /**
  * @author Bebras
  *         2015.12.14.
+ *         The classic black transparent box with white text speedometer display
  */
 class LtrpClassicSpeedometerDisplay(override val player: Player) : SpeedometerDisplay {
 
@@ -45,7 +46,7 @@ class LtrpClassicSpeedometerDisplay(override val player: Player) : SpeedometerDi
 
     override fun updateFuel(fuelTank: FuelTank) {
         val percent = fuelTank.size / 100 * fuelTank.fuel
-        var color: String
+        val color: String
         if(percent > 66)
             color = "~w~"
         else if(percent > 33)
@@ -53,7 +54,7 @@ class LtrpClassicSpeedometerDisplay(override val player: Player) : SpeedometerDi
         else
             color = "~w~"
 
-        fuel = ""
+        fuel = color
         val barCount = percent / 5
         var i = 0
         while(i < barCount) {
@@ -127,4 +128,4 @@ class LtrpClassicSpeedometerDisplay(override val player: Player) : SpeedometerDi
         return isDestroyed;
     }
 
-}
+}*/
