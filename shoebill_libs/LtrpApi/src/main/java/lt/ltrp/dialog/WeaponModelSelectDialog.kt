@@ -1,17 +1,17 @@
 package lt.ltrp.dialog
 
-import lt.ltrp.`object`.LtrpPlayer
 import lt.maze.dialog.ListDialog
 import lt.maze.dialog.ListDialogItem
 import net.gtaun.shoebill.constant.WeaponModel
+import net.gtaun.shoebill.entities.Player
 import net.gtaun.util.event.EventManager
 
 /**
  * Created by Bebras on 2016-10-28.
  * This dialog shows a list of possible [WeaponModel]
  */
-open class WeaponModelSelectDialog(player: LtrpPlayer, override val eventManager: EventManager):
-        ListDialog(player.player, eventManager) {
+open class WeaponModelSelectDialog(player: Player, override val eventManager: EventManager):
+        ListDialog(player, eventManager) {
 
     var clickOkHandler: ((WeaponModelSelectDialog, WeaponModel) -> Unit)? = null
 
@@ -32,7 +32,7 @@ open class WeaponModelSelectDialog(player: LtrpPlayer, override val eventManager
     }
 
     companion object {
-        fun create(player: LtrpPlayer, eventManager: EventManager, params: (WeaponModelSelectDialogBuilder.() -> Unit)):
+        fun create(player: Player, eventManager: EventManager, params: (WeaponModelSelectDialogBuilder.() -> Unit)):
                 WeaponModelSelectDialog {
             val dialog = WeaponModelSelectDialog(player, eventManager)
             val builder = WeaponModelSelectDialogBuilder(dialog)

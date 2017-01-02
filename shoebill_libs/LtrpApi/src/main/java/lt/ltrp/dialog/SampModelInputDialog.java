@@ -1,6 +1,6 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.object.LtrpPlayer;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.event.dialog.DialogResponseEvent;
 import net.gtaun.util.event.EventManager;
 import org.jetbrains.annotations.NotNull;
@@ -11,8 +11,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SampModelInputDialog extends IntegerInputDialog {
 
-    public SampModelInputDialog(LtrpPlayer player, EventManager parentEventManager) {
-        super(player.getPlayer(), parentEventManager);
+    public SampModelInputDialog(Player player, EventManager parentEventManager) {
+        super(player, parentEventManager);
         this.setTitle("SAMP modelio ávedimas");
         this.setButtonOk("Gerai");
         this.setButtonCancel("Atðaukti");

@@ -1,7 +1,7 @@
 package lt.ltrp.job.vehicle
 
 import lt.ltrp.DatabasePlugin
-import lt.ltrp.VehiclePlugin
+import lt.ltrp.vehicle.VehiclePlugin
 import lt.ltrp.job.JobController
 import lt.ltrp.job.`object`.Job
 import lt.ltrp.job.dao.JobVehicleDao

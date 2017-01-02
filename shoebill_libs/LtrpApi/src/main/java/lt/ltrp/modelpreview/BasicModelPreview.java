@@ -3,10 +3,10 @@ package lt.ltrp.modelpreview;
 
 import lt.ltrp.modelpreview.event.ModelPreviewCancelEvent;
 import lt.ltrp.modelpreview.event.ModelPreviewSelectModelEvent;
-import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.TextDrawAlign;
 import net.gtaun.shoebill.constant.TextDrawFont;
 import net.gtaun.shoebill.data.Color;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.entities.PlayerTextdraw;
 import net.gtaun.shoebill.entities.Textdraw;
 import net.gtaun.shoebill.event.player.PlayerClickPlayerTextDrawEvent;
@@ -84,11 +84,11 @@ public class BasicModelPreview implements ModelPreview {
         prevButton.setTextSize(50f, 16f); //  // The width and height are reversed for centering.. something the game does <g>
     }
 
-    public static BasicModelPreviewBuilder create(LtrpPlayer player, EventManager eventManager, float modelWidth, float modelHeight) {
+    public static BasicModelPreviewBuilder create(Player player, EventManager eventManager, float modelWidth, float modelHeight) {
         return new BasicModelPreviewBuilder(player, eventManager, modelWidth, modelHeight);
     }
 
-    public static BasicModelPreviewBuilder create(LtrpPlayer player, EventManager event) {
+    public static BasicModelPreviewBuilder create(Player player, EventManager event) {
         return new BasicModelPreviewBuilder(player, event);
     }
 
@@ -96,11 +96,11 @@ public class BasicModelPreview implements ModelPreview {
     public static class BasicModelPreviewBuilder {
         private BasicModelPreview preview;
 
-        private BasicModelPreviewBuilder(LtrpPlayer player, EventManager eventManager, float modelWidth, float modelHeight) {
+        private BasicModelPreviewBuilder(Player player, EventManager eventManager, float modelWidth, float modelHeight) {
             preview = new BasicModelPreview(player, eventManager, modelWidth, modelHeight);
         }
 
-        private BasicModelPreviewBuilder(LtrpPlayer player, EventManager eventManager) {
+        private BasicModelPreviewBuilder(Player player, EventManager eventManager) {
             preview = new BasicModelPreview(player, eventManager);
         }
 
@@ -168,7 +168,7 @@ public class BasicModelPreview implements ModelPreview {
     private List<Integer> modelIds;
     private Map<Integer, SelectModelHandler> handlers;
     private Map<Integer, PlayerTextdraw> modelTextdraws;
-    private LtrpPlayer player;
+    private Player player;
     private int page, itemsPerPage;
     private Color buttonColor, backgroundColor, modelBackgroundColor, selectionColor;
     private EventManagerNode eventManager;
@@ -180,7 +180,7 @@ public class BasicModelPreview implements ModelPreview {
     private boolean shown, destroyed;
 
 
-    protected BasicModelPreview(LtrpPlayer player, EventManager eventManager, float modelWidth, float modelHeight) {
+    protected BasicModelPreview(Player player, EventManager eventManager, float modelWidth, float modelHeight) {
         this.eventManager = eventManager.createChildNode();
         this.player = player;
         this.modelHeight = modelHeight;
@@ -197,7 +197,7 @@ public class BasicModelPreview implements ModelPreview {
         this.itemsPerPage = itemsPerColumn * itemsPerLine;
     }
 
-    protected BasicModelPreview(LtrpPlayer player, EventManager eventManager1) {
+    protected BasicModelPreview(Player player, EventManager eventManager1) {
         this(player, eventManager1, DEFAULT_MODEL_WIDTH, DEFAULT_MODEL_HEIGHT);
     }
 
@@ -210,12 +210,12 @@ public class BasicModelPreview implements ModelPreview {
             nextButton.setColor(buttonColor);
             prevButton.setColor(buttonColor);
 
-            background.show(player.getPlayer());
-            exitButton.show(player.getPlayer());
-            nextButton.show(player.getPlayer());
-            prevButton.show(player.getPlayer());
+            background.show(player);
+            exitButton.show(player);
+            nextButton.show(player);
+            prevButton.show(player);
 
-            player.getPlayer().selectTextDraw(selectionColor);
+            player.selectTextDraw(selectionColor);
 
             for(int i = 0; i < itemsPerPage; i++) {
                 PlayerTextdraw td =  modelTextdraws.get(modelIds.get(i));
@@ -246,10 +246,10 @@ public class BasicModelPreview implements ModelPreview {
 
     @Override
     public void hide() {
-        background.hide(player.getPlayer());
-        exitButton.hide(player.getPlayer());
-        nextButton.hide(player.getPlayer());
-        prevButton.hide(player.getPlayer());
+        background.hide(player);
+        exitButton.hide(player);
+        nextButton.hide(player);
+        prevButton.hide(player);
         for(int i = this.page * itemsPerPage; i <  (this.page+1) * itemsPerPage; i++) {
             PlayerTextdraw td =  modelTextdraws.get(modelIds.get(i));
             if(td != null)
@@ -353,7 +353,7 @@ public class BasicModelPreview implements ModelPreview {
         int columnIndex = currentPageItemIndex - lineIndex * itemsPerColumn;
         float x = lineIndex * (modelWidth + 1);
         float y = columnIndex * (modelHeight + 1);
-        PlayerTextdraw textdraw = PlayerTextdraw.create(player.getPlayer(), x, y,  " ");
+        PlayerTextdraw textdraw = PlayerTextdraw.create(player, x, y,  " ");
         textdraw.setTextSize(modelWidth, modelHeight);
         textdraw.setFont(TextDrawFont.MODEL_PREVIEW);
         textdraw.setBackgroundColor(modelBackgroundColor);

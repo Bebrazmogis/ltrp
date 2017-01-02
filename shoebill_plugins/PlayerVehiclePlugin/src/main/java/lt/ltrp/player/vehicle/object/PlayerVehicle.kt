@@ -5,6 +5,7 @@ import lt.ltrp.player.vehicle.PlayerVehiclePlugin
 import lt.ltrp.player.vehicle.constant.PlayerVehiclePermission
 import lt.ltrp.data.FuelTank
 import lt.ltrp.data.VehicleLock
+import lt.ltrp.player.vehicle.PlayerVehicleContainer
 import lt.ltrp.vehicle.`object`.LtrpVehicle
 import net.gtaun.shoebill.data.AngledLocation
 import net.gtaun.shoebill.entities.Vehicle
@@ -53,39 +54,38 @@ interface PlayerVehicle : LtrpVehicle {
 
     companion object {
 
-        fun get(): List<PlayerVehicle> {
-            return PlayerVehiclePlugin.get(PlayerVehiclePlugin::class.java).getVehicles()
+        fun get(): Collection<PlayerVehicle> {
+            return PlayerVehicleContainer.get()
         }
 
-        fun getByLicense(license: String): PlayerVehicle {
-            return PlayerVehiclePlugin.get(PlayerVehiclePlugin::class.java).getByLicense(license)
+        fun get(uuid: Int): PlayerVehicle? {
+            return get()
+                    .firstOrNull { it.UUID == uuid }
         }
 
-        fun getByVehicle(vehicle: Vehicle): PlayerVehicle {
-            return PlayerVehiclePlugin.get(PlayerVehiclePlugin::class.java).getByVehicle(vehicle)
+        fun getByLicense(license: String): PlayerVehicle? {
+            return get()
+                    .firstOrNull { it.license == license }
         }
 
+        fun getByVehicle(vehicle: Vehicle): PlayerVehicle? {
+            return get()
+                    .firstOrNull { it.vehicle == vehicle }
+        }
+
+        @Deprecated("No longer used", ReplaceWith("get(uuid: Int)"))
         fun getByUniqueId(uniqueid: Int): PlayerVehicle? {
-            val vehicle = LtrpVehicle.getByUniqueId(uniqueid)
-            return if (vehicle != null && vehicle is PlayerVehicle) vehicle else null
+            return get(uniqueid)
         }
 
         fun getClosest(player: LtrpPlayer, maxDistance: Float): PlayerVehicle? {
+            val closestVehicle = get()
+                    .minBy { it.vehicle.location.distance(player.player.location) }
             val op = get()
                     .stream()
                     .filter({ v -> v.getLocation().distance(player.location) < maxDistance })
                     .min({ v1, v2 -> java.lang.Float.compare(v1.getLocation().distance(player.location), v2.getLocation().distance(player.location)) })
             return if (op.isPresent()) op.get() else null
-        }
-
-        fun create(id: Int, modelId: Int, location: AngledLocation, color1: Int, color2: Int, ownerId: Int,
-                   deaths: Int, fueltank: FuelTank, mileage: Float, license: String, insurance: Int, alarm: VehicleAlarm?,
-                   lock: VehicleLock?, doors: Int, panels: Int, lights: Int, tires: Int, health: Float, eventManager: EventManager): PlayerVehicle {
-            return PlayerVehiclePlugin.get(PlayerVehiclePlugin::class.java).createVehicle(id, modelId, location, color1, color2, ownerId, deaths, fueltank, mileage, license, insurance, alarm, lock, doors, panels, lights, tires, health, eventManager)
-        }
-
-        fun create(id: Int, modelId: Int, location: AngledLocation, color1: Int, color2: Int, ownerId: Int, fuelTank: FuelTank, mileage: Float, license: String, eventManager: EventManager): PlayerVehicle {
-            return create(id, modelId, location, color1, color2, ownerId, 0, fuelTank, mileage, license, 0, null, null, 0, 0, 0, 0, 1000f, eventManager)
         }
     }
 

@@ -6,19 +6,16 @@ import lt.ltrp.DmvController;
 import lt.ltrp.InitException;
 import lt.ltrp.LoadingException;
 import lt.ltrp.dialog.BoatingTestEndMsgDialog;
-import lt.ltrp.event.PlayerBoatingTestEnd;
+import lt.ltrp.PlayerBoatingTestEnd;
 import lt.ltrp.object.BoatDmv;
 import lt.ltrp.object.Dmv;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.player.licenses.PlayerLicenseController;
 import lt.ltrp.player.licenses.constant.LicenseType;
-import lt.ltrp.player.licenses.data.PlayerLicense;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

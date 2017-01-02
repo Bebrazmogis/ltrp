@@ -1,7 +1,7 @@
 package lt.ltrp.aircraft;
 
 import lt.ltrp.data.dmv.DmvCheckpoint;
-import lt.ltrp.event.PlayerFlyingTestEnd;
+import lt.ltrp.PlayerFlyingTestEnd;
 import lt.ltrp.event.vehicle.SpeedometerTickEvent;
 import lt.ltrp.object.AbstractCheckpointTest;
 import lt.ltrp.object.CheckpointDmv;

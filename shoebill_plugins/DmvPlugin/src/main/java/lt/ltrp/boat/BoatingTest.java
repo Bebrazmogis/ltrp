@@ -1,6 +1,6 @@
 package lt.ltrp.boat;
 
-import lt.ltrp.event.PlayerBoatingTestEnd;
+import lt.ltrp.PlayerBoatingTestEnd;
 import lt.ltrp.object.AbstractCheckpointTest;
 import lt.ltrp.object.CheckpointDmv;
 import lt.ltrp.object.LtrpPlayer;

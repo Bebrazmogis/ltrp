@@ -1,10 +1,9 @@
 package lt.ltrp;
 
 import lt.ltrp.data.FuelTank;
-import lt.ltrp.event.DmvVehicleDestroyEvent;
 import lt.ltrp.object.Dmv;
 import lt.ltrp.object.DmvVehicle;
-import lt.ltrp.object.impl.LtrpVehicleImpl;
+import lt.ltrp.vehicle.object.impl.LtrpVehicleImpl;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.util.event.EventManager;
 

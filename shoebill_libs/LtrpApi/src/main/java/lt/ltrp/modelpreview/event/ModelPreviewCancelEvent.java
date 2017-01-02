@@ -1,7 +1,7 @@
 package lt.ltrp.modelpreview.event;
 
 import lt.ltrp.modelpreview.ModelPreview;
-import lt.ltrp.object.LtrpPlayer;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras
@@ -10,7 +10,7 @@ import lt.ltrp.object.LtrpPlayer;
 public class ModelPreviewCancelEvent extends ModelPreviewEvent {
 
 
-    public ModelPreviewCancelEvent(LtrpPlayer player, ModelPreview preview) {
+    public ModelPreviewCancelEvent(Player player, ModelPreview preview) {
         super(player, preview);
     }
 }

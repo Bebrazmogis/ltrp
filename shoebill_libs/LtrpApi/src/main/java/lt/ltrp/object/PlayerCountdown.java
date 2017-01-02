@@ -6,6 +6,7 @@ import net.gtaun.shoebill.entities.Destroyable;
  * @author Bebras
  *         2016.04.07.
  */
+/*
 public interface PlayerCountdown extends Destroyable {
 
     public static PlayerCountdown create(LtrpPlayer player, int time, boolean freeze, PlayerCountdownCallback callback) {
@@ -39,3 +40,4 @@ public interface PlayerCountdown extends Destroyable {
         default void onTick(LtrpPlayer player, int timeremaining) {};
     }
 }
+*/

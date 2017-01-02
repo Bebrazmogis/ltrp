@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS player_vehicles
 (
-  id INT NOT NULL,
+  id INT NOT unsigned NULL,
   owner_id INT NOT NULL,
   deaths INT NOT NULL,
   alarm VARCHAR(30) NULL,

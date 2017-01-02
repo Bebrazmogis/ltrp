@@ -1,17 +1,12 @@
 package lt.ltrp.job.vehicle.object.impl;
 
-import lt.ltrp.data.FuelTank;
 import lt.ltrp.data.TaxiFare;
-import lt.ltrp.data.VehicleRadio;
 import lt.ltrp.job.object.Job;
 import lt.ltrp.job.object.JobRank;
 import lt.ltrp.job.object.JobVehicle;
 import lt.ltrp.job.vehicle.JobVehicleContainer;
-import lt.ltrp.object.Inventory;
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.impl.LtrpVehicleImpl;
+import lt.ltrp.vehicle.object.impl.LtrpVehicleImpl;
 import net.gtaun.shoebill.data.*;
-import net.gtaun.shoebill.object.*;
 import net.gtaun.util.event.EventManager;
 
 /**

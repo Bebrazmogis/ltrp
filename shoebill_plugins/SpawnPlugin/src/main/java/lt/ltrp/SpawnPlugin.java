@@ -2,11 +2,10 @@ package lt.ltrp;
 
 import lt.ltrp.command.SpawnCommands;
 import lt.ltrp.dao.SpawnDao;
-import lt.ltrp.business.dao.impl.MySqlSpawnDaoImpl;
+import lt.ltrp.player.vehicle.dao.impl.MySqlSpawnDaoImpl;
 import lt.ltrp.data.Color;
 import lt.ltrp.job.JobController;
 import lt.ltrp.job.object.Faction;
-import lt.ltrp.job.object.Job;
 import lt.ltrp.spawn.data.SpawnData;
 import lt.ltrp.spawn.event.PlayerFirstSpawnEvent;
 import lt.ltrp.spawn.event.PlayerRequestSpawnEvent;

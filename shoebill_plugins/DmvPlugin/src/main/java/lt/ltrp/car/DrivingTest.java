@@ -1,7 +1,7 @@
 package lt.ltrp.car;
 
 
-import lt.ltrp.event.PlayerDrivingTestEndEvent;
+import lt.ltrp.PlayerDrivingTestEndEvent;
 import lt.ltrp.event.vehicle.SpeedometerTickEvent;
 import lt.ltrp.object.AbstractCheckpointTest;
 import lt.ltrp.object.CarDmv;

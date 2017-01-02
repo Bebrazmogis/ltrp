@@ -2,6 +2,7 @@ package lt.ltrp.player.vehicle.data
 
 /**
  * Created by Bebras on 2016-12-30.
- * A class representing a permission for [lt.ltrp.player.vehicle.object.PlayerVehicle]
+ * A class representing a a vehicle permission
+ * An identifier should be all lower case, no spaces
  */
-data class PlayerVehiclePermission(var uuid: Int, var name: String, val identifier: String) {}
+data class VehiclePermission(var uuid: Int, var name: String, val identifier: String) {}

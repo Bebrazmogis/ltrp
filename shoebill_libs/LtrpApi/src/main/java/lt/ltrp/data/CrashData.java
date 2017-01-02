@@ -1,8 +1,8 @@
 package lt.ltrp.data;
 
 
-import lt.ltrp.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Location;
+import net.gtaun.shoebill.entities.Player;
 
 
 import java.sql.Date;
@@ -13,22 +13,22 @@ import java.sql.Date;
  */
 public class CrashData {
 
-    private LtrpPlayer player;
+    private Player player;
     private Location location;
     private Date date;
 
 
-    public CrashData(LtrpPlayer player, Location location, Date date) {
+    public CrashData(Player player, Location location, Date date) {
         this.player = player;
         this.location = location;
         this.date = date;
     }
 
-    public LtrpPlayer getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(LtrpPlayer player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 

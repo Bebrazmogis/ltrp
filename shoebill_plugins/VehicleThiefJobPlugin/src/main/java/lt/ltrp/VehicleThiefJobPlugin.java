@@ -3,14 +3,15 @@ package lt.ltrp;
 import kotlin.reflect.jvm.internal.KClassImpl;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.dao.VehicleThiefDao;
-import lt.ltrp.business.dao.impl.MySqlVehicleThiefDaoImpl;
-import lt.ltrp.job.JobController;
+import lt.ltrp.player.vehicle.dao.impl.MySqlVehicleThiefDaoImpl;
 import lt.ltrp.object.impl.VehicleThiefJobImpl;
 import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.data.VehicleLock;
 import lt.ltrp.event.PaydayEvent;
 import lt.ltrp.event.vehicle.VehicleEngineStartEvent;
 import lt.ltrp.object.*;
+import lt.ltrp.player.vehicle.object.PlayerVehicle;
+import lt.ltrp.player.vehicle.object.VehicleAlarm;
 import lt.ltrp.resource.DependentPlugin;
 import net.gtaun.shoebill.constant.PlayerKey;
 import net.gtaun.shoebill.event.player.PlayerKeyStateChangeEvent;
@@ -58,7 +59,7 @@ public class VehicleThiefJobPlugin extends DependentPlugin {
             PlayerJobData jobData = player.getJobData();
             // If player is pressing key FIRE and he's working as a vehicle thief AND he is in a vehicle
             if(player != null && player.getKeyState().isKeyPressed(PlayerKey.FIRE) && jobData.getJob() != null && jobData.getJob().equals(vehicleThiefJob) && player.getVehicle() != null) {
-                final PlayerVehicle vehicle = PlayerVehicle.getByVehicle(player.getVehicle());
+                final PlayerVehicle vehicle = PlayerVehicle.Companion.getByVehicle(player.getVehicle());
                 if(vehicle != null && vehicle.getState().getEngine() != VehicleParam.PARAM_ON) {
                     if(player.getInventory().containsType(ItemType.Toolbox)) {
                         vehicleThiefJob.log("Þaidëjas " + player.getUUID() + " bando pavogti transporto priemonæ " + vehicle.getId() + ". Automobilio savininkas " + vehicle.getOwnerId());

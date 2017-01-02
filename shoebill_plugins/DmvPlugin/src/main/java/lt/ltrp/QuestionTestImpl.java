@@ -2,7 +2,6 @@ package lt.ltrp;
 
 
 import lt.ltrp.data.dmv.DmvQuestion;
-import lt.ltrp.event.PlayerQuestionTestEndEvent;
 import lt.ltrp.object.LtrpPlayer;
 import lt.ltrp.object.QuestionDmv;
 import lt.ltrp.object.QuestionTest;

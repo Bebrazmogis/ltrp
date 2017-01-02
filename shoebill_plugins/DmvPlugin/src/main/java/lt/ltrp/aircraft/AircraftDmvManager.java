@@ -6,15 +6,13 @@ import lt.ltrp.InitException;
 import lt.ltrp.LoadingException;
 import lt.ltrp.data.Color;
 import lt.ltrp.dialog.FlyingTestEndMsgDialog;
-import lt.ltrp.event.PlayerFlyingTestEnd;
+import lt.ltrp.PlayerFlyingTestEnd;
 import lt.ltrp.object.*;
 import lt.ltrp.player.licenses.PlayerLicenseController;
 import lt.ltrp.player.licenses.constant.LicenseType;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

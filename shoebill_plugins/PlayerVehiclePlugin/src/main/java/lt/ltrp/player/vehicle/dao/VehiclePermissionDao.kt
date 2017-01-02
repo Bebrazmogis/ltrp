@@ -1,14 +1,14 @@
 package lt.ltrp.player.vehicle.dao
 
 import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.vehicle.data.VehiclePermission
 
 /**
  * Created by Bebras on 2016-12-30.
- * DAO for [PlayerVehiclePermission]
+ * DAO for [VehiclePermission]
  */
-interface PlayerVehiclePermissionDao {
+interface VehiclePermissionDao {
 
-    fun get(): Collection<PlayerVehiclePermissionDao>
-    fun get(ltrpPlayer: LtrpPlayer): Collection<PlayerVehiclePermissionDao>
+    fun get(): Collection<VehiclePermission>
 
 }

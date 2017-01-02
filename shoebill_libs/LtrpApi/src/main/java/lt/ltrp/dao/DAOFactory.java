@@ -44,13 +44,13 @@ public abstract class DAOFactory {
 
    // public abstract PlayerDao getPlayerDao();
    // public abstract PhoneDao getPhoneDao();
-    public abstract ItemDao getItemDao();
+  //  public abstract ItemDao getItemDao();
   //  public abstract HouseDao getHouseDao();
     //public abstract JobDao getJobDao();
     //public abstract DmvDao getDmvDao();
    // public abstract VehicleDao getVehicleDao();
    // public abstract RadioStationDao getRadioStationDao();
-    public abstract DrugAddictionDao getDrugAddictionDao();
+  //  public abstract DrugAddictionDao getDrugAddictionDao();
 }
 
 class JdbcDAO extends DAOFactory {
@@ -58,13 +58,13 @@ class JdbcDAO extends DAOFactory {
     private DataSource ds;
     //private PlayerDao playerDao;
   //  private PhoneDao phoneDao;
-    private ItemDao itemDao;
+  // private ItemDao itemDao;
   //  private HouseDao houseDao;
     //private JobDao jobDao;
    // private DmvDao dmvDao;
   //  private VehicleDao vehicleDao;
    // private RadioStationDao radioStationDao;
-    private DrugAddictionDao drugAddictionDao;
+  //  private DrugAddictionDao drugAddictionDao;
 
     public JdbcDAO(DataSource ds) throws IOException, SQLException {
         this.ds = ds;
@@ -132,11 +132,11 @@ class JdbcDAO extends DAOFactory {
     /*public PhoneDao getPhoneDao() {
         return phoneDao;
     }*/
-
-    @Override
-    public ItemDao getItemDao() {
-        return itemDao;
-    }
+///
+  /// // @Override
+  /// // public ItemDao getItemDao() {
+  ///      return itemDao;
+  ///  }
 
     /*@Override
     public HouseDao getHouseDao() {
@@ -163,10 +163,10 @@ class JdbcDAO extends DAOFactory {
         return radioStationDao;
     }
 */
-    @Override
-    public DrugAddictionDao getDrugAddictionDao() {
-        return drugAddictionDao;
-    }
+   /// @Override
+   /// public DrugAddictionDao getDrugAddictionDao() {
+   ///     return drugAddictionDao;
+   /// }
 
 }
 
