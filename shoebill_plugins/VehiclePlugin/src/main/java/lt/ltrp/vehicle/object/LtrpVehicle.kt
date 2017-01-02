@@ -3,7 +3,7 @@ package lt.ltrp.vehicle.`object`
 import lt.ltrp.ActionMessenger
 import lt.ltrp.StateMessenger
 import lt.ltrp.`object`.Entity
-import lt.ltrp.`object`.InventoryEntity
+import lt.ltrp.`object`.NamedEntity
 import lt.ltrp.vehicle.data.FuelTank
 import net.gtaun.shoebill.data.AngledLocation
 import net.gtaun.shoebill.data.Location
@@ -15,7 +15,7 @@ import net.gtaun.shoebill.entities.Vehicle
  * @author Bebras
  *         2016.04.12.
  */
-interface LtrpVehicle: InventoryEntity, StateMessenger, ActionMessenger, Destroyable {
+interface LtrpVehicle: NamedEntity, StateMessenger, ActionMessenger, Destroyable {
 
     companion object {
         val SPEEC_MAGIC_NUMBER = 170.0f
