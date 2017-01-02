@@ -1,8 +1,8 @@
 package lt.ltrp.player.data;
 
 
-import lt.ltrp.event.player.PlayerOfferExpireEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.event.PlayerOfferExpireEvent;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.entities.Timer;
 import net.gtaun.util.event.EventManager;
 

@@ -5,11 +5,10 @@ import lt.ltrp.constant.TalkStyle;
 import lt.ltrp.constant.WalkStyle;
 import lt.ltrp.data.*;
 import lt.ltrp.object.Entity;
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.PlayerData;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.player.object.PlayerData;
 import lt.ltrp.player.object.impl.PlayerDataImpl;
 import lt.ltrp.player.dao.PlayerDao;
-import lt.ltrp.player.settings.data.PlayerSettings;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.entities.Player;
 import net.gtaun.util.event.EventManager;
@@ -256,7 +255,8 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     }
 */
     public CrashData getCrashData(LtrpPlayer player) {
-        CrashData crashData = null;
+        throw new NotImplementedException();
+        /*CrashData crashData = null;
         String sql = "SELECT * FROM player_crashes WHERE player_id = ?";
         try(
                 Connection con = dataSource.getConnection();
@@ -277,7 +277,7 @@ public class SqlPlayerDaoImpl implements PlayerDao {
         }catch(SQLException e) {
             e.printStackTrace();
         }
-        return crashData;
+        return crashData;*/
     }
 
     public boolean remove(LtrpPlayer player, CrashData data) {
@@ -440,29 +440,6 @@ public class SqlPlayerDaoImpl implements PlayerDao {
     }
 */
 
-    public void update(PlayerSettings settings) {
-        String sql = "INSERT INTO player_settings (player_id, setting, `value`) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`)";
-        try (
-                Connection con = dataSource.getConnection();
-                PreparedStatement stmt = con.prepareStatement(sql);
-                ) {
-            Properties props = settings.toProperties();
-            props.forEach((k, v) -> {
-                try {
-                    stmt.setInt(1, settings.getPlayer().getUUID());
-                    stmt.setString(2, (String)k);
-                    stmt.setString(3, (String)v);
-                    stmt.addBatch();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            stmt.executeBatch();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 /*
     public void updateLicenses(PlayerLicenses licenses) {
         for(PlayerLicense license : licenses.get()) {

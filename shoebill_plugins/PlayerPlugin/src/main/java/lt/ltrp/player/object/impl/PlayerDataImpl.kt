@@ -1,12 +1,9 @@
 package lt.ltrp.player.`object`.impl
 
-import lt.ltrp.`object`.PlayerData
-import lt.ltrp.`object`.impl.InventoryEntityImpl
+import lt.ltrp.`object`.impl.NamedEntityImpl
 import lt.ltrp.constant.TalkStyle
 import lt.ltrp.constant.WalkStyle
-import lt.ltrp.data.PlayerDrugs
-import lt.ltrp.player.licenses.data.PlayerLicenses
-import lt.ltrp.player.settings.data.PlayerSettings
+import lt.ltrp.player.`object`.PlayerData
 import net.gtaun.shoebill.entities.Vehicle
 import net.gtaun.util.event.EventManager
 import java.time.LocalDateTime
@@ -51,12 +48,12 @@ open class PlayerDataImpl(uuid: Int, name: String,
                           override var isInJail: Boolean,
                           override var isCuffed: Boolean,
                           override var isMod: Boolean,
-                          override val drugs: PlayerDrugs,
-                          override val licenses: PlayerLicenses,
-                          override val settings: PlayerSettings,
+                          //override val drugs: PlayerDrugs,
+                          //override val licenses: PlayerLicenses,
+                          //override val settings: PlayerSettings,
                           override var money: Int,
                           protected val eventManager: EventManager):
-        PlayerData, InventoryEntityImpl(uuid, name) {
+        PlayerData, NamedEntityImpl(uuid, name) {
 
     constructor(pd: PlayerData, eventManager: EventManager): this(pd.UUID, pd.name, pd.password, pd.secretQuestion, pd.secretAnswer,
             pd.level, pd.adminLevel, pd.modLevel, pd.hoursOnline, pd.minutesOnlineSincePayday, pd.boxStyle,
@@ -64,7 +61,7 @@ open class PlayerDataImpl(uuid: Int, name: String,
             pd.hunger, pd.boxingStyle, pd.forumName, pd.currentPaycheck, pd.onlineHours, pd.description,
             pd.totalPaycheck, pd.isLoggedIn, pd.isMuted, pd.isFrozen, pd.isFactionManager,
             pd.isInComa, pd.isAnimationPlaying, pd.isMasked, pd.isSeatbelt, pd.isInJail, pd.isCuffed,
-            pd.isMod, pd.drugs, pd.licenses, pd.settings, pd.money, eventManager) {
+            pd.isMod, pd.money, eventManager) {
 
     }
 

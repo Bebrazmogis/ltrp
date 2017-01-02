@@ -53,7 +53,7 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
     fun getArmedWeaponData(): LtrpWeaponData?
     fun giveWeapon(weaponData: LtrpWeaponData)
 
-    fun getOffers(): Collection<lt.ltrp.player.data.PlayerOffer>
+    fun getOffers(): Collection<PlayerOffer>
     fun containsOffer(type: Class<Any>): Boolean
     fun <T : lt.ltrp.player.data.PlayerOffer> getOffers(type: Class<T>): Collection<T>
     fun <T : lt.ltrp.player.data.PlayerOffer> getOffer(type: Class<T>): T?
@@ -206,13 +206,13 @@ interface LtrpPlayer : PlayerData, StateMessenger, ActionMessenger {
 
         fun sendModMessage(message: String) {
             get()
-                    .filter{ (it.isModerator || it.isAdmin) && !it.settings.isModChatDisabled }
+                    .filter{ (it.isModerator || it.isAdmin) }//&& !it.settings.isModChatDisabled }
                     .forEach { it.sendMessage(Color.MODERATOR, message) }
         }
 
         fun sendGlobalOocMessage(message: String) {
             get()
-                    .filter { !it.settings.isOocDisabled }
+                    //.filter { !it.settings.isOocDisabled }
                     .forEach { it.sendMessage(Color(0xB1C8FB), message) }
         }
 

@@ -1,6 +1,6 @@
 package lt.ltrp.player.util;
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.constant.PlayerAttachBone;
 import net.gtaun.shoebill.data.AngledLocation;
 import net.gtaun.shoebill.data.Location;

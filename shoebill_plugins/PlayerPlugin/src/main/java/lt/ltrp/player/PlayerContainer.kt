@@ -1,6 +1,6 @@
 package lt.ltrp.player
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 
 /**
  * Created by Bebras on 2016-10-15.

@@ -3,7 +3,7 @@ package lt.ltrp.player.command;
 import static lt.ltrp.constant.LtrpColorKt.getNEWS;
 import lt.ltrp.constant.TalkStyle;
 import lt.ltrp.constant.WalkStyle;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;

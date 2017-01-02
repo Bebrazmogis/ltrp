@@ -1,7 +1,7 @@
 package lt.ltrp.player.dao;
 
 import lt.ltrp.data.LtrpWeaponData;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

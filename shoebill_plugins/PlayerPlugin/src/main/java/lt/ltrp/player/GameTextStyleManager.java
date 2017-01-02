@@ -1,6 +1,6 @@
 package lt.ltrp.player;
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.textdraw.AbstractGameTextCustomStyle;
 import lt.ltrp.player.textdraw.GameTextStyle7Textdraw;
 import net.gtaun.shoebill.common.timers.TemporaryTimer;

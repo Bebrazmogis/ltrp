@@ -2,7 +2,7 @@ package lt.ltrp.player.command;
 
 import lt.ltrp.command.Commands;
 import lt.ltrp.player.event.PlayerSendPrivateMessageEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
@@ -124,7 +124,7 @@ public class PlayerChatCommands extends Commands {
         }
         return true;
     }
-
+/*
     @Command
     @CommandHelp("Nusiunèia þaidëjui privaèià, OOC þinutæ")
     public boolean pm(Player player,
@@ -143,7 +143,7 @@ public class PlayerChatCommands extends Commands {
         }
         return true;
     }
-
+*/
     @Command
     public boolean s(Player p, @CommandParameter(name = "Þinutës tekstas")String text) {
         return shout(p, text);

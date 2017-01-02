@@ -3,8 +3,7 @@ package lt.ltrp.player.command;
 import lt.ltrp.command.Commands;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.LtrpWeaponData;
-import lt.ltrp.object.Item;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.data.PlayerFriskOffer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandParameter;
@@ -45,9 +44,9 @@ public class PlayerAcceptOffers extends Commands {
                     for(LtrpWeaponData wep : player.getWeapons()) {
                         target.sendMessage(Color.WHITE, String.format("Ginklas %s, ðoviniø %d", wep.getWeaponData().model.modelName, wep.getWeaponData().ammo));
                     }
-                    for(Item item : player.getInventory().getItems()) {
+                    /*for(Item item : player.getInventory().getItems()) {
                         target.sendMessage(item.getName() + " " + item.getAmount());
-                    }
+                    }*/
                 }
                 player.getOffers().remove(offer);
             }

@@ -3,11 +3,11 @@ package lt.ltrp.player.`object`.impl;
 
 import lt.ltrp.ActionMessenger
 import lt.ltrp.StateMessenger
-import lt.ltrp.`object`.LtrpPlayer
-import lt.ltrp.`object`.PlayerData
 import lt.ltrp.data.Animation
 import lt.ltrp.data.LtrpWeaponData
-import lt.ltrp.data.PlayerOffer
+import lt.ltrp.player.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.PlayerData
+import lt.ltrp.player.data.PlayerOffer
 import lt.ltrp.player.textdraw.InfoTextDraw
 import lt.maze.audio.AudioHandle
 import lt.maze.audio.AudioPlugin

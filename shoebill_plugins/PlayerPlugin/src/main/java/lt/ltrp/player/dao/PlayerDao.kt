@@ -1,7 +1,7 @@
 package lt.ltrp.player.dao
 
-import lt.ltrp.`object`.LtrpPlayer
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.PlayerData
 
 /**
  * Created by Bebras on 2016-10-07.

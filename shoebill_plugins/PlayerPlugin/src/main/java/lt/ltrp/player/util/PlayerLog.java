@@ -1,10 +1,10 @@
 package lt.ltrp.player.util;
 
+import lt.ltrp.player.event.PlayerActionMessageEvent;
+import lt.ltrp.player.event.PlayerEvent;
 import lt.ltrp.player.event.PlayerSendPrivateMessageEvent;
-import lt.ltrp.event.player.PlayerActionMessageEvent;
-import lt.ltrp.event.player.PlayerEvent;
-import lt.ltrp.event.player.PlayerStateMessageEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.event.PlayerStateMessageEvent;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.entities.Destroyable;
 import net.gtaun.shoebill.event.player.PlayerTextEvent;
 import net.gtaun.util.event.Event;

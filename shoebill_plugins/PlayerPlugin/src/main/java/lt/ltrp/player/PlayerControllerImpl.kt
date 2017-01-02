@@ -1,10 +1,9 @@
 package lt.ltrp.player
 
-import lt.ltrp.`object`.LtrpPlayer
-import lt.ltrp.`object`.PlayerData
-import lt.ltrp.event.player.PlayerLogInEvent
-import lt.ltrp.player.PlayerController
+import lt.ltrp.player.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.player.dao.PlayerDao
+import lt.ltrp.player.event.PlayerLogInEvent
 import net.gtaun.shoebill.event.player.PlayerDisconnectEvent
 import net.gtaun.util.event.EventManager
 import net.gtaun.util.event.HandlerPriority

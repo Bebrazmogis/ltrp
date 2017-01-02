@@ -1,8 +1,6 @@
 package lt.ltrp.player
 
-import lt.ltrp.`object`.LtrpPlayer
-import lt.ltrp.`object`.LtrpVehicle
-import lt.ltrp.`object`.PlayerCountdown
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.player.`object`.impl.LtrpPlayerImpl
 import lt.ltrp.player.command.PlayerAcceptOffers
 import lt.ltrp.player.command.PlayerAnimationCommands
@@ -17,7 +15,6 @@ import lt.ltrp.player.dao.PlayerDao
 import lt.ltrp.player.dao.PlayerWeaponDao
 import lt.ltrp.player.util.PlayerLog
 import lt.ltrp.resource.DependentPlugin
-import lt.ltrp.spawn.event.PlayerFirstSpawnEvent
 import lt.maze.DatabasePlugin
 import lt.maze.streamer.StreamerPlugin
 import lt.maze.streamer.constant.StreamerType
@@ -35,8 +32,6 @@ import net.gtaun.shoebill.resource.ResourceManager
 import net.gtaun.shoebill.ShoebillMain
 import net.gtaun.util.event.EventManagerNode
 import net.gtaun.util.event.HandlerPriority
-import java.sql.Timestamp
-import java.time.Instant
 import java.time.LocalDateTime
 import java.util.function.Function
 
@@ -88,7 +83,7 @@ class PlayerPlugin: DependentPlugin() {
         eventManager.registerHandler(PlayerDisconnectEvent::class.java, { onPlayerDisconnect(it.player, it.reason) })
         eventManager.registerHandler(PlayerRequestClassEvent::class.java, { onPlayerRequestClass(get(it.player), it) })
         eventManager.registerHandler(PlayerSpawnEvent::class.java, { onPlayerSpawn(LtrpPlayer.get(it.player)!!) })
-        eventManager.registerHandler(PlayerFirstSpawnEvent::class.java, { onPlayerFirstSpawn(it.player) })
+        //eventManager.registerHandler(PlayerFirstSpawnEvent::class.java, { onPlayerFirstSpawn(it.player) })
         eventManager.registerHandler(PlayerDeathEvent::class.java, { onPlayerDeath(LtrpPlayer.get(it.player)!!, LtrpPlayer.get(it.killer!!)!!, it.reason) })
         eventManager.registerHandler(PlayerWeaponShotEvent::class.java, { onPlayerWeaponShot(LtrpPlayer.get(it.player)!!, it.weapon) })
         eventManager.registerHandler(PlayerKeyStateChangeEvent::class.java, { onPlayerKeyStateChange(LtrpPlayer.get(it.player)!!, it.oldState, it.player.keyState) })

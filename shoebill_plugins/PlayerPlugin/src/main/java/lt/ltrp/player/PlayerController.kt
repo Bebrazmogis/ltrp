@@ -1,7 +1,7 @@
 package lt.ltrp.player
 
-import lt.ltrp.`object`.LtrpPlayer
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.PlayerData
 import net.gtaun.shoebill.data.Location
 
 /**

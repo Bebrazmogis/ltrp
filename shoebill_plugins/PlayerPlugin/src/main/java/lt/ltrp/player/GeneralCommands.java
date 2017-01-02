@@ -2,13 +2,10 @@ package lt.ltrp.player;
 
 
 import lt.ltrp.ActionMessenger;
-import lt.ltrp.AdminController;
 import lt.ltrp.LtrpWorld;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.Animation;
-import lt.ltrp.dialog.FightStyleDialog;
-import lt.ltrp.event.player.PlayerAskQuestionEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.data.PlayerFriskOffer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -70,7 +67,7 @@ public class GeneralCommands {
         return false;
     }
 
-
+/*
     @Command(name = "javainv")
     @CommandHelp("Leidþia perþiûrëti turimus daiktus")
     public boolean inv(Player player) {
@@ -92,6 +89,7 @@ public class GeneralCommands {
         }
         return true;
     }
+    */
 /*
     @Command
     @CommandHelp("Atðaukia vykdomà veiksmà")
@@ -127,7 +125,7 @@ public class GeneralCommands {
         return true;
     }*/
 
-
+/*
     @Command
     @CommandHelp("Iðsiunèia klausimà administracijai")
     public boolean askq(Player p, @CommandParameter(name = "Klausimas")String message) {
@@ -141,7 +139,8 @@ public class GeneralCommands {
         }
         return true;
     }
-
+*/
+/*
     @Command
     @CommandHelp("Parodo prisijungusiø moderatoriø sàraðà")
     public boolean moderators(Player pl) {
@@ -163,7 +162,7 @@ public class GeneralCommands {
         }
         return true;
     }
-
+*/
     @Command
     @CommandHelp("Prideda pasirinktà sumà á miesto biudþetà")
     public boolean charity(Player p, @CommandParameter(name = "Suma")int amount) {

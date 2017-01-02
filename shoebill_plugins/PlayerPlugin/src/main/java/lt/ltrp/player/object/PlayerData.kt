@@ -1,10 +1,9 @@
 package lt.ltrp.player.`object`
 
 import lt.ltrp.`object`.Entity
-import lt.ltrp.`object`.InventoryEntity
+import lt.ltrp.`object`.NamedEntity
 import lt.ltrp.constant.TalkStyle
 import lt.ltrp.constant.WalkStyle
-import lt.ltrp.data.PlayerDrugs
 import net.gtaun.shoebill.entities.Vehicle
 import java.lang.ref.WeakReference
 import java.time.LocalDateTime
@@ -12,7 +11,7 @@ import java.time.LocalDateTime
 /**
  * Created by Bebras on 2016-10-07.
  */
-interface PlayerData: InventoryEntity {
+interface PlayerData: NamedEntity {
 
     var password: String
     var secretQuestion: String?
@@ -77,9 +76,9 @@ interface PlayerData: InventoryEntity {
     /**
      * References to other data classes
      */
-    val drugs: PlayerDrugs
-    val licenses: PlayerLicenses
-    val settings: PlayerSettings
+    //val drugs: PlayerDrugs
+    //val licenses: PlayerLicenses
+    //val settings: PlayerSettings
     //var jobData: PlayerJobData?
 
     val firstName: String
