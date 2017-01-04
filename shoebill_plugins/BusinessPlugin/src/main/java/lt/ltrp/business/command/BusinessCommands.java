@@ -38,6 +38,7 @@ public class BusinessCommands {
 
         ownerCommands.add("cargoprice");
         ownerCommands.add("biz");
+        ownerCommands.add("sellbiz");
 
     }
 
@@ -49,7 +50,7 @@ public class BusinessCommands {
 
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Business closestBiz = Business.getClosest(player.getLocation(), 5f);
         if(closestBiz != null) {
             if(insideCommands.contains(cmd.toLowerCase())) {
@@ -73,9 +74,56 @@ public class BusinessCommands {
     }
 
     @Command
+    @CommandHelp("Nuperka versla")
+    public boolean buyBiz(Player p) {
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
+        Business business = Business.getClosest(player.getLocation(), 5f);
+        if(business == null || business.getOwner() != LtrpPlayer.INVALID_USER_ID) {
+            player.sendErrorMessage("Prie jûsø nëra jokio verslo arba jis neparduodamas");
+        } else if(business.getPrice() > player.getMoney())
+            player.sendErrorMessage("Jums neuþtenka pinigø ásigyti ðá verslà");
+        else {
+            int price = business.getPrice();
+            business.setOwner(player.getUUID());
+            player.giveMoney(-price);
+            LtrpWorld.get().addMoney(price);
+            player.sendMessage("Sëkmingai ásigijote verslà uþ " + Currency.SYMBOL + price + ".");
+            eventManager.dispatchEvent(new BusinessBuyEvent(business, player));
+        }
+        return true;
+    }
+
+    @Command
+    @CommandHelp("Iðsiunèia pasiûlymà pirkti jûsø verslà kitam þaidëjui")
+    public boolean sellBiz(Player p, @CommandParameter(name = "ÞaidëjoID/Dalis vardo")LtrpPlayer target,
+                           @CommandParameter(name = "Verslo kaina")int price) {
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
+        Business business = Business.getClosest(player.getLocation(), 6f);
+        if(target == null) {
+            return false;
+        } else if(business == null || !business.isOwner(player))
+            player.sendErrorMessage("Jûs nestovite prie verslo arba jis jums nepriklauso!");
+        else if(player.getDistanceToPlayer(target) > 10f)
+            player.sendErrorMessage("Þaidëjas yra per toli!");
+        else if(price < 0)
+            player.sendErrorMessage("Kaina negali bûti neigiama!");
+        else if(player.getIp().equals(target.getIp()))
+            player.sendErrorMessage("Negalite parduoti verslo savo vartotojui.");
+        else if(target.containsOffer(BuyBusinessOffer.class))
+            player.sendErrorMessage("Ðiam þaidëjui jau kaþkas siûlo pirkti verslà, palaukite.");
+        else {
+            BuyBusinessOffer offer = new BuyBusinessOffer(target, player, eventManager, business, price);
+            target.getOffers().add(offer);
+            player.sendMessage(Color.BUSINESS, "Pasiûlymas pirkti jûsø verslà \"" + business.getName() + "\" uþ " + price + Currency.SYMBOL + " " + target.getName() + " iðsiøstas");
+            target.sendMessage(Color.BUSINESS, "Þaidëjas " + player.getName() + " siûlo jums pirkti jo verslà uþ " + price + Currency.SYMBOL + ". Raðykite /accept business norëdami já pirkti.");
+        }
+        return true;
+    }
+
+    @Command
     @CommandHelp("Nustato prekiø pirkimo kainà")
     public boolean cargoPrice(Player player, @CommandParameter(name = "Prekës vieneto kaina")int price) {
-        LtrpPlayer p = LtrpPlayer.get(player);
+        LtrpPlayer p = LtrpPlayer.Companion.get(player);
         Business business = Business.getClosest(player.getLocation(), 5f);
         if(business == null)
             return false;
@@ -111,7 +159,7 @@ public class BusinessCommands {
     @Command
     @CommandHelp("Atidaro parduodamø verslo prekiø sàraðà")
     public boolean buy(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Business business = Business.get(player);
         if(business == null)
             return false;
@@ -153,7 +201,7 @@ public class BusinessCommands {
     @Command
     @CommandHelp("Atidaro verslo valdymo meniu")
     public boolean biz(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Business business = Business.getClosest(player.getLocation(), 5f);
         if(business == null)
             return false;
@@ -168,7 +216,7 @@ public class BusinessCommands {
 
     @Command
     public boolean lock(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Business business = Business.getClosest(p.getLocation(), 8f);
         if(business == null)
             return false;
@@ -187,7 +235,7 @@ public class BusinessCommands {
 
     @Command
     public boolean enter(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Business business = Business.getClosest(p.getLocation(), 8f);
         if(business == null)
             return false;
@@ -204,7 +252,7 @@ public class BusinessCommands {
 
     @Command
     public boolean exit(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Business business = Business.get(player);
         if(business == null)
             return false;
@@ -221,7 +269,7 @@ public class BusinessCommands {
     @Command
     @CommandHelp("Leidþia ásigyti naujø drabuþiø")
     public boolean clothes(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Business business = Business.get(player);
         if(business == null)
             return false;

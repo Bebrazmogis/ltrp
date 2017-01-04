@@ -5,7 +5,7 @@ import lt.maze.ysf.object.YSFPickup;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.object.Pickup;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras

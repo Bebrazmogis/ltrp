@@ -13,15 +13,15 @@ import net.gtaun.shoebill.constant.ObjectMaterialTextAlign;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.SampObject;
-import net.gtaun.shoebill.object.Vehicle;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.entities.SampObject;
+import net.gtaun.shoebill.entities.Vehicle;
 
 /**
  * @author Bebras
  *         2016.04.03.
  */
-public class YSFObjectImpl implements YSFObject {
+public class YSFObjectImpl extends YSFObject {
 
     private SampObject object;
     private Vector3D attachedOffset;
@@ -86,11 +86,6 @@ public class YSFObjectImpl implements YSFObject {
     }
 
     @Override
-    public void setLocation(Vector3D vector3D) {
-        object.setLocation(vector3D);
-    }
-
-    @Override
     public void setLocation(Location location) {
         object.setLocation(location);
     }
@@ -100,10 +95,6 @@ public class YSFObjectImpl implements YSFObject {
         return object.getRotation();
     }
 
-    @Override
-    public void setRotation(float v, float v1, float v2) {
-        object.setRotation(v, v1, v2);
-    }
 
     @Override
     public void setRotation(Vector3D vector3D) {

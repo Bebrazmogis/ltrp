@@ -5,7 +5,7 @@ import lt.maze.ysf.object.YSFZone;
 import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.data.Area;
 import net.gtaun.shoebill.data.Color;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.object.Zone;
 
 /**

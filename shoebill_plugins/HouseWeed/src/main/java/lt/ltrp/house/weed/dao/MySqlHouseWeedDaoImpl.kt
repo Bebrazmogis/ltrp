@@ -134,14 +134,14 @@ class MySqlHouseWeedDaoImpl(private val dataSource: DataSource, private val even
 
     private fun resultToWeed(r: ResultSet, house: House): HouseWeedSapling {
         val plantedById = r.getInt("planted_by")
-        val plantedBy = LtrpPlayer.get(plantedById) ?: PlayerController.instance.getData(plantedById) ?: throw RuntimeException("Invalid player")
+        val plantedBy = LtrpPlayer.Companion.get(plantedById) ?: PlayerController.instance.getData(plantedById) ?: throw RuntimeException("Invalid player")
         var grownAt = r.getTimestamp("grown_at").toLocalDateTime()
         if(r.wasNull())
             grownAt = null
         val harvestedById = r.getInt("harvested_by")
         var harvestedBy: PlayerData? = null
         if(!r.wasNull())
-            harvestedBy = LtrpPlayer.get(harvestedById) ?: PlayerController.instance.getData(harvestedById) ?: throw RuntimeException("invalid harvester")
+            harvestedBy = LtrpPlayer.Companion.get(harvestedById) ?: PlayerController.instance.getData(harvestedById) ?: throw RuntimeException("invalid harvester")
         return HouseWeedSaplingImpl(r.getInt("id"),
                 house,
                 Location(r.getFloat("x"), r.getFloat("y"), r.getFloat("z"), house.exit.interiorId, house.exit.worldId),

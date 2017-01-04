@@ -1,6 +1,6 @@
 package lt.maze.ysf.event.zone;
 
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.object.Zone;
 
 /**

@@ -31,7 +31,7 @@ public class HouseCommands {
 
    /*@BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         if(player != null) {
             if(player.getProperty() == null || !(player.getProperty() instanceof House)) {
                 System.out.println("HouseCommands :: beforeChcek. Cmd " + cmd + " returning false");
@@ -57,7 +57,7 @@ public class HouseCommands {
 
     @Command
     public boolean enter(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.getClosest(p.getLocation(), 8f);
         if(house == null)
             return false;
@@ -72,7 +72,7 @@ public class HouseCommands {
 
     @Command
     public boolean exit(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.getClosest(p.getLocation(), 8f);
         if(house == null)
             return false;
@@ -88,7 +88,7 @@ public class HouseCommands {
     @Command
     @CommandHelp("Nuperka namà")
     public boolean buyHouse(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.getClosest(player.getLocation(), 5f);
         if(house == null || house.getOwner() != LtrpPlayer.INVALID_USER_ID) {
             player.sendErrorMessage("Prie jûsø nëra jokio namo arba jis neparduodamas");
@@ -108,7 +108,7 @@ public class HouseCommands {
     @Command
     @CommandHelp("Leidþia persirengti drabuþius bûnant namuose")
     public boolean clothes(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.get(player);
         if(house == null)
             return false;

@@ -122,7 +122,7 @@ public class BusinessPlugin extends DependentPlugin implements lt.ltrp.BusinessC
 
 
         node.registerHandler(PlayerDynamicPickupEvent.class, e -> {
-            LtrpPlayer player = LtrpPlayer.get(e.getPlayer());
+            LtrpPlayer player = LtrpPlayer.Companion.get(e.getPlayer());
             Optional<Business> opB = Business.get().stream().filter(b -> b.getPickup() != null && b.getPickup().equals(e.getPickup())).findFirst();
             if(opB.isPresent()) {
                 Business b = opB.get();

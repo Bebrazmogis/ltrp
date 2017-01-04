@@ -2,7 +2,7 @@ package lt.maze.ysf.object;
 
 import lt.maze.ysf.object.impl.YSFVehicleImpl;
 import net.gtaun.shoebill.data.AngledLocation;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.object.Vehicle;
 
 import java.util.Collection;

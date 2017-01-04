@@ -13,16 +13,16 @@ import net.gtaun.shoebill.constant.ObjectMaterialTextAlign;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.PlayerObject;
-import net.gtaun.shoebill.object.SampObject;
-import net.gtaun.shoebill.object.Vehicle;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.entities.PlayerObject;
+import net.gtaun.shoebill.entities.SampObject;
+import net.gtaun.shoebill.entities.Vehicle;
 
 /**
  * @author Bebras
  *         2016.04.03.
  */
-public class YSFPlayerObjectImpl implements YSFPlayerObject {
+public class YSFPlayerObjectImpl extends YSFPlayerObject {
 
     private PlayerObject object;
     private Vector3D attachedOffset;
@@ -71,6 +71,8 @@ public class YSFPlayerObjectImpl implements YSFPlayerObject {
     public void setMoveSpeed(float speed) {
         Functions.SetPlayerObjectMoveSpeed(object.getPlayer().getId(), object.getId(), speed);
     }
+
+
 
     @Override
     public float getMoveSpeed() {

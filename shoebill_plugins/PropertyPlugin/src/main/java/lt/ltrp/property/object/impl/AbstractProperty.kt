@@ -1,11 +1,13 @@
 package lt.ltrp.property.`object`.impl
 
+import lt.ltrp.ActionMessenger
+import lt.ltrp.StateMessenger
 import lt.ltrp.`object`.Entity
 import lt.ltrp.`object`.LtrpPlayer
 import lt.ltrp.property.`object`.Property
 import lt.ltrp.`object`.impl.NamedEntityImpl
 import lt.ltrp.constant.ACTION
-import lt.ltrp.event.property.PropertyDestroyEvent
+import lt.ltrp.property.event.PropertyDestroyEvent
 
 import net.gtaun.shoebill.data.Location
 import net.gtaun.util.event.EventManager
@@ -27,6 +29,10 @@ abstract class AbstractProperty(uuid: Int, name: String,
     override var isLocked = false
     override var ownerUUID = Entity.INVALID_ID
 
+    init {
+        Property.propertyList.add(this)
+    }
+
 
 
     override fun isOwner(player: LtrpPlayer): Boolean {
@@ -45,10 +51,10 @@ abstract class AbstractProperty(uuid: Int, name: String,
      */
     override fun sendActionMessage(action: String, radius: Float) {
         val text = "* $name $action"
-        LtrpPlayer.get()
+        LtrpPlayer.Companion.get()
                 .filter { isInside(it) }
                 .forEach { it.sendMessage(ActionMessenger.DEFAULT_COLOR, text) }
-        LtrpPlayer.get()
+        LtrpPlayer.Companion.get()
                 .filter { it.location.distance(entrance) < radius }
                 .forEach { it.sendFadeMessage(ActionMessenger.DEFAULT_COLOR, text, entrance) }
     }
@@ -56,12 +62,12 @@ abstract class AbstractProperty(uuid: Int, name: String,
 
     override fun sendStateMessage(state: String, radius: Float) {
         val text = "* $state (( $name ))"
-        LtrpPlayer.get()
+        LtrpPlayer.Companion.get()
                 .filter { isInside(it) }
-                .forEach { it.sendMessage(StateMessenger.DEFAULT_COLOR, text) }
-        LtrpPlayer.get()
+                .forEach { it.sendMessage(StateMessenger.COLOR, text) }
+        LtrpPlayer.Companion.get()
                 .filter { it.location.distance(entrance) < radius }
-                .forEach { it.sendFadeMessage(StateMessenger.DEFAULT_COLOR, text, entrance) }
+                .forEach { it.sendFadeMessage(StateMessenger.COLOR, text, entrance) }
     }
 
     protected fun finalize() {
@@ -186,13 +192,13 @@ public abstract class AbstractProperty extends NamedEntityImpl implements Proper
     }
 
     public void sendActionMessage(String s) {
-        LtrpPlayer.get().stream().filter(p -> Property.get(p).equals(this)).forEach(p -> {
+        LtrpPlayer.Companion.get().stream().filter(p -> Property.get(p).equals(this)).forEach(p -> {
             p.sendMessage(lt.ltrp.data.Color.ACTION, "* " + this.getName() + " " + s);
         });
     }
 
     public void sendStateMessage(String s) {
-        LtrpPlayer.get().stream().filter(p -> Property.get(p).equals(this)).forEach(p -> {
+        LtrpPlayer.Companion.get().stream().filter(p -> Property.get(p).equals(this)).forEach(p -> {
             p.sendMessage(lt.ltrp.data.Color.ACTION, "* " + s + " ((" + this.getName() + "))");
         });
     }
@@ -226,3 +232,4 @@ public abstract class AbstractProperty extends NamedEntityImpl implements Proper
     }
 }
 
+*/

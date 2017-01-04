@@ -12,6 +12,6 @@ import net.gtaun.util.event.EventManager
 abstract class InventoryPropertyImpl(uuid: Int, name: String, entrance: Location, eventManager: EventManager) :
         AbstractProperty(uuid, name, entrance, eventManager), InventoryEntity {
 
-    protected val inventory = Inventory.create(eventManager, this, name)
+    override var inventory: Inventory? = Inventory.create(eventManager, this, name)
 
 }

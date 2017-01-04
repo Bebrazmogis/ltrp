@@ -1,19 +1,11 @@
 package lt.ltrp.property.dao.impl;
 
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.Property;
+import lt.ltrp.object.Entity;
 import lt.ltrp.property.dao.PropertyDao;
 
 import javax.sql.DataSource;
-import java.lang.IllegalArgumentException;
-import java.lang.Override;
-import java.lang.String;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
+import java.sql.*;
+import java.time.LocalDateTime;
 
 /**
  * @author Bebras
@@ -29,6 +21,28 @@ public abstract class MySqlPropertyDaoImpl implements PropertyDao {
             throw new IllegalArgumentException("Datasource cannot be null");
     }
 
+    @Override
+    public int obtainUUID() {
+        int uuid = Entity.Companion.getINVALID_ID();
+        String sql = "INSERT INTO property (created_at) VALUES (?)";
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement(sql);
+                ) {
+            stmt.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            stmt.execute();
+            try(ResultSet keys = stmt.getGeneratedKeys()) {
+                if(keys.next()) {
+                    uuid = keys.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return uuid;
+    }
+
+    /*
     public DataSource getDataSource() {
         return dataSource;
     }
@@ -41,23 +55,23 @@ public abstract class MySqlPropertyDaoImpl implements PropertyDao {
                 Connection con = dataSource.getConnection();
                 PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ) {
-            if(property.getOwner() == LtrpPlayer.INVALID_USER_ID)
+            if(property.getOwnerUUID() == Entity.Companion.getINVALID_ID())
                 stmt.setNull(1, Types.INTEGER);
             else
-                stmt.setInt(1, property.getOwner());
+                stmt.setInt(1, property.getOwnerUUID());
             stmt.setString(2, property.getName());
             stmt.setInt(3, property.getPrice());
             stmt.setFloat(4, property.getEntrance().x);
             stmt.setFloat(5, property.getEntrance().y);
             stmt.setFloat(6, property.getEntrance().z);
-            stmt.setInt(7, property.getEntrance().getInteriorId());
-            stmt.setInt(8, property.getEntrance().getInteriorId());
+            stmt.setInt(7, property.getEntrance().interiorId);
+            stmt.setInt(8, property.getEntrance().worldId);
             if(property.getExit() != null) {
                 stmt.setFloat(9, property.getExit().x);
                 stmt.setFloat(10, property.getExit().y);
                 stmt.setFloat(11, property.getExit().z);
-                stmt.setInt(12, property.getExit().getInteriorId());
-                stmt.setInt(13, property.getExit().getInteriorId());
+                stmt.setInt(12, property.getExit().interiorId);
+                stmt.setInt(13, property.getExit().worldId);
             } else {
                 stmt.setNull(9, Types.FLOAT);
                 stmt.setNull(10, Types.FLOAT);
@@ -132,5 +146,5 @@ public abstract class MySqlPropertyDaoImpl implements PropertyDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

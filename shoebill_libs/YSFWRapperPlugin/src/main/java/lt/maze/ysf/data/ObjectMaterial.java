@@ -1,7 +1,7 @@
 package lt.maze.ysf.data;
 
 import net.gtaun.shoebill.data.Color;
-import net.gtaun.shoebill.object.SampObject;
+import net.gtaun.shoebill.entities.SampObject;
 
 /**
  * @author Bebras

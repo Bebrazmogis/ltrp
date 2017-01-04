@@ -32,7 +32,7 @@ public class HouseOwnerCommands {
 
     @BeforeCheck
     public boolean bc(Player p, String cmd, String params) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.get(player);
         cmd = cmd.toLowerCase();
         if(player != null && house != null) {
@@ -48,7 +48,7 @@ public class HouseOwnerCommands {
     @Command
     @CommandHelp("Atidaro namo inventoriø")
     public boolean hInv(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.get(player);
         if(house.getInventory() == null) {
             player.sendErrorMessage("ummm.. klaida?");
@@ -63,7 +63,7 @@ public class HouseOwnerCommands {
     @Command
     @CommandHelp("Atidaro namø radijo valdymo meniu")
     public boolean hradio(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.get(player);
         if(house == null || !house.isOwner(player)) {
             player.sendErrorMessage("Tik savininkas gali valdyti radijà!");
@@ -92,7 +92,7 @@ public class HouseOwnerCommands {
     @Command
     @CommandHelp("Leidþia nusiimti pinigø ið namo banko")
     public boolean houseWithdraw(Player p, @CommandParameter(name = "Suma kurià norite paimti")int amount) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.get(player);
         if(house == null || house.getOwner() != player.getUUID())
             player.sendErrorMessage("Ðis namas jums nepriklausote, todël negalite paimti pinigø.");
@@ -111,7 +111,7 @@ public class HouseOwnerCommands {
     @Command
     @CommandHelp("Leidþia padëti pinigø á namø seifà")
     public boolean houseDeposit(Player p, @CommandParameter(name = "Suma kurià norite padëti")int amount) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.get(player);
         if(house.getOwner() != player.getUUID())
             player.sendErrorMessage("Ðis namas jums nepriklausote, todël negalite padëti pinigø.");
@@ -130,7 +130,7 @@ public class HouseOwnerCommands {
     @Command
     @CommandHelp("Patikrina namo seifà")
     public boolean houseInfo(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.get(player);
         if(house.getOwner() != player.getUUID())
             player.sendErrorMessage("Ðis namas jums nepriklausote, todël negalite padëti pinigø.");
@@ -143,7 +143,7 @@ public class HouseOwnerCommands {
 
     @Command
     public boolean lock(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Location loc = player.getLocation();
         House house = House.getClosest(p.getLocation(), 8f);
         if(house == null)
@@ -172,7 +172,7 @@ public class HouseOwnerCommands {
     @CommandHelp("Pasiûlo kitam þaidëjui pirkti jûsø namà")
     public boolean sellHouse(Player p, @CommandParameter(name = "ÞaidëjoID/Dalis vardo")LtrpPlayer target,
                              @CommandParameter(name = "Verslo kaina")int price) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         House house = House.getClosest(player.getLocation(), 8f);
         if(target == null) {
             return false;
