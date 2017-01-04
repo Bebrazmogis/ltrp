@@ -6,7 +6,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.data.TrashMission;
 import lt.ltrp.data.TrashMissions;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.object.impl.PlayerTrashMission;
 import net.gtaun.shoebill.common.command.BeforeCheck;

@@ -1,11 +1,11 @@
 package lt.ltrp.trucker.command;
 
-import lt.ltrp.PlayerVehiclePlugin
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.vehicle.PlayerVehiclePlugin
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.LtrpVehicle
-import lt.ltrp.`object`.PlayerVehicle
+import lt.ltrp.player.vehicle.`object`.PlayerVehicle
 import lt.ltrp.constant.Currency
-import lt.ltrp.constant.PlayerVehiclePermission
+import lt.ltrp.player.vehicle.constant.PlayerVehiclePermission
 import lt.ltrp.data.Color
 import lt.ltrp.trucker.data.PlayerBuyTrailerOFfer
 import lt.ltrp.trucker.dialog.TruckerVehicleCargoListDialog

@@ -1,7 +1,7 @@
 package lt.ltrp.business.event;
 
 import lt.ltrp.business.commodity.BusinessCommodity;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.event.player.PlayerEvent;
 
 /**

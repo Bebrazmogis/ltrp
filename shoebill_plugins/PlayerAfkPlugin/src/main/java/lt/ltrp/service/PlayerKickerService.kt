@@ -1,7 +1,7 @@
 package lt.ltrp.service
 
 import lt.ltrp.AfkPlugin
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import net.gtaun.shoebill.`object`.Player
 import net.gtaun.shoebill.data.Color
 import net.gtaun.shoebill.service.Service

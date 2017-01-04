@@ -3,7 +3,7 @@ package lt.ltrp.business.dialog;
 import lt.ltrp.dialog.IntegerInputDialog;
 import lt.ltrp.event.property.BusinessBankChangeEvent;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.util.event.EventManager;
 

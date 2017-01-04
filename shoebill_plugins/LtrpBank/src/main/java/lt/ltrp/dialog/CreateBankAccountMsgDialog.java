@@ -4,7 +4,7 @@ import lt.ltrp.BankController;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.event.BankAccountCreateEvent;
 import lt.ltrp.player.BankAccount;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 

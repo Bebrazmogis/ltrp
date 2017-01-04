@@ -1,6 +1,6 @@
 package lt.ltrp.trucker.dialog
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.PlayerCountdown
 import lt.ltrp.constant.Currency
 import lt.ltrp.modelpreview.BasicModelPreview

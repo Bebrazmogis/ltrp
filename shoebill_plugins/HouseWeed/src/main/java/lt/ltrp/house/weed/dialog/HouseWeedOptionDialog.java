@@ -3,7 +3,7 @@ package lt.ltrp.house.weed.dialog;
 import lt.ltrp.house.weed.HouseWeedController;
 import lt.ltrp.house.weed.constant.GrowthStage;
 import lt.ltrp.house.weed.object.HouseWeedSapling;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.WeedItem;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;

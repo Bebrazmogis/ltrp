@@ -3,7 +3,7 @@ package lt.ltrp.business.commodity;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.object.Business;
 import lt.ltrp.object.Item;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
 /**

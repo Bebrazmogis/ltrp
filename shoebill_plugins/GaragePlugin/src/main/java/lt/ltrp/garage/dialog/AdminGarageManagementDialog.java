@@ -3,7 +3,7 @@ package lt.ltrp.garage.dialog;
 import lt.ltrp.LtrpGamemodeConstants;
 import lt.ltrp.event.property.garage.GarageCreateEvent;
 import lt.ltrp.object.Garage;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;

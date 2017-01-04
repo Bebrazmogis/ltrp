@@ -9,7 +9,7 @@ import lt.ltrp.dialog.radio.RadioOptionListDialog;
 import lt.ltrp.house.event.HouseLockToggleEvent;
 import lt.ltrp.house.event.HouseMoneyEvent;
 import lt.ltrp.house.object.House;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;

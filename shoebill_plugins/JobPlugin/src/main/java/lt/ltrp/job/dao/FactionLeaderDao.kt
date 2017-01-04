@@ -1,6 +1,6 @@
 package lt.ltrp.job.dao
 
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.job.`object`.Faction
 
 /**

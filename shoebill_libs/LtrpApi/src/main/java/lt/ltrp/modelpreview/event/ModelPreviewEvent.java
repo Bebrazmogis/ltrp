@@ -1,8 +1,8 @@
 package lt.ltrp.modelpreview.event;
 
-import lt.ltrp.event.player.PlayerEvent;
 import lt.ltrp.modelpreview.ModelPreview;
-import lt.ltrp.object.LtrpPlayer;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.event.player.PlayerEvent;
 
 
 /**
@@ -13,7 +13,7 @@ public class ModelPreviewEvent extends PlayerEvent {
 
     private ModelPreview preview;
 
-    protected ModelPreviewEvent(LtrpPlayer player, ModelPreview preview) {
+    protected ModelPreviewEvent(Player player, ModelPreview preview) {
         super(player);
         this.preview = preview;
     }
@@ -22,8 +22,4 @@ public class ModelPreviewEvent extends PlayerEvent {
         return preview;
     }
 
-    @Override
-    public LtrpPlayer getPlayer() {
-        return (LtrpPlayer)super.getPlayer();
-    }
 }

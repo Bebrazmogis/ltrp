@@ -4,7 +4,7 @@ import lt.ltrp.player.PlayerController;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;

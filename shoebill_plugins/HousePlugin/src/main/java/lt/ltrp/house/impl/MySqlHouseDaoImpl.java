@@ -4,7 +4,7 @@ import lt.ltrp.data.Color;
 import lt.ltrp.house.dao.HouseDao;
 import lt.ltrp.house.event.HouseLoadedEvent;
 import lt.ltrp.house.object.House;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.house.object.impl.HouseImpl;
 import lt.ltrp.property.dao.impl.MySqlPropertyDaoImpl;
 import net.gtaun.shoebill.data.Location;

@@ -1,7 +1,7 @@
 package lt.ltrp.house
 
 import lt.ltrp.HouseController
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.house.`object`.impl.HouseImpl
 import lt.ltrp.house.impl.MySqlHouseDaoImpl
 import lt.ltrp.data.Color

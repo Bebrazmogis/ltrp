@@ -1,6 +1,6 @@
 package lt.ltrp.stats
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import net.gtaun.shoebill.common.command.*
 import net.gtaun.shoebill.entities.Player
 

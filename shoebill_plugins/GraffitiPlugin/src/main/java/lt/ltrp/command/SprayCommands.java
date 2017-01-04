@@ -5,7 +5,7 @@ import lt.ltrp.dialog.GraffitiColorListDialog;
 import lt.ltrp.dialog.GraffitiFontListDialog;
 import lt.ltrp.dialog.GraffitiNameInputDialog;
 import lt.ltrp.object.Graffiti;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.object.Player;
 import net.gtaun.util.event.EventManager;
 

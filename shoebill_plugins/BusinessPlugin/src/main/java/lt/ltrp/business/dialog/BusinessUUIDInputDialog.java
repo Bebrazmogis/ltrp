@@ -1,7 +1,7 @@
 package lt.ltrp.business.dialog;
 
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.DialogTextSupplier;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.util.event.EventManager;

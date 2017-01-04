@@ -1,7 +1,7 @@
 package lt.ltrp.player.job
 
 import lt.ltrp.DatabasePlugin
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.event.PaydayEvent
 import lt.ltrp.event.player.PlayerLogInEvent
 import lt.ltrp.player.PlayerController

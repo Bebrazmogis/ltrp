@@ -6,12 +6,15 @@ import lt.ltrp.constant.*;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.*;
 import lt.ltrp.dialog.*;
-import lt.ltrp.event.PlayerVehicleArrestDeleteEvent;
-import lt.ltrp.event.PlayerVehicleArrestEvent;
+import lt.ltrp.player.vehicle.data.PlayerVehicleArrest;
+import lt.ltrp.player.vehicle.data.PlayerVehicleMetadata;
+import lt.ltrp.player.vehicle.dialog.VehicleFineListDialog;
+import lt.ltrp.player.vehicle.dialog.VehicleNewFineInputDialog;
+import lt.ltrp.player.vehicle.event.PlayerVehicleArrestDeleteEvent;
+import lt.ltrp.player.vehicle.event.PlayerVehicleArrestEvent;
 import lt.ltrp.house.object.House;
 import lt.ltrp.house.weed.HouseWeedController;
 import lt.ltrp.house.weed.object.HouseWeedSapling;
-import lt.ltrp.item.ItemController;
 import lt.ltrp.job.object.FactionRank;
 import lt.ltrp.job.object.JobVehicle;
 import lt.ltrp.modelpreview.SkinModelPreview;
@@ -25,6 +28,8 @@ import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.player.licenses.PlayerLicenseController;
 import lt.ltrp.player.licenses.constant.LicenseType;
 import lt.ltrp.player.licenses.data.PlayerLicense;
+import lt.ltrp.player.vehicle.PlayerVehiclePlugin;
+import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import lt.ltrp.util.PawnFunc;
 import lt.ltrp.player.util.PlayerUtils;
 import lt.ltrp.util.StringUtils;
@@ -304,9 +309,9 @@ public class PoliceCommands extends Commands {
         LtrpPlayer player = LtrpPlayer.get(p);
         final PlayerVehicle vehicle;
         if(license != null)
-            vehicle = PlayerVehicle.getByLicense(license);
+            vehicle = PlayerVehicle.Companion.getByLicense(license);
         else
-            vehicle = player.isInAnyVehicle() ? PlayerVehicle.getByVehicle(player.getVehicle()) : PlayerVehicle.getClosest(player, 5f);
+            vehicle = player.isInAnyVehicle() ? PlayerVehicle.Companion.getByVehicle(player.getVehicle()) : PlayerVehicle.Companion.getClosest(player, 5f);
         if(vehicle == null)
             player.sendErrorMessage("Nenurodëte automobilio numeriø, automobilio su tokiais numeriais nëra bei pie jûsø nëra jokio automobilio.");
         else {
@@ -453,7 +458,7 @@ public class PoliceCommands extends Commands {
     @CommandHelp("Iðlauþia civilinës transporto priemonës spynà")
     public boolean ramCar(Player p) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerVehicle vehicle = PlayerVehicle.getClosest(player, 5f);
+        PlayerVehicle vehicle = PlayerVehicle.Companion.getClosest(player, 5f);
         if(vehicle == null)
             player.sendErrorMessage("Prie jûsø nëra civilinës transporto priemonës.");
         else if(!vehicle.isLocked())
@@ -844,7 +849,7 @@ public class PoliceCommands extends Commands {
     @CommandHelp("Areðtuoja artimiausià transporto priemonæ")
     public boolean arrestCar(Player p, @CommandParameter(name = "Areðto prieþastis")String reason) {
         LtrpPlayer player = LtrpPlayer.get(p);
-        PlayerVehicle vehicle = PlayerVehicle.getClosest(player, 8f);
+        PlayerVehicle vehicle = PlayerVehicle.Companion.getClosest(player, 8f);
         if(vehicle == null) {
             player.sendErrorMessage("Prie jûsø nëra jokios transporto priemonës.");
         } else if(PawnFunc.isPlayerInRangeOfCoords(player, 40f, "job_police_confiscated_garage")) {

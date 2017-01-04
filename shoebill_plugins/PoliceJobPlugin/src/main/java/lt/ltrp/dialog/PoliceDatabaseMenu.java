@@ -4,7 +4,7 @@ import lt.ltrp.DatabasePlugin;
 import lt.ltrp.job.JobController;
 import lt.ltrp.data.*;
 import lt.ltrp.dialog.dialogmenu.PlayerDialogMenu;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.fine.PlayerFineController;
 import lt.ltrp.player.fine.data.PlayerFine;
 import lt.ltrp.player.job.data.PlayerJobData;

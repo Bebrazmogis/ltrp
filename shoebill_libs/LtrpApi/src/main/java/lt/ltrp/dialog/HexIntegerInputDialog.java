@@ -1,7 +1,7 @@
 package lt.ltrp.dialog;
 
-import lt.ltrp.object.LtrpPlayer;
 import lt.maze.dialog.InputDialog;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.event.dialog.DialogResponseEvent;
 import net.gtaun.util.event.EventManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -16,11 +16,11 @@ public class HexIntegerInputDialog extends InputDialog {
     protected ClickOkHandler handler;
     protected InputErrorHandler inputErrorHandler;
 
-    public HexIntegerInputDialog(LtrpPlayer player, EventManager parentEventManager) {
-        super(player.getPlayer(), parentEventManager, false);
+    public HexIntegerInputDialog(Player player, EventManager parentEventManager) {
+        super(player, parentEventManager, false);
     }
 
-    public static AbstractHexIntegerInputDialogBuilder<?, ?> create(LtrpPlayer player, EventManager parentEventManager) {
+    public static AbstractHexIntegerInputDialogBuilder<?, ?> create(Player player, EventManager parentEventManager) {
         return new HexIntegerInputDialogBuilder(player, parentEventManager);
     }
 
@@ -92,7 +92,7 @@ public class HexIntegerInputDialog extends InputDialog {
     }
 
     public static class HexIntegerInputDialogBuilder extends AbstractHexIntegerInputDialogBuilder<HexIntegerInputDialog, HexIntegerInputDialogBuilder> {
-        private HexIntegerInputDialogBuilder(LtrpPlayer player, EventManager parentEventManager) {
+        private HexIntegerInputDialogBuilder(Player player, EventManager parentEventManager) {
             super(new HexIntegerInputDialog(player, parentEventManager));
         }
     }

@@ -2,7 +2,7 @@ package lt.ltrp.house.upgrade.dialog;
 
 import lt.ltrp.house.upgrade.constant.HouseUpgradeType;
 import lt.ltrp.house.upgrade.data.HouseUpgrade;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialog;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.entities.Player;

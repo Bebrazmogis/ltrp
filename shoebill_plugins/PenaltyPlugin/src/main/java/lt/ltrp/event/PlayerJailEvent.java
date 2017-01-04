@@ -3,7 +3,7 @@ package lt.ltrp.event;
 
 
 import lt.ltrp.data.JailData;
-import lt.ltrp.event.player.PlayerEvent;import lt.ltrp.object.LtrpPlayer;import java.lang.Override;import java.lang.String;
+import lt.ltrp.event.player.PlayerEvent;import lt.ltrp.player.object.LtrpPlayer;import java.lang.Override;import java.lang.String;
 
 
 /**

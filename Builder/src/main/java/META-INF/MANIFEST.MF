@@ -1,3 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: lt.ltrp.Main
-Class-Path: maven-model-3.3.9.jar

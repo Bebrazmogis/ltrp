@@ -1,6 +1,6 @@
 package lt.ltrp.player.job
 
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.job.`object`.Job
 import lt.ltrp.job.`object`.JobRank
 import lt.ltrp.player.job.data.PlayerJobData

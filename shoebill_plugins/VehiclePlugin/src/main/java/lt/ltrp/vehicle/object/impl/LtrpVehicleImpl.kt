@@ -2,9 +2,10 @@ package lt.ltrp.vehicle.`object`.impl
 
 import lt.ltrp.ActionMessenger
 import lt.ltrp.StateMessenger
-import lt.ltrp.`object`.impl.InventoryEntityImpl
+import lt.ltrp.`object`.impl.NamedEntityImpl
 import lt.ltrp.vehicle.`object`.LtrpVehicle
 import lt.ltrp.vehicle.data.FuelTank
+import lt.ltrp.vehicle.event.VehicleCreateEvent
 import lt.ltrp.vehicle.event.VehicleDestroyEvent
 import net.gtaun.shoebill.data.AngledLocation
 import net.gtaun.shoebill.entities.Player
@@ -24,14 +25,17 @@ class LtrpVehicleImpl(uuid: Int, name: String,
                       isLocked: Boolean,
                       mileage: Float,
                       license: String,
-                      protected val eventManager: EventManager) : InventoryEntityImpl(uuid, name), LtrpVehicle {
+                      protected val eventManager: EventManager) : NamedEntityImpl(uuid, name), LtrpVehicle {
 
     companion object {
         internal val vehicles = mutableListOf<LtrpVehicle>()
     }
 
     init {
-        vehicles.add(this)
+        if(vehicle != null) {
+            vehicles.add(this)
+            eventManager.dispatchEvent(VehicleCreateEvent(this))
+        }
     }
 
     override var isDestroyed: Boolean = false

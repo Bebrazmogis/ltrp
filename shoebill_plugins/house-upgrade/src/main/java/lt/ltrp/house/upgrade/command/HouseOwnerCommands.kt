@@ -1,7 +1,7 @@
 package lt.ltrp.house.upgrade.command;
 
 import lt.ltrp.LtrpWorld
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.command.Commands
 import lt.ltrp.data.Color
 import lt.ltrp.house.HouseController

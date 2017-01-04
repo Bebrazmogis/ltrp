@@ -2,7 +2,7 @@ package lt.ltrp.house;
 
 
 import lt.ltrp.house.object.House;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 

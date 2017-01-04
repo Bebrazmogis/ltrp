@@ -1,7 +1,7 @@
 package lt.ltrp.trucker.command
 
 import lt.ltrp.`object`.Business
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.LtrpVehicle
 import lt.ltrp.constant.Currency
 import lt.ltrp.trucker.TruckerPlayerLifecycleHolder

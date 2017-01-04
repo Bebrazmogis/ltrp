@@ -1,12 +1,11 @@
 package lt.ltrp.command;
 
-import lt.ltrp.job.JobController;
 import lt.ltrp.VehicleController;
 import lt.ltrp.data.Color;
 import lt.ltrp.data.NamedLocation;
 import lt.ltrp.player.job.data.PlayerJobData;
-import lt.ltrp.object.LtrpPlayer;
-import lt.ltrp.object.PlayerVehicle;
+import lt.ltrp.player.object.LtrpPlayer;
+import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import lt.ltrp.object.VehicleThiefJob;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;
@@ -49,7 +48,7 @@ public class VehicleThiefCommands extends Commands {
         PlayerJobData jobData = player.getJobData();
         if(!playerVehicleSellDelay.containsKey(player)) {
             if(player.getVehicle() != null) {
-                PlayerVehicle vehicle = PlayerVehicle.getByVehicle(player.getVehicle());
+                PlayerVehicle vehicle = PlayerVehicle.Companion.getByVehicle(player.getVehicle());
                 if (vehicle != null) {
                     for (NamedLocation location : job.getVehicleBuyPoints().keySet()) {
                         if (player.getLocation().distance(location) < 10.0f) {

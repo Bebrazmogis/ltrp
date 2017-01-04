@@ -5,10 +5,9 @@ import lt.ltrp.constant.LtrpVehicleModel;
 import lt.ltrp.data.Color;
 import lt.ltrp.dialog.DrivingTestEndMsgDialog;
 import lt.ltrp.dialog.QuestionTestEndMsgDialog;
-import lt.ltrp.event.PlayerDrivingTestEndEvent;
-import lt.ltrp.event.PlayerQuestionTestEndEvent;
+import lt.ltrp.PlayerDrivingTestEndEvent;
+import lt.ltrp.PlayerQuestionTestEndEvent;
 import lt.ltrp.object.*;
-import lt.ltrp.player.dao.PlayerDao;
 import lt.ltrp.player.licenses.PlayerLicenseController;
 import lt.ltrp.player.licenses.constant.LicenseType;
 import lt.ltrp.player.licenses.data.PlayerLicense;
@@ -16,9 +15,7 @@ import lt.ltrp.player.licenses.data.PlayerLicenses;
 import net.gtaun.shoebill.common.dialog.MsgboxDialog;
 import net.gtaun.util.event.EventManager;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

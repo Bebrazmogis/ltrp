@@ -3,7 +3,7 @@ package lt.ltrp.job.modelpreview;
 
 import lt.ltrp.modelpreview.BasicModelPreview;
 import lt.ltrp.modelpreview.ModelPreview;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
 /**

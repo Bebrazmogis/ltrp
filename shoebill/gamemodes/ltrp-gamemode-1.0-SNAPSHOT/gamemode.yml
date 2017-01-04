@@ -1,7 +1,0 @@
-class: lt.ltrp.LtrpGamemode
-name: LTRP
-version: 1.0-SNAPSHOT
-buildNumber: 0
-buildDate: unknown
-authors: Bebras
-description: The Java side of LTRP server

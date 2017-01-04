@@ -9,7 +9,7 @@ import lt.ltrp.house.event.PlayerEnterHouseEvent;
 import lt.ltrp.house.event.PlayerExitHouseEvent;
 import lt.ltrp.modelpreview.SkinModelPreview;
 import lt.ltrp.house.object.House;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.object.Player;

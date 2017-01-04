@@ -1,6 +1,6 @@
 package lt.ltrp.trucker.dialog
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.LtrpVehicle
 import lt.ltrp.trucker.controller.TruckerVehicleCargoController
 import lt.ltrp.trucker.data.VehicleCargo

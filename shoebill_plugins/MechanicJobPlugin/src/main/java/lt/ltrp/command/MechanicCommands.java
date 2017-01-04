@@ -10,7 +10,7 @@ import lt.ltrp.data.ColorPalettePlayerOffer;
 import lt.ltrp.player.job.data.PlayerJobData;
 import lt.ltrp.dialog.HullRepairMsgDialog;
 import lt.ltrp.dialog.RemoveHydraulicsMsgDialog;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import lt.ltrp.session.*;
 import lt.ltrp.util.StringUtils;

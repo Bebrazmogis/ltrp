@@ -2,7 +2,7 @@ package lt.ltrp.dialog;
 
 import lt.ltrp.constant.Currency;
 import lt.ltrp.data.WeaponShopWeapon;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.dialog.ListDialogItem;
 import net.gtaun.shoebill.common.dialog.TabListDialog;
 import net.gtaun.shoebill.common.dialog.TabListDialogItem;

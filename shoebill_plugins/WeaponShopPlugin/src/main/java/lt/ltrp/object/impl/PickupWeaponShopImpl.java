@@ -1,7 +1,7 @@
 package lt.ltrp.object.impl;
 
 import lt.ltrp.dialog.PickupWeaponShopManagementDialog;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.PickupWeaponShop;
 import lt.maze.streamer.object.DynamicPickup;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;

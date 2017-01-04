@@ -2,7 +2,7 @@ package lt.ltrp.business.commodity;
 
 import lt.ltrp.object.impl.EntityImpl;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

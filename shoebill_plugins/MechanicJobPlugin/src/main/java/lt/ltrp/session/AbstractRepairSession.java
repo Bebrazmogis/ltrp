@@ -3,7 +3,7 @@ package lt.ltrp.session;
 import lt.ltrp.event.PlayerLeaveRepairArea;
 import lt.ltrp.event.RepairSessionEndEvent;
 import lt.ltrp.data.Animation;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.PlayerCountdown;
 
 import lt.ltrp.object.LtrpVehicle;

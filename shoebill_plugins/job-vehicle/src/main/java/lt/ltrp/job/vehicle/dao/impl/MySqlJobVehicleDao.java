@@ -1,7 +1,7 @@
 package lt.ltrp.job.vehicle.dao.impl;
 
 import lt.ltrp.LoadingException;
-import lt.ltrp.business.dao.impl.AbstractMySqlVehicleDaoImpl;
+import lt.ltrp.vehicle.dao.impl.AbstractMySqlVehicleDaoImpl;
 import lt.ltrp.job.dao.JobVehicleDao;
 import lt.ltrp.job.object.Job;
 import lt.ltrp.job.object.JobRank;

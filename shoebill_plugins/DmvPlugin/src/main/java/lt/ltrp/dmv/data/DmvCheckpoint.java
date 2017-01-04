@@ -1,6 +1,6 @@
 package lt.ltrp.dmv.data;
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Radius;
 import net.gtaun.shoebill.entities.Checkpoint;
 import net.gtaun.shoebill.entities.Player;

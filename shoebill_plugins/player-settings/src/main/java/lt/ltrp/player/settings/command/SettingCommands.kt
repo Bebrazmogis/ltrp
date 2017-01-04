@@ -1,6 +1,6 @@
 package lt.ltrp.player.settings.command
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.player.settings.dialog.PlayerSettingsListDialog
 import net.gtaun.shoebill.`object`.Player
 import net.gtaun.shoebill.common.command.Command

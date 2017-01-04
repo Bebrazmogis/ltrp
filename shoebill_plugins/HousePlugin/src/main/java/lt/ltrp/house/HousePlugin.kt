@@ -1,7 +1,7 @@
 package lt.ltrp.house;
 
 import lt.ltrp.DatabasePlugin
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.house.command.HouseCommands
 import lt.ltrp.house.command.HouseOwnerCommands
 import lt.ltrp.house.impl.MySqlHouseDaoImpl

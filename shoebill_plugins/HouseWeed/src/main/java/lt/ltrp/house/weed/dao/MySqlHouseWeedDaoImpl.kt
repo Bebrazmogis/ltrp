@@ -1,8 +1,8 @@
 package lt.ltrp.house.weed.dao
 
 import lt.ltrp.player.PlayerController
-import lt.ltrp.`object`.LtrpPlayer
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.house.`object`.House
 import lt.ltrp.house.weed.`object`.HouseWeedSapling
 import lt.ltrp.house.weed.`object`.impl.HouseWeedSaplingImpl

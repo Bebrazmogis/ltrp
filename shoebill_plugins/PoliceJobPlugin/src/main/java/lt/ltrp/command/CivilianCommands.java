@@ -2,7 +2,7 @@ package lt.ltrp.command;
 
 import lt.ltrp.PoliceJobPlugin;
 import lt.ltrp.data.Color;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.PoliceFaction;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.object.Player;

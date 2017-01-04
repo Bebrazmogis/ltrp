@@ -3,7 +3,7 @@ package lt.ltrp.command;
 import lt.ltrp.job.JobController;
 import lt.ltrp.event.PlayerEnterEntranceEvent;
 import lt.ltrp.object.Entrance;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.object.Player;

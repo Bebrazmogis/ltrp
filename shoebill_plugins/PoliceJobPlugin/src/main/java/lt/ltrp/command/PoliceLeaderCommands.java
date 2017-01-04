@@ -4,7 +4,7 @@ import lt.ltrp.JobPlugin;
 import lt.ltrp.PoliceJobPlugin;
 import lt.ltrp.data.Color;
 import lt.ltrp.player.job.data.PlayerJobData;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.PoliceFaction;
 import net.gtaun.shoebill.common.command.BeforeCheck;
 import net.gtaun.shoebill.common.command.Command;

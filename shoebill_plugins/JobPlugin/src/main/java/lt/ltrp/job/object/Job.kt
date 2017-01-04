@@ -1,7 +1,7 @@
 package lt.ltrp.job.`object`
 
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.NamedEntity
 import lt.ltrp.job.JobController;
 import net.gtaun.shoebill.data.Color;

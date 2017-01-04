@@ -4,7 +4,7 @@ import lt.ltrp.constant.BusinessType;
 import lt.ltrp.dao.BusinessDao;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.data.Location;
 

@@ -1,6 +1,6 @@
 package lt.ltrp.player.settings
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.player.settings.dao.PlayerSettingsDao
 import lt.ltrp.player.settings.data.PlayerSettings
 import lt.ltrp.player.settings.event.PlayerEditSettingsEvent

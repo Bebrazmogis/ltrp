@@ -12,7 +12,7 @@ import lt.ltrp.data.TrashMissions;
 import lt.ltrp.event.PlayerTrashMissionEndEvent;
 import lt.ltrp.event.PlayerTrashMissionStartEvent;
 import lt.ltrp.job.JobController;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.TrashManJob;
 import lt.ltrp.object.impl.PlayerTrashMission;
 import lt.ltrp.object.impl.TrashManJobImpl;

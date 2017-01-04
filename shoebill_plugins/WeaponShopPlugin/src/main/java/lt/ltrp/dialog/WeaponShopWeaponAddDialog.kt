@@ -2,7 +2,7 @@ package lt.ltrp.dialog
 
 import lt.ltrp.WeaponShopPlugin
 import lt.ltrp.`object`.Entity
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.WeaponShop
 import lt.ltrp.data.WeaponShopWeapon
 import lt.maze.dialog.AbstractDialog

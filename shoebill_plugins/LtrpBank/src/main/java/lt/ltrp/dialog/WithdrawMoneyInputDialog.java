@@ -2,7 +2,7 @@ package lt.ltrp.dialog;
 
 import lt.ltrp.constant.Currency;
 import lt.ltrp.event.BankAccountWithdrawMoney;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.player.BankAccount;
 import net.gtaun.shoebill.common.dialog.InputDialog;
 import net.gtaun.util.event.EventManager;

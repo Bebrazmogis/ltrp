@@ -2,7 +2,7 @@ package lt.ltrp.garage.event;
 
 import lt.ltrp.event.property.PlayerEnterPropertyEvent;
 import lt.ltrp.object.Garage;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 
 /**

@@ -9,6 +9,6 @@ import net.gtaun.util.event.Event
  * *         2016.04.19.
  * Base event for [LtrpVehicle]
  */
-open class VehicleEvent(val vehicle: LtrpVehicle) : Event() {
+open class VehicleEvent(open val vehicle: LtrpVehicle) : Event() {
 
 }

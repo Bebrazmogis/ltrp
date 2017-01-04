@@ -1,7 +1,7 @@
 package lt.ltrp.modelpreview.event;
 
 import lt.ltrp.modelpreview.ModelPreview;
-import lt.ltrp.object.LtrpPlayer;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras
@@ -11,7 +11,7 @@ public class ModelPreviewSelectModelEvent extends ModelPreviewEvent {
 
     private int model;
 
-    public ModelPreviewSelectModelEvent(LtrpPlayer player, ModelPreview preview, int model) {
+    public ModelPreviewSelectModelEvent(Player player, ModelPreview preview, int model) {
         super(player, preview);
         this.model = model;
     }

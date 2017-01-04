@@ -2,9 +2,8 @@ package lt.ltrp.object.impl;
 
 import lt.ltrp.data.NamedLocation;
 import lt.ltrp.object.LtrpVehicle;
-import lt.ltrp.object.PlayerVehicle;
+import lt.ltrp.player.vehicle.object.PlayerVehicle;
 import lt.ltrp.object.VehicleThiefJob;
-import net.gtaun.shoebill.data.Location;
 import net.gtaun.util.event.EventManager;
 
 import java.lang.Integer;

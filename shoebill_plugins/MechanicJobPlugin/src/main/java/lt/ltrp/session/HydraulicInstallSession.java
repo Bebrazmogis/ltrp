@@ -1,6 +1,6 @@
 package lt.ltrp.session;
 
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.util.event.EventManager;

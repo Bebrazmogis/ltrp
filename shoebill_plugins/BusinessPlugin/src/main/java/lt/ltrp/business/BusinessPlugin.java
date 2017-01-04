@@ -1,17 +1,16 @@
 package lt.ltrp.business;
 
 import kotlin.reflect.jvm.internal.KClassImpl;
-import lt.ltrp.*;
 import lt.ltrp.business.command.BusinessCommands;
 import lt.ltrp.constant.BusinessType;
 import lt.ltrp.dao.BusinessDao;
-import lt.ltrp.business.dao.impl.MySqlBusinessDaoImpl;
+import lt.ltrp.player.vehicle.dao.impl.MySqlBusinessDaoImpl;
 import lt.ltrp.data.property.business.commodity.BusinessCommodity;
 import lt.ltrp.business.dialog.AdminBusinessManagementDialog;
 import lt.ltrp.business.dialog.BusinessAvailableCommodityManagementDialog;
 import lt.ltrp.event.property.*;
 import lt.ltrp.object.Business;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.business.impl.BusinessImpl;
 import lt.ltrp.player.PlayerController;
 import lt.ltrp.property.PropertyPlugin;

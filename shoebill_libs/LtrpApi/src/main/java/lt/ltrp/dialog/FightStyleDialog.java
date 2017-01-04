@@ -3,10 +3,10 @@ package lt.ltrp.dialog;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
-import lt.ltrp.object.LtrpPlayer;
 import lt.maze.dialog.ListDialog;
 import lt.maze.dialog.ListDialogItem;
 import net.gtaun.shoebill.data.Color;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.util.event.EventManager;
 
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import java.util.List;
  * @author Bebras
  *         2016.02.07.
  */
+/*
 public class FightStyleDialog {
 
     private static final FightStyle[] fightStyles = new FightStyle[] {
@@ -24,7 +25,7 @@ public class FightStyleDialog {
             new FightStyle("Bokso kovos stilius", 5, 500)
     };
 
-    public static ListDialog create(LtrpPlayer player, EventManager eventManager) {
+    public static ListDialog create(Player player, EventManager eventManager) {
         List<ListDialogItem> dialogItems = new ArrayList<>();
         int count = 1;
         for(FightStyle f : fightStyles) {
@@ -33,7 +34,7 @@ public class FightStyleDialog {
             item.setData(f);
             dialogItems.add(item);
         }
-        return ListDialog.Companion.create(player.getPlayer(), eventManager, new Function1<ListDialog.ListDialogBuilder, Unit>() {
+        return ListDialog.Companion.create(player, eventManager, new Function1<ListDialog.ListDialogBuilder, Unit>() {
             @Override
             public Unit invoke(ListDialog.ListDialogBuilder listDialogBuilder) {
                 listDialogBuilder.caption(() -> "Sporto salë - Kovos stiliaus pamokos");
@@ -42,10 +43,10 @@ public class FightStyleDialog {
                 listDialogBuilder.buttonCancel("Iðeiti");
                 listDialogBuilder.onSelectItem((dialog, item) -> {
                     FightStyle style = (FightStyle) item.getData();
-                    if (player.getPlayer().getMoney() < style.price) {
-                        player.sendErrorMessage("Jums neuþtenka pinigø " + style.name + " pamokai. Pamokos kaina $" + style.price);
+                    if (player.getMoney() < style.price) {
+                        player.sendMessage(Color.RED, "Jums neuþtenka pinigø " + style.name + " pamokai. Pamokos kaina $" + style.price);
                     } else {
-                        player.setBoxingStyle(style.styleId);
+                        player.(style.styleId);
                         player.getPlayer().giveMoney(-style.price);
                         player.sendMessage(Color.PURPLE, style.name + " pamoka baigta, dabar jau mokësite iðnaudoti ðá stiliø, pamoka kainavo $" + style.price);
                     }
@@ -69,3 +70,4 @@ public class FightStyleDialog {
     }
 
 }
+*/

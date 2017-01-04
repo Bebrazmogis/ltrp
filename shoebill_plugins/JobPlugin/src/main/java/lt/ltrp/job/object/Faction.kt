@@ -1,6 +1,6 @@
 package lt.ltrp.job.`object`
 
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 
 
 /**

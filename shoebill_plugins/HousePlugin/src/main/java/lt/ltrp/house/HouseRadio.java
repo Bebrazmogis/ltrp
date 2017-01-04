@@ -5,7 +5,7 @@ import lt.ltrp.house.event.PlayerEnterHouseEvent;
 import lt.ltrp.house.event.PlayerExitHouseEvent;
 import lt.ltrp.object.AbstractRadio;
 import lt.ltrp.house.object.House;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.util.event.EventManager;
 
 /**

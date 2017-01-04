@@ -2,7 +2,7 @@ package lt.ltrp.player.job.command
 
 import lt.ltrp.data.Color
 import lt.ltrp.player.job.data.FactionInviteOffer
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.player.job.PlayerJobController
 import net.gtaun.shoebill.common.command.Command
 import net.gtaun.shoebill.`object`.Player

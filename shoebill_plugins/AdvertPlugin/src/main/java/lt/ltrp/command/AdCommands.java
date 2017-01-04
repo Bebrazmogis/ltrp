@@ -4,7 +4,7 @@ import lt.ltrp.AdvertPlugin;
 import lt.ltrp.constant.Currency;
 import lt.ltrp.dialog.PlayerPhoneSelectDialog;
 import lt.ltrp.object.ItemPhone;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;
 import net.gtaun.shoebill.common.command.CommandParameter;

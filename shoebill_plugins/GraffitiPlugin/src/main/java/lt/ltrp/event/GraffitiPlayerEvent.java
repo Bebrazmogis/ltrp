@@ -1,7 +1,7 @@
 package lt.ltrp.event;
 
 import lt.ltrp.object.Graffiti;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 
 /**
  * @author Bebras

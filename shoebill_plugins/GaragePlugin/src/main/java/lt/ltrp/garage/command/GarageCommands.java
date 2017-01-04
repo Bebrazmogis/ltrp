@@ -8,7 +8,7 @@ import lt.ltrp.event.property.garage.GarageBuyEvent;
 import lt.ltrp.event.property.garage.PlayerEnterGarageEvent;
 import lt.ltrp.event.property.garage.PlayerExitGarageEvent;
 import lt.ltrp.object.Garage;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.LtrpVehicle;
 import net.gtaun.shoebill.common.command.Command;
 import net.gtaun.shoebill.common.command.CommandHelp;

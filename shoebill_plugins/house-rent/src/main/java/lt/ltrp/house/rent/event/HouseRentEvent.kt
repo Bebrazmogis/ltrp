@@ -1,8 +1,8 @@
 package lt.ltrp.house.rent.event
 
 import lt.ltrp.house.`object`.House
-import lt.ltrp.`object`.LtrpPlayer
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.house.event.HouseEvent
 
 /**

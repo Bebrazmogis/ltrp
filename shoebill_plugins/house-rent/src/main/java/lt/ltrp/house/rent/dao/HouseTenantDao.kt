@@ -1,7 +1,7 @@
 package lt.ltrp.house.rent.dao
 
 import lt.ltrp.house.`object`.House
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.house.rent.`object`.HouseTenant
 
 /**

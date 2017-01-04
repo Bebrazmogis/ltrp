@@ -4,6 +4,7 @@ import lt.maze.streamer.object.DynamicObject;
 import net.gtaun.shoebill.data.Location;
 import net.gtaun.shoebill.data.Vector3D;
 import net.gtaun.shoebill.entities.Destroyable;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.entities.Timer;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Random;
  *         Should be done using the GetPlayerCameraTargetObject functions. Streamer versions of those functions.
  *
  */
+/*
 public class Fire implements Destroyable {
 
     private static final List<Fire> fires = new ArrayList<>();
@@ -27,7 +29,7 @@ public class Fire implements Destroyable {
         return fires;
     }
 
-    public static Fire create(LtrpPlayer starter, Location center, int firecount, int explosiontype, int explosioncount) {
+    public static Fire create(Player starter, Location center, int firecount, int explosiontype, int explosioncount) {
         Fire fire = new Fire(starter, explosiontype, center, firecount, explosioncount);
         fires.add(fire);
         return fire;
@@ -44,7 +46,7 @@ public class Fire implements Destroyable {
     private boolean destroyed;
 
 
-    private Fire(LtrpPlayer starter, int explosionType, Location center, int fireCount, int explosionCount) {
+    private Fire(Player starter, int explosionType, Location center, int fireCount, int explosionCount) {
         this.starterUserId = starter.getUUID();
         this.explosionType = explosionType;
         this.center = center;
@@ -142,3 +144,4 @@ public class Fire implements Destroyable {
         return destroyed;
     }
 }
+*/

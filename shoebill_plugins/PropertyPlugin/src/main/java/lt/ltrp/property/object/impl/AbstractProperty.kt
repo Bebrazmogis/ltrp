@@ -3,7 +3,7 @@ package lt.ltrp.property.`object`.impl
 import lt.ltrp.ActionMessenger
 import lt.ltrp.StateMessenger
 import lt.ltrp.`object`.Entity
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.property.`object`.Property
 import lt.ltrp.`object`.impl.NamedEntityImpl
 import lt.ltrp.constant.ACTION

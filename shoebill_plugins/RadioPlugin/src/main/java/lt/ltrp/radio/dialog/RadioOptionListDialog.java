@@ -1,7 +1,7 @@
 package lt.ltrp.dialog.radio;
 
 import lt.ltrp.dialog.IntegerInputDialog;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.data.RadioStation;
 import net.gtaun.shoebill.common.dialog.AbstractDialog;
 import net.gtaun.shoebill.common.dialog.InputDialog;

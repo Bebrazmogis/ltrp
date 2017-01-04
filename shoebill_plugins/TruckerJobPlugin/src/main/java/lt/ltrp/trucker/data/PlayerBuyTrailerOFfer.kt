@@ -1,6 +1,6 @@
 package lt.ltrp.trucker.data
 
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.`object`.LtrpVehicle
 import lt.ltrp.data.PlayerOffer
 import net.gtaun.util.event.EventManager

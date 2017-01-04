@@ -1,6 +1,6 @@
 package lt.ltrp.vehicle.util;
 
-import lt.ltrp.object.LtrpVehicle;
+import lt.ltrp.vehicle.object.LtrpVehicle;
 import net.gtaun.shoebill.constant.VehicleModel;
 import net.gtaun.shoebill.constant.VehicleModelInfoType;
 import net.gtaun.shoebill.data.AngledLocation;

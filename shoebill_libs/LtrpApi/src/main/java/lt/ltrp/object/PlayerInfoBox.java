@@ -9,9 +9,9 @@ import net.gtaun.shoebill.entities.Destroyable;
  */
 public interface PlayerInfoBox extends Destroyable {
 
-    void showSpeedometer(LtrpVehicle vehicle);
+    //void showSpeedometer(LtrpVehicle vehicle);
     void hideSpeedometer();
-    void setRadio(RadioItem item);
+    //void setRadio(RadioItem item);
     void setCountDown(Integer seconds);
     void setCountDown(String caption, Integer seconds);
     void setJailTime(Integer seconds);

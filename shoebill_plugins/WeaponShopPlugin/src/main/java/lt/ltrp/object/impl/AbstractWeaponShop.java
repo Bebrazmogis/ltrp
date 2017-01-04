@@ -3,7 +3,7 @@ package lt.ltrp.object.impl;
 import lt.ltrp.data.WeaponShopWeapon;
 import lt.ltrp.dialog.WeaponShopSoldWeaponListDialog;
 import lt.ltrp.event.WeaponShopDestroyEvent;
-import lt.ltrp.object.LtrpPlayer;
+import lt.ltrp.player.object.LtrpPlayer;
 import lt.ltrp.object.WeaponShop;
 import net.gtaun.shoebill.constant.WeaponModel;
 import net.gtaun.shoebill.data.Location;

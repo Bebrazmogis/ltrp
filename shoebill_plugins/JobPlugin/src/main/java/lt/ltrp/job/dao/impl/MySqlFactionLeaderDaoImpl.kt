@@ -1,7 +1,7 @@
 package lt.ltrp.dao.impl
 
 import lt.ltrp.`object`.Entity
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.job.`object`.Faction
 import lt.ltrp.job.dao.FactionLeaderDao
 import lt.ltrp.player.PlayerController

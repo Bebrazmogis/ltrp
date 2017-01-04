@@ -1,7 +1,7 @@
 package lt.ltrp.player.fine.dao.impl
 
 import lt.ltrp.`object`.Entity
-import lt.ltrp.`object`.PlayerData
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.player.PlayerController
 import lt.ltrp.player.fine.dao.PlayerFineDao
 import lt.ltrp.player.fine.data.PlayerFine
