@@ -2,7 +2,7 @@ package lt.maze.audio.event;
 
 import lt.maze.audio.RadioStation;
 import net.gtaun.shoebill.event.player.PlayerEvent;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 /**
  * @author Bebras
