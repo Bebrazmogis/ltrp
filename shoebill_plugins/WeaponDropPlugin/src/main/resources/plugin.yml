@@ -1,7 +1,0 @@
-class: lt.ltrp.WeaponDropPlugin
-name: Dropped weapon Plugin
-version: 1.0-SNAPSHOT
-buildNumber: 0
-buildDate: Unknown
-authors: Bebras
-description: This plugin manages dropped weapons
