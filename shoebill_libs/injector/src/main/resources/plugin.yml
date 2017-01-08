@@ -1,7 +1,0 @@
-class: lt.maze.injector.InjectorPlugin
-name: Dependency injector plugin
-version: 1.0-SNAPSHOT
-buildNumber: 0
-buildDate: Unknown
-authors: Bebras
-description:

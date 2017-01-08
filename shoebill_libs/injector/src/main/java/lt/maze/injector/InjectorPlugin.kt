@@ -2,6 +2,7 @@ package lt.maze.injector
 
 import com.github.salomonbrys.kodein.Kodein
 import lt.maze.injector.resource.BindingPlugin
+import net.gtaun.shoebill.ShoebillMain
 import net.gtaun.shoebill.event.resource.ResourceLoadEvent
 import net.gtaun.shoebill.resource.Plugin
 import net.gtaun.shoebill.resource.Resource
@@ -17,6 +18,7 @@ import net.gtaun.util.event.HandlerEntry
  * This plugin should be loaded before any other plugins as it does <b>not</b> support being reloaded
  * Meaning it will ignore plugins that are already loaded and not get their injections
  */
+@ShoebillMain("Dependency Injector Plugin", "Bebras")
 class InjectorPlugin: Plugin() {
 
     private lateinit var handlerEntry: HandlerEntry
