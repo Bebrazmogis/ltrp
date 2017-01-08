@@ -11,6 +11,8 @@
     <modules>
         <!-- <module>shoebill_plugins/LtrpApi</module> -->
         <!-- <module>shoebill_gamemode</module> -->
+        <!-- For some reason compiles without being here -->
+        <!-- <module>job-vehicle</module> -->
         <module>AdminPlugin</module>
         <module>AdvertPlugin</module>
         <module>AntiDriveByPlugin</module>
@@ -28,8 +30,6 @@
         <module>HousePlugin</module>
         <module>HouseWeed</module>
         <module>ItemPlugin</module>
-        <!-- For some reason compiles without being here -->
-        <!-- <module>job-vehicle</module> -->
         <module>JobPlugin</module>
         <module>LtrpBank</module>
         <module>MechanicJobPlugin</module>
@@ -59,11 +59,6 @@
         <module>VehicleThiefJobPlugin</module>
         <module>WeaponDropPlugin</module>
         <module>WeaponShopPlugin</module>
-        <module>player-payday</module>
-        <module>player-stats</module>
-        <module>player-description</module>
-        <module>vehicle-radio</module>
-        <module>vehicle-static</module>
     </modules>
 
 
@@ -71,21 +66,11 @@
     <url>https://lt-rp.lt</url>
 
     <properties>
-        <kotlin.version>1.0.5-3</kotlin.version>
+        <kotlin.version>1.0.6</kotlin.version>
         <project.build.sourceEncoding>Cp1257</project.build.sourceEncoding>
     </properties>
 
     <repositories>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-        </repository>
-
         <repository>
             <id>gtaun-public-repo</id>
             <name>GTAUN Public Repository</name>
