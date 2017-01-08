@@ -1,10 +1,11 @@
 package lt.maze.fader;
 
 import lt.maze.fader.event.PlayerFadeComplete;
+import net.gtaun.shoebill.ShoebillMain;
 import net.gtaun.shoebill.data.Color;
-import net.gtaun.shoebill.object.Player;
-import net.gtaun.shoebill.object.Textdraw;
-import net.gtaun.shoebill.object.Timer;
+import net.gtaun.shoebill.entities.Player;
+import net.gtaun.shoebill.entities.Textdraw;
+import net.gtaun.shoebill.entities.Timer;
 import net.gtaun.shoebill.resource.Plugin;
 import org.slf4j.Logger;
 
@@ -14,10 +15,10 @@ import java.util.HashMap;
  * @author Bebras
  *         2016.04.05.
  */
+@ShoebillMain(name = "Fader plugin", author = "Bebras")
 public class FaderPlugin extends Plugin {
 
     private static Logger logger;
-    private static FaderPlugin instance;
 
     private Textdraw faderTextdraw;
     private Timer faderTimer;
@@ -28,7 +29,6 @@ public class FaderPlugin extends Plugin {
     @Override
     protected void onEnable() throws Throwable {
         logger = getLogger();
-        instance = this;
         this.playerFadeData = new HashMap<>();
         this.disabled = false;
 
@@ -86,13 +86,10 @@ public class FaderPlugin extends Plugin {
      * @param fadeback if set to true, it will fade back to normal
      * @return returns the time in milli seconds this fading will take
      */
-    public static int fadeColorForPlayer(Player p, int startr, int startg, int startb, int starta, int endr, int endg, int endb, int enda, int frames, boolean fadeback) {
-        if(get(FaderPlugin.class).isDisabled()) {
-            return 0;
-        }
-        if(instance.playerFadeData.containsKey(p)) {
-            instance.playerFadeData.remove(p);
-            instance.faderTextdraw.hide(p);
+    public int fadeColorForPlayer(Player p, int startr, int startg, int startb, int starta, int endr, int endg, int endb, int enda, int frames, boolean fadeback) {
+        if(playerFadeData.containsKey(p)) {
+            playerFadeData.remove(p);
+            faderTextdraw.hide(p);
         }
         PlayerFade f;
         if(fadeback) {
@@ -114,22 +111,21 @@ public class FaderPlugin extends Plugin {
                     frames,
                     fadeback);
         }
-        instance.playerFadeData.put(p, f);
-        return frames * instance.framerate;
+        playerFadeData.put(p, f);
+        return frames * framerate;
     }
 
-    public static int fadeColorForPlayer(Player p, Color startColor, Color endColor, int frames, boolean fadeback) {
+    public int fadeColorForPlayer(Player p, Color startColor, Color endColor, int frames, boolean fadeback) {
         return fadeColorForPlayer(p, startColor.getR(), startColor.getG(), startColor.getB(), startColor.getA(), endColor.getR(), endColor.getG(), endColor.getB(), endColor.getA(),
                 frames, fadeback);
     }
 
-    public static int getFrameRate() {
-        return instance == null ? -1 : instance.framerate;
+    public int getFrameRate() {
+        return framerate;
     }
 
-    public static void setFrameRate(int framerate) {
-        if(instance != null)
-            instance.framerate = framerate;
+    public void setFrameRate(int framerate) {
+        this.framerate = framerate;
     }
 
     public boolean isDisabled() {

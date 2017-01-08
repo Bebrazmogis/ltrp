@@ -1,7 +1,7 @@
 package lt.maze.fader.event;
 
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.event.player.PlayerEvent;
-import net.gtaun.shoebill.object.Player;
 
 /**
  * @author Bebras
