@@ -1,7 +1,6 @@
 package lt.ltrp.object.impl;
 
 import lt.ltrp.ItemPlugin;
-import lt.ltrp.item.ItemController;
 import lt.ltrp.constant.ItemType;
 import lt.ltrp.dao.PhoneDao;
 import lt.ltrp.data.Color;
