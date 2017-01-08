@@ -46,7 +46,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
-                    <outputDirectory>${project.basedir}/../../shoebill/plugins/</outputDirectory>
+                    <outputDirectory>${project.basedir}/../../shoebill/libraries/</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
