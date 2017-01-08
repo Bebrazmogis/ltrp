@@ -5,7 +5,7 @@ import lt.maze.ysf.object.impl.YSFPlayerZoneImpl;
 import net.gtaun.shoebill.data.Area;
 import net.gtaun.shoebill.data.Color;
 import net.gtaun.shoebill.object.Destroyable;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 import java.util.Optional;
 

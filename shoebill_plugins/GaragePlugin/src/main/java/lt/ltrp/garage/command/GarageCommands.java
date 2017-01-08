@@ -29,7 +29,7 @@ public class GarageCommands {
 
     /*@BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         if(player != null) {
             Property property = player.getProperty();
             if(property != null && property instanceof Garage || Garage.getClosest(player.getLocation(), 5f) != null) {
@@ -54,7 +54,7 @@ public class GarageCommands {
 
     @Command
     public boolean enter(Player pp) {
-        LtrpPlayer player = LtrpPlayer.get(pp);
+        LtrpPlayer player = LtrpPlayer.Companion.get(pp);
         Garage garage = Garage.getClosest(player.getLocation(), 8f);
         if(garage == null)
             return false;
@@ -72,7 +72,7 @@ public class GarageCommands {
                 LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
                 garage.setVehicle(vehicle);
                 vehicle.setLocation(garage.getVehicleExit());
-                LtrpPlayer.get().stream().filter(p -> p.isInVehicle(vehicle)).forEach(p -> {
+                LtrpPlayer.Companion.get().stream().filter(p -> p.isInVehicle(vehicle)).forEach(p -> {
                     p.setInterior(garage.getVehicleExit().getInteriorId());
                     p.setWorld(garage.getVehicleExit().getWorldId());
                 });
@@ -85,7 +85,7 @@ public class GarageCommands {
 
     @Command
     public boolean exit(Player pp) {
-        LtrpPlayer player = LtrpPlayer.get(pp);
+        LtrpPlayer player = LtrpPlayer.Companion.get(pp);
         Garage garage = Garage.getClosest(pp.getLocation(), 8f);
         if(garage == null)
             return false;
@@ -98,7 +98,7 @@ public class GarageCommands {
                 LtrpVehicle vehicle = LtrpVehicle.getByVehicle(player.getVehicle());
                 garage.setVehicle(null);
                 vehicle.setLocation(garage.getVehicleEntrance());
-                LtrpPlayer.get().stream().filter(p -> p.isInVehicle(vehicle)).forEach(p -> {
+                LtrpPlayer.Companion.get().stream().filter(p -> p.isInVehicle(vehicle)).forEach(p -> {
                     p.setInterior(garage.getVehicleEntrance().getInteriorId());
                     p.setWorld(garage.getVehicleEntrance().getWorldId());
                 });
@@ -114,7 +114,7 @@ public class GarageCommands {
     @Command
     @CommandHelp("Nuperka garaþà")
     public boolean buyGarage(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Garage garage = Garage.getClosest(p.getLocation(), 5f);
         if(garage == null)
             player.sendErrorMessage("Ðià komandà galite naudoti tik bûdami prie garaþo!");

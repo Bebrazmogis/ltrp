@@ -1,13 +1,15 @@
 package lt.ltrp.property.`object`
 
-import lt.ltrp.property.PropertyController
-import lt.ltrp.player.`object`.LtrpPlayer
+import lt.ltrp.ActionMessenger
+import lt.ltrp.StateMessenger
+import lt.ltrp.`object`.LtrpPlayer
 import lt.ltrp.`object`.Entity
 import lt.ltrp.`object`.NamedEntity
 import lt.maze.streamer.`object`.DynamicPickup
 import net.gtaun.shoebill.data.Color
 import net.gtaun.shoebill.data.Location
 import net.gtaun.shoebill.entities.Destroyable
+import net.gtaun.shoebill.entities.Player
 import java.util.Collections
 import java.util.Optional
 import java.util.stream.Collectors
@@ -36,44 +38,37 @@ interface Property : NamedEntity, Destroyable, StateMessenger, ActionMessenger {
 
     companion object {
 
+        internal val propertyList = mutableListOf<Property>()
+
         fun get(): Collection<Property> {
-            return PropertyController.get().properties
+            return propertyList
         }
 
         operator fun get(id: Int): Property? {
-            val op = get()
-                    .stream()
-                    .filter({ b -> b.getUUID() === id })
-                    .findFirst()
-            return if (op.isPresent()) op.get() else null
+            return propertyList.firstOrNull { it.UUID == id }
         }
 
-        operator fun get(player: LtrpPlayer): Property {
-            return PropertyController.get().get(player)
+        operator fun get(player: Player): Property? {
+            return get().firstOrNull { it.exit != null && it.exit?.distance(player.location) ?: 201f < 200f }
         }
 
         fun getClosest(location: Location, maxDistance: Float): Property? {
-            val op = get().stream().min({ b1, b2 ->
-                java.lang.Float.compare(Math.min(b1.entrance.distance(location), b1.exit!!.distance(location)),
-                        Math.min(b2.entrance.distance(location), b2.exit!!.distance(location)))
-            })
-            if (op.isPresent()) {
-                val distance = op.get().entrance.distance(location)
+            val closest =  get()
+                    .minBy { Math.min(it.entrance.distance(location), it.exit?.distance(location) ?: Float.MAX_VALUE) }
+            if (closest != null) {
+                val distance = closest.entrance.distance(location)
                 if (distance <= maxDistance) {
-                    return op.get()
+                    return closest
                 }
             }
             return null
         }
 
         fun getByDistance(location: Location): List<Property> {
-            val list = get().stream().collect(Collectors.toList<Property>())
-            Collections.sort<Property>(list) { p1, p2 ->
-                val dist1 = Math.min(p1.entrance.distance(location), if (p1.exit != null) p1.exit!!.distance(location) else java.lang.Float.POSITIVE_INFINITY)
-                val dist2 = Math.min(p2.entrance.distance(location), if (p2.exit != null) p2.exit!!.distance(location) else java.lang.Float.POSITIVE_INFINITY)
-                java.lang.Float.compare(dist1, dist2)
+            return get().sortedBy {
+                val dist = Math.min(it.entrance.distance(location), if (it.exit != null) it.exit!!.distance(location) else Float.MAX_VALUE)
+                dist
             }
-            return list
         }
     }
 

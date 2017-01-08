@@ -21,14 +21,14 @@ class HouseOwnerCommands(private val eventManager: EventManager): Commands() {
 
     @BeforeCheck fun bc(p: Player, cmd: String, params: String): Boolean {
         val house = HouseController.get().get(p.location)
-        val player = LtrpPlayer.get(p)
+        val player = LtrpPlayer.Companion.get(p)
         return house.isOwner(player)
     }
 
     @Command
     @CommandHelp("Nuima uþaugintà þolæ namuose")
     fun cutWeed(p: Player): Boolean {
-        val player = LtrpPlayer.get(p)
+        val player = LtrpPlayer.Companion.get(p)
         val house = House.get(player)
         if(house == null || !house.isOwner(player))
             player.sendErrorMessage("Tai ne jûsø namas.")

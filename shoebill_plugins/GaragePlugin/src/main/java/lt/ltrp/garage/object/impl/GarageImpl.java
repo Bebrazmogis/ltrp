@@ -48,7 +48,7 @@ public class GarageImpl extends InventoryPropertyImpl implements Garage{
             text = String.format("{FFBB00}Garaþas\nNorëdami áeiti raðykite /enter");
         }
         entranceLabel = DynamicLabel.create(text, getLabelColor(), getEntrance());
-        LtrpPlayer.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Label));
+        LtrpPlayer.Companion.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Label));
     }
 
 

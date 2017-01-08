@@ -29,7 +29,7 @@ public class GarageOwnerCommands  extends Commands {
 
     @BeforeCheck
     public boolean beforeCheck(Player p, String cmd, String params) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         cmd = cmd.toLowerCase();
         Garage garage = Garage.getClosest(p.getLocation(), 8f);
         if(garage != null) {
@@ -44,7 +44,7 @@ public class GarageOwnerCommands  extends Commands {
     @Command
     @CommandHelp("Atidaro garaþo inventoriø")
     public boolean gInv(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Garage garage = Garage.get(player);
         if(garage == null)
             player.sendErrorMessage("Ðià komandà galite naudoti tik bûdami garaþe.");
@@ -60,7 +60,7 @@ public class GarageOwnerCommands  extends Commands {
     @CommandHelp("Pasiûlo parduoti garaþà kitam þaidëjui")
     public boolean sellGarage(Player p, @CommandParameter(name = "Þaidëjo ID/Dalis vardo")LtrpPlayer target,
                               @CommandParameter(name = "Kaina")int price) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Garage garage = Garage.getClosest(p.getLocation(), 5f);
         if(garage == null)
             player.sendErrorMessage("Ðià komandà galite naudoti tik bûdami prie garaþo arba jo viduje!");
@@ -86,7 +86,7 @@ public class GarageOwnerCommands  extends Commands {
     @Command
     @CommandHelp("Uþrakina/atrakina garaþo duris")
     public boolean lock(Player p) {
-        LtrpPlayer player = LtrpPlayer.get(p);
+        LtrpPlayer player = LtrpPlayer.Companion.get(p);
         Location loc = player.getLocation();
         Garage garage = Garage.getClosest(p.getLocation(), 8f);
         if(garage == null)

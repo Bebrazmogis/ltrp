@@ -8,7 +8,7 @@ import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.amx.types.ReferenceString;
 import net.gtaun.shoebill.common.player.PlayerLifecycleHolder;
 import net.gtaun.shoebill.data.Vector3D;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.resource.Plugin;
 import net.gtaun.util.event.EventManager;
 import org.slf4j.Logger;

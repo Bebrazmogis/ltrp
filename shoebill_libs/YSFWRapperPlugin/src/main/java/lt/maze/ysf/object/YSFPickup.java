@@ -2,7 +2,7 @@ package lt.maze.ysf.object;
 
 import lt.maze.ysf.object.impl.YSFPickupImpl;
 import net.gtaun.shoebill.data.Vector3D;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 
 import java.util.Collection;
 import java.util.Optional;

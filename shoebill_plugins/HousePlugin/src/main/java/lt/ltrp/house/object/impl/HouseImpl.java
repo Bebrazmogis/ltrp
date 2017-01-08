@@ -111,7 +111,7 @@ public class HouseImpl extends InventoryPropertyImpl implements House {
     @Override
     public void sendTenantMessage(String s) {
         tenants.forEach(i -> {
-            LtrpPlayer p = i.getPlayer() instanceof LtrpPlayer ? (LtrpPlayer) i.getPlayer() : LtrpPlayer.get(i.getPlayer().getUUID());
+            LtrpPlayer p = i.getPlayer() instanceof LtrpPlayer ? (LtrpPlayer) i.getPlayer() : LtrpPlayer.Companion.get(i.getPlayer().getUUID());
             if(p != null) p.sendMessage(Color.HOUSE, s);
         });
     }
@@ -128,11 +128,11 @@ public class HouseImpl extends InventoryPropertyImpl implements House {
         }
         if(getOwner() != LtrpPlayer.INVALID_USER_ID)  {
             pickup = DynamicPickup.create(getPickupModelId(), 1, getEntrance());
-            LtrpPlayer.get().stream().filter(pickup::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Pickup));
+            LtrpPlayer.Companion.get().stream().filter(pickup::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Pickup));
         } else {
             String text = String.format("Parduodamas namas\nPardavimo kaina: %d$\nÁsigijimui - /buyhouse",  getPrice());
             entranceLabel = DynamicLabel.create(text, getLabelColor(), getEntrance());
-            LtrpPlayer.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Label));
+            LtrpPlayer.Companion.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Label));
         }
     }
 

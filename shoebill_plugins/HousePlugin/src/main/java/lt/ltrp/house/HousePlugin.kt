@@ -56,13 +56,13 @@ class HousePlugin: DependentPlugin() {
         node.registerHandler(WeedGrowEvent.class, e -> {
         getHouseDao().update(e.getSapling());
 
-        LtrpPlayer owner = LtrpPlayer.get(e.getSapling().getPlantedByUser());
+        LtrpPlayer owner = LtrpPlayer.Companion.get(e.getSapling().getPlantedByUser());
         if(owner != null && e.isFullyGrown()) {
             owner.sendMessage(net.gtaun.shoebill.data.Color.DARKGREEN, "..Galbût þolë namie jau uþaugo?");
         }
     });*/
 
-        eventManager.registerHandler(PlayerDynamicPickupEvent::class.java,{ onPlayerPickUpDynamicPickup(LtrpPlayer.get(it.player), it.pickup) })
+        eventManager.registerHandler(PlayerDynamicPickupEvent::class.java,{ onPlayerPickUpDynamicPickup(LtrpPlayer.Companion.get(it.player), it.pickup) })
         eventManager.registerHandler(HouseEvent::class.java, { onHouseEvent(it.house) })
     }
 

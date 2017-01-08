@@ -59,12 +59,12 @@ public class BusinessImpl extends AbstractProperty implements Business {
         if(getOwner() != LtrpPlayer.INVALID_USER_ID)  {
             pickup = DynamicPickup.create(getPickupModelId(), 1, getEntrance());
             if(Shoebill.get().getResourceManager().getPlugin(StreamerPlugin.class) != null)
-                LtrpPlayer.get().stream().filter(pickup::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Pickup));
+                LtrpPlayer.Companion.get().stream().filter(pickup::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Pickup));
         } else {
             String text = String.format("%s{" + getLabelColor().toRgbHexString() + "}\nPardavimo kaina: %d$\nÁsigijimui - /buybiz", getName(), getPrice());
             entranceLabel = DynamicLabel.create(text, getLabelColor(), getEntrance());
             if(Shoebill.get().getResourceManager().getPlugin(StreamerPlugin.class) != null)
-                LtrpPlayer.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Label));
+                LtrpPlayer.Companion.get().stream().filter(entranceLabel::isVisible).forEach(p -> StreamerPlugin.getInstance().update(p, getEntrance(), StreamerType.Label));
         }
     }
 

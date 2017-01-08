@@ -6,7 +6,7 @@ import net.gtaun.shoebill.amx.types.ReferenceFloat;
 import net.gtaun.shoebill.amx.types.ReferenceInt;
 import net.gtaun.shoebill.amx.types.ReferenceString;
 import net.gtaun.shoebill.data.AngledLocation;
-import net.gtaun.shoebill.object.Player;
+import net.gtaun.shoebill.entities.Player;
 import net.gtaun.shoebill.object.Vehicle;
 
 /**
