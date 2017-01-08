@@ -1,8 +1,8 @@
 package lt.ltrp.property.command;
 
 
-import lt.ltrp.PlayerPlugin
-import lt.ltrp.`object`.LtrpPlayer
+import lt.ltrp.player.PlayerPlugin
+import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.property.PropertyPlugin
 import lt.ltrp.property.`object`.Property
 import net.gtaun.shoebill.common.command.Command
@@ -48,14 +48,14 @@ class PropertyCommands(private val eventManager: EventManager) {
     fun ds(pp: Player, @CommandParameter(name = "Tekstas") text: String): Boolean {
         playerPlugin.get(pp)
         val player: LtrpPlayer = playerPlugin.get(pp) ?: return false
-        val property = Property.getClosest(player.location, 5f) ?: return false
+        val property = Property.getClosest(player.player.location, 5f) ?: return false
 
-        LtrpPlayer.Companion.get()
-                .filter { property == Property.get(it) || Property.getClosest(it.location, 15f) != null }
+        LtrpPlayer.get()
+                .filter { property == Property.get(it.player) || Property.getClosest(it.player.location, 15f) != null }
                 .forEach {
                     val inMsg = "${player.charName} ðaukia á duris: $text"
                     val outMsg = "{$player.charName} ðaukia pro duris: $text"
-                    if (Property.get(it) != null)
+                    if (Property.get(it.player) != null)
                         it.sendMessage(Color.WHITE, inMsg)
                     else
                         it.sendMessage(Color.WHITE, outMsg)
@@ -67,12 +67,12 @@ class PropertyCommands(private val eventManager: EventManager) {
     @CommandHelp("Leidþia pasibelsti á namo/verslo/garaþo duris")
     fun knock(pp: Player): Boolean {
         val player = playerPlugin.get(pp) ?: return false
-        val property = Property.getClosest(player.location, 5f) ?: return false
+        val property = Property.getClosest(pp.location, 5f) ?: return false
 
-        LtrpPlayer.Companion.get()
-                .filter { property == Property[it] || Property.getClosest(it.location, 15f) != null }
+        LtrpPlayer.get()
+                .filter { property == Property.get(it.player) || Property.getClosest(it.player.location, 15f) != null }
                 .forEach {
-                    if(property == Property.get(it))
+                    if(property == Property.get(it.player))
                         property.sendActionMessage("Kaþkas beldþiasi á duris")
                     else
                         player.sendActionMessage("pasibeldþia á duris")

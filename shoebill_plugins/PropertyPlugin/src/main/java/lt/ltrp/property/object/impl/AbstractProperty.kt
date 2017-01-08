@@ -7,6 +7,7 @@ import lt.ltrp.player.`object`.LtrpPlayer
 import lt.ltrp.property.`object`.Property
 import lt.ltrp.`object`.impl.NamedEntityImpl
 import lt.ltrp.constant.ACTION
+import lt.ltrp.player.`object`.PlayerData
 import lt.ltrp.property.event.PropertyDestroyEvent
 
 import net.gtaun.shoebill.data.Location
@@ -35,14 +36,14 @@ abstract class AbstractProperty(uuid: Int, name: String,
 
 
 
-    override fun isOwner(player: LtrpPlayer): Boolean {
-        return isOwned && ownerUUID == player.UUID
+    override fun isOwner(playerData: PlayerData): Boolean {
+        return isOwned && ownerUUID == playerData.UUID
     }
 
     override fun isInside(player: LtrpPlayer): Boolean {
         return exit != null
-                && exit!!.interiorId == player.location.interiorId
-                && exit!!.worldId == player.location.worldId
+                && exit!!.interiorId == player.player.location.interiorId
+                && exit!!.worldId == player.player.location.worldId
     }
 
     /**
@@ -54,8 +55,8 @@ abstract class AbstractProperty(uuid: Int, name: String,
         LtrpPlayer.Companion.get()
                 .filter { isInside(it) }
                 .forEach { it.sendMessage(ActionMessenger.DEFAULT_COLOR, text) }
-        LtrpPlayer.Companion.get()
-                .filter { it.location.distance(entrance) < radius }
+        LtrpPlayer.get()
+                .filter { it.player.location.distance(entrance) < radius }
                 .forEach { it.sendFadeMessage(ActionMessenger.DEFAULT_COLOR, text, entrance) }
     }
 
@@ -65,8 +66,8 @@ abstract class AbstractProperty(uuid: Int, name: String,
         LtrpPlayer.Companion.get()
                 .filter { isInside(it) }
                 .forEach { it.sendMessage(StateMessenger.COLOR, text) }
-        LtrpPlayer.Companion.get()
-                .filter { it.location.distance(entrance) < radius }
+        LtrpPlayer.get()
+                .filter { it.player.location.distance(entrance) < radius }
                 .forEach { it.sendFadeMessage(StateMessenger.COLOR, text, entrance) }
     }
 
